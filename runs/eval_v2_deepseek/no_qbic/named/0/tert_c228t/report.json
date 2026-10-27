@@ -1,0 +1,875 @@
+{
+ "case_id": "tert_c228t",
+ "variant": "TERT promoter C228T",
+ "variant_key": "chr5:1295113:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "somatic",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0377,
+ "seconds": 142.5,
+ "model_calls": 9,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1_GABPA_activating",
+   "title": "GABPA binds the alt allele and activates TERT",
+   "is_null": false,
+   "tf": "GABPA",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GABPA is proposed to bind the alt A allele more strongly because TERT promoter mutations create a de novo ETS motif (E16a) and the GABP tetramer is reported to be responsible for promoter activation across recurrent TERTp mutations (E16b); GABPB1, the GABP co-factor, is also detected at the variant-containing element in ENCODE (E04). GABPA is chosen over other ETS factors because E16b specifically implicates the GABP tetramer. No QBiC-SELEX model/evidence is provided for GABPA, and ENCODE GABPA peaks containing the variant are only in non-glioblastoma biosamples (E17), so allele-specific GABPA occupancy at this base in glioblastoma is not directly shown.",
+     "evidence_ids": [
+      "E04",
+      "E16a",
+      "E16b",
+      "E17"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within cCRE EH38E3622530, a promoter-like (PLS) element with DNase, H3K27ac and H3K4me3 signal upstream of TERT (E01, E03).",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The element is annotated as the TERT promoter, and TERT is the nearest protein-coding gene, 0 kb from its TSS (E01, E02, E03).",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "In the glioblastoma DepMap expression context, GABPA is expressed (15.52 TPM, rank 303/1626) (E11), and GABPB1 is detected at the variant-containing element in ENCODE (E04), but no glioblastoma GABPA ChIP peak contains the variant (E17). Thus glioblastoma occupancy is inferred from expression plus literature, not directly demonstrated.",
+     "evidence_ids": [
+      "E04",
+      "E11",
+      "E17"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "GABP-dependent activation of mutant TERT promoter is reported (E16b), and TERT/telomerase is associated with glioblastoma, melanoma and bladder cancer in the literature (E15); however, TERT is not commonly essential in CNS lines by DepMap CRISPR (E18), so a direct proliferation/survival phenotype in glioblastoma is plausible but not established.",
+     "evidence_ids": [
+      "E15",
+      "E16b",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GABPA ChIP-qPCR or GABPA EMSA in glioblastoma cells shows alt > ref binding at chr5:1295113.",
+    "The alt allele increases TERT reporter activity and TERT mRNA in disease-relevant cells.",
+    "GABPA/GABPB1 knockdown or ETS-motif mutation reduces the alt-allele-specific TERT effect."
+   ],
+   "falsified_if": [
+    "Allele-specific GABPA occupancy at chr5:1295113 is not detectable in glioblastoma cells.",
+    "The alt allele does not increase TERT reporter activity or endogenous TERT expression in disease-relevant cells.",
+    "GABPA/GABPB1 knockdown or ETS-motif mutation does not reduce the alt-allele-specific TERT effect."
+   ],
+   "probability": 0.5,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "H4_null_no_TF_effect",
+   "title": "No TF-mediated allelic effect at this base",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Allele-specific reporter or EMSA assays in glioblastoma cells show no alt-versus-ref difference at this base.",
+    "TERT expression associates with a linked causal variant or another promoter alteration rather than this base.",
+    "No disease-cell TF occupancy difference is found at chr5:1295113."
+   ],
+   "falsified_if": [
+    "Allele-specific GABPA or other TF occupancy is demonstrated in disease-relevant cells.",
+    "The alt allele increases TERT reporter activity in a TF-binding-site-dependent manner.",
+    "Knockdown or editing of the candidate TF reduces the alt-allele-specific TERT effect."
+   ],
+   "probability": 0.35,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2_JUN_alternative",
+   "title": "JUN binds the alt allele and activates TERT",
+   "is_null": false,
+   "tf": "JUN",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "JUN is an alternative AP-1 factor proposed to bind the alt A allele more strongly at this promoter. No QBiC-SELEX model/evidence is provided for JUN, and ENCODE JUN peaks containing the variant are only in other biosamples such as A549 (E06); E04 also states that no ENCODE biosample matches the glioblastoma expression context, so glioblastoma JUN occupancy at the variant is not directly shown.",
+     "evidence_ids": [
+      "E04",
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within cCRE EH38E3622530, a promoter-like (PLS) element with DNase, H3K27ac and H3K4me3 signal upstream of TERT (E01, E03).",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The element is annotated as the TERT promoter, and TERT is the nearest protein-coding gene, 0 kb from its TSS (E01, E02, E03).",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "JUN is highly expressed in glioblastoma (91.65 TPM, rank 16/1626) (E06), but ENCODE JUN peaks at the variant are only from other biosamples, not glioblastoma (E04, E06).",
+     "evidence_ids": [
+      "E04",
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If JUN occupied the alt allele, it could increase TERT expression, but the literature evidence is only general TERT/telomerase association with these cancers (E15), and TERT is not commonly essential in CNS lines by DepMap CRISPR (E18); no JUN-specific allele-dependent TERT phenotype is shown.",
+     "evidence_ids": [
+      "E15",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "JUN ChIP-qPCR or EMSA in glioblastoma cells shows alt > ref binding at chr5:1295113.",
+    "JUN knockdown reduces TERT expression or TERT reporter activity from the alt allele.",
+    "GABPA/GABPB1 knockdown or ETS-site mutation does not abolish the alt-allele-specific TERT effect, whereas JUN perturbation does."
+   ],
+   "falsified_if": [
+    "JUN does not occupy the variant-containing element in glioblastoma cells.",
+    "JUN binding is not allele-specific for alt over ref.",
+    "JUN knockdown does not change TERT expression or the alt-allele reporter effect."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "JUN"
+  },
+  {
+   "id": "H3_EGR1_alternative",
+   "title": "EGR1 binds the alt allele and activates TERT",
+   "is_null": false,
+   "tf": "EGR1",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "EGR1 is an alternative zinc-finger factor proposed to bind the alt A allele more strongly at this GC-rich promoter. No QBiC-SELEX model/evidence is provided for EGR1, and ENCODE EGR1 peaks containing the variant are only in HepG2, Ishikawa and K562, not glioblastoma (E07); E04 states that no ENCODE biosample matches the expression context, so glioblastoma EGR1 occupancy is not directly shown.",
+     "evidence_ids": [
+      "E04",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within cCRE EH38E3622530, a promoter-like (PLS) element with DNase, H3K27ac and H3K4me3 signal upstream of TERT (E01, E03).",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The element is annotated as the TERT promoter, and TERT is the nearest protein-coding gene, 0 kb from its TSS (E01, E02, E03).",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "EGR1 is expressed in glioblastoma (28.32 TPM, rank 151/1626) (E07), but ENCODE EGR1 peaks at the variant are only from other biosamples, not glioblastoma (E04, E07).",
+     "evidence_ids": [
+      "E04",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If EGR1 occupied the alt allele, it could increase TERT expression, but the literature evidence is only general TERT/telomerase association with these cancers (E15), and TERT is not commonly essential in CNS lines by DepMap CRISPR (E18); no EGR1-specific allele-dependent TERT phenotype is shown.",
+     "evidence_ids": [
+      "E15",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "EGR1 ChIP-qPCR or EMSA in glioblastoma cells shows alt > ref binding at chr5:1295113.",
+    "EGR1 knockdown reduces TERT expression or TERT reporter activity from the alt allele.",
+    "The alt-allele effect is EGR1-site dependent and separable from GABPA/ETS dependence."
+   ],
+   "falsified_if": [
+    "EGR1 does not occupy the variant-containing element in glioblastoma cells.",
+    "EGR1 binding is not allele-specific for alt over ref.",
+    "EGR1 perturbation does not alter TERT expression or reporter activity."
+   ],
+   "probability": 0.05,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "EGR1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1_GABPA_activating",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.55,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2_JUN_alternative",
+   "tf": "JUN",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3_EGR1_alternative",
+   "tf": "EGR1",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4_null_no_TF_effect",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.2,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX or allele-specific binding evidence is provided for GABPA. E11 reports GABPA ChIP peaks containing the variant only in HepG2/SK-N-SH, not glioblastoma, and E04 explicitly states no ENCODE biosample matches the expression context so no peak counts as bound here. The claim that alt strengthens an ETS/GABPA site is not directly shown."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in a promoter-like cCRE (EH38E3622530 PLS) with DNase/H3K27ac/H3K4me3 signal, consistent with the TERT promoter element."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 annotates a promoter regulatory feature and TERT upstream consequence; E02 places TERT 0 kb from its TSS; E03 lists TERT as nearby gene for the PLS containing the variant."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E11 shows GABPA expression in DepMap glioblastoma, but expression alone does not establish GABPA occupancy at this element in glioblastoma; no matching-biosample ChIP is shown."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E15 is a broad literature search with mostly unrelated titles and does not show GABPA occupancy, allele-specific TERT activation, telomerase induction, or bladder cancer relevance. General TERT/telomerase disease mentions do not support the claimed TF-mediated mechanism."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX or allele-specific JUN binding data are provided. E06 reports JUN peaks containing the variant only in other biosamples such as A549, and E04 states no ENCODE biosample matches the glioblastoma expression context."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in the PLS cCRE EH38E3622530 with active promoter chromatin marks."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02/E03 assign the element to TERT, with TERT 0 kb from the TSS and annotated as the nearby gene."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 shows high JUN expression in DepMap glioblastoma, but JUN ChIP peaks at the variant are only from other biosamples, so glioblastoma occupancy is not demonstrated."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E15 does not connect JUN occupancy to TERT expression, telomerase activity, or cancer proliferation in glioblastoma, melanoma, or bladder cancer."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No allele-specific EGR1 binding or QBiC-SELEX evidence is supplied. E07 reports EGR1 peaks containing the variant only in HepG2/Ishikawa/K562, not glioblastoma, and E04 says no matching ENCODE biosample counts as bound here."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 identify a promoter-like cCRE containing the variant with active chromatin marks."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02/E03 support TERT as the nearest gene and the TERT promoter as the element."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 shows EGR1 expression in DepMap glioblastoma, but no glioblastoma ChIP occupancy at the variant is provided."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E15 provides no EGR1-specific or allele-specific functional evidence linking EGR1 occupancy to TERT activation and disease phenotypes."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "binding",
+   "status": "weak",
+   "reason": "GABP is functionally implicated by E16b and a de novo ETS motif is cited in E16a, and GABPA/GABPB1 ChIP peaks at the variant exist only outside glioblastoma (E04, E17). No QBiC-SELEX and no glioblastoma allele-specific occupancy are provided, so the alt>ref GABPA binding claim is indirect."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant within PLS cCRE EH38E3622530 with DNase, H3K27ac and H3K4me3 promoter marks upstream of TERT; the element annotation directly supports the claimed promoter element."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02/E03 annotate the element as the TERT promoter and place TERT at 0 kb from its TSS, directly supporting TERT as the target gene."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "GABPA is expressed in glioblastoma (15.52 TPM, E11), but no glioblastoma GABPA ChIP peak contains the variant (E17); GABPB1 occupancy is from other ENCODE biosamples (E04), so glioblastoma-specific occupancy is inferred rather than demonstrated."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_activating",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E16b supports GABP-dependent TERT promoter activation, and E15 links TERT/telomerase to these cancers, but no direct glioblastoma phenotype is shown; E18 further shows TERT is not commonly essential in CNS lines, making the phenotype link indirect."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "binding",
+   "status": "weak",
+   "reason": "JUN ChIP peaks containing the variant are only in non-glioblastoma biosamples (E06; E04 states no ENCODE biosample matches the expression context), with no QBiC-SELEX or allele-specific alt>ref assay. JUN binding at this base in glioblastoma is therefore indirect."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant within PLS cCRE EH38E3622530 with DNase, H3K27ac and H3K4me3 promoter marks upstream of TERT; the element annotation directly supports the claimed promoter element."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02/E03 annotate the element as the TERT promoter and place TERT at 0 kb from its TSS, directly supporting TERT as the target gene."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "JUN is highly expressed in glioblastoma (91.65 TPM, rank 16/1626; E06), but ENCODE JUN peaks at the variant are only from other biosamples and no glioblastoma peak is shown (E04, E06); this supports expression context only."
+  },
+  {
+   "hypothesis_id": "H2_JUN_alternative",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Only general TERT/telomerase association with these cancers (E15) and TERT non-essentiality in CNS lines (E18) are provided; there is no JUN-specific allele-dependent TERT or phenotype evidence."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "binding",
+   "status": "weak",
+   "reason": "EGR1 ChIP peaks containing the variant are only in HepG2, Ishikawa and K562, not glioblastoma (E07; E04 states no ENCODE biosample matches the expression context), with no QBiC-SELEX or allele-specific alt>ref assay. EGR1 binding at this base in glioblastoma is therefore indirect."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant within PLS cCRE EH38E3622530 with DNase, H3K27ac and H3K4me3 promoter marks upstream of TERT; the element annotation directly supports the claimed promoter element."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02/E03 annotate the element as the TERT promoter and place TERT at 0 kb from its TSS, directly supporting TERT as the target gene."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "EGR1 is expressed in glioblastoma (28.32 TPM, rank 151/1626; E07), but ENCODE EGR1 peaks at the variant are only from other biosamples and no glioblastoma peak is shown (E04, E07); this supports expression context only."
+  },
+  {
+   "hypothesis_id": "H3_EGR1_alternative",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Only general TERT/telomerase association with these cancers (E15) and TERT non-essentiality in CNS lines (E18) are provided; there is no EGR1-specific allele-dependent TERT or phenotype evidence."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"GABPA\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "H1_GABPA_activating.binding",
+   "why": "Directly tests whether GABPA occupies the variant-containing element in a glioblastoma biosample, which is the key missing evidence for the top-ranked chain."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"TERT promoter C228T GABPA allele-specific binding glioblastoma EMSA reporter\"}",
+   "resolves": "H1_GABPA_activating.binding",
+   "why": "Would identify any published allele-specific GABPA/ETS occupancy or reporter perturbation at C228T, which would strongly change H1 versus the null."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"JUN\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "H2_JUN_alternative.binding",
+   "why": "Tests the alternative AP-1/JUN occupancy claim in glioblastoma; positive JUN occupancy would substantially raise H2 relative to H1/H3 and the null."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "GABPA TERT promoter mutation ETS binding site allele-specific"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "glioblastoma",
+    "tf": "GABPA"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_dependency",
+   "args": {
+    "gene": "TERT"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Ref-vs-alt TERT promoter luciferase reporter in a glioblastoma cell line",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_activating",
+     "outcome": "alt increases TERT reporter activity"
+    },
+    {
+     "hypothesis_id": "H2_JUN_alternative",
+     "outcome": "alt increases TERT reporter activity via JUN if H2 is true"
+    },
+    {
+     "hypothesis_id": "H3_EGR1_alternative",
+     "outcome": "alt increases TERT reporter activity via EGR1 if H3 is true"
+    },
+    {
+     "hypothesis_id": "H4_null_no_TF_effect",
+     "outcome": "no alt-vs-ref reporter difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "GABPA EMSA with ref and alt oligos at chr5:1295113",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_activating",
+     "outcome": "alt > ref GABPA binding"
+    },
+    {
+     "hypothesis_id": "H2_JUN_alternative",
+     "outcome": "no allele-specific GABPA binding required"
+    },
+    {
+     "hypothesis_id": "H3_EGR1_alternative",
+     "outcome": "no allele-specific GABPA binding required"
+    },
+    {
+     "hypothesis_id": "H4_null_no_TF_effect",
+     "outcome": "no alt-vs-ref GABPA occupancy difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPR base editing of chr5:1295113 in disease-relevant cells with TERT readout",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_activating",
+     "outcome": "editing alt to ref reduces GABPA-dependent TERT activity"
+    },
+    {
+     "hypothesis_id": "H2_JUN_alternative",
+     "outcome": "editing alt to ref reduces JUN-dependent TERT activity"
+    },
+    {
+     "hypothesis_id": "H3_EGR1_alternative",
+     "outcome": "editing alt to ref reduces EGR1-dependent TERT activity"
+    },
+    {
+     "hypothesis_id": "H4_null_no_TF_effect",
+     "outcome": "no TERT effect; linked variant explains association"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "GABPA/GABPB1 knockdown or ETS-site mutation in the ref-vs-alt TERT reporter assay",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_activating",
+     "outcome": "GABPA/GABPB1 knockdown or ETS-motif mutation reduces alt-specific TERT activity"
+    },
+    {
+     "hypothesis_id": "H2_JUN_alternative",
+     "outcome": "GABPA/GABPB1 knockdown or ETS-motif mutation does not reduce alt-specific TERT activity"
+    },
+    {
+     "hypothesis_id": "H3_EGR1_alternative",
+     "outcome": "GABPA/GABPB1 knockdown or ETS-motif mutation does not reduce alt-specific TERT activity"
+    },
+    {
+     "hypothesis_id": "H4_null_no_TF_effect",
+     "outcome": "no alt-specific activity to reduce"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "JUN ChIP-qPCR and JUN knockdown in glioblastoma cells",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_activating",
+     "outcome": "no required allele-specific JUN effect"
+    },
+    {
+     "hypothesis_id": "H2_JUN_alternative",
+     "outcome": "alt > ref JUN binding and JUN knockdown reduces alt-specific TERT activity"
+    },
+    {
+     "hypothesis_id": "H3_EGR1_alternative",
+     "outcome": "no required allele-specific JUN effect"
+    },
+    {
+     "hypothesis_id": "H4_null_no_TF_effect",
+     "outcome": "no alt-vs-ref JUN occupancy or effect"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "EGR1 ChIP-qPCR and EGR1 knockdown in glioblastoma cells",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_activating",
+     "outcome": "no required allele-specific EGR1 effect"
+    },
+    {
+     "hypothesis_id": "H2_JUN_alternative",
+     "outcome": "no required allele-specific EGR1 effect"
+    },
+    {
+     "hypothesis_id": "H3_EGR1_alternative",
+     "outcome": "alt > ref EGR1 binding and EGR1 knockdown reduces alt-specific TERT activity"
+    },
+    {
+     "hypothesis_id": "H4_null_no_TF_effect",
+     "outcome": "no alt-vs-ref EGR1 occupancy or effect"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "The single cheapest experiment separating the top two chains (H1_GABPA_activating and H4_null_no_TF_effect) is a ref-vs-alt TERT promoter luciferase reporter assay in a glioblastoma cell line. H1 predicts the alt allele increases reporter activity; the null predicts no alt-vs-ref difference. It does not by itself prove GABPA, so a positive result should be followed by GABPA/GABPB1 knockdown or ETS-motif mutation, but it is the lowest-cost discriminator between the top two chains.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 41744838: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295113-1295113:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295113:G>A (GRCh38), allele string G/A\nKnown IDs: rs1242535815\nMost severe consequence: upstream_gene_variant\nRegulatory features: ENSR5_832QG promoter\nGERP conservation score at the site: -7.45\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295113-2295113?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T11:57:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295113:G>A, by distance to TSS:\nTERT: 0.0 kb from TSS (upstream, strand -1)\nCLPTM1L: 50.0 kb from TSS (downstream, strand -1)\nSLC6A18: 69.7 kb from TSS (downstream, strand +1)\nSLC6A19: 93.5 kb from TSS (downstream, strand +1)\nSLC12A7: 138.9 kb from TSS (upstream, strand -1)\nSLC6A3: 150.4 kb from TSS (downstream, strand -1)\nLPCAT1: 229.2 kb from TSS (downstream, strand -1)\nNKD2: 287.1 kb from TSS (downstream, strand +1)\nTRIP13: 402.3 kb from TSS (downstream, strand +1)\nBRD9: 402.3 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T11:57:31+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3622530 (PLS: promoter-like), chr5:1294945-1295294.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622530 PLS (contains the variant): DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622529 pELS: DNase z 3.7, H3K27ac z 4.1, H3K4me3 z 4.6, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr5:1295113:G>A: 121 peaks contain the variant, from 54 factors in 21 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: PLS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ARID4A, BCL3, DMAP1, EZH2, EZH2phosphoT487, GABPB1, HDAC1, HDAC2, HDAC6, HNRNPK, IKZF1, KDM4A (+21 more). Bound, expressed TFs with a binding model: 20; listed one per row: MAX, JUN, EGR1, BHLHE40, E2F4, E2F6, GABPA, ZNF687, CTCF, NR2C1; also bound: ZNF143, SP2, TGIF2, MNT, ZBTB7A, E2F5, ZBTB26, KLF12, ZNF48, ZIC2. Bound but below 1 TPM: ZFHX2. Assayed with no peak here: 0 TFs in the matching biosample, 552 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 13 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, HCT116, HepG2, Ishikawa, K562, MCF-7 (+2 more) (e.g. ENCSR000BLP). 58.6 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 48 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUN: bound elsewhere. 11 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549 (e.g. ENCSR022WVP). 91.65 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 16 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "EGR1: bound elsewhere. 3 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, Ishikawa, K562 (e.g. ENCSR000BNE). 28.32 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 151 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "BHLHE40: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR000DZJ). 68.33 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 33 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "E2F4: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878, HepG2 (e.g. ENCSR000DYY). 58.31 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 49 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "E2F6: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, K562 (e.g. ENCSR000BLI). 17.63 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 267 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "GABPA: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, SK-N-SH (e.g. ENCSR000BJK). 15.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 303 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF687: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR647PSR). 10.74 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 436 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: DOHH2 (e.g. ENCSR084RDK). 26.45 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 163 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2C1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR784VIQ). 18.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 251 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E16",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=GABPA%20TERT%20promoter%20mutation%20ETS%20binding%20site%20allele-specific&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:23:58+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 88 hits for 'GABPA TERT promoter mutation ETS binding site allele-specific'; top 8 with PMIDs:\nPMID 40513567 (2025): The immortality mechanism of TERT promoter mutant cancers is self-reinforcing and reversible.\nPMID 40822359 (2025): AURKB and PI3K/AKT/mTOR pathways converge to regulate &lt;i&gt;TERT&lt;/i&gt; expression.\nPMID 39557834 (2024): Mechanistic basis of atypical TERT promoter mutations.\nPMID 37918959 (2023): E4F1 and ZNF148 are transcriptional activators of the -57A &gt; C and wild-type &lt;i&gt;TERT&lt;/i&gt; promoter.\nPMID 41639451 (2026): Regulatory grammar in human promoters uncovered by MPRA-based deep learning.\nPMID 38033865 (2023): Reactivation of telomerase reverse transcriptase expression in cancer: the role of TERT promoter mutations.\nPMID 40359938 (2025): Reannotation of cancer mutations based on expressed RNA transcripts reveals functional non-coding mutations in melanoma.\nPMID 40241101 (2025): The ability of anexelekto (AXL) expression and TERT promoter mutation to predict radioiodine-refractory differentiated thyroid carcinoma."
+  },
+  {
+   "id": "E16a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40513567",
+   "url": "https://europepmc.org/article/MED/40513567",
+   "retrieved_utc": "2026-10-26T02:23:58+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "TERT promoter (TERTp) mutations create a de novo E26 transformation-specific (ETS) transcription factor binding motif."
+  },
+  {
+   "id": "E16b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40513567",
+   "url": "https://europepmc.org/article/MED/40513567",
+   "retrieved_utc": "2026-10-26T02:23:58+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Here, we analyzed 53 cell lines representing 16 cancer types and 6 recurrent TERTp mutations and found that the GA-binding protein (GABP) tetramer is responsible for promoter activation in all cases."
+  },
+  {
+   "id": "E17",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T11:58:44+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE GABPA ChIP-seq peak contains chr5:1295113:G>A in biosamples matching 'glioblastoma'. Absence can also mean no GABPA experiment in that biosample. In other biosamples, 2 GABPA peaks do contain the variant: HepG2, SK-N-SH (experiments ENCSR000BJK, ENCSR000BTG)."
+  },
+  {
+   "id": "E18",
+   "tool": "gene_dependency",
+   "source": "DepMap CRISPRGeneEffect (Biomni copy) and CRISPRInferredCommonEssentials (Public 26Q3)",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "DepMap CRISPR gene effect for TERT (0 = no effect, -1 = median common-essential; < -0.5 called dependent). CNS/Brain lineage, 50 lines: median -0.00, 2% dependent. All 1183 lines: median -0.02, 1% dependent."
+  }
+ ]
+}

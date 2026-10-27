@@ -1,0 +1,329 @@
+{
+ "case_id": "rs73706717",
+ "variant": "rs73706717",
+ "variant_key": "chr8:127401265:T>C",
+ "disease": "Colorectal cancer (8q24)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0097,
+ "seconds": 30.3,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0_null",
+   "title": "No TF-mediated effect of rs73706717; association is linked or passenger",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No reproducible allele-specific TF binding at rs73706717 in HCT116.",
+    "Any 8q24 CRC signal is explained by a linked causal variant or by LD with a nearby variant such as rs6983267.",
+    "CRISPR allele swap at rs73706717 alone does not change enhancer activity or MYC expression."
+   ],
+   "falsified_if": [
+    "A robust allele-specific TF binding and enhancer/MYC effect is seen at rs73706717 in HCT116.",
+    "CRISPR swap of rs73706717 alone changes MYC expression.",
+    "The effect remains after controlling for linked 8q24 variants."
+   ],
+   "probability": 0.55,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1_TCF7L2_alt",
+   "title": "Alt C increases TCF7L2 binding at the 8q24 enhancer, raising MYC in HCT116 and promoting CRC",
+   "is_null": false,
+   "tf": "TCF7L2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "8q24.21 enhancer near MYC",
+   "target_gene": "MYC",
+   "cell_type": "HCT116 colorectal adenocarcinoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt C allele creates or strengthens a TCF7L2/TCF4-family binding site in the 8q24.21 enhancer; TCF7L2 binds alt C more strongly than ref T.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "This variant lies in an 8q24.21 enhancer element active in colorectal cancer cells; the alt C allele increases enhancer output.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer contacts and regulates MYC, so increased TCF7L2 binding at alt C raises MYC transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 has active Wnt/TCF7L2 signaling and expresses MYC, making this enhancer-TF axis plausible in this cell line.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Higher MYC output in colorectal epithelium increases colorectal cancer risk or progression.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific TCF7L2 ChIP or EMSA shows alt C > ref T binding in HCT116.",
+    "An enhancer reporter in HCT116 shows alt C > ref T activity.",
+    "MYC mRNA is higher in cells carrying alt C at this element.",
+    "TCF7L2 knockdown reduces the alt-C-specific enhancer/MYC effect."
+   ],
+   "falsified_if": [
+    "Alt C does not increase TCF7L2 binding in HCT116.",
+    "The allelic enhancer or MYC effect disappears after TCF7L2 knockdown.",
+    "The association is fully explained by a linked variant such as rs6983267."
+   ],
+   "probability": 0.25,
+   "rank": 2,
+   "coverage_status": "mapped",
+   "resolved_symbol": "TCF7L2"
+  },
+  {
+   "id": "H2_LEF1_alt",
+   "title": "Alt C increases LEF1 binding at the same 8q24 enhancer, raising MYC in HCT116",
+   "is_null": false,
+   "tf": "LEF1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "8q24.21 enhancer near MYC",
+   "target_gene": "MYC",
+   "cell_type": "HCT116 colorectal adenocarcinoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt C allele creates or strengthens a LEF1 binding site; LEF1 binds alt C more strongly than ref T.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant sits in an 8q24.21 enhancer and alt C increases its activity in colorectal cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Increased LEF1-bound enhancer activity raises MYC transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 has Wnt/TCF-LEF activity and is a relevant colorectal cancer model.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Increased MYC promotes colorectal cancer.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific LEF1 binding shows alt C > ref T.",
+    "LEF1 knockdown, but not TCF7L2 knockdown, reduces the alt-C enhancer effect.",
+    "TCF7L2 supershift/ChIP does not show the allele-specific binding."
+   ],
+   "falsified_if": [
+    "LEF1 does not bind the element allele-specifically.",
+    "The allelic effect is TCF7L2-dependent rather than LEF1-dependent.",
+    "No enhancer or MYC effect is seen."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "LEF1"
+  },
+  {
+   "id": "H3_CTCF_alt",
+   "title": "Alt C alters CTCF binding at 8q24, changing enhancer-insulator topology and MYC",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "8q24.21 CTCF/insulator or enhancer boundary near MYC",
+   "target_gene": "MYC",
+   "cell_type": "HCT116 colorectal adenocarcinoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt C allele changes a CTCF binding site; CTCF binds alt C more strongly than ref T.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "Altered CTCF binding changes insulator/boundary function at 8q24.21.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Changed boundary function alters MYC enhancer-promoter contacts and MYC expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 has CTCF-bound 8q24 architecture and expresses MYC.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered MYC regulation contributes to colorectal cancer.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CTCF ChIP shows alt C > ref T.",
+    "Hi-C or 3C in HCT116 shows altered MYC contact frequency.",
+    "CTCF knockdown or dCas9 boundary perturbation changes MYC."
+   ],
+   "falsified_if": [
+    "No allele-specific CTCF binding is detected.",
+    "8q24 topology and MYC expression are unchanged.",
+    "TCF7L2/LEF1 binding explains the allelic effect better."
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1_TCF7L2_alt",
+   "tf": "TCF7L2",
+   "is_null": false,
+   "probability": 0.25,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2_LEF1_alt",
+   "tf": "LEF1",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3_CTCF_alt",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H0_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.55,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Allele-specific TCF7L2 binding in HCT116",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_TCF7L2_alt",
+     "outcome": "alt C > ref T"
+    },
+    {
+     "hypothesis_id": "H2_LEF1_alt",
+     "outcome": "no TCF7L2 allele effect; LEF1 alt > ref"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "no TCF7L2 allele effect; CTCF alt > ref"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "no allele-specific TCF7L2 binding"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Enhancer reporter in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_TCF7L2_alt",
+     "outcome": "alt C reporter higher; TCF7L2 knockdown reduces it"
+    },
+    {
+     "hypothesis_id": "H2_LEF1_alt",
+     "outcome": "alt C reporter higher; LEF1 knockdown reduces it"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "allele-specific topology or insulator reporter effect, not simple enhancer activity"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "no allelic reporter difference"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "CRISPR allele swap at rs73706717 in HCT116",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_TCF7L2_alt",
+     "outcome": "alt-to-ref lowers TCF7L2 binding and MYC mRNA"
+    },
+    {
+     "hypothesis_id": "H2_LEF1_alt",
+     "outcome": "alt-to-ref lowers LEF1 binding and MYC mRNA"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "alt-to-ref changes CTCF binding/topology and MYC, without TCF/LEF dependence"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "no change in enhancer activity or MYC"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Allele-specific EMSA/oligo pull-down with HCT116 nuclear extract, using T and C probes, plus a TCF7L2 supershift or TCF7L2 immunodepletion. If alt C shows stronger TCF7L2-dependent binding, H1 is supported. If there is no reproducible allele-specific TCF7L2 binding, the null is favored and linkage/CRISPR testing is needed before claiming a TCF7L2 mechanism.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

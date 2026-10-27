@@ -1,0 +1,925 @@
+{
+ "case_id": "rs13078086",
+ "variant": "rs13078086",
+ "variant_key": "chr3:191441666:T>G",
+ "disease": "Colorectal cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0191,
+ "seconds": 160.7,
+ "model_calls": 8,
+ "screen": {
+  "n_pass": 209,
+  "top_groups": [
+   {
+    "label": "EBF1, 2 models",
+    "z": -60.28,
+    "best_tf": "EBF4"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": 23.6,
+    "best_tf": "ZNF696"
+   },
+   {
+    "label": "AP-2, 4 models",
+    "z": -18.37,
+    "best_tf": "TFAP2E"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": 15.69,
+    "best_tf": "ZNF343"
+   },
+   {
+    "label": "Ets, 18 models",
+    "z": 13.11,
+    "best_tf": "ETV5"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "null",
+   "title": "Null: no TF-mediated effect of rs13078086",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at rs13078086 in HCT116.",
+    "No allele-specific enhancer/reporter activity for the variant or the adjacent dELS in HCT116.",
+    "No colon eQTL or colorectal-cancer association attributable to rs13078086."
+   ],
+   "falsified_if": [
+    "Allele-specific ZNF696, TFAP2E, or RFX5 occupancy at rs13078086 is demonstrated in HCT116 or isogenic T/G cells and is lost or gained with the alt allele.",
+    "A nearby dELS or the variant itself shows allele-specific regulatory activity that changes PYDC2 or another nearby gene in colorectal cells.",
+    "A causal colorectal-cancer association is shown to act through this variant rather than a linked variant or passenger event."
+   ],
+   "probability": 0.55,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "ZNF696_alt",
+   "title": "ZNF696 binds the alt allele more strongly near a dELS",
+   "is_null": false,
+   "tf": "ZNF696",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "The variant is intronic and lies 42 bp from dELS EH38E2269392, not within a cCRE; E03 gives only maxima across ENCODE biosamples, so HCT116-specific activity and allele-specific enhancer function are not established.",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116 colorectal carcinoma cell line",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ZNF696 has its own QBiC-SELEX model in group G570 and binds the alt G allele more strongly than ref T in vitro (effect 0.733, alt binds more); no ZNF696 ChIP or allele-specific occupancy assay is available.",
+     "evidence_ids": [
+      "E09",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The candidate element is the dELS EH38E2269392 42 bp away; the variant does not overlap a cCRE, and HCT116-specific enhancer activity is not shown.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is the nearest protein-coding gene and is listed near the dELS, but the variant is intronic in PYDC2-AS1 and GTEx reports no colon-transverse eQTL for this variant; the gene link is proximity-only.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "ZNF696 is expressed in the HCT116 DepMap context at 8.26 TPM, supporting expression in the relevant cell type but not occupancy or function.",
+     "evidence_ids": [
+      "E07",
+      "E09"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No GWAS Catalog or Open Targets association supports rs13078086, and Open Targets reports no PYDC2 colorectal-cancer association; the phenotype link is speculative, and the downstream direction of ZNF696 activity is unknown.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06",
+      "E20"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "ZNF696 ChIP/CUT&RUN is stronger at the alt G allele than the ref T allele at rs13078086 in HCT116 or isogenic T/G cells.",
+    "An allele-specific reporter/MPRA containing the variant shows alt-dependent ZNF696-sensitive activity if ZNF696 acts as an activator.",
+    "ZNF696 perturbation changes PYDC2 or nearby gene expression; the sign depends on whether ZNF696 activates or represses."
+   ],
+   "falsified_if": [
+    "ZNF696 does not bind the rs13078086 region in HCT116 or isogenic T/G cells.",
+    "ZNF696 occupancy is not higher on the alt G allele than the ref T allele.",
+    "ZNF696 perturbation does not alter PYDC2 or another nearby gene in colorectal cells."
+   ],
+   "probability": 0.17,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ZNF696"
+  },
+  {
+   "id": "RFX5_RFX_ref",
+   "title": "RFX5 binds the ref allele more strongly near a dELS",
+   "is_null": false,
+   "tf": "RFX5",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "The variant lies 42 bp from dELS EH38E2269392 and does not overlap a cCRE; E03 does not establish HCT116-specific activity, contact with PYDC2, or allele-specific enhancer function.",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116 colorectal carcinoma cell line",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "RFX5 has its own QBiC-SELEX model in RFX group G094 and binds the ref T allele more strongly than alt G in vitro (effect -1.452, alt binds less); no RFX5 ChIP or allele-specific occupancy assay is available.",
+     "evidence_ids": [
+      "E15",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The candidate element is the dELS EH38E2269392 42 bp away; no cCRE overlaps the variant, and HCT116-specific activity is not shown.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is the nearest protein-coding gene and a cCRE-nearby gene, but the variant is intronic in PYDC2-AS1 and no colon-transverse eQTL supports regulation; the gene link is proximity-only.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "RFX5 is strongly expressed in the HCT116 DepMap context at 20.42 TPM, supporting cell-type expression but not allele-specific occupancy.",
+     "evidence_ids": [
+      "E07",
+      "E15"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No GWAS Catalog or Open Targets association supports rs13078086, and PYDC2 has no Open Targets colorectal-cancer association; the phenotype link is speculative.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06",
+      "E20"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "RFX5 ChIP/CUT&RUN is stronger at the ref T allele than the alt G allele at rs13078086 in HCT116 or isogenic T/G cells.",
+    "The alt allele reduces RFX5-dependent reporter activity if the nearby dELS is tested.",
+    "RFX5 knockdown changes PYDC2 or nearby gene expression if this chain is correct."
+   ],
+   "falsified_if": [
+    "RFX5 does not occupy the rs13078086 region in HCT116 or isogenic T/G cells.",
+    "RFX5 occupancy is not higher on the ref T allele than the alt G allele.",
+    "RFX5 perturbation does not affect the nearby dELS or PYDC2/nearby gene expression."
+   ],
+   "probability": 0.15,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "RFX5"
+  },
+  {
+   "id": "TFAP2E_AP2_ref",
+   "title": "AP-2/TFAP2E binds the ref allele more strongly at a dELS near PYDC2",
+   "is_null": false,
+   "tf": "TFAP2E",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "The variant is 42 bp from dELS EH38E2269392 and does not overlap a cCRE; E03 reports only maxima across ENCODE biosamples, so HCT116-specific dELS activity and allele-specific function remain unproven.",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116 colorectal carcinoma cell line",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TFAP2E has its own QBiC-SELEX model in AP-2 group G030 and binds the ref T allele more strongly than alt G in vitro (effect -0.765, alt binds less); however, Factorbook reports no TFAP2E ChIP-seq peak containing rs13078086 in HCT116, which weakens the occupancy claim.",
+     "evidence_ids": [
+      "E10",
+      "E07",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The candidate element is the dELS EH38E2269392 42 bp away; the variant does not overlap a cCRE, and HCT116-specific enhancer activity is not established.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is the nearest protein-coding gene and is listed near the dELS, but the variant is intronic in PYDC2-AS1 and no colon-transverse eQTL supports regulation; the gene link is proximity-only.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TFAP2E is expressed in the HCT116 DepMap context at 8.5 TPM, supporting expression but not occupancy or allele-specific function.",
+     "evidence_ids": [
+      "E07",
+      "E10"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No GWAS Catalog or Open Targets association supports rs13078086, and PYDC2 has no Open Targets colorectal-cancer association; the phenotype link is speculative.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06",
+      "E20"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "TFAP2E ChIP/CUT&RUN is stronger at the ref T allele than the alt G allele at rs13078086 in HCT116 or isogenic T/G cells.",
+    "The dELS EH38E2269392 shows allele-specific enhancer activity if tested in HCT116.",
+    "PYDC2 expression is sensitive to TFAP2E perturbation if this chain is correct."
+   ],
+   "falsified_if": [
+    "TFAP2E does not occupy the rs13078086 region in HCT116 or isogenic T/G cells when assayed.",
+    "TFAP2E occupancy is not higher on the ref T allele than the alt G allele.",
+    "Editing T>G does not reduce TFAP2E-dependent reporter activity or alter nearby gene expression."
+   ],
+   "probability": 0.13,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2E"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.35,
+   "allele_binding_more": null
+  },
+  {
+   "id": "TFAP2E_AP2_ref",
+   "tf": "TFAP2E",
+   "is_null": false,
+   "probability": 0.22,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "EBF4_EBF_ref",
+   "tf": "EBF4",
+   "is_null": false,
+   "probability": 0.13,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "ZNF696_alt",
+   "tf": "ZNF696",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "RFX5_RFX_ref",
+   "tf": "RFX5",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX alone reports TFAP2E alt binds less (effect -0.765), so ref-more is directionally consistent, but this is only an in vitro binding prediction for the named TF."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports that the variant does not overlap a cCRE and is 42 bp from dELS EH38E2269392, but the dELS z-scores are maxima across ENCODE biosamples and do not show HCT116 activity or allele-specific enhancer function."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "PYDC2 is the nearest protein-coding gene and is listed near the dELS, but no contact, eQTL, reporter, or perturbation evidence links the variant or dELS to PYDC2; the variant is intronic in PYDC2-AS1, not PYDC2."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E10 directly shows TFAP2E expression in the ACH-000971/HCT116 DepMap context at 8.5 TPM, although expression alone does not establish occupancy or allele-specific function."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 and E05 show no GWAS/Open Targets association for the variant, and E06 does not provide direct PYDC2 colorectal-cancer evidence; the phenotype link is speculative."
+  },
+  {
+   "hypothesis_id": "EBF4_EBF_ref",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX reports EBF4 alt binds less (effect -1.954), directionally consistent with ref-more, but it is only an in vitro binding prediction and no occupancy assay is cited."
+  },
+  {
+   "hypothesis_id": "EBF4_EBF_ref",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports only that the variant is 42 bp from a dELS and not in a cCRE; it does not show that this dELS is functional in HCT116 or that the variant perturbs its edge."
+  },
+  {
+   "hypothesis_id": "EBF4_EBF_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "PYDC2 is near the dELS and is the nearest protein-coding gene, but direct EBF4 regulation is untested and the variant is intronic in PYDC2-AS1 rather than PYDC2."
+  },
+  {
+   "hypothesis_id": "EBF4_EBF_ref",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E08 confirms EBF4 expression is only 1.22 TPM in HCT116, which is nonzero but very low and weakens the cell-type relevance of this chain."
+  },
+  {
+   "hypothesis_id": "EBF4_EBF_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No variant-level GWAS/Open Targets association is present, and E06 does not directly support EBF4-PYDC2 colorectal-cancer biology."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX reports ZNF696 alt binds more (effect 0.733), directionally consistent with the chain, but this is only an in vitro binding prediction and no ZNF696 ChIP or allele-specific assay is cited."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports the variant is 42 bp from dELS EH38E2269392 and not in a cCRE, but does not show that the alt allele creates a functional ZNF696 site in that element or in HCT116."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "PYDC2 is the nearest protein-coding gene and is listed near the dELS, but direct ZNF696 regulation is not shown; proximity alone is indirect."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E09 directly shows ZNF696 expression in HCT116 at 8.26 TPM, supporting expression context, though not occupancy or function."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No GWAS/Open Targets association supports this variant, E06 does not provide direct ZNF696-PYDC2 evidence, and the downstream direction of ZNF696 activity is unknown."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX reports RFX5 alt binds less (effect -1.452), directionally consistent with ref-more, but this is only an in vitro binding prediction."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports only the 42 bp distance to dELS EH38E2269392 and absence of cCRE overlap; it does not show RFX5 occupancy or allele-specific enhancer activity in HCT116."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "PYDC2 is the nearest protein-coding gene and is listed near the dELS, but direct RFX5 regulation of PYDC2 is not demonstrated; the variant is intronic in PYDC2-AS1."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E15 directly shows RFX5 expression in HCT116 at 20.42 TPM, supporting expression context, though not allele-specific occupancy."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No GWAS/Open Targets association is present, and E06 does not provide direct RFX5-PYDC2 colorectal-cancer evidence; the phenotype link is speculative."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "element",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "ZNF696_alt",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "element",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "RFX5_RFX_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "QBiC-SELEX links are in vitro only; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; Factorbook absence further weakens occupancy for TFAP2E; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "element",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; Factorbook absence further weakens occupancy for TFAP2E; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "QBiC-SELEX links are in vitro only; Factorbook absence further weakens occupancy for TFAP2E; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "QBiC-SELEX links are in vitro only; Factorbook absence further weakens occupancy for TFAP2E; element and gene links are proximity/context only; no positive phenotype association."
+  },
+  {
+   "hypothesis_id": "TFAP2E_AP2_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "QBiC-SELEX links are in vitro only; Factorbook absence further weakens occupancy for TFAP2E; element and gene links are proximity/context only; no positive phenotype association."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"TFAP2E\",\"biosample\":\"HCT116\"}",
+   "resolves": "TFAP2E_AP2_ref.binding",
+   "why": "Tests whether the top-ranked AP-2 chain has any ENCODE/Factorbook occupancy at the variant in the case cell type, not just QBiC-SELEX in vitro binding."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Colon_Transverse\"}",
+   "resolves": "TFAP2E_AP2_ref.gene",
+   "why": "Tests whether this variant is an eQTL for PYDC2 or another nearby gene in colon tissue, which would strengthen or refute the proximity-only target-gene link."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"PYDC2\"}",
+   "resolves": "TFAP2E_AP2_ref.phenotype",
+   "why": "Tests whether PYDC2 has any Open Targets colorectal-cancer association, because E04/E05 show no variant association and E06 does not provide direct PYDC2 colorectal-cancer evidence."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "TFAP2E",
+    "biosample": "HCT116"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Colon - Transverse"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "PYDC2"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific ZNF696 ChIP-qPCR or CUT&RUN-qPCR at rs13078086 in HCT116 or isogenic T/G cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific ZNF696 occupancy at rs13078086."
+    },
+    {
+     "hypothesis_id": "ZNF696_alt",
+     "outcome": "ZNF696 occupancy is higher on the alt G allele than the ref T allele."
+    },
+    {
+     "hypothesis_id": "RFX5_RFX_ref",
+     "outcome": "No allele-specific ZNF696 occupancy; RFX5 may show ref-more binding."
+    },
+    {
+     "hypothesis_id": "TFAP2E_AP2_ref",
+     "outcome": "No allele-specific ZNF696 occupancy; TFAP2E may show ref-more binding if detectable."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific TFAP2E ChIP-qPCR or CUT&RUN-qPCR at rs13078086 in HCT116 or isogenic T/G cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific TFAP2E occupancy at rs13078086."
+    },
+    {
+     "hypothesis_id": "ZNF696_alt",
+     "outcome": "No allele-specific TFAP2E occupancy."
+    },
+    {
+     "hypothesis_id": "RFX5_RFX_ref",
+     "outcome": "No allele-specific TFAP2E occupancy."
+    },
+    {
+     "hypothesis_id": "TFAP2E_AP2_ref",
+     "outcome": "TFAP2E occupancy is higher on the ref T allele than the alt G allele."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific RFX5 ChIP-qPCR or CUT&RUN-qPCR at rs13078086 in HCT116 or isogenic T/G cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific RFX5 occupancy at rs13078086."
+    },
+    {
+     "hypothesis_id": "ZNF696_alt",
+     "outcome": "No allele-specific RFX5 occupancy."
+    },
+    {
+     "hypothesis_id": "RFX5_RFX_ref",
+     "outcome": "RFX5 occupancy is higher on the ref T allele than the alt G allele."
+    },
+    {
+     "hypothesis_id": "TFAP2E_AP2_ref",
+     "outcome": "No allele-specific RFX5 occupancy."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific reporter/MPRA of a 200-500 bp region around rs13078086 in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific reporter activity for the variant or adjacent dELS."
+    },
+    {
+     "hypothesis_id": "ZNF696_alt",
+     "outcome": "Alt-dependent reporter activity is present if ZNF696 acts as an activator; direction depends on ZNF696 function."
+    },
+    {
+     "hypothesis_id": "RFX5_RFX_ref",
+     "outcome": "Ref-dependent reporter activity is reduced by the alt allele."
+    },
+    {
+     "hypothesis_id": "TFAP2E_AP2_ref",
+     "outcome": "Ref-dependent reporter activity is reduced by the alt allele."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ZNF696 knockdown or overexpression followed by PYDC2/nearby gene expression in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No change in PYDC2 or nearby gene expression after ZNF696 perturbation."
+    },
+    {
+     "hypothesis_id": "ZNF696_alt",
+     "outcome": "PYDC2 or a nearby gene changes after ZNF696 knockdown/overexpression; sign depends on activator versus repressor."
+    },
+    {
+     "hypothesis_id": "RFX5_RFX_ref",
+     "outcome": "No change after ZNF696 perturbation; change may follow RFX5 perturbation."
+    },
+    {
+     "hypothesis_id": "TFAP2E_AP2_ref",
+     "outcome": "No change after ZNF696 perturbation; change may follow TFAP2E perturbation."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The single cheapest experiment that separates the top two chains is allele-specific ZNF696 ChIP-qPCR or CUT&RUN-qPCR at rs13078086 in HCT116 or isogenic T/G cells; it directly tests the null prediction of no allele-specific ZNF696 occupancy against the ZNF696_alt prediction of stronger alt-allele binding.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs13078086 AND PYDC2 AND \"colorectal cancer\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/3:191441666-191441666:1/G?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr3:191441666:T>G (GRCh38), allele string T/G\nKnown IDs: rs13078086\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -1.82\nTranscript consequences: PYDC2-AS1 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/3:190441666-192441666?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "8 protein-coding genes within 1000 kb of chr3:191441666:T>G, by distance to TSS:\nPYDC2: 19.5 kb from TSS (upstream, strand +1)\nUTS2B: 111.1 kb from TSS (upstream, strand -1)\nCCDC50: 112.6 kb from TSS (downstream, strand +1)\nOSTN: 242.4 kb from TSS (downstream, strand +1)\nGMNC: 549.2 kb from TSS (upstream, strand -1)\nIL1RAP: 954.2 kb from TSS (downstream, strand +1)\nTMEM207: 991.8 kb from TSS (upstream, strand -1)\nFGF12: 1326.1 kb from TSS (downstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:05+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E2269392 (dELS) 42 bp away.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2269392 dELS: DNase z 3.5, H3K27ac z 1.8, H3K4me3 z 1.5, CTCF z 1.5; nearby genes AC073365.1, PYDC2, CCDC50\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs13078086&size=100",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs13078086, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 3_191441666_T_G."
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PYDC2%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 16 hits for 'PYDC2 AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 40026444 (2025): Correlation Analysis of Pyroptosis-Related Genes CASP1, NLRP3, AIM2, and NLRP1 With Lung Adenocarcinoma.\nPMID 41154652 (2025): Oncogenic Role of SAMD4B in Breast Cancer Progression by Activating Wnt/\u03b2-Catenin Pathway.\nPMID 36319832 (2022): A novel refined pyroptosis and inflammasome-related genes signature for predicting prognosis and immune microenvironment in pancreatic ductal adenocarcinoma.\nPMID 36341349 (2022): The strategies of NLRP3 inflammasome to combat <i>Toxoplasma gondii</i>.\nPMID 36732864 (2023): RNA binding protein SAMD4: current knowledge and future perspectives.\nPMID 39561929 (2024): Optimizing iNKT-driven immune responses against cancer by modulating CD1d in tumor and antigen presenting cells.\nPMID 35159382 (2022): Metabolomics of Acute vs. Chronic Spinach Intake in an Apc-Mutant Genetic Background: Linoleate and Butanoate Metabolites Targeting HDAC Activity and IFN-\u03b3 Signaling.\nPMID 35338151 (2022): PUMILIO proteins promote colorectal cancer growth via suppressing p21."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr3:191441666:T>G: 997 models scored, 209 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 174 CIS-BP groups. Expression context: DepMap line ACH-000971. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 37 (C2H2 ZF, 1 model z 38.3, Ets, 3 models z -10.94, bHLH, 2 models z -10.76, C2H2 ZF, 1 model z 7.66, bHLH, 1 model z -7.64). Passing groups ranked below the ones shown: 127. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G066 (EBF1, 2 models): best model EBF4_FL_TCGATT40NTTG_KK_nitta2015_1_3_7mer (own model of EBF4), z -60.28, effect -1.954 (alt binds less); 2 passing models (2 with the best model's sign). Passing members: EBF4 z -60.28, EBF1 z -28.35. TFs this group covers: EBF4 (own model) 1.22 TPM, EBF2 (mapped) 0.73 TPM, EBF1 (own model) 0.18 TPM, EBF3 (mapped) 0.06 TPM; best model's site strength: ref 100.0th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G570 (C2H2 ZF, 1 model): best model ZNF696_FL_AG40NTGGCTA_YWSA_jolma2025_0_2_7mer (own model of ZNF696), z 23.6, effect 0.733 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF696 z 23.6. TFs this group covers: ZNF696 (own model) 8.26 TPM; best model's site strength: ref 56.3th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G030 (AP-2, 4 models): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (own model of TFAP2E), z -18.37, effect -0.765 (alt binds less); 4 passing models (4 with the best model's sign). Passing members: TFAP2E z -18.37, TFAP2A z -16.2, TFAP2B z -13.18, TFAP2C z -5.14. TFs this group covers: TFAP2E (own model) 8.5 TPM, TFAP2A (own model) 6.18 TPM, TFAP2C (own model) 2.59 TPM, TFAP2B (own model) 0.0 TPM, TFAP2D (mapped) 0.0 TPM; best model's site strength: ref 99.7th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G490 (C2H2 ZF, 1 model): best model ZNF343_eDBD_TGGCGT40NCCT_KT_yin2017_0_3_7mer (own model of ZNF343), z 15.69, effect 0.778 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF343 z 15.69. TFs this group covers: ZNF343 (own model) 9.63 TPM; best model's site strength: ref 98.3th, alt 98.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G003 (Ets, 18 models): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (own model of ETV5), z 13.11, effect 0.251 (alt binds more); 4 passing models (2 with the best model's sign); members disagree on direction. Passing members: ETV5 z 13.11, ELF1 z -7.84, FLI1 z 5.19, ELF2 z -4.96. TFs this group covers: EHF (mapped) 88.58 TPM, ELK3 (own model) 51.39 TPM, ERF (own model) 46.58 TPM, ETV4 (own model) 36.17 TPM, ELF3 (own model) 33.75 TPM, ELK1 (own model) 26.37 TPM, ETS2 (own model) 25.48 TPM, ETV5 (own model) 25.15 TPM, ELF1 (own model) 24.76 TPM, ELF2 (own model) 19.32 TPM (+15 more); best model's site strength: ref 94.6th, alt 95.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G028 (RFX, 4 models): best model RFX2_NA_TAACCC20NCCA_ESY_yang2017_0_3_7mer (own model of RFX2), z -12.18, effect -1.006 (alt binds less); 3 passing models (3 with the best model's sign). Passing members: RFX2 z -12.18, RFX1 z -6.72, RFX4 z -4.83. TFs this group covers: RFX2 (own model) 6.73 TPM, RFX1 (own model) 3.61 TPM, RFX3 (own model) 2.61 TPM, RFX4 (own model) 0.01 TPM, RFX6 (mapped) 0.0 TPM; best model's site strength: ref 98.8th, alt 96.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G449 (C2H2 ZF, 1 model): best model ZNF174_eDBD_TACCGA40NATA_KS_yin2017_1_3_7mer (own model of ZNF174), z 11.98, effect 0.325 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF174 z 11.98. TFs this group covers: ZNF174 (own model) 7.86 TPM; best model's site strength: ref 92.7th, alt 94.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G094 (RFX, 2 models): best model RFX5_eDBD_TTGATG40NATC_KO_yin2017_0_4_7mer (own model of RFX5), z -11.73, effect -1.452 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: RFX5 z -11.73. TFs this group covers: RFX5 (own model) 20.42 TPM, RFX7 (own model) 10.12 TPM; best model's site strength: ref 99.3th, alt 98.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G560 (C2H2 ZF, 1 model): best model ZNF668_FL_TC40NGTTTTG_YWSA_jolma2025_0_3_7mer (own model of ZNF668), z 10.82, effect 0.699 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF668 z 10.82. TFs this group covers: ZNF668 (own model) 8.44 TPM; best model's site strength: ref 84.5th, alt 95.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G373 (Unknown, 1 model): best model TMF1_DBD_CA40NTCGATG_YWPA_jolma2025_0_2_7mer (own model of TMF1), z 10.65, effect 0.85 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: TMF1 z 10.65. TFs this group covers: TMF1 (own model) 14.51 TPM; best model's site strength: ref 66.7th, alt 98.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:42:51+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE TFAP2E ChIP-seq peak contains chr3:191441666:T>G in biosamples matching 'HCT116'. Absence can also mean no TFAP2E experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E19",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr3_191441666_T_G_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr3_191441666_T_G_b38 in tissues matching 'Colon - Transverse'. NES is the effect of the alt allele (G) relative to ref (T)."
+  },
+  {
+   "id": "E20",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T01:40:48+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between PYDC2 and colorectal cancer (MONDO_0005575)."
+  }
+ ]
+}

@@ -1,0 +1,888 @@
+{
+ "case_id": "rs73706717",
+ "variant": "rs73706717",
+ "variant_key": "chr8:127401265:T>C",
+ "disease": "Colorectal cancer (8q24)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0305,
+ "seconds": 150.7,
+ "model_calls": 8,
+ "screen": {
+  "n_pass": 307,
+  "top_groups": [
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": -33.75,
+    "best_tf": "ZBTB22"
+   },
+   {
+    "label": "E2F, 4 models",
+    "z": 29.17,
+    "best_tf": "E2F1"
+   },
+   {
+    "label": "SMAD, 4 models",
+    "z": 24.28,
+    "best_tf": "NFIB"
+   },
+   {
+    "label": "Homeodomain, 3 models",
+    "z": -23.93,
+    "best_tf": "HMBOX1"
+   },
+   {
+    "label": "bHLH, 1 model",
+    "z": -23.15,
+    "best_tf": "MLX"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H4",
+   "title": "No TF-mediated effect; linked or passenger variant, or no allelic effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at chr8:127401265 in HCT116.",
+    "No molecular QTL or allelic expression effect for POU5F1B or MYC in colon.",
+    "Any trait association reflects linkage or chance; E04 has no GWAS Catalog association and E05 credible sets are not colorectal cancer."
+   ],
+   "falsified_if": [
+    "A direct allele-specific assay shows a reproducible TF occupancy difference at this site.",
+    "A colon molecular QTL or 3D-contact assay ties this variant to POU5F1B or MYC.",
+    "Fine-mapping identifies rs73706717 itself as causal rather than a linked variant."
+   ],
+   "probability": 0.47,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "E2F4 binds the alt allele more strongly and, if repressive here, lowers POU5F1B",
+   "is_null": false,
+   "tf": "E2F4",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "pELS",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116 colorectal carcinoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G018 contains an own model for E2F4 that passes with the same sign as the best E2F1 model (E2F4 z 10.46; predicted_effect > 0), so the alt C allele is predicted to bind E2F4 more strongly. E2F4 is the highest-expressed covered E2F in the HCT116 DepMap context (134.92 TPM), which is why I select E2F4 within the shared E2F specificity rather than the best-model E2F1.",
+     "evidence_ids": [
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in cCRE EH38E3858447, a proximal enhancer-like element with DNase and H3K27ac signal, and VEP annotates an ENSR8_CGMBX enhancer at this site.",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is the strongest L2G gene (0.83) in the credible sets containing this position and is among the cCRE-nearby genes; however those credible sets are for PSA and urinary incontinence, not colorectal cancer, and no colon transverse eQTL is reported, so the target-gene link is indirect.",
+     "evidence_ids": [
+      "E05",
+      "E02",
+      "E03",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is the DepMap expression context and expresses E2F4 at 134.92 TPM; the enhancer annotation is ENCODE biosample-maximum, not HCT116-specific, so activity in HCT116 is plausible but unproven.",
+     "evidence_ids": [
+      "E07",
+      "E09",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "POU5F1B has literature support in colon cancer growth, invasion and angiogenesis, but CRISPR dependency in HCT116 and bowel lineage is minimal, and E2F4 repressor activity at this enhancer is not shown; the proposed direction is therefore conditional.",
+     "evidence_ids": [
+      "E06",
+      "E20"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Recombinant E2F4-DP1 binds the alt oligo more strongly than ref.",
+    "Allele-specific E2F4 ChIP in HCT116 shows higher alt-allele occupancy.",
+    "If E2F4 represses this element, the alt allele lowers reporter activity and POU5F1B allelic expression."
+   ],
+   "falsified_if": [
+    "Recombinant E2F4-DP1 binds ref equal to or more strongly than alt.",
+    "Allele-specific E2F4 ChIP in HCT116 shows no alt-allele occupancy preference.",
+    "The alt allele does not lower POU5F1B or reporter activity in an E2F4-dependent assay."
+   ],
+   "probability": 0.3,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "E2F4"
+  },
+  {
+   "id": "H2",
+   "title": "E2F1 binds the alt allele more strongly and, if activating, raises POU5F1B",
+   "is_null": false,
+   "tf": "E2F1",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "pELS",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116 colorectal carcinoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G018's best model is E2F1's own model (z 29.17, effect 2.095), so the alt C allele is predicted to bind E2F1 more strongly. E2F1 is expressed in the HCT116 DepMap context at 21.43 TPM, lower than E2F4 but present.",
+     "evidence_ids": [
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in cCRE EH38E3858447, a proximal enhancer-like element with DNase and H3K27ac signal, and VEP annotates an ENSR8_CGMBX enhancer at this site.",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is the strongest L2G gene (0.83) in the credible sets containing this position and is among the cCRE-nearby genes; however those credible sets are not colorectal cancer and no colon transverse eQTL is reported, so the target-gene link is indirect.",
+     "evidence_ids": [
+      "E05",
+      "E02",
+      "E03",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is the DepMap expression context and expresses E2F1 at 21.43 TPM; the enhancer annotation is ENCODE biosample-maximum, not HCT116-specific, so activity in HCT116 is plausible but unproven.",
+     "evidence_ids": [
+      "E07",
+      "E09",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "POU5F1B has literature support in colon cancer growth, invasion and angiogenesis, but CRISPR dependency in HCT116 and bowel lineage is minimal, and E2F1 activator activity at this enhancer is not shown; the proposed direction is therefore conditional.",
+     "evidence_ids": [
+      "E06",
+      "E20"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Recombinant E2F1 binds the alt oligo more strongly than ref.",
+    "Allele-specific E2F1 ChIP in HCT116 shows higher alt-allele occupancy.",
+    "If E2F1 activates this element, the alt allele increases reporter activity and POU5F1B allelic expression."
+   ],
+   "falsified_if": [
+    "Recombinant E2F1 binds ref equal to or more strongly than alt.",
+    "Allele-specific E2F1 ChIP in HCT116 shows no alt-allele occupancy preference.",
+    "The alt allele does not increase reporter activity or POU5F1B expression in an E2F1-dependent assay."
+   ],
+   "probability": 0.15,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "E2F1"
+  },
+  {
+   "id": "H3",
+   "title": "MLX binds the ref allele more strongly and, if activating, lowers POU5F1B on the alt allele",
+   "is_null": false,
+   "tf": "MLX",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "pELS",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116 colorectal carcinoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G239 contains MLX's own model passing with z -23.15 and effect -0.809, so the ref T allele is predicted to bind MLX more strongly and the alt C allele less strongly. MLX is expressed in the HCT116 DepMap context at 74.84 TPM.",
+     "evidence_ids": [
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in cCRE EH38E3858447, a proximal enhancer-like element with DNase and H3K27ac signal, and VEP annotates an ENSR8_CGMBX enhancer at this site.",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is the strongest L2G gene (0.83) in the credible sets containing this position and is among the cCRE-nearby genes listed in E03 (CCAT2, PCAT1, POU5F1B; MYC is only a distance-based gene in E02); however the credible sets are not colorectal cancer and no colon transverse eQTL is reported, so the target-gene link is indirect.",
+     "evidence_ids": [
+      "E05",
+      "E02",
+      "E03",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is the DepMap expression context and expresses MLX at 74.84 TPM; the enhancer annotation is ENCODE biosample-maximum, not HCT116-specific, so activity in HCT116 is plausible but unproven.",
+     "evidence_ids": [
+      "E07",
+      "E12",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "POU5F1B has literature support in colon cancer growth, invasion and angiogenesis, but CRISPR dependency in HCT116 and bowel lineage is minimal, and MLX activator versus repressor activity at this element is not shown; the simplest chain assumes MLX supports the element, so reduced alt binding lowers POU5F1B.",
+     "evidence_ids": [
+      "E06",
+      "E20"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Recombinant MLX binds the ref oligo more strongly than alt.",
+    "Allele-specific MLX ChIP shows higher ref-allele occupancy.",
+    "If MLX activates this element, the alt allele lowers reporter activity and POU5F1B allelic expression."
+   ],
+   "falsified_if": [
+    "Recombinant MLX binds alt equal to or more strongly than ref.",
+    "Allele-specific MLX ChIP in colorectal cells shows no ref-allele occupancy preference.",
+    "The alt allele does not lower reporter activity or POU5F1B in an MLX-dependent assay."
+   ],
+   "probability": 0.08,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "MLX"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "E2F4",
+   "is_null": false,
+   "probability": 0.27,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "E2F1",
+   "is_null": false,
+   "probability": 0.18,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "MLX",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.45,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09 directly shows QBiC-SELEX group G018 with E2F4 passing and the same sign as the best E2F1 model, so the alt allele is predicted to bind E2F4 more strongly. However, this is a binding prediction only; no allele-specific E2F4 ChIP, reporter, MPRA, or other perturbation is cited."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in pELS EH38E3858447, and E01 annotates an ENSR8_CGMBX enhancer at the site. The element annotation itself is directly supported, though it is not shown to be active specifically in HCT116."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives POU5F1B as the best L2G gene (0.83) in credible sets containing the variant, and E02/E03 are consistent with POU5F1B being nearby. But the credible sets are for prostate-specific antigen and urinary incontinence, not colorectal cancer, and no molecular QTL or perturbation ties this variant to POU5F1B."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E09 shows E2F4 expression in the DepMap HCT116 context at 134.92 TPM, and E07 confirms HCT116 as the expression context. The enhancer evidence in E03 is ENCODE biosample-maximum rather than HCT116-specific, so the cell-type link is plausible but indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 supports a literature association between POU5F1B and colon cancer growth/invasion/angiogenesis, but the phenotype link requires E2F4 to act as a repressor at this enhancer and to reduce POU5F1B on the alt allele, neither of which is shown by the cited evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09 shows E2F1's own model is the best model in G018 with z 29.17 and effect 2.095, predicting stronger alt-allele E2F1 binding. This is direct QBiC-SELEX prediction evidence, but it remains an in vitro binding prediction without allele-specific perturbation evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in pELS EH38E3858447, and E01 annotates an ENSR8_CGMBX enhancer at the site. The element annotation is directly supported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives POU5F1B as the best L2G gene (0.83) in credible sets containing the variant, and E02/E03 are consistent with POU5F1B being nearby. However, the credible sets are not colorectal cancer and no molecular QTL or perturbation connects this variant to POU5F1B."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E09 shows E2F1 expression in the DepMap HCT116 context at 21.43 TPM. The enhancer evidence in E03 is not HCT116-specific, so the cell-type link is plausible but indirect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 supports a POU5F1B-colon-cancer literature association, but the phenotype link requires E2F1 to act as an activator at this enhancer and to increase POU5F1B on the alt allele. The cited evidence does not show E2F1 activity or allele-specific regulation at this locus."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 shows MLX's own model passes with z -23.15 and effect -0.809, predicting the alt allele binds MLX less strongly. This is only a QBiC-SELEX binding prediction, and the chain-level field allele_binding_more='alt' conflicts with the stated alt-binds-less direction."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in pELS EH38E3858447, and E01 annotates an ENSR8_CGMBX enhancer at the site. The element annotation is directly supported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives POU5F1B as the best L2G gene (0.83) in credible sets containing the variant, and E02/E03 are consistent with POU5F1B being nearby. The H3 gene-step claim also mentions nearby cCREs annotated to MYC, but E03 lists CCAT2, PCAT1, and POU5F1B, not MYC; MYC is only a distance-based gene in E02. Overall the gene link is indirect."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E12 shows MLX expression in the DepMap HCT116 context at 74.84 TPM. The enhancer evidence in E03 is not HCT116-specific, so the cell-type link is plausible but indirect."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 supports a POU5F1B-colon-cancer literature association, but the phenotype link requires MLX to support this enhancer and loss of MLX binding to lower POU5F1B. MLX activator/repressor activity at this element is not shown, and the direction depends on an unestablished mechanism."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "H1"
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E3858447 (pELS), and E01 annotates an enhancer at the site. This supports the element-link claim."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "POU5F1B is the top L2G gene in E05, but those credible sets are PSA and urinary incontinence, not colorectal cancer; E18 reports no colon transverse eQTL. E02/E03 provide only proximity/cCRE-nearby annotation. The chain itself calls this indirect, so weak."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07/E09 support HCT116 as DepMap context and E2F4 expression at 134.92 TPM. However, E03 cCRE signals are ENCODE biosample maxima and not HCT116-specific, so cell-type element activity remains indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 provides POU5F1B colon-cancer literature, but not variant-specific evidence; E20 shows minimal CRISPR dependency in HCT116 and bowel lineage. E2F4 repressor activity at this element is not shown. The chain correctly states the direction is conditional, but the phenotype link is indirect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09 shows E2F1\u2019s own model is the group G018 best model (z 29.17, effect 2.095, alt binds more), and E2F1 is expressed at 21.43 TPM. This is still only a QBiC-SELEX binding prediction, with no allele-specific ChIP or perturbation evidence, so weak."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E3858447 (pELS), and E01 annotates an enhancer at the site."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "POU5F1B L2G is from non-colorectal credible sets in E05; E18 shows no colon transverse eQTL; E02/E03 only support proximity/nearby-gene annotation. The chain itself calls this indirect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07/E09 support HCT116 context and E2F1 expression at 21.43 TPM, but E03 cCRE evidence is biosample-maximum and not HCT116-specific. Cell-type relevance is plausible but not directly shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 supports a general POU5F1B colon-cancer role, not this variant or E2F1 regulation; E20 shows minimal dependency in HCT116/bowel lineage. E2F1 activator activity at this element is unproven. Weak and conditional."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 shows MLX\u2019s own model passes in group G239 (z -23.15, effect -0.809), so ref is predicted to bind MLX more than alt; MLX expression is 74.84 TPM. This is QBiC-SELEX-only binding evidence, so weak."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E3858447 (pELS), and E01 annotates an enhancer at the site."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "POU5F1B is top L2G in E05, but in non-colorectal credible sets; E18 reports no colon transverse eQTL; E02/E03 are proximity/nearby-gene evidence. The target-gene link is indirect."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07/E12 support HCT116 context and MLX expression at 74.84 TPM, but E03 cCRE signals are not HCT116-specific. Cell-type element activity is plausible but unproven."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 supports POU5F1B in colon cancer generally, not this variant; E20 shows minimal CRISPR dependency in HCT116/bowel lineage. MLX activator versus repressor activity at this element is not shown. Weak and conditional."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Colon_Transverse\"}",
+   "resolves": "H1.gene",
+   "why": "Tests whether rs73706717 is a molecular eQTL for POU5F1B or MYC in colon, directly strengthening or weakening the target-gene link that currently relies on non-colorectal L2G evidence."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"E2F4\",\"biosample\":\"HCT116\"}",
+   "resolves": "H1.binding",
+   "why": "Checks whether E2F4 actually occupies this element in HCT116; absence of a peak would strongly undercut the QBiC-SELEX-only E2F4 binding claim."
+  },
+  {
+   "tool": "gene_dependency",
+   "args_json": "{\"gene\":\"POU5F1B\"}",
+   "resolves": "H1.phenotype",
+   "why": "Tests whether POU5F1B is a colorectal-cancer-relevant dependency, addressing the phenotype link and the relevance of the proposed target gene."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Colon - Transverse"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "HCT116",
+    "tf": "E2F4"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_dependency",
+   "args": {
+    "gene": "POU5F1B"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Recombinant E2F4-DP1 EMSA or fluorescence polarization with ref versus alt oligos",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt oligo binds recombinant E2F4-DP1 more strongly than ref."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No E2F4-specific prediction; if anything, the E2F1 model, not E2F4, is the primary alt-binding factor."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No E2F4 allele-specific binding difference; MLX, not E2F4, is the proposed allele-sensitive factor."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allele-specific E2F4 binding difference."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific E2F4 ChIP-qPCR at chr8:127401265 in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt allele shows higher E2F4 occupancy at the variant element."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No E2F4 allelic occupancy effect; E2F1 would be the relevant E2F."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No E2F4 allelic occupancy effect."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No reproducible allele-specific TF occupancy."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Ref versus alt pELS reporter assay in HCT116 with E2F4 knockdown",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt reporter is lower if E2F4 represses; E2F4 knockdown increases activity and blunts the alt-lower effect."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt reporter is higher if E2F1 activates; E2F4 knockdown has little effect."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Alt reporter is lower if MLX activates; E2F4 knockdown has little effect."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allele-dependent reporter difference."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Recombinant MLX EMSA or allele-specific MLX ChIP at the variant",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No MLX allele-specific binding difference."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No MLX allele-specific binding difference."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Ref binds MLX more strongly than alt."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allele-specific MLX binding difference."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Colon or HCT116 allelic expression assay for POU5F1B in heterozygous samples",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt allele associates with lower POU5F1B allelic expression."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt allele associates with higher POU5F1B allelic expression."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Alt allele associates with lower POU5F1B allelic expression if MLX activates the element."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allelic expression effect on POU5F1B."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Single cheapest experiment that separates the top two chains H4 and H1: recombinant E2F4-DP1 EMSA or fluorescence polarization with ref versus alt oligos. H1 predicts stronger alt binding; H4 predicts no allele-specific E2F4 binding. This is an in vitro binding test and would not by itself establish cellular occupancy or phenotype.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs73706717 AND POU5F1B AND \"colorectal cancer\"'; dropped the rsID"
+  },
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 42465001: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:127401265-127401265:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-26T02:21:56+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:127401265:T>C (GRCh38), allele string T/C\nKnown IDs: rs73706717\nMost severe consequence: non_coding_transcript_exon_variant\nRegulatory features: ENSR8_CGMBX enhancer\nGERP conservation score at the site: -2.8\nTranscript consequences: CASC8 (intron_variant, non_coding_transcript_variant); CCAT2 (non_coding_transcript_exon_variant); PCAT1 (intron_variant, non_coding_transcript_variant); POU5F1B (intron_variant); PCAT1 (downstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:126401265-128401265?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "3 protein-coding genes within 1000 kb of chr8:127401265:T>C, by distance to TSS:\nPOU5F1B: 79.1 kb from TSS (in gene body, strand +1)\nMYC: 334.2 kb from TSS (upstream, strand +1)\nLRATD2: 842.8 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-26T02:21:42+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3858447 (pELS: proximal enhancer-like), chr8:127401053-127401303.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3858447 pELS (contains the variant): DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 4.1; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858448 pELS: DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 2.2; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858446 pELS: DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 5.5; nearby genes CCAT2, PCAT1, POU5F1B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs73706717&size=100",
+   "retrieved_utc": "2026-10-26T02:21:56+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs73706717, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:21:56+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2 credible sets contain 8_127401265_T_C: 2 GWAS, 0 molecular QTL.\nGWAS prostate-specific antigen (PSA, maximum, inv-norm transforme: PIP 0.04; L2G POU5F1B 0.83\nGWAS Urinary incontinence (PheCode 599.4): PIP 0.04; L2G POU5F1B 0.78\nBest L2G gene scores across these sets: POU5F1B 0.83"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=POU5F1B%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 150 hits for 'POU5F1B AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 42465001 (2026): Circ_0075829 affects POU5F1B expression through sponging miR-576-3p to promote growth, invasion, and angiogenesis of colon cancer cells.\nPMID 41993623 (2026): Tailorable porous collagen hydrogels as a physiologically relevant platform for extrachromosomal DNA-associated colorectal cancer research.\nPMID 41796348 (2026): Harnessing the LncRNA CCAT2 role in gastric cancer: from molecular insights to clinical implications.\nPMID 41930642 (2026): Systematic Identification and Characterization of Causal Risk Genes Implicated in Colorectal Cancer by Integrating GWAS, eQTL, and mQTL Data.\nPMID 42686757 (2026): Phase separation of ecDNA condensates establishes in-trans contact domains that boost selective MYC regulatory interactions.\nPMID 40506516 (2025): Association between methylation quantitative trait loci and colorectal cancer risk, survival and cancer recurrence.\nPMID 41144378 (2025): Integrative GWAS and RNA-Seq analysis for target identification and virtual drug screening in colorectal cancer.\nPMID 41196428 (2025): Combined CHK1 and PD-L1 blockade as a novel therapeutic strategy against stemness and immunosuppression in ovarian cancer."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr8:127401265:T>C: 997 models scored, 307 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 217 CIS-BP groups. Expression context: DepMap line ACH-000971. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 62 (C2H2 ZF, 1 model z 48.28, bHLH, 2 models z -21.14, bHLH, 1 model z -20.92, C2H2 ZF, 2 models z -15.35, bHLH, 1 model z -14.88). Passing groups ranked below the ones shown: 145. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G395 (C2H2 ZF, 1 model): best model ZBTB22_eDBD_TGCCTC40NCAA_KP_yin2017_0_4_7mer (own model of ZBTB22), z -33.75, effect -1.962 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZBTB22 z -33.75. TFs this group covers: ZBTB22 (own model) 3.74 TPM; best model's site strength: ref 99.8th, alt 92.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G018 (E2F, 4 models): best model E2F1_NA_CAATT14N_ESU_yang2017_0_4_7mer (own model of E2F1), z 29.17, effect 2.095 (alt binds more); 3 passing models (3 with the best model's sign). Passing members: E2F1 z 29.17, E2F2 z 12.62, E2F4 z 10.46. TFs this group covers: E2F4 (own model) 134.92 TPM, E2F6 (mapped) 31.36 TPM, E2F3 (own model) 28.76 TPM, E2F1 (own model) 21.43 TPM, E2F5 (mapped) 13.57 TPM, E2F2 (own model) 12.62 TPM; best model's site strength: ref 89.4th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G027 (SMAD, 4 models): best model NFIB_NA_TCATCA20NCG_ESAD_yang2017_0_3_7mer (own model of NFIB), z 24.28, effect 1.783 (alt binds more); 4 passing models (4 with the best model's sign). Passing members: NFIB z 24.28, NFIX z 23.96, NFIC z 23.35, NFIA z 11.49. TFs this group covers: NFIC (own model) 36.29 TPM, NFIX (own model) 13.23 TPM, NFIA (own model) 7.07 TPM, NFIB (own model) 2.12 TPM; best model's site strength: ref 96.3th, alt 99.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G038 (Homeodomain, 3 models): best model HMBOX1_eDBD_TGGCTC40NCGC_KAN_yin2017_1_2_7mer (own model of HMBOX1), z -23.93, effect -0.32 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: HMBOX1 z -23.93. TFs this group covers: HMBOX1 (own model) 8.15 TPM, HNF1B (own model) 2.08 TPM, HNF1A (own model) 0.02 TPM; best model's site strength: ref 100.0th, alt 67.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G239 (bHLH, 1 model): best model MLX_eDBD_TAGGCT40NACC_KAN_yin2017_0_4_6mer (own model of MLX), z -23.15, effect -0.809 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: MLX z -23.15. TFs this group covers: MLX (own model) 74.84 TPM; best model's site strength: ref 99.4th, alt 90.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G051 (bHLH, 3 models): best model TCF12_eDBD_TTTGAG40NATT_KS_yin2017_0_3_7mer (own model of TCF12), z -22.53, effect -1.05 (alt binds less); 2 passing models (2 with the best model's sign). Passing members: TCF12 z -22.53, TCF3 z -6.22. TFs this group covers: TCF3 (own model) 111.29 TPM, TCF12 (own model) 40.64 TPM, TCF4 (own model) 0.23 TPM; best model's site strength: ref 99.6th, alt 99.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G468 (C2H2 ZF, 1 model): best model ZNF263_eDBD_TTAGAT40NGTG_KS_yin2017_0_4_7mer (own model of ZNF263), z -20.79, effect -0.757 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF263 z -20.79. TFs this group covers: ZNF263 (own model) 36.75 TPM; best model's site strength: ref 100.0th, alt 85.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G250 (Myb/SANT, 1 model): best model MYPOP_FL_CC40NTGAGTA_YWO_jolma2025_0_2_7mer (own model of MYPOP), z 16.88, effect 0.569 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: MYPOP z 16.88. TFs this group covers: MYPOP (own model) 5.37 TPM; best model's site strength: ref 84.9th, alt 98.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G002 (Nuclear receptor, 29 models): best model NR1H3_DBD_TGAGCG40NTTG_KY_nitta2015_2_3_7mer (own model of NR1H3), z -15.02, effect -0.286 (alt binds less); 13 passing models (12 with the best model's sign); members disagree on direction. Passing members: NR1H3 z -15.02, NR2C1 z -13.82, RORB z -13.43, RORC z -7.66, NR2F6 z -7.56 (+8 more). TFs this group covers: NR2F2 (own model) 61.74 TPM, PPARG (own model) 47.9 TPM, ESRRA (own model) 38.54 TPM, NR1D2 (own model) 37.06 TPM, NR2F6 (own model) 37.02 TPM, RARG (own model) 31.32 TPM, NR2F1 (own model) 28.42 TPM, NR2C2 (own model) 22.6 TPM, NR1H2 (mapped) 20.86 TPM, PPARD (own model) 20.8 TPM (+28 more); best model's site strength: ref 95.9th, alt 60.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G064 (CxxC, 2 models): best model CXXC4_FL_GG40NTAGTTT_YWKC_jolma2025_0_4_7mer (own model of CXXC4), z 14.12, effect 0.794 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: CXXC4 z 14.12, TET3 z 7.27. TFs this group covers: CXXC5 (mapped) 25.91 TPM, TET3 (own model) 10.17 TPM, CXXC4 (own model) 0.23 TPM; best model's site strength: ref 87.7th, alt 96.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_127401265_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T02:23:32+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_127401265_T_C_b38 in tissues matching 'Colon - Transverse'. NES is the effect of the alt allele (C) relative to ref (T)."
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:26:46+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE E2F4 ChIP-seq peak contains chr8:127401265:T>C in biosamples matching 'HCT116'. Absence can also mean no E2F4 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E20",
+   "tool": "gene_dependency",
+   "source": "DepMap CRISPRGeneEffect (Biomni copy) and CRISPRInferredCommonEssentials (Public 26Q3)",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "DepMap CRISPR gene effect for POU5F1B (0 = no effect, -1 = median common-essential; < -0.5 called dependent). HCT 116 (ACH-000971): -0.09. Bowel lineage, 31 lines: median -0.06, 0% dependent. All 351 lines: median -0.05, 3% dependent."
+  }
+ ]
+}

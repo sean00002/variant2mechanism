@@ -1,0 +1,1178 @@
+{
+ "case_id": "rs1421085",
+ "variant": "rs1421085",
+ "variant_key": "chr16:53767042:T>C",
+ "disease": "Obesity (FTO)",
+ "origin": "germline",
+ "expression_context": "GTEx:Adipose - Subcutaneous (proxy for preadipocytes)",
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0147,
+ "seconds": 161.7,
+ "model_calls": 7,
+ "screen": {
+  "n_pass": 425,
+  "counts": {
+   "occupied": 16,
+   "unknown": 157,
+   "occupied_strong_site": 10,
+   "occupied_not_expressed": 3,
+   "unbound_assayed_here": 0,
+   "unbound_assayed_elsewhere": 554,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "ATF3",
+    "z": 21.73,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "TEAD1",
+    "z": 21.23,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "JUN",
+    "z": 17.91,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "FOXP1",
+    "z": -16.49,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "USF2",
+    "z": 9.15,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "MAX",
+    "z": 9.06,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "GATAD2A",
+    "z": 5.71,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "HMG20B",
+    "z": 4.52,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "PHF21A",
+    "z": -2.87,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": true
+   },
+   {
+    "tf": "ZNF48",
+    "z": 2.69,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": true
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "MEIS3",
+    "z": 54.71
+   },
+   {
+    "tf": "PKNOX2",
+    "z": 54.71
+   },
+   {
+    "tf": "TGIF1",
+    "z": 54.71
+   },
+   {
+    "tf": "NR4A2",
+    "z": 32.74
+   },
+   {
+    "tf": "NR4A3",
+    "z": 32.74
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H4",
+   "title": "Null: no TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The obesity association may arise from a linked causal change or another mechanism, with no reproducible TF-mediated effect of this base.",
+    "In relevant cells, the variant will not produce a reproducible allele-dependent regulatory effect attributable to JUN, ATF3, or TEAD1."
+   ],
+   "falsified_if": [
+    "A relevant-cell experiment demonstrates a reproducible allele-dependent regulatory effect at this variant that depends on a specific TF."
+   ],
+   "probability": 0.68,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "JUN-mediated change at a candidate FTO regulatory element",
+   "is_null": false,
+   "tf": "JUN",
+   "allele_binding_more": "alt",
+   "element": "The variant overlaps cCRE EH38E3181208, classified as distal enhancer-like. The SCREEN activity maxima reported for nearby EH38E3181207 cannot be assumed to describe the variant-overlapping element or adipose activity.",
+   "target_gene": "FTO is a candidate target based on proximity and locus-to-gene scoring, but this element has not been linked directly to FTO; no adipose eQTL is reported.",
+   "cell_type": "Preadipocytes are a test context based on the adipose expression proxy, not an established site of JUN occupancy or element activity.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "JUN is highly expressed in the adipose proxy and has a variant-overlapping ChIP peak in HepG2, not in a matching cell type. Its own QBiC-SELEX model predicts stronger in-vitro binding to C than T; this does not establish occupancy in preadipocytes. JUN is retained as a candidate, not distinguished decisively from other candidates.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E22",
+      "E35"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within distal enhancer-like cCRE EH38E3181208. The supplied SCREEN activity maxima are for EH38E3181207, so they do not establish activity of the overlapping cCRE.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FTO is a candidate target because it is nearby and has the strongest L2G score, but direct regulation by this cCRE is not shown. The supplied credible-set results report no molecular QTLs, and the listed FTO eQTL is in skeletal muscle rather than adipose.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Preadipocytes are a plausible context to investigate, but the evidence gives no matching-cell JUN occupancy or adipose-specific activity measurement for the variant-overlapping element.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E05",
+      "E35",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The locus is associated with obesity-related traits and T is reported as the risk allele. The evidence does not establish how increased C binding by JUN would affect a target gene or explain the trait association.",
+     "evidence_ids": [
+      "E15",
+      "E16"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "If this chain is correct, an allele-dependent regulatory effect in a relevant adipose-lineage assay should be reduced by JUN depletion and restored by JUN rescue; binding alone predicts C over T.",
+    "A direct FTO effect remains a separate prediction to test, not an established consequence of the candidate enhancer."
+   ],
+   "falsified_if": [
+    "A sensitive assay in relevant adipose-lineage cells finds no JUN occupancy and no JUN-dependent allele effect.",
+    "The variant-overlapping element shows no reproducible allele-dependent activity in relevant cells."
+   ],
+   "probability": 0.12,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "JUN"
+  },
+  {
+   "id": "H2",
+   "title": "ATF3-mediated change at a candidate FTO regulatory element",
+   "is_null": false,
+   "tf": "ATF3",
+   "allele_binding_more": "alt",
+   "element": "The variant overlaps distal enhancer-like cCRE EH38E3181208, but the available SCREEN activity maxima concern nearby EH38E3181207 and do not establish activity of the overlapping element.",
+   "target_gene": "FTO is a candidate target from proximity and locus-to-gene scoring, not a demonstrated target of this element; no adipose eQTL is reported.",
+   "cell_type": "Preadipocytes are a possible test context, but ATF3 occupancy and element activity there are unestablished.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ATF3 is expressed and has a variant-overlapping ChIP peak in HCT116, not in a matching cell type. Its own QBiC-SELEX model predicts stronger in-vitro binding to C than T, but does not establish occupancy in preadipocytes.",
+     "evidence_ids": [
+      "E04",
+      "E09",
+      "E20",
+      "E36"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within distal enhancer-like cCRE EH38E3181208. The supplied SCREEN maxima are for EH38E3181207 and cannot establish activity of this overlapping cCRE.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FTO is a candidate target based on proximity and L2G, but direct regulation by this cCRE is not shown. There is no reported adipose eQTL for the variant.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Preadipocytes are a possible context to test, but the evidence does not establish ATF3 occupancy or activity of the variant-overlapping element in that context.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E09",
+      "E36",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The locus is associated with obesity-related traits and T is reported as the risk allele. The effect of increased C binding by ATF3 on gene regulation and obesity is not established.",
+     "evidence_ids": [
+      "E15",
+      "E16"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "If this chain is correct, ATF3, rather than JUN or TEAD1, should be required for an allele-dependent regulatory effect in relevant adipose-lineage cells; in-vitro binding predicts C over T.",
+    "ATF3 perturbation should reduce the allele-dependent effect, with rescue restoring it."
+   ],
+   "falsified_if": [
+    "Relevant adipose-lineage assays find no ATF3 occupancy and no ATF3-dependent allele effect.",
+    "The variant-overlapping element shows no reproducible allele-dependent activity in relevant cells."
+   ],
+   "probability": 0.11,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ATF3"
+  },
+  {
+   "id": "H3",
+   "title": "TEAD1-mediated change at a candidate FTO regulatory element",
+   "is_null": false,
+   "tf": "TEAD1",
+   "allele_binding_more": "alt",
+   "element": "The variant overlaps distal enhancer-like cCRE EH38E3181208. The nearby SCREEN maxima are reported for EH38E3181207 and do not establish activity of the overlapping element.",
+   "target_gene": "FTO is a candidate target based on proximity and locus-to-gene scoring, but direct regulation by this element is not shown and no adipose eQTL is reported.",
+   "cell_type": "Preadipocytes are a possible context to test, but matching-cell TEAD1 occupancy and element activity are not established.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TEAD1 is expressed and has a variant-overlapping ChIP peak in HepG2, not in a matching cell type. Its own QBiC-SELEX model predicts stronger in-vitro binding to C than T; this does not demonstrate occupancy in preadipocytes.",
+     "evidence_ids": [
+      "E04",
+      "E12",
+      "E21"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within distal enhancer-like cCRE EH38E3181208. The supplied SCREEN maxima are for EH38E3181207 and do not establish activity of this cCRE.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FTO is a candidate target from proximity and L2G, but direct regulation by this cCRE is unproven. No adipose eQTL is reported for the variant.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Preadipocytes are a possible test context, but the evidence does not establish TEAD1 occupancy or activity of the variant-overlapping element in that context.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E12",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The locus is associated with obesity-related traits and T is reported as the risk allele. The effect of increased C binding by TEAD1 on gene regulation and obesity is not established.",
+     "evidence_ids": [
+      "E15",
+      "E16"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "If this chain is correct, TEAD1 should be required for an allele-dependent regulatory effect in relevant adipose-lineage cells; in-vitro binding predicts C over T.",
+    "TEAD1 perturbation should reduce the allele-dependent effect, distinguishing this model from JUN- and ATF3-dependent models."
+   ],
+   "falsified_if": [
+    "Relevant adipose-lineage assays find no TEAD1 occupancy and no TEAD1-dependent allele effect.",
+    "The variant-overlapping element shows no reproducible allele-dependent activity in relevant cells."
+   ],
+   "probability": 0.09,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TEAD1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "JUN",
+   "is_null": false,
+   "probability": 0.22,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "ATF3",
+   "is_null": false,
+   "probability": 0.14,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "TEAD1",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.52,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "JUN has a ChIP peak over the variant only in HepG2, not the relevant adipose context (E05), while its own QBiC-SELEX model predicts stronger binding to C (E22). The predicted direction is clear, but relevant-cell occupancy is not shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant is reported within a distal enhancer-like cCRE (E03). The evidence does not establish adipose-specific activity, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "The proximity and L2G evidence support describing FTO as a candidate target (E02, E16), with FTO receiving the strongest L2G score. They do not establish that this cCRE regulates FTO, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The adipose expression proxy and cCRE context make preadipocytes a plausible setting to test, but the cited evidence does not establish JUN occupancy or element activity in that cell type (E03-E05)."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "The locus is associated with obesity-related traits and T is reported as the risk allele (E15); the claim appropriately says mediation by JUN is unknown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ATF3 has a peak over the variant only in HCT116, not the relevant adipose context (E09), while its own QBiC-SELEX model predicts stronger binding to C (E20). The predicted direction is clear, but relevant-cell occupancy is not shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant is reported within a distal enhancer-like cCRE (E03). The claim correctly limits what can be inferred about tissue-specific activity."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "Proximity and L2G support FTO as a candidate target (E02, E16), but do not demonstrate regulation by this cCRE, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The adipose expression proxy makes preadipocytes a possible test context, but there is no cited ATF3 occupancy or element-activity evidence in that cell type (E03, E04, E09)."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "The locus is associated with obesity-related traits and T is reported as the risk allele (E15); the claim appropriately does not assign the trait direction to ATF3 binding."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TEAD1 has a ChIP peak over the variant only in HepG2 (E12), not the relevant adipose context, and its own QBiC-SELEX model predicts stronger binding to C (E21). Similar site percentiles do not negate the predicted change, but relevant-cell occupancy is not shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant is reported within a distal enhancer-like cCRE (E03). The claim correctly notes that adipose-specific activity is not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "Proximity and L2G support FTO as a candidate target (E02, E16), but do not demonstrate regulation by this cCRE, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Preadipocytes are a plausible context to investigate, but the cited evidence does not establish TEAD1 occupancy or enhancer activity there (E03, E04, E12)."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "The locus is associated with obesity-related traits and T is reported as the risk allele (E15); the claim appropriately leaves TEAD1 mediation unresolved."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "JUN has a variant-overlapping ChIP peak only in HepG2, not the proposed adipose-lineage context. Its QBiC-SELEX model predicts stronger binding to C, but this in-vitro result does not establish preadipocyte occupancy."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within distal enhancer-like cCRE EH38E3181208; the claim correctly does not attribute the nearby EH38E3181207 activity maxima to it."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and a high FTO L2G score support FTO as a candidate, but do not directly link this cCRE to FTO. The cited eQTL is not adipose-specific, and no molecular QTL is reported."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Adipose expression context makes preadipocytes a plausible test context, but the evidence does not establish JUN occupancy or activity of the overlapping element in preadipocytes."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "GWAS evidence directly supports an obesity-related association and reports T as the risk allele. The claim appropriately says the JUN-mediated mechanism is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ATF3 has a variant-overlapping ChIP peak only in HCT116, not the proposed adipose-lineage context. Its QBiC-SELEX model predicts stronger binding to C, but this does not establish preadipocyte occupancy."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within distal enhancer-like cCRE EH38E3181208; the claim correctly distinguishes it from the nearby cCRE with SCREEN activity maxima."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and a high FTO L2G score support FTO as a candidate, but do not directly link this cCRE to FTO. No adipose eQTL is reported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Adipose expression context makes preadipocytes a possible test context, but ATF3 occupancy and activity of the overlapping element there are not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "GWAS evidence directly supports an obesity-related association and reports T as the risk allele. The claim appropriately leaves the ATF3-mediated mechanism unestablished."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TEAD1 has a variant-overlapping ChIP peak only in HepG2, not the proposed adipose-lineage context. Its QBiC-SELEX model predicts stronger binding to C, but this does not establish preadipocyte occupancy."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within distal enhancer-like cCRE EH38E3181208; the claim correctly does not assign the nearby cCRE's SCREEN maxima to it."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and a high FTO L2G score support FTO as a candidate, but do not directly link this cCRE to FTO. No adipose eQTL is reported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Adipose expression context makes preadipocytes a possible test context, but TEAD1 occupancy and activity of the overlapping element there are not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "GWAS evidence directly supports an obesity-related association and reports T as the risk allele. The claim appropriately leaves the TEAD1-mediated mechanism unestablished."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"JUN\",\"biosample\":\"preadipocytes\"}",
+   "resolves": "H1.binding",
+   "why": "Would test whether the current leading TF has variant-overlapping occupancy in the proposed cell context, rather than only in HepG2."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ATF3\",\"biosample\":\"preadipocytes\"}",
+   "resolves": "H2.binding",
+   "why": "Would provide a directly comparable occupancy check for a competing candidate whose QBiC-SELEX result also favors C."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Adipose_Subcutaneous\"}",
+   "resolves": "H1.gene",
+   "why": "Could supply variant-associated expression evidence in the relevant adipose tissue, helping assess the proposed FTO target link, although an eQTL alone would not prove this cCRE is causal."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "JUN",
+    "biosample": "preadipocytes"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "ATF3",
+    "biosample": "preadipocytes"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Adipose - Subcutaneous"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Paired T/C reporter assay in an adipose-lineage cell model, with JUN depletion and rescue",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A reproducible T/C reporter difference is expected and should diminish with JUN depletion and return with rescue."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No JUN-dependent T/C difference is expected; any effect should instead depend on ATF3."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No JUN-dependent T/C difference is expected; any effect should instead depend on TEAD1."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No reproducible TF-dependent T/C reporter difference is expected."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Compare variant-overlapping JUN, ATF3, and TEAD1 occupancy between T and C in relevant adipose-lineage cells",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "JUN occupancy should be present and favor C over T."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "ATF3 occupancy should be present and favor C over T, rather than a JUN-specific result."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "TEAD1 occupancy should be present and favor C over T, rather than a JUN-specific result."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No reproducible allele-specific occupancy by these candidates is expected."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Test whether perturbing the variant-overlapping element changes FTO expression in an adipose-lineage model",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "An effect on FTO is possible if FTO is the target, but the hypothesis does not establish its direction."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "An effect on FTO is possible if FTO is the target, but the hypothesis does not establish its direction."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "An effect on FTO is possible if FTO is the target, but the hypothesis does not establish its direction."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No reproducible FTO effect attributable to this element is expected."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run the paired T/C reporter assay in an adipose-lineage cell model with JUN depletion and rescue. It is the cheapest proposed experiment that directly distinguishes the highest-probability non-null chain (H1) from the null (H4), while testing JUN dependence rather than relying on in-vitro binding predictions alone.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/16:53767042-53767042:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:38:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr16:53767042:T>C (GRCh38), allele string T/C\nKnown IDs: rs1421085\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 2.55\nTranscript consequences: FTO (intron_variant, NMD_transcript_variant); FTO (intron_variant); FTO (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/16:52767042-54767042?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:38:17+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "7 protein-coding genes within 1000 kb of chr16:53767042:T>C, by distance to TSS:\nRPGRIP1L: 63.1 kb from TSS (upstream, strand -1)\nFTO: 65.3 kb from TSS (in gene body, strand +1)\nAKTIP: 262.6 kb from TSS (upstream, strand -1)\nRBL2: 333.1 kb from TSS (downstream, strand +1)\nIRX3: 520.4 kb from TSS (downstream, strand -1)\nCHD9: 712.1 kb from TSS (downstream, strand +1)\nCHD9NB: 714.1 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:29:02+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3181208 (dELS: distal enhancer-like), chr16:53766999-53767220.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3181207 dELS: DNase z 3.5, H3K27ac z 3.2, H3K4me3 z 1.5, CTCF z 1.5; nearby genes RPGRIP1L, FTO, AC007497.1\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr16:53767042:T>C: 39 peaks contain the variant, from 37 factors in 4 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ASH2L, DMAP1, EHMT2, EP300, HBP1, IKZF5, KAT2B, LCORL, MED1, POLR2AphosphoS5, RBFOX2, RNF219 (+6 more). Bound, expressed TFs with a binding model: 16; listed one per row: JUN, KLF6, USF2, HMG20B, ATF3, MAX, SP1, TEAD1, ZGPAT, GATAD2A; also bound: PHF21A, ZNF335, FOXP1, ZNF449, ZNF280D, ZNF48. Bound but below 1 TPM: HNF1A, MIXL1, ONECUT1. Assayed with no peak here: 0 TFs in the matching biosample, 554 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUN: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR747VUU). 442.88 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 3 of 1631 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "KLF6: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR757EKM). 247.5 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 11 of 1631 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "USF2: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR145QNL). 114.23 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 31 of 1631 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "HMG20B: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR925QAW). 84.43 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 51 of 1631 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ATF3: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HCT116 (e.g. ENCSR000BUG). 57.63 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 88 of 1631 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR168DYA). 41.99 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 141 of 1631 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SP1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HCT116 (e.g. ENCSR000BSF). 41.01 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 145 of 1631 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TEAD1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR497JLX). 40.88 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 148 of 1631 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZGPAT: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR704IGU). 30.27 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 211 of 1631 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "GATAD2A: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR925BFV). 25.37 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 260 of 1631 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs1421085&size=100",
+   "retrieved_utc": "2026-10-25T17:29:17+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "100 GWAS Catalog associations for rs1421085, strongest first:\nBody mass index (BMI, mean, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nBody mass index (BMI, maximum, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nWhat is your weight? (pounds, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.5909, PMID 39024449\nWeight (mean, inv-normal transformed): p 2.0e-300, effect allele T, risk-allele frequency 0.669, PMID 39024449\nObesity (PheCode 278.1): p 6.0e-291, effect allele T, risk-allele frequency 0.593, PMID 39024449\nBody mass index (BMI, minimum, inv-normal transformed): p 2.0e-277, effect allele T, risk-allele frequency 0.669, PMID 39024449\nOverweight, obesity and other hyperalimentation (PheCode 278): p 4.0e-246, effect allele T, risk-allele frequency 0.5927, PMID 39024449\nBody shape phenotype PC1: p 2.0e-241, effect allele T, risk-allele frequency 0.596423, PMID 38640244\nType 2 diabetes (PheCode 250.2): p 4.0e-211, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nDiabetes mellitus (PheCode 250): p 8.0e-207, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nHemoglobin A1c (HbA1c, maximum, inv-norm transformed): p 8.0e-195, effect allele T, risk-allele frequency 0.5901, PMID 39024449\nHemoglobin A1c (HbA1c, mean, inv-norm transformed): p 1.0e-185, effect allele T, risk-allele frequency 0.5901, PMID 39024449"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1701 credible sets contain 16_53767042_T_C: 200 GWAS, 0 molecular QTL.\nGWAS Body mass index (BMI, minimum, inv-normal transformed): PIP 0.85; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Body mass index: PIP 0.80; L2G FTO 0.99, RPGRIP1L 0.25\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.67; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Diabetes mellitus (PheCode 250): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Leg fat free mass left (UKB data field 23117): PIP 0.41; L2G FTO 0.99, RPGRIP1L 0.21, CHD9 0.07\nBest L2G gene scores across these sets: FTO 0.99, RPGRIP1L 0.36, CHD9 0.16"
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_53767042_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2 significant GTEx v8 single-tissue eQTLs for chr16_53767042_T_C_b38. NES is the effect of the alt allele (C) relative to ref (T).\nFTO in Muscle_Skeletal: NES +0.14, p 7.5e-08\nIRX3 in Pancreas: NES +0.37, p 8.3e-06"
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FTO%20AND%20%22obesity%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 11476 hits for 'FTO AND \"obesity\"'; top 7 with PMIDs:\nPMID 42861203 (2026): Circulating FTO Protein Levels and \u03b2-Cell Function in Individuals with Different Metabolic Profiles: A Cross- Sectional Study.\nPMID 42866557 (2026): FTO-Mediated m6A Demethylation in Insulin Resistance and Type 2 Diabetes: Tissue-Specific Mechanisms - a Narrative Review.\nPMID 42860309 (2026): Mogroside V Promotes Brown Adipose Thermogenesis via FTO-m&lt;sup&gt;6&lt;/sup&gt;A-LETMD1-UCP1 Pathway to Combat Obesity.\nPMID 42708306 (2026): Fat Mass and Obesity Associated (FTO) and Melanocortin 4 Receptor (MC4R) Gene Variants as Prognostic Markers of Obesity in Quetta City.\nPMID 42893248 (2026): Genetic and Body Composition Factors Associated with Metabolic-Associated Steatotic Liver Disease: A Cross-Sectional Analysis of a Health Screening Cohort.\nPMID 42790767 (2026): RNA m6A demethylase FTO in central nervous system disorders: Mechanisms and therapeutic implications.\nPMID 42747632 (2026): FTO-mediated GPX4 m6A modification in ferroptosis-induced DNA damage and inflammatory response during acute lung injury."
+  },
+  {
+   "id": "E18a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42861203",
+   "url": "https://europepmc.org/article/MED/42861203",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Fat mass and obesity-associated (FTO) protein, an m6A demethylase involved in metabolic regulation, has been linked to obesity."
+  },
+  {
+   "id": "E18b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42866557",
+   "url": "https://europepmc.org/article/MED/42866557",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "This narrative review aims to clarify the tissue-specific effects of the fat mass and obesity-associated (FTO) gene, which encodes a demethylase enzyme, on lipid and glucose metabolism and appetite regulation."
+  },
+  {
+   "id": "E18c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42860309",
+   "url": "https://europepmc.org/article/MED/42860309",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Mogroside V (MV) is a triterpene glycoside extracted from Siraitia grosvenorii and has shown beneficial effects in models of obesity."
+  },
+  {
+   "id": "E18d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42860309",
+   "url": "https://europepmc.org/article/MED/42860309",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "MV promoted brown adipocyte thermogenesis through the FTO-m6A-LETMD1-UCP1 axis, suggesting a potential therapeutic strategy for obesity."
+  },
+  {
+   "id": "E18e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42708306",
+   "url": "https://europepmc.org/article/MED/42708306",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Single nucleotide polymorphisms (SNPs) in the FTO (rs[masked]) and melanocortin-4-receptor (MC4R) (rs[masked]) genes have been strongly linked to an increased risk of obesity."
+  },
+  {
+   "id": "E18f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42708306",
+   "url": "https://europepmc.org/article/MED/42708306",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "This study shows a clear correlation between the higher incidence of obesity in Quetta, Pakistan, and the FTO rs[masked] and MC4R rs[masked] polymorphisms."
+  },
+  {
+   "id": "E18g",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42893248",
+   "url": "https://europepmc.org/article/MED/42893248",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Variants in the FTO (fat mass and obesity-associated) gene are well established as genetic determinants of adiposity and metabolic dysfunction."
+  },
+  {
+   "id": "E18h",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42893248",
+   "url": "https://europepmc.org/article/MED/42893248",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The BRI is a strong predictor of MASLD, with FTO risk allele further amplifying susceptibility to MASLD."
+  },
+  {
+   "id": "E18i",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42790767",
+   "url": "https://europepmc.org/article/MED/42790767",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The fat mass and obesity-associated protein (FTO) is an obesity-related protein that is widely expressed in different tissues throughout the human body, with relatively high expression levels observed in the brain."
+  },
+  {
+   "id": "E18j",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42790767",
+   "url": "https://europepmc.org/article/MED/42790767",
+   "retrieved_utc": "2026-10-26T20:20:08+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Initial investigations into FTO mainly concentrated on its involvement in the development of obesity and diabetes."
+  },
+  {
+   "id": "E19",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr16:53767042:T>C, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (GTEx tissue median Adipose - Subcutaneous), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 10 of 16 occupied (10 with a strong site), 5 of 157 with unknown occupancy. Left out: 0 TFs assayed in the matching biosample and 554 assayed only elsewhere, none with a peak here; 3 bound but below 1 TPM. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E20",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ATF3 (bZIP, 2 models; QBiC-SELEX coverage: own model): best model ATF3_eDBD_TTGGAC40NGTG_KS_yin2017_0_3_7mer (its own model), z 21.73, effect 1.403: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 57.63 TPM, rank 88 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HCT116, e.g. ENCSR000BUG. Best model's site strength: ref 98.9th, alt 99.7th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E21",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TEAD1 (TEA, 4 models; QBiC-SELEX coverage: own model): best model TEAD1_FL_TCACGC40NACT_KW_yin2017_0_4_7mer (its own model), z 21.23, effect 1.544: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 40.88 TPM, rank 148 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR497JLX. Best model's site strength: ref 98.8th, alt 98.8th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E22",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "JUN (bZIP, 3 models; QBiC-SELEX coverage: own model): best model JUN_FL_TCAGTG40NGAT_KAE_yin2017_0_3_7mer (its own model), z 17.91, effect 0.317: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 442.88 TPM, rank 3 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR747VUU. Best model's site strength: ref 82.8th, alt 99.8th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E23",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "FOXP1 (Forkhead, 10 models; QBiC-SELEX coverage: own model): best model FOXC2_eDBD_TCAGAA40NAGG_KO_yin2017_0_4_7mer (a CIS-BP-mapped model of FOXC2), z -16.49, effect -1.476: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 14.95 TPM, rank 419 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR369YUK. Best model's site strength: ref 99.4th, alt 92.1th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E24",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "USF2 (bHLH, 2 models; QBiC-SELEX coverage: own model): best model USF2_eDBD_TTGAAG40NCTC_KS_yin2017_1_2_7mer (its own model), z 9.15, effect 0.124: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 114.23 TPM, rank 31 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR145QNL. Best model's site strength: ref 99.7th, alt 99.8th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E25",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "MAX (bHLH, 1 model; QBiC-SELEX coverage: own model): best model MAX_FL_TG40NGACCTT_YWN_jolma2025_0_3_7mer (its own model), z 9.06, effect 0.497: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 41.99 TPM, rank 141 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR168DYA. Best model's site strength: ref 97.5th, alt 97.8th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E26",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "GATAD2A (GATA, 1 model; QBiC-SELEX coverage: own model): best model GATAD2A_FL_AA40NGTGGTG_YWN_jolma2025_0_4_7mer (its own model), z 5.71, effect 0.358: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 25.37 TPM, rank 260 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR925BFV. Best model's site strength: ref 95.4th, alt 99.2th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E27",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HMG20B (HMG/Sox, 1 model; QBiC-SELEX coverage: mapped models only): best model HMG20A_FL_TG40NTGATCT_YWL_jolma2025_0_4_7mer (a CIS-BP-mapped model of HMG20A), z 4.52, effect 0.125: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 84.43 TPM, rank 51 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR925QAW. Best model's site strength: ref 98.6th, alt 98.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E28",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "PHF21A (AT hook, 1 model; QBiC-SELEX coverage: own model): best model PHF21A_DBD_TC40NGGCTGT_YWQA_jolma2025_0_3_7mer (its own model), z -2.87, effect -0.079: ref allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 20.58 TPM, rank 319 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR315VYZ. Best model's site strength: ref 98.4th, alt 84.6th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E29",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZNF48 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZNF48_FL_TC40NTGCATA_YWKA_jolma2025_0_3_7mer (its own model), z 2.69, effect 0.153: alt allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 4.75 TPM, rank 822 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR415AEB. Best model's site strength: ref 88.8th, alt 98.1th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E30",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "MEIS3 (Homeodomain, 9 models; QBiC-SELEX coverage: own model): best model PKNOX2_eDBD_TAACGT40NGAT_KAN_yin2017_0_4_7mer (a CIS-BP-mapped model of PKNOX2), z 54.71, effect 3.047: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 9.23 TPM, rank 583 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 95.5th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E31",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "PKNOX2 (Homeodomain, 9 models; QBiC-SELEX coverage: own model): best model PKNOX2_eDBD_TAACGT40NGAT_KAN_yin2017_0_4_7mer (its own model), z 54.71, effect 3.047: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.8 TPM, rank 994 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 95.5th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E32",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TGIF1 (Homeodomain, 9 models; QBiC-SELEX coverage: own model): best model PKNOX2_eDBD_TAACGT40NGAT_KAN_yin2017_0_4_7mer (a CIS-BP-mapped model of PKNOX2), z 54.71, effect 3.047: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 13.07 TPM, rank 461 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 95.5th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E33",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR4A2 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model NR4A3_DBD_TTCGTA20NTA_KH_nitta2015_1_3_7mer (a CIS-BP-mapped model of NR4A3), z 32.74, effect 2.426: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 17.54 TPM, rank 373 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.6th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E34",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR4A3 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model NR4A3_DBD_TTCGTA20NTA_KH_nitta2015_1_3_7mer (its own model), z 32.74, effect 2.426: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 6.38 TPM, rank 708 of 1631 TFs in GTEx:Adipose - Subcutaneous (proxy for preadipocytes). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.6th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E35",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:29:32+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE JUN ChIP-seq peak contains chr16:53767042:T>C in biosamples matching 'preadipocytes'. Absence can also mean no JUN experiment in that biosample. In other biosamples, 1 JUN peaks do contain the variant: HepG2 (experiments ENCSR747VUU)."
+  },
+  {
+   "id": "E36",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T13:17:12+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE ATF3 ChIP-seq peak contains chr16:53767042:T>C in biosamples matching 'preadipocytes'. Absence can also mean no ATF3 experiment in that biosample. In other biosamples, 1 ATF3 peaks do contain the variant: HCT116 (experiments ENCSR000BUG)."
+  },
+  {
+   "id": "E37",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_53767042_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_53767042_T_C_b38 in tissues matching 'Adipose - Subcutaneous'. NES is the effect of the alt allele (C) relative to ref (T)."
+  }
+ ]
+}

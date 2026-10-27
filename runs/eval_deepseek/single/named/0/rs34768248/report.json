@@ -1,0 +1,352 @@
+{
+ "case_id": "rs34768248",
+ "variant": "rs34768248",
+ "variant_key": "chr5:1295601:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "germline",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0038,
+ "seconds": 42.5,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0_null",
+   "title": "No TF-mediated allelic effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific binding of GABPA, ELK1, E2F1, or other candidate TFs at rs34768248.",
+    "No allele-specific effect in a TERT promoter reporter assay.",
+    "No rs34768248 genotype effect on TERT mRNA/protein in glioblastoma lines.",
+    "Any disease association is explained by linkage disequilibrium with another causal variant or by a passenger event."
+   ],
+   "falsified_if": [
+    "A robust allele-specific TF binding difference is demonstrated at rs34768248.",
+    "An allele-specific TERT reporter effect is demonstrated and depends on the candidate TF binding site."
+   ],
+   "probability": 0.42,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1_GABPA",
+   "title": "Alt allele increases GABPA binding at the TERT promoter",
+   "is_null": false,
+   "tf": "GABPA",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter/regulatory element",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GABPA binds the alt A allele more strongly than the ref G allele; GABPA is chosen as the TERT-promoter ETS-family factor from literature knowledge, not from provided QBiC-SELEX evidence.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "rs34768248 lies in a TERT promoter/regulatory element where an ETS/GABPA site can affect promoter activity.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Increased GABPA occupancy at this element increases TERT transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TERT is expressed and the TERT promoter is active in glioblastoma cells, including the DepMap glioblastoma context.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Higher TERT expression/telomerase activity promotes glioblastoma, and the same element may contribute in melanoma and bladder cancer.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GABPA EMSA: alt > ref.",
+    "GABPA ChIP-qPCR at the rs34768248 element: alt allele occupied more.",
+    "TERT promoter reporter: alt > ref, reduced by GABPA-site mutation or GABPA knockdown.",
+    "TERT mRNA/protein higher with alt allele in suitable glioblastoma lines."
+   ],
+   "falsified_if": [
+    "GABPA shows no allele-specific binding at rs34768248.",
+    "The alt allele does not increase TERT reporter activity or TERT expression in the relevant cellular context."
+   ],
+   "probability": 0.3,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "H2_ELK1",
+   "title": "Alt allele increases ELK1 binding at the TERT promoter",
+   "is_null": false,
+   "tf": "ELK1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter/regulatory element",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ELK1, another ETS-family factor, binds the alt A allele more strongly than ref G at a candidate ETS-like motif created or strengthened by the variant.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a TERT promoter/regulatory element where ETS-family occupancy can modulate transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Increased ELK1 occupancy at this element increases TERT transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "ELK1 is expressed and TERT promoter is active in glioblastoma cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Increased TERT expression/telomerase activity contributes to glioblastoma and possibly melanoma and bladder cancer.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific ELK1 EMSA: alt > ref.",
+    "ELK1 ChIP-qPCR at the rs34768248 element: alt allele occupied more.",
+    "TERT reporter: alt > ref, reduced by ELK1 knockdown but not by GABPA knockdown.",
+    "TERT mRNA/protein higher with alt allele."
+   ],
+   "falsified_if": [
+    "ELK1 shows no allele-specific binding at rs34768248.",
+    "The allele-specific TERT reporter effect is lost only with GABPA perturbation and not with ELK1 perturbation."
+   ],
+   "probability": 0.14,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ELK1"
+  },
+  {
+   "id": "H3_E2F1_repressor",
+   "title": "Alt allele loses repressive E2F1 binding and derepresses TERT",
+   "is_null": false,
+   "tf": "E2F1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "TERT promoter/regulatory element",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "E2F1 binds the ref G allele more strongly than the alt A allele; the alt allele is predicted to weaken an E2F1-like repressive site.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "rs34768248 lies in a TERT promoter/regulatory element where loss of a repressive factor can increase promoter activity.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Reduced E2F1 occupancy at this element derepresses TERT transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "E2F1 is expressed in glioblastoma cells and TERT is expressed in the DepMap glioblastoma context.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Derepressed TERT increases telomerase activity and contributes to glioblastoma, melanoma, and bladder cancer.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific E2F1 EMSA: ref > alt.",
+    "E2F1 ChIP-qPCR at the rs34768248 element: ref allele occupied more.",
+    "TERT reporter: alt > ref, and the effect is reduced by an E2F1-site mutation or E2F1 overexpression.",
+    "TERT mRNA/protein higher with alt allele."
+   ],
+   "falsified_if": [
+    "E2F1 shows no allele-specific binding at rs34768248.",
+    "The alt allele does not increase TERT reporter activity or TERT expression.",
+    "The allele-specific effect is instead explained by an activating ETS factor such as GABPA."
+   ],
+   "probability": 0.14,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "E2F1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.42,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1_GABPA",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.3,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2_ELK1",
+   "tf": "ELK1",
+   "is_null": false,
+   "probability": 0.14,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3_E2F1_repressor",
+   "tf": "E2F1",
+   "is_null": false,
+   "probability": 0.14,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Allele-specific GABPA EMSA",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No differential GABPA binding"
+    },
+    {
+     "hypothesis_id": "H1_GABPA",
+     "outcome": "alt > ref GABPA binding"
+    },
+    {
+     "hypothesis_id": "H2_ELK1",
+     "outcome": "No differential GABPA binding"
+    },
+    {
+     "hypothesis_id": "H3_E2F1_repressor",
+     "outcome": "No differential GABPA binding"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific ELK1 EMSA",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No differential ELK1 binding"
+    },
+    {
+     "hypothesis_id": "H1_GABPA",
+     "outcome": "No differential ELK1 binding"
+    },
+    {
+     "hypothesis_id": "H2_ELK1",
+     "outcome": "alt > ref ELK1 binding"
+    },
+    {
+     "hypothesis_id": "H3_E2F1_repressor",
+     "outcome": "No differential ELK1 binding"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific E2F1 EMSA",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No differential E2F1 binding"
+    },
+    {
+     "hypothesis_id": "H1_GABPA",
+     "outcome": "No differential E2F1 binding"
+    },
+    {
+     "hypothesis_id": "H2_ELK1",
+     "outcome": "No differential E2F1 binding"
+    },
+    {
+     "hypothesis_id": "H3_E2F1_repressor",
+     "outcome": "ref > alt E2F1 binding"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "TERT promoter reporter, ref vs alt",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No allele-specific reporter difference"
+    },
+    {
+     "hypothesis_id": "H1_GABPA",
+     "outcome": "alt > ref reporter activity; GABPA-site mutation or knockdown reduces effect"
+    },
+    {
+     "hypothesis_id": "H2_ELK1",
+     "outcome": "alt > ref reporter activity; ELK1 knockdown reduces effect"
+    },
+    {
+     "hypothesis_id": "H3_E2F1_repressor",
+     "outcome": "alt > ref reporter activity; E2F1-site mutation or E2F1 overexpression reduces effect"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Run the cheapest discriminating experiment: allele-specific EMSA with recombinant GABPA on ref-G and alt-A oligos spanning rs34768248. A clear alt > ref GABPA shift supports H1_GABPA over H0_null; no differential GABPA binding supports H0_null over H1_GABPA.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

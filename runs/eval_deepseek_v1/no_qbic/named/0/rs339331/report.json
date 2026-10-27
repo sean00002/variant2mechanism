@@ -1,0 +1,794 @@
+{
+ "case_id": "rs339331",
+ "variant": "rs339331",
+ "variant_key": "chr6:116888889:T>C",
+ "disease": "Prostate cancer (6q22)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000977 (LNCaP clone FGC)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0318,
+ "seconds": 216.9,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "hypothesis_1",
+   "title": "AR binds the ref T allele at the rs339331 enhancer; if AR is repressive, the alt C allele derepresses RFX6 and is risk-associated",
+   "is_null": false,
+   "tf": "AR",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "distal enhancer-like cCRE EH38E2496909",
+   "target_gene": "RFX6",
+   "cell_type": "prostate cancer/epithelial cells, with LNCaP as an extrapolation",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "AR occupies the rs339331 enhancer allele-specifically, with the ref T allele binding AR more strongly than the alt C allele; this is reported in E06c, while E08 does not provide an AR ChIP-seq peak in LNCaP.",
+     "evidence_ids": [
+      "E06c",
+      "E08"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "rs339331 lies inside the distal enhancer-like cCRE EH38E2496909 and is described as a reprogrammed AR-bound prostate cancer enhancer.",
+     "evidence_ids": [
+      "E03",
+      "E06c"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The rs339331 enhancer is assigned to RFX6 by proximity, L2G, and 6q22 literature, but AR-specific regulation of RFX6 is not directly shown and GTEx prostate has no significant rs339331 eQTL.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E06b",
+      "E06d",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Prostate cancer cells/tumors are the reported context for AR occupancy at rs339331; LNCaP is an extrapolation because E08 lacks an AR peak there.",
+     "evidence_ids": [
+      "E06c",
+      "E06d",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The alt C allele is the prostate-cancer effect allele in E04; if AR binding at the ref T allele is repressive, loss of AR on C would increase RFX6 and risk, consistent with RFX6/6q22 association with prostate cancer.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06a",
+      "E06b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific AR ChIP in a heterozygous prostate cancer line should show higher AR occupancy on the ref T allele at rs339331.",
+    "If AR is repressive at this element, AR depletion or inhibition should increase RFX6 expression.",
+    "An allele-specific RFX6 reporter should show higher RFX6 expression from the alt C allele than from the ref T allele if AR repression is the mechanism."
+   ],
+   "falsified_if": [
+    "allele-specific AR ChIP or reporter assays show no stronger AR occupancy on the ref T allele at rs339331",
+    "AR perturbation does not change RFX6 expression in the direction required by this model",
+    "the alt C allele is shown to lower RFX6 and be protective despite being the E04 prostate-cancer effect allele, which would make the derepression model untenable"
+   ],
+   "probability": 0.35,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "AR"
+  },
+  {
+   "id": "hypothesis_2",
+   "title": "HOXB13 within the GATA2/SMAD4/HOXB13 complex binds the ref T allele and activates RFX6",
+   "is_null": false,
+   "tf": "HOXB13",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "rs339331-containing distal enhancer EH38E2496909",
+   "target_gene": "RFX6",
+   "cell_type": "prostate cancer cells/tumors",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "HOXB13 is reported in a GATA2/SMAD4/HOXB13 complex at the rs339331 enhancer, but allele-specific HOXB13 binding is not measured; ref T over alt C is a model, and E09 shows no HOXB13 ChIP-seq peak in LNCaP.",
+     "evidence_ids": [
+      "E06d",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs339331 is inside the dELS EH38E2496909, and a HOXB13-containing transcriptional complex is reported at this prostate cancer risk enhancer.",
+     "evidence_ids": [
+      "E03",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The GATA2/SMAD4/HOXB13 complex at rs339331 is reported to increase RFX6 expression, and L2G independently prioritizes RFX6.",
+     "evidence_ids": [
+      "E05",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The rs339331 enhancer and RFX6 regulation were described in prostate cancer cells/tumors.",
+     "evidence_ids": [
+      "E06c",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "RFX6/6q22 is associated with prostate cancer risk and RFX6 dysregulation is linked to cancer, but if HOXB13 activates RFX6, the ref T allele should raise RFX6 and risk, conflicting with E04 listing C as the prostate-cancer effect allele.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06a",
+      "E06b"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific HOXB13 ChIP or reporter assays should show stronger HOXB13 occupancy on the ref T allele at rs339331.",
+    "HOXB13 knockdown should lower RFX6 expression in prostate cancer cells.",
+    "If HOXB13 activates RFX6, the ref T allele should associate with higher RFX6 expression, which is in tension with E04 if C is the prostate-cancer risk allele."
+   ],
+   "falsified_if": [
+    "allele-specific HOXB13 ChIP or reporter assays show no differential HOXB13 binding at rs339331",
+    "HOXB13 loss does not reduce RFX6 expression in prostate cancer cells",
+    "the GATA2/SMAD4/HOXB13 complex is shown not to occupy this cCRE or not to regulate RFX6"
+   ],
+   "probability": 0.27,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HOXB13"
+  },
+  {
+   "id": "hypothesis_4",
+   "title": "Null: no direct TF-mediated effect of rs339331",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding at rs339331 in prostate cancer cells.",
+    "The GWAS signal is explained by a linked causal variant, a passenger mutation, or no direct allelic effect of this base change.",
+    "RFX6 expression is not directly affected by the T-to-C change at rs339331."
+   ],
+   "falsified_if": [
+    "allele-specific TF ChIP or reporter assays show differential binding at rs339331 in prostate cancer cells",
+    "CRISPR base editing at rs339331 alone changes RFX6 expression or a prostate cancer phenotype",
+    "fine-mapping shows rs339331 itself is the causal variant rather than a linked variant"
+   ],
+   "probability": 0.25,
+   "rank": 3,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "hypothesis_3",
+   "title": "GATA2 binds the alt C allele in the rs339331 enhancer complex and activates RFX6",
+   "is_null": false,
+   "tf": "GATA2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "rs339331-containing distal enhancer EH38E2496909",
+   "target_gene": "RFX6",
+   "cell_type": "prostate cancer cells/tumors",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GATA2 is reported in the GATA2/SMAD4/HOXB13 complex at rs339331, but allele-specific GATA2 binding is not measured; alt C over ref T is a model, not established.",
+     "evidence_ids": [
+      "E06d"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs339331 lies in the dELS EH38E2496909, and a GATA2-containing transcriptional complex is reported at this enhancer.",
+     "evidence_ids": [
+      "E03",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The GATA2-containing complex at rs339331 is reported to increase RFX6 expression, and L2G prioritizes RFX6.",
+     "evidence_ids": [
+      "E05",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant context is prostate cancer cells/tumors, where the rs339331 enhancer complex and RFX6 regulation were described.",
+     "evidence_ids": [
+      "E06c",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The alt C allele is the E04 prostate-cancer effect allele; GATA2 activation on C would increase RFX6 and fit the association, although direct perturbation evidence is lacking.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06a",
+      "E06b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GATA2 ChIP or reporter assays should show stronger GATA2 occupancy on the alt C allele at rs339331.",
+    "GATA2 knockdown should reduce RFX6 expression in prostate cancer cells.",
+    "The alt C allele should associate with higher RFX6 expression if GATA2-mediated activation is causal."
+   ],
+   "falsified_if": [
+    "GATA2 ChIP or reporter assays show no allele-specific GATA2 binding at rs339331",
+    "GATA2 knockdown does not change RFX6 expression in prostate cancer cells",
+    "GATA2 is shown not to be part of the functional complex at this enhancer"
+   ],
+   "probability": 0.13,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA2"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "hypothesis_1",
+   "tf": "AR",
+   "is_null": false,
+   "probability": 0.34,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "hypothesis_2",
+   "tf": "HOXB13",
+   "is_null": false,
+   "probability": 0.24,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "hypothesis_3",
+   "tf": "GATA2",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "hypothesis_4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.32,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E06c directly states that rs339331 is in a reprogrammed androgen receptor (AR) binding site in prostate cancer tumors and that the T allele enhances AR chromatin occupancy. Caveat: this conflicts with E04, which lists C as the prostate-cancer effect/risk allele, so allele coding must be checked."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places rs339331 inside the distal enhancer-like cCRE EH38E2496909, and E06c/E06d describe this region as a prostate cancer risk-associated AR/transcriptional-complex enhancer."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "RFX6 is supported as the nearby/L2G-prioritized gene (E02, E05, E06b, E06d), but the AR-specific link to increased RFX6 is not directly shown. E06d implicates a GATA2/SMAD4/HOXB13 complex, not AR, as the RFX6-increasing complex."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E06c and E06d provide prostate cancer context for the AR-bound rs339331 enhancer. They are not LNCaP-specific, so the LNCaP representation is an extrapolation."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04/E05/E06b support a prostate cancer association at 6q22/RFX6, and E06a supports RFX6 dysregulation in cancer. However, this is association/review evidence rather than perturbation, and the risk-allele direction is internally inconsistent: E04 prostate cancer effect allele is C, while E06c calls T the risk allele."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E06d places HOXB13 in a GATA2/SMAD4/HOXB13 complex at the rs339331 enhancer, but it does not measure allele-specific HOXB13 binding. The claim that HOXB13 binds the ref T allele more strongly is not directly supported, and the T-risk direction conflicts with E04's C effect allele."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places rs339331 in the dELS EH38E2496909, and E06d reports occupancy of a HOXB13-containing complex at this prostate cancer risk enhancer."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E06d directly states that the GATA2/SMAD4/HOXB13 complex at the rs339331/6q22 enhancer increases RFX6 expression, and E05 independently prioritizes RFX6 by L2G."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E06c and E06d describe the rs339331 enhancer and RFX6 regulation in prostate cancer cells/tumors."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "RFX6/6q22 is associated with prostate cancer in E04/E05/E06b and RFX6 dysregulation is discussed in E06a, but there is no direct perturbation evidence, and risk-allele direction is unresolved."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E06d puts GATA2 in the complex at the rs339331 enhancer, but does not measure allele-specific GATA2 binding. The claim that GATA2 binds the alt C allele more strongly is unsupported; only complex occupancy at the element is indirect evidence."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places rs339331 in the dELS EH38E2496909, and E06d reports a GATA2-containing transcriptional complex at this enhancer."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E06d reports that the GATA2/SMAD4/HOXB13 complex at rs339331 leads to increased RFX6 expression, and E05 prioritizes RFX6 as the L2G gene."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E06c and E06d provide prostate cancer context for rs339331 enhancer activity and RFX6 regulation."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04/E05/E06b support the 6q22/RFX6 prostate cancer association, and E06a supports RFX6 relevance in cancer, but there is no direct functional perturbation and the allele direction is uncertain."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E06c directly reports rs339331 in a reprogrammed AR binding site in PCa tumors with T allele enhancing AR occupancy. E08 only says no AR ChIP peak in LNCaP, limiting LNCaP but not the PCa tumor claim."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places rs339331 inside dELS EH38E2496909, and E06c describes the site as an AR-bound reprogrammed PCa site; together this supports the enhancer/AR-bound element link."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "RFX6 assignment is supported by proximity (E02), L2G (E05), and literature (E06b/E06d), but AR-specific regulation of RFX6 is not directly shown; E07 reports no significant prostate eQTL."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "AR occupancy is reported in PCa tumors (E06c/E06d), but LNCaP is not supported: E08 explicitly lacks an AR ChIP-seq peak in LNCaP, so LNCaP remains an extrapolation."
+  },
+  {
+   "hypothesis_id": "hypothesis_1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports C as the prostate-cancer effect allele, and E05/E06a/E06b support RFX6/6q22 association, but the repressive-AR mechanism and C-to-RFX6 derepression are unshown. E06c labels T as the risk allele, conflicting with E04."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E06d reports HOXB13 in a GATA2/SMAD4/HOXB13 complex at the rs339331 enhancer, but allele-specific HOXB13 binding is not measured. E09 shows no HOXB13 ChIP-seq peak in LNCaP, so ref-T-over-alt-C is a model."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places rs339331 in dELS EH38E2496909, and E06d reports a HOXB13-containing complex at this PCa risk enhancer."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E06d reports that the GATA2/SMAD4/HOXB13 complex at rs339331 leads to increased RFX6 expression, and E05 independently prioritizes RFX6 by L2G."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E06c/E06d describe the rs339331 enhancer and RFX6 regulation in prostate cancer cells/tumors."
+  },
+  {
+   "hypothesis_id": "hypothesis_2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The proposed phenotype direction requires ref T to activate RFX6 and increase risk, but E04 lists C as the prostate-cancer effect allele. E04/E05/E06a/E06b support RFX6/6q22 association in general, not the ref-T-risk direction."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E06d reports GATA2 in the rs339331 enhancer complex, but allele-specific GATA2 binding is not measured; alt-C-over-ref-T is a model, not established."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places rs339331 in dELS EH38E2496909, and E06d reports a GATA2-containing transcriptional complex at this enhancer."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E06d reports that the GATA2-containing complex at rs339331 increases RFX6 expression, and E05 prioritizes RFX6 by L2G."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E06c/E06d describe the rs339331 enhancer complex and RFX6 regulation in prostate cancer cells/tumors."
+  },
+  {
+   "hypothesis_id": "hypothesis_3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports C as the prostate-cancer effect allele, and E05/E06a/E06b support RFX6/6q22 association, but GATA2 binding to C and C-mediated RFX6 activation are not directly shown."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs339331 allele-specific AR HOXB13 GATA2 binding prostate cancer\"}",
+   "resolves": "H1.binding",
+   "why": "Would directly test whether any literature reports allele-specific AR, HOXB13, or GATA2 binding at rs339331, the weakest point shared by H1-H3."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Prostate\"}",
+   "resolves": "H1.gene",
+   "why": "Would test whether rs339331 is an eQTL for RFX6 in prostate and whether the C vs T allele increases or decreases RFX6 expression, resolving the central direction conflict."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"HOXB13\",\"biosample\":\"LNCaP\"}",
+   "resolves": "H2.binding",
+   "why": "Would test whether HOXB13 actually occupies the rs339331-containing element in a prostate cancer cell line; occupancy would support H2.element more than H2.binding, since allele specificity still needs an allelic assay."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Prostate"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "LNCaP",
+    "tf": "AR"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "LNCaP",
+    "tf": "HOXB13"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific AR ChIP-qPCR at rs339331 in a heterozygous prostate cancer line such as LNCaP",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "hypothesis_1",
+     "outcome": "AR occupancy is higher on the ref T allele at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_2",
+     "outcome": "No AR occupancy or no AR allele-specific effect at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_3",
+     "outcome": "No AR occupancy or no AR allele-specific effect at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_4",
+     "outcome": "No allele-specific TF binding at rs339331."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific HOXB13 ChIP-qPCR at rs339331 in a heterozygous prostate cancer line",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "hypothesis_1",
+     "outcome": "No HOXB13 occupancy or no HOXB13 allele-specific effect at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_2",
+     "outcome": "HOXB13 occupancy is higher on the ref T allele at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_3",
+     "outcome": "No HOXB13 occupancy or no HOXB13 allele-specific effect at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_4",
+     "outcome": "No allele-specific TF binding at rs339331."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific GATA2 ChIP-qPCR at rs339331 in a heterozygous prostate cancer line",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "hypothesis_1",
+     "outcome": "No GATA2 occupancy or no GATA2 allele-specific effect at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_2",
+     "outcome": "No GATA2 occupancy or no GATA2 allele-specific effect at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_3",
+     "outcome": "GATA2 occupancy is higher on the alt C allele at rs339331."
+    },
+    {
+     "hypothesis_id": "hypothesis_4",
+     "outcome": "No allele-specific TF binding at rs339331."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific RFX6 reporter assay in prostate cancer cells, or a well-powered prostate eQTL analysis",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "hypothesis_1",
+     "outcome": "If AR is repressive, the alt C allele gives higher RFX6 expression than ref T."
+    },
+    {
+     "hypothesis_id": "hypothesis_2",
+     "outcome": "The ref T allele gives higher RFX6 expression than alt C."
+    },
+    {
+     "hypothesis_id": "hypothesis_3",
+     "outcome": "The alt C allele gives higher RFX6 expression than ref T."
+    },
+    {
+     "hypothesis_id": "hypothesis_4",
+     "outcome": "No allele-specific difference in RFX6 expression."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPR base editing of rs339331 from T to C in a heterozygous prostate cancer cell line",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "hypothesis_1",
+     "outcome": "Editing T to C reduces AR occupancy and, if AR is repressive, increases RFX6 expression."
+    },
+    {
+     "hypothesis_id": "hypothesis_2",
+     "outcome": "Editing T to C reduces HOXB13 occupancy and lowers RFX6 expression."
+    },
+    {
+     "hypothesis_id": "hypothesis_3",
+     "outcome": "Editing T to C increases GATA2 occupancy and increases RFX6 expression."
+    },
+    {
+     "hypothesis_id": "hypothesis_4",
+     "outcome": "Editing T to C has no effect on TF occupancy or RFX6 expression."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The single cheapest experiment separating the top two chains (hypothesis_1 AR vs hypothesis_2 HOXB13) is allele-specific AR ChIP-qPCR at rs339331 in a heterozygous prostate cancer line such as LNCaP: hypothesis_1 predicts AR occupancy higher on ref T, whereas hypothesis_2 predicts no AR occupancy or no AR allele-specific effect at this element.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/6:116888889-116888889:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr6:116888889:T>C (GRCh38), allele string T/C\nKnown IDs: rs339331\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 1.28\nTranscript consequences: RFX6 (intron_variant); RFX6 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/6:115888889-117888889?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:26:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "24 protein-coding genes within 1000 kb of chr6:116888889:T>C, by distance to TSS:\nRFX6: 11.7 kb from TSS (in gene body, strand +1)\nGPRC6A: 59.8 kb from TSS (upstream, strand -1)\nFAM162B: 123.1 kb from TSS (upstream, strand -1)\nKPNA5: 207.7 kb from TSS (downstream, strand +1)\nZUP1: 220.1 kb from TSS (upstream, strand -1)\nRSPH4A: 272.4 kb from TSS (downstream, strand +1)\nRWDD1: 317.5 kb from TSS (downstream, strand +1)\nTRAPPC3L: 343.2 kb from TSS (upstream, strand -1)\nCALHM4: 359.9 kb from TSS (downstream, strand +1)\nVGLL2: 376.7 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E2496909 (dELS: distal enhancer-like), chr6:116888741-116889057.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2496909 dELS (contains the variant): DNase z 2.2, H3K27ac z 1.7, H3K4me3 z 1.4, CTCF z 1.5; nearby genes RFX6, GPRC6A, FAM162B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs339331&size=100",
+   "retrieved_utc": "2026-10-25T17:26:01+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "13 GWAS Catalog associations for rs339331, strongest first:\nProstate cancer: p 5.0e-20, effect allele C, risk-allele frequency 0.367114986, PMID 32514122\nPhospholipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nTotal lipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nConcentration of small HDL particles: p 5.0e-12, effect allele C, risk-allele frequency NR, PMID 41044249\nCholesterol in Small HDL: p 1.0e-11, effect allele C, risk-allele frequency NR, PMID 41044249\nProstate-specific antigen levels: p 4.0e-09, effect allele T, risk-allele frequency NR, PMID 39930085"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "95 credible sets contain 6_116888889_T_C: 94 GWAS, 1 molecular QTL.\nGWAS Cancer of prostate (PheCode 185): PIP 0.23; L2G RFX6 0.87, GPRC6A 0.05\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.42, GPRC6A 0.12\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.75, GPRC6A 0.06\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.27, GPRC6A 0.16\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.61\nGWAS Cancer of prostate (PheCode 185): PIP 0.06; L2G RFX6 0.75\npqtl for SCG2 (UKB_PPP_EUR_SCG2_P13521_OID21400_v1): PIP 0.01\nBest L2G gene scores across these sets: RFX6 0.87, NUS1 0.55, GPRC6A 0.38, ROS1 0.11"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs339331%20AND%20RFX6%20AND%20%22prostate%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 67 hits for 'rs339331 AND RFX6 AND \"prostate cancer\"'; top 7 with PMIDs:\nPMID 41422049 (2025): Multifaceted functions of transcription regulatory factor X6 (RFX6): from pancreatic development to cancer progression.\nPMID 38932472 (2024): An Inherited Allele Confers Prostate Cancer Progression and Drug Resistance via RFX6/HOXA10-Orchestrated TGF\u03b2 Signaling.\nPMID 40181298 (2025): Genetic associations of prostate cancer in China: a systematic review.\nPMID 37550764 (2023): GATA2 co-opts TGF\u03b21/SMAD4 oncogenic signaling and inherited variants at 6q22 to modulate prostate cancer progression.\nPMID 41374944 (2025): The Clinical Relevance of Tumor Biomarkers in Prostate Cancer-A Review.\nPMID 38052806 (2023): Prostate cancer genetic risk and associated aggressive disease in men of African ancestry.\nPMID 41432001 (2026): Insights into human history and complex traits from the genomes of African populations."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41422049",
+   "url": "https://europepmc.org/article/MED/41422049",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Dysregulated expression or mutations of the RFX6 gene in prostate cancer, hepatocellular carcinoma, gastric cancer, melanoma, and other tumors have garnered significant interest, with studies showing that such alterations affect tumor cell proliferation, migration, and invasion, and are correlated with an unfavorable clinical prognosis in patients carrying RFX6 mutations."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Here the FinnGen cohort phenome-wide analysis, along with multiple genome-wide association studies, has consistently identified the rs339331-RFX6/6q22 locus associated with prostate cancer (PCa) risk across diverse populations."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "It is uncovered that rs339331 resides in a reprogrammed androgen receptor (AR) binding site in PCa tumors, with the T risk allele enhancing AR chromatin occupancy."
+  },
+  {
+   "id": "E06d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37550764",
+   "url": "https://europepmc.org/article/MED/37550764",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Strinkingly, GATA2 and SMAD4 globally mediated inherited PCa risk and formed a transcriptional complex with HOXB13 at the PCa risk-associated rs339331/6q22 enhancer, leading to increased expression of the PCa susceptibility gene RFX6."
+  },
+  {
+   "id": "E06e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38052806",
+   "url": "https://europepmc.org/article/MED/38052806",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Notable genes of interest include HCP5, RFX6 and H3C1 for risk, and MKI67 and KLF5 for aggressive disease."
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr6_116888889_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr6_116888889_T_C_b38 in tissues matching 'Prostate'. NES is the effect of the alt allele (C) relative to ref (T)."
+  },
+  {
+   "id": "E08",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:23+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE AR ChIP-seq peak contains chr6:116888889:T>C in biosamples matching 'LNCaP'. Absence can also mean no AR experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E09",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE HOXB13 ChIP-seq peak contains chr6:116888889:T>C in biosamples matching 'LNCaP'. Absence can also mean no HOXB13 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  }
+ ]
+}

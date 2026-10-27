@@ -1,0 +1,1093 @@
+{
+ "case_id": "rs339331",
+ "variant": "rs339331",
+ "variant_key": "chr6:116888889:T>C",
+ "disease": "Prostate cancer (6q22)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000977 (LNCaP clone FGC)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.6098,
+ "seconds": 190.7,
+ "model_calls": 7,
+ "screen": {
+  "n_pass": 487,
+  "top_groups": [
+   {
+    "label": "Homeodomain, 4 models",
+    "z": -103.49,
+    "best_tf": "HOXB13"
+   },
+   {
+    "label": "Homeodomain, 18 models",
+    "z": -84.28,
+    "best_tf": "HOXC10"
+   },
+   {
+    "label": "IRF, 2 models",
+    "z": 56.39,
+    "best_tf": "IRF6"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": 47.33,
+    "best_tf": "PRDM4"
+   },
+   {
+    "label": "IRF, 1 model",
+    "z": 44.89,
+    "best_tf": "IRF3"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "Ref T preserves a HOXB13 site in the 6q22 enhancer, supporting the GATA2/SMAD4/HOXB13 complex and RFX6 expression",
+   "is_null": false,
+   "tf": "HOXB13",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "cCRE EH38E2496909 (distal enhancer-like, chr6:116888741-116889057)",
+   "target_gene": "RFX6",
+   "cell_type": "AR-positive prostate luminal/tumor epithelium (LNCaP, ACH-000977)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC own model of HOXB13 predicts a large loss of binding with alt C (z -103.5, effect -4.77; ref 99.9th vs alt 97.2nd percentile of k-mer coefficients), so ref T binds more; within group G024 HOXB13 is chosen because it is by far the most expressed member in LNCaP (182 TPM vs HOXC13 4.1, HOXA13/HOXD13 ~0). This is in vitro prediction only: ENCODE shows no HOXB13 peak at the site in LNCaP, though that may reflect no matching experiment.",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a distal enhancer-like cCRE, described in the literature as the rs339331/6q22 prostate risk enhancer at which GATA2, SMAD4 and HOXB13 form a complex; cCRE z-scores are maxima across biosamples, not LNCaP-specific.",
+     "evidence_ids": [
+      "E03",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer acts on RFX6: the variant is intronic to RFX6, RFX6 is the top L2G gene (0.87), and the HOXB13-containing complex at this enhancer is reported to increase RFX6 expression; no prostate eQTL is detected in GTEx v8, so the effect, if real, is below GTEx power or context-specific.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E05",
+      "E06d",
+      "E19"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HOXB13 is abundantly expressed in LNCaP (182 TPM) and the enhancer was characterized in prostate tumors and prostate lines; no LNCaP-specific allele-resolved chromatin data was retrieved.",
+     "evidence_ids": [
+      "E08",
+      "E06d",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered RFX6 dosage from this enhancer affects proliferation, migration and TGFbeta-driven progression and the locus is genome-wide significant for prostate cancer; note the direction tension: E04 lists C as the prostate cancer effect allele while E06c calls T the risk/AR-enhancing allele and the PSA effect allele is T, so the risk direction is not settled.",
+     "evidence_ids": [
+      "E04",
+      "E06a",
+      "E06b",
+      "E06c"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific HOXB13 ChIP (or ChIP in heterozygous tumors) shows stronger occupancy on the T allele at chr6:116888889.",
+    "HOXB13 knockdown in LNCaP reduces RFX6 mRNA and reduces enhancer reporter activity in a T-allele-dependent manner.",
+    "Base editing T>C at this single base lowers RFX6 in AR-positive prostate lines."
+   ],
+   "falsified_if": [
+    "HOXB13 ChIP in prostate chromatin with an actual HOXB13 experiment shows no occupancy at EH38E2496909 or no allelic imbalance.",
+    "HOXB13 knockdown leaves the enhancer activity and RFX6 unchanged."
+   ],
+   "probability": 0.32,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HOXB13"
+  },
+  {
+   "id": "H5",
+   "title": "Null: rs339331 is a tag for another causal variant on the 6q22 haplotype, with no TF-mediated effect of its own",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Fine-mapping PIP for rs339331 stays modest (0.06-0.23) and a linked variant in the credible set carries the signal.",
+    "Base editing only this base leaves RFX6 expression and enhancer reporter activity unchanged in prostate cells.",
+    "No allele-specific TF occupancy at this exact base in heterozygous prostate chromatin; GTEx prostate shows no eQTL (already observed)."
+   ],
+   "falsified_if": [
+    "A single-base allele swap or MPRA reproducibly changes RFX6 expression or enhancer activity.",
+    "Allele-specific AR or HOXB13 ChIP imbalance is demonstrated at this base."
+   ],
+   "probability": 0.29,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H6",
+   "title": "Ref T strengthens a reprogrammed AR binding site at the 6q22 enhancer, increasing RFX6",
+   "is_null": false,
+   "tf": "AR",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "cCRE EH38E2496909",
+   "target_gene": "RFX6",
+   "cell_type": "AR-positive prostate tumor epithelium",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Published functional work states rs339331 resides in a reprogrammed AR binding site in prostate tumors, with the T risk allele enhancing AR chromatin occupancy; this is direct allele-specific occupancy evidence rather than an in vitro model. AR was not assessed by QBiC here, and ENCODE shows no AR peak at the site in LNCaP biosamples (which may reflect the absence of a matching AR experiment or a tumor-specific reprogrammed site).",
+     "evidence_ids": [
+      "E06c",
+      "E20"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "The site is an annotated distal enhancer-like cCRE and is the enhancer described at 6q22 in the AR/GATA2/HOXB13 literature.",
+     "evidence_ids": [
+      "E03",
+      "E06c",
+      "E06d"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer's target is RFX6 (L2G 0.87, intronic to RFX6, literature states the complex increases RFX6 expression); GTEx prostate shows no significant eQTL, consistent with a tumor- or androgen-context-dependent effect.",
+     "evidence_ids": [
+      "E05",
+      "E01",
+      "E06d",
+      "E19"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The reprogrammed AR site was mapped in prostate cancer tumors, i.e. AR-positive malignant epithelium rather than normal prostate.",
+     "evidence_ids": [
+      "E06c"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Allele-dependent AR occupancy drives RFX6/HOXA10-orchestrated TGFbeta signaling linked to progression and drug resistance, in a locus genome-wide significant for prostate cancer and PSA levels (T is the PSA effect allele).",
+     "evidence_ids": [
+      "E06b",
+      "E06c",
+      "E04",
+      "E06a"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "AR ChIP-seq in androgen-stimulated prostate tumor cells heterozygous at rs339331 shows T-allele-biased reads; HOXB13 ChIP shows little or no allelic bias.",
+    "Enhancer reporter activity is androgen-dependent and higher with the T allele; enzalutamide abolishes the allelic difference.",
+    "AR knockdown, more than HOXB13 knockdown, collapses the allelic difference in RFX6 expression."
+   ],
+   "falsified_if": [
+    "AR ChIP in heterozygous tumor material shows no peak or no allelic imbalance at this base.",
+    "Enhancer activity is androgen-independent and unaffected by AR depletion."
+   ],
+   "probability": 0.26,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "AR"
+  },
+  {
+   "id": "H2",
+   "title": "Ref T preserves a broader posterior-HOX specificity site (HOXC6) acting on RFX6",
+   "is_null": false,
+   "tf": "HOXC6",
+   "qbic_coverage": "mapped",
+   "allele_binding_more": "ref",
+   "element": "cCRE EH38E2496909",
+   "target_gene": "RFX6",
+   "cell_type": "Prostate tumor epithelium (LNCaP)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC group G004 (18 concordant homeodomain models, best HOXC10 z -84.3, effect -4.46; ref 100th vs alt 89.4th percentile) indicates alt C weakens an AT-rich posterior-HOX site. This group is a shared specificity, not one TF; among the covered members HOXC6 is the most expressed in LNCaP (18.4 TPM vs HOXA10 4.2, HOXC10 1.9), so HOXC6 is the best candidate on expression grounds. HOXC6 is covered only via CIS-BP-mapped models.",
+     "evidence_ids": [
+      "E09",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The same dELS cCRE contains the predicted homeodomain site; literature places a homeodomain-containing complex at this enhancer, though it names HOXB13 rather than HOXC6.",
+     "evidence_ids": [
+      "E03",
+      "E06d"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "RFX6 is the credible-set target (L2G 0.87) and the variant is in its intron.",
+     "evidence_ids": [
+      "E05",
+      "E01"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Several posterior HOX factors are expressed in LNCaP, so loss of this site is realizable in prostate cells; no occupancy data for HOXC6 at this element was retrieved.",
+     "evidence_ids": [
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Reduced RFX6 enhancer drive in prostate epithelium would alter RFX6-dependent TGFbeta signaling at a locus genome-wide significant for prostate cancer.",
+     "evidence_ids": [
+      "E04",
+      "E06a",
+      "E06b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "HOXC6 (or another non-HOXB13 posterior HOX) ChIP shows occupancy and allelic bias at the element; HOXB13 knockdown alone does not abolish the allelic difference.",
+    "Mutating the AT-rich posterior-HOX core, leaving the HOXB13-preferred core intact, still reduces reporter activity."
+   ],
+   "falsified_if": [
+    "HOXC6 depletion does not change RFX6 or enhancer activity.",
+    "All homeodomain occupancy at the element is attributable to HOXB13."
+   ],
+   "probability": 0.08,
+   "rank": 4,
+   "coverage_status": "mapped",
+   "resolved_symbol": "HOXC6"
+  },
+  {
+   "id": "H3",
+   "title": "Alt C creates an IRF6 site that alters enhancer output",
+   "is_null": false,
+   "tf": "IRF6",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "cCRE EH38E2496909",
+   "target_gene": "RFX6",
+   "cell_type": "Prostate tumor epithelium (LNCaP)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC own model of IRF6 gives the strongest IRF gain with alt C (z 56.4, effect 2.92; ref 73rd vs alt 98.5th percentile), with concordant gains for IRF3 (z 44.9) and IRF2 (z 25.4); IRF6 is chosen as the single TF because it has the top z in the IRF groups and is well expressed in LNCaP (38.4 TPM).",
+     "evidence_ids": [
+      "E10",
+      "E12",
+      "E14"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The gained site falls inside the same distal enhancer-like cCRE; whether an added IRF site raises or lowers output is unknown.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "Any change in this enhancer's output would act on RFX6, the mapped target gene; there is no evidence for an IRF-dependent effect on RFX6, and no prostate eQTL is seen.",
+     "evidence_ids": [
+      "E05",
+      "E19"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "IRF6 and IRF3 are expressed in LNCaP, so an alt-specific IRF site could be occupied in prostate cells; no occupancy data were retrieved.",
+     "evidence_ids": [
+      "E10",
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If the C allele (the GWAS prostate cancer effect allele) gains IRF6 binding and raises enhancer output, higher RFX6 would promote proliferation and progression; this specific direction is untested.",
+     "evidence_ids": [
+      "E04",
+      "E06a"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "IRF6 ChIP or CUT&RUN shows C-allele-specific occupancy at chr6:116888889.",
+    "IRF6 knockdown removes the allelic difference in reporter activity; interferon stimulation modulates the allelic difference.",
+    "Allelic effect is retained in AR-negative or androgen-deprived cells."
+   ],
+   "falsified_if": [
+    "No IRF6 occupancy at this element in prostate chromatin.",
+    "Allelic reporter difference persists unchanged after IRF6 depletion."
+   ],
+   "probability": 0.05,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "IRF6"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "HOXB13",
+   "is_null": false,
+   "probability": 0.47,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "HOXA10",
+   "is_null": false,
+   "probability": 0.14,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "IRF3",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "HOXB13",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H5",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.23,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The QBiC own-model HOXB13 loss with alt (z -103.5) is a prediction only, and HOXB13 is chosen by expression within the group. E06c says T enhances AR occupancy, not HOXB13 occupancy at the SNP. E06d puts HOXB13 in a complex at the enhancer but is not allele-specific."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 shows the variant lies in a dELS cCRE. E06c and E06d place rs339331 in a reprogrammed AR site and a GATA2/SMAD4/HOXB13 enhancer. The cCRE marks are only maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E06d states the complex at this enhancer increases RFX6 expression. This is backed by L2G 0.87, an intronic position in RFX6 and PIP up to 0.23. There is no eQTL or CRISPR evidence here, but the literature is direct."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HOXB13 is at 182 TPM in LNCaP and the AR site was mapped in PCa tumors (E06c). No LNCaP-specific allelic or chromatin evidence for this element was shown, since the z-scores are max across biosamples."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The GWAS association is strong (p 5e-20) and the RFX6 literature links it to progression. The direction fits T as the allele that enhances AR binding, but E04 lists C as the prostate cancer effect allele. The chain does not reconcile the T-risk claim with C as the GWAS effect allele, and there is no RFX6 dependency or expression data."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "G004 is a shared homeodomain specificity. HOXA10 is only 4.2 TPM and was picked because the literature links it to RFX6, which is not a binding argument. E06b names HOXA10 as an RFX6 mediator, not as binding at this SNP. HOXC6 is more expressed."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "The cCRE is supported by E03. The claim that the homeodomain motifs here are occupied relies on E06d, which names HOXB13, not HOXA10."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "RFX6 has L2G 0.87 and is intronic. The literature supports the enhancer increasing RFX6 expression. This is the same evidence as H1 and not specific to HOXA10."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HOXA10 at 4.2 TPM in LNCaP indicates low expression. There is no evidence that it occupies this site in prostate cells."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06b title links HOXA10 to RFX6 and TGFb in progression, but no quote ties HOXA10 to this allele's binding. The GWAS association is general."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Several IRFs gain binding with alt in the prediction. Choosing IRF3 by expression is arbitrary, since IRF6 has the best z and IRF3 has an own model. Only in vitro prediction, with no motif-level reasoning."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "The cCRE is supported, but the claim that IRF binding interferes with the HOX/AR complex is speculative with no evidence."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "There is no evidence that IRF binding represses this enhancer or lowers RFX6. E06d shows the complex increases RFX6, so the repression mechanism is unsupported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Expression of IRF3 (54 TPM) and IRF6 (38 TPM) is shown, but occupancy at this site in prostate cells is not."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The claim that dosage in either direction raises risk is unfalsifiable. The cited evidence does not support an IRF-mediated phenotype. E04 shows the C allele is the prostate cancer risk allele, but nothing connects it to IRF binding or repression."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "It reuses the HOXB13 prediction (weak, in vitro only), as in H1."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "SCREEN lists GPRC6A among nearby genes, but this is proximity annotation and not a contact."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "GPRC6A has low L2G (0.05-0.16 per set) against 0.87 for RFX6. The literature points to RFX6. No contact, eQTL or perturbation evidence for GPRC6A."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E08 shows only HOXB13 expression. Nothing cited shows GPRC6A expression in prostate."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 gives only the GWAS association. No evidence for GPRC6A in prostate cancer."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The QBiC own-model HOXB13 loss with alt (E08) is a binding prediction only, and HOXB13 is chosen for expression in LNCaP. E18 shows no HOXB13 peak at the site. The literature (E06d) places HOXB13 in a complex at the enhancer but gives no allele-specific HOXB13 data."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in a dELS cCRE, and E06d names it as the rs339331/6q22 enhancer where GATA2, SMAD4 and HOXB13 form a complex. Biosample-specific cCRE signal is not shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "The variant is intronic to RFX6 (E01), RFX6 has the top L2G of 0.87 (E05), and E06d reports increased RFX6 expression from the complex at this enhancer. GTEx shows no prostate eQTL (E19), which is acknowledged. Support is genetic plus literature, not direct perturbation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HOXB13 expression of 182 TPM in LNCaP (E08) and prostate-tumor literature are consistent with the claim. No LNCaP allele-resolved chromatin data exists, and E18 shows no HOXB13 peak."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The locus is genome-wide significant (E04, E06b) and RFX6 is linked to tumor phenotypes (E06a). The chain itself flags a direction conflict: C is the GWAS effect allele while E06c names T as the risk allele. Direction is unresolved, and E06c is cited for the phenotype link without a clear perturbation."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E06c directly states that rs339331 sits in a reprogrammed AR binding site, with the T allele enhancing AR occupancy. This is allele-specific functional evidence in tumors that matches the ref-binds-more claim. The absence of an ENCODE LNCaP AR peak (E20) is explained as possibly reflecting a missing experiment or a tumor-specific site, and QBiC was not checked."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 gives a dELS cCRE containing the variant, and E06c and E06d place the AR-binding enhancer at this locus."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "gene",
+   "status": "supported",
+   "reason": "The variant is intronic to RFX6 (E01), RFX6 has L2G 0.87 (E05), and the literature reports increased RFX6 expression (E06d). The lack of a GTEx prostate eQTL is noted. This is consistent with the claim, though it is not direct perturbation evidence for AR specifically."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E06c states the reprogrammed AR site was mapped in prostate cancer tumors, which matches the claimed AR-positive tumor epithelium."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06b gives locus-level prostate cancer association and E06a links RFX6 to tumor phenotypes. E04 lists C as the prostate cancer effect allele, which conflicts with the T-risk claim. The citations do not show that allele-dependent AR occupancy drives the RFX6/HOXA10/TGFbeta signaling (the title of PMID 38932472 only hints at it), and PSA direction is mixed in the argument."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The group-level QBiC prediction (E09) is a shared homeodomain specificity. HOXC6 is selected by TPM and covered only through CIS-BP mapping, and no HOXC6 evidence is cited. A binding prediction alone is weak at best."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 gives the dELS cCRE, but the literature (E06d) names HOXB13 rather than HOXC6, so the cited evidence is only indirectly relevant to a HOXC6 site."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 shows the variant is intronic to RFX6 and E05 gives RFX6 the top L2G of 0.87, so the enhancer-to-RFX6 link is supported genetically. It does not specifically bear on HOXC6."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E09 shows posterior HOX factors expressed in LNCaP, but only at low TPM, and no HOXC6 occupancy data is cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The locus is associated with prostate cancer (E04, E06b) and RFX6 is implicated in tumor phenotypes (E06a). Nothing connects HOXC6 or an AT-rich posterior-HOX site to RFX6 dose or the phenotype."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The QBiC own-model IRF6 gain (E10, with IRF3 in E12 and IRF2 in E14) is a binding prediction only. IRF6 is chosen on top z and TPM from a group with no further justification, and nothing cited shows IRF binding."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports that the variant is in a dELS cCRE, but nothing links an IRF site to this element, and the effect direction on output is stated as unknown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "The chain admits there is no evidence for an IRF-dependent effect on RFX6. E05 and E19 support RFX6 as the target gene but do not support an IRF mechanism, and E19 shows no prostate eQTL."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E10 and E12 show IRF6 and IRF3 expressed in LNCaP, which makes occupancy plausible. No occupancy data is cited."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The claimed direction (C gains IRF6 binding, raises output, raises RFX6) is stated as untested. E04 and E06a do not bear on IRF6."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"HOXB13\",\"biosample\":\"LNCaP\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether HOXB13 occupies the variant in LNCaP. Absence would also undercut the H2 binding link."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Prostate\"}",
+   "resolves": "H1.gene",
+   "why": "Checks the allele-specific effect on RFX6 versus GPRC6A in prostate, discriminating H1 from H4."
+  },
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"HOXA10\"}",
+   "resolves": "H2.binding",
+   "why": "Confirms whether HOXA10 has its own model or only mapped coverage."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "HOXB13",
+    "biosample": "LNCaP"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Prostate"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "AR",
+    "biosample": "LNCaP"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Reanalyze existing public AR and HOXB13 ChIP-seq from prostate tumors/lines heterozygous at rs339331 for allelic read imbalance",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "HOXB13 reads biased to T (AR bias secondary or absent)"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "AR reads biased to T; HOXB13 bias minimal"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No HOXB13 imbalance; any homeodomain signal from other HOX factors"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No AR or HOXB13 imbalance"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No allelic imbalance for either factor"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Androgen-dependent allelic luciferase/MPRA of the 316 bp cCRE (T vs C) in LNCaP, +/- DHT and +/- enzalutamide",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "T > C activity, largely androgen-independent"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "T > C only with DHT; difference lost with enzalutamide"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "T > C activity, androgen-independent"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "C > T activity, modulated by interferon"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No allelic difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "siRNA/degron knockdown of HOXB13 vs AR in LNCaP, measure RFX6 mRNA and allelic enhancer activity",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "HOXB13 loss reduces RFX6 and abolishes allelic difference"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "AR loss reduces RFX6 and abolishes allelic difference"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Neither fully abolishes it; HOXC6 depletion does"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Neither changes the allelic difference"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "RFX6 may change but no allele-specific component"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Base editing T>C at chr6:116888889 in an AR-positive prostate line, RNA-seq for RFX6 and GPRC6A",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "RFX6 decreases"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "RFX6 decreases, androgen-dependent"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "RFX6 decreases"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "RFX6 increases"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No change in any nearby gene"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "IRF6 CUT&RUN in LNCaP at the element, allele-resolved",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No IRF6 signal"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "No IRF6 signal"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No IRF6 signal"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "C-allele-biased IRF6 signal"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No IRF6 signal"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Reanalyze already-public AR and HOXB13 ChIP-seq datasets from prostate tumors and LNCaP-derived models that are heterozygous at rs339331, counting allele-resolved reads at chr6:116888889. This costs nothing new and directly separates H1 (T-biased HOXB13 occupancy) from H6 (T-biased AR occupancy), while a complete absence of imbalance in either factor supports the null H5.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "coverage_misstated",
+   "detail": "H6: stated not_checked, registry says own_model for AR"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/6:116888889-116888889:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr6:116888889:T>C (GRCh38), allele string T/C\nKnown IDs: rs339331\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 1.28\nTranscript consequences: RFX6 (intron_variant); RFX6 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/6:115888889-117888889?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:26:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "24 protein-coding genes within 1000 kb of chr6:116888889:T>C, by distance to TSS:\nRFX6: 11.7 kb from TSS (in gene body, strand +1)\nGPRC6A: 59.8 kb from TSS (upstream, strand -1)\nFAM162B: 123.1 kb from TSS (upstream, strand -1)\nKPNA5: 207.7 kb from TSS (downstream, strand +1)\nZUP1: 220.1 kb from TSS (upstream, strand -1)\nRSPH4A: 272.4 kb from TSS (downstream, strand +1)\nRWDD1: 317.5 kb from TSS (downstream, strand +1)\nTRAPPC3L: 343.2 kb from TSS (upstream, strand -1)\nCALHM4: 359.9 kb from TSS (downstream, strand +1)\nVGLL2: 376.7 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E2496909 (dELS: distal enhancer-like), chr6:116888741-116889057.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2496909 dELS (contains the variant): DNase z 2.2, H3K27ac z 1.7, H3K4me3 z 1.4, CTCF z 1.5; nearby genes RFX6, GPRC6A, FAM162B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs339331&size=100",
+   "retrieved_utc": "2026-10-25T17:26:01+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "13 GWAS Catalog associations for rs339331, strongest first:\nProstate cancer: p 5.0e-20, effect allele C, risk-allele frequency 0.367114986, PMID 32514122\nPhospholipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nTotal lipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nConcentration of small HDL particles: p 5.0e-12, effect allele C, risk-allele frequency NR, PMID 41044249\nCholesterol in Small HDL: p 1.0e-11, effect allele C, risk-allele frequency NR, PMID 41044249\nProstate-specific antigen levels: p 4.0e-09, effect allele T, risk-allele frequency NR, PMID 39930085"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "95 credible sets contain 6_116888889_T_C: 94 GWAS, 1 molecular QTL.\nGWAS Cancer of prostate (PheCode 185): PIP 0.23; L2G RFX6 0.87, GPRC6A 0.05\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.42, GPRC6A 0.12\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.75, GPRC6A 0.06\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.27, GPRC6A 0.16\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.61\nGWAS Cancer of prostate (PheCode 185): PIP 0.06; L2G RFX6 0.75\npqtl for SCG2 (UKB_PPP_EUR_SCG2_P13521_OID21400_v1): PIP 0.01\nBest L2G gene scores across these sets: RFX6 0.87, NUS1 0.55, GPRC6A 0.38, ROS1 0.11"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs339331%20AND%20RFX6%20AND%20%22prostate%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 67 hits for 'rs339331 AND RFX6 AND \"prostate cancer\"'; top 7 with PMIDs:\nPMID 41422049 (2025): Multifaceted functions of transcription regulatory factor X6 (RFX6): from pancreatic development to cancer progression.\nPMID 38932472 (2024): An Inherited Allele Confers Prostate Cancer Progression and Drug Resistance via RFX6/HOXA10-Orchestrated TGF\u03b2 Signaling.\nPMID 40181298 (2025): Genetic associations of prostate cancer in China: a systematic review.\nPMID 37550764 (2023): GATA2 co-opts TGF\u03b21/SMAD4 oncogenic signaling and inherited variants at 6q22 to modulate prostate cancer progression.\nPMID 41374944 (2025): The Clinical Relevance of Tumor Biomarkers in Prostate Cancer-A Review.\nPMID 38052806 (2023): Prostate cancer genetic risk and associated aggressive disease in men of African ancestry.\nPMID 41432001 (2026): Insights into human history and complex traits from the genomes of African populations."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41422049",
+   "url": "https://europepmc.org/article/MED/41422049",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Dysregulated expression or mutations of the RFX6 gene in prostate cancer, hepatocellular carcinoma, gastric cancer, melanoma, and other tumors have garnered significant interest, with studies showing that such alterations affect tumor cell proliferation, migration, and invasion, and are correlated with an unfavorable clinical prognosis in patients carrying RFX6 mutations."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Here the FinnGen cohort phenome-wide analysis, along with multiple genome-wide association studies, has consistently identified the rs339331-RFX6/6q22 locus associated with prostate cancer (PCa) risk across diverse populations."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "It is uncovered that rs339331 resides in a reprogrammed androgen receptor (AR) binding site in PCa tumors, with the T risk allele enhancing AR chromatin occupancy."
+  },
+  {
+   "id": "E06d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37550764",
+   "url": "https://europepmc.org/article/MED/37550764",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Strinkingly, GATA2 and SMAD4 globally mediated inherited PCa risk and formed a transcriptional complex with HOXB13 at the PCa risk-associated rs339331/6q22 enhancer, leading to increased expression of the PCa susceptibility gene RFX6."
+  },
+  {
+   "id": "E06e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38052806",
+   "url": "https://europepmc.org/article/MED/38052806",
+   "retrieved_utc": "2026-10-25T17:26:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Notable genes of interest include HCP5, RFX6 and H3C1 for risk, and MKI67 and KLF5 for aggressive disease."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr6:116888889:T>C: 997 models scored, 487 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 361 CIS-BP groups. Expression context: DepMap line ACH-000977. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 91 (Homeodomain, 3 models z -77.59, IRF, 2 models z 70.98, Unknown, 1 model z -31.89, bHLH, 1 model z 17.52, Unknown, 1 model z 17.51). predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G024 (Homeodomain, 4 models): best model HOXB13_NA_TGCCTG20NGA_ESY_yang2017_0_3_7mer (own model of HOXB13), z -103.49, effect -4.771 (alt binds less); 4 passing models (4 with the best model's sign). Passing members: HOXB13 z -103.49, HOXA13 z -74.87, HOXD13 z -69.26, HOXC13 z -64.27. TFs this group covers (own and CIS-BP-mapped models): HOXB13 182.31 TPM, HOXC13 4.13 TPM, HOXA13 0.01 TPM, HOXD13 0.01 TPM; best model's site strength: ref 99.9th, alt 97.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G004 (Homeodomain, 18 models): best model HOXC10_FL_TTGGCC40NTCG_KX_yin2017_0_3_7mer (own model of HOXC10), z -84.28, effect -4.457 (alt binds less); 18 passing models (18 with the best model's sign). Passing members: HOXC10 z -84.28, HOXD10 z -80.29, HOXC12 z -75.59, HOXC9 z -71.63, HOXD11 z -68.62 (+13 more). TFs this group covers (own and CIS-BP-mapped models): HOXC6 18.43 TPM, MNX1 8.35 TPM, HOXC12 6.33 TPM, HOXC4 5.27 TPM, HOXA10 4.23 TPM, HOXA6 2.75 TPM, HOXA5 1.94 TPM, HOXC10 1.89 TPM, HOXC9 1.78 TPM, HOXB9 1.77 TPM (+24 more); best model's site strength: ref 100.0th, alt 89.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G080 (IRF, 2 models): best model IRF6_eDBD_TCTAGT40NAAC_KS_yin2017_0_4_7mer (own model of IRF6), z 56.39, effect 2.918 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: IRF6 z 56.39, IRF5 z 16.69. TFs this group covers (own and CIS-BP-mapped models): IRF6 38.37 TPM, IRF5 5.53 TPM; best model's site strength: ref 73.0th, alt 98.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G302 (C2H2 ZF, 1 model): best model PRDM4_eDBD_TAAATC40NGTT_KT_yin2017_0_4_7mer (own model of PRDM4), z 47.33, effect 3.137 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: PRDM4 z 47.33. TFs this group covers (own and CIS-BP-mapped models): PRDM4 10.83 TPM; best model's site strength: ref 99.3th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G213 (IRF, 1 model): best model IRF3_eDBD_TGAGAA40NGCG_KS_yin2017_0_4_7mer (own model of IRF3), z 44.89, effect 2.092 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: IRF3 z 44.89. TFs this group covers (own and CIS-BP-mapped models): IRF3 54.41 TPM; best model's site strength: ref 80.5th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G228 (bHLH, 1 model): best model MAX_FL_TG40NGACCTT_YWN_jolma2025_0_3_7mer (own model of MAX), z 28.99, effect 1.595 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: MAX z 28.99. TFs this group covers (own and CIS-BP-mapped models): MAX 61.61 TPM; best model's site strength: ref 63.6th, alt 96.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G212 (IRF, 1 model): best model IRF2_FL_TTCATT40NTAT_KX_yin2017_0_3_7mer (own model of IRF2), z 25.39, effect 2.187 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: IRF2 z 25.39. TFs this group covers (own and CIS-BP-mapped models): IRF2 8.32 TPM, IRF1 5.75 TPM; best model's site strength: ref 89.1th, alt 99.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G460 (C2H2 ZF, 1 model): best model ZNF230_FL_TG40NGACCTT_YWDA_jolma2025_0_3_7mer (own model of ZNF230), z -23.63, effect -0.439 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF230 z -23.63. TFs this group covers (own and CIS-BP-mapped models): ZNF230 1.65 TPM; best model's site strength: ref 98.9th, alt 93.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G367 (Unknown, 1 model): best model THYN1_FL_TG40NCTGTGG_YWFA_jolma2025_0_4_7mer (own model of THYN1), z 22.24, effect 0.173 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: THYN1 z 22.24. TFs this group covers (own and CIS-BP-mapped models): THYN1 37.42 TPM; best model's site strength: ref 36.3th, alt 74.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G467 (C2H2 ZF, 1 model): best model ZNF260_FL_AT40NCCTTGG_AATA_jolma2025_0_3_7mer (own model of ZNF260), z -20.85, effect -0.516 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF260 z -20.85. TFs this group covers (own and CIS-BP-mapped models): ZNF260 13.26 TPM; best model's site strength: ref 99.5th, alt 92.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE HOXB13 ChIP-seq peak contains chr6:116888889:T>C in biosamples matching 'LNCaP' (0 peaks within 100 bp). Absence can also mean no HOXB13 experiment in that biosample."
+  },
+  {
+   "id": "E19",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr6_116888889_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr6_116888889_T_C_b38 in tissues matching 'Prostate'. NES is the effect of the alt allele (C) relative to ref (T)."
+  },
+  {
+   "id": "E20",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:23+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE AR ChIP-seq peak contains chr6:116888889:T>C in biosamples matching 'LNCaP' (0 peaks within 100 bp). Absence can also mean no AR experiment in that biosample."
+  }
+ ]
+}

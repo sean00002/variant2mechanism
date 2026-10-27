@@ -1,0 +1,584 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.014,
+ "seconds": 118.9,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0_null",
+   "title": "No TF-mediated effect; linked causal variant or non-regulatory passenger",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific CTCF occupancy at rs7001688 in liver-derived cells.",
+    "The variant does not overlap a liver cCRE and does not reproducibly contact FAM110B or CYP7A1 in hepatocytes.",
+    "No significant liver or other-tissue eQTL is found for rs7001688.",
+    "Any LDL association is better explained by a linked causal variant rather than this base."
+   ],
+   "falsified_if": [
+    "An allele-specific CTCF ChIP, reporter assay, or other occupancy assay in hepatocytes shows differential CTCF binding at rs7001688.",
+    "A liver eQTL or chromatin-contact assay connects rs7001688 to a nearby gene in a genotype-dependent way."
+   ],
+   "probability": 0.89,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1_CTCF_ref_FAM110B",
+   "title": "CTCF ref-gain at a cryptic element with distal FAM110B effect",
+   "is_null": false,
+   "tf": "CTCF",
+   "allele_binding_more": "ref",
+   "element": "cryptic or condition-specific CTCF-bound element outside called cCREs",
+   "target_gene": "FAM110B",
+   "cell_type": "Hep3B2.1-7 / hepatocyte context",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF is the only listed bound, expressed TF with a binding model at this site, chosen because E04/E05/E10 report CTCF occupancy and expression, but the only peak containing the variant is in LNCAP, not liver; no QBiC-SELEX evidence for CTCF at this base is supplied, so the hypothesis that ref G binds CTCF more strongly than alt T is speculative.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E10"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is an intronic/intergenic site with no overlapping cCRE; the nearest cCRE is 1544 bp away, and the only CTCF peak containing the variant is outside liver, so any CTCF-bound element here would be cryptic or condition-specific rather than a canonical liver regulatory element.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04",
+      "E05",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest protein-coding gene at 420.6 kb, but GTEx reports no significant eQTL for rs7001688 and the only literature link is a statin-response study involving FAM110B, not a direct rs7001688-to-FAM110B expression link.",
+     "evidence_ids": [
+      "E02",
+      "E08",
+      "E09",
+      "E11"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CTCF is expressed in Hep3B2.1-7, but ENCODE reports no CTCF ChIP peak at this site in the HepG2 liver proxy; the chain requires hepatocyte-specific or condition-specific CTCF occupancy that is not demonstrated.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E10"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If hepatocyte CTCF binding at this cryptic element changed FAM110B expression, it could influence LDL cholesterol, but there is no rs7001688 GWAS, Open Targets, or eQTL support for this variant-to-phenotype link.",
+     "evidence_ids": [
+      "E06",
+      "E07",
+      "E08",
+      "E11"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Ref G allele shows higher CTCF occupancy than alt T at rs7001688 in Hep3B2.1-7 or primary hepatocytes.",
+    "The variant-containing region contacts the FAM110B locus in hepatocytes.",
+    "FAM110B expression is allele-dependent with rs7001688 genotype in liver-derived cells."
+   ],
+   "falsified_if": [
+    "CTCF ChIP or reporter assays in liver-derived cells show no ref-specific gain of CTCF binding at rs7001688.",
+    "Chromatin-contact assays do not link this site to FAM110B, or FAM110B expression is not allele-dependent in hepatocytes."
+   ],
+   "probability": 0.07,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H2_CTCF_alt_CYP7A1",
+   "title": "CTCF alt-gain at a cryptic element with distal CYP7A1 effect",
+   "is_null": false,
+   "tf": "CTCF",
+   "allele_binding_more": "alt",
+   "element": "cryptic or condition-specific CTCF-bound element outside called cCREs",
+   "target_gene": "CYP7A1",
+   "cell_type": "Hep3B2.1-7 / hepatocyte context",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF is the only listed bound, expressed TF with a binding model at this site, chosen because E04/E05/E10 report CTCF occupancy and expression, but the only peak containing the variant is in LNCAP, not liver; no QBiC-SELEX evidence for CTCF at this base is supplied, so the hypothesis that alt T binds CTCF more strongly than ref G is speculative.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E10"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant does not overlap a cCRE and the nearest cCRE is 1544 bp away; the only CTCF peak containing the variant is non-liver, so any CTCF-dependent element would be cryptic or condition-specific.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04",
+      "E05",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "CYP7A1 is 926.8 kb downstream, but GTEx reports no significant eQTL for rs7001688 and no chromatin-contact evidence is supplied; the CYP7A1 link relies on distance and external LDL biology, not on direct variant-to-gene evidence.",
+     "evidence_ids": [
+      "E02",
+      "E08",
+      "E11"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CTCF is expressed in Hep3B2.1-7, but no CTCF ChIP peak is seen at this site in HepG2; the proposed distal effect requires liver-specific CTCF occupancy and long-range looping not shown here.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E10"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If alt-specific CTCF binding altered a distal contact with CYP7A1, changed CYP7A1 expression could influence LDL cholesterol, but there is no rs7001688 GWAS, Open Targets, or eQTL support for this variant-to-phenotype link.",
+     "evidence_ids": [
+      "E06",
+      "E07",
+      "E08",
+      "E11"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Alt T allele shows higher CTCF occupancy than ref G at rs7001688 in Hep3B2.1-7 or primary hepatocytes.",
+    "The variant-containing region contacts the CYP7A1 locus in hepatocytes.",
+    "CYP7A1 expression is allele-dependent with rs7001688 genotype in liver-derived cells."
+   ],
+   "falsified_if": [
+    "CTCF ChIP or reporter assays in liver-derived cells show no alt-specific gain of CTCF binding at rs7001688.",
+    "Chromatin-contact assays do not link this site to CYP7A1, or CYP7A1 expression is not allele-dependent in hepatocytes."
+   ],
+   "probability": 0.04,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.84,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1_CTCF_ref_FAM110B",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2_CTCF_alt_CYP7A1",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.06,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E04/E05 show CTCF as the only listed bound, expressed TF with a model and a CTCF peak containing the variant, but only in LNCAP; there is no HepG2/liver occupancy and no QBiC-SELEX or allele-specific assay showing ref G binds more than alt T. This is at best indirect occupancy evidence for the directional binding claim."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03/E04/E05 directly support that the variant does not overlap a cCRE, the nearest cCRE is 1544 bp away, and the only CTCF peak is outside liver. This supports the stated negative/weak-element characterization, though it does not establish a functional liver element."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 establishes only that FAM110B is the nearest protein-coding gene at 420.6 kb; E08 shows no significant GTEx eQTL and E09 is a statin-response study, not direct evidence that rs7001688 alters FAM110B expression. This is proximity/indirect evidence, not a variant-to-gene link."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 supports CTCF expression in Hep3B2.1-7, and E04/E05 support absence of a HepG2 CTCF peak at this site. This shows the cell-type context is plausible but does not demonstrate the required hepatocyte-specific CTCF occupancy."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The phenotype step is explicitly speculative. E09 concerns FAM110B and statin response, not rs7001688 LDL cholesterol, and no GWAS/eQTL or perturbation evidence connects this variant to LDL via FAM110B."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E04/E05 show CTCF as the only listed bound, expressed TF with a model and a CTCF peak containing the variant in LNCAP, but not in HepG2/liver. There is no QBiC-SELEX or allele-specific assay showing alt T binds more than ref G; this is indirect and does not establish the claimed direction."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03/E04/E05 directly support that the variant lies outside a cCRE, the nearest cCRE is 1544 bp away, and the CTCF peak is non-liver. This supports the claim that any element would be cryptic/condition-specific rather than a canonical liver cCRE."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 establishes only that CYP7A1 is 926.8 kb downstream; E08 shows no significant GTEx eQTL and no chromatin-contact evidence is supplied. The statement that CYP7A1 is the most LDL-relevant nearby gene is external biology, not supported by the cited evidence, and the variant-to-gene link remains unproven."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 supports CTCF expression in Hep3B2.1-7, but E04/E05 show no HepG2 CTCF peak at this site. The distal looping and liver-specific CTCF occupancy required by this chain are not demonstrated."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence ID supports this step. The phenotype claim is a hypothetical consequence of alt-specific CTCF binding and distal CYP7A1 regulation, with no rs7001688 GWAS, eQTL, or perturbation evidence."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "binding",
+   "status": "missing",
+   "reason": "This binding link lacks allele-specific CTCF occupancy in a relevant liver cell type and lacks QBiC-SELEX directionality; the only CTCF peak is in LNCAP and does not establish ref>alt."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "element",
+   "status": "weak",
+   "reason": "Evidence supports absence of a cCRE and only non-liver CTCF occupancy, which is consistent with a cryptic/condition-specific element but does not directly demonstrate a functional liver element."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "gene",
+   "status": "missing",
+   "reason": "FAM110B is only the nearest gene by distance; no eQTL or contact evidence connects rs7001688 to FAM110B, and the cited literature is not variant-specific."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "CTCF expression in Hep3B2.1-7 is shown, but there is no CTCF occupancy at the variant in HepG2/liver, so the required hepatocyte-specific binding is not demonstrated."
+  },
+  {
+   "hypothesis_id": "H1_CTCF_ref_FAM110B",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No GWAS, Open Targets, or eQTL evidence links rs7001688 to LDL cholesterol or to FAM110B expression; the phenotype link is only conditional speculation."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "This binding link lacks allele-specific CTCF occupancy in a relevant liver cell type and lacks QBiC-SELEX directionality; the only CTCF peak is in LNCAP and does not establish alt>ref."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "element",
+   "status": "weak",
+   "reason": "Evidence supports absence of a cCRE and only non-liver CTCF occupancy, which is consistent with a cryptic/condition-specific element but does not directly demonstrate a functional liver element."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "CYP7A1 is 926.8 kb away, with no eQTL or chromatin-contact evidence connecting rs7001688 to CYP7A1; the link relies on distance and external biology only."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "CTCF expression in Hep3B2.1-7 is shown, but there is no CTCF occupancy at the variant in HepG2/liver, so the required liver-specific occupancy and looping are not demonstrated."
+  },
+  {
+   "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No GWAS, Open Targets, or eQTL evidence links rs7001688 to LDL cholesterol or to CYP7A1 expression; the phenotype link is only conditional speculation."
+  }
+ ],
+ "checks": [],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CTCF",
+    "biosample": "HepG2"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Liver"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs7001688"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific CTCF ChIP-qPCR at rs7001688 in Hep3B2.1-7 or primary hepatocytes",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No allele-specific CTCF occupancy at rs7001688."
+    },
+    {
+     "hypothesis_id": "H1_CTCF_ref_FAM110B",
+     "outcome": "Ref G > alt T CTCF occupancy at rs7001688."
+    },
+    {
+     "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+     "outcome": "Alt T > ref G CTCF occupancy at rs7001688."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CTCF ChIP-seq with cCRE overlap at rs7001688 in HepG2/Hep3B2.1-7",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No CTCF ChIP peak and no cCRE over the variant in liver-derived cells."
+    },
+    {
+     "hypothesis_id": "H1_CTCF_ref_FAM110B",
+     "outcome": "CTCF ChIP peak over the variant in liver-derived cells, consistent with a cryptic liver element."
+    },
+    {
+     "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+     "outcome": "CTCF ChIP peak over the variant in liver-derived cells, consistent with a cryptic liver element."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Chromatin conformation assay (4C/Hi-C or promoter capture) in hepatocytes",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No reproducible contact between rs7001688 and FAM110B or CYP7A1."
+    },
+    {
+     "hypothesis_id": "H1_CTCF_ref_FAM110B",
+     "outcome": "Reproducible contact between rs7001688 and the FAM110B locus in hepatocytes."
+    },
+    {
+     "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+     "outcome": "Reproducible contact between rs7001688 and the CYP7A1 locus in hepatocytes."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Liver eQTL or hepatocyte genotype-expression panel for rs7001688",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No significant eQTL for rs7001688 in liver or hepatocyte panels."
+    },
+    {
+     "hypothesis_id": "H1_CTCF_ref_FAM110B",
+     "outcome": "Significant liver eQTL linking rs7001688 to FAM110B expression."
+    },
+    {
+     "hypothesis_id": "H2_CTCF_alt_CYP7A1",
+     "outcome": "Significant liver eQTL linking rs7001688 to CYP7A1 expression."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The single cheapest experiment that separates the top two chains (H0_null and H1_CTCF_ref_FAM110B) is allele-specific CTCF ChIP-qPCR at rs7001688 in Hep3B2.1-7 or primary hepatocytes: H0 predicts no allele-specific occupancy, while H1 predicts ref G > alt T CTCF occupancy.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs7001688 AND FAM110B AND \"ldl cholesterol\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr8:57573391:G>T: 1 peaks contain the variant, from 1 factors in 1 biosamples. In the matching biosample HepG2 (HepG2 stands in for Hep 3B2.1-7 (both liver cancer lines)): 0 peaks from 0 factors. No cCRE contains the variant. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): none. Bound, expressed TFs with a binding model: 1; listed one per row: CTCF. Assayed with no peak here: 382 TFs in the matching biosample, 190 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: LNCAP (e.g. ENCSR673WZL). 32.01 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 162 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E10",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:32:53+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE CTCF ChIP-seq peak contains chr8:57573391:G>T in biosamples matching 'HepG2'. Absence can also mean no CTCF experiment in that biosample. In other biosamples, 1 CTCF peaks do contain the variant: LNCAP (experiments ENCSR673WZL)."
+  },
+  {
+   "id": "E11",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38 in tissues matching 'Liver'. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E12",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs7001688&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:32:53+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 0 hits for 'rs7001688'; top 0 with PMIDs:"
+  }
+ ]
+}

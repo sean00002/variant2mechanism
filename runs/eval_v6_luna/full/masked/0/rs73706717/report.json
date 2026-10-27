@@ -1,0 +1,1369 @@
+{
+ "case_id": "rs73706717",
+ "variant": "rs73706717",
+ "variant_key": "chr8:127401265:T>C",
+ "disease": "Colorectal cancer (8q24)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0073,
+ "seconds": 82.9,
+ "model_calls": 6,
+ "screen": {
+  "n_pass": 307,
+  "counts": {
+   "occupied": 40,
+   "unknown": 103,
+   "occupied_strong_site": 6,
+   "occupied_not_expressed": 5,
+   "unbound_assayed_here": 11,
+   "unbound_assayed_elsewhere": 517,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "TCF7L2",
+    "z": -8.8,
+    "occupancy": "bound_here",
+    "passes_gate": true,
+    "strong_site": false
+   },
+   {
+    "tf": "SP1",
+    "z": -7.07,
+    "occupancy": "bound_here",
+    "passes_gate": true,
+    "strong_site": false
+   },
+   {
+    "tf": "NFIC",
+    "z": 24.28,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "NFIA",
+    "z": 24.28,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "HNF1B",
+    "z": -23.93,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "CTCF",
+    "z": 8.21,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "CEBPB",
+    "z": -6.94,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "TFAP4",
+    "z": 0.51,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": true
+   },
+   {
+    "tf": "NR2F2",
+    "z": -15.02,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": false
+   },
+   {
+    "tf": "NR2F6",
+    "z": -15.02,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": false
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "ZBTB22",
+    "z": -33.75
+   },
+   {
+    "tf": "NR1H3",
+    "z": -15.02
+   },
+   {
+    "tf": "TET3",
+    "z": 14.12
+   },
+   {
+    "tf": "NR1D2",
+    "z": -13.82
+   },
+   {
+    "tf": "NR4A2",
+    "z": -13.82
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H0",
+   "title": "Null: no TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The variant has no reproducible TF-mediated allelic effect that changes a target gene; any disease association could reflect another variant or mechanism.",
+    "An allele-specific binding difference in an in-vitro assay, if observed, would not by itself establish a functional or disease effect."
+   ],
+   "falsified_if": [
+    "Isogenic T-to-C editing reproducibly changes occupancy of a named TF and linked-gene expression, with the expression effect dependent on that TF."
+   ],
+   "probability": 0.72,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "TCF7L2 binding may be reduced on the C allele",
+   "is_null": false,
+   "tf": "TCF7L2",
+   "allele_binding_more": "ref",
+   "element": "EH38E3858447",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF7L2 is a leading candidate because it is expressed and has a ChIP-seq peak over the variant in HCT116. QBiC-SELEX predicts stronger binding to T than C, but its gated model is mapped from TCF7, not TCF7L2-specific, and the modeled site is weak; thus the allele-specific prediction is indirect and the ChIP peak may reflect another site in the element.",
+     "evidence_ids": [
+      "E05",
+      "E20",
+      "E35"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in pELS cCRE EH38E3858447; the reported chromatin-mark maxima do not establish activity of this element in HCT116.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is a candidate, not a demonstrated target: it is nearby and has the top L2G score in two low-PIP credible sets for non-CRC traits, but no significant GTEx eQTL or functional enhancer-to-gene link is reported. Open Targets supports gene-level CRC relevance, not this variant-to-gene link.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is a plausible context because TCF7L2 occupancy over the variant and expression are reported there; allele-specific occupancy has not been measured.",
+     "evidence_ids": [
+      "E05",
+      "E20"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "POU5F1B has CRC-related gene-level support, including literature on its effects in colon cancer cells, but the evidence does not show that this variant changes POU5F1B or CRC risk.",
+     "evidence_ids": [
+      "E18a",
+      "E18b",
+      "E18c",
+      "E37"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If TCF7L2 binds the variant-overlapping site in HCT116, T should show greater TCF7L2-specific binding or occupancy than C.",
+    "A variant-dependent POU5F1B expression effect, if present, should depend on TCF7L2; binding direction alone does not predict expression direction."
+   ],
+   "falsified_if": [
+    "A TCF7L2-specific assay finds no reproducible T-versus-C binding difference under conditions where TCF7L2 binds the sequence.",
+    "A reproducible variant-dependent POU5F1B expression effect is unaffected by TCF7L2 perturbation."
+   ],
+   "probability": 0.14,
+   "rank": 2,
+   "coverage_status": "mapped",
+   "resolved_symbol": "TCF7L2"
+  },
+  {
+   "id": "H2",
+   "title": "SP1 binding may be reduced on the C allele",
+   "is_null": false,
+   "tf": "SP1",
+   "allele_binding_more": "ref",
+   "element": "EH38E3858447",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "SP1 is expressed and has a ChIP-seq peak over the variant in HCT116. QBiC-SELEX predicts stronger binding to T than C, but the displayed best model is mapped from SP3 rather than SP1-specific, and the modeled site is weak; the prediction is indirect and the ChIP peak may reflect another site in the element.",
+     "evidence_ids": [
+      "E06",
+      "E21"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in pELS cCRE EH38E3858447; the reported activity scores are maxima across biosamples, not HCT116-specific measurements.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is a possible target based on proximity and L2G prioritization, but the credible sets have low PIP and concern non-CRC traits; no significant eQTL or functional enhancer-to-gene link is reported. Open Targets supports gene-level CRC relevance only.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is a plausible context because SP1 occupancy over the variant and expression are reported there; allele-specific occupancy is not shown.",
+     "evidence_ids": [
+      "E06",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "POU5F1B has gene-level CRC relevance, but no evidence establishes an SP1-mediated effect of this variant on POU5F1B or colorectal-cancer risk.",
+     "evidence_ids": [
+      "E18a",
+      "E18b",
+      "E18c",
+      "E37"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If the modeled SP1-family effect applies to SP1 at this site, T should show greater SP1-specific binding or occupancy than C in HCT116.",
+    "Any variant-dependent POU5F1B expression effect attributed to this chain should depend on SP1 rather than solely on TCF7L2 or NFIC."
+   ],
+   "falsified_if": [
+    "An SP1-specific assay finds no reproducible T-versus-C binding difference under conditions where SP1 binds the sequence.",
+    "A reproducible variant-dependent expression effect persists after SP1 perturbation but is eliminated by perturbing another candidate TF."
+   ],
+   "probability": 0.08,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "SP1"
+  },
+  {
+   "id": "H3",
+   "title": "NFIC binding may be stronger on the C allele, but relevant-cell occupancy is unconfirmed",
+   "is_null": false,
+   "tf": "NFIC",
+   "allele_binding_more": "alt",
+   "element": "EH38E3858447",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts stronger binding to C than T using a model mapped from NFIB, not an NFIC-specific model. The modeled site is strong, but NFIC occupancy over the variant is reported in HepG2, not HCT116; HCT116 occupancy therefore remains unestablished.",
+     "evidence_ids": [
+      "E22",
+      "E36"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in pELS cCRE EH38E3858447; biosample-maximal activity scores do not establish activity in HCT116.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is a candidate target based on proximity and L2G prioritization, but the low-PIP credible sets concern non-CRC traits and do not establish an enhancer-to-gene link. Open Targets supports gene-level CRC relevance, not this variant's target.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E37"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "NFIC is expressed in HCT116, but no HCT116 NFIC ChIP-seq experiment was found; that absence of an experiment is not evidence against occupancy. The reported variant-overlapping NFIC peak is in HepG2, so occupancy in HCT116 remains uncertain.",
+     "evidence_ids": [
+      "E04",
+      "E22",
+      "E36"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "POU5F1B has gene-level CRC relevance, but there is no evidence that an NFIC-mediated effect of this variant changes POU5F1B or colorectal-cancer risk.",
+     "evidence_ids": [
+      "E18c",
+      "E37"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If NFIC occupies the variant-overlapping site in HCT116, NFIC-specific binding or occupancy should be greater on C than T.",
+    "Any variant-dependent POU5F1B expression effect attributed to this chain should depend on NFIC."
+   ],
+   "falsified_if": [
+    "An NFIC-specific assay finds no C-versus-T binding difference under conditions where NFIC binds the sequence.",
+    "A reproducible variant-dependent POU5F1B expression effect is unaffected by NFIC perturbation."
+   ],
+   "probability": 0.06,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "NFIC"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.6,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "TCF7L2",
+   "is_null": false,
+   "probability": 0.2,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "SP1",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "NFIC",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TCF7L2 has a ChIP-seq peak over the variant in HCT116, but the QBiC-SELEX prediction uses a CIS-BP-mapped TCF7 model rather than a TCF7L2-specific model. The direction is consistent with reduced binding on C, but the model provides indirect support for TCF7L2 specifically; the predicted site is also weak."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in the stated pELS cCRE. The claim correctly notes that the reported enhancer-mark maxima do not establish HCT116-specific activity."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and the best L2G ranking make POU5F1B a candidate, but the credible-set PIP is only 0.04, the associations concern non-CRC traits, and no significant GTEx eQTL or enhancer-to-gene evidence is reported."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "TCF7L2 occupancy over the variant and expression are both reported in HCT116. Allele-specific occupancy is not shown, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited material provides some CRC context for POU5F1B and mentions the masked variant in a potential regulatory context, but it does not establish a variant-to-gene effect or CRC risk association."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "SP1 has a ChIP-seq peak over the variant in HCT116, and the QBiC-SELEX result predicts stronger binding on T. However, the displayed best model is SP3-mapped, making the allele-specific prediction indirect for SP1 specifically; the modeled site is weak."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in the stated pELS cCRE. The claim appropriately distinguishes biosample-maximal scores from HCT116-specific activity."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "POU5F1B is a plausible candidate from proximity and L2G, but there is no demonstrated enhancer-to-gene link or significant eQTL; the low-PIP credible sets concern other traits."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "SP1 occupancy over the variant and expression are both reported in HCT116. The claim does not assert allele-specific occupancy."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The evidence offers limited CRC plausibility for POU5F1B but does not establish that this variant changes the gene or affects CRC risk."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts greater binding on C, but uses an NFIB-mapped model for NFIC, and the cited peak is in HepG2 rather than the stated colorectal-cell context. Thus neither the model specificity nor relevant-cell occupancy is direct."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in the stated pELS cCRE; the claim correctly notes that biosample-maximal activity scores do not confirm HCT116 activity."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and L2G support considering POU5F1B, but do not establish it as the target; there is no reported significant eQTL or functional enhancer-to-gene link."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "NFIC is expressed in HCT116, but the cited peak over the variant is from HepG2. Expression alone does not establish occupancy or activity in HCT116."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The evidence is compatible with CRC relevance but does not show an NFIC-mediated variant effect, a target-gene effect, or a direction of CRC risk."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TCF7L2 occupancy over the variant and expression are directly reported in HCT116, but the allelic change comes from a TCF7-mapped QBiC-SELEX model, not a TCF7L2-specific result. The modeled site is weak, so the prediction is indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in pELS cCRE EH38E3858447. The claim appropriately does not infer HCT116-specific activity from biosample-maximal scores."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and L2G prioritization make POU5F1B a candidate, but the low-PIP sets concern non-CRC traits and no evidence directly links this element or variant to POU5F1B."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "TCF7L2 occupancy over the variant and its expression are directly reported in HCT116. The claim correctly distinguishes these from unmeasured allele-specific occupancy."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited evidence supports POU5F1B-level CRC relevance, including colon cancer cell biology, but does not show that this variant or TCF7L2-mediated regulation affects CRC."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "SP1 occupancy over the variant and expression are directly reported in HCT116. The QBiC-SELEX result cited is from an SP3-mapped model rather than an SP1-specific result, and the modeled site is weak, making the allele-specific inference indirect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in pELS cCRE EH38E3858447; the claim appropriately notes that the reported activity scores are not HCT116-specific."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and L2G prioritization support POU5F1B as a candidate, but do not directly establish it as the target of this element or variant."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "SP1 occupancy over the variant and expression are directly reported in HCT116. Allele-specific occupancy is not shown, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The evidence supports gene-level CRC relevance but does not establish an SP1-mediated effect of this variant on POU5F1B or CRC risk."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts greater binding to C, but uses an NFIB-mapped model rather than an NFIC-specific result. The variant-overlapping NFIC peak is in HepG2, not HCT116, so relevant-cell occupancy is unconfirmed."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in pELS cCRE EH38E3858447; the claim appropriately avoids treating biosample-maximal scores as HCT116-specific activity."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and L2G prioritization make POU5F1B a candidate, but neither directly links the variant-containing element to that gene."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "NFIC expression in HCT116 supports context plausibility, but the cited occupancy peak is in HepG2. The absence of an HCT116 experiment is not evidence against occupancy."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The evidence supports gene-level CRC relevance, but does not show that this variant's NFIC-related binding effect changes POU5F1B or CRC risk."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"TCF7L2\"}",
+   "resolves": "H1.binding",
+   "why": "Clarify whether the allelic prediction is available for TCF7L2 itself or only through a related TCF7-mapped model."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"NFIC\",\"biosample\":\"HCT116\"}",
+   "resolves": "H3.cell_type",
+   "why": "Determine whether NFIC has a peak over the variant in the proposed colorectal-cell context."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"POU5F1B\"}",
+   "resolves": "H1.phenotype",
+   "why": "Assess whether gene-disease evidence supports CRC relevance beyond the cited separate regulatory mechanism and low-PIP, non-CRC associations."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "round": 1,
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "TCF7L2"
+   },
+   "key": "qbic_tf_detail({\"tf\":\"TCF7L2\"})",
+   "resolves": "H1.binding",
+   "expected": "If the detail confirms the prediction is only from a TCF7-mapped model, H1.binding remains weak; if it provides a TCF7L2-specific model with the same ref-favored direction, H1.binding gains support and H1 rises.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E35",
+   "new_information": true
+  },
+  {
+   "round": 1,
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "NFIC",
+    "biosample": "HCT116"
+   },
+   "key": "chip_peaks({\"biosample\":\"HCT116\",\"tf\":\"NFIC\"})",
+   "resolves": "H3.cell_type",
+   "expected": "If an NFIC peak contains the variant in HCT116, H3.cell_type gains support and H3 becomes more competitive; if no peak is found, H3.cell_type remains weak and H3 falls.",
+   "run": true,
+   "status": "no experiment",
+   "evidence_id": "E36",
+   "new_information": false
+  },
+  {
+   "round": 1,
+   "tool": "gene_disease",
+   "args": {
+    "gene": "POU5F1B"
+   },
+   "key": "gene_disease({\"gene\":\"POU5F1B\"})",
+   "resolves": "H1.phenotype",
+   "expected": "If Open Targets shows CRC-specific gene-disease evidence, the POU5F1B phenotype link gains support across chains using this target; if evidence is absent or unrelated to CRC, the link remains weak and the null gains relative weight.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E37",
+   "new_information": true
+  }
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "calls": [
+    {
+     "round": 1,
+     "tool": "qbic_tf_detail",
+     "args": {
+      "tf": "TCF7L2"
+     },
+     "key": "qbic_tf_detail({\"tf\":\"TCF7L2\"})",
+     "resolves": "H1.binding",
+     "expected": "If the detail confirms the prediction is only from a TCF7-mapped model, H1.binding remains weak; if it provides a TCF7L2-specific model with the same ref-favored direction, H1.binding gains support and H1 rises.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E35",
+     "new_information": true
+    },
+    {
+     "round": 1,
+     "tool": "chip_peaks",
+     "args": {
+      "tf": "NFIC",
+      "biosample": "HCT116"
+     },
+     "key": "chip_peaks({\"biosample\":\"HCT116\",\"tf\":\"NFIC\"})",
+     "resolves": "H3.cell_type",
+     "expected": "If an NFIC peak contains the variant in HCT116, H3.cell_type gains support and H3 becomes more competitive; if no peak is found, H3.cell_type remains weak and H3 falls.",
+     "run": true,
+     "status": "no experiment",
+     "evidence_id": "E36",
+     "new_information": false
+    },
+    {
+     "round": 1,
+     "tool": "gene_disease",
+     "args": {
+      "gene": "POU5F1B"
+     },
+     "key": "gene_disease({\"gene\":\"POU5F1B\"})",
+     "resolves": "H1.phenotype",
+     "expected": "If Open Targets shows CRC-specific gene-disease evidence, the POU5F1B phenotype link gains support across chains using this target; if evidence is absent or unrelated to CRC, the link remains weak and the null gains relative weight.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E37",
+     "new_information": true
+    }
+   ],
+   "planner_note": "",
+   "check_results": [
+    {
+     "call": "qbic_tf_detail({\"tf\":\"TCF7L2\"})",
+     "observed": "E35 provides three mapped models; the gated model is TCF7-mapped, predicts stronger binding to T, and is not TCF7L2-specific. The other displayed models do not pass the gate.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "chip_peaks({\"tf\":\"NFIC\",\"biosample\":\"HCT116\"})",
+     "observed": "E36 reports no ENCODE NFIC ChIP-seq experiment matching HCT116 and no matching ReMap peak; the variant-overlapping peak reported is in HepG2. The missing HCT116 experiment is not evidence that NFIC is absent.",
+     "as_expected": "unclear"
+    },
+    {
+     "call": "gene_disease({\"gene\":\"POU5F1B\"})",
+     "observed": "E37 reports an Open Targets colorectal-cancer overall score of 0.54, with genetic-association evidence contributing 0.87 and smaller literature and RNA-expression components. This supports gene-level CRC relevance, not a causal effect of this variant.",
+     "as_expected": "yes"
+    }
+   ],
+   "chains": [
+    {
+     "id": "H0",
+     "tf": null,
+     "is_null": true,
+     "probability": 0.72
+    },
+    {
+     "id": "H1",
+     "tf": "TCF7L2",
+     "is_null": false,
+     "probability": 0.14
+    },
+    {
+     "id": "H2",
+     "tf": "SP1",
+     "is_null": false,
+     "probability": 0.08
+    },
+    {
+     "id": "H3",
+     "tf": "NFIC",
+     "is_null": false,
+     "probability": 0.06
+    }
+   ],
+   "grades": [
+    {
+     "hypothesis_id": "H1",
+     "step": "binding",
+     "status": "weak",
+     "reason": "TCF7L2 occupancy over the variant and expression are directly reported in HCT116, but the allelic change comes from a TCF7-mapped QBiC-SELEX model, not a TCF7L2-specific result. The modeled site is weak, so the prediction is indirect."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly places the variant in pELS cCRE EH38E3858447. The claim appropriately does not infer HCT116-specific activity from biosample-maximal scores."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "gene",
+     "status": "weak",
+     "reason": "Proximity and L2G prioritization make POU5F1B a candidate, but the low-PIP sets concern non-CRC traits and no evidence directly links this element or variant to POU5F1B."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "TCF7L2 occupancy over the variant and its expression are directly reported in HCT116. The claim correctly distinguishes these from unmeasured allele-specific occupancy."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The cited evidence supports POU5F1B-level CRC relevance, including colon cancer cell biology, but does not show that this variant or TCF7L2-mediated regulation affects CRC."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "binding",
+     "status": "weak",
+     "reason": "SP1 occupancy over the variant and expression are directly reported in HCT116. The QBiC-SELEX result cited is from an SP3-mapped model rather than an SP1-specific result, and the modeled site is weak, making the allele-specific inference indirect."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly places the variant in pELS cCRE EH38E3858447; the claim appropriately notes that the reported activity scores are not HCT116-specific."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "gene",
+     "status": "weak",
+     "reason": "Proximity and L2G prioritization support POU5F1B as a candidate, but do not directly establish it as the target of this element or variant."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "SP1 occupancy over the variant and expression are directly reported in HCT116. Allele-specific occupancy is not shown, as the claim acknowledges."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The evidence supports gene-level CRC relevance but does not establish an SP1-mediated effect of this variant on POU5F1B or CRC risk."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "binding",
+     "status": "weak",
+     "reason": "QBiC-SELEX predicts greater binding to C, but uses an NFIB-mapped model rather than an NFIC-specific result. The variant-overlapping NFIC peak is in HepG2, not HCT116, so relevant-cell occupancy is unconfirmed."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly places the variant in pELS cCRE EH38E3858447; the claim appropriately avoids treating biosample-maximal scores as HCT116-specific activity."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "gene",
+     "status": "weak",
+     "reason": "Proximity and L2G prioritization make POU5F1B a candidate, but neither directly links the variant-containing element to that gene."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "NFIC expression in HCT116 supports context plausibility, but the cited occupancy peak is in HepG2. The absence of an HCT116 experiment is not evidence against occupancy."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The evidence supports gene-level CRC relevance, but does not show that this variant's NFIC-related binding effect changes POU5F1B or CRC risk."
+    }
+   ],
+   "grades_changed": [],
+   "max_probability_change": 0.12,
+   "problems": [
+    "None of the chains has variant perturbation evidence, allele-specific occupancy, reporter evidence, or a direct enhancer-to-gene link.",
+    "The TF-specific binding claims rely on mapped models for related factors: TCF7 for TCF7L2, SP3 for SP1, and NFIB for NFIC. These results are indirect and should not be treated as TF-specific allelic binding measurements.",
+    "POU5F1B prioritization rests on proximity, low-PIP credible sets for non-CRC traits, and gene-level CRC evidence; these do not establish POU5F1B as the target of this variant.",
+    "The reported CRC-related gene evidence does not demonstrate that this variant changes gene expression or CRC risk. The allele-binding directions are stated consistently, and no unsupported expression direction is asserted."
+   ],
+   "critic_checks": [
+    {
+     "tool": "qbic_tf_detail",
+     "args_json": "{\"tf\":\"SP1\"}",
+     "resolves": "H2.binding",
+     "why": "Clarify the full SP1 QBiC-SELEX model results, including whether an SP1-specific model predicts an allelic change rather than relying on the SP3-mapped best model."
+    },
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"NFIC\",\"biosample\":\"HCT116\"}",
+     "resolves": "H3.cell_type",
+     "why": "Check directly for an NFIC peak over the variant in the proposed cell type; a positive peak would strengthen the occupancy link."
+    },
+    {
+     "tool": "literature_search",
+     "args_json": "{\"query\":\"chr8:127401265 POU5F1B colorectal cancer variant enhancer\"}",
+     "resolves": "H1.gene",
+     "why": "Search for reported variant-specific evidence linking the locus or element to POU5F1B, which could change the gene-link grade."
+    }
+   ]
+  }
+ ],
+ "stop_reason": "round 1 left the top chain and the grades of its links unchanged",
+ "matrix": [
+  {
+   "test": "TCF7L2-specific binding assay with matched T and C oligonucleotides (for example, EMSA with an antibody supershift)",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible TCF7L2-specific allelic difference attributable to the variant."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Greater TCF7L2-specific binding to T than C."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No TCF7L2-specific difference predicted; the proposed differential is SP1-related."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No TCF7L2-specific difference predicted; the proposed differential is NFIC-related."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "SP1-specific binding assay with matched T and C oligonucleotides",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible SP1-specific allelic difference attributable to the variant."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No SP1-specific difference predicted; the proposed differential is TCF7L2-related."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Greater SP1-specific binding to T than C."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No SP1-specific difference predicted; the proposed differential is NFIC-related."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Measure NFIC-specific occupancy on the T and C alleles in HCT116, with a positive control for NFIC occupancy",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible NFIC-dependent allelic occupancy difference is predicted."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No NFIC-dependent allelic difference is predicted; the proposed differential is TCF7L2-related."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No NFIC-dependent allelic difference is predicted; the proposed differential is SP1-related."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "If NFIC occupies the site, greater occupancy on C than T is predicted."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Isogenic T-to-C editing in HCT116 followed by POU5F1B expression measurement and candidate-TF perturbation",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible edit-dependent POU5F1B expression change attributable to a candidate TF."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "An edit-dependent POU5F1B change is observed and is reduced by TCF7L2 perturbation."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "An edit-dependent POU5F1B change is observed and is reduced by SP1 perturbation."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "An edit-dependent POU5F1B change is observed and is reduced by NFIC perturbation."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The cheapest initial test separating the top two chains (H0 and H1) is a TCF7L2-specific EMSA using matched T and C probes, with antibody supershift or competition to verify factor identity. H1 predicts stronger T binding; H0 predicts no reproducible TCF7L2-specific allelic difference. A positive result would support the binding step but would not by itself establish an endogenous gene or disease effect.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:127401265-127401265:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-26T02:21:56+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:127401265:T>C (GRCh38), allele string T/C\nKnown IDs: rs73706717\nMost severe consequence: non_coding_transcript_exon_variant\nRegulatory features: ENSR8_CGMBX enhancer\nGERP conservation score at the site: -2.8\nTranscript consequences: CASC8 (intron_variant, non_coding_transcript_variant); CCAT2 (non_coding_transcript_exon_variant); PCAT1 (intron_variant, non_coding_transcript_variant); POU5F1B (intron_variant); PCAT1 (downstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:126401265-128401265?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "3 protein-coding genes within 1000 kb of chr8:127401265:T>C, by distance to TSS:\nPOU5F1B: 79.1 kb from TSS (in gene body, strand +1)\nMYC: 334.2 kb from TSS (upstream, strand +1)\nLRATD2: 842.8 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-26T02:21:42+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3858447 (pELS: proximal enhancer-like), chr8:127401053-127401303.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3858447 pELS (contains the variant): DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 4.1; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858448 pELS: DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 2.2; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858446 pELS: DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 5.5; nearby genes CCAT2, PCAT1, POU5F1B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr8:127401265:T>C: 149 peaks contain the variant, from 83 factors in 25 biosamples. In the matching biosample HCT116: 3 peaks from 3 factors. cCRE class at the variant: pELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ASH2L, CHD4, EP300, HDAC1, HDAC2, HMGXB4, KDM1A, KDM6A, LCORL, LIN54, MED1, MED13 (+26 more). Bound, expressed TFs with a binding model: 40; listed one per row: TCF7L2, SP1, CTCF, CEBPB, MYBL2, NR2C2, TFAP4, ISL2, NR2F2, ERF; also bound: NR2F6, NFIC, ELF1, ZNF317, NFIL3, ZBTB7B, KLF16, PITX1, JUNB, SKI, CREM, RXRB, ATF2, ZNF609, ZNF280D, ZNF12, AHDC1, ZNF652, PHF21A, ETS1, NFIA, NR3C1, BCL6, PRDM10, HOXA3, HNF4A, MNX1, HNF1B, ZNF362, FOXA1. Bound but below 1 TPM: FOXA2, HNF1A, ONECUT1, SOX6, TBX2. Assayed with no peak here: 11 TFs in the matching biosample, 517 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TCF7L2: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HCT116; also in HepG2 (e.g. ENCSR000EUV). 63.61 TPM in DepMap:ACH-000971 (HCT 116), rank 53 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SP1: bound here. 2 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HCT116; also in HepG2 (e.g. ENCSR000BSF). 38.96 TPM in DepMap:ACH-000971 (HCT 116), rank 118 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 34 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, C4-2B, Panc1, RWPE2, adrenal gland, astrocyte (+13 more) (e.g. ENCSR173IEA). 50.0 TPM in DepMap:ACH-000971 (HCT 116), rank 78 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CEBPB: bound elsewhere. 3 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR000BQI). 13.15 TPM in DepMap:ACH-000971 (HCT 116), rank 408 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MYBL2: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR581KCO). 67.51 TPM in DepMap:ACH-000971 (HCT 116), rank 46 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2C2: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR559ZKI). 22.6 TPM in DepMap:ACH-000971 (HCT 116), rank 244 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TFAP4: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR587BVQ). 19.72 TPM in DepMap:ACH-000971 (HCT 116), rank 283 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ISL2: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR492IHH). 2.77 TPM in DepMap:ACH-000971 (HCT 116), rank 862 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2F2: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR000BVM). 61.74 TPM in DepMap:ACH-000971 (HCT 116), rank 58 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ERF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR159DQO). 46.58 TPM in DepMap:ACH-000971 (HCT 116), rank 90 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs73706717&size=100",
+   "retrieved_utc": "2026-10-26T02:21:56+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs73706717, strongest first:"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:21:56+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2 credible sets contain 8_127401265_T_C: 2 GWAS, 0 molecular QTL.\nGWAS prostate-specific antigen (PSA, maximum, inv-norm transforme: PIP 0.04; L2G POU5F1B 0.83\nGWAS Urinary incontinence (PheCode 599.4): PIP 0.04; L2G POU5F1B 0.78\nBest L2G gene scores across these sets: POU5F1B 0.83"
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_127401265_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T02:23:32+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_127401265_T_C_b38. NES is the effect of the alt allele (C) relative to ref (T)."
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=POU5F1B%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 150 hits for 'POU5F1B AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 42465001 (2026): Circ_0075829 affects POU5F1B expression through sponging miR-576-3p to promote growth, invasion, and angiogenesis of colon cancer cells.\nPMID 41993623 (2026): Tailorable porous collagen hydrogels as a physiologically relevant platform for extrachromosomal DNA-associated colorectal cancer research.\nPMID 41796348 (2026): Harnessing the LncRNA CCAT2 role in gastric cancer: from molecular insights to clinical implications.\nPMID 41930642 (2026): Systematic Identification and Characterization of Causal Risk Genes Implicated in Colorectal Cancer by Integrating GWAS, eQTL, and mQTL Data.\nPMID 42686757 (2026): Phase separation of ecDNA condensates establishes in-trans contact domains that boost selective MYC regulatory interactions.\nPMID 40506516 (2025): Association between methylation quantitative trait loci and colorectal cancer risk, survival and cancer recurrence.\nPMID 41144378 (2025): Integrative GWAS and RNA-Seq analysis for target identification and virtual drug screening in colorectal cancer.\nPMID 41196428 (2025): Combined CHK1 and PD-L1 blockade as a novel therapeutic strategy against stemness and immunosuppression in ovarian cancer."
+  },
+  {
+   "id": "E18a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42465001",
+   "url": "https://europepmc.org/article/MED/42465001",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Circ_0075829 acted as a molecular sponge for microRNA-576-3p (miR-576-3p), thereby upregulating the expression of POU class 5 homeobox 1B (POU5F1B) in colon cancer cells."
+  },
+  {
+   "id": "E18b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42465001",
+   "url": "https://europepmc.org/article/MED/42465001",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Collectively, circ_0075829 promotes proliferation, invasion, and angiogenesis, while inhibiting apoptosis in colon cancer by modulating POU5F1B levels through miR-576-3p sponging."
+  },
+  {
+   "id": "E18c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41930642",
+   "url": "https://europepmc.org/article/MED/41930642",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "A few potential regulatory influences on CRC development associated with genes and variants, such as POU5F1B and rs[masked], were identified."
+  },
+  {
+   "id": "E18d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40506516",
+   "url": "https://europepmc.org/article/MED/40506516",
+   "retrieved_utc": "2026-10-26T02:21:59+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Four regions mapped to POU5F1B, POU2AF2 (c11orf53)/POU2AF3 (COLCA2), GREM1 and CABLES2 were previously identified."
+  },
+  {
+   "id": "E19",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr8:127401265:T>C, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000971), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 10 of 40 occupied (6 with a strong site), 5 of 103 with unknown occupancy. Left out: 11 TFs assayed in the matching biosample and 517 assayed only elsewhere, none with a peak here; 5 bound but below 1 TPM. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E20",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TCF7L2 (HMG/Sox, 3 models; QBiC-SELEX coverage: mapped models only): best model TCF7_eDBD_TCGGAC40NCCA_KS_yin2017_0_3_7mer (a CIS-BP-mapped model of TCF7), z -8.8, effect -0.429: ref allele binds more (|z| above the gate), but between weak k-mers. 63.61 TPM, rank 53 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HCT116, e.g. ENCSR000EUV. Best model's site strength: ref 90.0th, alt 87.2th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E21",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SP1 (C2H2 ZF, 5 models; QBiC-SELEX coverage: own model): best model SP3_eDBD_TTCACC40NGCT_KR_yin2017_0_3_7mer (a CIS-BP-mapped model of SP3), z -7.07, effect -0.298: ref allele binds more (|z| above the gate), but between weak k-mers. 38.96 TPM, rank 118 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HCT116, e.g. ENCSR000BSF. Best model's site strength: ref 90.4th, alt 75.6th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E22",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NFIC (SMAD, 4 models; QBiC-SELEX coverage: own model): best model NFIB_NA_TCATCA20NCG_ESAD_yang2017_0_3_7mer (a CIS-BP-mapped model of NFIB), z 24.28, effect 1.783: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 36.29 TPM, rank 137 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR000BQX. Best model's site strength: ref 96.3th, alt 99.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E23",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NFIA (SMAD, 4 models; QBiC-SELEX coverage: own model): best model NFIB_NA_TCATCA20NCG_ESAD_yang2017_0_3_7mer (a CIS-BP-mapped model of NFIB), z 24.28, effect 1.783: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 7.07 TPM, rank 616 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR226QQM. Best model's site strength: ref 96.3th, alt 99.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E24",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HNF1B (Homeodomain, 3 models; QBiC-SELEX coverage: own model): best model HMBOX1_eDBD_TGGCTC40NCGC_KAN_yin2017_1_2_7mer (a CIS-BP-mapped model of HMBOX1), z -23.93, effect -0.32: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.08 TPM, rank 929 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR127XTZ. Best model's site strength: ref 100.0th, alt 67.8th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E25",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CTCF (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model CTCF_FL_TG40NCTGTGG_YWL_jolma2025_0_3_7mer (its own model), z 8.21, effect 0.902: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 50.0 TPM, rank 78 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in A549, C4-2B, Panc1, RWPE2, adrenal gland (+14 more), e.g. ENCSR173IEA. Best model's site strength: ref 98.8th, alt 99.4th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E26",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CEBPB (bZIP, 3 models; QBiC-SELEX coverage: own model): best model CEBPB_eDBD_TATAAA40NACG_KAN_yin2017_0_4_7mer (its own model), z -6.94, effect -0.844: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 13.15 TPM, rank 408 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR000BQI. Best model's site strength: ref 98.2th, alt 73.1th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E27",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TFAP4 (bHLH, 1 model; QBiC-SELEX coverage: own model): best model TFAP4_NA_TCACGT20NGCA_ESAC_yang2017_0_3_7mer (its own model), z 0.51, effect 0.042: alt allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 19.72 TPM, rank 283 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR587BVQ. Best model's site strength: ref 98.2th, alt 96.4th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E28",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR2F2 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model NR1H3_DBD_TGAGCG40NTTG_KY_nitta2015_2_3_7mer (a CIS-BP-mapped model of NR1H3), z -15.02, effect -0.286: ref allele binds more (|z| above the gate), but between weak k-mers. 61.74 TPM, rank 58 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR000BVM. Best model's site strength: ref 95.9th, alt 60.2th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E29",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR2F6 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model NR1H3_DBD_TGAGCG40NTTG_KY_nitta2015_2_3_7mer (a CIS-BP-mapped model of NR1H3), z -15.02, effect -0.286: ref allele binds more (|z| above the gate), but between weak k-mers. 37.02 TPM, rank 133 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR798IJO. Best model's site strength: ref 95.9th, alt 60.2th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E30",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZBTB22 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZBTB22_eDBD_TGCCTC40NCAA_KP_yin2017_0_4_7mer (its own model), z -33.75, effect -1.962: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 3.74 TPM, rank 794 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.8th, alt 92.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E31",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR1H3 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model NR1H3_DBD_TGAGCG40NTTG_KY_nitta2015_2_3_7mer (its own model), z -15.02, effect -0.286: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 11.39 TPM, rank 459 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 95.9th, alt 60.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E32",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TET3 (CxxC, 2 models; QBiC-SELEX coverage: own model): best model CXXC4_FL_GG40NTAGTTT_YWKC_jolma2025_0_4_7mer (a CIS-BP-mapped model of CXXC4), z 14.12, effect 0.794: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 10.17 TPM, rank 497 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 87.7th, alt 96.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E33",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR1D2 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model NR2C1_eDBD_TATTCA40NAGT_KT_yin2017_0_3_7mer (a CIS-BP-mapped model of NR2C1), z -13.82, effect -0.705: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 37.06 TPM, rank 132 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 97.3th, alt 92.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E34",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR4A2 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model NR2C1_eDBD_TATTCA40NAGT_KT_yin2017_0_3_7mer (a CIS-BP-mapped model of NR2C1), z -13.82, effect -0.705: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 7.19 TPM, rank 611 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 97.3th, alt 92.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E35",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"TCF7L2\",\"symbol\":\"TCF7L2\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"mapped\",\"variant\":\"chr8:127401265:T>C\",\"gate_p\":5.02e-05,\"models\":[{\"model\":\"LEF1_FL_TAGTCG40NAGA_KZ_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (LEF1)\",\"group\":\"G041 HMG/Sox, 3 models\",\"quality\":0.63,\"effect\":-0.306,\"z\":-2.77,\"p\":0.0056,\"rank_abs_z\":\"461/997\",\"passed_gate\":false,\"site_strength\":{\"ref_percentile\":81.3,\"alt_percentile\":95.3,\"k\":7}},{\"model\":\"TCF7_eDBD_TCGGAC40NCCA_KS_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (TCF7)\",\"group\":\"G041 HMG/Sox, 3 models\",\"quality\":0.732,\"effect\":-0.429,\"z\":-8.8,\"p\":1.4e-18,\"rank_abs_z\":\"66/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":90.0,\"alt_percentile\":87.2,\"k\":7}},{\"model\":\"TCF7L1_eDBD_TTGGCA40NTCG_KW_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (TCF7L1)\",\"group\":\"G041 HMG/Sox, 3 models\",\"quality\":0.602,\"effect\":-0.242,\"z\":-3.57,\"p\":0.00036,\"rank_abs_z\":\"359/997\",\"passed_gate\":false,\"site_strength\":{\"ref_percentile\":84.6,\"alt_percentile\":58.3,\"k\":7}}]}"
+  },
+  {
+   "id": "E36",
+   "tool": "chip_peaks",
+   "source": "ENCODE experiment search; ReMap 2022 (UCSC track ReMapTFs)",
+   "url": "https://www.encodeproject.org/search/?type=Experiment&assay_title=TF+ChIP-seq&status=released&assembly=GRCh38&format=json&limit=all&field=target.label&field=biosample_ontology.term_name&field=accession",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE has no NFIC ChIP-seq experiment in biosamples matching 'HCT116', so ENCODE says nothing about it there, for or against. ENCODE assayed NFIC in: GM12878, HepG2, Ishikawa, K562, SK-N-SH. ReMap 2022 (published ChIP-seq, reprocessed): 1 NFIC peaks contain the variant, in 1 biosamples: Hep-G2 (ENCSR000BQX). 0 of them in biosamples matching 'HCT116'."
+  },
+  {
+   "id": "E37",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:23:32+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: POU5F1B and colorectal cancer (MONDO_0005575), overall score 0.54; by evidence type: genetic_association 0.87, literature 0.18, rna_expression 0.14"
+  }
+ ]
+}

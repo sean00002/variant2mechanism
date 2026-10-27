@@ -1,0 +1,372 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.1182,
+ "seconds": 50.2,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H4",
+   "title": "Null: no TF-mediated effect of rs7001688; the association is carried by a linked causal variant or is a passenger",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Fine-mapping places the credible-set posterior on a different variant in LD",
+    "No allelic difference in reporter assays or ChIP allelic imbalance at rs7001688",
+    "Base editing of rs7001688 alone in Hep3B changes no nearby gene's expression"
+   ],
+   "falsified_if": [
+    "Reporter or CRISPR editing of rs7001688 alone reproducibly changes expression of a nearby gene",
+    "Clear allele-specific TF binding is demonstrated at this position"
+   ],
+   "probability": 0.48,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Ref G preserves an HNF4A half-site in a hepatocyte enhancer driving PLAG1/CHCHD7; alt T weakens it and lowers expression",
+   "is_null": false,
+   "tf": "HNF4A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "Putative liver enhancer at chr8:57.57Mb within the PLAG1/CHCHD7/MOS/RPS20 interval",
+   "target_gene": "PLAG1",
+   "cell_type": "Hepatocyte (modelled by Hep 3B2.1-7, DepMap ACH-000625)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The G allele completes a DR1-like nuclear-receptor motif (AGGTCA-like half-site) bound by HNF4A; the T allele disrupts the core and reduces predicted affinity. HNF4A is chosen within the HNF4/NR2F specificity group because HNF4A is the dominant family member expressed in hepatocytes.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a non-coding, likely enhancer-like region active in liver; loss of the HNF4A site reduces enhancer output.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer contacts the PLAG1/CHCHD7 promoter region, so the alt allele lowers PLAG1 expression in liver.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Effect is hepatocyte-restricted because HNF4A occupancy at this element requires liver-specific factor availability.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered PLAG1-dependent transcriptional program changes hepatic lipoprotein handling, shifting plasma LDL cholesterol.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "HNF4A ChIP-seq in HepG2/Hep3B shows a peak overlapping the variant with allelic imbalance favouring G",
+    "HNF4A knockdown in Hep3B reduces reporter activity of the G allele specifically",
+    "eQTL for PLAG1 or CHCHD7 in liver with G associated with higher expression"
+   ],
+   "falsified_if": [
+    "No HNF4A ChIP signal or open chromatin at the site in liver cells",
+    "Luciferase reporter shows no allelic difference, or T > G",
+    "HNF4A knockdown leaves allelic reporter difference intact"
+   ],
+   "probability": 0.22,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HNF4A"
+  },
+  {
+   "id": "H2",
+   "title": "Alt T creates a CEBPB site that increases repressive/activating occupancy at a liver element, altering local gene expression",
+   "is_null": false,
+   "tf": "CEBPB",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "Same chr8:57.57Mb non-coding element",
+   "target_gene": "CHCHD7",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The T allele generates a TTGC-containing bZIP half-site matching the C/EBP specificity group; CEBPB is chosen over CEBPA/CEBPD because it is robustly expressed in Hep3B and in adult liver and has the broadest ChIP-seq footprint there.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "Gained C/EBP occupancy changes the regulatory output of this element in liver.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Nearest promoter affected is CHCHD7/PLAG1 bidirectional region; expression shifts with genotype.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CEBPB is highly active in hepatocytes, confining the effect to liver.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Changed hepatic expression alters LDL receptor pathway flux and plasma LDL cholesterol.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "EMSA with Hep3B nuclear extract shows a new CEBP-family complex on the T probe, supershifted by anti-CEBPB",
+    "CEBPB ChIP-qPCR enrichment at the locus is genotype-dependent",
+    "Reporter shows T > G activity"
+   ],
+   "falsified_if": [
+    "No gained complex on the T probe",
+    "CEBPB knockdown does not change allelic reporter difference",
+    "Reporter shows G > T"
+   ],
+   "probability": 0.17,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  },
+  {
+   "id": "H3",
+   "title": "A FOXA pioneer site is altered, changing chromatin accessibility of the element in liver",
+   "is_null": false,
+   "tf": "FOXA2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "chr8:57.57Mb liver-accessible region",
+   "target_gene": "PENK/MOS-proximal regulatory domain (nearest expressed liver gene in the TAD)",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The G allele supports a forkhead core (TGTTT-like); the T allele degrades it. FOXA2 is selected from the FOXA specificity group because FOXA1/FOXA2/FOXA3 share the motif but FOXA2 is the most highly expressed forkhead pioneer factor in hepatocyte lines.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "FOXA2 acts as a pioneer; weaker binding reduces nucleosome displacement and accessibility of the element.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Reduced accessibility lowers transcription of the nearest liver-expressed gene in the same contact domain.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Pioneer-dependent accessibility is liver-specific.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Downstream change in hepatic lipid gene expression shifts LDL cholesterol.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "ATAC-seq in heterozygous liver shows allelic imbalance in accessibility favouring G",
+    "FOXA2 ChIP shows allele-biased binding",
+    "Effect persists after HNF4A or CEBPB knockdown"
+   ],
+   "falsified_if": [
+    "No allelic accessibility imbalance",
+    "FOXA2 ChIP shows no binding at the element"
+   ],
+   "probability": 0.13,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA2"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "HNF4A",
+   "is_null": false,
+   "probability": 0.22,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.17,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "FOXA2",
+   "is_null": false,
+   "probability": 0.13,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.48,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Allele-specific luciferase reporter of the ~500 bp element (G vs T) in Hep 3B2.1-7",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "G > T activity"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "T > G activity"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "G > T, but modest in episomal context"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allelic difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "EMSA with Hep3B nuclear extract plus supershift using anti-HNF4A and anti-CEBPB",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "G probe complex supershifted by anti-HNF4A"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "T probe complex supershifted by anti-CEBPB"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Complex not shifted by either antibody"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allele-specific complex"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ChIP-seq allelic imbalance in heterozygous liver/HepG2 for HNF4A, CEBPB, FOXA2",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "HNF4A reads biased to G"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CEBPB reads biased to T"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "FOXA2 reads biased to G"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No peak or no imbalance"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPR base editing of rs7001688 in Hep3B followed by RNA-seq of the 1 Mb window",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "PLAG1 down with T"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CHCHD7 up with T"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Broad accessibility-linked decrease with T"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No expression change"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Statistical fine-mapping of the LDL locus with liver eQTL colocalisation",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "rs7001688 in credible set, colocalises with PLAG1 eQTL"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "rs7001688 in credible set, colocalises with CHCHD7 eQTL"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "rs7001688 in credible set, weak eQTL"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Another LD variant carries the signal"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Run the allele-specific luciferase reporter (G vs T element) in Hep 3B2.1-7: it is cheap and directly distinguishes the null (no allelic difference) from H1 (G > T), the current top two, while also flagging H2 if T > G.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

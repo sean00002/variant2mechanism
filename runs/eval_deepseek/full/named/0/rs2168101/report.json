@@ -1,0 +1,937 @@
+{
+ "case_id": "rs2168101",
+ "variant": "rs2168101",
+ "variant_key": "chr11:8233861:C>A",
+ "disease": "Neuroblastoma (LMO1)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000149 (SK-N-SH)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.022,
+ "seconds": 277.9,
+ "model_calls": 8,
+ "screen": {
+  "n_pass": 334,
+  "top_groups": [
+   {
+    "label": "Unknown, 1 model",
+    "z": 78.94,
+    "best_tf": "CPEB1"
+   },
+   {
+    "label": "bZIP, 1 model",
+    "z": 61.62,
+    "best_tf": "DBP"
+   },
+   {
+    "label": "GATA, 6 models",
+    "z": -56.07,
+    "best_tf": "GATA2"
+   },
+   {
+    "label": "bZIP, 2 models",
+    "z": 52.06,
+    "best_tf": "TEF"
+   },
+   {
+    "label": "bZIP, 1 model",
+    "z": 51.94,
+    "best_tf": "NFIL3"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H1_GATA2_alt_loss",
+   "title": "GATA2 motif loss at the LMO1 enhancer",
+   "is_null": false,
+   "tf": "GATA2",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "distal enhancer-like cCRE containing rs2168101",
+   "target_gene": "LMO1",
+   "cell_type": "neuroblastoma / SK-N-SH adrenergic-lineage cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "On the plus strand rs2168101 is C>A; because LMO1 is on the minus strand, this is G>T on the transcript strand, so the protective TATA allele corresponds to plus-strand alt A. Alt A reduces GATA2 binding at the rs2168101 sequence. GATA2 is the best-supported GATA factor here: it has an own QBiC-SELEX model (own_model), is the highest-expressed GATA factor in SK-N-SH (133.07 TPM), and an ENCODE GATA2 ChIP-seq peak in SK-N-SH contains the variant. The GATA QBiC-SELEX group shows alt binding less (effect -0.816), and the literature independently links rs2168101 to a GATA motif.",
+     "evidence_ids": [
+      "E10",
+      "E18",
+      "E07",
+      "E06f",
+      "E20a"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "rs2168101 lies within EH38E1518342, a distal enhancer-like cCRE with DNase and H3K27ac signal in the LMO1 intron. The ENCODE cCRE z-scores are maxima across biosamples, so SK-N-SH-specific enhancer activity is not directly proven by this row.",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer is assigned to LMO1 by proximity and Open Targets L2G; LMO1 is the strongest candidate gene at this locus (best L2G score 0.92), far above RIC3.",
+     "evidence_ids": [
+      "E02",
+      "E05"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant expression context is neuroblastoma SK-N-SH, where GATA2 is highly expressed, GATA2 occupies the variant-containing region, and LMO1 is a known neuroblastoma oncogenic co-regulator.",
+     "evidence_ids": [
+      "E10",
+      "E18",
+      "E06a",
+      "E06i"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The literature supports the direction: the risk G allele is favoured in allelic-imbalance assays in tumours, conversion of the GATA motif to the protective TATA allele reduces neuroblastoma initiation, and the protective TATA allele reduces MYCN-driven tumour penetrance in zebrafish. Thus alt A is predicted to lower GATA2-dependent LMO1 expression and reduce neuroblastoma risk. This is not a direct human C>A GATA2-dependence experiment.",
+     "evidence_ids": [
+      "E20b",
+      "E20c",
+      "E20d",
+      "E06f",
+      "E06g",
+      "E06e"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "GATA2 occupies the rs2168101 enhancer in SK-N-SH.",
+    "The ref C allele shows stronger GATA2 binding than alt A.",
+    "Alt A associates with lower LMO1 enhancer activity/LMO1 expression and a less adrenergic, lower-risk neuroblastoma phenotype."
+   ],
+   "falsified_if": [
+    "Allele-specific GATA2 binding at rs2168101 is absent or alt A binds more than ref C.",
+    "GATA2 occupancy at EH38E1518342 is not seen in SK-N-SH or is not allele-specific.",
+    "Editing ref C to alt A does not reduce LMO1 enhancer activity or LMO1 expression, or GATA2 depletion does not modify the effect."
+   ],
+   "probability": 0.6,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA2"
+  },
+  {
+   "id": "H0_null",
+   "title": "No TF-mediated allelic effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No reproducible allele-specific TF binding at rs2168101.",
+    "Any disease association is explained by linkage to another causal variant, a passenger event, or no allelic effect on TF activity."
+   ],
+   "falsified_if": [
+    "A direct allele-specific TF-binding assay at rs2168101 shows a reproducible effect that tracks with LMO1 expression.",
+    "Fine-mapping or editing excludes a linked causal variant and shows the C>A change itself is functional."
+   ],
+   "probability": 0.25,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2_GATA3_alt_loss",
+   "title": "GATA3 motif loss at the LMO1 enhancer",
+   "is_null": false,
+   "tf": "GATA3",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "distal enhancer-like cCRE containing rs2168101",
+   "target_gene": "LMO1",
+   "cell_type": "neuroblastoma / SK-N-SH adrenergic-lineage cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Alt A reduces GATA3 binding at the rs2168101 sequence. GATA3 has an own QBiC-SELEX model (own_model), is expressed at 51.82 TPM in SK-N-SH, and an ENCODE GATA3 ChIP-seq peak in SK-N-SH contains the variant. GATA3 is a plausible alternative GATA factor, but it is lower expressed than GATA2 and the literature does not identify GATA3 specifically at this motif.",
+     "evidence_ids": [
+      "E10",
+      "E19",
+      "E07",
+      "E06f",
+      "E20a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs2168101 lies within EH38E1518342, a distal enhancer-like cCRE with DNase and H3K27ac signal in the LMO1 intron. The ENCODE cCRE z-scores are maxima across biosamples, not SK-N-SH-specific.",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer is assigned to LMO1 by proximity and Open Targets L2G; LMO1 is the strongest candidate gene at this locus.",
+     "evidence_ids": [
+      "E02",
+      "E05"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "SK-N-SH is a neuroblastoma expression context in which GATA3 is expressed and occupies the variant-containing region, and LMO1 is neuroblastoma-relevant.",
+     "evidence_ids": [
+      "E10",
+      "E19",
+      "E06i"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If GATA3 rather than GATA2 is the relevant GATA factor, alt A is predicted to reduce GATA3-dependent LMO1 expression and reduce neuroblastoma risk by analogy to the GATA-to-TATA protective-allele literature. This factor-specific phenotype is not directly tested.",
+     "evidence_ids": [
+      "E06f",
+      "E20a",
+      "E20b",
+      "E06g"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "GATA3 occupies the rs2168101 enhancer in SK-N-SH and shows allele-specific binding.",
+    "The ref C allele shows stronger GATA3 binding than alt A.",
+    "GATA3 perturbation changes LMO1 enhancer activity or expression."
+   ],
+   "falsified_if": [
+    "GATA3 does not occupy the locus in SK-N-SH or shows no allele-specific binding.",
+    "GATA3 depletion does not alter LMO1 enhancer activity or LMO1 expression.",
+    "Allele-specific GATA3 binding is absent or alt A binds more than ref C."
+   ],
+   "probability": 0.15,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA3"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1_GATA2_alt_loss",
+   "tf": "GATA2",
+   "is_null": false,
+   "probability": 0.45,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2_GATA3_alt_loss",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3_DBP_alt_gain",
+   "tf": "DBP",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4_CPEB1_alt_gain",
+   "tf": "CPEB1",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H0_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.3,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The GATA2 binding link is supported only by QBiC-SELEX in vitro binding plus a GATA-family motif literature statement, not by direct GATA2 occupancy or allele-specific cellular assays. Element and gene assignment are strong. The phenotype link is directionally consistent with zebrafish TATA protective-allele data but is not tested for C>A or GATA2 dependence."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs2168101 in a distal enhancer-like cCRE with DNase and H3K27ac signal; E01 confirms intronic location."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places the variant in the LMO1 gene body and E05 gives the best L2G score to LMO1 (0.92), far above RIC3."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E10 shows GATA2 is the highest-expressed GATA factor in the stated context, and E06i supports LMO1 as a neuroblastoma-relevant MYCN co-regulator."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06g supports a protective TATA allele reducing MYCN-driven neuroblastoma penetrance, and E06f links rs2168101 to a GATA motif, but neither establishes GATA2-dependent LMO1 expression for the C>A allele in human cells. Over-claimed as a GATA2 mechanism."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "binding",
+   "status": "weak",
+   "reason": "GATA3 has an own QBiC-SELEX model in the GATA group and is expressed, but there is no direct GATA3 ChIP or allele-specific assay. GATA3 is a plausible alternative factor, not an evidenced one."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "element",
+   "status": "supported",
+   "reason": "Same cCRE evidence as H1; E03 directly locates the variant in a distal enhancer-like element."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "gene",
+   "status": "supported",
+   "reason": "Same LMO1 proximity and L2G evidence as H1."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E10 shows GATA3 expression in the context, and E06i supports LMO1 neuroblastoma relevance."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The phenotype claim is an alternative-factor version of the GATA mechanism and is not directly tested. Evidence is consistent only by analogy to GATA-motif/TATA-allele data."
+  },
+  {
+   "hypothesis_id": "H3_DBP_alt_gain",
+   "step": "binding",
+   "status": "weak",
+   "reason": "DBP has an own QBiC-SELEX model with a clear alt-gain effect, but this is in vitro binding only. No independent DBP occupancy or allele-specific cellular data are cited."
+  },
+  {
+   "hypothesis_id": "H3_DBP_alt_gain",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in a distal enhancer-like cCRE."
+  },
+  {
+   "hypothesis_id": "H3_DBP_alt_gain",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 and E05 support LMO1 as the nearest and best L2G gene."
+  },
+  {
+   "hypothesis_id": "H3_DBP_alt_gain",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E09 reports DBP expression in the SK-N-SH context, which supports technical possibility but not functional relevance."
+  },
+  {
+   "hypothesis_id": "H3_DBP_alt_gain",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links DBP binding at rs2168101 to LMO1 expression or neuroblastoma phenotype. E06e/E06f are generic LMO1/GATA literature and do not bear on DBP."
+  },
+  {
+   "hypothesis_id": "H4_CPEB1_alt_gain",
+   "step": "binding",
+   "status": "weak",
+   "reason": "CPEB1 has an own QBiC-SELEX model with an alt-gain effect, but no independent CPEB1 occupancy or allele-specific cellular evidence is cited."
+  },
+  {
+   "hypothesis_id": "H4_CPEB1_alt_gain",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in a distal enhancer-like cCRE."
+  },
+  {
+   "hypothesis_id": "H4_CPEB1_alt_gain",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 and E05 support LMO1 as the nearest and best L2G gene."
+  },
+  {
+   "hypothesis_id": "H4_CPEB1_alt_gain",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E08 reports CPEB1 expression in the SK-N-SH context, supporting technical possibility but not functional relevance."
+  },
+  {
+   "hypothesis_id": "H4_CPEB1_alt_gain",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links CPEB1 to LMO1 expression or neuroblastoma phenotype. The cited E06 literature concerns GATA/LMO1, not CPEB1."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "binding",
+   "status": "supported",
+   "reason": "H1 uses GATA2 because E10 is the GATA2 own-model QBiC-SELEX result (best model, effect -0.816, alt binds less), E18 shows GATA2 ChIP occupancy at the variant in SK-N-SH, and E06f/E20a independently describe rs2168101 as affecting a GATA motif. Allele orientation is consistent: plus-strand C>A corresponds to transcript-strand G>T given LMO1 is on the minus strand. The binding evidence is strong but not a direct allele-specific cellular GATA2 binding assay."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs2168101 in EH38E1518342, a dELS with DNase and H3K27ac signal; the claim correctly notes that these z-scores are maxima across biosamples, not SK-N-SH-specific proof."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places the variant in the LMO1 gene body 34.9 kb from the TSS, and E05 gives the strongest L2G score to LMO1 (0.92), far above RIC3."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E10 shows GATA2 is highly expressed in the SK-N-SH context (133.07 TPM), E18 shows GATA2 occupancy at the variant in SK-N-SH, and the cited literature supports LMO1 as neuroblastoma-relevant."
+  },
+  {
+   "hypothesis_id": "H1_GATA2_alt_loss",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E20b-E20d and E06f-E06g strongly support the protective TATA/alt-A direction and reduced neuroblastoma initiation/penetrance, and E20c-E20d support allelic imbalance favoring the risk G/ref-C allele. However, the GATA2-specific dependence of the phenotype is inferred rather than directly tested in a human C>A GATA2 perturbation experiment."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "binding",
+   "status": "weak",
+   "reason": "GATA3 is an own-model member of the GATA group in E10 and is expressed in SK-N-SH, and E19 shows a GATA3 ChIP peak containing the variant in SK-N-SH. But the quoted QBiC-SELEX effect is the group best-model GATA2 effect; GATA3 is only listed as a passing member with the same sign, and there is no GATA3-specific allele-specific binding assay or literature linking GATA3 specifically to this motif. This is weak, not direct, support for GATA3 allele-specific binding."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs2168101 in EH38E1518342, a dELS with DNase and H3K27ac signal; the claim correctly notes that these z-scores are maxima across biosamples, not SK-N-SH-specific proof."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places the variant in the LMO1 gene body 34.9 kb from the TSS, and E05 gives the strongest L2G score to LMO1 (0.92), far above RIC3."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E10 shows GATA3 is expressed in the SK-N-SH context (51.82 TPM), E19 shows GATA3 occupancy at the variant in SK-N-SH, and E06i supports LMO1 relevance in neuroblastoma."
+  },
+  {
+   "hypothesis_id": "H2_GATA3_alt_loss",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The phenotype claim is explicitly hypothetical for GATA3 and relies on analogy to the general GATA-to-TATA protective-allele literature. The cited evidence supports the general allele direction but does not test GATA3-specific dependence of LMO1 expression or neuroblastoma risk."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"GATA2\",\"biosample\":\"SK-N-SH\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether GATA2 actually occupies the rs2168101 enhancer in the stated neuroblastoma context; this would upgrade or falsify the weakest key link in H1."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"GATA3\",\"biosample\":\"SK-N-SH\"}",
+   "resolves": "H2.binding",
+   "why": "Tests the alternative GATA-factor chain against GATA2 by checking whether GATA3 occupies the same enhancer in SK-N-SH."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs2168101 allele-specific reporter LMO1 GATA neuroblastoma\"}",
+   "resolves": "H1.phenotype",
+   "why": "Searches for direct allele-specific or editing evidence linking the C>A allele to LMO1 expression and neuroblastoma phenotype, which is currently inferred mainly by analogy."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "GATA2",
+    "biosample": "SK-N-SH"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "GATA3",
+    "biosample": "SK-N-SH"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs2168101 allele-specific reporter LMO1 GATA neuroblastoma"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific luciferase reporter in SK-N-SH: EH38E1518342 ref C vs alt A, with and without GATA2 knockdown.",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GATA2_alt_loss",
+     "outcome": "Alt A lowers enhancer activity; GATA2 depletion reduces or abolishes the difference."
+    },
+    {
+     "hypothesis_id": "H2_GATA3_alt_loss",
+     "outcome": "Alt A lowers enhancer activity; GATA3 depletion rather than GATA2 depletion reduces the difference."
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No reproducible allele-specific enhancer activity difference."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific GATA2 ChIP-qPCR in SK-N-SH cells heterozygous at rs2168101.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GATA2_alt_loss",
+     "outcome": "GATA2 ChIP-qPCR at the enhancer shows occupancy and ref C > alt A in heterozygous cells."
+    },
+    {
+     "hypothesis_id": "H2_GATA3_alt_loss",
+     "outcome": "GATA2 occupancy may be present but no GATA2 allele-specific imbalance; GATA3 carries the allele-specific signal."
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No allele-specific GATA2 occupancy."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "GATA2 knockout/knockdown in SK-N-SH followed by LMO1 expression and enhancer-activity measurement.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GATA2_alt_loss",
+     "outcome": "GATA2 knockout/knockdown reduces LMO1 expression or enhancer activity and modifies the ref-vs-alt effect."
+    },
+    {
+     "hypothesis_id": "H2_GATA3_alt_loss",
+     "outcome": "GATA2 perturbation has little effect; GATA3 perturbation changes LMO1."
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No allele-specific effect and no TF-dependent LMO1 change."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific GATA3 ChIP-qPCR in SK-N-SH.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GATA2_alt_loss",
+     "outcome": "No or weak allele-specific GATA3 binding; GATA2 remains the better factor."
+    },
+    {
+     "hypothesis_id": "H2_GATA3_alt_loss",
+     "outcome": "GATA3 ChIP-qPCR shows occupancy and ref C > alt A at the enhancer."
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "No allele-specific GATA3 occupancy."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "CRISPR knock-in of ref C vs alt A at the endogenous rs2168101 locus, with LMO1 expression and chromatin readouts.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GATA2_alt_loss",
+     "outcome": "CRISPR editing of the C>A allele itself changes LMO1 enhancer activity/expression; linked-variant model is excluded."
+    },
+    {
+     "hypothesis_id": "H2_GATA3_alt_loss",
+     "outcome": "Editing changes LMO1 in a GATA3-dependent rather than GATA2-dependent way."
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "Editing the C>A allele has no effect; a linked causal variant explains the association."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Cheapest separating experiment for the top two chains H1_GATA2_alt_loss and H0_null: allele-specific luciferase reporter in SK-N-SH using the EH38E1518342 enhancer with ref C versus alt A, performed with and without GATA2 knockdown. H1 predicts alt A lowers enhancer activity and that GATA2 depletion reduces the allelic difference; H0 predicts no reproducible allele-specific activity.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 33870932: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/11:8233861-8233861:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:14+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr11:8233861:C>A (GRCh38), allele string C/A\nKnown IDs: rs2168101\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 6.43\nTranscript consequences: LMO1 (intron_variant); LMO1 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/11:7233861-9233861?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:26:12+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "25 protein-coding genes within 1000 kb of chr11:8233861:C>A, by distance to TSS:\nLMO1: 34.9 kb from TSS (in gene body, strand -1)\nRIC3: 64.8 kb from TSS (upstream, strand -1)\nTUB: 214.7 kb from TSS (downstream, strand +1)\nEIF3F: 263.6 kb from TSS (downstream, strand +1)\nNLRP10: 268.4 kb from TSS (upstream, strand -1)\nOR10A3: 292.2 kb from TSS (upstream, strand -1)\nOR10A6: 302.6 kb from TSS (upstream, strand -1)\nSTK33: 360.4 kb from TSS (downstream, strand -1)\nOR5P3: 403.0 kb from TSS (upstream, strand -1)\nOR5P2: 436.9 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E1518342 (dELS: distal enhancer-like), chr11:8233740-8234086.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E1518342 dELS (contains the variant): DNase z 4.5, H3K27ac z 4.0, H3K4me3 z 2.7, CTCF z 1.4; nearby genes LMO1, AC091013.1, RIC3\nEH38E1518343 dELS: DNase z 4.4, H3K27ac z 3.9, H3K4me3 z 2.9, CTCF z 1.6; nearby genes LMO1, AC091013.1, RIC3\nEH38E2943027 dELS: DNase z 2.8, H3K27ac z 4.0, H3K4me3 z 1.8, CTCF z 1.6; nearby genes LMO1, AC091013.1, RIC3\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs2168101&size=100",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "71 GWAS Catalog associations for rs2168101, strongest first:\nGlutamine levels: p 2.0e-208, effect allele A, risk-allele frequency NR, PMID 41044249\nAlanine levels: p 2.0e-151, effect allele A, risk-allele frequency NR, PMID 41044249\nGlycine levels: p 3.0e-43, effect allele A, risk-allele frequency NR, PMID 41044249\nFasting blood glucose: p 2.0e-42, effect allele A, risk-allele frequency NR, PMID 40436827\nTyrosine levels: p 2.0e-40, effect allele A, risk-allele frequency NR, PMID 41044249\nHeight (maximum, inv-normal transformed): p 5.0e-37, effect allele C, risk-allele frequency 0.7115, PMID 39024449\nGlutamine levels (UKB data field 23461): p 4.0e-33, effect allele A, risk-allele frequency 0.308564, PMID 36764567\nheight (mean, inv-normal transformed): p 9.0e-33, effect allele C, risk-allele frequency 0.7115, PMID 39024449\nAlanine levels (UKB data field 23460): p 7.0e-27, effect allele A, risk-allele frequency 0.308491, PMID 36764567\nheight (minimum, inv-normal transformed): p 1.0e-24, effect allele C, risk-allele frequency 0.7115, PMID 39024449\nAlbumin levels: p 2.0e-24, effect allele A, risk-allele frequency NR, PMID 40436827\nHistidine levels: p 5.0e-23, effect allele A, risk-allele frequency NR, PMID 41044249"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:26:15+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "158 credible sets contain 11_8233861_C_A: 157 GWAS, 1 molecular QTL.\nGWAS Height: PIP 1.00; L2G LMO1 0.70, RIC3 0.06\nGWAS Hemoglobin A1c levels: PIP 1.00; L2G LMO1 0.70, RIC3 0.06\nGWAS Tyrosine levels: PIP 1.00; L2G LMO1 0.70, RIC3 0.06\nGWAS Total concentration of branched-chain amino acids (leucine +: PIP 1.00; L2G LMO1 0.70, RIC3 0.06\nGWAS chloride  (minimum, inv-norm transformed): PIP 1.00; L2G LMO1 0.70, RIC3 0.06\nGWAS Diastolic blood pressure x short total sleep time interactio: PIP 1.00; L2G LMO1 0.70, RIC3 0.06\npqtl for CFC1 (UKB_PPP_EUR_CFC1_P0CG37_OID21261_v1): PIP 1.00\nBest L2G gene scores across these sets: LMO1 0.92, RIC3 0.08"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs2168101%20AND%20LMO1%20AND%20%22neuroblastoma%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 51 hits for 'rs2168101 AND LMO1 AND \"neuroblastoma\"'; top 7 with PMIDs:\nPMID 41858882 (2026): LMO1 expression in neuroblastoma cells reprograms tumor-associated macrophages to promote metastasis.\nPMID 38937681 (2024): LMO family gene polymorphisms and Wilms tumor susceptibility in Chinese children: a five-center case-control study.\nPMID 40078563 (2025): Improving neuroblastoma risk prediction through a polygenic risk score derived from genome-wide association study-identified loci.\nPMID 37183825 (2023): Genetic predisposition to neuroblastoma results from a regulatory polymorphism that promotes the adrenergic cell state.\nPMID 40340897 (2025): Genetic variants of m&lt;sup&gt;1&lt;/sup&gt;A modification genes and the risk of neuroblastoma: novel insights from a Chinese case-control study.\nPMID 37183823 (2023): Back to the future: evolutionary biology reveals a key regulatory switch in neuroblastoma pathogenesis.\nPMID 37849756 (2023): Two bullets in the gun: combining immunotherapy with chemotherapy to defeat neuroblastoma by targeting adrenergic-mesenchymal plasticity."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41858882",
+   "url": "https://europepmc.org/article/MED/41858882",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "To better understand this synergy, we performed single-cell RNA sequencing analysis on primary tumors from transgenic zebrafish overexpressing MYCN alone or with LMO1."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41858882",
+   "url": "https://europepmc.org/article/MED/41858882",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Our data suggest that LMO1 overexpression in MYCN-amplified NB cells increases the pro-metastatic properties of macrophages in the tumor-cell microenvironment, which is important for driving NB metastasis."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38937681",
+   "url": "https://europepmc.org/article/MED/38937681",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "We found LMO1 rs2168101 G > T and rs11603024 C > T as well as LMO2 rs7933499 G > A were significantly associated with Wilms tumor risk."
+  },
+  {
+   "id": "E06d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38937681",
+   "url": "https://europepmc.org/article/MED/38937681",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Stratified analysis demonstrated a protective role of rs2168101 GT/TT genotypes against Wilms tumor in the subgroups of age \u2264 18 months, males and clinical stages I/II compared to the rs2168101 GG genotype."
+  },
+  {
+   "id": "E06e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40078563",
+   "url": "https://europepmc.org/article/MED/40078563",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Fourteen loci, including ten protective polymorphisms from CASC15, BARD1, LMO1, HSD17B12, and HACE1, and four risk variants from BARD1, RSRC1, CPZ and MMP20 were significantly associated with neuroblastoma risk."
+  },
+  {
+   "id": "E06f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37183825",
+   "url": "https://europepmc.org/article/MED/37183825",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Both LMO1 expression levels and the risk of developing neuroblastoma in children are associated with a single nucleotide polymorphism, G/T, that affects a GATA motif in the first intron of LMO1."
+  },
+  {
+   "id": "E06g",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37183825",
+   "url": "https://europepmc.org/article/MED/37183825",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Here, we showed that WT zebrafish with the GATA genotype developed adrenergic neuroblastoma, while knock-in of the protective TATA allele at this locus reduced the penetrance of MYCN-driven tumors, which were restricted to the mesenchymal cell state."
+  },
+  {
+   "id": "E06h",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37183823",
+   "url": "https://europepmc.org/article/MED/37183823",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "They now demonstrate experimentally, using genome-edited zebrafish, that a polymorphism in the human rs2168101 locus of the LMO1 gene determines which CRC is active in a tumor."
+  },
+  {
+   "id": "E06i",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37183823",
+   "url": "https://europepmc.org/article/MED/37183823",
+   "retrieved_utc": "2026-10-25T17:26:22+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The authors previously showed that overexpression of LIM-domain-only 1 (LMO1), a transcriptional coregulator, synergizes with MYCN to accelerate tumor formation and metastasis in an NBL-zebrafish model."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr11:8233861:C>A: 997 models scored, 334 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 227 CIS-BP groups. Expression context: DepMap line ACH-000149. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 39 (Homeodomain, 4 models z 59.17, Homeodomain, 3 models z 38.75, Homeodomain; POU, 1 model z 20.28, C2H2 ZF, 1 model z 19.82, C2H2 ZF, 1 model z -17.92). Passing groups ranked below the ones shown: 178. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G153 (Unknown, 1 model): best model CPEB1_NA_TAACCC20NCG_ESAC_yang2017_0_3_7mer (own model of CPEB1), z 78.94, effect 3.719 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: CPEB1 z 78.94. TFs this group covers: CPEB1 (own model) 4.79 TPM; best model's site strength: ref 99.6th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G164 (bZIP, 1 model): best model DBP_NA_TGCGGG20NGGC_AE_jolma2013_0_2_7mer (own model of DBP), z 61.62, effect 4.82 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: DBP z 61.62. TFs this group covers: DBP (own model) 6.19 TPM; best model's site strength: ref 99.3th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G010 (GATA, 6 models): best model GATA2_eDBD_TATGCA40NGAG_KR_yin2017_1_3_7mer (own model of GATA2), z -56.07, effect -0.816 (alt binds less); 6 passing models (6 with the best model's sign). Passing members: GATA2 z -56.07, GATA3 z -54.11, GATA6 z -53.73, GATA5 z -52.75, GATA1 z -49.7 (+1 more). TFs this group covers: GATA2 (own model) 133.07 TPM, GATA3 (own model) 51.82 TPM, GATA4 (own model) 13.8 TPM, GATA6 (own model) 0.07 TPM, GATA5 (own model) 0.01 TPM, GATA1 (own model) 0.0 TPM; best model's site strength: ref 100.0th, alt 77.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G076 (bZIP, 2 models): best model TEF_NA_TATAAG20NTA_ESQ_yang2017_0_2_7mer (own model of TEF), z 52.06, effect 2.175 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: TEF z 52.06, HLF z 27.84. TFs this group covers: TEF (own model) 3.72 TPM, HLF (own model) 0.68 TPM; best model's site strength: ref 92.2th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G262 (bZIP, 1 model): best model NFIL3_NA_TAGACG20NCG_ESY_yang2017_0_2_7mer (own model of NFIL3), z 51.94, effect 2.575 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: NFIL3 z 51.94. TFs this group covers: NFIL3 (own model) 8.07 TPM; best model's site strength: ref 99.4th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G589 (C2H2 ZF, 1 model): best model ZNF75A_FL_TTGCTG40NCTA_KW_yin2017_0_4_7mer (own model of ZNF75A), z 48.81, effect 1.176 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF75A z 48.81. TFs this group covers: ZNF75A (own model) 15.12 TPM, ZNF75D (mapped) 3.0 TPM; best model's site strength: ref 96.4th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G004 (Homeodomain, 18 models): best model HOXC12_NA_TCATGC20NGTA_ESY_yang2017_0_4_7mer (own model of HOXC12), z 42.95, effect 2.352 (alt binds more); 18 passing models (18 with the best model's sign). Passing members: HOXC12 z 42.95, HOXC11 z 40.23, HOXD11 z 35.99, HOXC9 z 29.07, HOXC10 z 29.06 (+13 more). TFs this group covers: HOXD8 (own model) 15.75 TPM, HOXC4 (own model) 8.52 TPM, HOXD9 (own model) 7.58 TPM, HOXC6 (mapped) 5.8 TPM, HOXC9 (own model) 5.16 TPM, HOXC5 (mapped) 3.65 TPM, HOXD4 (own model) 3.42 TPM, HOXD3 (own model) 3.11 TPM, HOXC8 (own model) 1.99 TPM, HOXB3 (own model) 1.38 TPM (+24 more); best model's site strength: ref 91.7th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G367 (Unknown, 1 model): best model THYN1_FL_TG40NCTGTGG_YWFA_jolma2025_0_4_7mer (own model of THYN1), z -34.07, effect -0.261 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: THYN1 z -34.07. TFs this group covers: THYN1 (own model) 40.98 TPM; best model's site strength: ref 51.4th, alt 9.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G418 (C2H2 ZF, 1 model): best model ZFP1_eDBD_TGAACT40NAAG_KT_yin2017_0_4_7mer (own model of ZFP1), z 31.88, effect 2.621 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZFP1 z 31.88. TFs this group covers: ZFP1 (own model) 9.99 TPM; best model's site strength: ref 94.2th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G393 (C2H2 ZF, 1 model): best model ZBTB18_eDBD_TACTCC40NGTA_KR_yin2017_0_3_7mer (own model of ZBTB18), z -31.2, effect -2.791 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZBTB18 z -31.2. TFs this group covers: ZBTB18 (own model) 17.06 TPM; best model's site strength: ref 99.4th, alt 78.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:35+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "1 ENCODE GATA2 ChIP-seq peaks contain chr11:8233861:C>A in biosamples matching 'SK-N-SH': biosamples SK-N-SH; experiments ENCSR706VOO. In other biosamples, 1 GATA2 peaks do contain the variant: SH-SY5Y (experiments ENCSR000EYB)."
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:35+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "1 ENCODE GATA3 ChIP-seq peaks contain chr11:8233861:C>A in biosamples matching 'SK-N-SH': biosamples SK-N-SH; experiments ENCSR000BTH. In other biosamples, 1 GATA3 peaks do contain the variant: SH-SY5Y (experiments ENCSR000EXZ)."
+  },
+  {
+   "id": "E20",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs2168101%20allele-specific%20reporter%20LMO1%20GATA%20neuroblastoma&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T01:45:35+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 9 hits for 'rs2168101 allele-specific reporter LMO1 GATA neuroblastoma'; top 8 with PMIDs:\nPMID 37183825 (2023): Genetic predisposition to neuroblastoma results from a regulatory polymorphism that promotes the adrenergic cell state.\nPMID 38902506 (2024): Hidden secrets of the cancer genome: unlocking the impact of non-coding mutations in gene regulatory elements.\nPMID 33870932 (2021): LIM domain only 1: an oncogenic transcription cofactor contributing to the tumorigenesis of multiple cancer types.\nPMID 38542080 (2024): Super-Enhancers and Their Parts: From Prediction Efforts to Pathognomonic Status.\nPMID 37180836 (2023): Variant rs8400 enhances ALKBH5 expression through disrupting miR-186 binding and promotes neuroblastoma progression.\nPMID 26560027 (2015): Genetic predisposition to neuroblastoma mediated by a LMO1 super-enhancer polymorphism.\nPMID 36152315 (2023): Genetic regulatory and biological implications of the 10q24.32 schizophrenia risk locus.\nPMID 29589100 (2018): Genetic susceptibility to neuroblastoma: current knowledge and future directions."
+  },
+  {
+   "id": "E20a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37183825",
+   "url": "https://europepmc.org/article/MED/37183825",
+   "retrieved_utc": "2026-10-26T01:45:35+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Both LMO1 expression levels and the risk of developing neuroblastoma in children are associated with a single nucleotide polymorphism, G/T, that affects a GATA motif in the first intron of LMO1."
+  },
+  {
+   "id": "E20b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37183825",
+   "url": "https://europepmc.org/article/MED/37183825",
+   "retrieved_utc": "2026-10-26T01:45:35+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Thus, conversion of the regulatory GATA to a TATA allele in the first intron of LMO1 reduced the neuroblastoma-initiation rate by preventing formation of the adrenergic cell state."
+  },
+  {
+   "id": "E20c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 26560027",
+   "url": "https://europepmc.org/article/MED/26560027",
+   "retrieved_utc": "2026-10-26T01:45:35+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "We show that SNP rs2168101 G>T is the most highly associated variant (combined P = 7.47 \u00d7 10(-29), odds ratio 0.65, 95% confidence interval 0.60-0.70), and resides in a super-enhancer defined by extensive acetylation of histone H3 lysine 27 within the first intron of LMO1."
+  },
+  {
+   "id": "E20d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 26560027",
+   "url": "https://europepmc.org/article/MED/26560027",
+   "retrieved_utc": "2026-10-26T01:45:35+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "We demonstrate allelic imbalance favouring the G-containing strand in tumours heterozygous for this SNP, as demonstrated both by RNA sequencing (P < 0.0001) and reporter assays (P = 0.002)."
+  }
+ ]
+}

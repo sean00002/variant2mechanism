@@ -1,0 +1,328 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0049,
+ "seconds": 38.8,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "C0",
+   "title": "Null: no TF-mediated allelic effect of rs7001688",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding at rs7001688 in Hep3B nuclear extract.",
+    "No allele-specific regulatory-element activity for ref G versus alt T.",
+    "No allelic effect on CYP7A1 or other local transcript; any LDL association is due to a linked causal variant or chance."
+   ],
+   "falsified_if": [
+    "A reproducible allele-specific TF footprint, EMSA shift, or ChIP-qPCR difference is seen for ref versus alt in Hep3B cells."
+   ],
+   "probability": 0.4,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "C1",
+   "title": "HNF4A binds ref G more and activates CYP7A1",
+   "is_null": false,
+   "tf": "HNF4A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "hepatocyte enhancer",
+   "target_gene": "CYP7A1",
+   "cell_type": "hepatocyte/Hep3B",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "HNF4A binds the ref G allele more strongly than the alt T allele at rs7001688, consistent with disruption of a candidate HNF4A motif; direct evidence not supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "rs7001688 lies in a candidate hepatocyte-active regulatory element whose activity depends on the HNF4A site.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The element regulates CYP7A1 transcription in hepatocytes.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep3B is an appropriate model because HNF4A and CYP7A1 are expressed in hepatocyte-lineage cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Ref G increases HNF4A-dependent CYP7A1 expression, increasing bile-acid synthesis and lowering LDL cholesterol.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Ref G shows stronger HNF4A EMSA/ChIP signal than alt T in Hep3B.",
+    "Ref G increases CYP7A1 reporter activity and CYP7A1 expression.",
+    "Ref G is associated with lower LDL cholesterol through this element."
+   ],
+   "falsified_if": [
+    "No ref>alt HNF4A binding is detected, HNF4A supershift fails, or CYP7A1 expression is not allele-dependent in hepatocytes."
+   ],
+   "probability": 0.28,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HNF4A"
+  },
+  {
+   "id": "C2",
+   "title": "HNF1A binds alt T more and represses CYP7A1",
+   "is_null": false,
+   "tf": "HNF1A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "hepatocyte repressive element",
+   "target_gene": "CYP7A1",
+   "cell_type": "hepatocyte/Hep3B",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "HNF1A binds the alt T allele more strongly than ref G at rs7001688, creating a candidate HNF1A site; direct evidence not supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The alt T allele increases occupancy of a repressive hepatocyte regulatory element.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The repressive element lowers CYP7A1 transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep3B is relevant because HNF1A is expressed in hepatocyte-lineage cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Alt T increases HNF1A-mediated repression of CYP7A1, reducing bile-acid synthesis and raising LDL cholesterol.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Alt T shows stronger HNF1A EMSA/ChIP signal than ref G.",
+    "Alt T lowers CYP7A1 reporter activity and CYP7A1 expression.",
+    "Alt T is associated with higher LDL cholesterol through this element."
+   ],
+   "falsified_if": [
+    "No alt>ref HNF1A binding is detected, HNF1A supershift fails, or CYP7A1 is not repressed by the alt allele."
+   ],
+   "probability": 0.14,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HNF1A"
+  },
+  {
+   "id": "C3",
+   "title": "CEBPB binds ref G more and activates CYP7A1",
+   "is_null": false,
+   "tf": "CEBPB",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "hepatocyte enhancer",
+   "target_gene": "CYP7A1",
+   "cell_type": "hepatocyte/Hep3B",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CEBPB binds the ref G allele more strongly than alt T at rs7001688, consistent with a candidate CEBPB motif; direct evidence not supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The ref G allele increases activity of a hepatocyte regulatory element.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The element increases CYP7A1 transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep3B is appropriate because CEBPB is expressed in hepatocyte-lineage cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Ref G increases CEBPB-dependent CYP7A1 expression, increasing bile-acid synthesis and lowering LDL cholesterol.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Ref G shows stronger CEBPB EMSA/ChIP signal than alt T.",
+    "Ref G increases CYP7A1 reporter activity.",
+    "Ref G is associated with lower LDL cholesterol through this element."
+   ],
+   "falsified_if": [
+    "No ref>alt CEBPB binding is detected or CYP7A1 expression is not CEBPB-dependent in hepatocytes."
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  },
+  {
+   "id": "C4",
+   "title": "SREBF2 binds alt T more and represses CYP7A1",
+   "is_null": false,
+   "tf": "SREBF2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "sterol-responsive repressive element",
+   "target_gene": "CYP7A1",
+   "cell_type": "hepatocyte/Hep3B",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "SREBF2 binds the alt T allele more strongly than ref G at rs7001688, creating a candidate SREBF2 site; direct evidence not supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The alt T allele increases occupancy of a sterol-responsive repressive element.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The element lowers CYP7A1 transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep3B is relevant because SREBF2 is expressed in hepatocyte-lineage cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Alt T increases SREBF2-mediated repression of CYP7A1, reducing bile-acid synthesis and raising LDL cholesterol.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Alt T shows stronger SREBF2 EMSA/ChIP signal than ref G.",
+    "Alt T lowers CYP7A1 reporter activity.",
+    "Alt T is associated with higher LDL cholesterol through this element."
+   ],
+   "falsified_if": [
+    "No alt>ref SREBF2 binding is detected or CYP7A1 is not repressed by the alt allele in hepatocytes."
+   ],
+   "probability": 0.08,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "SREBF2"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "C0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.4,
+   "allele_binding_more": null
+  },
+  {
+   "id": "C1",
+   "tf": "HNF4A",
+   "is_null": false,
+   "probability": 0.28,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "C2",
+   "tf": "HNF1A",
+   "is_null": false,
+   "probability": 0.14,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "C3",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "C4",
+   "tf": "SREBF2",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Allele-specific TF binding in Hep3B",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "C0",
+     "outcome": "No reproducible ref/alt binding difference"
+    },
+    {
+     "hypothesis_id": "C1",
+     "outcome": "Ref G binds HNF4A more strongly"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run allele-specific EMSA with Hep3B nuclear extract using ref-G and alt-T probes, then HNF4A antibody supershift; this directly tests the top two chains C0 vs C1. If HNF4A binds ref G more strongly, C1 is favored; if binding is allele-independent or HNF4A supershift fails, C0 is favored.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

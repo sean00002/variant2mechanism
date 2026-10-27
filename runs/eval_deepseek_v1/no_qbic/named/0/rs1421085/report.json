@@ -1,0 +1,807 @@
+{
+ "case_id": "rs1421085",
+ "variant": "rs1421085",
+ "variant_key": "chr16:53767042:T>C",
+ "disease": "Obesity (FTO)",
+ "origin": "germline",
+ "expression_context": "GTEx:Adipose - Subcutaneous (proxy for preadipocytes)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0377,
+ "seconds": 304.0,
+ "model_calls": 9,
+ "screen": null,
+ "chains": [
+  {
+   "id": "C4",
+   "title": "Null: linked causal variant or no TF-mediated allelic effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at rs1421085 in adipose cells.",
+    "No allele-specific enhancer reporter activity in adipose cells.",
+    "The GWAS signal is explained by a linked causal variant or by regulatory variation not mediated by this base.",
+    "E07 finding no significant subcutaneous adipose eQTL and E08 finding no ARID5B ChIP peak in subcutaneous adipose are consistent with the null, although neither absence is proof."
+   ],
+   "falsified_if": [
+    "Allele-specific TF binding and allele-specific enhancer activity are demonstrated in adipocytes.",
+    "Conditioning on linked variants does not remove the rs1421085 signal.",
+    "A molecular QTL or reporter assay shows a direct allelic effect of this base."
+   ],
+   "probability": 0.55,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "C1",
+   "title": "ARID5B loss on the C allele derepresses IRX3/IRX5",
+   "is_null": false,
+   "tf": "ARID5B",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "dELS enhancer EH38E3181208 in an FTO intron",
+   "target_gene": "IRX3/IRX5 (long-range)",
+   "cell_type": "subcutaneous adipose / preadipocyte",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ARID5B is proposed to bind the ref T allele more strongly than the alt C allele; the C allele is proposed to disrupt an ARID5B motif. No direct allele-specific binding, QBiC-SELEX, ChIP, or reporter evidence is supplied for this claim. E08 reports no ARID5B ChIP-seq peak in subcutaneous adipose, although absence can reflect no experiment in that biosample.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the distal enhancer-like cCRE EH38E3181208 (dELS), so it could alter enhancer activity. E01 annotates the variant only as an intron variant with no regulatory features, and E03 gives maximum z-scores across biosamples rather than adipose-specific activity.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The proposed long-range target is IRX3, with possible IRX5 involvement. E02 gives only distance to IRX3 and does not mention IRX5; E05 L2G favors FTO (0.99), not IRX3/IRX5; E07 reports no significant subcutaneous adipose eQTL for this variant. No chromatin-contact or perturbation evidence links this enhancer to IRX3/IRX5.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant context is proposed to be subcutaneous adipose tissue or preadipocytes. No supplied evidence ID shows ARID5B expression, enhancer activity, or IRX3/IRX5 regulation specifically in that context; E03 reports only maxima across ENCODE biosamples.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The locus is strongly associated with obesity/BMI. E06d reports that the C allele was associated with overweight/obesity in prior work, so the proposed mechanism is that reduced ARID5B binding on C derepresses IRX3/IRX5 and raises obesity risk. E04 lists T as the catalog effect allele but gives no trait-increasing sign, so the allele direction is not fully resolved by E04 alone.",
+     "evidence_ids": [
+      "E04",
+      "E06b",
+      "E06c",
+      "E06d"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific ARID5B occupancy is higher on T than C at rs1421085 in preadipocytes.",
+    "An allele-specific enhancer reporter in adipose cells shows higher activity for C than T if ARID5B is a repressor.",
+    "IRX3 and/or IRX5 expression is higher on the C allele in adipose cells.",
+    "CRISPRi of EH38E3181208 or ARID5B knockdown changes IRX3/IRX5 or thermogenic gene expression."
+   ],
+   "falsified_if": [
+    "Allele-specific ARID5B binding is absent in preadipocytes.",
+    "The enhancer reporter shows no T-vs-C difference in adipose cells.",
+    "IRX3/IRX5 expression or thermogenic genes do not respond to ARID5B or enhancer perturbation.",
+    "Chromatin-contact assays do not link EH38E3181208 to IRX3/IRX5 in adipose cells."
+   ],
+   "probability": 0.22,
+   "rank": 2,
+   "coverage_status": "not_in_coverage",
+   "resolved_symbol": "ARID5B"
+  },
+  {
+   "id": "C2",
+   "title": "ARID5B allelic occupancy changes FTO dosage",
+   "is_null": false,
+   "tf": "ARID5B",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "dELS enhancer EH38E3181208 in an FTO intron",
+   "target_gene": "FTO",
+   "cell_type": "subcutaneous adipose / preadipocyte",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ARID5B is proposed to bind the ref T allele more strongly than the alt C allele. This is a motif-based proposal only; no direct allele-specific binding evidence is supplied. E08 found no ARID5B ChIP-seq peak in subcutaneous adipose, with the caveat that absence can mean no ARID5B experiment in that biosample.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in dELS enhancer EH38E3181208 within the FTO gene body, so it could alter an FTO-associated enhancer. E01 calls the variant an intron variant with no regulatory features, while E03 directly annotates the cCRE.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "FTO is the L2G-preferred target: E02 places the variant in the FTO gene body, and E05 gives FTO a strong L2G score of 0.99. However, E07 reports no significant subcutaneous adipose eQTL for this variant, and no chromatin-contact or perturbation evidence directly links EH38E3181208 to FTO expression.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The proposed context is subcutaneous adipose tissue or preadipocytes. No supplied evidence ID demonstrates ARID5B occupancy or enhancer activity in that cell type; the case expression context alone is not molecular evidence.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The locus is strongly associated with obesity/BMI, and E06d reports the C allele as associated with overweight/obesity. The proposed chain is that reduced ARID5B binding on C changes FTO dosage and adipocyte biology, but the direction of any FTO expression change and its causal effect on obesity are not established by the supplied evidence. E04 lists T as the catalog effect allele without a sign.",
+     "evidence_ids": [
+      "E04",
+      "E06b",
+      "E06c",
+      "E06d"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific ARID5B occupancy is higher on T than C at rs1421085 in preadipocytes.",
+    "FTO expression or FTO promoter contact differs by allele in adipose cells.",
+    "An allele-specific enhancer reporter in adipose cells is sensitive to the T/C difference."
+   ],
+   "falsified_if": [
+    "No allele-specific ARID5B binding is detected.",
+    "FTO expression or enhancer-promoter contact is unchanged by the enhancer allele.",
+    "Adipose allele-specific expression or eQTL assays show no FTO effect.",
+    "The FTO L2G signal is fully explained by linkage to another causal variant."
+   ],
+   "probability": 0.18,
+   "rank": 3,
+   "coverage_status": "not_in_coverage",
+   "resolved_symbol": "ARID5B"
+  },
+  {
+   "id": "C3",
+   "title": "ARID5B allelic occupancy changes RPGRIP1L",
+   "is_null": false,
+   "tf": "ARID5B",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "dELS enhancer EH38E3181208 in an FTO intron",
+   "target_gene": "RPGRIP1L",
+   "cell_type": "subcutaneous adipose / preadipocyte",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ARID5B is proposed to bind the ref T allele more strongly than the alt C allele, as a motif-based proposal without direct binding data in this evidence set. No QBiC-SELEX screen row or QBiC detail for ARID5B was supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the distal enhancer-like cCRE EH38E3181208 (dELS). E03 supports the element annotation; E01 reports no regulatory features and an intron-variant consequence.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "RPGRIP1L is a nearby protein-coding gene with a secondary L2G score in E05. E02 gives only distance, E05 strongly favors FTO over RPGRIP1L, and E07 reports no significant subcutaneous adipose eQTL for this variant. No evidence shows this enhancer targets RPGRIP1L.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The proposed context is subcutaneous adipose tissue or preadipocytes, but no cited evidence shows RPGRIP1L regulation or ARID5B activity in that context.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The locus is associated with obesity/BMI, and E06d reports the C allele as associated with overweight/obesity. The proposed RPGRIP1L-mediated contribution to obesity is not supported by direct molecular or perturbation evidence.",
+     "evidence_ids": [
+      "E04",
+      "E06b",
+      "E06c",
+      "E06d"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "RPGRIP1L expression differs by allele in adipose cells.",
+    "EH38E3181208 contacts the RPGRIP1L promoter in adipose cells.",
+    "ARID5B perturbation changes RPGRIP1L expression."
+   ],
+   "falsified_if": [
+    "RPGRIP1L expression is unchanged by the allele in adipose cells.",
+    "No allele-specific ARID5B binding or enhancer activity is seen.",
+    "Chromatin-contact assays do not link EH38E3181208 to RPGRIP1L in adipose cells.",
+    "RPGRIP1L perturbation does not affect adipocyte phenotypes."
+   ],
+   "probability": 0.05,
+   "rank": 4,
+   "coverage_status": "not_in_coverage",
+   "resolved_symbol": "ARID5B"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "C1",
+   "tf": "ARID5B",
+   "is_null": false,
+   "probability": 0.45,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "C2",
+   "tf": "ARID5B",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "C3",
+   "tf": "ARID5B",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "C4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.35,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "C1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The chain rests on an unevidenced ARID5B allele-specific binding claim, has no direct enhancer-target evidence for IRX3/IRX5, no cell-type evidence, and a phenotype direction claim that conflicts with some cited literature."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly annotates the variant within dELS EH38E3181208. E01 instead reports no regulatory features and an intron_variant, so the annotation is not clean, and enhancer activity is not directly tested."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 only gives distance to IRX3 and does not mention IRX5; E05 L2G favors FTO, not IRX3/IRX5. No chromatin-contact, perturbation, or reporter evidence links this enhancer to IRX3/IRX5."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence ID is cited for adipose or preadipocyte enhancer activity, ARID5B expression, or thermogenic function. E03 provides only maxima across biosamples, not adipose-specific activity."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is strongly associated with BMI/obesity in E04 and E06b/E06c, but the chain's direction is inconsistent: E06d explicitly states the C allele was associated with overweight/obesity, whereas the chain says the T allele is risk/higher BMI. E04 lists effect allele T but no effect sign. The ARID5B-to-IRX3/IRX5 mechanism is unsupported."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ID supports ARID5B binding the ref allele more than alt; qbic_coverage is only not_checked and no screen row or QBiC detail for ARID5B is provided."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in dELS EH38E3181208 within FTO. Again E01 reports no regulatory features, but the element-location claim is directly supported by cCRE annotation."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places the variant in the FTO gene body, and E05 gives FTO a very strong L2G score (0.99). This supports FTO as the L2G-consistent target, though not a direct molecular mechanism."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence ID shows adipose or preadipocyte mediation. The case expression context is provided, but no cited evidence demonstrates ARID5B or enhancer activity in that context."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The obesity association is strong, but the chain claims T is the risk/higher-BMI allele while E06d says the C allele was associated with overweight/obesity. No evidence supports allele-specific ARID5B occupancy changing FTO dosage."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No direct or predicted binding evidence is supplied; the binding claim is only a motif-based proposal. QBiC coverage is not checked and no ARID5B screen row is cited."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly annotates the variant in dELS EH38E3181208, though E01 reports no regulatory features and no activity assay is supplied."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 shows RPGRIP1L is nearby, and E05 gives it a secondary L2G score, but no evidence shows this enhancer targets RPGRIP1L. The L2G evidence strongly favors FTO over RPGRIP1L."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No cited evidence shows RPGRIP1L regulation or ARID5B activity in subcutaneous adipose or preadipocytes."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is associated with obesity/BMI, but the allele direction is conflicting with E06d and there is no evidence that RPGRIP1L mediates the phenotype."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "C1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ID is supplied for allele-specific ARID5B binding; no QBiC-SELEX, ChIP, reporter, or allele-specific binding data. E08 is only mentioned as absence of a ChIP peak and is not cited in evidence_ids, so it does not support the binding claim."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 directly annotates the variant in a dELS cCRE, so the element annotation is supported, but the claim that this alters enhancer activity is only inferred and uses maxima across biosamples; E01 reports no regulatory features."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 gives only distance to IRX3 and does not mention IRX5; E05 L2G favors FTO (0.99), E07 reports no significant subcutaneous adipose eQTL, and no chromatin-contact or perturbation evidence links this enhancer to IRX3/IRX5."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No cited evidence shows ARID5B occupancy, enhancer activity, or IRX3/IRX5 regulation specifically in subcutaneous adipose or preadipocytes; E03 reports only maxima across ENCODE biosamples."
+  },
+  {
+   "hypothesis_id": "C1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The locus-trait association is strong in E04 and E06b/c, and E06d reports C-allele association with overweight/obesity, but E04 lists T as the catalog effect allele for BMI. The C-risk mechanism and allele direction are therefore not resolved and conflict."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ID is supplied for allele-specific ARID5B binding; this is a motif-based proposal only. E08 is mentioned but not cited in evidence_ids and reports absence of an ARID5B ChIP peak, which is not direct support."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 directly annotates the variant in dELS EH38E3181208 within the FTO gene body, supporting the element location, but no allele-specific or adipose enhancer activity is shown and E01 reports no regulatory features."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives FTO a strong L2G score of 0.99 and E02 places the variant in the FTO gene body, supporting FTO as a candidate target at the genetic level, but E07 reports no significant subcutaneous adipose eQTL and no chromatin-contact or perturbation evidence directly links the enhancer to FTO expression."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No cited evidence demonstrates ARID5B occupancy or enhancer activity in subcutaneous adipose or preadipocytes; the GTEx adipose expression context alone is not molecular evidence."
+  },
+  {
+   "hypothesis_id": "C2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The obesity/BMI association is supported and E06d reports C-allele association, but E04 lists T as the catalog effect allele. The direction of any FTO expression change and its causal effect on obesity are not established."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ID is supplied for allele-specific ARID5B binding; no QBiC-SELEX screen row or QBiC detail for ARID5B is provided, and no ChIP, reporter, or allele-specific binding data are cited."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 directly annotates the variant in dELS EH38E3181208, supporting the element annotation, but the claim that the enhancer could alter activity is inferred and not shown allele-specifically or in adipose; E01 reports no regulatory features."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives RPGRIP1L only secondary L2G scores while strongly favoring FTO, E02 gives only distance, and E07 reports no significant subcutaneous adipose eQTL. No evidence shows this enhancer targets RPGRIP1L."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No cited evidence shows RPGRIP1L regulation or ARID5B activity in subcutaneous adipose or preadipocytes."
+  },
+  {
+   "hypothesis_id": "C3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The locus is associated with obesity/BMI and E06d reports C-allele association, but E04 lists T as the catalog effect allele and no direct molecular or perturbation evidence supports an RPGRIP1L-mediated contribution."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Adipose - Subcutaneous\"}",
+   "resolves": "C2.gene (also C1.gene/C3.gene)",
+   "why": "Tests whether rs1421085 is an adipose eQTL for FTO, IRX3/IRX5, or RPGRIP1L and in which allele direction; this would most directly re-rank C1 vs C2 vs C3 and test the phenotype direction."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ARID5B\",\"biosample\":\"subcutaneous adipose\"}",
+   "resolves": "C1.binding (also C2.binding/C3.binding)",
+   "why": "All three non-null chains depend on ARID5B occupancy at this element in adipose context. A peak containing the variant would support regional binding; absence would strongly weaken the ARID5B mechanism, although it would not by itself prove allele specificity."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs1421085 ARID5B IRX3 IRX5 enhancer adipocyte\"}",
+   "resolves": "C1.gene (also C1.binding/C1.phenotype)",
+   "why": "The IRX3/IRX5 long-range target and ARID5B motif mechanism are literature-based proposals in the chain but have no supplied primary evidence. A search could retrieve direct reporter, allele-specific binding, or perturbation evidence and substantially change C1."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Adipose - Subcutaneous"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "subcutaneous adipose",
+    "tf": "ARID5B"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs1421085 ARID5B IRX3 IRX5 enhancer adipocyte"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific ARID5B binding assay (EMSA/SPR with recombinant ARID5B, or allele-specific ARID5B ChIP-qPCR in heterozygous preadipocytes) at rs1421085",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "ARID5B binds T more strongly than C."
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "ARID5B binds T more strongly than C."
+    },
+    {
+     "hypothesis_id": "C3",
+     "outcome": "ARID5B binds T more strongly than C."
+    },
+    {
+     "hypothesis_id": "C4",
+     "outcome": "No allele-specific ARID5B binding."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific enhancer reporter (luciferase or MPRA) for EH38E3181208 in subcutaneous preadipocytes/adipocytes",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "C allele has higher enhancer activity than T if ARID5B represses."
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "C allele has higher enhancer activity than T if ARID5B represses."
+    },
+    {
+     "hypothesis_id": "C3",
+     "outcome": "C allele has higher enhancer activity than T if ARID5B represses."
+    },
+    {
+     "hypothesis_id": "C4",
+     "outcome": "No allele-specific enhancer activity."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Adipose allele-specific expression or eQTL/ASE assay for IRX3, IRX5, FTO, and RPGRIP1L",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "C allele increases IRX3 and/or IRX5 expression."
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "C allele changes FTO expression."
+    },
+    {
+     "hypothesis_id": "C3",
+     "outcome": "C allele changes RPGRIP1L expression."
+    },
+    {
+     "hypothesis_id": "C4",
+     "outcome": "No allele-specific expression for these genes."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Chromatin-contact assay (4C/Hi-C) from EH38E3181208 in subcutaneous adipose or preadipocytes",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "EH38E3181208 contacts IRX3/IRX5 in adipose cells."
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "EH38E3181208 contacts the FTO promoter in adipose cells."
+    },
+    {
+     "hypothesis_id": "C3",
+     "outcome": "EH38E3181208 contacts the RPGRIP1L promoter in adipose cells."
+    },
+    {
+     "hypothesis_id": "C4",
+     "outcome": "No specific enhancer-promoter contact consistent with a direct allelic mechanism."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ARID5B knockdown or CRISPRi of EH38E3181208 in preadipocytes with target-gene and thermogenic readouts",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "ARID5B knockdown or enhancer CRISPRi changes IRX3/IRX5 and thermogenic genes."
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "ARID5B knockdown or enhancer CRISPRi changes FTO expression."
+    },
+    {
+     "hypothesis_id": "C3",
+     "outcome": "ARID5B knockdown or enhancer CRISPRi changes RPGRIP1L expression."
+    },
+    {
+     "hypothesis_id": "C4",
+     "outcome": "No ARID5B-dependent or enhancer-dependent change."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Allele-specific ARID5B binding assay (EMSA/SPR with recombinant ARID5B or allele-specific ARID5B ChIP-qPCR in heterozygous subcutaneous preadipocytes) at rs1421085; this is the cheapest direct test separating the top two chains C4 and C1.",
+ "citation_support": 0.6,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/16:53767042-53767042:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:38:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr16:53767042:T>C (GRCh38), allele string T/C\nKnown IDs: rs1421085\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 2.55\nTranscript consequences: FTO (intron_variant, NMD_transcript_variant); FTO (intron_variant); FTO (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/16:52767042-54767042?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:38:17+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "7 protein-coding genes within 1000 kb of chr16:53767042:T>C, by distance to TSS:\nRPGRIP1L: 63.1 kb from TSS (upstream, strand -1)\nFTO: 65.3 kb from TSS (in gene body, strand +1)\nAKTIP: 262.6 kb from TSS (upstream, strand -1)\nRBL2: 333.1 kb from TSS (downstream, strand +1)\nIRX3: 520.4 kb from TSS (downstream, strand -1)\nCHD9: 712.1 kb from TSS (downstream, strand +1)\nCHD9NB: 714.1 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:29:02+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3181208 (dELS: distal enhancer-like), chr16:53766999-53767220.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3181207 dELS: DNase z 3.5, H3K27ac z 3.2, H3K4me3 z 1.5, CTCF z 1.5; nearby genes RPGRIP1L, FTO, AC007497.1\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs1421085&size=100",
+   "retrieved_utc": "2026-10-25T17:29:17+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "100 GWAS Catalog associations for rs1421085, strongest first:\nBody mass index (BMI, mean, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nBody mass index (BMI, maximum, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nWhat is your weight? (pounds, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.5909, PMID 39024449\nWeight (mean, inv-normal transformed): p 2.0e-300, effect allele T, risk-allele frequency 0.669, PMID 39024449\nObesity (PheCode 278.1): p 6.0e-291, effect allele T, risk-allele frequency 0.593, PMID 39024449\nBody mass index (BMI, minimum, inv-normal transformed): p 2.0e-277, effect allele T, risk-allele frequency 0.669, PMID 39024449\nOverweight, obesity and other hyperalimentation (PheCode 278): p 4.0e-246, effect allele T, risk-allele frequency 0.5927, PMID 39024449\nBody shape phenotype PC1: p 2.0e-241, effect allele T, risk-allele frequency 0.596423, PMID 38640244\nType 2 diabetes (PheCode 250.2): p 4.0e-211, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nDiabetes mellitus (PheCode 250): p 8.0e-207, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nHemoglobin A1c (HbA1c, maximum, inv-norm transformed): p 8.0e-195, effect allele T, risk-allele frequency 0.5901, PMID 39024449\nHemoglobin A1c (HbA1c, mean, inv-norm transformed): p 1.0e-185, effect allele T, risk-allele frequency 0.5901, PMID 39024449"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1701 credible sets contain 16_53767042_T_C: 200 GWAS, 0 molecular QTL.\nGWAS Body mass index (BMI, minimum, inv-normal transformed): PIP 0.85; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Body mass index: PIP 0.80; L2G FTO 0.99, RPGRIP1L 0.25\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.67; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Diabetes mellitus (PheCode 250): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Leg fat free mass left (UKB data field 23117): PIP 0.41; L2G FTO 0.99, RPGRIP1L 0.21, CHD9 0.07\nBest L2G gene scores across these sets: FTO 0.99, RPGRIP1L 0.36, CHD9 0.16"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs1421085%20AND%20FTO%20AND%20%22obesity%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 653 hits for 'rs1421085 AND FTO AND \"obesity\"'; top 8 with PMIDs:\nPMID 42440472 (2026): A Rapid Genotyping Assay for &lt;i&gt;FTO&lt;/i&gt; and &lt;i&gt;PPAR-\u03b3&lt;/i&gt; Nutrigenetic Variants in Thai Adults with Overweight/Obesity.\nPMID 41862896 (2026): Impact of fat mass and obesity-associated (FTO) gene variants on adult obesity and overweight: a comprehensive meta-analysis.\nPMID 41591493 (2026): Obesity-related RNA m&lt;sup&gt;6&lt;/sup&gt;A demethylase gene FTO rs1421085 is associated with neuroticism in a longitudinal birth cohort study.\nPMID 42197023 (2026): Associations Between FTO rs9939609 Genotype, Physical Activity, and Dietary Behaviors in Young Adults.\nPMID 42757464 (2026): Demethylase FTO attenuates atherosclerotic plaque via upregulating ABCA1 and ABCG1 expression by targeting ATG5.\nPMID 42299366 (2026): Hepatogenomics of MAFLD in Asian Population: Genetic Polymorphisms and Pathway-Based Insights.\nPMID 42534632 (2025): Genetic Polymorphisms Associated with Obesity in Southeast Asian Populations: A Systematic Review without Meta-Analysis.\nPMID 42245481 (2026): FTO in cardiovascular diseases: mechanisms, context dependence, and translational opportunities."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42440472",
+   "url": "https://europepmc.org/article/MED/42440472",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "ObjectivesThe aim of this study is to develop, validate, and apply a cost-effective 4-plex high-resolution melting (HRM) assay for simultaneous detection of FTO (rs9939609 and rs1421085) and PPAR-\u03b3 (rs1801282 and rs3856806) variants using standard laboratory equipment."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41862896",
+   "url": "https://europepmc.org/article/MED/41862896",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In the obesity group, the rs1421085 exhibited the strongest effect, with an odds ratio (OR) of 2.16 (95% CI: 1.58\u20132.95)."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41862896",
+   "url": "https://europepmc.org/article/MED/41862896",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "CONCLUSION: This meta-analysis provides strong evidence that FTO polymorphisms, particularly rs1421085 and rs9939609, are significantly associated with increased susceptibility to obesity in adults, while their impact on overweight is comparatively weaker."
+  },
+  {
+   "id": "E06d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41591493",
+   "url": "https://europepmc.org/article/MED/41591493",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Based on findings that experimental manipulation of the RNA m6A methylation in animal experiments can affect anxiety, and given that the C-allele of FTO rs1421085 had a significant association with indicators of overweight and obesity in our previous study, we have examined the possible association of FTO rs1421085 genotype with neuroticism in the same longitudinally observed sample."
+  },
+  {
+   "id": "E06e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41591493",
+   "url": "https://europepmc.org/article/MED/41591493",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Statistically significant assocation between the FTO rs1421085 genotype and neuroticism emerged by age 25, with an additive effect of each T-allele."
+  },
+  {
+   "id": "E06f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42534632",
+   "url": "https://europepmc.org/article/MED/42534632",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "LEP variants were not significantly associated with obesity in Malaysians, and FTO variants showed mixed results, with rs9939609 (OR = 3.72, P = 0.009) and rs1421085 (OR = 3.22, P < 0.001) variants being associated with obesity and higher body mass index (BMI) in Indonesians, but no significant findings in Malaysians."
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_53767042_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_53767042_T_C_b38 in tissues matching 'Adipose - Subcutaneous'. NES is the effect of the alt allele (C) relative to ref (T)."
+  },
+  {
+   "id": "E08",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:30:39+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE ARID5B ChIP-seq peak contains chr16:53767042:T>C in biosamples matching 'subcutaneous adipose'. Absence can also mean no ARID5B experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs1421085%20ARID5B%20IRX3%20IRX5%20enhancer%20adipocyte&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T00:21:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 49 hits for 'rs1421085 ARID5B IRX3 IRX5 enhancer adipocyte'; top 8 with PMIDs:\nPMID 42877975 (2026): Human Genetics of Adipose Dysfunction: Genomic Mechanisms and Therapeutic Opportunities in Cardiometabolic Disease.\nPMID 42299366 (2026): Hepatogenomics of MAFLD in Asian Population: Genetic Polymorphisms and Pathway-Based Insights.\nPMID 39965570 (2025): An evolving understanding of multiple causal variants underlying genetic association signals.\nPMID 41273414 (2026): Bridging the variant-to-function gap in type 2 diabetes: advances and challenges.\nPMID 42589667 (2026): Functional Annotation of GWAS Loci Using Public Transcriptome and Epigenome Datasets Reveals Non-Coding Genes and Regulatory Elements Which May Contribute to BMI.\nPMID 36882962 (2023): Technologies, strategies, and cautions when deconvoluting genome-wide association signals: FTO in focus.\nPMID 37200795 (2023): <i>FTO</i> Gene Polymorphisms at the Crossroads of Metabolic Pathways of Obesity and Epigenetic Influences.\nPMID 37034418 (2022): Systematic assays and resources for the functional annotation of non-coding variants."
+  },
+  {
+   "id": "E09a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 36882962",
+   "url": "https://europepmc.org/article/MED/36882962",
+   "retrieved_utc": "2026-10-26T00:21:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "By reviewing studies of the FTO locus in the genetic etiology of obesity, we wish to highlight advances in the field fueled by the evolution of technical and analytic strategies in assessing the molecular bases for genetic associations."
+  },
+  {
+   "id": "E09b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 36882962",
+   "url": "https://europepmc.org/article/MED/36882962",
+   "retrieved_utc": "2026-10-26T00:21:07+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Particular attention is drawn to extrapolating experimental findings from animal models and cell types to humans, as well as technical aspects used to identify long-range DNA interactions and their biological relevance with regard to the associated trait."
+  }
+ ]
+}

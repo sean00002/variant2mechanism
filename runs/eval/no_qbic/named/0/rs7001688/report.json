@@ -1,0 +1,809 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.4408,
+ "seconds": 137.4,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1",
+   "title": "Null: rs7001688 has no TF-mediated regulatory effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific reporter, ATAC or ChIP signal at chr8:57573391 in hepatocyte models (Hep 3B2.1-7, HepG2).",
+    "No liver eQTL for FAM110B, CYP7A1 or any other gene is attributable to this variant, consistent with E07.",
+    "No GWAS credible set for LDL cholesterol contains this variant (E04, E05).",
+    "Base editing or deletion of the 50 bp around the site in hepatocytes changes no neighbouring transcript."
+   ],
+   "falsified_if": [
+    "A reproducible allele-specific regulatory effect (MPRA or luciferase, or allele-specific ChIP/ATAC) is shown for G vs T at this position.",
+    "Fine-mapping places rs7001688 in an LDL credible set with non-trivial posterior probability.",
+    "CRISPR perturbation of the site alters expression of a lipid-relevant gene in hepatocytes."
+   ],
+   "probability": 0.72,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H3",
+   "title": "FOXA2 forkhead site created by the T allele, acting on FAM110B",
+   "is_null": false,
+   "tf": "FOXA2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "Unannotated candidate element at chr8:57573391 (no overlapping cCRE, E03)",
+   "target_gene": "FAM110B",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The T (alt) allele is proposed to create a forkhead-like core; FOXA2 is named within the forkhead family as the hepatic pioneer factor, but this choice rests on background knowledge, not on cited data. No QBiC-SELEX lookup for FOXA2 was performed, so coverage is not_checked, and no ChIP evidence at this site was supplied (E08 covers HNF4A only).",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "A pioneer factor could act on a closed, registry-absent element; E03 shows no cCRE within 500 bp, which is compatible with but does not support a cryptic element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest protein-coding gene at 420.6 kb (E02) and appears in one statin-response genome-wide study (E06), but the variant is not an eQTL for it in any GTEx tissue (E07).",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Effect would be confined to FOXA2-positive hepatocytes; no expression evidence was supplied for the Hep 3B2.1-7 context.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Gain of FOXA2 binding would raise FAM110B expression and modestly shift plasma LDL; no cited evidence connects FAM110B expression to LDL at this variant (E04, E05 show no association records).",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "ATAC/DNase footprint or open-chromatin signal appears preferentially on T-allele haplotypes.",
+    "FOXA2 (or FOXA1) ChIP-seq in HepG2/liver shows a peak within 100 bp of the variant.",
+    "MPRA shows T > G activity, the opposite direction to H2 and H4.",
+    "FAM110B, not CYP7A1, responds to CRISPRi of the element."
+   ],
+   "falsified_if": [
+    "No forkhead core is created by G>T on either strand in a motif scan or QBiC model.",
+    "FOXA2/FOXA1 ChIP-seq in liver or HepG2 shows no peak within 1 kb.",
+    "FAM110B expression is unchanged by allele or by deletion of the element."
+   ],
+   "probability": 0.11,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA2"
+  },
+  {
+   "id": "H4",
+   "title": "CEBPB bZIP site lost on the T allele in a hepatic element near EH38E3835076",
+   "is_null": false,
+   "tf": "CEBPB",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "Candidate hepatic element within the 1.5 kb window containing the CA-H3K4me3 cCRE EH38E3835076",
+   "target_gene": "FAM110B",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The G allele is proposed to support a C/EBP half-site; CEBPB is chosen within the C/EBP group on hepatocyte-expression grounds that are not evidenced here. No QBiC-SELEX lookup was done, so coverage is not_checked, and no ChIP evidence for CEBPB at this site was supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The only nearby annotation is a CA-H3K4me3 cCRE 1544 bp away; the variant itself overlaps no cCRE and is non-conserved (GERP 0.27), so the element assignment is speculative.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest gene at 420.6 kb (E02); no eQTL supports the link (E07).",
+     "evidence_ids": [
+      "E02",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hepatocyte context as supplied (Hep 3B2.1-7); no expression data cited.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Loss of CEBPB binding on T would reduce element activity and FAM110B expression with a small upward LDL shift; no association evidence exists for this variant (E04, E05).",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "CEBPB ChIP-seq peak in HepG2 or liver overlapping the variant, allele-biased toward G.",
+    "Allelic reporter difference appears only under C/EBP-activating conditions (e.g. IL-6 or dexamethasone).",
+    "Any signal localises to the 1.5 kb window around EH38E3835076 rather than to the variant base alone."
+   ],
+   "falsified_if": [
+    "CEBPB ChIP-seq shows no occupancy in liver or hepatoma lines.",
+    "Condition-dependent reporter assays show no allelic difference under C/EBP activation."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  },
+  {
+   "id": "H2",
+   "title": "HNF4A DR1 site in a cryptic hepatic enhancer acting on CYP7A1",
+   "is_null": false,
+   "tf": "HNF4A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "Putative distal hepatic element at chr8:57573391, absent from the ENCODE cCRE registry (E03)",
+   "target_gene": "CYP7A1",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7, DepMap ACH-000625)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The G (ref) allele is proposed to carry a DR1-like nuclear-receptor motif bound by HNF4A, with T disrupting it. No QBiC-SELEX model was retrieved for HNF4A, so coverage is not_checked; the only direct test available, ENCODE ChIP-seq in HepG2, shows no HNF4A peak containing the variant and none within 100 bp (E08), which argues against this link.",
+     "evidence_ids": [
+      "E08"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "No cCRE overlaps the variant and none lies within 500 bp (nearest CA-H3K4me3 element 1544 bp away), so any enhancer would have to be unannotated; the site is also poorly conserved (GERP 0.27, E01).",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "CYP7A1 is the nearest bile-acid/LDL gene at 926.8 kb (E02); no eQTL supports this link, since the variant has zero significant GTEx v8 eQTLs in any tissue (E07), and Open Targets shows no CYP7A1 association with a large-LDL cholesterol trait (E09).",
+     "evidence_ids": [
+      "E02",
+      "E07",
+      "E09"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Any effect would be hepatocyte-restricted; the supplied context is Hep 3B2.1-7, but no expression evidence for HNF4A or CYP7A1 in this line was provided.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Less HNF4A binding on T would lower CYP7A1 transcription and raise plasma LDL; no cited evidence links this variant to LDL (E04, E05 show no association records).",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "HNF4A ChIP-seq in primary hepatocytes or liver tissue (not just HepG2) would show a peak at the site, higher on G.",
+    "Promoter-capture Hi-C in liver shows contact between chr8:57.57 Mb and the CYP7A1 promoter.",
+    "Reporter activity in Hep 3B2.1-7 is lower for T than G, and the difference is abolished by HNF4A knockdown."
+   ],
+   "falsified_if": [
+    "HNF4A ChIP-seq in liver tissue also shows no occupancy at this position (already negative in HepG2, E08).",
+    "No chromatin contact between the variant and CYP7A1 is detected.",
+    "Luciferase/MPRA shows equal G and T activity."
+   ],
+   "probability": 0.07,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HNF4A"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.55,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H2",
+   "tf": "HNF4A",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "FOXA2",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H5",
+   "tf": "NR1H4",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence cited; the DR1 motif and HNF4A binding are asserted from memory, with no QBiC, ChIP or expression data. Coverage is not_checked."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "E01 and E03 show an intron with no cCRE within 500 bp, which argues against an enhancer. Nothing supports enhancer activity."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 shows only that CYP7A1 is 927 kb away. No eQTL, contact or CRISPR data link the variant to CYP7A1. Distance alone is not evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence is cited for HNF4A or CYP7A1 expression in Hep 3B2.1-7; the claim comes from memory."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links the variant to LDL. E04 and E05 show no association. The direction (less binding, lower CYP7A1, higher LDL) is plausible but unsupported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited. The TGTTT forkhead core is proposed with no QBiC result. FOXA2 was picked from the forkhead family because of its expression, which is not shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "missing",
+   "reason": "The absence of a cCRE in E03 is read as consistent with a cryptic element. That is not evidence, and no accessibility data are given."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 gives FAM110B as the nearest gene, but it is 421 kb away. E06 is a statin-response study with no showing of FAM110B-LDL link at this variant."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No FOXA2 expression evidence is cited."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence ties FAM110B expression to LDL or shows a gain-of-binding effect. The claim is speculative."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited. The C/EBP half-site is asserted, and CEBPB was chosen from the group on expression grounds with no data."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 shows only that a CA-H3K4me3 cCRE lies 1.5 kb away. The variant itself is unannotated, so the assignment is speculative."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 shows FAM110B is nearest, but at 421 kb. A nearest-gene rule is not evidence."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence is cited."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence is cited for FAM110B-LDL or for an effect of CEBPB loss."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence identifies a linked variant or an NR1H4 element change. This link also cites NR1H4 for a variant that is assumed not to alter binding."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 does not bear on the CYP7A1 promoter. No LD or fine-mapping data are cited."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 shows CYP7A1 is within 1 Mb. The claim of an LDL-relevant gene rests on memory, and no gene-disease evidence is cited."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence is cited."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 and E05 show absence of records, which does not demonstrate tagging. Absence of GWAS signal cannot be explained as tagging a causal variant, and no LD evidence is given."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "The only cited evidence (E08) is a negative HNF4A ChIP result in HepG2, with no peak containing or near the variant. It contradicts the claim. No QBiC-SELEX or other binding evidence for the G allele was supplied. Coverage is 'not_checked', so a qbic_tf_detail lookup for HNF4A would be the check."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE within 500 bp, and E01 shows no regulatory feature and low conservation (GERP 0.27). Nothing cited supports an enhancer here; the evidence argues against it."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "missing",
+   "reason": "CYP7A1 is 926.8 kb away (E02). There is no GTEx eQTL (E07), no Open Targets association (E09), and no contact data. Proximity at that distance is not evidence, and the cited evidence does not support the link."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence ids were cited and no HNF4A or CYP7A1 expression in Hep 3B2.1-7 was provided. The context label alone does not establish the claim."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 and E05 show no GWAS or Open Targets records for this variant, so there is no LDL association. The claimed direction (less binding, lower CYP7A1, higher LDL) has no supporting data."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ids were cited. FOXA2 was chosen from the forkhead family on background knowledge, with no QBiC-SELEX lookup and no ChIP data at the site (E08 covers HNF4A only). A qbic_tf_detail lookup for FOXA2 is suggested to establish coverage."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE and E01 shows no regulatory feature. The cited evidence does not bear on a cryptic element, and compatibility with absence of annotation is not support."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "FAM110B is 420.6 kb away (E02). The E06 literature hit is a statin-response study that does not show regulation by this variant. E07 shows no eQTL. Nothing cited supports the variant-to-gene link."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence ids were cited and no FOXA2 expression was supplied for Hep 3B2.1-7."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 and E05 show no LDL association, and nothing links FAM110B expression to LDL at this variant. The claimed upward effect direction is unsupported."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ids were cited. CEBPB was picked from the C/EBP group on unevidenced grounds, with no QBiC-SELEX lookup and no ChIP data. A qbic_tf_detail lookup for CEBPB is suggested to establish coverage."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "missing",
+   "reason": "The nearest cCRE (EH38E3835076) is 1544 bp away and does not overlap the variant (E03). The variant is not conserved (E01). The element assignment is speculative and not supported by the cited evidence."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "FAM110B is 420.6 kb away (E02) and E07 shows no eQTL. Nothing cited supports the variant-to-gene link."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence ids were cited and no CEBPB expression data were provided for Hep 3B2.1-7."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 and E05 show no association records for this variant. The claimed small upward LDL shift is unsupported."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Liver\"}",
+   "resolves": "H2.gene",
+   "why": "Shows whether the variant is a liver eQTL for CYP7A1, FAM110B or any other gene, and its direction. This would discriminate H2, H3, H4 and H5 and test H1."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"HNF4A\",\"biosample\":\"HepG2\"}",
+   "resolves": "H2.binding",
+   "why": "Tests whether any HNF4A ChIP-seq peak contains the variant, a falsifier for H2. FOXA2 and CEBPB peaks can be checked afterwards."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"CYP7A1\"}",
+   "resolves": "H5.gene",
+   "why": "Checks whether CYP7A1 has association evidence with LDL cholesterol, which the claim assumes without a cited source."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": null
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "HNF4A",
+    "biosample": "HepG2"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "CYP7A1"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "QBiC-SELEX detail lookup for FOXA2, CEBPB and HNF4A at chr8:57573391 (coverage and predicted allelic binding change)",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No TF group shows a significant allelic binding change, or the TFs are not in coverage so no claim can be made"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "HNF4A (own model or CIS-BP-mapped) predicted to bind G more strongly"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Forkhead group including FOXA2 predicted to bind T more strongly"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "C/EBP group including CEBPB predicted to bind G more strongly"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Factorbook/ENCODE ChIP-seq peak lookup for FOXA2 and FOXA1 in HepG2 and liver",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No peak contains the variant"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No FOXA peak needed; HNF4A already negative in HepG2 (E08)"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "FOXA2/FOXA1 peak contains or lies within 100 bp of the variant"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No FOXA peak; a CEBPB peak may be present instead"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Factorbook/ENCODE ChIP-seq peak lookup for CEBPB in HepG2",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No peak"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No peak required"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No peak required"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "CEBPB peak overlapping or adjacent to the variant"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Cross-tissue eQTL re-query (GTEx liver, eQTLGen, liver-specific sQTL) for the variant",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No significant eQTL in any tissue, as already seen in GTEx v8 (E07)"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Liver eQTL for CYP7A1 with T lowering expression"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Liver eQTL for FAM110B with T raising expression"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Liver eQTL for FAM110B with T lowering expression"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allelic luciferase/MPRA of a 200 bp window around chr8:57573391 in Hep 3B2.1-7",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No activity above background and no G-vs-T difference"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Enhancer activity with G > T"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Activity with T > G"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "G > T only under C/EBP-activating stimulus (IL-6)"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPRi tiling of the element plus RNA-seq in Hep 3B2.1-7",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No neighbouring gene changes"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CYP7A1 decreases"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "FAM110B decreases"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "FAM110B decreases, stimulus-dependent"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Fine-mapping / conditional analysis of LDL GWAS in the 8p12 window",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Variant absent from all LDL credible sets (consistent with E04, E05)"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Variant in a credible set tied to a CYP7A1-region signal"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Variant in a credible set tied to a FAM110B-region signal"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Variant in a credible set tied to a FAM110B-region signal"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run a QBiC-SELEX detail lookup at chr8:57573391 for FOXA2 (and, in the same call set, CEBPB and HNF4A): it is existing-data cost, establishes true coverage instead of not_checked, and directly tests the only remaining non-null claim with meaningful probability (H3, gain of a forkhead site on T) against the null H1. If no forkhead group shows an allelic binding change, H3 collapses and H1 absorbs its weight; if it does, the next step is the free Factorbook FOXA2/FOXA1 peak lookup in HepG2 and liver.",
+ "citation_support": 0.6666666666666666,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs7001688 AND FAM110B AND \"ldl cholesterol\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E08",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:31:22+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE HNF4A ChIP-seq peak contains chr8:57573391:G>T in biosamples matching 'HepG2'. Absence can also mean no HNF4A experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E09",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between CYP7A1 and free cholesterol in large LDL measurement (EFO_0022176)."
+  }
+ ]
+}

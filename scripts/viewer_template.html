@@ -1,0 +1,313 @@
+<title>variant2mechanism Run Traces</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: a run sheet. Case header, then the five-link grade grid from draft through each round, then the round
+   log (plan, tool calls, result against expectation), then the final chain and the evidence it cites. */
+:root {
+  --paper: #f3f6f5; --surface: #ffffff; --ink: #16212b; --muted: #59656f; --rule: #d6dde1;
+  --accent: #1d5a83; --accent-bg: #e2edf5;
+  --ok: #276b44; --ok-bg: #dcefe3; --weak: #94590b; --weak-bg: #f6e8cf; --missing: #737d86; --missing-bg: #e8ecee;
+  --bad: #a3392f; --bad-bg: #f6e1de; --bar: #9bb4c6; --bar-top: #1d5a83; --null-bar: #b9bdc6;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10161b; --surface: #17202a; --ink: #e4eaee; --muted: #9ba7b1; --rule: #2a3742;
+    --accent: #78b4de; --accent-bg: #1b2e3d; --ok: #74c793; --ok-bg: #1b3326; --weak: #e2a955; --weak-bg: #3b2c14;
+    --missing: #8a949d; --missing-bg: #232c34; --bad: #ec8b80; --bad-bg: #3d2220; --bar: #3f5a6e; --bar-top: #78b4de;
+    --null-bar: #4c525d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10161b; --surface: #17202a; --ink: #e4eaee; --muted: #9ba7b1; --rule: #2a3742;
+  --accent: #78b4de; --accent-bg: #1b2e3d; --ok: #74c793; --ok-bg: #1b3326; --weak: #e2a955; --weak-bg: #3b2c14;
+  --missing: #8a949d; --missing-bg: #232c34; --bad: #ec8b80; --bad-bg: #3d2220; --bar: #3f5a6e; --bar-top: #78b4de;
+  --null-bar: #4c525d; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--paper); color: var(--ink); font: 15px/1.55 var(--font-sans); margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { text-wrap: balance; line-height: 1.25; margin: 0; }
+h1 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: 1.2rem; font-weight: 600; }
+h3 { font-size: 1rem; font-weight: 600; }
+p { margin: 0; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+.eyebrow { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+.muted { color: var(--muted); }
+header.top { padding-block: 28px 8px; }
+header.top .lede { max-width: 68ch; margin-top: 10px; color: var(--muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.tab { font: inherit; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 6px;
+       padding: 8px 14px; cursor: pointer; text-align: left; }
+.tab small { display: block; color: var(--muted); font-size: 0.78rem; }
+.tab[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.tab:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+main { padding-block: 12px 48px; display: grid; gap: 28px; }
+section { display: grid; gap: 14px; min-width: 0; }
+.case-head { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px;
+             display: grid; gap: 10px; }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.86rem; color: var(--muted); }
+.facts b { color: var(--ink); font-weight: 500; }
+.badge { display: inline-block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.03em; padding: 1px 7px;
+         border-radius: 4px; background: var(--accent-bg); color: var(--accent); }
+.loop { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 0.82rem; }
+.loop span.step { border: 1px solid var(--rule); border-radius: 4px; padding: 2px 8px; background: var(--surface); }
+.loop span.arrow { color: var(--muted); }
+.loop span.rep { color: var(--accent); font-weight: 500; }
+.versions { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+.version { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 14px; display: grid;
+           gap: 10px; align-content: start; min-width: 0; }
+.version header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.version .note { font-size: 0.78rem; color: var(--muted); }
+.chain { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 8px; align-items: center; }
+.chain .name { font-weight: 500; font-size: 0.92rem; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
+.chain .name .tf { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chain .p { font-family: var(--font-mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+.allele { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+.bar { grid-column: 1 / -1; height: 5px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--bar); }
+.chain.top .bar i { background: var(--bar-top); }
+.chain.null .bar i { background: var(--null-bar); }
+.chain.null .name { color: var(--muted); font-style: italic; }
+.links { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; }
+.cell { font: 500 0.64rem/1 var(--font-sans); text-transform: uppercase; letter-spacing: 0.04em; padding: 5px 2px;
+        border-radius: 3px; border: 1px solid transparent; cursor: pointer; text-align: center; overflow: hidden;
+        white-space: nowrap; text-overflow: ellipsis; }
+.cell.supported { background: var(--ok-bg); color: var(--ok); }
+.cell.weak { background: var(--weak-bg); color: var(--weak); }
+.cell.missing { background: var(--missing-bg); color: var(--missing); }
+.cell.changed { border-color: currentColor; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.78rem; color: var(--muted); align-items: center; }
+.legend .cell { cursor: default; display: inline-block; min-width: 72px; }
+.reason { font-size: 0.84rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px;
+          padding: 10px 12px; }
+.reason[hidden] { display: none; }
+.round { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px;
+         display: grid; gap: 12px; min-width: 0; }
+.round h3 { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.calls { display: grid; gap: 10px; }
+.call { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding-top: 10px;
+        border-top: 1px solid var(--rule); min-width: 0; }
+.call:first-child { border-top: 0; padding-top: 0; }
+.call .sig { font-family: var(--font-mono); font-size: 0.84rem; overflow-wrap: anywhere; }
+.call .why { grid-column: 1 / -1; font-size: 0.88rem; }
+.call .why b { font-weight: 500; }
+.status { font-size: 0.74rem; font-weight: 500; padding: 1px 7px; border-radius: 4px; white-space: nowrap; height: fit-content; }
+.status.run { background: var(--accent-bg); color: var(--accent); }
+.status.skip { background: var(--missing-bg); color: var(--missing); }
+.verdict { font-size: 0.74rem; font-weight: 500; padding: 1px 7px; border-radius: 4px; }
+.verdict.yes { background: var(--ok-bg); color: var(--ok); }
+.verdict.no { background: var(--bad-bg); color: var(--bad); }
+.verdict.unclear { background: var(--weak-bg); color: var(--weak); }
+.evid { font: 500 0.78rem var(--font-mono); color: var(--accent); background: none; border: 0; padding: 0;
+        cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.stop { font-size: 0.88rem; border-left: 3px solid var(--accent); padding: 6px 12px; background: var(--surface);
+        border-radius: 0 6px 6px 0; }
+.final { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px;
+         display: grid; gap: 12px; min-width: 0; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { text-align: left; vertical-align: top; padding: 7px 10px 7px 0; border-top: 1px solid var(--rule); }
+th { font-weight: 500; color: var(--muted); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; }
+td.num { font-variant-numeric: tabular-nums; font-family: var(--font-mono); white-space: nowrap; }
+.panel { position: fixed; z-index: 20; right: 0; top: 0; bottom: 0; width: min(460px, 100%); background: var(--surface);
+         border-left: 1px solid var(--rule); box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12); display: grid;
+         grid-template-rows: auto 1fr; padding-top: env(safe-area-inset-top, 0px);
+         padding-bottom: env(safe-area-inset-bottom, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.panel header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px;
+                border-bottom: 1px solid var(--rule); }
+.panel .body { overflow: auto; padding: 14px 18px; display: grid; gap: 10px; align-content: start; }
+.panel pre { white-space: pre-wrap; font: 0.8rem/1.5 var(--font-mono); margin: 0; overflow-wrap: anywhere; }
+.close { font: inherit; background: none; border: 1px solid var(--rule); color: var(--ink); border-radius: 6px;
+         padding: 4px 10px; cursor: pointer; }
+.findings { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px;
+            display: grid; gap: 10px; }
+.findings ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; max-width: 80ch; }
+footer { padding-block: 0 40px; font-size: 0.8rem; color: var(--muted); }
+@media (max-width: 560px) { h1 { font-size: 1.4rem; } .cell { font-size: 0.56rem; } }
+@media (prefers-reduced-motion: no-preference) { .bar i { transition: width 0.3s ease; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">variant2mechanism · agent run traces</p>
+    <h1>From a non-coding variant to a testable TF mechanism</h1>
+    <p class="lede">An agent drafts mechanism chains (TF, allele, element, gene, cell type, phenotype) plus a
+      "no TF effect" chain. A critic grades every link against logged evidence. The agent then plans tool calls
+      against the weakest links, states what each result should show, runs them, revises and is graded again, for up
+      to three rounds. Every claim cites an evidence ID.</p>
+    <nav class="tabs" role="tablist" id="tabs" aria-label="Runs"></nav>
+  </div>
+</header>
+<main class="wrap" id="main"></main>
+<footer class="wrap" id="foot"></footer>
+<aside class="panel" id="panel" hidden aria-label="Evidence">
+  <header><h3 id="panel-title">Evidence</h3><button class="close" id="panel-close" type="button">Close</button></header>
+  <div class="body" id="panel-body"></div>
+</aside>
+
+<script>
+const DATA = __DATA__;
+const STEPS = ["binding", "element", "gene", "cell_type", "phenotype"];
+const STEP_LABEL = {binding: "binding", element: "element", gene: "gene", cell_type: "cell type", phenotype: "phenotype"};
+const STEP_SHORT = {binding: "bind", element: "elem", gene: "gene", cell_type: "cell", phenotype: "pheno"};
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+let current = null;
+
+function evidenceButtons(text, run) {
+  return esc(text).replace(/\bE\d{2}[a-z]?\b/g, id => run.evidence[id]
+    ? `<button class="evid" type="button" data-ev="${id}">${id}</button>` : id);
+}
+
+function chainName(c) {
+  return c.is_null ? "No TF effect" : esc(c.tf);
+}
+
+function versionCard(v, i, run) {
+  const grades = {};
+  for (const g of v.grades || []) grades[g.hypothesis_id + "." + g.step] = g;
+  const changed = new Set((v.changed || []).map(s => s.split(":")[0]));
+  const chains = [...v.chains].sort((a, b) => b.probability - a.probability);
+  const topP = chains[0] ? chains[0].probability : 0;
+  const rows = chains.map((c, k) => {
+    const cells = c.is_null ? "" : `<div class="links">${STEPS.map(s => {
+      const g = grades[c.id + "." + s];
+      const st = g ? g.status : "missing";
+      const key = c.id + "." + s;
+      return `<button type="button" class="cell ${st}${changed.has(key) ? " changed" : ""}" data-v="${i}" data-key="${esc(key)}"
+        title="${esc(STEP_LABEL[s])}: ${esc(st)}" aria-label="${esc(STEP_LABEL[s])}: ${esc(st)}">${esc(STEP_SHORT[s])}</button>`;
+    }).join("")}</div>`;
+    const allele = c.allele_binding_more ? `<span class="allele">${esc(c.allele_binding_more)}</span>` : "";
+    return `<div class="chain${k === 0 ? " top" : ""}${c.is_null ? " null" : ""}">
+      <div class="name"><span class="tf">${chainName(c)}</span>${allele}</div>
+      <div class="p">${c.probability.toFixed(2)}</div>
+      <div class="bar"><i style="width:${(100 * c.probability).toFixed(1)}%"></i></div>${cells}</div>`;
+  }).join("");
+  const note = i === 0 ? "graded by the critic" : (v.changed && v.changed.length
+    ? `${v.changed.length} link grade${v.changed.length > 1 ? "s" : ""} changed` : "no link grade changed");
+  return `<article class="version"><header><h3>${esc(v.label)}</h3><span class="note">${note}</span></header>${rows}
+    <div class="reason" hidden></div></article>`;
+}
+
+function callRow(c, run) {
+  const args = c.args ? JSON.stringify(c.args) : "(invalid arguments)";
+  const st = c.run ? `<span class="status run">ran → <button class="evid" type="button" data-ev="${esc(c.evidence_id)}">${esc(c.evidence_id)}</button>${c.status && c.status !== "run" ? " · " + esc(c.status) : ""}</span>`
+                   : `<span class="status skip">not run: ${esc(c.status)}</span>`;
+  return `<div class="call"><div class="sig">${esc(c.tool)}(${esc(args)}) <span class="muted">for ${esc(c.resolves)}</span></div>${st}
+    <div class="why"><b>Expected:</b> ${evidenceButtons(c.expected, run)}</div></div>`;
+}
+
+function roundCard(rd, run) {
+  const results = (rd.check_results || []).map(x => `<div class="call"><div class="sig">${evidenceButtons(x.call, run)}</div>
+    <span class="verdict ${esc(x.as_expected)}">as expected: ${esc(x.as_expected)}</span>
+    <div class="why">${evidenceButtons(x.observed, run)}</div></div>`).join("");
+  const problems = (rd.problems || []).slice(0, 3).map(p => `<li>${evidenceButtons(p, run)}</li>`).join("");
+  return `<article class="round"><h3>Round ${rd.round} <span class="muted" style="font-weight:400;font-size:0.86rem">
+      plan → act → revise → regrade</span></h3>
+    <div><p class="eyebrow">Planned calls</p><div class="calls">${(rd.calls || []).map(c => callRow(c, run)).join("") || "<p class='muted'>No calls planned.</p>"}</div></div>
+    ${results ? `<div><p class="eyebrow">Results against expectations</p><div class="calls">${results}</div></div>` : ""}
+    ${problems ? `<div><p class="eyebrow">Critic, after this round</p><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${problems}</ul></div>` : ""}
+  </article>`;
+}
+
+function finalCard(run) {
+  const top = run.final[0];
+  const exp = `<div><p class="eyebrow">Next experiment</p><p>${evidenceButtons(run.next_experiment, run)}</p></div>`;
+  if (top.is_null) {
+    return `<article class="final"><h2>Final answer: no TF effect (p = ${top.probability.toFixed(2)})</h2>
+      <p class="muted">The highest-ranked chain is the null. Runner-up: ${chainName(run.final[1])} at ${run.final[1].probability.toFixed(2)}.</p>${exp}</article>`;
+  }
+  const rows = top.links.map(l => `<tr><td>${esc(STEP_LABEL[l.step])}</td><td>${evidenceButtons(l.claim, run)}</td>
+    <td><span class="cell ${esc(l.status)}" style="cursor:default;display:inline-block;min-width:76px">${esc(l.status)}</span></td>
+    <td>${l.evidence_ids.map(id => run.evidence[id] ? `<button class="evid" type="button" data-ev="${esc(id)}">${esc(id)}</button>` : esc(id)).join(" ")}</td></tr>`).join("");
+  return `<article class="final"><h2>Final answer: ${esc(top.tf)}, ${esc(top.allele_binding_more)} allele binds more (p = ${top.probability.toFixed(2)})</h2>
+    <p class="muted">${esc(top.title)}</p>
+    <div class="table-wrap"><table><thead><tr><th>Link</th><th>Claim</th><th>Grade</th><th>Evidence</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>${exp}</article>`;
+}
+
+function render(id) {
+  const run = DATA.runs.find(r => r.id === id) || DATA.runs[0];
+  current = run;
+  for (const b of document.querySelectorAll(".tab")) b.setAttribute("aria-selected", String(b.dataset.id === run.id));
+  const masked = run.mode === "masked";
+  const loop = ["draft", "critique"].map(s => `<span class="step">${s}</span>`).join('<span class="arrow">→</span>')
+    + `<span class="arrow">→</span><span class="rep">[</span>` + ["plan", "act", "revise", "regrade"].map(s => `<span class="step">${s}</span>`).join('<span class="arrow">→</span>')
+    + `<span class="rep">] × ${run.rounds.length}</span><span class="arrow">→</span><span class="step">rank, cite, report</span>`;
+  $("#main").innerHTML = `
+    <section class="case-head">
+      <p class="eyebrow">${esc(run.kind)}</p>
+      <h2>${esc(run.headline)}</h2>
+      <p>${esc(run.summary)}</p>
+      <div class="facts">
+        <span><b>${esc(run.variant)}</b> <span class="mono">${esc(run.key)}</span></span>
+        <span>${esc(run.disease)}</span>
+        <span>context: <b>${esc(run.context || "none")}</b></span>
+        <span>${masked ? '<span class="badge">rsID hidden from the model</span>' : '<span class="badge">named</span>'}</span>
+        <span>model: <b>${esc(run.models.generator)}</b></span>
+        <span>${run.calls} model calls · $${run.cost.toFixed(3)} · ${Math.round(run.seconds)} s</span>
+      </div>
+      <div class="loop" aria-label="Stages">${loop}</div>
+    </section>
+    <section aria-label="Grades by version">
+      <h2>How the chains and their grades changed</h2>
+      <div class="legend"><span class="cell supported">supported</span><span class="cell weak">weak</span><span class="cell missing">missing</span>
+        <span>Click a link to read the critic's reason. An outlined link changed grade in that round.</span></div>
+      <div class="versions">${run.versions.map((v, i) => versionCard(v, i, run)).join("")}</div>
+    </section>
+    <section aria-label="Rounds">
+      <h2>What the agent planned, ran and found</h2>
+      ${run.rounds.map(rd => roundCard(rd, run)).join("")}
+      ${run.skipped.length ? `<article class="round"><h3>Round ${run.skipped[0].round}</h3><div class="calls">${run.skipped.map(c => callRow(c, run)).join("")}</div></article>` : ""}
+      <p class="stop"><b>Stopped:</b> ${esc(run.stop)}.</p>
+    </section>
+    <section aria-label="Final answer">${finalCard(run)}</section>`;
+  for (const cell of document.querySelectorAll(".version .cell")) {
+    cell.addEventListener("click", () => {
+      const v = run.versions[+cell.dataset.v];
+      const g = (v.grades || []).find(x => x.hypothesis_id + "." + x.step === cell.dataset.key);
+      const box = cell.closest(".version").querySelector(".reason");
+      const same = !box.hidden && box.dataset.key === cell.dataset.key;
+      box.hidden = same;
+      box.dataset.key = cell.dataset.key;
+      box.innerHTML = g ? `<b>${esc(cell.dataset.key)}: ${esc(g.status)}.</b> ${evidenceButtons(g.reason, run)}` : "Not graded.";
+      wireEvidence(box);
+    });
+  }
+  wireEvidence(document);
+}
+
+function wireEvidence(root) {
+  for (const b of root.querySelectorAll("button.evid")) b.onclick = () => openEvidence(b.dataset.ev);
+}
+
+function openEvidence(id) {
+  const e = current.evidence[id];
+  if (!e) return;
+  $("#panel-title").textContent = `${id} · ${e.tool}`;
+  $("#panel-body").innerHTML = `<p class="muted">${esc(e.source)}${e.ok ? "" : " (failed)"}</p>
+    ${e.url ? `<p><a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.url)}</a></p>` : ""}<pre>${esc(e.summary)}</pre>`;
+  $("#panel").hidden = false;
+  $("#panel-close").focus();
+}
+
+$("#panel-close").addEventListener("click", () => { $("#panel").hidden = true; });
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") $("#panel").hidden = true; });
+
+$("#tabs").innerHTML = DATA.runs.map(r => `<button class="tab" role="tab" type="button" data-id="${esc(r.id)}">
+  ${esc(r.tab)}<small>${esc(r.variant)} · ${esc(r.models.generator.split("/").pop())}${r.mode === "masked" ? " · masked" : ""}</small></button>`).join("");
+for (const b of document.querySelectorAll(".tab")) b.addEventListener("click", () => {
+  render(b.dataset.id);
+  try { history.replaceState(null, "", "#" + b.dataset.id); } catch (e) { /* the frame may refuse */ }
+});
+$("#foot").innerHTML = `<div class="findings"><h2>What the evaluation found</h2><ul>${DATA.findings.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
+  <p class="muted">${esc(DATA.footnote)}</p></div>`;
+render((location.hash || "").slice(1));
+</script>

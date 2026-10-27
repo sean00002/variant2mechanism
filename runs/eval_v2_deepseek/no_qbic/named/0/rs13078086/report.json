@@ -1,0 +1,747 @@
+{
+ "case_id": "rs13078086",
+ "variant": "rs13078086",
+ "variant_key": "chr3:191441666:T>G",
+ "disease": "Colorectal cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0153,
+ "seconds": 134.1,
+ "model_calls": 8,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1",
+   "title": "Null: no TF-mediated allelic effect; the variant is non-functional or linked to a causal variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": "No supported regulatory element",
+   "target_gene": null,
+   "cell_type": "HCT116",
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at rs13078086 in HCT116",
+    "No allele-specific regulatory effect on nearby genes attributable to this variant"
+   ],
+   "falsified_if": [
+    "A well-controlled allele-specific assay detects TF binding at chr3:191441666 in HCT116",
+    "A reporter or endogenous allele-specific assay shows a reproducible regulatory effect of T>G on a nearby gene in HCT116"
+   ],
+   "probability": 0.94,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2",
+   "title": "CTCF binding at a nearby dELS affects PYDC2",
+   "is_null": false,
+   "tf": "CTCF",
+   "allele_binding_more": "ref",
+   "element": "Nearby dELS EH38E2269392, 42 bp from the variant; the variant itself is not in a cCRE",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF is the only TF with any nearby element signal: the nearest dELS has CTCF z 1.5. However, no ENCODE CTCF ChIP-seq peak contains the variant in any biosample, including HCT116, and no QBiC-SELEX model or allele-specific CTCF assay is supplied. The proposed ref T > alt G binding direction is therefore an untested hypothesis, not an observed effect.",
+     "evidence_ids": [
+      "E03",
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic and does not overlap an annotated cCRE. It could only act through an unproven distal effect on the dELS 42 bp away; no allele-specific regulatory assay is supplied.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is the nearest protein-coding gene at 19.5 kb, but no chromatin-contact, reporter, perturbation, or eQTL evidence connects this variant or the nearby dELS to PYDC2.",
+     "evidence_ids": [
+      "E02",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The mechanism is proposed in HCT116, the supplied expression context. There is no positive HCT116 evidence for CTCF occupancy at this site; ENCODE HCT116 has zero TF ChIP-seq peaks over the variant.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered PYDC2 regulation is hypothesized to affect colorectal cancer biology, but there is no GWAS, eQTL, Open Targets, or direct variant-specific colorectal cancer evidence supporting this link.",
+     "evidence_ids": [
+      "E05",
+      "E06",
+      "E07",
+      "E11"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Alt G reduces CTCF occupancy at chr3:191441666 or the nearby dELS in HCT116",
+    "Alt G changes PYDC2 expression in HCT116 in a CTCF-dependent manner"
+   ],
+   "falsified_if": [
+    "Allele-specific CTCF ChIP, EMSA, or reporter assays show no ref-favored CTCF binding at chr3:191441666",
+    "A reporter or endogenous assay shows no allele-specific effect of T>G on PYDC2 expression in HCT116"
+   ],
+   "probability": 0.03,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H3",
+   "title": "NFKB1 binding at the intronic variant affects PYDC2",
+   "is_null": false,
+   "tf": "NFKB1",
+   "allele_binding_more": "alt",
+   "element": "Intronic PYDC2-AS1 sequence with no overlapping cCRE; possible weak or context-specific distal regulatory activity",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "NFKB1 is proposed to bind the alt G allele more strongly than ref T. This is speculative: no NFKB1 ChIP-seq peak contains the variant, no QBiC-SELEX model is supplied for NFKB1, and no motif or allele-specific assay supports the direction.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an intron of PYDC2-AS1 and does not overlap an annotated cCRE, so it would need to act through unproven weak or cell-type-specific regulatory sequence.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is the nearest protein-coding gene at 19.5 kb, but no chromatin-contact, reporter, perturbation, or eQTL evidence connects this intronic variant to PYDC2.",
+     "evidence_ids": [
+      "E02",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "NFKB1 is expressed in HCT116 (26.26 TPM, rank 205 of 1626 TFs), so expression does not exclude it. However, there is no HCT116 NFKB1 ChIP-seq occupancy over the variant.",
+     "evidence_ids": [
+      "E09",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "PYDC2 has no Open Targets association with colorectal cancer, and the Europe PMC hits are not variant-specific and do not establish that NFKB1-dependent PYDC2 regulation affects colorectal cancer.",
+     "evidence_ids": [
+      "E11",
+      "E08"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Alt G increases NFKB1 occupancy at chr3:191441666 in HCT116",
+    "Alt G increases PYDC2 expression in an NFKB1-dependent manner"
+   ],
+   "falsified_if": [
+    "NFKB1 ChIP, EMSA, or reporter assays show no alt-favored NFKB1 binding at chr3:191441666",
+    "No allele-specific effect on PYDC2 expression is observed in an NFKB1-dependent assay"
+   ],
+   "probability": 0.02,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "NFKB1"
+  },
+  {
+   "id": "H4",
+   "title": "STAT3 binding at the intronic variant affects PYDC2",
+   "is_null": false,
+   "tf": "STAT3",
+   "allele_binding_more": "alt",
+   "element": "Intronic PYDC2-AS1 sequence; no cCRE overlap and no TF ChIP peak over the variant",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "STAT3 is proposed to bind the alt G allele more strongly than ref T. This is speculative: no STAT3 ChIP-seq peak contains the variant, no QBiC-SELEX model is supplied for STAT3, and no motif or allele-specific assay supports the direction.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic in PYDC2-AS1 and does not overlap a cCRE, making any STAT3-dependent element unproven and at best weak or context-specific.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is the nearest protein-coding gene at 19.5 kb, but no chromatin-contact, reporter, perturbation, or eQTL evidence connects this variant to PYDC2.",
+     "evidence_ids": [
+      "E02",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "STAT3 is expressed in HCT116 (24.86 TPM, rank 224 of 1626 TFs), but at the 26.3rd percentile across DepMap lines, and there is no HCT116 STAT3 ChIP-seq occupancy over the variant.",
+     "evidence_ids": [
+      "E10",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "PYDC2 has no Open Targets colorectal cancer association, and the Europe PMC hits do not provide variant-specific or STAT3-dependent evidence linking PYDC2 regulation to colorectal cancer.",
+     "evidence_ids": [
+      "E11",
+      "E08"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Alt G increases STAT3 occupancy at chr3:191441666 in HCT116",
+    "Alt G changes PYDC2 expression in a STAT3-dependent manner"
+   ],
+   "falsified_if": [
+    "STAT3 ChIP, EMSA, or reporter assays show no alt-favored STAT3 binding at chr3:191441666",
+    "No allele-specific STAT3-dependent effect on PYDC2 expression is observed"
+   ],
+   "probability": 0.01,
+   "rank": 4,
+   "coverage_status": "not_in_coverage",
+   "resolved_symbol": "STAT3"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.85,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H2",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "NFKB1",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "STAT3",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E03 gives only a nearby dELS CTCF z-score of 1.5, not occupancy over the variant; E04 states no ENCODE TF ChIP-seq peak contains the variant in any biosample, including HCT116; no QBiC-SELEX or allele-specific CTCF assay is cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show the variant is intronic and does not overlap a cCRE, with the nearest dELS 42 bp away. This is consistent with a possible distal element effect but does not show that the variant alters a CTCF-dependent element."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 only places PYDC2 as the nearest protein-coding gene at 19.5 kb. No chromatin-contact, reporter, eQTL, or perturbation evidence connects the nearby element to PYDC2."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04 reports zero HCT116 TF ChIP-seq peaks over the variant and no cCRE overlap. There is no positive evidence that a CTCF-dependent mechanism operates at this site in HCT116."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence IDs are supplied for this link, and there is no GWAS, eQTL, or direct colorectal cancer evidence for the variant or for altered PYDC2 regulation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No NFKB1 ChIP-seq peak contains the variant, E04 reports no ENCODE TF peak in any biosample, and no QBiC-SELEX or motif evidence for allele-specific NFKB1 binding is cited."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show an intronic PYDC2-AS1 site with no overlapping cCRE. This is compatible with a cryptic or cell-type-specific element but does not demonstrate regulatory activity or an effect of the variant."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports only nearest-gene proximity to PYDC2 at 19.5 kb, not that this intronic variant or an NFKB1-bound element regulates PYDC2."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04 shows no HCT116 TF ChIP-seq peaks over the variant and no cCRE overlap. There is no HCT116-specific evidence for an NFKB1-dependent mechanism at this site."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E08 is only a Europe PMC query result with titles, mostly not obviously about PYDC2 in colorectal cancer. It does not provide direct or quoted evidence that altered PYDC2 regulation affects colorectal cancer, and no variant-specific evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No STAT3 ChIP-seq peak contains the variant, E04 reports no ENCODE TF peak in any biosample, and no QBiC-SELEX or motif evidence for allele-specific STAT3 binding is cited."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show an intronic PYDC2-AS1 site with no overlapping cCRE. This is compatible with a weak or context-specific element but does not show that STAT3 binds or that the variant alters regulatory activity."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports only nearest-gene proximity to PYDC2 at 19.5 kb, not that this intronic variant or a STAT3-bound element regulates PYDC2."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04 shows no HCT116 TF ChIP-seq peaks over the variant and no cCRE overlap. There is no HCT116-specific evidence for a STAT3-dependent mechanism at this site."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E08 provides only Europe PMC hit titles and no direct quote or functional evidence linking STAT3-dependent PYDC2 regulation to colorectal cancer; no variant-specific evidence is supplied."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No CTCF ChIP occupancy over the variant and no QBiC-SELEX or allele-specific CTCF assay; binding direction is untested."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "Variant is intronic and does not overlap a cCRE, but the only element evidence is proximity to a dELS 42 bp away; distal regulatory action is unproven."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "missing",
+   "reason": "PYDC2 is only the nearest gene by distance; no chromatin-contact, reporter, perturbation, or eQTL evidence links the variant or nearby dELS to PYDC2."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No positive HCT116 evidence for CTCF occupancy over the variant; ENCODE HCT116 has zero TF ChIP-seq peaks at the site."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No GWAS, eQTL, Open Targets, or direct variant-specific colorectal cancer evidence supports the PYDC2-to-phenotype link."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No NFKB1 ChIP-seq occupancy over the variant, no QBiC-SELEX model, and no motif or allele-specific assay supporting alt-favored binding."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "Variant is intronic and does not overlap an annotated cCRE; any regulatory element activity is unproven and at best inferred from context."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "PYDC2 is only the nearest protein-coding gene by distance; no contact, reporter, perturbation, or eQTL evidence connects the intronic variant to PYDC2."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "NFKB1 expression in HCT116 is shown, but there is no HCT116 NFKB1 ChIP-seq occupancy over the variant; cell-type relevance is only indirect."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "PYDC2 has no Open Targets colorectal cancer association, and the literature hits are not variant-specific or NFKB1-dependent."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No STAT3 ChIP-seq occupancy over the variant, no QBiC-SELEX model, and no motif or allele-specific assay supporting alt-favored binding."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "Variant is intronic in PYDC2-AS1 and does not overlap a cCRE; any STAT3-dependent element is unproven and only contextually plausible."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "PYDC2 is only the nearest protein-coding gene by distance; no contact, reporter, perturbation, or eQTL evidence connects the variant to PYDC2."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "STAT3 expression in HCT116 is shown, but at a low percentile, and there is no HCT116 STAT3 ChIP-seq occupancy over the variant; relevance is indirect."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "PYDC2 has no Open Targets colorectal cancer association, and the literature hits do not provide variant-specific or STAT3-dependent evidence."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "tf_expression",
+   "args_json": "{\"tf\":\"NFKB1\",\"context\":\"DepMap:ACH-000971\"}",
+   "resolves": "H3.cell_type",
+   "why": "Tests whether NFKB1 is expressed in the proposed HCT116 context; if absent, H3 loses its cell-type rationale."
+  },
+  {
+   "tool": "tf_expression",
+   "args_json": "{\"tf\":\"STAT3\",\"context\":\"DepMap:ACH-000971\"}",
+   "resolves": "H4.cell_type",
+   "why": "Tests whether STAT3 is expressed in the proposed HCT116 context; if absent, H4 loses its cell-type rationale."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"PYDC2\"}",
+   "resolves": "H3.phenotype",
+   "why": "Tests whether PYDC2 has any Open Targets colorectal cancer association; this would most affect the shared PYDC2 phenotype link."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "tf_expression",
+   "args": {
+    "tf": "NFKB1",
+    "context": "DepMap:ACH-000971"
+   },
+   "run": true
+  },
+  {
+   "tool": "tf_expression",
+   "args": {
+    "tf": "STAT3",
+    "context": "DepMap:ACH-000971"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "PYDC2"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific CTCF ChIP-qPCR or EMSA at rs13078086 in HCT116 cells heterozygous for T/G",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No allele-specific CTCF occupancy at chr3:191441666 in HCT116."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Ref T shows stronger CTCF occupancy than alt G at chr3:191441666 or the nearby dELS in HCT116."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No allele-specific CTCF occupancy at chr3:191441666; NFKB1, not CTCF, would be tested separately."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allele-specific CTCF occupancy at chr3:191441666; STAT3, not CTCF, would be tested separately."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "PYDC2 promoter/reporter or endogenous allele-specific expression assay with T vs G in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible T>G allele effect on PYDC2 expression."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Reproducible T>G allele effect on PYDC2 expression in HCT116, CTCF-dependent."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Reproducible T>G allele effect on PYDC2 expression, NFKB1-dependent."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Reproducible T>G allele effect on PYDC2 expression, STAT3-dependent."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific NFKB1 ChIP-qPCR at rs13078086 in HCT116",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No allele-specific NFKB1 occupancy."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No allele-specific NFKB1 occupancy."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Alt G shows stronger NFKB1 occupancy than ref T at chr3:191441666."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allele-specific NFKB1 occupancy."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific STAT3 ChIP-qPCR at rs13078086 in HCT116",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No allele-specific STAT3 occupancy."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No allele-specific STAT3 occupancy."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No allele-specific STAT3 occupancy."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Alt G shows stronger STAT3 occupancy than ref T at chr3:191441666."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "CRISPR deletion or reporter perturbation of dELS EH38E2269392 with PYDC2 expression readout in HCT116",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Deletion or perturbation of the nearby dELS does not alter PYDC2 expression in HCT116."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Deletion or perturbation of the nearby dELS alters PYDC2 expression in a CTCF-dependent manner."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No dELS-dependent effect; any NFKB1 effect would require a different, unannotated element."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No dELS-dependent effect; any STAT3 effect would require a different, unannotated element."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The cheapest experiment separating the top two chains (H1 vs H2) is an allele-specific CTCF ChIP-qPCR or EMSA at rs13078086 in HCT116 cells heterozygous for T/G. Cost: low. It directly tests H2's required ref-favored CTCF binding; absence of allele-specific CTCF binding falsifies H2 and supports the null H1.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs13078086 AND PYDC2 AND \"colorectal cancer\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/3:191441666-191441666:1/G?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr3:191441666:T>G (GRCh38), allele string T/G\nKnown IDs: rs13078086\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -1.82\nTranscript consequences: PYDC2-AS1 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/3:190441666-192441666?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "8 protein-coding genes within 1000 kb of chr3:191441666:T>G, by distance to TSS:\nPYDC2: 19.5 kb from TSS (upstream, strand +1)\nUTS2B: 111.1 kb from TSS (upstream, strand -1)\nCCDC50: 112.6 kb from TSS (downstream, strand +1)\nOSTN: 242.4 kb from TSS (downstream, strand +1)\nGMNC: 549.2 kb from TSS (upstream, strand -1)\nIL1RAP: 954.2 kb from TSS (downstream, strand +1)\nTMEM207: 991.8 kb from TSS (upstream, strand -1)\nFGF12: 1326.1 kb from TSS (downstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:05+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E2269392 (dELS) 42 bp away.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2269392 dELS: DNase z 3.5, H3K27ac z 1.8, H3K4me3 z 1.5, CTCF z 1.5; nearby genes AC073365.1, PYDC2, CCDC50\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE TF ChIP-seq peak contains chr3:191441666:T>G in any biosample. In the matching biosample HCT116: 0 peaks from 0 factors. No cCRE contains the variant. Of the TFs with a binding model, 16 were assayed in the matching biosample and 557 only elsewhere, all without a peak here; 536 were never assayed."
+  },
+  {
+   "id": "E05",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs13078086&size=100",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs13078086, strongest first:"
+  },
+  {
+   "id": "E06",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 3_191441666_T_G."
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr3_191441666_T_G_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr3_191441666_T_G_b38. NES is the effect of the alt allele (G) relative to ref (T)."
+  },
+  {
+   "id": "E08",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PYDC2%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 16 hits for 'PYDC2 AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 40026444 (2025): Correlation Analysis of Pyroptosis-Related Genes CASP1, NLRP3, AIM2, and NLRP1 With Lung Adenocarcinoma.\nPMID 41154652 (2025): Oncogenic Role of SAMD4B in Breast Cancer Progression by Activating Wnt/\u03b2-Catenin Pathway.\nPMID 36319832 (2022): A novel refined pyroptosis and inflammasome-related genes signature for predicting prognosis and immune microenvironment in pancreatic ductal adenocarcinoma.\nPMID 36341349 (2022): The strategies of NLRP3 inflammasome to combat <i>Toxoplasma gondii</i>.\nPMID 36732864 (2023): RNA binding protein SAMD4: current knowledge and future perspectives.\nPMID 39561929 (2024): Optimizing iNKT-driven immune responses against cancer by modulating CD1d in tumor and antigen presenting cells.\nPMID 35159382 (2022): Metabolomics of Acute vs. Chronic Spinach Intake in an Apc-Mutant Genetic Background: Linoleate and Butanoate Metabolites Targeting HDAC Activity and IFN-\u03b3 Signaling.\nPMID 35338151 (2022): PUMILIO proteins promote colorectal cancer growth via suppressing p21."
+  },
+  {
+   "id": "E09",
+   "tool": "tf_expression",
+   "source": "DepMap expression / GTEx v8 medians",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "NFKB1 in DepMap line ACH-000971: 26.26 TPM, rank 205 of 1626 TFs (1 = highest); this context is at the 82.4th percentile of NFKB1 across all DepMap lines."
+  },
+  {
+   "id": "E10",
+   "tool": "tf_expression",
+   "source": "DepMap expression / GTEx v8 medians",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "STAT3 in DepMap line ACH-000971: 24.86 TPM, rank 224 of 1626 TFs (1 = highest); this context is at the 26.3th percentile of STAT3 across all DepMap lines."
+  },
+  {
+   "id": "E11",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T01:40:48+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between PYDC2 and colorectal cancer (MONDO_0005575)."
+  }
+ ]
+}

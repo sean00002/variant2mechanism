@@ -1,0 +1,755 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0169,
+ "seconds": 110.2,
+ "model_calls": 8,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect; linked causal variant or no allelic effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding at rs7001688.",
+    "No reproducible liver eQTL for nearby genes attributable to rs7001688.",
+    "Any LDL association is due to a linked causal variant or chance, not to this variant's own TF-mediated effect."
+   ],
+   "falsified_if": [
+    "An allele-specific TF binding assay at rs7001688 shows reproducible differential binding in a hepatocyte context and the bound TF regulates an LDL-relevant target gene.",
+    "A liver eQTL or chromatin-contact assay connects rs7001688 to an LDL-relevant gene and perturbation confirms the phenotype."
+   ],
+   "probability": 0.92,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "HNF4A binds the alt allele at a weak intronic element and alters FAM110B",
+   "is_null": false,
+   "tf": "HNF4A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "weak intronic sequence near a CA-H3K4me3 cCRE, not overlapping an ENCODE cCRE",
+   "target_gene": "FAM110B",
+   "cell_type": "hepatocyte / Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "HNF4A is proposed to bind the alt T allele more strongly than the ref G allele at rs7001688. No QBiC-SELEX, MPRA, reporter, or allele-specific binding evidence is provided. E08 found no ENCODE HNF4A ChIP-seq peak containing the variant in HepG2, which weakens but does not exclude this chain because absence may also reflect no HNF4A experiment in that biosample. HNF4A was chosen as the only TF directly queried by a provided ChIP row; its QBiC coverage is not checked because no QBiC-SELEX evidence was supplied.",
+     "evidence_ids": [
+      "E08"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is an intronic variant with no annotated regulatory feature and no ENCODE cCRE overlap; the nearest cCRE is a CA-H3K4me3 element 1544 bp away, so any regulatory element would be weak or indirect.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest protein-coding gene at 420.6 kb, but distance alone does not establish regulation. There are no significant liver GTEx eQTLs for this variant, no Open Targets association between FAM110B and free cholesterol in large LDL, and the Europe PMC hit is not variant-specific.",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07",
+      "E09"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 is a hepatocyte-derived line, but the provided evidence contains no HNF4A expression, ChIP, or perturbation data in this cell type.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A change in FAM110B regulation could in principle influence LDL cholesterol, but there is no rs7001688-specific evidence. E06 is an indirect literature hit, E09 does not support a FAM110B free-cholesterol association, and E04/E05 report no variant-disease record.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06",
+      "E09"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "HNF4A binds the alt T allele more strongly than ref G at rs7001688 in a hepatocyte context.",
+    "The region contacts FAM110B or another LDL-relevant gene in hepatocytes.",
+    "Modulating the element or FAM110B changes LDL cholesterol."
+   ],
+   "falsified_if": [
+    "Allele-specific HNF4A binding assays in hepatocyte nuclear extract show no difference between alt T and ref G.",
+    "HNF4A ChIP-qPCR in Hep 3B2.1-7 shows no enrichment at the rs7001688 element.",
+    "No chromatin-contact or eQTL evidence links the region to FAM110B, or FAM110B perturbation does not affect LDL cholesterol."
+   ],
+   "probability": 0.04,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HNF4A"
+  },
+  {
+   "id": "H2",
+   "title": "SREBF2 binds the ref allele at a weak intronic element and alters FAM110B",
+   "is_null": false,
+   "tf": "SREBF2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "weak intronic sequence near a CA-H3K4me3 cCRE, not overlapping an ENCODE cCRE",
+   "target_gene": "FAM110B",
+   "cell_type": "hepatocyte / Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "SREBF2 is proposed to bind the ref G allele more strongly than the alt T allele at rs7001688, as a speculative sterol-responsive TF hypothesis. No QBiC-SELEX, MPRA, reporter, ChIP, or allele-specific binding evidence is provided, and SREBF2 QBiC coverage is not checked because no QBiC-SELEX evidence was supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is an intronic variant with no annotated regulatory feature and no ENCODE cCRE overlap; the nearest cCRE is 1544 bp away, so this would require a weak or long-range regulatory element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest protein-coding gene at 420.6 kb, but no liver eQTL, chromatin-contact, or perturbation evidence links rs7001688 to FAM110B. E06 is not variant-specific, and E09 does not support a FAM110B free-cholesterol association.",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07",
+      "E09"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 is a hepatocyte-derived line, but the provided evidence contains no SREBF2 expression, ChIP, or perturbation data in this cell type.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A sterol-regulated change in FAM110B could in principle affect LDL cholesterol, but no provided evidence shows rs7001688 alters SREBF2 binding or FAM110B regulation in a way that changes LDL.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06",
+      "E09"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "SREBF2 binds the ref G allele more strongly than alt T at rs7001688.",
+    "The element responds to sterol depletion in hepatocytes.",
+    "SREBF2 perturbation changes FAM110B or another LDL-relevant target."
+   ],
+   "falsified_if": [
+    "Allele-specific SREBF2 binding assays show no difference between ref G and alt T.",
+    "The element does not respond to sterol depletion in hepatocytes.",
+    "No chromatin-contact or eQTL evidence links the region to FAM110B, or SREBF2 perturbation does not change the proposed target gene."
+   ],
+   "probability": 0.02,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "SREBF2"
+  },
+  {
+   "id": "H3",
+   "title": "CEBPB binds the alt allele at a weak intronic element and alters CYP7A1",
+   "is_null": false,
+   "tf": "CEBPB",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "weak intronic sequence near a CA-H3K4me3 cCRE, not overlapping an ENCODE cCRE",
+   "target_gene": "CYP7A1",
+   "cell_type": "hepatocyte / Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CEBPB is proposed to bind the alt T allele more strongly than the ref G allele at rs7001688, as a speculative liver-enriched TF hypothesis. No QBiC-SELEX, MPRA, reporter, ChIP, or allele-specific binding evidence is provided, and CEBPB QBiC coverage is not checked because no QBiC-SELEX evidence was supplied.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an intronic region with no cCRE overlap and only a nearby CA-H3K4me3 mark 1544 bp away, so any enhancer would be weak or indirect.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "CYP7A1 lies 926.8 kb downstream, but no eQTL, chromatin-contact, or perturbation evidence connects rs7001688 to CYP7A1. The distance alone is very large and does not establish regulation.",
+     "evidence_ids": [
+      "E02",
+      "E07"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 is a hepatocyte-derived line, but the provided evidence contains no CEBPB expression, ChIP, or perturbation data in this cell type.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "CYP7A1 is involved in bile acid synthesis and can influence LDL cholesterol, but no provided evidence directly connects rs7001688 to CYP7A1 expression or to LDL cholesterol through this variant.",
+     "evidence_ids": [
+      "E02",
+      "E04",
+      "E05",
+      "E07"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "CEBPB binds the alt T allele more strongly than ref G at rs7001688.",
+    "Chromatin contact or eQTL data connect this region to CYP7A1 in hepatocytes.",
+    "CEBPB perturbation changes CYP7A1 expression or LDL cholesterol."
+   ],
+   "falsified_if": [
+    "Allele-specific CEBPB binding assays show no difference between alt T and ref G.",
+    "No chromatin-contact or eQTL evidence connects the region to CYP7A1 in hepatocytes.",
+    "CEBPB perturbation does not alter CYP7A1 expression or LDL cholesterol."
+   ],
+   "probability": 0.02,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.76,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "HNF4A",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "SREBF2",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.06,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids are cited; no QBiC-SELEX, ChIP-seq, MPRA, reporter, or allele-specific assay links HNF4A to rs7001688. HNF4A is chosen without a stated rationale, and qbic_coverage is 'not_checked', which is not a demonstrated coverage status."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 shows an intron_variant with no regulatory features; E03 shows no cCRE overlap and nearest cCRE 1544 bp away. This directly supports the claimed weak/non-cCRE intronic element context."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports FAM110B as the nearest protein-coding gene at 420.6 kb, but distance alone does not establish regulation. E06 is a FAM110B/LDL literature search hit but is not variant-specific and does not show rs7001688 alters FAM110B."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence_ids are cited. The claim that Hep 3B2.1-7 is compatible with HNF4A activity is an assertion without TF expression, ChIP, or perturbation evidence in the provided case."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 is at best indirect: it is a Europe PMC hit for FAM110B and LDL cholesterol, but the title concerns pravastatin cardiovascular event reduction and provides no rs7001688-specific or FAM110B-perturbation evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids are cited; no direct SREBF2 binding or allele-specific data at rs7001688. SREBF2 is selected without justification and qbic_coverage is 'not_checked'."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly show no cCRE overlap, no annotated regulatory feature, and nearest cCRE 1544 bp away, supporting the weak intronic element claim."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports FAM110B as nearest at 420.6 kb, but there is no eQTL, chromatin-contact, or perturbation evidence linking this variant to FAM110B. E06 is indirect and not variant-specific."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence_ids are cited. SREBF2 expression or activity in Hep 3B2.1-7 is not shown; hepatocyte compatibility is asserted, not evidenced."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The phenotype claim relies on indirect sterol/LDL plausibility and E06; neither shows that rs7001688 alters SREBF2 binding or FAM110B regulation in a way that changes LDL."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids are cited; no CEBPB binding, allele-specific, or perturbation evidence at rs7001688. CEBPB is chosen without rationale and qbic_coverage is 'not_checked'."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly support the intronic/no-cCRE context and the nearby CA-H3K4me3 cCRE at 1544 bp."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 only gives distance to CYP7A1 (926.8 kb downstream); it does not show regulation, and the claim that CYP7A1 is a plausible LDL-relevant target is not supported by cited evidence in this case."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence_ids are cited. CEBPB expression or activity in Hep 3B2.1-7 is not demonstrated."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The phenotype claim has no cited support: E02 only reports genomic distance to CYP7A1 and says nothing about CYP7A1 expression, bile acid synthesis, or LDL cholesterol for rs7001688."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No cited evidence shows allele-specific HNF4A binding at rs7001688. E08 reports absence of an ENCODE HNF4A ChIP-seq peak containing the variant in HepG2, which is not evidence of binding and may reflect no experiment. HNF4A appears chosen only because E08 queried it; no QBiC-SELEX/MPRA/reporter support is provided. Coverage is listed as not_checked with no QBiC screen row; check qbic_tf_detail for HNF4A."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 shows an intronic variant with no annotated regulatory feature, and E03 shows no ENCODE cCRE overlap, with the nearest CA-H3K4me3 cCRE 1544 bp away. This directly supports the descriptive element claim."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places FAM110B 420.6 kb from the variant, while E07 shows no significant liver GTEx eQTL, E09 shows no Open Targets FAM110B free-cholesterol association, and E06 is not variant-specific. The cited evidence supports the negative claim that distance alone does not establish regulation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence is cited for HNF4A expression, ChIP, or perturbation in Hep 3B2.1-7. The cell-type link is therefore uncited."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 and E05 report no rs7001688-disease record, E06 is an indirect non-variant-specific literature hit, and E09 does not support a FAM110B free-cholesterol association. This supports the claim that there is no rs7001688-specific phenotype evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No cited evidence shows SREBF2 binding, let alone stronger ref-allele binding at rs7001688. No QBiC-SELEX, MPRA, reporter, ChIP, or allele-specific assay is provided. Coverage is listed as not_checked with no QBiC screen row; check qbic_tf_detail for SREBF2."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 shows an intronic variant with no annotated regulatory feature, and E03 shows no cCRE overlap with the nearest cCRE 1544 bp away. The element description is directly supported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places FAM110B 420.6 kb away, E07 shows no significant liver eQTL, E09 shows no FAM110B free-cholesterol association, and E06 is not variant-specific. The negative gene-link claim is supported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence is cited for SREBF2 expression, ChIP, or perturbation in Hep 3B2.1-7. The cell-type link is uncited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 and E05 report no rs7001688-disease record, E06 is not variant-specific, and E09 does not support a FAM110B free-cholesterol association. This supports the claim that no provided evidence links the variant to LDL through SREBF2/FAM110B."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No cited evidence shows CEBPB binding, let alone stronger alt-allele binding at rs7001688. No QBiC-SELEX, MPRA, reporter, ChIP, or allele-specific assay is provided. Coverage is listed as not_checked with no QBiC screen row; check qbic_tf_detail for CEBPB."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 shows an intronic variant with no annotated regulatory feature, and E03 shows no cCRE overlap with the nearest CA-H3K4me3 cCRE 1544 bp away. This directly supports the element claim."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places CYP7A1 926.8 kb downstream, and E07 shows no significant liver eQTL for the variant. The cited evidence supports the negative claim that distance alone and available eQTL data do not connect rs7001688 to CYP7A1."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence is cited for CEBPB expression, ChIP, or perturbation in Hep 3B2.1-7. The cell-type link is uncited."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E02 only gives distance to CYP7A1, E04 and E05 report no rs7001688-disease record, and E07 shows no liver eQTL. The claim that no provided evidence directly connects rs7001688 to CYP7A1 expression or LDL is supported, although the general CYP7A1-LDL background statement is not directly evidenced here."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Liver\"}",
+   "resolves": "H1.gene",
+   "why": "Tests whether rs7001688 is a liver eQTL for FAM110B or another nearby LDL-relevant gene; this is the most direct way to distinguish a real target-gene link from distance-only speculation."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"HNF4A\",\"biosample\":\"HepG2\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether HNF4A has any ENCODE ChIP-seq peak containing the variant in a hepatocyte-derived context; absence would strongly weaken the top non-null chain's binding step."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"FAM110B\"}",
+   "resolves": "H1.phenotype",
+   "why": "Tests whether FAM110B has an Open Targets association with LDL cholesterol; this directly addresses the phenotype link that currently rests only on an indirect literature hit."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Liver"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "HNF4A",
+    "biosample": "HepG2"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "FAM110B"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific EMSA with Hep 3B2.1-7 nuclear extract and HNF4A antibody supershift at rs7001688",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allele-specific HNF4A binding at rs7001688."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "HNF4A binds the alt T allele more strongly than ref G."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No HNF4A allele-specific effect; SREBF2 hypothesis not tested by this assay."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No HNF4A allele-specific effect; CEBPB hypothesis not tested by this assay."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Liver eQTL lookup for rs7001688 and nearby genes, especially FAM110B",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No liver eQTL for FAM110B or other nearby LDL-relevant genes attributable to rs7001688."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A liver eQTL links rs7001688 to FAM110B in the direction predicted by altered HNF4A binding."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A liver eQTL links rs7001688 to FAM110B, but not necessarily through SREBF2."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "A liver eQTL links rs7001688 to CYP7A1, not FAM110B."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "HNF4A ChIP-qPCR at rs7001688 in Hep 3B2.1-7",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No HNF4A ChIP enrichment at the rs7001688 element."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "HNF4A ChIP enrichment at the rs7001688 element, with stronger signal on the alt T allele if allele-specific."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No HNF4A ChIP enrichment at the rs7001688 element."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No HNF4A ChIP enrichment at the rs7001688 element."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "FAM110B CRISPR perturbation in Hep 3B2.1-7 with an LDL cholesterol readout",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "FAM110B perturbation has no reproducible effect on LDL cholesterol."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "FAM110B perturbation changes LDL cholesterol or LDL uptake/secretion in hepatocytes."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "FAM110B perturbation changes LDL cholesterol or LDL uptake/secretion in hepatocytes."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "FAM110B perturbation has no effect; CYP7A1 perturbation would be the relevant test."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific SREBF2 binding assay at rs7001688",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allele-specific SREBF2 binding at rs7001688."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No SREBF2 allele-specific effect; HNF4A hypothesis not tested by this assay."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "SREBF2 binds the ref G allele more strongly than alt T."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No SREBF2 allele-specific effect; CEBPB hypothesis not tested by this assay."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific CEBPB binding assay at rs7001688",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allele-specific CEBPB binding at rs7001688."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No CEBPB allele-specific effect; HNF4A hypothesis not tested by this assay."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No CEBPB allele-specific effect; SREBF2 hypothesis not tested by this assay."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "CEBPB binds the alt T allele more strongly than ref G."
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Allele-specific EMSA with Hep 3B2.1-7 nuclear extract and HNF4A antibody supershift at rs7001688. It is the cheapest direct test that separates the top two chains: H0 predicts no allele-specific HNF4A binding, whereas H1 predicts stronger HNF4A binding to the alt T allele.",
+ "citation_support": 0.6666666666666666,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs7001688 AND FAM110B AND \"ldl cholesterol\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38 in tissues matching 'Liver'. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E08",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:31:22+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE HNF4A ChIP-seq peak contains chr8:57573391:G>T in biosamples matching 'HepG2'. Absence can also mean no HNF4A experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E09",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T01:41:58+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between FAM110B and free cholesterol in large LDL measurement (EFO_0022176)."
+  }
+ ]
+}

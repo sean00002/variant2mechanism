@@ -1,0 +1,291 @@
+{
+ "case_id": "rs12740374",
+ "variant": "rs12740374",
+ "variant_key": "chr1:109274968:G>T",
+ "disease": "LDL cholesterol, myocardial infarction (1p13)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.002,
+ "seconds": 52.0,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1",
+   "title": "T allele creates an activating CEBPA-dependent SORT1 enhancer",
+   "is_null": false,
+   "tf": "CEBPA",
+   "allele_binding_more": "alt",
+   "element": "The variant lies in a liver-active regulatory element whose activity is increased by CEBPA binding.",
+   "target_gene": "SORT1",
+   "cell_type": "Hepatocytes",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt T allele is expected to bind CEBPA more strongly; CEBPA is favored over related C/EBP factors because it is the TF associated with the established rs12740374 mechanism. No QBiC-SELEX result or model status is available in the supplied case.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is in a regulatory element that can act as a liver enhancer, and stronger CEBPA binding on T is expected to increase its activity.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer increases SORT1 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The regulatory effect occurs primarily in hepatocytes.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Increased hepatic SORT1 lowers circulating LDL cholesterol and is expected to reduce myocardial-infarction risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "In heterozygous hepatocytes, CEBPA occupancy at the variant should be greater on T than G.",
+    "Replacing G with T should increase SORT1 expression and reduce a measure of hepatic lipoprotein output."
+   ],
+   "falsified_if": [
+    "There is no reproducible T-biased CEBPA occupancy in an appropriate hepatocyte context.",
+    "An endogenous G-to-T edit does not increase SORT1 expression."
+   ],
+   "probability": 0.7,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPA"
+  },
+  {
+   "id": "H2",
+   "title": "A related C/EBP factor, CEBPB, mediates the enhancer effect",
+   "is_null": false,
+   "tf": "CEBPB",
+   "allele_binding_more": "alt",
+   "element": "The variant is in a liver-active regulatory element whose activity is increased by CEBPB binding.",
+   "target_gene": "SORT1",
+   "cell_type": "Hepatocytes",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt T allele is hypothesized to bind CEBPB more strongly; this is a competing possibility because related C/EBP factors can recognize similar sequences, but no QBiC-SELEX result or model status is available here.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant-containing element acts as a liver enhancer when occupied by CEBPB.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer increases SORT1 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The regulatory effect occurs primarily in hepatocytes.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Increased hepatic SORT1 lowers circulating LDL cholesterol and is expected to reduce myocardial-infarction risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "In heterozygous hepatocytes, CEBPB occupancy should be greater on T than G and more informative than CEBPA occupancy.",
+    "Reducing CEBPB should weaken the T-allele effect on SORT1 expression."
+   ],
+   "falsified_if": [
+    "CEBPB shows no T-biased occupancy while CEBPA shows clear T-biased occupancy.",
+    "Reducing CEBPB does not alter the allele-dependent SORT1 response."
+   ],
+   "probability": 0.13,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  },
+  {
+   "id": "H0",
+   "title": "Null: no TF-mediated effect of rs12740374",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The variant will not show a reproducible allele-specific TF occupancy or endogenous regulatory effect; the association could reflect linkage or another explanation."
+   ],
+   "falsified_if": [
+    "An endogenous allele swap produces a reproducible, allele-dependent TF occupancy change and corresponding expression change."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H3",
+   "title": "CEBPA binds the T allele but represses SORT1",
+   "is_null": false,
+   "tf": "CEBPA",
+   "allele_binding_more": "alt",
+   "element": "The variant-containing regulatory element acts as a CEBPA-dependent repressor of SORT1.",
+   "target_gene": "SORT1",
+   "cell_type": "Hepatocytes",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt T allele is hypothesized to bind CEBPA more strongly; no QBiC-SELEX result or model status is available in the supplied case.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "At this element, increased CEBPA binding is hypothesized to reduce rather than increase regulatory activity.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The repressive element lowers SORT1 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The regulatory effect occurs primarily in hepatocytes.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Lower hepatic SORT1 is hypothesized to raise LDL cholesterol and myocardial-infarction risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "T should show greater CEBPA occupancy than G, but endogenous T should reduce SORT1 expression.",
+    "A G-to-T edit should increase LDL-related lipoprotein output, opposite to H1."
+   ],
+   "falsified_if": [
+    "A G-to-T edit increases SORT1 expression in hepatocytes.",
+    "The T allele does not show greater CEBPA occupancy in an appropriate hepatocyte context."
+   ],
+   "probability": 0.07,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPA"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "CEBPA",
+   "is_null": false,
+   "probability": 0.7,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.13,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "CEBPA",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.1,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Allele-specific CUT&RUN-qPCR for CEBPA and CEBPB at the variant in heterozygous hepatocytes",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "T-biased CEBPA occupancy, stronger than any T-biased CEBPB signal."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "T-biased CEBPB occupancy, stronger than any T-biased CEBPA signal."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "T-biased CEBPA occupancy; occupancy alone does not establish whether CEBPA activates or represses."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allele-specific occupancy for either factor."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Endogenous G-to-T allele swap in a hepatocyte model followed by SORT1 expression measurement",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "SORT1 expression increases."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "SORT1 expression increases, with the response dependent on CEBPB."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "SORT1 expression decreases."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible expression change."
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Perform allele-specific CUT&RUN-qPCR for CEBPA and CEBPB at rs12740374 in heterozygous hepatocytes. It is the cheapest proposed test that distinguishes the leading CEBPA chain from the CEBPB alternative.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

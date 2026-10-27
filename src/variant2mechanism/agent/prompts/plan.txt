@@ -1,0 +1,30 @@
+Task: plan refinement round {round} of at most {max_rounds}. Choose up to {max_calls} tool calls whose results could
+change the grade of a weak or missing link, or separate the top two chains. For each call give the tool, its arguments
+as a JSON object string (only the arguments that tool takes; the variant is bound by code), the link it would resolve
+(written like "H1.binding"), and the result you expect, with what it would change. For example: "If the HOXB13 model
+passes the gate with the ref allele binding more, H1.binding becomes supported and H1 rises; if not, H1 falls."
+
+Never repeat a call already made (the same tool with the same arguments): its result is in the evidence above. A
+ChIP-seq lookup for a TF in a cell type ENCODE never assayed it in answers "no experiment" and tells you nothing; a
+round whose calls bring no new information ends the refinement. If no call could change a grade or the ranking,
+return no calls and say why in stop_reason; otherwise leave stop_reason empty.
+
+Investigate tools and their arguments:
+{tool_list}
+
+Current chains (version {version}):
+{chains}
+
+Critic's grades:
+{grades}
+
+Critic's problems:
+{problems}
+
+Critic's suggested checks:
+{checks}
+
+Calls already made:
+{memory}
+
+Return JSON only.

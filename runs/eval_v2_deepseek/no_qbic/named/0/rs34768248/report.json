@@ -1,0 +1,726 @@
+{
+ "case_id": "rs34768248",
+ "variant": "rs34768248",
+ "variant_key": "chr5:1295601:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "germline",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0236,
+ "seconds": 121.4,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "Null: no TF-mediated effect of rs34768248",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at chr5:1295601 in glioblastoma-relevant cells.",
+    "The G>A change alone does not alter TERT expression or a disease-relevant phenotype.",
+    "Any TERT association is driven by a linked causal variant rather than this base."
+   ],
+   "falsified_if": [
+    "Allele-specific CTCF ChIP or footprinting in glioblastoma cells shows reproducible ref-G enrichment at chr5:1295601.",
+    "An allele-specific reporter/MPRA in a TERT-expressing glioblastoma line shows a G>A effect at this base after controlling for linked variants.",
+    "CTCF perturbation at this element changes TERT expression in cis in a glioblastoma-relevant cell type."
+   ],
+   "probability": 0.86,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "CTCF binding at a TERT upstream element",
+   "is_null": false,
+   "tf": "CTCF",
+   "allele_binding_more": "ref",
+   "element": "TERT upstream ENSR5_C5GP enhancer/promoter-proximal region; variant is not inside an annotated ENCODE cCRE and lies 75 bp from a pELS",
+   "target_gene": "TERT",
+   "cell_type": "glioblastoma/glial-lineage cells; CTCF occupancy has been seen only in H9 neural progenitor cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF is the candidate TF, with ref G hypothesized to bind more strongly than alt A. CTCF has no QBiC-SELEX model in the provided evidence, so the direction is not measured. CTCF ChIP peaks containing the variant are reported only in H9/neural progenitor cells, not in the glioblastoma expression context; E19 explicitly reports no glioblastoma CTCF peak.",
+     "evidence_ids": [
+      "E04",
+      "E06",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the computationally annotated TERT upstream ENSR5_C5GP enhancer. It is not contained in an ENCODE cCRE; the nearest pELS is 75 bp away, so the active-element evidence does not overlap the base.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene, 0.5 kb upstream, and is the best L2G gene in the available credible set. Caveat: that credible set is for hypertension with PIP 0.00, not glioblastoma/melanoma/bladder cancer.",
+     "evidence_ids": [
+      "E02",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CTCF is expressed in glioblastoma lines, but glioblastoma CTCF occupancy at this base is not established. The only reported CTCF peaks containing the variant are in H9 neural progenitor cells.",
+     "evidence_ids": [
+      "E04",
+      "E06",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT is broadly implicated in glioblastoma, melanoma and bladder cancer, but this variant has no direct GWAS Catalog association and no significant GTEx eQTL. Phenotype support is therefore gene-level and not variant-specific.",
+     "evidence_ids": [
+      "E15",
+      "E17",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CTCF ChIP-qPCR in glioblastoma or neural progenitor cells will show preferential ref-G binding at chr5:1295601.",
+    "The ref-G allele preserves a CTCF-binding motif that alt A weakens.",
+    "CTCF perturbation at this element changes TERT expression in the relevant neural-lineage context."
+   ],
+   "falsified_if": [
+    "Allele-specific CTCF ChIP-qPCR or footprinting in glioblastoma cells shows no occupancy or no ref-G enrichment at this base.",
+    "The G>A change does not alter CTCF binding in vitro or in a neural-lineage cell context.",
+    "CTCF perturbation at this element does not change TERT expression in the relevant cell type."
+   ],
+   "probability": 0.08,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H2",
+   "title": "JUN/AP-1 binding gain at the TERT upstream region",
+   "is_null": false,
+   "tf": "JUN",
+   "allele_binding_more": "alt",
+   "element": "TERT upstream ENSR5_C5GP enhancer/promoter-proximal region; variant is near active pELS elements but not inside an annotated cCRE",
+   "target_gene": "TERT",
+   "cell_type": "glioblastoma cells; JUN occupancy at this base is reported only in A549",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "JUN is the candidate TF, with alt A hypothesized to bind more strongly than ref G. JUN has no QBiC-SELEX model in the provided evidence, so the direction is not measured. JUN ChIP peaks containing the variant are reported only in A549, not in the glioblastoma expression context.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the TERT upstream ENSR5_C5GP enhancer and near active pELS elements, but it is not contained in an ENCODE cCRE.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene, 0.5 kb upstream, and is the best L2G gene in the available credible set. Caveat: that credible set is for hypertension with PIP 0.00, not the disease context.",
+     "evidence_ids": [
+      "E02",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "JUN is highly expressed in glioblastoma lines, but the only JUN ChIP peak containing this variant is from A549; glioblastoma occupancy at this base is not established.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT is implicated in the relevant cancers, but this variant lacks direct GWAS Catalog association and GTEx eQTL support. Phenotype support remains gene-level rather than variant-specific.",
+     "evidence_ids": [
+      "E15",
+      "E17",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific JUN ChIP-qPCR in glioblastoma cells will show preferential alt-A binding at chr5:1295601.",
+    "Alt A creates or improves an AP-1/JUN binding motif.",
+    "JUN inhibition reduces TERT expression specifically in cells carrying the alt allele."
+   ],
+   "falsified_if": [
+    "JUN ChIP-qPCR or footprinting in glioblastoma cells shows no occupancy or no alt-A enrichment at this base.",
+    "The G>A change does not create or strengthen an AP-1/JUN-like site in an allele-specific reporter assay.",
+    "JUN perturbation does not change TERT expression in a glioblastoma cell line carrying the alt allele."
+   ],
+   "probability": 0.06,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "JUN"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.72,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.11,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "JUN",
+   "is_null": false,
+   "probability": 0.09,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "MAX",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "CTCF ChIP peak containing the variant is reported only in H9/neural progenitor, not glioblastoma; no QBiC-SELEX or allele-specific assay establishes ref>alt binding direction."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in ENSR5_C5GP enhancer; E03 confirms no cCRE overlaps the base and nearest pELS is 75 bp away with CTCF z 2.8. Context is supported, though the active-element evidence is not variant-overlapping and z-scores are maxima."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 places TERT 0.5 kb from the variant and E16 reports TERT as the best L2G gene (0.84) in the available credible set; caveat: that credible set is hypertension with PIP 0.00, not the disease context."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "CTCF is expressed in glioblastoma lines and has an H9/neural-progenitor peak, but E04 states no ENCODE biosample matches the expression context, so glioblastoma occupancy is not established."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "TERT disease literature is cited, but E15 and E17 are negative for this variant and E16 is a different trait; no variant-specific phenotype evidence is provided."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "JUN ChIP peak containing the variant is only in A549, not glioblastoma, and there is no QBiC-SELEX or allele-specific assay for the claimed alt>A gain."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates ENSR5_C5GP enhancer and E03 places the variant near active pELS elements while explicitly not inside an ENCODE cCRE; this supports the stated element context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports TERT as nearest gene and E16 supports TERT as best L2G gene in the available credible set; caveat: hypertension credible set with PIP 0.00."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "JUN is highly expressed in glioblastoma lines, but the only JUN peak containing the variant is A549; relevant-cell occupancy is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Only gene-level TERT disease literature and negative variant-level GWAS/eQTL evidence are cited; no variant-specific phenotype evidence is provided."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "MAX ChIP peak containing the variant is only in H1, not glioblastoma, and there is no QBiC-SELEX or allele-specific assay for the claimed ref>alt binding."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates ENSR5_C5GP enhancer and E03 places the variant 75 bp from a pELS while not in a cCRE; this supports the stated element context."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports TERT as nearest gene and E16 supports TERT as best L2G gene in the available credible set; caveat: hypertension credible set with PIP 0.00."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "MAX is expressed in glioblastoma lines, but the only peak containing the variant is H1; glioblastoma occupancy is not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Only TERT gene-level disease relevance plus negative variant-level GWAS/eQTL evidence are cited; no variant-specific phenotype evidence."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "H9 neural-progenitor CTCF ChIP peaks containing the variant are indirect and not in glioblastoma; no QBiC-SELEX direction is provided. Candidate CTCF is not distinguished from other bound/expressed TFs."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in ENSR5_C5GP enhancer; E03 confirms no ENCODE cCRE overlap and nearest pELS 75 bp away. This directly supports the element-context claim, though active-element evidence does not overlap the base."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 directly places TERT 0.5 kb upstream. E16 gives TERT as best L2G, but the credible set is hypertension with PIP 0.00, so target-gene causality is indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "CTCF expression in glioblastoma lines is shown, but glioblastoma occupancy at this base is absent; only H9 neural-progenitor peaks contain the variant."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "No GWAS Catalog association or GTEx eQTL for this variant; TERT-cancer literature is gene-level only, not variant-specific."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "JUN ChIP peaks containing the variant are only in A549; no glioblastoma occupancy and no QBiC-SELEX direction for alt-A gain. JUN is one of several bound/expressed TFs without a specific selection rationale."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in ENSR5_C5GP enhancer and E03 confirms no ENCODE cCRE overlap, with nearest pELS 75 bp away. The element-context claim is directly supported, though not active-element overlap."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 directly places TERT 0.5 kb upstream. E16 gives TERT as best L2G, but the credible set is hypertension with PIP 0.00, so target-gene causality is indirect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "JUN is highly expressed in glioblastoma lines, but the only JUN ChIP peaks containing this variant are in A549, not glioblastoma."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "No GWAS Catalog association or GTEx eQTL for this variant; TERT-cancer literature is gene-level only, not variant-specific."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CTCF\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether the CTCF occupancy seen only in H9/neural progenitor is present in the glioblastoma expression context."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"JUN\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "H2.binding",
+   "why": "Tests whether JUN occupancy exists in the relevant cell type rather than only A549."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs34768248 TERT allele-specific reporter\"}",
+   "resolves": "H1.phenotype",
+   "why": "Searches for variant-specific functional evidence that would affect all three non-null phenotype links."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CTCF",
+    "biosample": "glioblastoma"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "JUN",
+    "biosample": "glioblastoma"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs34768248 TERT allele-specific reporter"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific CTCF ChIP-qPCR at rs34768248 in a glioblastoma cell line",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allele-specific CTCF occupancy at chr5:1295601 in glioblastoma cells."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Ref-G enrichment in CTCF ChIP-qPCR or allele-specific footprinting in glioblastoma/neural-lineage cells."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No CTCF allele-specific effect; any signal would not support the JUN-gain model."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific luciferase reporter or MPRA for G vs A in a TERT-expressing glioblastoma line",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allele-specific reporter/MPRA effect for G>A."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Ref-G-dependent change consistent with CTCF binding, but activity direction could be activation or repression."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt-A-dependent change consistent with AP-1/JUN gain."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific JUN ChIP-qPCR at rs34768248 in a glioblastoma cell line",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No alt-A-specific JUN occupancy at this base."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No JUN allele-specific effect; CTCF model unaffected."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt-A enrichment in JUN ChIP-qPCR in glioblastoma cells."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "CRISPRi/dCas9 perturbation of the TERT upstream element plus TERT qPCR in glioblastoma cells",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No change in TERT expression after local CRISPRi/dCas9 perturbation of the element."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "CTCF-dependent change in TERT expression, preferentially in the ref-G context."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "JUN-dependent change in TERT expression, preferentially in the alt-A context."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The single cheapest experiment that separates the top two chains (H0 vs H1) is allele-specific CTCF ChIP-qPCR at rs34768248 in a glioblastoma cell line. H0 predicts no reproducible allele-specific CTCF occupancy; H1 predicts ref-G enrichment. If glioblastoma CTCF occupancy is absent, repeat in H9 neural progenitor cells as a lower-disease-relevance fallback to test the H1 binding link, but that fallback alone would not establish glioblastoma relevance.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs34768248 AND TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; dropped the rsID"
+  },
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 41744838: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295601-1295601:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295601:G>A (GRCh38), allele string G/A\nKnown IDs: rs34768248\nMost severe consequence: intron_variant\nRegulatory features: ENSR5_C5GP enhancer\nGERP conservation score at the site: 2.04\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295601-2295601?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-26T02:22:31+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295601:G>A, by distance to TSS:\nTERT: 0.5 kb from TSS (upstream, strand -1)\nCLPTM1L: 49.5 kb from TSS (downstream, strand -1)\nSLC6A18: 70.2 kb from TSS (downstream, strand +1)\nSLC6A19: 94.0 kb from TSS (downstream, strand +1)\nSLC12A7: 139.4 kb from TSS (upstream, strand -1)\nSLC6A3: 149.9 kb from TSS (downstream, strand -1)\nLPCAT1: 228.7 kb from TSS (downstream, strand -1)\nNKD2: 287.6 kb from TSS (downstream, strand +1)\nTRIP13: 402.8 kb from TSS (downstream, strand +1)\nBRD9: 402.8 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-26T02:21:44+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3622531 (pELS) 75 bp away.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622532 pELS: DNase z 2.2, H3K27ac z 3.9, H3K4me3 z 4.4, CTCF z 1.5; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622530 PLS: DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr5:1295601:G>A: 35 peaks contain the variant, from 27 factors in 9 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. No cCRE contains the variant. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ASH2L, BCL3, DNMT1, DPF2, EZH2, EZH2phosphoT487, GABPB1, IKZF1, KDM4A, MAZ, MTA1, RBBP5 (+5 more). Bound, expressed TFs with a binding model: 10; listed one per row: JUN, CTCF, ZNF687, MAX, CREB1, NR2C2, RXRA, ZBTB33, ZNF800, NKRF. Assayed with no peak here: 0 TFs in the matching biosample, 563 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUN: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549 (e.g. ENCSR604CKQ). 91.65 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 16 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: H9, neural progenitor cell (e.g. ENCSR125NBL). 26.45 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 163 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF687: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR647PSR). 10.74 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 436 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: H1 (e.g. ENCSR000BSJ). 58.6 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 48 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CREB1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: H1 (e.g. ENCSR000BSN). 30.94 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 132 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2C2: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR559ZKI). 20.46 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 223 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "RXRA: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR416HDG). 13.1 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 354 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZBTB33: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: K562 (e.g. ENCSR876GXA). 12.18 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 381 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF800: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR701WPG). 11.64 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 400 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NKRF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR732PJX). 8.69 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 522 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs34768248&size=100",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs34768248, strongest first:"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 credible sets contain 5_1295601_G_A: 1 GWAS, 0 molecular QTL.\nGWAS Hypertension: PIP 0.00; L2G TERT 0.84\nBest L2G gene scores across these sets: TERT 0.84"
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr5_1295601_G_A_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T02:24:03+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr5_1295601_G_A_b38. NES is the effect of the alt allele (A) relative to ref (G)."
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:33:47+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE CTCF ChIP-seq peak contains chr5:1295601:G>A in biosamples matching 'glioblastoma'. Absence can also mean no CTCF experiment in that biosample. In other biosamples, 2 CTCF peaks do contain the variant: H9, neural progenitor cell (experiments ENCSR125NBL, ENCSR871MKQ)."
+  },
+  {
+   "id": "E20",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:33:47+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE JUN ChIP-seq peak contains chr5:1295601:G>A in biosamples matching 'glioblastoma'. Absence can also mean no JUN experiment in that biosample. In other biosamples, 2 JUN peaks do contain the variant: A549 (experiments ENCSR604CKQ, ENCSR628MQN)."
+  },
+  {
+   "id": "E21",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs34768248%20TERT%20allele-specific%20reporter&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:33:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 0 hits for 'rs34768248 TERT allele-specific reporter'; top 0 with PMIDs:"
+  }
+ ]
+}

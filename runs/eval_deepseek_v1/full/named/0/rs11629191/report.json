@@ -1,0 +1,872 @@
+{
+ "case_id": "rs11629191",
+ "variant": "rs11629191",
+ "variant_key": "chr14:55887040:C>T",
+ "disease": "Breast cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0208,
+ "seconds": 195.5,
+ "model_calls": 8,
+ "screen": {
+  "n_pass": 445,
+  "top_groups": [
+   {
+    "label": "bZIP, 1 model",
+    "z": -91.69,
+    "best_tf": "XBP1"
+   },
+   {
+    "label": "bZIP, 4 models",
+    "z": -76.89,
+    "best_tf": "CREB3"
+   },
+   {
+    "label": "SAND, 2 models",
+    "z": -57.31,
+    "best_tf": "SP140L"
+   },
+   {
+    "label": "bZIP, 3 models",
+    "z": -49.19,
+    "best_tf": "ATF2"
+   },
+   {
+    "label": "CxxC, 2 models",
+    "z": -44.11,
+    "best_tf": "CXXC4"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "null_no_TF_effect",
+   "title": "No TF-mediated effect of rs11629191 in breast cancer",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding at rs11629191 is detectable in MCF7 chromatin.",
+    "No allelic difference is seen in reporter assays in MCF7.",
+    "No breast-tissue eQTL for PELI2 or ENSG00000259868 is attributable to this variant.",
+    "PELI2 perturbation has no breast-cancer-relevant growth phenotype, consistent with DepMap non-dependency."
+   ],
+   "falsified_if": [
+    "Allele-specific TF binding at rs11629191 is demonstrated in MCF7 cells.",
+    "A reproducible allelic effect on a target gene or reporter is shown in a breast-cell context.",
+    "ChIP, CUT&RUN, or reporter assays contradict the no-effect prediction."
+   ],
+   "probability": 0.64,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "XBP1_ref_more_binds",
+   "title": "XBP1 binds the ref C allele more strongly at a candidate non-cCRE motif",
+   "is_null": false,
+   "tf": "XBP1",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "candidate_intronic_XBP1_motif_no_cCRE",
+   "target_gene": "PELI2",
+   "cell_type": "MCF7_breast_cancer",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "XBP1 is the strongest QBiC-SELEX group member: group G382 reports XBP1 own model with z=-91.69 and effect=-3.167, meaning the alt T allele binds less than ref C, and XBP1 is expressed at 636.57 TPM in the MCF7 context. E18 reports no ENCODE XBP1 ChIP-seq peak containing the variant in MCF7, but absence can also mean no XBP1 experiment in that biosample, so cellular occupancy is unproven.",
+     "evidence_ids": [
+      "E07",
+      "E08",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is an intronic/intergenic variant with no overlapping ENCODE cCRE; the nearest cCRE is 1,868 bp away. This is at most a candidate XBP1 motif outside a chromatin-defined regulatory element.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PELI2 is the nearest protein-coding gene but lies 230.8 kb upstream, and no provided evidence directly links rs11629191 or XBP1 to PELI2. E19 reports no significant GTEx v8 breast eQTL for this variant, E05 contains only a PIP 0.03 brain-nucleus-accumbens eQTL for ENSG00000259868, and E20 shows PELI2 is not a common-essential gene in breast lines.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E19",
+      "E20"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "XBP1 is expressed at 636.57 TPM in DepMap ACH-000019 (MCF7), so XBP1 is present at high levels in the relevant cell context.",
+     "evidence_ids": [
+      "E08"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No provided evidence connects XBP1 at this locus to breast cancer: E04 shows zero GWAS Catalog associations for rs11629191, E06 is only a PELI2 keyword-hit list without a demonstrated XBP1-rs11629191-PELI2 axis, and E20 shows PELI2 non-dependency in breast lines. The phenotype link remains speculative.",
+     "evidence_ids": [
+      "E04",
+      "E06",
+      "E20"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "XBP1 ChIP-qPCR or CUT&RUN in MCF7 shows occupancy at rs11629191.",
+    "The ref C allele has higher XBP1 occupancy than the alt T allele.",
+    "An allele-specific reporter in MCF7 shows higher activity from the C allele.",
+    "XBP1 perturbation changes PELI2 expression only if PELI2 is the long-range target."
+   ],
+   "falsified_if": [
+    "XBP1 does not occupy the locus in MCF7 in a targeted ChIP-qPCR or CUT&RUN assay.",
+    "The T allele does not reduce XBP1 binding or reporter activity in MCF7.",
+    "No allele-specific effect is seen in an independent cellular assay.",
+    "XBP1 perturbation does not affect PELI2 expression if PELI2 is claimed as the target."
+   ],
+   "probability": 0.16,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "XBP1"
+  },
+  {
+   "id": "CREB3L4_ref_more_binds",
+   "title": "CREB3L4 binds the ref C allele more strongly at a candidate bZIP motif",
+   "is_null": false,
+   "tf": "CREB3L4",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "candidate_intronic_CREB3_family_motif_no_cCRE",
+   "target_gene": "ENSG00000259868",
+   "cell_type": "MCF7_breast_cancer",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The G017 CREB3-family bZIP group binds the ref C allele more strongly than the alt T allele: best model CREB3 has z=-76.89 and effect=-1.64 (alt binds less), and CREB3L4 is an own-model member with the same direction (z=-37.55). CREB3L4 is chosen because it is the highest-expressed member in MCF7 at 48.8 TPM, but this remains in vitro SELEX without cellular occupancy data.",
+     "evidence_ids": [
+      "E07",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic/intergenic and does not overlap an ENCODE cCRE; the nearest cCRE is 1,868 bp away. The element claim is therefore a candidate CREB3-family motif, not a validated regulatory element.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The only molecular QTL in the credible set is a PIP 0.03 eQTL for ENSG00000259868 in brain nucleus accumbens, which is very weak and in a non-breast tissue. E19 reports no significant breast GTEx eQTL for this variant, so no breast variant-to-gene link is established.",
+     "evidence_ids": [
+      "E05",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CREB3L4 is expressed at 48.8 TPM in DepMap ACH-000019 (MCF7), making it a plausibly expressed member of the G017 group in this cell context.",
+     "evidence_ids": [
+      "E09"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No provided evidence directly connects CREB3L4 at rs11629191 to breast cancer; E04 shows zero GWAS Catalog associations for the variant. Breast cancer relevance is inferred only from the case context.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "CREB3L4 ChIP or reporter assays show allele-specific CREB3L4 binding at rs11629191.",
+    "The ref C allele has higher CREB3-family binding than the alt T allele.",
+    "The ENSG00000259868 eQTL replicates in breast tissue or MCF7.",
+    "CREB3L4 perturbation changes ENSG00000259868 expression."
+   ],
+   "falsified_if": [
+    "CREB3L4 does not bind the locus in MCF7.",
+    "CREB3L4-specific assays do not show allele-specific binding.",
+    "The ENSG00000259868 eQTL does not replicate in breast tissue or MCF7.",
+    "CREB3L4 perturbation does not affect ENSG00000259868."
+   ],
+   "probability": 0.12,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CREB3L4"
+  },
+  {
+   "id": "ATF2_ref_more_binds",
+   "title": "ATF2 binds the ref C allele more strongly at a candidate AP-1/bZIP motif",
+   "is_null": false,
+   "tf": "ATF2",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "candidate_intronic_ATF2_AP1_motif_no_cCRE",
+   "target_gene": "PELI2",
+   "cell_type": "MCF7_breast_cancer",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "G033 reports ATF2 own model with z=-49.19 and effect=-1.348, meaning the alt T allele binds less than ref C, and ATF2 is expressed at 16.22 TPM in MCF7. ATF2 is the best model in the group, but ATF7 is also an own-model member and is slightly more highly expressed (20.81 TPM), so the ATF2 choice is not strongly distinguished by expression.",
+     "evidence_ids": [
+      "E07",
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic/intergenic without an overlapping cCRE; the element evidence is only an in vitro ATF2/AP-1 motif disruption, not a chromatin-defined regulatory element.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PELI2 is the nearest protein-coding gene at 230.8 kb upstream, but no ATF2-PELI2 or variant-PELI2 QTL or perturbation evidence is provided. E19 reports no significant breast GTEx eQTL for this variant, and E20 shows PELI2 is not a common-essential gene in breast lines.",
+     "evidence_ids": [
+      "E02",
+      "E19",
+      "E20"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "ATF2 is expressed at 16.22 TPM in DepMap ACH-000019 (MCF7), supporting ATF2 as an expressed group member in this cell context.",
+     "evidence_ids": [
+      "E11"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No provided evidence connects ATF2 at rs11629191 to breast cancer: E04 shows zero GWAS Catalog associations, E06 is only a PELI2 keyword list, and E20 shows PELI2 non-dependency in breast lines. The phenotype link is speculative.",
+     "evidence_ids": [
+      "E04",
+      "E06",
+      "E20"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "ATF2 ChIP-seq or CUT&RUN in MCF7 shows allele-specific occupancy at rs11629191.",
+    "The ref C allele has higher ATF2 binding than the alt T allele.",
+    "An allele-specific reporter in MCF7 shows higher activity from the C allele.",
+    "ATF2 perturbation changes PELI2 expression only if PELI2 is the long-range target."
+   ],
+   "falsified_if": [
+    "ATF2 does not bind the locus in MCF7.",
+    "The T allele does not reduce ATF2 binding or reporter activity.",
+    "ATF2 perturbation does not affect PELI2 if PELI2 is claimed as the target.",
+    "The PELI2 link is not reproducible."
+   ],
+   "probability": 0.08,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ATF2"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "null_no_TF_effect",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.43,
+   "allele_binding_more": null
+  },
+  {
+   "id": "XBP1_ref_more_binds",
+   "tf": "XBP1",
+   "is_null": false,
+   "probability": 0.27,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "CREB3L4_ref_more_binds",
+   "tf": "CREB3L4",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "ATF2_ref_more_binds",
+   "tf": "ATF2",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "CXXC5_mapped_ref_more_binds",
+   "tf": "CXXC5",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX group G382 gives XBP1 own model z=-91.69, effect=-3.167 (alt binds less), directionally consistent with allele_binding_more=ref, and XBP1 is 636.57 TPM in MCF7. But this is in vitro SELEX only: there is no ChIP/CUT&RUN, MPRA or allele-specific assay, and the best model's site strength is ref 100.0th vs alt 98.7th percentile, a modest model-level difference. Per instructions, a SELEX binding change alone is at best weak."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 reports intron_variant with no regulatory features and E03 states no cCRE overlaps the variant, nearest EH38E1716463 (dELS) 1,868 bp away. The claim that this is at most a candidate motif outside a chromatin-defined element is exactly what the evidence shows."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports only that PELI2 is the nearest protein-coding TSS (230.8 kb upstream). No QTL, chromatin-loop or perturbation evidence links rs11629191 or XBP1 to PELI2. E06 is a keyword-hit list (178 hits) whose top titles do not report PELI2 breast-cancer mechanism, so it supports plausibility at most. A 230 kb nearest-gene assignment is not a target-gene link."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E08 reports XBP1 at 636.57 TPM in the DepMap/ACH-000019 (MCF7) expression context used by the screen, which directly supports that XBP1 is highly expressed in this cell type."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects XBP1 at this locus to breast cancer. E06 is a generic PELI2 keyword search whose listed PMIDs concern other topics (Pellino review, thyroid parthanatos, tramadol, BRCA1/pemetrexed, etc.); none reports an XBP1-rs11629191-PELI2-breast cancer axis. E04 shows 0 GWAS Catalog associations for the variant."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "binding",
+   "status": "weak",
+   "reason": "G017's best model is CREB3 (z=-76.89, effect=-1.64, alt binds less); CREB3L4 is an own-model member with the same sign (z=-37.55) and is the highest-expressed member (48.8 TPM). Choosing CREB3L4 rather than the best model CREB3 is given a stated reason (expression), which is acceptable, and direction is consistent. However this remains in vitro SELEX with no cellular binding data, and the best model's site strength is only ref 99.9th vs alt 98.2nd percentile."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 (intron_variant, no regulatory features) and E03 (no overlapping cCRE, nearest 1,868 bp) directly support that this is a candidate motif in a non-cCRE element, as claimed."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "gene",
+   "status": "weak",
+   "reason": "The only cited molecular link is E05: an eQTL for ENSG00000259868 with PIP 0.03 in GTEx brain nucleus accumbens. PIP 0.03 is essentially null and the tissue is not breast, so the claim that this is a 'very weak and non-breast QTL link' is accurate, but it does not establish a variant-to-gene effect; E02 gives no distance for ENSG00000259868."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E09 gives CREB3L4 at 48.8 TPM in the DepMap ACH-000019 (MCF7) context, directly supporting expression of this group member in the case's cell type."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence IDs are cited and none of the provided evidence links CREB3L4 at rs11629191 to breast cancer. The chain itself concedes the link is inferred purely from the case context."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "binding",
+   "status": "weak",
+   "reason": "G033 gives ATF2 own model z=-49.19, effect=-1.348 (alt binds less), directionally consistent with allele_binding_more=ref; ATF2 is 16.22 TPM in MCF7. But the TF-selection rationale is weak: ATF7 is in the same group with its own model and is more highly expressed (20.81 TPM vs 16.22 TPM), so 'ATF2 is expressed' does not distinguish it from ATF7. And the binding evidence is in vitro SELEX only, with modest site-strength shift (ref 99.7th vs alt 95.7th percentile)."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 (intron_variant, no regulatory features) and E03 (no cCRE within 500 bp; nearest cCRE 1,868 bp) support the claim that the only element evidence is an in vitro motif disruption, not a cCRE."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Only E02 nearest-gene distance (PELI2, 230.8 kb upstream) plus E06 keyword literature support this; there is no ATF2-PELI2 or variant-PELI2 QTL/perturbation evidence, and the E06 titles do not demonstrate PELI2 breast-cancer mechanism."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E11 reports ATF2 at 16.22 TPM in the MCF7 expression context, which is exactly what the link claims (expression only)."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence connects ATF2 at rs11629191 to breast cancer; E06 only supports broad PELI2 keyword plausibility, and E04 shows no GWAS association for the variant."
+  },
+  {
+   "hypothesis_id": "CXXC5_mapped_ref_more_binds",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 shows the G064 CxxC group with best model CXXC4 (z=-44.11, effect=-2.102, alt binds less) and CXXC5 listed as mapped (77.02 TPM), so the chain correctly discloses that the CXXC5 direction is inferred from related CxxC models rather than a CXXC5 own model. That is indirect (mapped coverage) and in vitro; the best model's site-strength shift is large (ref 98.8th vs alt 70.2nd percentile), but CXXC4 itself is only 0.33 TPM in MCF7, so the passing members and the expressed members are different factors."
+  },
+  {
+   "hypothesis_id": "CXXC5_mapped_ref_more_binds",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 (intron_variant, no regulatory features) and E03 (no cCRE overlap, nearest 1,868 bp) directly support the claim that this is a candidate motif rather than a validated regulatory element."
+  },
+  {
+   "hypothesis_id": "CXXC5_mapped_ref_more_binds",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05's ENSG00000259868 eQTL has PIP 0.03 in brain nucleus accumbens: it is consistent with a 'weak' link, but PIP 0.03 is effectively no credible set signal and the tissue is wrong for the breast cancer context; no perturbation evidence is cited for this gene."
+  },
+  {
+   "hypothesis_id": "CXXC5_mapped_ref_more_binds",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E12 reports CXXC5 at 77.02 TPM in MCF7, so the claim that CXXC5 is the most plausible expressed CxxC-group member is supported, with the caveat (already stated) that its coverage is mapped-only."
+  },
+  {
+   "hypothesis_id": "CXXC5_mapped_ref_more_binds",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence IDs are cited, and nothing in E01-E17 connects CXXC5 at rs11629191 to breast cancer; E04 gives 0 GWAS Catalog associations for the variant."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 reports an XBP1 own-model QBiC-SELEX effect (z=-91.69, effect=-3.167, alt binds less), which is consistent with the claimed direction ref>C, and E08 supports XBP1 expression in MCF7. But this is in vitro SELEX only; E18 provides no MCF7 XBP1 ChIP occupancy, and absence of a peak is not evidence of binding. No perturbation or allele-specific cellular assay supports the binding link."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 directly show the variant is intronic/intergenic, does not overlap a cCRE, and the nearest cCRE is 1868 bp away. E08 supports only a candidate XBP1 motif from SELEX. Thus the element is not a validated chromatin-defined regulatory element; the link is at best a candidate motif."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "gene",
+   "status": "missing",
+   "reason": "PELI2 is only the nearest protein-coding gene at 230.8 kb (E02). No cited evidence links rs11629191 or XBP1 to PELI2: E05 is a PIP 0.03 brain eQTL for ENSG00000259868, not PELI2, and E19/E20 are negative/non-supportive for a breast PELI2 link. The gene link is therefore unsupported."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E08 directly reports XBP1 expression at 636.57 TPM in DepMap ACH-000019 (MCF7), supporting expression in the relevant cell context. This does not establish occupancy."
+  },
+  {
+   "hypothesis_id": "XBP1_ref_more_binds",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects XBP1 at rs11629191 to breast cancer. E04 has zero GWAS associations, E06 is only a PELI2 keyword list without an XBP1-rs11629191-PELI2 axis, and E20 shows PELI2 non-dependency rather than a phenotype link."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09 reports the G017 CREB3-family SELEX group with best model CREB3 z=-76.89 and effect=-1.64 (alt binds less), and CREB3L4 is an own-model member with z=-37.55 in the same direction. This is consistent with ref>C binding and CREB3L4 is the highest-expressed G017 member in MCF7 at 48.8 TPM. However, this is in vitro SELEX only; no cellular occupancy or allele-specific assay is provided."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show no overlapping cCRE and a nearest cCRE 1868 bp away, so the variant is not in a chromatin-defined regulatory element. E09 supports only a candidate CREB3-family motif. The element link remains candidate-level."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 provides only a PIP 0.03 eQTL for ENSG00000259868 in brain nucleus accumbens, which is low-confidence and non-breast. E19 reports no significant breast GTEx eQTL. This is at best indirect, weak support for a variant-to-ENSG00000259868 link and does not establish a breast/MCF7 link."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E09 directly reports CREB3L4 expression at 48.8 TPM in DepMap ACH-000019 (MCF7), supporting expression in the relevant cell context."
+  },
+  {
+   "hypothesis_id": "CREB3L4_ref_more_binds",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects CREB3L4 at rs11629191 to breast cancer. E04 has zero GWAS associations for the variant, and no other cited evidence supports a phenotype link."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11 reports ATF2 own model with z=-49.19 and effect=-1.348 (alt binds less), consistent with ref>C, and ATF2 expression at 16.22 TPM in MCF7. ATF2 is the best model in G033, but ATF7 is also an own-model member and slightly more highly expressed, so the TF choice is not strongly distinguished. This is QBiC-SELEX in vitro binding only, with no cellular occupancy or perturbation evidence."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show the variant is intronic/intergenic with no overlapping cCRE and nearest cCRE 1868 bp away. E11 supports only an in vitro ATF2/AP-1 motif disruption, not a chromatin-defined regulatory element."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "gene",
+   "status": "missing",
+   "reason": "PELI2 is only the nearest protein-coding gene at 230.8 kb (E02). No cited evidence links ATF2 or rs11629191 to PELI2: E19 reports no significant breast GTEx eQTL, and E20 shows PELI2 non-dependency rather than a target-gene link. The gene link is unsupported."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E11 directly reports ATF2 expression at 16.22 TPM in DepMap ACH-000019 (MCF7), supporting expression in the relevant cell context."
+  },
+  {
+   "hypothesis_id": "ATF2_ref_more_binds",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects ATF2 at rs11629191 to breast cancer. E04 has zero GWAS associations, E06 is only a PELI2 keyword list, and E20 shows PELI2 non-dependency; none establishes an ATF2-locus-breast cancer phenotype link."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"XBP1\",\"biosample\":\"MCF7\"}",
+   "resolves": "XBP1_ref_more_binds.binding",
+   "why": "All four chains' binding links rest on QBiC-SELEX in vitro predictions with no cellular occupancy evidence. A Factorbook/ENCODE ChIP-seq lookup for XBP1 in MCF7 would either firmly falsify the strongest chain (XBP1, highest expression, largest z) or upgrade it from weak to supported; the same logic applies to the other group-based TF picks."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"breast\"}",
+   "resolves": "CREB3L4_ref_more_binds.gene",
+   "why": "The only molecular QTL in E05 is a PIP 0.03 eQTL in brain nucleus accumbens, which is effectively null and in the wrong tissue. A breast-tissue GTEx eQTL lookup would either supply a credible variant-to-gene link for ENSG00000259868/PELI2 (rescuing the 'gene' links of the CREB3L4 and CXXC5 chains) or confirm that no gene link exists at all."
+  },
+  {
+   "tool": "gene_dependency",
+   "args_json": "{\"gene\":\"PELI2\"}",
+   "resolves": "XBP1_ref_more_binds.phenotype",
+   "why": "The phenotype links of the XBP1 and ATF2 chains both end at PELI2 on the basis of the E06 keyword list, which contains no PELI2 mechanistic paper. A DepMap knockout lookup for PELI2 in breast-lineage lines tests whether perturbing the proposed target gene even has a cancer-relevant phenotype, which is the largest remaining gap above 'weak' for two chains."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "XBP1",
+    "biosample": "MCF7"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "breast"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_dependency",
+   "args": {
+    "gene": "PELI2"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "XBP1 ChIP-qPCR or CUT&RUN in MCF7 at rs11629191 with allele-specific readout",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "XBP1_ref_more_binds",
+     "outcome": "XBP1 occupancy is detected and is higher on the ref C allele than the alt T allele."
+    },
+    {
+     "hypothesis_id": "null_no_TF_effect",
+     "outcome": "No XBP1 occupancy or no allelic bias is detected at the locus in MCF7."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific reporter or MPRA with rs11629191 C vs T in MCF7",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "XBP1_ref_more_binds",
+     "outcome": "The ref C allele drives higher reporter activity than the alt T allele."
+    },
+    {
+     "hypothesis_id": "null_no_TF_effect",
+     "outcome": "No allelic difference in reporter activity is detected."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Breast-tissue eQTL lookup for PELI2 and ENSG00000259868",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "null_no_TF_effect",
+     "outcome": "No significant breast eQTL is detected for PELI2 or ENSG00000259868."
+    },
+    {
+     "hypothesis_id": "XBP1_ref_more_binds",
+     "outcome": "No significant breast eQTL is detected for PELI2; the only QTL remains the weak brain ENSG00000259868 eQTL (PIP 0.03)."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "PELI2 CRISPR knockout growth assay in MCF7 or breast-lineage lines",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "null_no_TF_effect",
+     "outcome": "PELI2 knockout has no measurable growth effect, consistent with DepMap non-dependency."
+    },
+    {
+     "hypothesis_id": "XBP1_ref_more_binds",
+     "outcome": "PELI2 knockout has no measurable growth effect, weakening the PELI2 phenotype link but not the binding claim."
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "skip",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs11629191 AND PELI2 AND \"breast cancer\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/14:55887040-55887040:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:32:49+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr14:55887040:C>T (GRCh38), allele string C/T\nKnown IDs: rs11629191\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -3.12\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/14:54887040-56887040?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:40+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "14 protein-coding genes within 1000 kb of chr14:55887040:C>T, by distance to TSS:\nPELI2: 230.8 kb from TSS (upstream, strand +1)\nKTN1: 328.0 kb from TSS (downstream, strand +1)\nTBPL2: 430.3 kb from TSS (upstream, strand -1)\nATG14: 475.2 kb from TSS (upstream, strand -1)\nTMEM260: 601.3 kb from TSS (upstream, strand +1)\nCHMP4BP1: 615.7 kb from TSS (downstream, strand +1)\nFBXO34: 615.7 kb from TSS (downstream, strand +1)\nDLGAP5: 695.4 kb from TSS (upstream, strand -1)\nLGALS3: 765.7 kb from TSS (downstream, strand +1)\nMAPK1IP1L: 835.4 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:13+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E1716463 (dELS) 1868 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs11629191&size=100",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs11629191, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:32:49+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 credible sets contain 14_55887040_C_T: 0 GWAS, 1 molecular QTL.\neqtl for ENSG00000259868 (gtex-v10_ge_brain_nucleus_accumbens_ensg0000025986): PIP 0.03"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PELI2%20AND%20%22breast%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 178 hits for 'PELI2 AND \"breast cancer\"'; top 7 with PMIDs:\nPMID 41023515 (2025): Pellino ubiquitin ligases: double-edged swords in hematologic malignancies-from oncogenic stabilizers to therapeutic vulnerabilities.\nPMID 41331176 (2025): Construction and validation of risk models of prognostic genes associated with parthanatos in papillary thyroid carcinoma based on bioinformatics.\nPMID 40362379 (2025): &lt;i&gt;O&lt;/i&gt;-Desmethyltramadol Enhanced Anti-Cancer Efficacy over Tramadol Through Non-\u03bc-Opioid Receptor and Differential Cellular Contexts of Human Breast Cancer Cells.\nPMID 42757486 (2026): Pemetrexed increases BRCA1 protein stability and sensitizes TNBC cells to radiotherapy.\nPMID 42734444 (2027): Anesthesia inhalation agent sevoflurane induces perioperative cognitive impairment: Apelin/early growth response 1 axis induces ferritinophagy and exacerbates ferroptosis.\nPMID 41079921 (2025): PRMT1/PRMT5-Mediated Differential Arginine Methylation of CRIP1 Promotes the Recurrence of Small Cell Lung Cancer after Chemotherapy.\nPMID 42380137 (2026): HOXC9 accelerates esophageal squamous cell carcinoma progression via OTUD1-FABP5-mediated lipid metabolic reprogramming."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr14:55887040:C>T: 997 models scored, 445 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 324 CIS-BP groups. Expression context: DepMap line ACH-000019. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 95 (GCM, 2 models z 44.55, C2H2 ZF, 1 model z 33.3, bZIP, 1 model z -32.97, bZIP, 1 model z -29.97, bHLH, 1 model z -16.81). Passing groups ranked below the ones shown: 219. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G382 (bZIP, 1 model): best model XBP1_eDBD_TCCTTG40NGGT_KAN_yin2017_0_4_7mer (own model of XBP1), z -91.69, effect -3.167 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: XBP1 z -91.69. TFs this group covers: XBP1 (own model) 636.57 TPM; best model's site strength: ref 100.0th, alt 98.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G017 (bZIP, 4 models): best model CREB3_NA_TAGAAC20NCG_ESAD_yang2017_0_3_7mer (own model of CREB3), z -76.89, effect -1.64 (alt binds less); 4 passing models (4 with the best model's sign). Passing members: CREB3 z -76.89, CREB3L1 z -60.99, CREB3L2 z -49.16, CREB3L4 z -37.55. TFs this group covers: CREB3L4 (own model) 48.8 TPM, CREB3 (own model) 45.81 TPM, CREB3L2 (own model) 7.06 TPM, CREB3L1 (own model) 0.09 TPM; best model's site strength: ref 99.9th, alt 98.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G099 (SAND, 2 models): best model SP140L_FL_TG40NGACCTT_YWPA_jolma2025_0_2_7mer (own model of SP140L), z -57.31, effect -1.491 (alt binds less); 2 passing models (2 with the best model's sign). Passing members: SP140L z -57.31, SP140 z -16.92. TFs this group covers: SP140L (own model) 7.63 TPM, SP140 (own model) 0.86 TPM; best model's site strength: ref 99.9th, alt 72.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G033 (bZIP, 3 models): best model ATF2_eDBD_TGAACC40NCCA_KP_yin2017_0_3_7mer (own model of ATF2), z -49.19, effect -1.348 (alt binds less); 2 passing models (2 with the best model's sign). Passing members: ATF2 z -49.19, CREB5 z -6.61. TFs this group covers: ATF7 (own model) 20.81 TPM, ATF2 (own model) 16.22 TPM, CREB5 (own model) 0.02 TPM, ATF7-NPFF (mapped); best model's site strength: ref 99.7th, alt 95.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G064 (CxxC, 2 models): best model CXXC4_FL_GG40NTAGTTT_YWKC_jolma2025_0_4_7mer (own model of CXXC4), z -44.11, effect -2.102 (alt binds less); 2 passing models (2 with the best model's sign). Passing members: CXXC4 z -44.11, TET3 z -20.67. TFs this group covers: CXXC5 (mapped) 77.02 TPM, TET3 (own model) 9.96 TPM, CXXC4 (own model) 0.33 TPM; best model's site strength: ref 98.8th, alt 70.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G008 (Homeodomain, 9 models): best model TGIF2_eDBD_TTGCAA40NGTG_KO_yin2017_0_4_7mer (own model of TGIF2), z -38.69, effect -2.43 (alt binds less); 7 passing models (7 with the best model's sign). Passing members: TGIF2 z -38.69, MEIS3 z -23.79, PKNOX2 z -19.46, TGIF2LY z -17.27, TGIF2LX z -15.65 (+2 more). TFs this group covers: TGIF1 (own model) 39.86 TPM, TGIF2 (own model) 20.51 TPM, MEIS3 (own model) 15.61 TPM, PKNOX1 (own model) 7.53 TPM, MEIS2 (own model) 6.32 TPM, MEIS1 (own model) 1.52 TPM, PKNOX2 (own model) 0.05 TPM, TGIF2LX (own model) 0.0 TPM, TGIF2LY (own model) 0.0 TPM; best model's site strength: ref 99.8th, alt 94.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G012 (bZIP, 6 models): best model NRL_eDBD_TGGAGA40NCCA_KR_yin2017_0_4_7mer (own model of NRL), z -38.05, effect -1.53 (alt binds less); 6 passing models (6 with the best model's sign). Passing members: NRL z -38.05, MAF z -34.57, MAFG z -27.77, MAFB z -27.66, MAFK z -24.11 (+1 more). TFs this group covers: MAFK (own model) 16.96 TPM, MAFG (own model) 8.48 TPM, MAFB (own model) 3.09 TPM, MAFA (own model) 1.07 TPM, NRL (own model) 0.98 TPM, MAF (own model) 0.23 TPM; best model's site strength: ref 100.0th, alt 99.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G381 (bHLH, 1 model): best model USF3_DBD_CG40NACGGTT_YWCB_jolma2025_0_1_7mer (own model of USF3), z -37.78, effect -0.258 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: USF3 z -37.78. TFs this group covers: USF3 (own model) 3.82 TPM; best model's site strength: ref 100.0th, alt 59.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G062 (bZIP, 2 models): best model CREB1_eDBD_TTTGAC40NGGT_KR_yin2017_0_3_7mer (own model of CREB1), z -37.47, effect -2.019 (alt binds less); 2 passing models (2 with the best model's sign). Passing members: CREB1 z -37.47, CREM z -29.21. TFs this group covers: CREB1 (own model) 30.28 TPM, ATF1 (mapped) 25.91 TPM, CREM (own model) 24.59 TPM; best model's site strength: ref 99.2th, alt 91.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G019 (C2H2 ZF, 4 models): best model EGR2_NA_TCGGCC20NGA_ESW_yang2017_0_3_7mer (own model of EGR2), z -30.48, effect -1.1 (alt binds less); 3 passing models (3 with the best model's sign). Passing members: EGR2 z -30.48, EGR3 z -23.43, EGR1 z -6.33. TFs this group covers: EGR3 (own model) 12.82 TPM, EGR1 (own model) 10.78 TPM, EGR2 (own model) 0.23 TPM, EGR4 (own model) 0.0 TPM; best model's site strength: ref 100.0th, alt 76.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:34:02+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE XBP1 ChIP-seq peak contains chr14:55887040:C>T in biosamples matching 'MCF7'. Absence can also mean no XBP1 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E19",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr14_55887040_C_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:02+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr14_55887040_C_T_b38 in tissues matching 'breast'. NES is the effect of the alt allele (T) relative to ref (C)."
+  },
+  {
+   "id": "E20",
+   "tool": "gene_dependency",
+   "source": "DepMap CRISPRGeneEffect (Biomni copy) and CRISPRInferredCommonEssentials (Public 26Q3)",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "DepMap CRISPR gene effect for PELI2 (0 = no effect, -1 = median common-essential; < -0.5 called dependent). MCF7 (ACH-000019): 0.01. Breast lineage, 53 lines: median -0.02, 0% dependent. All 1183 lines: median -0.03, 0% dependent."
+  }
+ ]
+}

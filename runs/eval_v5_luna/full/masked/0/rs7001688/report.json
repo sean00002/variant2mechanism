@@ -1,0 +1,953 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0084,
+ "seconds": 109.1,
+ "model_calls": 6,
+ "screen": {
+  "n_pass": 441,
+  "counts": {
+   "occupied": 1,
+   "unknown": 112,
+   "occupied_strong_site": 0,
+   "occupied_not_expressed": 0,
+   "unbound_assayed_here": 382,
+   "unbound_assayed_elsewhere": 190,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "CTCF",
+    "z": -1.87,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": false
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "CASZ1",
+    "z": 32.75
+   },
+   {
+    "tf": "SETBP1",
+    "z": 29.74
+   },
+   {
+    "tf": "SRCAP",
+    "z": 29.74
+   },
+   {
+    "tf": "NME2",
+    "z": 28.95
+   },
+   {
+    "tf": "TCF20",
+    "z": -20.49
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The variant will not produce a reproducible allele-specific TF-binding and downstream regulatory effect in a relevant liver context; any LDL association, if present, may be due to another variant or may not be causal."
+   ],
+   "falsified_if": [
+    "A relevant TF shows reproducible allele-specific occupancy at this variant in liver cells and perturbing the variant or TF produces a linked cis-regulatory effect."
+   ],
+   "probability": 0.8,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "NME2-mediated gain of binding",
+   "is_null": false,
+   "tf": "NME2",
+   "allele_binding_more": "alt",
+   "element": "No regulatory element overlapping the variant is established; a functional element remains hypothetical.",
+   "target_gene": null,
+   "cell_type": "Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "NME2 is a candidate because it is highly expressed in Hep 3B2.1-7 and its own QBiC-SELEX model predicts stronger in-vitro binding to alt T, but relevant-site occupancy is unknown.",
+     "evidence_ids": [
+      "E10",
+      "E15"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No ENCODE cCRE overlaps the variant, so an active regulatory element at this position is not established.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is supported; CYP7A1 is only a distant proximity candidate and no eQTL link is reported.",
+     "evidence_ids": [
+      "E02",
+      "E08"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 is the stated expression context and NME2 is expressed there, but occupancy or regulatory action in this cell type has not been shown.",
+     "evidence_ids": [
+      "E15"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A connection from this variant or a proposed regulatory effect to LDL cholesterol is not established.",
+     "evidence_ids": [
+      "E06",
+      "E07"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "NME2 should occupy the variant in relevant liver cells, with greater occupancy on alt T; disrupting the site or reducing NME2 should reduce an allele-dependent cis-regulatory effect."
+   ],
+   "falsified_if": [
+    "NME2 shows no relevant-site occupancy or no alt-favoring occupancy in an adequately powered liver-cell assay.",
+    "Perturbing the variant or NME2 produces no linked cis-regulatory effect."
+   ],
+   "probability": 0.12,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "NME2"
+  },
+  {
+   "id": "H2",
+   "title": "CASZ1-mediated gain of binding",
+   "is_null": false,
+   "tf": "CASZ1",
+   "allele_binding_more": "alt",
+   "element": "No regulatory element overlapping the variant is established; a functional element remains hypothetical.",
+   "target_gene": null,
+   "cell_type": "Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CASZ1 is a candidate because its own QBiC-SELEX model predicts a strong in-vitro increase in binding to alt T, but occupancy at the site is unknown and its expression is modest in the stated line.",
+     "evidence_ids": [
+      "E10",
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No ENCODE cCRE overlaps the variant, so an active regulatory element at this position is not established.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is supported; CYP7A1 is only a distant proximity candidate and no eQTL link is reported.",
+     "evidence_ids": [
+      "E02",
+      "E08"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CASZ1 is detected in Hep 3B2.1-7, but relevant-site occupancy or regulatory action in this cell type has not been shown.",
+     "evidence_ids": [
+      "E12"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A connection from this variant or a proposed regulatory effect to LDL cholesterol is not established.",
+     "evidence_ids": [
+      "E06",
+      "E07"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "CASZ1 should occupy the variant in relevant liver cells, with greater occupancy on alt T; a variant-dependent cis-regulatory effect should depend on CASZ1."
+   ],
+   "falsified_if": [
+    "CASZ1 shows no relevant-site occupancy or no alt-favoring occupancy in an adequately powered liver-cell assay.",
+    "Perturbing the variant or CASZ1 produces no linked cis-regulatory effect."
+   ],
+   "probability": 0.05,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CASZ1"
+  },
+  {
+   "id": "H3",
+   "title": "TCF20-mediated loss of binding",
+   "is_null": false,
+   "tf": "TCF20",
+   "allele_binding_more": "ref",
+   "element": "No regulatory element overlapping the variant is established; a functional element remains hypothetical.",
+   "target_gene": null,
+   "cell_type": "Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF20 is a lower-confidence candidate because its own QBiC-SELEX model detects slightly stronger in-vitro binding to ref G, but occupancy is unknown and the predicted site is weak.",
+     "evidence_ids": [
+      "E10",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No ENCODE cCRE overlaps the variant, so an active regulatory element at this position is not established.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is supported; CYP7A1 is only a distant proximity candidate and no eQTL link is reported.",
+     "evidence_ids": [
+      "E02",
+      "E08"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TCF20 is expressed in Hep 3B2.1-7, but occupancy or regulatory action at this site in this cell type has not been shown.",
+     "evidence_ids": [
+      "E16"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A connection from this variant or a proposed regulatory effect to LDL cholesterol is not established.",
+     "evidence_ids": [
+      "E06",
+      "E07"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "TCF20 should occupy the variant in relevant liver cells, with greater occupancy on ref G; a variant-dependent cis-regulatory effect should depend on TCF20."
+   ],
+   "falsified_if": [
+    "TCF20 shows no relevant-site occupancy or no ref-favoring occupancy in an adequately powered liver-cell assay.",
+    "Perturbing the variant or TCF20 produces no linked cis-regulatory effect."
+   ],
+   "probability": 0.03,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TCF20"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.65,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "NME2",
+   "is_null": false,
+   "probability": 0.2,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "CASZ1",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "TCF20",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E15 predicts stronger in-vitro binding to alt T, but occupancy at this site in the relevant liver context is unknown; the QBiC-SELEX prediction alone is weak support."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no overlapping ENCODE cCRE. It does not provide positive evidence for an unannotated regulatory element at the variant."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 makes CYP7A1 a distant proximity-based candidate, but neither that nor E08's lack of significant GTEx eQTLs links the variant or an element to CYP7A1 regulation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E15 directly reports NME2 expression in Hep 3B2.1-7. The claim appropriately notes that occupancy there has not been shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 and E07 provide no variant-level LDL association, and no evidence links a proposed CYP7A1 regulatory effect to LDL cholesterol."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 predicts a strong increase in in-vitro binding to alt T, but CASZ1 occupancy at the site is unknown. A QBiC-SELEX prediction alone is weak support."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no overlapping ENCODE cCRE. It does not provide positive evidence for an unannotated regulatory element at the variant."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 makes CYP7A1 a distant proximity-based candidate, but neither that nor E08's lack of significant GTEx eQTLs links the variant or an element to CYP7A1 regulation."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E12 directly reports CASZ1 expression in Hep 3B2.1-7. The claim appropriately notes that relevant-site occupancy has not been assayed."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 and E07 provide no variant-level LDL association, and no evidence links a proposed CYP7A1 regulatory effect to LDL cholesterol."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E16 predicts a QBiC-SELEX-detected change favoring ref G, consistent with the stated direction, but occupancy is unknown and the predicted site is weak. The prediction alone is weak support."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no overlapping ENCODE cCRE. It does not provide positive evidence for an unannotated regulatory element at the variant."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 makes CYP7A1 a distant proximity-based candidate, but neither that nor E08's lack of significant GTEx eQTLs links the variant or an element to CYP7A1 regulation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E16 directly reports TCF20 expression in Hep 3B2.1-7. The claim appropriately notes that occupancy there has not been shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 and E07 provide no variant-level LDL association, and no evidence links a proposed CYP7A1 regulatory effect to LDL cholesterol."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E15 gives an alt-favoring in-vitro QBiC-SELEX change, but NME2 occupancy at the site is unknown (E10, E15); the binding link lacks occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly reports that no ENCODE cCRE overlaps the variant, consistent with the careful claim that an active element is not established."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports CYP7A1 as a distant proximity candidate, while E08 reports no significant GTEx v8 eQTL. The evidence does not establish a target gene, as claimed."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E15 reports NME2 expression in the stated line; E10 and E15 leave occupancy unknown, consistent with the claim that cell-type-specific occupancy or regulatory action is not shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E06 and E07 report no variant-level GWAS Catalog or Open Targets record, consistent with the claim that a link to LDL cholesterol is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 reports a strong alt-favoring QBiC-SELEX change, but CASZ1 occupancy at the site is unknown (E10, E12); the binding link lacks occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly reports that no ENCODE cCRE overlaps the variant, consistent with the claim that an active element is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports CYP7A1 only as a distant proximity candidate, and E08 reports no significant GTEx v8 eQTL; no target gene is established by these data."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E12 reports CASZ1 expression in the stated line, while occupancy is unknown; this is consistent with the claim that relevant-site occupancy or action in this cell type has not been shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E06 and E07 report no variant-level GWAS Catalog or Open Targets record, consistent with the claim that a link to LDL cholesterol is not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E16 reports a QBiC-SELEX change favoring ref G, but TCF20 occupancy at the site is unknown (E10, E16); the binding link lacks occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly reports that no ENCODE cCRE overlaps the variant, consistent with the claim that an active element is not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports CYP7A1 only as a distant proximity candidate, and E08 reports no significant GTEx v8 eQTL; no target gene is established by these data."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E16 reports TCF20 expression in the stated line, while occupancy is unknown; this is consistent with the claim that relevant-site occupancy or action in this cell type has not been shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E06 and E07 report no variant-level GWAS Catalog or Open Targets record, consistent with the claim that a link to LDL cholesterol is not established."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"NME2\",\"biosample\":\"HepG2\"}",
+   "resolves": "H1.binding",
+   "why": "Relevant-cell occupancy evidence would materially strengthen or weaken the NME2 binding link; HepG2 is the stated liver-cancer-line proxy."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CASZ1\",\"biosample\":\"HepG2\"}",
+   "resolves": "H2.binding",
+   "why": "Tests whether the strong QBiC-SELEX prediction has occupancy evidence in the liver-cell proxy."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"CYP7A1\"}",
+   "resolves": "H2.phenotype",
+   "why": "Could provide gene-disease evidence for the proposed LDL link, which is currently unsupported by the supplied variant-level resources."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "round": 1,
+   "tool": "gene_disease",
+   "args": {
+    "gene": "CYP7A1"
+   },
+   "key": "gene_disease({\"gene\":\"CYP7A1\"})",
+   "resolves": "H2.phenotype",
+   "expected": "If Open Targets reports evidence linking CYP7A1 to LDL cholesterol, the phenotype link gains gene-level support for the proposed target; this would not establish that the variant regulates CYP7A1 or distinguish the TF chains. If no such evidence is returned, the phenotype link remains unsupported.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E17",
+   "new_information": true
+  }
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "calls": [
+    {
+     "round": 1,
+     "tool": "gene_disease",
+     "args": {
+      "gene": "CYP7A1"
+     },
+     "key": "gene_disease({\"gene\":\"CYP7A1\"})",
+     "resolves": "H2.phenotype",
+     "expected": "If Open Targets reports evidence linking CYP7A1 to LDL cholesterol, the phenotype link gains gene-level support for the proposed target; this would not establish that the variant regulates CYP7A1 or distinguish the TF chains. If no such evidence is returned, the phenotype link remains unsupported.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E17",
+     "new_information": true
+    }
+   ],
+   "planner_note": "",
+   "check_results": [
+    {
+     "call": "gene_disease({\"gene\":\"CYP7A1\"})",
+     "observed": "E17 reports no Open Targets association between CYP7A1 and free cholesterol in large LDL measurement.",
+     "as_expected": "yes"
+    }
+   ],
+   "chains": [
+    {
+     "id": "H0",
+     "tf": null,
+     "is_null": true,
+     "probability": 0.8
+    },
+    {
+     "id": "H1",
+     "tf": "NME2",
+     "is_null": false,
+     "probability": 0.12
+    },
+    {
+     "id": "H2",
+     "tf": "CASZ1",
+     "is_null": false,
+     "probability": 0.05
+    },
+    {
+     "id": "H3",
+     "tf": "TCF20",
+     "is_null": false,
+     "probability": 0.03
+    }
+   ],
+   "grades": [
+    {
+     "hypothesis_id": "H1",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E15 gives an alt-favoring in-vitro QBiC-SELEX change, but NME2 occupancy at the site is unknown (E10, E15); the binding link lacks occupancy evidence."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly reports that no ENCODE cCRE overlaps the variant, consistent with the careful claim that an active element is not established."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "gene",
+     "status": "supported",
+     "reason": "E02 supports CYP7A1 as a distant proximity candidate, while E08 reports no significant GTEx v8 eQTL. The evidence does not establish a target gene, as claimed."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "E15 reports NME2 expression in the stated line; E10 and E15 leave occupancy unknown, consistent with the claim that cell-type-specific occupancy or regulatory action is not shown."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "phenotype",
+     "status": "supported",
+     "reason": "E06 and E07 report no variant-level GWAS Catalog or Open Targets record, consistent with the claim that a link to LDL cholesterol is not established."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E12 reports a strong alt-favoring QBiC-SELEX change, but CASZ1 occupancy at the site is unknown (E10, E12); the binding link lacks occupancy evidence."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly reports that no ENCODE cCRE overlaps the variant, consistent with the claim that an active element is not established."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "gene",
+     "status": "supported",
+     "reason": "E02 supports CYP7A1 only as a distant proximity candidate, and E08 reports no significant GTEx v8 eQTL; no target gene is established by these data."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "E12 reports CASZ1 expression in the stated line, while occupancy is unknown; this is consistent with the claim that relevant-site occupancy or action in this cell type has not been shown."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "phenotype",
+     "status": "supported",
+     "reason": "E06 and E07 report no variant-level GWAS Catalog or Open Targets record, consistent with the claim that a link to LDL cholesterol is not established."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E16 reports a QBiC-SELEX change favoring ref G, but TCF20 occupancy at the site is unknown (E10, E16); the binding link lacks occupancy evidence."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly reports that no ENCODE cCRE overlaps the variant, consistent with the claim that an active element is not established."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "gene",
+     "status": "supported",
+     "reason": "E02 supports CYP7A1 only as a distant proximity candidate, and E08 reports no significant GTEx v8 eQTL; no target gene is established by these data."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "E16 reports TCF20 expression in the stated line, while occupancy is unknown; this is consistent with the claim that relevant-site occupancy or action in this cell type has not been shown."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "phenotype",
+     "status": "supported",
+     "reason": "E06 and E07 report no variant-level GWAS Catalog or Open Targets record, consistent with the claim that a link to LDL cholesterol is not established."
+    }
+   ],
+   "grades_changed": [
+    "H1.element: missing \u2192 supported",
+    "H1.gene: weak \u2192 supported",
+    "H1.phenotype: missing \u2192 supported",
+    "H2.element: missing \u2192 supported",
+    "H2.gene: weak \u2192 supported",
+    "H2.phenotype: missing \u2192 supported",
+    "H3.element: missing \u2192 supported",
+    "H3.gene: weak \u2192 supported",
+    "H3.phenotype: missing \u2192 supported"
+   ],
+   "max_probability_change": 0.15,
+   "problems": [
+    "All three non-null binding links rely on in-vitro QBiC-SELEX predictions without occupancy evidence in the stated liver context. The predicted directions are internally consistent for binding: NME2 and CASZ1 favor alt T; TCF20 favors ref G.",
+    "No chain establishes an overlapping regulatory element, a target gene, or a variant-to-LDL connection. CYP7A1 is distant from the variant, and the absence of a reported eQTL does not identify a target.",
+    "The evidence supports TF expression, not TF-specific regulatory action in Hep 3B2.1-7. No perturbation or allele-specific regulatory assay is cited."
+   ],
+   "critic_checks": [
+    {
+     "tool": "gene_disease",
+     "args_json": "{\"gene\":\"CYP7A1\"}",
+     "resolves": "H1.gene",
+     "why": "Check whether gene-level disease evidence could change the ranking of the distant CYP7A1 candidate; it would not by itself establish variant-to-gene regulation."
+    }
+   ]
+  }
+ ],
+ "stop_reason": "round 1 left the top chain and the grades of its links unchanged",
+ "matrix": [
+  {
+   "test": "Measure NME2 occupancy at the variant in liver cells carrying both alleles, using targeted allele-specific CUT&RUN or an equivalent assay.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible alt-favoring NME2 occupancy at the variant."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "NME2 occupies the variant and shows greater occupancy on alt T."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No NME2-specific alt-favoring occupancy; CASZ1, rather than NME2, is the proposed mediator."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No NME2-specific alt-favoring occupancy; TCF20, rather than NME2, is the proposed mediator."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Measure CASZ1 and TCF20 occupancy at the variant in relevant liver cells, with allele resolution where possible.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible candidate-specific, allele-biased occupancy linked to the variant."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No CASZ1- or TCF20-specific allelic occupancy is expected; NME2 is the proposed mediator."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CASZ1 occupancy is detected and favors alt T."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "TCF20 occupancy is detected and favors ref G."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Create isogenic ref and alt liver-cell lines and test for variant-dependent local chromatin or cis-expression changes, with candidate-TF perturbation.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible variant-dependent cis-regulatory effect."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A variant-dependent cis-regulatory effect is observed and is reduced by NME2 perturbation."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A variant-dependent cis-regulatory effect is observed and is reduced by CASZ1 perturbation."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "A variant-dependent cis-regulatory effect is observed and is reduced by TCF20 perturbation."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The cheapest direct test separating the top two chains is targeted allele-specific NME2 occupancy measurement at the variant in a relevant liver-cell context. A reproducible alt-favoring occupancy result would support H1 over H0; no such result would favor H0, though a negative result should be interpreted with assay sensitivity in mind.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr8:57573391:G>T: 1 peaks contain the variant, from 1 factors in 1 biosamples. In the matching biosample HepG2 (HepG2 stands in for Hep 3B2.1-7 (both liver cancer lines)): 0 peaks from 0 factors. No cCRE contains the variant. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): none. Bound, expressed TFs with a binding model: 1; listed one per row: CTCF. Assayed with no peak here: 382 TFs in the matching biosample, 190 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: LNCAP (e.g. ENCSR673WZL). 32.01 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 162 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr8:57573391:G>T, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000625), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 1 of 1 occupied (0 with a strong site), 5 of 112 with unknown occupancy. Left out: 382 TFs assayed in the matching biosample and 190 assayed only elsewhere, none with a peak here. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element. No occupied TF has a strong site at the variant."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CTCF (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model CTCF_FL_TG40NCTGTGG_YWL_jolma2025_0_3_7mer (its own model), z -1.87, effect -0.18: ref allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 32.01 TPM, rank 162 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in LNCAP, e.g. ENCSR673WZL. Best model's site strength: ref 79.0th, alt 72.6th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CASZ1 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model CASZ1_FL_AG40NGGAATC_YWKC_jolma2025_0_4_7mer (its own model), z 32.75, effect 2.741: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.18 TPM, rank 776 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.1th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SETBP1 (AT hook, 2 models; QBiC-SELEX coverage: own model): best model HMGA1_FL_GA40NCTGATT_YWPA_jolma2025_0_3_7mer (a CIS-BP-mapped model of HMGA1), z 29.74, effect 2.006: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.24 TPM, rank 1043 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 67.3th, alt 96.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SRCAP (AT hook, 2 models; QBiC-SELEX coverage: mapped models only): best model HMGA1_FL_GA40NCTGATT_YWPA_jolma2025_0_3_7mer (a CIS-BP-mapped model of HMGA1), z 29.74, effect 2.006: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 41.42 TPM, rank 114 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 67.3th, alt 96.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NME2 (Unknown, 1 model; QBiC-SELEX coverage: own model): best model NME2_FL_TA40NTCACTC_YWDA_jolma2025_0_4_7mer (its own model), z 28.95, effect 0.573: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 928.15 TPM, rank 1 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 65.7th, alt 99.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TCF20 (Unknown, 1 model; QBiC-SELEX coverage: own model): best model TCF20_DBD_CT40NGCGCTA_YWCB_jolma2025_0_3_7mer (its own model), z -20.49, effect -0.151: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 23.44 TPM, rank 236 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 76.7th, alt 78.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between CYP7A1 and free cholesterol in large LDL measurement (EFO_0022176)."
+  }
+ ]
+}

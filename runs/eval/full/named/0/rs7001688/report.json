@@ -1,0 +1,1059 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.3767,
+ "seconds": 97.4,
+ "model_calls": 7,
+ "screen": {
+  "n_pass": 441,
+  "top_groups": [
+   {
+    "label": "Rel, 1 model",
+    "z": 33.95,
+    "best_tf": "RELA"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": 32.75,
+    "best_tf": "CASZ1"
+   },
+   {
+    "label": "AT hook, 2 models",
+    "z": 29.74,
+    "best_tf": "HMGA1"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": -29.06,
+    "best_tf": "ZNF580"
+   },
+   {
+    "label": "Unknown, 1 model",
+    "z": 28.95,
+    "best_tf": "NME2"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect: isolated non-coding variant with no cCRE, no GWAS/eQTL signal",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "MPRA/luciferase of the 200 bp window shows no allelic activity difference in Hep3B or HepG2, with or without TNF stimulation",
+    "No allele-specific ATAC or TF ChIP signal at this position in liver cells (consistent with E19, no RELA peak in HepG2)",
+    "No liver eQTL for FAM110B, BPNT2, UBXN2B, CYP7A1 or SDCBP tied to rs7001688 (consistent with E18)",
+    "No LDL association statistic appears for rs7001688 or tight proxies (consistent with E04, E05)"
+   ],
+   "falsified_if": [
+    "A reproducible allelic reporter effect at this exact site in hepatocytes",
+    "Allele-specific TF occupancy or accessibility at the site in liver cells",
+    "A credible LDL association for rs7001688 or a tight proxy"
+   ],
+   "probability": 0.72,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Alt allele creates a stronger RELA (NF-kB) site in an unannotated, stimulation-dependent liver element",
+   "is_null": false,
+   "tf": "RELA",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "Unannotated site at chr8:57573391; no cCRE overlap, nearest cCRE EH38E3835076 1544 bp away",
+   "target_gene": "CYP7A1 (unverified; nearest LDL-plausible gene at 927 kb)",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts markedly stronger alt-allele binding for RELA (own model, z 33.95, effect +1.34; site 97.4th to 99.8th percentile). Within the Rel group RELA was chosen because it is the only member with its own model and the best expressed in this line (73.4 TPM) versus mapped RELB (17.4) and REL (4.3). This is an in vitro prediction only; no ChIP or allelic binding data support it, and E19 finds no RELA peak at this position in HepG2",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No regulatory element is demonstrated: no cCRE overlaps the variant and VEP reports no regulatory feature, so any element would have to be one missed by the registries. This link is unsupported",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is demonstrated: CYP7A1 is assigned only by being the nearest LDL-relevant gene (927 kb), with no eQTL (E18) and no contact data",
+     "evidence_ids": [
+      "E02",
+      "E18"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "RELA is expressed in this hepatoma line (73.4 TPM), which is permissive only; NF-kB activity would additionally require stimulation",
+     "evidence_ids": [
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No cited evidence links this locus or CYP7A1 to LDL here; Open Targets shows no CYP7A1 association for the queried lipid trait and the variant has no GWAS or Open Targets record, so the direction to higher LDL is asserted, not shown",
+     "evidence_ids": [
+      "E20",
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allelic reporter difference in Hep3B emerges only after TNF/IL-1 stimulation",
+    "RELA ChIP-qPCR in stimulated hepatocytes shows a peak with allele-preferential occupancy for T",
+    "Effect is abolished by IKK inhibition or RELA knockdown"
+   ],
+   "falsified_if": [
+    "No RELA occupancy at the locus in stimulated hepatocytes",
+    "Reporter shows equal G and T activity under NF-kB activation",
+    "No physical contact between the variant region and any candidate gene"
+   ],
+   "probability": 0.08,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "RELA"
+  },
+  {
+   "id": "H2",
+   "title": "Alt allele increases HMGA1 architectural binding at an AT-rich site, with a local chromatin effect",
+   "is_null": false,
+   "tf": "HMGA1",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "Unannotated AT-rich site at chr8:57573391 (no cCRE overlap)",
+   "target_gene": "FAM110B (unverified; nearest protein-coding TSS, 420.6 kb away)",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts stronger alt binding for HMGA1 (own model, z 29.74, effect +2.006; 67.3th to 96.4th percentile). HMGA1 was chosen within the AT-hook group as the only highly expressed member with its own model (239 TPM); the group disagrees in direction (SETBP1 z -15.21), and HMGA1 binds AT-rich DNA with low sequence specificity, so this prediction is weak",
+     "evidence_ids": [
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No element is demonstrated: no cCRE overlaps the variant and no regulatory feature is annotated",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The variant is not inside FAM110B; it is 420.6 kb from its TSS and VEP reports no transcript consequences. FAM110B is assigned by proximity alone, with no liver eQTL",
+     "evidence_ids": [
+      "E02",
+      "E01",
+      "E18"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HMGA1 is very highly expressed in this hepatoma line (239 TPM), which is permissive only",
+     "evidence_ids": [
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No evidence ties FAM110B to LDL cholesterol; E06 is a keyword hit on a pravastatin-response study and does not establish the gene or a direction",
+     "evidence_ids": [
+      "E06",
+      "E04"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific HMGA1 ChIP signal and a local nucleosome/accessibility change at the site",
+    "Any allelic reporter effect is independent of inflammatory stimulation and of YAP/TAZ status",
+    "Effect size is small and sequence-context (AT-richness) dependent"
+   ],
+   "falsified_if": [
+    "No HMGA1 occupancy or chromatin difference at the site",
+    "HMGA1 knockdown does not change any allelic difference"
+   ],
+   "probability": 0.07,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HMGA1"
+  },
+  {
+   "id": "H4",
+   "title": "Alt allele weakens a high-affinity ZNF580 site",
+   "is_null": false,
+   "tf": "ZNF580",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "High-affinity ZNF580 k-mer at chr8:57573391 (ref 100.0th percentile), not in any cCRE",
+   "target_gene": "unverified (no eQTL; FAM110B nearest at 420.6 kb)",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts loss of binding with the alt allele for ZNF580 (own model, z -29.06, effect -1.205), starting from a ref site at the 100.0th percentile of the model's k-mers; ZNF580 is the sole member of its group, so no within-group TF choice is needed. Prediction only, no ChIP support",
+     "evidence_ids": [
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No element is demonstrated: no cCRE overlaps the site and occupancy of the predicted site is not shown",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is supported: no significant liver eQTL for this variant, and the nearest gene is 420.6 kb away",
+     "evidence_ids": [
+      "E18",
+      "E02"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "ZNF580 is expressed at a low but detectable level (8.5 TPM) in this line; permissive only",
+     "evidence_ids": [
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No evidence links this variant or any nearby gene to LDL cholesterol (no GWAS or Open Targets record), so no direction can be stated",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Reporter activity is higher for the alt allele if ZNF580 acts as a repressor at this site, and lower if it activates",
+    "ZNF580 knockdown abolishes any allelic reporter difference",
+    "Loss-of-binding signature: ref allele shows greater protein occupancy in EMSA with nuclear extract"
+   ],
+   "falsified_if": [
+    "No ZNF580 binding detectable at the site by EMSA or ChIP",
+    "Allelic reporter difference unchanged by ZNF580 depletion"
+   ],
+   "probability": 0.07,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ZNF580"
+  },
+  {
+   "id": "H5",
+   "title": "Alt allele creates a strong site for the top-ranked, very highly expressed NME2 model",
+   "is_null": false,
+   "tf": "NME2",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "Unannotated site at chr8:57573391 (no cCRE overlap)",
+   "target_gene": "unverified (no significant liver eQTL for any gene in the window)",
+   "cell_type": "Hepatocyte (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts stronger alt binding for NME2 (own model, z 28.95, effect +0.573; site 65.7th to 99.1th percentile), the sole member of its group, so no within-group TF choice is required; NME2 is by far the most abundant candidate in this line (928 TPM). Effect size is modest and this is an in vitro prediction only",
+     "evidence_ids": [
+      "E12",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No element is demonstrated: no cCRE overlaps the variant and no regulatory feature is annotated",
+     "evidence_ids": [
+      "E03",
+      "E01"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is supported: no significant liver eQTL for this variant; all candidate genes are 420 kb or more away",
+     "evidence_ids": [
+      "E18",
+      "E02"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "NME2 is expressed at 928 TPM in Hep 3B2.1-7, the highest of any candidate; permissive only",
+     "evidence_ids": [
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No evidence connects this variant or NME2 activity here to LDL cholesterol",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "EMSA with Hep3B nuclear extract shows an alt-preferential complex that supershifts with anti-NME2",
+    "NME2 knockdown removes any allelic reporter difference, whereas RELA, HMGA1 or ZNF580 knockdown does not",
+    "Effect is independent of TNF stimulation and of YAP/TAZ status"
+   ],
+   "falsified_if": [
+    "No NME2 occupancy at the site",
+    "Allelic difference persists after NME2 depletion"
+   ],
+   "probability": 0.06,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "NME2"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.5,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "RELA",
+   "is_null": false,
+   "probability": 0.14,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "HMGA1",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "TEAD1",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "ZNF580",
+   "is_null": false,
+   "probability": 0.14,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 gives a QBiC-SELEX prediction only (z 33.95, alt binds more, own model). RELA is picked on expression (73 TPM), which is a reasonable rationale, but there is no ChIP or allelic evidence."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE within 500 bp and the nearest is 1.5 kb away (H3K4me3 promoter-like). E01 shows no regulatory feature. Nothing supports an enhancer here; the claim is speculation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 only lists CYP7A1 at 927 kb. Distance is not evidence of regulation. There is no eQTL, no looping data and no Hi-C. Calling CYP7A1 the only LDL-relevant gene is not shown by the evidence."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E08 shows RELA at 73 TPM in Hep3B, so it is expressed. Expression is permissive only. NF-kB activity depends on stimulation, and there is no chromatin evidence here."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence is cited. The claim that NF-kB represses CYP7A1 and raises LDL comes from memory. The direction chain also needs the variant to have an LDL association, and E04/E05 show none."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E10 is a prediction only. The group has mixed directions: SETBP1 is opposite and HMGA1 is the own-model best. HMGA1 is a plausible pick by expression (239 TPM), but HMGA1 binds AT-rich DNA nonspecifically, so the QBiC z score is not very informative."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 and E01 show no cCRE. The claim that HMGA1 acts outside the registry is an assertion with no evidence cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "missing",
+   "reason": "The claim that the variant lies within the intronic neighbourhood of FAM110B is contradicted by E02: FAM110B is 420.6 kb upstream of the variant, and E01 says there are no transcript consequences (intergenic) while also saying the consequence is intron_variant, which is inconsistent. There is no eQTL or contact evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E10 shows HMGA1 at 239 TPM in Hep3B, so it is expressed. That is only permissive."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 is a pravastatin response study returned by a keyword search. It is not shown to implicate FAM110B in LDL, and it is not evidence for this variant or gene. No direction is given."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E16 gives four concordant TEAD models, but they are paralogs with near-identical motifs, so this is not independent confirmation. Prediction only. TEAD1 is chosen as best-scoring, but TEAD2 has the highest expression."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "missing",
+   "reason": "Concordant paralog models are not evidence of an enhancer. E03 shows no cCRE nearby."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 shows only that CYP7A1 is in the window, 927 kb away. The TEAD/YAP claim on bile acid genes is uncited and there is no linking data."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E16 supports TEAD1-4 expression of 17-34 TPM in Hep3B, which is permissive only."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence cited. The claim of YAP/TEAD suppression of CYP7A1 and a rise in LDL is from memory, and there is no variant-level LDL association (E04/E05)."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11 is a prediction only (z -29.06, alt binds less). Direction is consistent with allele_binding_more=ref. ZNF580 is picked as the strongest loss at a single-model group, with no reason beyond its z score."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE nearby. The claim that loss of an occupied site matters assumes occupancy that is not shown. The text claims de-repression of an element that is not identified."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 lists FAM110B as nearest at 420 kb, which is far away. Proximity is not evidence for regulation and no eQTL is cited."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E11 shows ZNF580 at 8.5 TPM in Hep3B. Expressed at a low level; permissive only."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 is a pharmacogenomic statin paper and does not tie FAM110B or this variant to LDL. The claimed effect direction on LDL is not stated."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 gives an in vitro RELA own-model prediction (z 33.95, alt binds more) and the RELA choice is justified by expression. This is a binding prediction alone, and E19 shows no RELA peak in HepG2. E19 is HepG2, not Hep3B, so it is only a weak negative."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE overlap (nearest 1544 bp away) and E01 shows no regulatory feature. Nothing cited demonstrates an element, as the chain itself concedes."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "CYP7A1 is 927 kb away (E02) and E18 shows no eQTL. It was picked for LDL plausibility, with no contact or perturbation data."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E08 shows RELA at 73.4 TPM in this line, which is permissive expression only. Stimulation-dependent activity is not shown, and E19 gives no occupancy in HepG2."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E20 reports no CYP7A1 association, and E04 and E05 give no GWAS or Open Targets record for the variant. The chain concedes the direction to higher LDL is asserted. CYP7A1 coverage is not shown to be tied to this variant."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E10 gives an HMGA1 own-model prediction (z 29.74, alt binds more). The group disagrees in direction (SETBP1 negative), and HMGA1 has low sequence specificity. This is a prediction only, with no ChIP or perturbation support."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE overlap and E01 shows no regulatory feature. No element is shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "missing",
+   "reason": "FAM110B is assigned by proximity alone, 420.6 kb from the TSS (E02), with no eQTL (E18) and no contact data."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E10 shows HMGA1 at 239 TPM in the line, which is permissive expression only. No chromatin or occupancy data are cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E06 is a keyword hit on a pravastatin pharmacogenomics paper and does not link FAM110B to LDL. E04 has no association, so no direction is supported."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11 gives a ZNF580 own-model prediction of reduced alt binding (z -29.06, ref site at the 100th percentile). This is a prediction only, with no ChIP or allelic data. The direction is consistent with allele_binding_more being ref."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE overlap and E01 shows no regulatory feature. Occupancy of the site is not shown."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "No target gene is specified. E18 shows no eQTL and the nearest gene is 420.6 kb away (E02)."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E11 shows ZNF580 at 8.5 TPM in the line, which is permissive expression only."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 and E05 show no GWAS or Open Targets record, so no LDL link or direction is shown."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 gives an NME2 own-model prediction (z 28.95, alt binds more) with a modest effect (0.573). This is an in vitro prediction only. NME2 is a ubiquitous nucleoside diphosphate kinase and not a typical sequence-specific regulator, so binding relevance is doubtful."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 shows no cCRE overlap and E01 shows no regulatory feature. No element is shown."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "gene",
+   "status": "missing",
+   "reason": "No target gene is named. E18 shows no eQTL and all candidate genes are at least 420 kb away (E02)."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E12 shows NME2 at 928 TPM in the line, which is permissive expression only. It shows no functional activity at this site."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04 and E05 show no GWAS or Open Targets record, so no LDL connection is shown."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Liver\"}",
+   "resolves": "H1.gene",
+   "why": "Tests whether any gene (CYP7A1, FAM110B or others) has genotype-dependent expression in liver, which is the main missing link for all chains."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"RELA\",\"biosample\":\"HepG2\"}",
+   "resolves": "H1.element",
+   "why": "Shows whether any TF binds at this position in a liver line, which tests element and binding support."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"CYP7A1\"}",
+   "resolves": "H1.phenotype",
+   "why": "Checks whether CYP7A1 has association with LDL cholesterol, which gives gene-phenotype support."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": null
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "RELA",
+    "biosample": "HepG2"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "CYP7A1"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "GTEx/other liver eQTL lookup for rs7001688 (existing data, E18)",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No significant liver eQTL for any gene (observed in E18): consistent"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Requires a CYP7A1 eQTL (possibly condition-specific); currently absent, disfavoured"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Requires a FAM110B eQTL; currently absent, disfavoured"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Requires some local eQTL; currently absent, disfavoured"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Requires some local eQTL; currently absent, disfavoured"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allelic luciferase/MPRA of the 200 bp window in Hep3B, unstimulated and +TNF",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allelic difference in either condition"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Allelic difference appears only (or mainly) after TNF stimulation"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Small allelic difference, stimulation-independent"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Allelic difference, stimulation-independent; alt higher if ZNF580 represses"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Allelic difference, stimulation-independent, alt higher"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "EMSA with Hep3B nuclear extract, ref vs alt probe, with supershift antibodies (RELA, HMGA1, ZNF580, NME2)",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No differential complex between alleles"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt-preferential complex supershifted by anti-RELA (stimulated extract)"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt-preferential complex supershifted by anti-HMGA1"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Ref-preferential complex supershifted by anti-ZNF580"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Alt-preferential complex supershifted by anti-NME2"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ChIP-seq/ChIP-qPCR peak check at chr8:57573391 in liver lines (RELA done, E19)",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No peak for any TF: consistent (E19 shows none for RELA)"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Predicts a RELA peak; E19 finds none in HepG2, disfavouring H1 (though no stimulated experiment may exist)"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Predicts broad HMGA1 occupancy, not tested by E19"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Predicts ZNF580 occupancy, not tested by E19"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Predicts NME2 occupancy, not tested by E19"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Open chromatin/ATAC and 4C or promoter-capture Hi-C from the variant region in hepatocytes",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "Region is closed and makes no specific contact with a lipid gene promoter"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Contact with the CYP7A1 promoter at 927 kb"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Local chromatin/nucleosome change; contact with the FAM110B domain"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Contact with a nearby promoter; accessibility change on alt allele"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Accessibility change without a specific long-range contact requirement"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "TF knockdown panel (RELA, HMGA1, ZNF580, NME2) with allelic reporter readout",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allelic difference to lose under any knockdown"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "RELA knockdown abolishes the allelic difference"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "HMGA1 knockdown abolishes it"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "ZNF580 knockdown abolishes it"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "NME2 knockdown abolishes it"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Cheapest separating test beyond existing data: a dual-luciferase allelic reporter of the 200 bp window around chr8:57573391 (ref G vs alt T) in Hep 3B2.1-7, assayed unstimulated and after TNF. No allelic difference in either condition supports H0 (currently the leading chain); a TNF-dependent difference supports H1, and a stimulation-independent difference points to H2, H4 or H5, to be resolved by the subsequent EMSA/supershift and knockdown panel.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs7001688 AND FAM110B AND \"ldl cholesterol\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr8:57573391:G>T: 997 models scored, 441 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 316 CIS-BP groups. Expression context: DepMap line ACH-000625. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 73 (BED ZF, 1 model z 24.73, C2H2 ZF, 1 model z -21.17, DM, 5 models z -18.3, C2H2 ZF, 1 model z 16.96, C2H2 ZF, 1 model z -16.13). Passing groups ranked below the ones shown: 233. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G315 (Rel, 1 model): best model RELA_DBD_TGATCC20NCTA_KI_nitta2015_1_3_7mer (own model of RELA), z 33.95, effect 1.34 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: RELA z 33.95. TFs this group covers: RELA (own model) 73.44 TPM, RELB (mapped) 17.37 TPM, REL (mapped) 4.27 TPM; best model's site strength: ref 97.4th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G138 (C2H2 ZF, 1 model): best model CASZ1_FL_AG40NGGAATC_YWKC_jolma2025_0_4_7mer (own model of CASZ1), z 32.75, effect 2.741 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: CASZ1 z 32.75. TFs this group covers: CASZ1 (own model) 4.18 TPM; best model's site strength: ref 99.1th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G077 (AT hook, 2 models): best model HMGA1_FL_GA40NCTGATT_YWPA_jolma2025_0_3_7mer (own model of HMGA1), z 29.74, effect 2.006 (alt binds more); 2 passing models (1 with the best model's sign); members disagree on direction. Passing members: HMGA1 z 29.74, SETBP1 z -15.21. TFs this group covers: HMGA1 (own model) 238.96 TPM, HMGA2 (mapped) 97.36 TPM, SRCAP (mapped) 41.42 TPM, ASH1L (mapped) 21.18 TPM, SETBP1 (own model) 1.24 TPM; best model's site strength: ref 67.3th, alt 96.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G540 (C2H2 ZF, 1 model): best model ZNF580_FL_TGGCCA40NTTC_KAE_yin2017_0_4_7mer (own model of ZNF580), z -29.06, effect -1.205 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF580 z -29.06. TFs this group covers: ZNF580 (own model) 8.54 TPM; best model's site strength: ref 100.0th, alt 94.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G266 (Unknown, 1 model): best model NME2_FL_TA40NTCACTC_YWDA_jolma2025_0_4_7mer (own model of NME2), z 28.95, effect 0.573 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: NME2 z 28.95. TFs this group covers: NME2 (own model) 928.15 TPM; best model's site strength: ref 65.7th, alt 99.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G460 (C2H2 ZF, 1 model): best model ZNF230_FL_TG40NGACCTT_YWDA_jolma2025_0_3_7mer (own model of ZNF230), z 26.94, effect 0.512 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF230 z 26.94. TFs this group covers: ZNF230 (own model) 1.96 TPM; best model's site strength: ref 70.8th, alt 96.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G018 (E2F, 4 models): best model E2F4_eDBD_TCAGGG40NGCA_KO_yin2017_1_3_7mer (own model of E2F4), z 25.88, effect 1.189 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: E2F4 z 25.88, E2F3 z 17.58. TFs this group covers: E2F4 (own model) 58.99 TPM, E2F3 (own model) 36.15 TPM, E2F5 (mapped) 18.97 TPM, E2F6 (mapped) 18.07 TPM, E2F1 (own model) 11.74 TPM, E2F2 (own model) 2.06 TPM; best model's site strength: ref 98.4th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G499 (C2H2 ZF, 1 model): best model ZNF384_FL_GG40NTAGTTT_AATBA_jolma2025_0_3_7mer (own model of ZNF384), z -24.76, effect -0.523 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF384 z -24.76. TFs this group covers: ZNF384 (own model) 82.82 TPM; best model's site strength: ref 82.1th, alt 68.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G031 (TEA, 4 models): best model TEAD1_FL_TCACGC40NACT_KW_yin2017_0_4_7mer (own model of TEAD1), z 23.14, effect 1.505 (alt binds more); 4 passing models (4 with the best model's sign). Passing members: TEAD1 z 23.14, TEAD4 z 10.66, TEAD2 z 9.59, TEAD3 z 8.07. TFs this group covers: TEAD2 (own model) 34.44 TPM, TEAD1 (own model) 29.24 TPM, TEAD4 (own model) 28.13 TPM, TEAD3 (own model) 17.77 TPM; best model's site strength: ref 84.6th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G338 (Unknown, 1 model): best model SNAPC5_FL_CA40NAGCGTA_YWDA_jolma2025_0_3_7mer (own model of SNAPC5), z 22.9, effect 0.368 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: SNAPC5 z 22.9. TFs this group covers: SNAPC5 (own model) 86.73 TPM; best model's site strength: ref 80.4th, alt 98.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE RELA ChIP-seq peak contains chr8:57573391:G>T in biosamples matching 'HepG2'. Absence can also mean no RELA experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E20",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between CYP7A1 and free cholesterol in large LDL measurement (EFO_0022176)."
+  }
+ ]
+}

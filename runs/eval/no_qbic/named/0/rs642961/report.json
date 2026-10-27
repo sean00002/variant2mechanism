@@ -1,0 +1,955 @@
+{
+ "case_id": "rs642961",
+ "variant": "rs642961",
+ "variant_key": "chr1:209815925:A>G",
+ "disease": "Cleft lip (IRF6)",
+ "origin": "germline",
+ "expression_context": null,
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.5793,
+ "seconds": 178.7,
+ "model_calls": 8,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1",
+   "title": "Risk allele A disrupts an AP-2alpha (TFAP2A) site in the IRF6 upstream enhancer (MCS9.7-type), lowering IRF6 expression in oral periderm",
+   "is_null": false,
+   "tf": "TFAP2A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "Distal enhancer EH38E2863563 / ENSR1_B3JM9C, ~10 kb upstream of IRF6 (MCS9.7-type element)",
+   "target_gene": "IRF6",
+   "cell_type": "Oral/embryonic periderm and surface ectoderm of the fusing lip and palate",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Biochemical work cited in the literature states that rs642961 abrogates one of four AP-2alpha binding sites, i.e. one allele loses AP-2 binding; since the A allele is the cleft risk allele, the alt allele G is the stronger binder. Within the AP-2 specificity group (TFAP2A/B/C share a near-identical motif) TFAP2A is named because it is the paralog explicitly named in that biochemical report; no QBiC-SELEX row or tf lookup was supplied, so coverage is not_checked. Counter-evidence: no ENCODE TFAP2A ChIP-seq peak contains the variant, though this may reflect absence of the relevant biosample.",
+     "evidence_ids": [
+      "E09a",
+      "E09b",
+      "E07",
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an active distal enhancer-like cCRE (DNase z 5.3, H3K27ac z 5.0; Ensembl regulatory enhancer), so an allelic change in TF occupancy could change enhancer output; these are maxima over biosamples, not craniofacial-specific.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer is nearest IRF6 (TSS 9.7 kb) and IRF6 is the top L2G gene in the orofacial-cleft credible set (0.16) and reaches 0.67 in another set; however UTP25/DIEXF has the highest best L2G (0.75) and is the gene with the most GTEx eQTLs here, so the assignment is not settled by these data.",
+     "evidence_ids": [
+      "E02",
+      "E03",
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant tissue is embryonic oral periderm/ectoderm; the only direct support is that functional SNPs near IRF6 were assayed in iPSC-derived embryonic oral epithelium and that two functional SNPs near IRF6 account for most CL/P risk at this locus. Periderm-specific activity of this cCRE is not shown by the data given.",
+     "evidence_ids": [
+      "E06a",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Lower AP-2-driven IRF6 enhancer activity on the A allele would impair lip fusion, matching the orofacial-cleft association with effect allele A (p 2e-6); the GTEx IRF6 eQTL (alt G lower IRF6, cerebellum only) runs opposite to this expectation but is in an irrelevant tissue.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06a",
+      "E08"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "In oral-epithelial/keratinocyte reporter or base-edited isogenic cells, the G element drives higher activity and higher IRF6 than the A element.",
+    "EMSA or ChIP in AP-2-expressing oral epithelium shows more TFAP2A on G than on A.",
+    "TFAP2A knockdown abolishes the allelic difference; TFAP2C or ETS2 knockdown does not.",
+    "CRISPRi of EH38E2863563 lowers IRF6 without lowering UTP25/TRAF3IP3 in periderm-like cells."
+   ],
+   "falsified_if": [
+    "Allele-specific binding assays in a cell type expressing TFAP2A show no AP-2 occupancy or equal occupancy on both alleles.",
+    "Isogenic allele swap at rs642961 gives no IRF6 or enhancer-activity difference in oral epithelium.",
+    "Enhancer perturbation changes only UTP25/TRAF3IP3 and not IRF6."
+   ],
+   "probability": 0.44,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2A"
+  },
+  {
+   "id": "H5",
+   "title": "Null: rs642961 is not itself the TF-mediated cleft driver; a linked variant (e.g. the IRF6 promoter SNP rs12403599) carries the risk",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Conditioning on rs12403599 (or the other functional SNP near IRF6) removes the rs642961 cleft association.",
+    "Isogenic allele swap at rs642961 alone gives no change in enhancer activity or IRF6 expression, while the linked variant does.",
+    "Fine-mapping PIP for rs642961 in the orofacial-cleft credible set stays low (~0.05), and no TF shows allele-specific binding at this site."
+   ],
+   "falsified_if": [
+    "rs642961 remains associated after conditioning on all nearby candidate variants.",
+    "Isogenic allele swaps at rs642961 alone change IRF6 enhancer activity or expression, or a TF shows reproducible allele-specific binding there."
+   ],
+   "probability": 0.26,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H4",
+   "title": "Same AP-2 binding change, but the regulated gene is UTP25/DIEXF (or TRAF3IP3), not IRF6",
+   "is_null": false,
+   "tf": "TFAP2A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "Distal enhancer EH38E2863563 within the IRF6/UTP25/C1orf74 cluster",
+   "target_gene": "UTP25",
+   "cell_type": "Fibroblasts, artery and blood/immune cells (the tissues with the eQTL and blood-pressure signal)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The same AP-2 site is weakened by the ref allele A; TFAP2A chosen as in H1 from the AP-2-alpha biochemical report. Coverage not_checked.",
+     "evidence_ids": [
+      "E09b"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The cCRE is annotated to IRF6, UTP25 and C1orf74 alike, so target assignment from epigenomics alone is ambiguous.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "UTP25/DIEXF has the highest best L2G (0.75) and the strongest and most numerous GTEx eQTLs at this variant (fibroblasts NES -0.23 p 1.9e-14, artery, blood, lung, adipose), with TRAF3IP3 eQTLs in blood; IRF6 has an eQTL only in cerebellum.",
+     "evidence_ids": [
+      "E05",
+      "E08",
+      "E02"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The eQTL tissues are fibroblasts, artery, blood and immune cells rather than craniofacial epithelium, consistent with the much stronger blood-pressure association.",
+     "evidence_ids": [
+      "E08",
+      "E05",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered UTP25/TRAF3IP3 expression could mediate the blood-pressure association (p 6e-12); it is not shown to explain the cleft phenotype, and the allele directions across traits are mixed (hypertension and clefts effect allele A, SBP effect allele G).",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "CRISPRi of the element changes UTP25/DIEXF or TRAF3IP3 but not IRF6.",
+    "Allele-specific expression at the locus tracks UTP25/TRAF3IP3 in fibroblasts or blood.",
+    "Enhancer perturbation in oral epithelium has no effect on IRF6."
+   ],
+   "falsified_if": [
+    "Enhancer perturbation changes IRF6 only.",
+    "Isogenic allele swap in oral epithelium changes IRF6 without changing UTP25/TRAF3IP3."
+   ],
+   "probability": 0.12,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2A"
+  },
+  {
+   "id": "H6",
+   "title": "ETS2 binding at an IRF6-proximal regulatory element is altered by this variant, changing IRF6 output in oral epithelium",
+   "is_null": false,
+   "tf": "ETS2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "Distal enhancer EH38E2863563 upstream of IRF6",
+   "target_gene": "IRF6",
+   "cell_type": "iPSC-derived embryonic oral epithelium / periderm",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "A genome-engineering study of two functional SNPs near IRF6 in embryonic oral epithelium found allele-specific effects on the binding affinity of FOXE1 or ETS2; ETS2 is the candidate at the IRF6 locus. The quote does not say which SNP or which allele binds more, so the direction (alt G stronger) is assumed by analogy with the AP-2 report and is not directly supported. No QBiC-SELEX evidence supplied, so coverage is not_checked.",
+     "evidence_ids": [
+      "E09c",
+      "E06a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an active distal enhancer-like cCRE assigned to IRF6/UTP25/C1orf74.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The engineered-allele study measured effector gene expression near IRF6, and IRF6 is the proximal gene with substantial L2G support.",
+     "evidence_ids": [
+      "E06a",
+      "E05",
+      "E02"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The allele-specific effects were observed in iPSC-derived embryonic oral epithelium, the tissue relevant to lip fusion.",
+     "evidence_ids": [
+      "E06a",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "An allele-specific change in IRF6 expression in oral epithelium raises cleft risk on the A allele.",
+     "evidence_ids": [
+      "E04",
+      "E06a"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ETS2 ChIP or in vitro binding shows allelic imbalance at chr1:209815925; ETS2 depletion flattens the allelic difference while AP-2 depletion does not.",
+    "An ETS core (GGAA/T) is created or destroyed by the A>G change in the local sequence."
+   ],
+   "falsified_if": [
+    "The ETS2 result in that study maps to a different SNP near IRF6, not rs642961.",
+    "No ETS core is present at the site, or ETS2 shows no allelic binding."
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ETS2"
+  },
+  {
+   "id": "H2",
+   "title": "The AP-2 paralog TFAP2C, not TFAP2A, is the bound factor, with the same allelic direction",
+   "is_null": false,
+   "tf": "TFAP2C",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "Distal enhancer EH38E2863563 upstream of IRF6",
+   "target_gene": "IRF6",
+   "cell_type": "Surface ectoderm / periderm keratinocytes",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The reported loss of an 'AP-2alpha' site defines an AP-2 motif, which TFAP2A/B/C all read; if TFAP2C is the dominant AP-2 member in the relevant ectodermal cells it is the factor whose binding the ref allele A weakens and alt G favours. The absence of a TFAP2A ENCODE peak at the site is mildly consistent with a different paralog. No QBiC-SELEX evidence supplied, so coverage is not_checked.",
+     "evidence_ids": [
+      "E09b",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The same active dELS cCRE carries the variant.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "Target assignment is still to IRF6 by proximity and L2G, with UTP25/TRAF3IP3 not excluded.",
+     "evidence_ids": [
+      "E02",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The assayed cell context for functional SNPs near IRF6 is iPSC-derived embryonic oral epithelium; no evidence provided shows which AP-2 paralog is expressed there, so paralog assignment is unsupported.",
+     "evidence_ids": [
+      "E09"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Lower IRF6 in ectoderm on the A allele leads to failed lip fusion and the cleft association with allele A.",
+     "evidence_ids": [
+      "E04",
+      "E06a"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "TFAP2C ChIP-seq in keratinocytes or oral epithelium shows a peak at the variant with allelic imbalance toward G, while TFAP2A does not.",
+    "TFAP2C knockdown, not TFAP2A knockdown, removes the allelic enhancer difference."
+   ],
+   "falsified_if": [
+    "TFAP2A rather than TFAP2C occupies the site in relevant cells.",
+    "No AP-2 family occupancy is detectable at the site."
+   ],
+   "probability": 0.08,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2C"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "TFAP2A",
+   "is_null": false,
+   "probability": 0.44,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "TFAP2C",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "TP63",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "TFAP2A",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H5",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.28,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E01 is only a VEP consequence and shows no TF motif or binding data. No QBiC, ChIP or allele-specific assay is cited, so the AP-2 site and the direction (G binds more) are asserted. Choosing TFAP2A within the AP-2 group rests on prior knowledge, not on the evidence provided."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in the dELS cCRE EH38E2863563 (ENSR1_B3JM9C enhancer) with DNase z 5.3 and H3K27ac z 5.0. These are maxima over biosamples, not craniofacial-specific, so this is epigenomic context only. It fits an enhancer, but it does not show that an allelic change alters its output."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is the nearest gene (9.7 kb) and has L2G 0.67 in one set, but UTP25 has the best L2G (0.75) and L2G for IRF6 is low in the orofacial clefts set (0.16). The claim that IRF6 is the 'top gene in the orofacial-cleft credible set' is overstated. No enhancer-gene perturbation, eQTL or HiC data are cited."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06a mentions only two functional SNPs near IRF6 and says nothing about periderm, oral ectoderm or enhancer activity there. Enhancer activity in periderm is not shown, because E03 gives only maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The orofacial clefts association is modest (p 2e-6, PIP 0.05, effect allele A). E06a is a general locus statement and does not name rs642961 as functional. The lower-IRF6 direction is not shown, and the blood pressure signals are stronger."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence supports AP-2 binding at this site, let alone TFAP2C over TFAP2A. The claim is conditional ('if TFAP2C ...') and cites only E01, which has no binding data."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 show the variant in an active dELS cCRE. This is the same context-only support as in H1."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is proximal and has moderate L2G, but UTP25 and TRAF3IP3 are not excluded and no perturbation or eQTL data link the enhancer to IRF6."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E03 gives no TFAP2C expression and no biosample-specific data. Nothing cited shows TFAP2C expression in surface ectoderm or keratinocytes."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The link is the same indirect cleft association as in H1, with no evidence for a TFAP2C-specific mechanism. E06a does not name this variant."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E01 contains nothing on TP63 binding or motif. The claim that TP63 co-occupies IRF6 enhancers comes from memory, and the allelic direction is unsupported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 show the variant in an active distal enhancer cCRE. Assignment to IRF6 is only by proximity."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is the nearest gene and has L2G up to 0.67, but the cleft-set L2G is only 0.16 and UTP25 scores higher overall. 'Highest cleft-specific L2G' is plausible within that set but weak."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E06a says nothing about the TP63-IRF6 axis, basal keratinocytes or periderm."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The association with clefts is modest, and no evidence ties the effect to TP63 or to reduced IRF6 on the A allele."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "missing",
+   "reason": "As in H1, E01 shows no AP-2 site or allelic binding."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 confirms an active enhancer cCRE with nearby genes IRF6, UTP25 and C1orf74, so the ambiguity is real. It does not show which gene the enhancer regulates."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "UTP25 has the best L2G (0.75), but the cited sets show only IRF6 at 0.67 and UTP25 at 0.10-0.14, so it is inconsistent. The eQTLs are for TRAF3IP3 only (PIP 0.02-0.04), not UTP25, and are weak."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 shows TRAF3IP3 eQTLs in monocytes, blood and Treg, so blood or immune cells are plausible. The link from these eQTLs to the enhancer and to a craniofacial or vascular cell is not shown. Blood-pressure relevant tissue such as vascular or kidney is not tested."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Blood pressure is the strongest GWAS signal (p 6e-12) in E04, but nothing shows UTP25 or TRAF3IP3 expression mediating it. The allele direction for clefts and blood pressure is mixed (hypertension effect allele A, SBP effect allele G). The chain also claims to explain the cleft phenotype and the blood pressure phenotype together without evidence."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E09b is a literature quote from PMID 26332872 reporting biochemical evidence that rs642961 abrogates one of four AP-2alpha sites, so it is a direct perturbation-type assay naming TFAP2A for this variant. Direction (A risk, G binds more) is inferred from the allele being the risk allele, with E04 giving effect allele A for clefts. No QBiC or lookup was run, and the allele-specific direction is not quoted. E07 shows no TFAP2A peak, but absence is uninformative. Supported, though the allele direction is inferred."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 show the variant inside enhancer cCRE EH38E2863563 (dELS) with DNase z 5.3 and H3K27ac z 5.0. This is epigenomic context only, as maxima across biosamples, not craniofacial-specific. The claim is appropriately hedged. Supported as an active enhancer, though modestly."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is nearest (9.7 kb) and has L2G 0.16 for the cleft set and 0.67 in another set, but UTP25 has the best L2G (0.75) and the GTEx eQTLs favour DIEXF/SYT14/TRAF3IP3. The IRF6 eQTL is in cerebellum with the opposite direction. No perturbation or enhancer-gene link is cited. The claim itself admits the assignment is unsettled."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The cited material (E06a, E09) shows only that functional SNPs near IRF6 were assayed in iPSC-derived oral epithelium. E06a is about conditional analysis, not cell type. Nothing shows this cCRE or rs642961 is active in periderm. The claim itself concedes this. Consistent but indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 has the orofacial cleft association with effect allele A (p 2e-6), and E06a says two functional SNPs near IRF6 account for most risk, though these are not shown to include rs642961. The eQTL direction conflicts (alt G lower IRF6 in cerebellum). The fine-mapping PIP for clefts is only 0.05. The causal chain to impaired lip fusion is inferred, not shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09b only names AP-2alpha, and the AP-2 motif is shared by paralogs, but nothing cited shows TFAP2C is expressed or bound here. The absence of a TFAP2A peak in E07 is not informative because biosample coverage is unknown. No tf lookup or coverage check was supplied, so the TFAP2C choice has no reason beyond speculation. It is borderline missing; weak only because it rests on shared-motif logic."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in an active dELS cCRE with high DNase and H3K27ac. The claim is the same as for H1 and is supported at the same level for context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity (E02) and L2G (E05) give IRF6 modest support, but UTP25 and TRAF3IP3 are not excluded, as the claim states. No perturbation evidence links the element to IRF6."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E09 gives no information on which AP-2 paralog is expressed in oral epithelium, and the claim itself says paralog assignment is unsupported. The cited evidence does not bear on a TFAP2C cell-type claim."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 gives the cleft association with effect allele A, and E06a is generic about IRF6-locus SNPs. The step is a generic IRF6 loss to cleft link and is not specific to TFAP2C. Nothing shows lower IRF6 on allele A."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09c says allele-specific ETS2 or FOXE1 binding was found for two SNPs near IRF6 and one near FOXE1. It does not say which SNP carries ETS2 binding, and it may not be rs642961. The direction is assumed by analogy. No lookup was supplied, so coverage is unchecked. The cited E06a does not bear on binding. This is consistent but indirect and possibly misattributed."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 show the variant in an active dELS cCRE linked to IRF6, UTP25 and C1orf74. The claim is context only and is supported at that level."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E09c shows effector gene expression effects for engineered SNPs near IRF6, but it does not specify rs642961. E06a does not measure expression. IRF6 L2G is moderate and UTP25 is higher. The link to rs642961 and IRF6 is indirect."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E09c shows the engineered work was done in iPSC-derived oral epithelium, which is relevant to the lip, but it is not shown for rs642961 specifically. E06a does not address cell type."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 gives an A-allele cleft association. The step claims allele-specific IRF6 change raising risk on A, but no quote shows direction or this variant. E06a is only about risk accounting at the locus."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09b gives a biochemical report of AP-2alpha site loss, which supports the binding at rs642961. But applying it in fibroblast, artery or blood cells is unsupported, since AP-2 expression there is not shown. TFAP2A is chosen from the report, and no coverage lookup was done."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 shows that the cCRE is annotated to IRF6, UTP25 and C1orf74. The claim is only that target assignment is ambiguous, so it provides no positive support for UTP25 regulation. It is consistent but indirect."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives UTP25 the best L2G (0.75), and E08 shows DIEXF and TRAF3IP3 eQTLs. This is colocalisation-type genetic evidence, but the L2G scores are diffuse (0.10 to 0.14 in several sets) and DIEXF is not UTP25. E08 eQTLs are for DIEXF, SYT14 and TRAF3IP3, with no UTP25 eQTL shown. That is genetics without perturbation, and the gene label is mismatched."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E08 gives eQTL tissues (fibroblast, artery, blood) and E04 the blood pressure association. This is expression and genetic context. It does not show that the AP-2 enhancer is active in those cells."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The blood pressure association (p 6e-12) is strong, but no link from UTP25/TRAF3IP3 to blood pressure is shown, and allele directions are mixed. The claim itself says that it is not shown to explain clefts, so for the cleft trait it is missing, and for blood pressure it is indirect."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"TFAP2A\",\"biosample\":\"keratinocyte\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether any ENCODE AP-2 peak contains the variant, and it also tests the TFAP2A choice. Compare with TFAP2C and TP63 peaks."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Skin - Sun Exposed (Lower leg)\"}",
+   "resolves": "H1.gene",
+   "why": "Shows whether the variant is an eQTL for IRF6 or for UTP25 or TRAF3IP3 in an epithelial tissue, to arbitrate between H1 and H4."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs642961 IRF6 enhancer AP-2 allele-specific cleft lip\"}",
+   "resolves": "H1.binding",
+   "why": "Looks for perturbation or allele-specific assay quotes on rs642961 and AP-2 or TP63, which would outrank the cited context evidence."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "TFAP2A",
+    "biosample": null
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": null
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs642961 IRF6 enhancer AP-2 allele-specific cleft lip"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Conditional / joint fine-mapping of the orofacial-cleft GWAS at the IRF6 locus on rs12403599 and the other reported functional SNP (existing summary statistics)",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "rs642961 retains an independent cleft signal"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "rs642961 retains an independent cleft signal"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "rs642961 retains an independent cleft signal"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "rs642961 signal may persist for blood pressure but weak/absent for clefts"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "rs642961 cleft signal collapses after conditioning"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Base-edited isogenic A vs G iPSC-derived oral epithelium; measure IRF6, UTP25 and TRAF3IP3 expression",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "G higher IRF6; UTP25/TRAF3IP3 unchanged"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "G higher IRF6; UTP25/TRAF3IP3 unchanged"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "G higher IRF6, effect lost on ETS2 depletion"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "UTP25/TRAF3IP3 change, IRF6 unchanged"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no allelic difference in any gene"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific ChIP/EMSA for TFAP2A, TFAP2C and ETS2 at chr1:209815925 in oral epithelium or keratinocytes",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "TFAP2A occupancy biased to G"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "TFAP2C, not TFAP2A, occupancy biased to G"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "ETS2 occupancy allele-biased; AP-2 not"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "TFAP2A occupancy biased to G (same binding, different target)"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no allele-specific occupancy by any factor"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPRi of EH38E2863563 in oral epithelial cells and in fibroblasts, RNA-seq readout",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "IRF6 down in oral epithelium"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "IRF6 down in oral epithelium"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "IRF6 down in oral epithelium"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "UTP25/TRAF3IP3 down, IRF6 unchanged"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "element may still regulate a gene, but with no allelic dependence"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "TF knockdown panel (TFAP2A, TFAP2C, ETS2) with allelic reporter assay",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "TFAP2A knockdown removes allelic difference"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "TFAP2C knockdown removes it"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "ETS2 knockdown removes it"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "TFAP2A knockdown removes allelic difference but on a UTP25-directed readout"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no allelic difference to remove"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Run conditional/joint association analysis of the orofacial-cleft GWAS at the IRF6 locus, conditioning rs642961 on rs12403599 and the other reported functional SNP near IRF6, using existing summary statistics; persistence of an independent rs642961 cleft signal favours H1, collapse favours the null H5.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/1:209815925-209815925:1/G?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:29:41+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr1:209815925:A>G (GRCh38), allele string A/G\nKnown IDs: rs642961\nMost severe consequence: regulatory_region_variant\nRegulatory features: ENSR1_B3JM9C enhancer\nGERP conservation score at the site: 0.516\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/1:208815925-210815925?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:29:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "13 protein-coding genes within 1000 kb of chr1:209815925:A>G, by distance to TSS:\nIRF6: 9.7 kb from TSS (upstream, strand -1)\nENSG00000289700: 9.7 kb from TSS (upstream, strand -1)\nUTP25: 12.0 kb from TSS (upstream, strand +1)\nC1orf74: 31.3 kb from TSS (upstream, strand -1)\nTRAF3IP3: 60.4 kb from TSS (downstream, strand +1)\nSYT14: 85.0 kb from TSS (upstream, strand +1)\nHSD11B1: 129.8 kb from TSS (downstream, strand +1)\nG0S2: 140.5 kb from TSS (downstream, strand +1)\nLAMB3: 162.8 kb from TSS (upstream, strand -1)\nCAMK1G: 232.2 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:29:16+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E2863563 (dELS: distal enhancer-like), chr1:209815915-209816264.\nSCREEN: 2 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2863563 dELS (contains the variant): DNase z 5.3, H3K27ac z 5.0, H3K4me3 z 2.4, CTCF z 1.5; nearby genes IRF6, UTP25, C1orf74\nEH38E2863562 dELS: DNase z 3.2, H3K27ac z 4.9, H3K4me3 z 1.9, CTCF z 1.5; nearby genes IRF6, UTP25, C1orf74\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs642961&size=100",
+   "retrieved_utc": "2026-10-25T17:29:42+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "8 GWAS Catalog associations for rs642961, strongest first:\nSystolic blood pressure: p 6.0e-12, effect allele G, risk-allele frequency NR, PMID 38689001\nHypertension: p 2.0e-08, effect allele A, risk-allele frequency 0.1951, PMID 33230300\nPulse pressure: p 1.0e-07, effect allele G, risk-allele frequency NR, PMID 38689001\nDiastolic blood pressure: p 3.0e-07, effect allele G, risk-allele frequency NR, PMID 38689001\nOrofacial clefts: p 2.0e-06, effect allele A, risk-allele frequency NR, PMID 19270707"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:41+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "18 credible sets contain 1_209815925_A_G: 14 GWAS, 4 molecular QTL.\nGWAS Systolic blood pressure: PIP 0.10; L2G TRAF3IP3 0.11, IRF6 0.11, UTP25 0.10\nGWAS Systolic blood pressure: PIP 0.09; L2G IRF6 0.67, UTP25 0.14, TRAF3IP3 0.08\nGWAS Systolic blood pressure, combined automated + manual reading: PIP 0.05; L2G IRF6 0.13, UTP25 0.10, C1orf74 0.10\nGWAS Orofacial clefts: PIP 0.05; L2G IRF6 0.16, TRAF3IP3 0.12, C1orf74 0.10\nGWAS Systolic blood pressure: PIP 0.05; L2G IRF6 0.13, C1orf74 0.09, UTP25 0.08\nGWAS Systolic blood pressure (MTAG): PIP 0.05; L2G IRF6 0.17, C1orf74 0.09, UTP25 0.08\neqtl for TRAF3IP3 (blueprint_tx_monocyte_enst00000460314): PIP 0.04\neqtl for TRAF3IP3 (twinsuk_tx_blood_enst00000367023): PIP 0.02\neqtl for TRAF3IP3 (twinsuk_exon_blood_ensg00000009790_15_1_209782056_): PIP 0.02\neqtl for TRAF3IP3 (schmiedel_2018_exon_treg_naive_ensg00000009790_15_): PIP 0.02\nBest L2G gene scores across these sets: UTP25 0.75, IRF6 0.67, TRAF3IP3 0.53, C1orf74 0.10"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs642961%20AND%20UTP25%20AND%20%22cleft%20lip%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:29:43+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 2 hits for 'rs642961 AND UTP25 AND \"cleft lip\"'; top 2 with PMIDs:\nPMID 40670354 (2025): Identification of functional non-coding variants associated with orofacial cleft.\nPMID 37161310 (2023): A Variant in the <i>IRF6</i> Promoter Associated with the Risk for Orofacial Clefting."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40670354",
+   "url": "https://europepmc.org/article/MED/40670354",
+   "retrieved_utc": "2026-10-25T17:29:43+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Conditional analyses of GWAS data suggest the two functional SNPs near IRF6 account for the majority of risk for CL/P at this locus."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37161310",
+   "url": "https://europepmc.org/article/MED/37161310",
+   "retrieved_utc": "2026-10-25T17:29:43+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The single-nucleotide polymorphism (SNP) rs2235371 (IRF6 V274I) is associated with nonsyndromic cleft lip with or without cleft palate (NSCL/P) in Han Chinese and other populations but appears to be without a functional effect."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37161310",
+   "url": "https://europepmc.org/article/MED/37161310",
+   "retrieved_utc": "2026-10-25T17:29:43+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "This study revealed that the SNP rs12403599, within the IRF6 promoter, is associated with all phenotypes of NSCL/P, especially nonsyndromic cleft lip (NSCLO) and a subphenotype of it, microform cleft lip (MCL)."
+  },
+  {
+   "id": "E07",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:31:05+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE TFAP2A ChIP-seq peak contains chr1:209815925:A>G. Absence can also mean no TFAP2A experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr1_209815925_A_G_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T22:31:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "15 significant GTEx v8 single-tissue eQTLs for chr1_209815925_A_G_b38. NES is the effect of the alt allele (G) relative to ref (A).\nSYT14 in Nerve_Tibial: NES -0.50, p 6.7e-20\nDIEXF in Cells_Cultured_fibroblasts: NES -0.23, p 1.9e-14\nDIEXF in Artery_Tibial: NES -0.23, p 1.2e-10\nTRAF3IP3 in Whole_Blood: NES +0.24, p 5.9e-10\nIRF6 in Brain_Cerebellum: NES -0.62, p 2.2e-07\nDIEXF in Whole_Blood: NES -0.15, p 2.9e-07\nSYT14 in Brain_Hippocampus: NES +0.53, p 3.3e-07\nDIEXF in Adipose_Subcutaneous: NES -0.20, p 7.5e-07\nSYT14 in Brain_Spinal_cord_cervical_c-1: NES +0.72, p 2.7e-06\nDIEXF in Lung: NES -0.11, p 3.2e-06\nIRF6 in Brain_Cerebellar_Hemisphere: NES -0.61, p 3.3e-06\nDIEXF in Brain_Frontal_Cortex_BA9: NES +0.35, p 4.6e-06\nDIEXF in Brain_Cortex: NES +0.33, p 7.0e-06\nDIEXF in Adipose_Visceral_Omentum: NES -0.16, p 2.5e-05\nC1orf74 in Whole_Blood: NES +0.15, p 8.6e-05"
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs642961%20IRF6%20enhancer%20AP-2%20allele-specific%20cleft%20lip&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T00:23:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 21 hits for 'rs642961 IRF6 enhancer AP-2 allele-specific cleft lip'; top 8 with PMIDs:\nPMID 40670354 (2025): Identification of functional non-coding variants associated with orofacial cleft.\nPMID 39500877 (2024): High incidence and geographic distribution of cleft palate in Finland are associated with the IRF6 gene.\nPMID 39397453 (2024): [Single nucleotide polymorphism heritability of non-syndromic cleft lip with or without cleft palate in Chinese population].\nPMID 34310873 (2021): Family based and case-control designs reveal an association of TFAP2A in nonsyndromic cleft lip only among Vietnamese population.\nPMID 35110662 (2022): Allele-specific transcription factor binding in a cellular model of orofacial clefting.\nPMID 35226783 (2022): Revisiting the embryogenesis of lip and palate development.\nPMID 26332872 (2016): Toward an orofacial gene regulatory network.\nPMID 32031521 (2020): Analysis of zebrafish periderm enhancers facilitates identification of a regulatory variant near human <i>KRT8/18</i>."
+  },
+  {
+   "id": "E09a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 26332872",
+   "url": "https://europepmc.org/article/MED/26332872",
+   "retrieved_utc": "2026-10-26T00:23:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In addition, a common variant (rs642961) in the IRF6 locus is found in 30% of the world's population and contributes risk for isolated orofacial clefting."
+  },
+  {
+   "id": "E09b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 26332872",
+   "url": "https://europepmc.org/article/MED/26332872",
+   "retrieved_utc": "2026-10-26T00:23:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Biochemical studies revealed that rs642961 abrogates one of four AP-2alpha binding sites."
+  },
+  {
+   "id": "E09c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40670354",
+   "url": "https://europepmc.org/article/MED/40670354",
+   "retrieved_utc": "2026-10-26T00:23:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "For two SNPs near IRF6 and one near FOXE1, we engineer the genome of induced pluripotent stem cells, differentiate the cells into embryonic oral epithelium, and discover allele-specific effects on the levels of effector gene expression, and, in two cases, the binding affinity of transcription factors FOXE1 or ETS2."
+  }
+ ]
+}

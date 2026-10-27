@@ -1,0 +1,1048 @@
+{
+ "case_id": "rs339331",
+ "variant": "rs339331",
+ "variant_key": "chr6:116888889:T>C",
+ "disease": "Prostate cancer (6q22)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000977 (LNCaP clone FGC)",
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0,
+ "seconds": 0.5,
+ "model_calls": 6,
+ "screen": {
+  "n_pass": 487,
+  "counts": {
+   "occupied": 1,
+   "unknown": 131,
+   "occupied_strong_site": 0,
+   "occupied_not_expressed": 2,
+   "unbound_assayed_here": 1,
+   "unbound_assayed_elsewhere": 569,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "PKNOX1",
+    "z": 11.43,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": false
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "HOXC13",
+    "z": -103.49
+   },
+   {
+    "tf": "HOXA6",
+    "z": -84.28
+   },
+   {
+    "tf": "HOXB9",
+    "z": -84.28
+   },
+   {
+    "tf": "HOXC12",
+    "z": -84.28
+   },
+   {
+    "tf": "HOXC6",
+    "z": -84.28
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "No TF-mediated effect at this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Isogenic T-to-C editing will not produce a reproducible, TF-dependent change in element activity, RFX6 regulation, or a cancer-relevant phenotype.",
+    "The prostate cancer association may reflect linkage to another causal variant or another mechanism not mediated by TF binding at this base."
+   ],
+   "falsified_if": [
+    "Isogenic editing produces a reproducible allele-dependent molecular effect at this element that depends on a specific TF."
+   ],
+   "probability": 0.72,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H3",
+   "title": "HOXB13 preferentially binds the reference allele and alters RFX6 regulation",
+   "is_null": false,
+   "tf": "HOXB13",
+   "allele_binding_more": "ref",
+   "element": "The variant overlaps the enhancer-like cCRE EH38E2496909, but its activity in LNCaP is not established.",
+   "target_gene": "RFX6",
+   "cell_type": "LNCaP-like prostate cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "HOXB13's own QBiC-SELEX model predicts substantially stronger binding to T than C, with high site-strength percentiles; this makes it the leading modeled HOX candidate here, but occupancy at the variant is unknown.",
+     "evidence_ids": [
+      "E10",
+      "E17"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within enhancer-like cCRE EH38E2496909, though the available scores do not establish that the element is active in LNCaP.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "RFX6 is a candidate target based on the intronic location and prostate cancer credible-set gene prioritization, but no direct cCRE-to-RFX6 link or significant prostate eQTL is reported.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E07",
+      "E18"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HOXB13 is expressed in LNCaP, but the available evidence does not establish its occupancy at this variant or activity of the element in those cells.",
+     "evidence_ids": [
+      "E03",
+      "E17"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If HOXB13-sensitive regulation at this element affects RFX6 in prostate cells, it could contribute to prostate cancer risk; neither the regulatory direction nor this specific causal link is established.",
+     "evidence_ids": [
+      "E06",
+      "E07",
+      "E09a",
+      "E09b",
+      "E09c"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "T will show greater HOXB13 occupancy than C in relevant prostate cells, and the allele-dependent molecular effect will depend on HOXB13.",
+    "HOXB13 perturbation, rather than PKNOX1 or HOXC6 perturbation, will reduce the predicted allele-dependent effect."
+   ],
+   "falsified_if": [
+    "HOXB13 is not detectably occupied at the site in relevant prostate cells, or HOXB13 perturbation leaves any allele-dependent molecular effect unchanged."
+   ],
+   "probability": 0.18,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HOXB13"
+  },
+  {
+   "id": "H4",
+   "title": "HOXC6 preferentially binds the reference allele and alters RFX6 regulation",
+   "is_null": false,
+   "tf": "HOXC6",
+   "allele_binding_more": "ref",
+   "element": "The variant overlaps the enhancer-like cCRE EH38E2496909, but its activity in LNCaP is not established.",
+   "target_gene": "RFX6",
+   "cell_type": "LNCaP-like prostate cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "A QBiC-SELEX model mapped from HOXC10 predicts stronger binding to T than C for HOXC6; this is an in-vitro sequence prediction, not evidence of HOXC6 occupancy at the variant.",
+     "evidence_ids": [
+      "E10",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within enhancer-like cCRE EH38E2496909, although the available biosample-maximal scores do not establish activity in LNCaP.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "RFX6 is a candidate target from the intronic location and prostate cancer credible-set prioritization, but direct regulation by this cCRE is not shown and no significant prostate eQTL is reported.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E07",
+      "E18"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HOXC6 is expressed in LNCaP, but its occupancy at the variant and element activity in that context are unestablished.",
+     "evidence_ids": [
+      "E03",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If HOXC6-sensitive regulation at this element affects RFX6 in prostate cells, it could contribute to prostate cancer risk; the evidence does not establish this specific chain or its effect direction.",
+     "evidence_ids": [
+      "E06",
+      "E07",
+      "E09a",
+      "E09b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "T will show greater HOXC6 occupancy than C in relevant prostate cells, and any allele-dependent molecular effect will depend on HOXC6.",
+    "HOXC6 perturbation, rather than HOXB13 or PKNOX1 perturbation, will reduce the predicted allele-dependent effect."
+   ],
+   "falsified_if": [
+    "HOXC6 is not detectably occupied at the site in relevant prostate cells, or HOXC6 perturbation leaves any allele-dependent molecular effect unchanged."
+   ],
+   "probability": 0.06,
+   "rank": 3,
+   "coverage_status": "mapped",
+   "resolved_symbol": "HOXC6"
+  },
+  {
+   "id": "H2",
+   "title": "PKNOX1 binding increases on C and alters RFX6 regulation",
+   "is_null": false,
+   "tf": "PKNOX1",
+   "allele_binding_more": "alt",
+   "element": "The variant overlaps the enhancer-like cCRE EH38E2496909, but its activity in LNCaP is not established.",
+   "target_gene": "RFX6",
+   "cell_type": "LNCaP-like prostate cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "PKNOX1 is expressed in LNCaP and has a variant-overlapping ChIP peak in HEK293T; its mapped TGIF2LX QBiC-SELEX model predicts stronger binding to C, but the modeled site is weak and occupancy by PKNOX1 in LNCaP is unestablished.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies within enhancer-like cCRE EH38E2496909, although the available biosample-maximal scores do not establish activity in LNCaP.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "RFX6 is a candidate target based on the intronic location and prostate cancer credible-set gene prioritization, but direct regulation by this cCRE is not shown.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E07",
+      "E18"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "This is a candidate mechanism in LNCaP-like cells because PKNOX1 is expressed there, but the supplied evidence does not establish its occupancy at this site in that context.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A PKNOX1-dependent effect on RFX6 could contribute to prostate cancer risk, but the evidence does not establish this variant-specific chain or the direction of its effect on risk.",
+     "evidence_ids": [
+      "E06",
+      "E07",
+      "E09a",
+      "E09b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "In an appropriate prostate cancer context, C will show greater PKNOX1 occupancy than T, and the allele-dependent effect will diminish when PKNOX1 is perturbed.",
+    "This chain predicts a PKNOX1-dependent effect, rather than an effect dependent on HOXB13 or HOXC6."
+   ],
+   "falsified_if": [
+    "A sensitive, relevant-cell assay finds no allele-dependent PKNOX1 occupancy and PKNOX1 perturbation leaves any variant-dependent molecular effect unchanged."
+   ],
+   "probability": 0.04,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "PKNOX1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.55,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H2",
+   "tf": "PKNOX1",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "HOXC6",
+   "is_null": false,
+   "probability": 0.22,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H4",
+   "tf": "HOXC13",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts stronger in-vitro binding to C, but the model is mapped from TGIF2LX and the predicted site is weak. The PKNOX1 peak is from HEK293T, not the proposed prostate context; the LNCaP ChIP lookup found no peak."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E2496909 and identifies it as dELS. The claim correctly limits what can be inferred about activity in LNCaP."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "The variant is intronic to RFX6, and the prostate cancer credible-set L2G scores favor RFX6 over GPRC6A. The claim appropriately says direct enhancer-to-gene regulation is not shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "PKNOX1 expression in LNCaP is shown, but the ChIP evidence is from HEK293T and the matching-biosample lookup found no peak. Expression alone does not establish occupancy or a mechanism in LNCaP."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is associated with prostate cancer and the cited literature concerns RFX6 in prostate cancer, but no evidence links PKNOX1 binding at this variant to RFX6 regulation or disease risk."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts stronger binding to T, but this is a mapped-model prediction and not occupancy evidence. HOXC6 was not assayed by ENCODE at the site; its occupancy in prostate cells is unknown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly shows that the variant overlaps the dELS cCRE. The claim appropriately notes that the biosample-maximal scores do not establish LNCaP activity."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "The intronic location and prostate cancer credible-set L2G scores support RFX6 as a candidate target, while the claim explicitly acknowledges that direct regulation is unproven."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HOXC6 expression in LNCaP is shown, but neither occupancy at the variant nor activity of the element in that context is established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The locus is associated with prostate cancer and RFX6 has relevant literature, but there is no evidence that HOXC6 binding at this base affects RFX6 or the phenotype."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts stronger binding to T, but the best model is mapped from HOXB13 and provides no occupancy evidence. HOXC13 was not assayed at the site, so occupancy in prostate cells is unknown."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly shows that the variant lies in the dELS cCRE, and the claim correctly distinguishes overlap from demonstrated LNCaP activity."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "supported",
+   "reason": "The variant is intronic to RFX6 and prostate cancer credible-set L2G scores favor RFX6; the claim does not overstate this as direct enhancer-to-gene evidence."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HOXC13 expression in LNCaP is shown, but neither its occupancy at the variant nor element activity in LNCaP is established."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The genetic association and RFX6-related prostate cancer literature support general plausibility, not a specific HOXC13-mediated causal chain."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11 predicts stronger C binding, but this is in-vitro evidence from a model mapped to TGIF2LX, and the modeled site is weak. The variant-overlapping PKNOX1 ChIP peak is in HEK293T, not LNCaP; relevant-cell occupancy is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within enhancer-like cCRE EH38E2496909. The claim appropriately does not assert activity in LNCaP."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02 place the variant in RFX6, and E07 prioritizes RFX6 in prostate cancer credible sets. These support RFX6 as a candidate, but not direct regulation by this cCRE."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "PKNOX1 expression in LNCaP is reported, but neither its occupancy there nor activity of the element in that context is established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The locus is associated with prostate cancer and RFX6 has prostate-cancer literature context, but no evidence links PKNOX1-dependent regulation at this variant to the phenotype."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E17 shows a strong QBiC-SELEX prediction for greater T binding at a high-strength site, but there is no cited HOXB13 occupancy evidence at the variant in a relevant cell type."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within enhancer-like cCRE EH38E2496909. The claim appropriately leaves LNCaP activity unestablished."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02 place the variant in RFX6, and E07 prioritizes RFX6 in prostate cancer credible sets. This supports a candidate target, not a direct cCRE-to-RFX6 link."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HOXB13 expression in LNCaP is reported, but occupancy at the variant and element activity in those cells are not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant/locus is associated with prostate cancer and RFX6 has disease context, but no evidence connects HOXB13-sensitive regulation at this variant to prostate cancer risk."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E16 predicts greater T binding, but it is an in-vitro prediction from a model mapped to HOXC10 and provides no HOXC6 occupancy evidence at the variant."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within enhancer-like cCRE EH38E2496909. The claim appropriately does not assert LNCaP activity."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01/E02 place the variant in RFX6, and E07 prioritizes RFX6 in prostate cancer credible sets. These support RFX6 as a candidate, not direct regulation by the cCRE."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HOXC6 expression in LNCaP is reported, but occupancy at the variant and element activity in that context are unestablished."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The locus is associated with prostate cancer, but the evidence does not connect HOXC6-dependent regulation at this variant to the phenotype."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"HOXC6\",\"biosample\":\"LNCaP clone FGC\"}",
+   "resolves": "H3.binding",
+   "why": "A variant-overlapping peak in the proposed cell context would add occupancy evidence to the T-favoring in-vitro prediction; a negative result would weaken this candidate."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"HOXC13\",\"biosample\":\"LNCaP clone FGC\"}",
+   "resolves": "H4.binding",
+   "why": "This directly tests whether HOXC13 has occupancy evidence at the variant in the proposed cell context, which is currently unknown."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Prostate\"}",
+   "resolves": "H3.gene",
+   "why": "A prostate-tissue eQTL for this variant affecting RFX6 would strengthen the proposed variant-to-gene link; an effect on another gene could change target-gene prioritization."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "round": 1,
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "HOXB13"
+   },
+   "key": "qbic_tf_detail({\"tf\":\"HOXB13\"})",
+   "resolves": "H3.binding / H4.binding",
+   "expected": "If HOXB13 has a distinct, strong QBiC-SELEX prediction at this variant, it could change which related homeodomain TF is the leading binding candidate; if it only reproduces the mapped-model signal or has no model, it will not establish occupancy and the HOX chains remain weak.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E17",
+   "new_information": true
+  },
+  {
+   "round": 1,
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Prostate"
+   },
+   "key": "eqtl_lookup({\"tissue\":\"Prostate\"})",
+   "resolves": "H3.gene",
+   "expected": "A prostate eQTL linking this variant to RFX6 would strengthen the proposed target-gene link; an eQTL for another gene could change target prioritization. No significant prostate eQTL would leave the direct variant-to-gene link unresolved.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E18",
+   "new_information": true
+  }
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "calls": [
+    {
+     "round": 1,
+     "tool": "qbic_tf_detail",
+     "args": {
+      "tf": "HOXB13"
+     },
+     "key": "qbic_tf_detail({\"tf\":\"HOXB13\"})",
+     "resolves": "H3.binding / H4.binding",
+     "expected": "If HOXB13 has a distinct, strong QBiC-SELEX prediction at this variant, it could change which related homeodomain TF is the leading binding candidate; if it only reproduces the mapped-model signal or has no model, it will not establish occupancy and the HOX chains remain weak.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E17",
+     "new_information": true
+    },
+    {
+     "round": 1,
+     "tool": "eqtl_lookup",
+     "args": {
+      "tissue": "Prostate"
+     },
+     "key": "eqtl_lookup({\"tissue\":\"Prostate\"})",
+     "resolves": "H3.gene",
+     "expected": "A prostate eQTL linking this variant to RFX6 would strengthen the proposed target-gene link; an eQTL for another gene could change target prioritization. No significant prostate eQTL would leave the direct variant-to-gene link unresolved.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E18",
+     "new_information": true
+    }
+   ],
+   "planner_note": "",
+   "check_results": [
+    {
+     "call": "qbic_tf_detail({\"tf\":\"HOXB13\"})",
+     "observed": "E17 reports an HOXB13 own-model QBiC-SELEX result predicting stronger binding to T than C (effect -4.771), with high site-strength percentiles (ref 99.9th, alt 97.2th). Occupancy is unknown; HOXB13 is expressed in LNCaP.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "eqtl_lookup({\"tissue\":\"Prostate\"})",
+     "observed": "E18 reports no significant GTEx v8 eQTL for this variant in prostate.",
+     "as_expected": "yes"
+    }
+   ],
+   "chains": [
+    {
+     "id": "H1",
+     "tf": null,
+     "is_null": true,
+     "probability": 0.72
+    },
+    {
+     "id": "H2",
+     "tf": "PKNOX1",
+     "is_null": false,
+     "probability": 0.04
+    },
+    {
+     "id": "H3",
+     "tf": "HOXB13",
+     "is_null": false,
+     "probability": 0.18
+    },
+    {
+     "id": "H4",
+     "tf": "HOXC6",
+     "is_null": false,
+     "probability": 0.06
+    }
+   ],
+   "grades": [
+    {
+     "hypothesis_id": "H2",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E11 predicts stronger C binding, but this is in-vitro evidence from a model mapped to TGIF2LX, and the modeled site is weak. The variant-overlapping PKNOX1 ChIP peak is in HEK293T, not LNCaP; relevant-cell occupancy is not established."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly places the variant within enhancer-like cCRE EH38E2496909. The claim appropriately does not assert activity in LNCaP."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "gene",
+     "status": "supported",
+     "reason": "E01/E02 place the variant in RFX6, and E07 prioritizes RFX6 in prostate cancer credible sets. These support RFX6 as a candidate, but not direct regulation by this cCRE."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "PKNOX1 expression in LNCaP is reported, but neither its occupancy there nor activity of the element in that context is established."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The locus is associated with prostate cancer and RFX6 has prostate-cancer literature context, but no evidence links PKNOX1-dependent regulation at this variant to the phenotype."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E17 shows a strong QBiC-SELEX prediction for greater T binding at a high-strength site, but there is no cited HOXB13 occupancy evidence at the variant in a relevant cell type."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly places the variant within enhancer-like cCRE EH38E2496909. The claim appropriately leaves LNCaP activity unestablished."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "gene",
+     "status": "supported",
+     "reason": "E01/E02 place the variant in RFX6, and E07 prioritizes RFX6 in prostate cancer credible sets. This supports a candidate target, not a direct cCRE-to-RFX6 link."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "HOXB13 expression in LNCaP is reported, but occupancy at the variant and element activity in those cells are not established."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The variant/locus is associated with prostate cancer and RFX6 has disease context, but no evidence connects HOXB13-sensitive regulation at this variant to prostate cancer risk."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E16 predicts greater T binding, but it is an in-vitro prediction from a model mapped to HOXC10 and provides no HOXC6 occupancy evidence at the variant."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 directly places the variant within enhancer-like cCRE EH38E2496909. The claim appropriately does not assert LNCaP activity."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "gene",
+     "status": "supported",
+     "reason": "E01/E02 place the variant in RFX6, and E07 prioritizes RFX6 in prostate cancer credible sets. These support RFX6 as a candidate, not direct regulation by the cCRE."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "HOXC6 expression in LNCaP is reported, but occupancy at the variant and element activity in that context are unestablished."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The locus is associated with prostate cancer, but the evidence does not connect HOXC6-dependent regulation at this variant to the phenotype."
+    }
+   ],
+   "grades_changed": [],
+   "max_probability_change": 0.17,
+   "problems": [
+    "None of the chains has relevant-cell occupancy evidence for its proposed TF. The PKNOX1 peak is in HEK293T; the HOXB13 and HOXC6 occupancy statuses are unknown. The absence of LNCaP peaks in the aggregate lookup should not be treated as a negative PKNOX1 occupancy result unless PKNOX1 was assayed there.",
+    "The binding predictions do not establish the downstream regulatory direction. In particular, the C risk allele and the predicted T-favoring binding in H3/H4 are not connected to an expression or phenotype effect sign.",
+    "RFX6 is a plausible genetic candidate, but the evidence does not show that this cCRE regulates RFX6. The lack of a significant prostate eQTL is not itself evidence against that link.",
+    "HOXC6 is not specifically distinguished by E16: its prediction comes from a HOXC10-mapped model shared across several HOX factors. The evidence offers no reason to select HOXC6 over those alternatives.",
+    "PKNOX1's predicted change comes from a TGIF2LX-mapped model, so it should not be presented as TF-specific evidence for PKNOX1."
+   ],
+   "critic_checks": [
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"HOXB13\",\"biosample\":\"LNCaP\"}",
+     "resolves": "H3.binding",
+     "why": "A variant-overlapping HOXB13 peak in the relevant cell context, together with the existing directional QBiC-SELEX result, could strengthen the binding grade."
+    },
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"HOXC6\",\"biosample\":\"LNCaP\"}",
+     "resolves": "H4.binding",
+     "why": "A relevant-cell variant-overlapping peak could add occupancy evidence, though the mapped-model ambiguity would remain."
+    },
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"PKNOX1\",\"biosample\":\"LNCaP\"}",
+     "resolves": "H2.binding",
+     "why": "This can determine whether the existing C-favoring prediction has supporting PKNOX1 occupancy evidence in the proposed cell context."
+    }
+   ]
+  }
+ ],
+ "stop_reason": "round 1 left the top chain and the grades of its links unchanged",
+ "matrix": [
+  {
+   "test": "In LNCaP cells, compare T and C versions of the element in a reporter assay, with and without HOXB13 depletion; test whether the allele difference depends on HOXB13.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible allele-dependent reporter effect, or any effect is not HOXB13-dependent."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "An allele-dependent reporter effect, if present, tracks PKNOX1 perturbation rather than HOXB13 depletion."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "A reproducible allele-dependent reporter effect is reduced by HOXB13 depletion."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "An allele-dependent reporter effect, if present, tracks HOXC6 perturbation rather than HOXB13 depletion."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Measure allele-specific HOXB13 occupancy at the endogenous site in a relevant prostate cancer model, alongside an assay of local chromatin accessibility.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible allele-specific HOXB13 occupancy consistent with a TF-mediated effect."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "HOXB13 occupancy is not the allele-specific signal; any binding effect should instead implicate PKNOX1."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "HOXB13 occupies the site more on T than C in the relevant context."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "HOXB13 occupancy is not the allele-specific signal; any binding effect should instead implicate HOXC6."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "In isogenic T-to-C edited prostate cancer cells, measure RFX6 expression and test its dependence on HOXB13, HOXC6, and PKNOX1 perturbation.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Editing does not produce a reproducible, TF-dependent RFX6 expression change."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Editing changes RFX6 expression in a manner reduced by PKNOX1 perturbation."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Editing changes RFX6 expression in a manner reduced by HOXB13 perturbation."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Editing changes RFX6 expression in a manner reduced by HOXC6 perturbation."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The cheapest proposed experiment separating the top two chains is a T-versus-C reporter assay in LNCaP cells with and without HOXB13 depletion. A HOXB13-dependent allele effect would support H3 over the null; no reproducible effect would favor the null, while a reporter result would not by itself establish endogenous RFX6 regulation.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/6:116888889-116888889:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr6:116888889:T>C (GRCh38), allele string T/C\nKnown IDs: rs339331\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 1.28\nTranscript consequences: RFX6 (intron_variant); RFX6 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/6:115888889-117888889?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:26:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "24 protein-coding genes within 1000 kb of chr6:116888889:T>C, by distance to TSS:\nRFX6: 11.7 kb from TSS (in gene body, strand +1)\nGPRC6A: 59.8 kb from TSS (upstream, strand -1)\nFAM162B: 123.1 kb from TSS (upstream, strand -1)\nKPNA5: 207.7 kb from TSS (downstream, strand +1)\nZUP1: 220.1 kb from TSS (upstream, strand -1)\nRSPH4A: 272.4 kb from TSS (downstream, strand +1)\nRWDD1: 317.5 kb from TSS (downstream, strand +1)\nTRAPPC3L: 343.2 kb from TSS (upstream, strand -1)\nCALHM4: 359.9 kb from TSS (downstream, strand +1)\nVGLL2: 376.7 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E2496909 (dELS: distal enhancer-like), chr6:116888741-116889057.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2496909 dELS (contains the variant): DNase z 2.2, H3K27ac z 1.7, H3K4me3 z 1.4, CTCF z 1.5; nearby genes RFX6, GPRC6A, FAM162B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr6:116888889:T>C: 6 peaks contain the variant, from 6 factors in 3 biosamples. In the matching biosample LNCaP clone FGC, LNCaP: 0 peaks from 0 factors. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): CTBP1, PRDM6, ZSCAN5C. Bound, expressed TFs with a binding model: 1; listed one per row: PKNOX1. Bound but below 1 TPM: FEZF1, MEIS2. Assayed with no peak here: 1 TFs in the matching biosample, 569 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "PKNOX1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HEK293T (e.g. ENCSR233FAG). 8.32 TPM in DepMap:ACH-000977 (LNCaP clone FGC), rank 573 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs339331&size=100",
+   "retrieved_utc": "2026-10-25T17:26:01+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "13 GWAS Catalog associations for rs339331, strongest first:\nProstate cancer: p 5.0e-20, effect allele C, risk-allele frequency 0.367114986, PMID 32514122\nPhospholipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nTotal lipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nConcentration of small HDL particles: p 5.0e-12, effect allele C, risk-allele frequency NR, PMID 41044249\nCholesterol in Small HDL: p 1.0e-11, effect allele C, risk-allele frequency NR, PMID 41044249\nProstate-specific antigen levels: p 4.0e-09, effect allele T, risk-allele frequency NR, PMID 39930085"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "95 credible sets contain 6_116888889_T_C: 94 GWAS, 1 molecular QTL.\nGWAS Cancer of prostate (PheCode 185): PIP 0.23; L2G RFX6 0.87, GPRC6A 0.05\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.42, GPRC6A 0.12\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.75, GPRC6A 0.06\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.27, GPRC6A 0.16\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.61\nGWAS Cancer of prostate (PheCode 185): PIP 0.06; L2G RFX6 0.75\npqtl for SCG2 (UKB_PPP_EUR_SCG2_P13521_OID21400_v1): PIP 0.01\nBest L2G gene scores across these sets: RFX6 0.87, NUS1 0.55, GPRC6A 0.38, ROS1 0.11"
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr6_116888889_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 significant GTEx v8 single-tissue eQTLs for chr6_116888889_T_C_b38. NES is the effect of the alt allele (C) relative to ref (T).\nFAM162B in Adipose_Subcutaneous: NES +0.14, p 3.2e-04"
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=RFX6%20AND%20%22prostate%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 148 hits for 'RFX6 AND \"prostate cancer\"'; top 7 with PMIDs:\nPMID 41422049 (2025): Multifaceted functions of transcription regulatory factor X6 (RFX6): from pancreatic development to cancer progression.\nPMID 41716817 (2026): RFX6 expression is central to the development and function of the neuroendocrine compartments of the pancreas and intestine and strongly affects diabetes risk.\nPMID 42676892 (2026): The function of phosphoglycerate mutase 1 (PGAM1) and its role in diseases.\nPMID 38932472 (2024): An Inherited Allele Confers Prostate Cancer Progression and Drug Resistance via RFX6/HOXA10-Orchestrated TGF\u03b2 Signaling.\nPMID 40181298 (2025): Genetic associations of prostate cancer in China: a systematic review.\nPMID 41374944 (2025): The Clinical Relevance of Tumor Biomarkers in Prostate Cancer-A Review.\nPMID 42588668 (2026): Sub-Saharan African Prostate Cancer Patient-Derived Cell Lines and High-Throughput Drug Screening: Addressing Ancestry Underrepresentation in Oncobiology Research."
+  },
+  {
+   "id": "E09a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41422049",
+   "url": "https://europepmc.org/article/MED/41422049",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Dysregulated expression or mutations of the RFX6 gene in prostate cancer, hepatocellular carcinoma, gastric cancer, melanoma, and other tumors have garnered significant interest, with studies showing that such alterations affect tumor cell proliferation, migration, and invasion, and are correlated with an unfavorable clinical prognosis in patients carrying RFX6 mutations."
+  },
+  {
+   "id": "E09b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Here the FinnGen cohort phenome-wide analysis, along with multiple genome-wide association studies, has consistently identified the rs[masked]-RFX6/6q22 locus associated with prostate cancer (PCa) risk across diverse populations."
+  },
+  {
+   "id": "E09c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Mechanistically, RFX6 upregulates HOXA10 that profoundly correlates with adverse PCa outcomes and is pivotal in RFX6-mediated PCa progression, facilitating the epithelial-mesenchymal transition (EMT) and modulating the TGF\u03b2/SMAD signaling axis."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr6:116888889:T>C, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000977), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 1 of 1 occupied (0 with a strong site), 5 of 131 with unknown occupancy. Left out: 1 TFs assayed in the matching biosample and 569 assayed only elsewhere, none with a peak here; 2 bound but below 1 TPM. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element. No occupied TF has a strong site at the variant."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "PKNOX1 (Homeodomain, 9 models; QBiC-SELEX coverage: own model): best model TGIF2LX_eDBD_TGAGAA40NGCG_KO_yin2017_0_4_7mer (a CIS-BP-mapped model of TGIF2LX), z 11.43, effect 0.521: alt allele binds more (|z| above the gate), but between weak k-mers. 8.32 TPM, rank 573 of 1626 TFs in DepMap:ACH-000977 (LNCaP clone FGC). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HEK293T, e.g. ENCSR233FAG. Best model's site strength: ref 86.1th, alt 96.7th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HOXC13 (Homeodomain, 4 models; QBiC-SELEX coverage: own model): best model HOXB13_NA_TGCCTG20NGA_ESY_yang2017_0_3_7mer (a CIS-BP-mapped model of HOXB13), z -103.49, effect -4.771: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.13 TPM, rank 821 of 1626 TFs in DepMap:ACH-000977 (LNCaP clone FGC). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.9th, alt 97.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HOXA6 (Homeodomain, 18 models; QBiC-SELEX coverage: own model): best model HOXC10_FL_TTGGCC40NTCG_KX_yin2017_0_3_7mer (a CIS-BP-mapped model of HOXC10), z -84.28, effect -4.457: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.75 TPM, rank 915 of 1626 TFs in DepMap:ACH-000977 (LNCaP clone FGC). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 89.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HOXB9 (Homeodomain, 18 models; QBiC-SELEX coverage: own model): best model HOXC10_FL_TTGGCC40NTCG_KX_yin2017_0_3_7mer (a CIS-BP-mapped model of HOXC10), z -84.28, effect -4.457: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.77 TPM, rank 1003 of 1626 TFs in DepMap:ACH-000977 (LNCaP clone FGC). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 89.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HOXC12 (Homeodomain, 18 models; QBiC-SELEX coverage: own model): best model HOXC10_FL_TTGGCC40NTCG_KX_yin2017_0_3_7mer (a CIS-BP-mapped model of HOXC10), z -84.28, effect -4.457: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 6.33 TPM, rank 676 of 1626 TFs in DepMap:ACH-000977 (LNCaP clone FGC). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 89.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HOXC6 (Homeodomain, 18 models; QBiC-SELEX coverage: mapped models only): best model HOXC10_FL_TTGGCC40NTCG_KX_yin2017_0_3_7mer (a CIS-BP-mapped model of HOXC10), z -84.28, effect -4.457: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 18.43 TPM, rank 295 of 1626 TFs in DepMap:ACH-000977 (LNCaP clone FGC). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 89.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"HOXB13\",\"symbol\":\"HOXB13\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"own_model\",\"variant\":\"chr6:116888889:T>C\",\"gate_p\":5.02e-05,\"models\":[{\"model\":\"HOXB13_NA_TGCCTG20NGA_ESY_yang2017_0_3_7mer\",\"mapping\":\"own\",\"group\":\"G024 Homeodomain, 4 models\",\"quality\":0.914,\"effect\":-4.771,\"z\":-103.49,\"p\":0.0,\"rank_abs_z\":\"1/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":99.9,\"alt_percentile\":97.2,\"k\":7}},{\"model\":\"HOXA13_eDBD_TACTGA40NACC_KP_yin2017_1_2_7mer\",\"mapping\":\"CIS-BP (HOXA13)\",\"group\":\"G024 Homeodomain, 4 models\",\"quality\":0.643,\"effect\":-0.723,\"z\":-74.87,\"p\":0.0,\"rank_abs_z\":\"6/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":99.9,\"alt_percentile\":78.0,\"k\":7}},{\"model\":\"HOXC13_NA_TCCCTC20NTCC_ESY_yang2017_0_3_7mer\",\"mapping\":\"CIS-BP (HOXC13)\",\"group\":\"G024 Homeodomain, 4 models\",\"quality\":0.855,\"effect\":-2.96,\"z\":-64.27,\"p\":0.0,\"rank_abs_z\":\"11/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":99.9,\"alt_percentile\":91.9,\"k\":7}},{\"model\":\"HOXD13_NA_TGATAA20NATA_ESAC_yang2017_0_4_7mer\",\"mapping\":\"CIS-BP (HOXD13)\",\"group\":\"G024 Homeodomain, 4 models\",\"quality\":0.696,\"effect\":-3.437,\"z\":-69.26,\"p\":0.0,\"rank_abs_z\":\"9/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":100.0,\"alt_percentile\":92.8,\"k\":7}}]}"
+  },
+  {
+   "id": "E18",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr6_116888889_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr6_116888889_T_C_b38 in tissues matching 'Prostate'. NES is the effect of the alt allele (C) relative to ref (T)."
+  }
+ ]
+}

@@ -1,0 +1,578 @@
+{
+ "case_id": "rs13078086",
+ "variant": "rs13078086",
+ "variant_key": "chr3:191441666:T>G",
+ "disease": "Colorectal cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0156,
+ "seconds": 100.9,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "null",
+   "title": "No TF-mediated effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No reproducible allele-specific TF binding at chr3:191441666 T>G.",
+    "No allele-specific regulatory effect distinguishable from linked variation or background.",
+    "The negative genetic evidence remains the best summary: E04 reports 0 GWAS Catalog associations, E05 reports no Open Targets record, E08 reports 0 colon-transverse eQTLs, and E09 reports no PYDC2 colorectal cancer association.",
+    "E07 provides no HCT116 CTCF ChIP-seq peak containing the variant, consistent with no CTCF-mediated effect at this site."
+   ],
+   "falsified_if": [
+    "Allele-specific TF binding is demonstrated at chr3:191441666 in colorectal cells.",
+    "Chromatin contact, allele-specific expression, or eQTL evidence links the variant to a target gene in colorectal tissue.",
+    "A genetic association for the variant or its target gene in colorectal cancer is established."
+   ],
+   "probability": 0.88,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "ctcf_alt_PYDC2_AS1",
+   "title": "Alt allele creates stronger CTCF binding and alters PYDC2-AS1 lncRNA regulation",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "The variant is intronic in PYDC2-AS1 and 42 bp from dELS EH38E2269392; this is proximity/annotation only, not evidence that the element is functional or allele-specifically perturbed.",
+   "target_gene": "PYDC2-AS1",
+   "cell_type": "HCT 116 colorectal cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF binds the alt G allele more strongly than the ref T allele at the intronic site; this is an unsupported speculative claim with no positive binding evidence.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic in PYDC2-AS1 and 42 bp from dELS EH38E2269392, making local lncRNA regulatory context a candidate element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The variant is annotated as a PYDC2-AS1 intron variant, so PYDC2-AS1 is the candidate transcript.",
+     "evidence_ids": [
+      "E01"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The stated expression context is HCT 116 colorectal cancer cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered PYDC2-AS1 regulation could affect colorectal cancer biology, but no direct variant-disease or gene-disease association is shown.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CTCF binding is stronger on G than T at the PYDC2-AS1 intronic site.",
+    "The G allele changes PYDC2-AS1 expression or isoform usage in colorectal cells.",
+    "If CTCF is repressive at this element, stronger G-allele CTCF binding could reduce PYDC2-AS1 expression."
+   ],
+   "falsified_if": [
+    "No allele-specific CTCF binding is detected at the PYDC2-AS1 intronic site in HCT116 or colorectal cells.",
+    "The dELS EH38E2269392 does not contact the PYDC2-AS1 locus in colorectal cells.",
+    "PYDC2-AS1 expression or isoform usage is not allele-dependent in colorectal cells."
+   ],
+   "probability": 0.07,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "ctcf_ref_CCDC50",
+   "title": "Ref allele preserves CTCF binding and alters CCDC50 through a nearby dELS",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "The variant is 42 bp from dELS EH38E2269392; this is proximity only, not evidence that the ref allele preserves a CTCF site or that changing it alters the element.",
+   "target_gene": "CCDC50",
+   "cell_type": "HCT 116 colorectal cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF binds the ref T allele more strongly than the alt G allele at the intronic site; this is an unsupported speculative claim with no positive binding evidence.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is 42 bp from dELS EH38E2269392, a candidate regulatory element that could lose CTCF occupancy when the ref allele is changed.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "CCDC50 is a nearby protein-coding gene, 112.6 kb downstream of the variant; this is proximity only.",
+     "evidence_ids": [
+      "E02"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The stated expression context is HCT 116 colorectal cancer cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Allele-dependent CCDC50 regulation could contribute to colorectal cancer, but no direct variant-disease or gene-disease association is shown.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CTCF binding is stronger on T than G.",
+    "The G allele reduces CTCF occupancy and changes CCDC50 expression.",
+    "The EH38E2269392 element contacts CCDC50 rather than PYDC2-AS1 in colorectal cells."
+   ],
+   "falsified_if": [
+    "CTCF binding is stronger to G than T, or no allele-specific CTCF binding is seen.",
+    "The dELS EH38E2269392 does not contact CCDC50 in colorectal cells.",
+    "CCDC50 expression is not allele-dependent in colorectal cells."
+   ],
+   "probability": 0.05,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.55,
+   "allele_binding_more": null
+  },
+  {
+   "id": "ctcf_alt_PYDC2",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "ctcf_ref_CCDC50",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "ctcf_alt_PYDC2_AS1",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids. E03 does not show CTCF binding at the variant; it only places a dELS 42 bp away with a biosample-max CTCF z-score of 1.5. No allele-specific CTCF assay or QBiC/ENCODE peak supports alt-more binding."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports that no cCRE overlaps the variant and the nearest dELS is 42 bp away. It does not show that this element is functional in HCT116 or that variant-adjacent CTCF binding perturbs it."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 directly supports that PYDC2 is the nearest protein-coding gene at 19.5 kb upstream. This is proximity only, not evidence that PYDC2 is the regulatory target."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HCT 116 is supplied as the expression context, but the link has no evidence_id and no HCT116-specific regulatory or ChIP evidence is cited."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No direct variant-disease association; E04 and E05 report absence, and E06 hits do not establish PYDC2 as a colorectal cancer gene. The gene-to-phenotype step is speculative."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids. No allele-specific CTCF binding is cited, and the ref-more direction is unsupported. E03 does not show CTCF occupancy at the variant."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports proximity to dELS EH38E2269392 at 42 bp, but not that the ref allele preserves a CTCF site or that changing it alters the element."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 directly supports that CCDC50 is 112.6 kb downstream. This is only genomic proximity and is weak as a target-gene link because of the large distance and lack of contact/eQTL evidence."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HCT 116 context is provided in the case, but no cited evidence_id demonstrates HCT116-specific regulation for this chain."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No disease association is provided for CCDC50 or the variant; E04/E05 are negative and no gene-disease evidence is cited in the chain."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids. The binding link is entirely unsupported, with no CTCF ChIP, QBiC screen, or allele-specific assay. The alt-more direction is unevidenced."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 supports that the variant is intronic in PYDC2-AS1 and E03 supports a dELS 42 bp away. Neither shows allele-specific CTCF perturbation or lncRNA regulatory consequence."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 directly annotates the variant as a PYDC2-AS1 intron variant, so the transcript annotation link is supported. It does not show that the variant regulates PYDC2-AS1 expression or isoform usage."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HCT 116 is the stated context, but the chain cites no HCT116-specific evidence for CTCF or PYDC2-AS1 regulation."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No direct colorectal cancer association for the variant or PYDC2-AS1 is cited; E04/E05 are negative and E06 top hits do not specifically support PYDC2-AS1 in colorectal cancer."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No direction-defining binding evidence; the chain posits alt > ref CTCF binding without a cited binding assay. The element and gene links are annotation/proximity only, and phenotype is unsupported. qbic_coverage is 'not_checked'; no CTCF screen row or qbic_tf_detail lookup is provided, so a qbic_tf_detail lookup for CTCF should be performed before retaining any binding claim."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 supports that the variant is intronic in PYDC2-AS1. E03 supports that no cCRE overlaps the variant and the nearest dELS EH38E2269392 is 42 bp away. This is consistent with local regulatory context but does not show the element is functional or allele-specifically perturbed."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 directly annotates the variant as a PYDC2-AS1 intron_variant, supporting PYDC2-AS1 as the candidate transcript context, though not regulation."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence ID is cited for the HCT 116 cell-type assertion. The case header states an expression context, but no cited assay or dataset supports the cell-type link."
+  },
+  {
+   "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No direct variant-disease or gene-disease evidence is cited. E04, E05, E08, and E09 are negative and do not support altered PYDC2-AS1 regulation affecting colorectal cancer."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ID is cited; the claim that ref T binds CTCF more strongly than alt G is unsupported. E07 reports no HCT 116 CTCF peak containing the variant, which is absence-of-evidence and does not establish allele-specific binding. qbic_coverage is 'not_checked'; no CTCF screen row or qbic_tf_detail lookup is provided, so a qbic_tf_detail lookup for CTCF should be performed before retaining any binding claim."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports that the variant is 42 bp from dELS EH38E2269392 and reports a CTCF z-score for that element, but the variant does not overlap the cCRE. This is proximity/context only and does not show loss of CTCF occupancy upon the ref-to-alt change."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 directly supports that CCDC50 is a nearby protein-coding gene 112.6 kb downstream of the variant. However this is explicitly proximity only and does not establish CCDC50 as the target gene."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence ID is cited for the HCT 116 cell-type assertion. The case header states an expression context, but no cited assay or dataset supports the cell-type link."
+  },
+  {
+   "hypothesis_id": "ctcf_ref_CCDC50",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No direct variant-disease or gene-disease evidence is cited. The provided negative genetic evidence does not support allele-dependent CCDC50 regulation contributing to colorectal cancer."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CTCF\",\"biosample\":\"HCT 116\"}",
+   "resolves": "H2.binding",
+   "why": "Directly tests whether CTCF occupancy at the variant exists in the claimed cell type; if absent, all three CTCF chains lose their initiating link."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Colon_Transverse\"}",
+   "resolves": "H2.gene",
+   "why": "Tests whether the variant is associated with expression of PYDC2, CCDC50, or PYDC2-AS1 in colon tissue; would resolve the only plausible regulatory gene link."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"PYDC2\"}",
+   "resolves": "H2.phenotype",
+   "why": "Tests whether PYDC2 has any colorectal cancer disease association in Open Targets; would resolve the unsupported gene-to-phenotype step."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CTCF",
+    "biosample": "HCT 116"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Colon - Transverse"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "PYDC2"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific CTCF binding assay, e.g. EMSA or competitive binding with HCT116 nuclear extract, using T and G probes",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No reproducible allele-specific CTCF binding; no difference between T and G, or no binding."
+    },
+    {
+     "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+     "outcome": "G allele binds CTCF more strongly than T."
+    },
+    {
+     "hypothesis_id": "ctcf_ref_CCDC50",
+     "outcome": "T allele binds CTCF more strongly than G."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "HCT116 CTCF ChIP-qPCR or allele-specific reanalysis of HCT116 CTCF ChIP-seq at chr3:191441666",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No CTCF ChIP-seq peak or allele-specific read imbalance at chr3:191441666 in HCT116; consistent with E07."
+    },
+    {
+     "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+     "outcome": "CTCF ChIP signal at the variant with G-allele bias, if heterozygous."
+    },
+    {
+     "hypothesis_id": "ctcf_ref_CCDC50",
+     "outcome": "CTCF ChIP signal at the variant with T-allele bias, if heterozygous."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Colon-transverse eQTL or allele-specific expression assay for PYDC2-AS1 and CCDC50",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific expression effect on PYDC2-AS1 or CCDC50 in colon/HCT116; consistent with E08."
+    },
+    {
+     "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+     "outcome": "G allele associates with altered PYDC2-AS1 expression or isoform usage."
+    },
+    {
+     "hypothesis_id": "ctcf_ref_CCDC50",
+     "outcome": "G allele associates with altered CCDC50 expression."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "4C/Hi-C or CRISPR allele-swap perturbation of the variant and dELS EH38E2269392 in HCT116",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific chromatin contact or regulatory change at the locus."
+    },
+    {
+     "hypothesis_id": "ctcf_alt_PYDC2_AS1",
+     "outcome": "EH38E2269392 contacts the PYDC2-AS1 locus, and the G allele changes that contact or PYDC2-AS1 expression."
+    },
+    {
+     "hypothesis_id": "ctcf_ref_CCDC50",
+     "outcome": "EH38E2269392 contacts CCDC50, and the G allele reduces CTCF occupancy and changes CCDC50 expression."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Cheapest separating experiment: allele-specific CTCF binding assay using T and G probes with HCT116 nuclear extract. It directly tests the initiating binding claim of the top non-null chain against the null and is cheaper than chromatin-contact or CRISPR assays.",
+ "citation_support": 0.4,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs13078086 AND PYDC2 AND \"colorectal cancer\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/3:191441666-191441666:1/G?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr3:191441666:T>G (GRCh38), allele string T/G\nKnown IDs: rs13078086\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -1.82\nTranscript consequences: PYDC2-AS1 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/3:190441666-192441666?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "8 protein-coding genes within 1000 kb of chr3:191441666:T>G, by distance to TSS:\nPYDC2: 19.5 kb from TSS (upstream, strand +1)\nUTS2B: 111.1 kb from TSS (upstream, strand -1)\nCCDC50: 112.6 kb from TSS (downstream, strand +1)\nOSTN: 242.4 kb from TSS (downstream, strand +1)\nGMNC: 549.2 kb from TSS (upstream, strand -1)\nIL1RAP: 954.2 kb from TSS (downstream, strand +1)\nTMEM207: 991.8 kb from TSS (upstream, strand -1)\nFGF12: 1326.1 kb from TSS (downstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:05+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E2269392 (dELS) 42 bp away.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2269392 dELS: DNase z 3.5, H3K27ac z 1.8, H3K4me3 z 1.5, CTCF z 1.5; nearby genes AC073365.1, PYDC2, CCDC50\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs13078086&size=100",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs13078086, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 3_191441666_T_G."
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PYDC2%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 16 hits for 'PYDC2 AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 40026444 (2025): Correlation Analysis of Pyroptosis-Related Genes CASP1, NLRP3, AIM2, and NLRP1 With Lung Adenocarcinoma.\nPMID 41154652 (2025): Oncogenic Role of SAMD4B in Breast Cancer Progression by Activating Wnt/\u03b2-Catenin Pathway.\nPMID 36319832 (2022): A novel refined pyroptosis and inflammasome-related genes signature for predicting prognosis and immune microenvironment in pancreatic ductal adenocarcinoma.\nPMID 36341349 (2022): The strategies of NLRP3 inflammasome to combat <i>Toxoplasma gondii</i>.\nPMID 36732864 (2023): RNA binding protein SAMD4: current knowledge and future perspectives.\nPMID 39561929 (2024): Optimizing iNKT-driven immune responses against cancer by modulating CD1d in tumor and antigen presenting cells.\nPMID 35159382 (2022): Metabolomics of Acute vs. Chronic Spinach Intake in an Apc-Mutant Genetic Background: Linoleate and Butanoate Metabolites Targeting HDAC Activity and IFN-\u03b3 Signaling.\nPMID 35338151 (2022): PUMILIO proteins promote colorectal cancer growth via suppressing p21."
+  },
+  {
+   "id": "E07",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:26:42+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE CTCF ChIP-seq peak contains chr3:191441666:T>G in biosamples matching 'HCT 116'. Absence can also mean no CTCF experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr3_191441666_T_G_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr3_191441666_T_G_b38 in tissues matching 'Colon - Transverse'. NES is the effect of the alt allele (G) relative to ref (T)."
+  },
+  {
+   "id": "E09",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T01:40:48+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between PYDC2 and colorectal cancer (MONDO_0005575)."
+  }
+ ]
+}

@@ -1,0 +1,626 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0099,
+ "seconds": 143.3,
+ "model_calls": 8,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The variant has no consequential allele-specific TF-mediated effect; any LDL-C association is due to another variant or mechanism, or the variant has no effect on LDL-C.",
+    "The variant does not reproducibly alter CTCF occupancy or expression of either CYP7A1 or FAM110B in relevant liver cells."
+   ],
+   "falsified_if": [
+    "In relevant liver cells, the variant reproducibly changes allele-specific TF occupancy and variant editing changes a target gene in a way that supports a linked LDL-C effect."
+   ],
+   "probability": 0.95,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Hypothetical CTCF effect on CYP7A1 regulation",
+   "is_null": false,
+   "tf": "CTCF",
+   "allele_binding_more": "alt",
+   "element": "A possible CTCF-associated element overlapping the variant; its regulatory function in liver cells is unestablished.",
+   "target_gene": "CYP7A1",
+   "cell_type": "Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "This low-confidence subhypothesis assigns stronger CTCF binding to T than G. No QBiC-SELEX allele-effect result for CTCF is supplied, and the ChIP evidence shows occupancy only in LNCaP, not the matching HepG2 biosample; the direction is not supported by the evidence.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant overlaps a CTCF ChIP peak in LNCaP, but no cCRE overlaps it and this does not establish a functional regulatory element in liver cells.",
+     "evidence_ids": [
+      "E03",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "CYP7A1 is a distant candidate, about 927 kb away; no evidence connects this site to its regulation. The variant annotation is also inconsistent, reporting intronic consequence but no transcript consequences and describing the site as intergenic.",
+     "evidence_ids": [
+      "E01",
+      "E02"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 is the proposed context and expresses CTCF, but matching HepG2 ChIP-seq has no peak at the variant; occupancy or activity in this context is not established.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "CYP7A1 has a plausible connection to LDL-C: cited mouse studies report that restoring CYP7A1 can reduce plasma LDL-C and that CYP7A1 mediates an LDL-C effect. This does not connect this variant or a regulatory effect at this site to LDL-C; the supplied Open Targets query reports no association with free cholesterol in large LDL.",
+     "evidence_ids": [
+      "E11",
+      "E12e",
+      "E12f"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "In relevant liver cells, allele-specific CTCF occupancy at the variant is greater on T than G.",
+    "Editing the variant changes CYP7A1 expression, whereas it does not produce the FAM110B-specific expression effect predicted by H2."
+   ],
+   "falsified_if": [
+    "A sufficiently powered allele-specific assay in relevant liver cells finds no T-over-G CTCF occupancy difference.",
+    "Variant editing has no reproducible effect on CYP7A1 expression."
+   ],
+   "probability": 0.04,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H2",
+   "title": "Hypothetical CTCF effect on FAM110B regulation",
+   "is_null": false,
+   "tf": "CTCF",
+   "allele_binding_more": "alt",
+   "element": "A possible CTCF-associated element overlapping the variant; its regulatory function in liver cells is unestablished.",
+   "target_gene": "FAM110B",
+   "cell_type": "Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "This low-confidence subhypothesis also assigns stronger CTCF binding to T than G. No QBiC-SELEX allele-effect result for CTCF is supplied, and the ChIP evidence shows occupancy only in LNCaP, not the matching HepG2 biosample; the direction is not supported by the evidence.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant overlaps a CTCF ChIP peak in LNCaP, but no cCRE overlaps it and this does not establish a functional regulatory element in liver cells.",
+     "evidence_ids": [
+      "E03",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is about 421 kb away and is a candidate based on proximity. A literature search found a study of variants associated with differential cardiovascular event reduction by pravastatin, but this does not establish regulation of FAM110B by this site or an LDL-C mechanism.",
+     "evidence_ids": [
+      "E02",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 is the proposed context and expresses CTCF, but matching HepG2 ChIP-seq has no peak at the variant; occupancy or activity in this context is not established.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The supplied FAM110B literature result concerns differential cardiovascular event reduction by pravastatin, not a demonstrated FAM110B-to-LDL-C mechanism or an effect of this variant.",
+     "evidence_ids": [
+      "E09"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "In relevant liver cells, allele-specific CTCF occupancy at the variant is greater on T than G.",
+    "Variant editing changes FAM110B expression, whereas it does not produce the CYP7A1-specific expression effect predicted by H1."
+   ],
+   "falsified_if": [
+    "A sufficiently powered allele-specific assay in relevant liver cells finds no T-over-G CTCF occupancy difference.",
+    "Variant editing has no reproducible effect on FAM110B expression."
+   ],
+   "probability": 0.01,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.01,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.01,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.98,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E05 reports a CTCF ChIP peak overlapping the variant in LNCaP, but not in the matching HepG2 biosample (E04); neither provides allele-specific occupancy. No QBiC-SELEX result supports T-over-G binding, so the proposed direction is speculative."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "weak",
+   "reason": "The variant overlaps a CTCF peak in LNCaP (E05), which is consistent with local binding, but no cCRE overlaps the site (E03) and the peak does not establish a functional regulatory element in the proposed liver-cell context."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "CYP7A1 is listed within 1 Mb (E02), but distance alone does not show that the site regulates CYP7A1; it is also farther from the variant than several listed genes."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "CTCF expression in Hep 3B2.1-7 is reported in E05, but the matching HepG2 assay has no CTCF peak at the variant (E04). Expression alone does not establish occupancy or regulatory activity in this context."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links this variant, the proposed regulatory effect, or CYP7A1 to LDL cholesterol."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E05 reports a CTCF ChIP peak overlapping the variant in LNCaP, but not in the matching HepG2 biosample (E04); neither provides allele-specific occupancy. No QBiC-SELEX result supports G-over-T binding, so the proposed direction is speculative."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "The variant overlaps a CTCF peak in LNCaP (E05), which is consistent with local binding, but no cCRE overlaps the site (E03) and the peak does not establish a functional regulatory element in the proposed liver-cell context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "CYP7A1 is listed within 1 Mb (E02), but distance alone does not show that the site regulates CYP7A1; it is also farther from the variant than several listed genes."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "CTCF expression in Hep 3B2.1-7 is reported in E05, but the matching HepG2 assay has no CTCF peak at the variant (E04). Expression alone does not establish occupancy or regulatory activity in this context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links this variant, the proposed regulatory effect, or CYP7A1 to LDL cholesterol."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "The variant-overlapping CTCF ChIP peak is in LNCaP, not the relevant liver context, and no QBiC-SELEX allele-effect result is supplied. Neither qualifying occupancy evidence nor a directional binding-change result supports stronger binding on T."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "weak",
+   "reason": "A CTCF ChIP peak overlaps the variant in LNCaP, but no cCRE overlaps it and the evidence does not establish a functional regulatory element in liver cells."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "CYP7A1 is about 927 kb away, but the cited evidence provides no connection between the variant or the overlapping site and CYP7A1 regulation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence reports CTCF expression in the proposed context and no variant-overlapping peak in matching HepG2; the only reported peak is in LNCaP. This supports the claim that occupancy or activity in the proposed context is not established."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "The cited mouse studies report that restoring CYP7A1 reduces plasma LDL-C and that the LDL-C effect of Hdac9 knockdown depends on Cyp7a1. This supports a CYP7A1\u2013LDL-C connection, but not a connection from this variant to that effect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "The variant-overlapping CTCF ChIP peak is in LNCaP, not the relevant liver context, and no QBiC-SELEX allele-effect result is supplied. Neither qualifying occupancy evidence nor a directional binding-change result supports stronger binding on T."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "A CTCF ChIP peak overlaps the variant in LNCaP, but no cCRE overlaps it and the evidence does not establish a functional regulatory element in liver cells."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is about 421 kb away, which makes it a proximity-based candidate only. The cited study title does not connect this variant or site to FAM110B regulation."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence reports CTCF expression in the proposed context and no variant-overlapping peak in matching HepG2; the only reported peak is in LNCaP. This supports the claim that occupancy or activity in the proposed context is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The cited search result concerns variants and differential cardiovascular event reduction by pravastatin; it provides no evidence for a FAM110B-to-LDL-C mechanism or an effect of this variant."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Liver\"}",
+   "resolves": "H1.gene",
+   "why": "A liver eQTL result for this variant could provide genetic evidence connecting the variant to gene expression, though it would not by itself establish CYP7A1 as the target."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"CYP7A1\"}",
+   "resolves": "H1.phenotype",
+   "why": "Disease-association evidence for CYP7A1 and LDL cholesterol would help assess the proposed gene-to-phenotype link."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"CYP7A1 LDL cholesterol\"}",
+   "resolves": "H2.phenotype",
+   "why": "Relevant literature quotes could provide direct evidence for or against a CYP7A1\u2013LDL relationship and clarify whether the cited association is pertinent to this hypothesis."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Liver"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "CYP7A1"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "CYP7A1 LDL cholesterol"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Measure allele-specific CTCF occupancy at the variant in a relevant liver-cell model, using targeted CUT&RUN or ChIP-qPCR.",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Predicts greater CTCF occupancy on T than G."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Predicts greater CTCF occupancy on T than G."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "Predicts no consequential allele-specific CTCF occupancy difference."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Edit the variant in an appropriate liver-cell model and measure CYP7A1 and FAM110B expression.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Predicts a reproducible CYP7A1 expression effect."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Predicts a reproducible FAM110B expression effect."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "Predicts no reproducible variant-dependent effect on either gene."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Test whether variant editing changes an LDL-related cellular phenotype, alongside gene-expression measurements.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Predicts an LDL-related effect accompanied by a CYP7A1 expression change."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Predicts an LDL-related effect accompanied by a FAM110B expression change."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "Predicts no reproducible variant-dependent LDL-related effect."
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Perform targeted allele-specific CTCF CUT&RUN or ChIP-qPCR at the variant in a relevant liver-cell model. It is the cheapest listed test that separates the two highest-probability chains, H0 and H1.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr8:57573391:G>T: 1 peaks contain the variant, from 1 factors in 1 biosamples. In the matching biosample HepG2 (HepG2 stands in for Hep 3B2.1-7 (both liver cancer lines)): 0 peaks from 0 factors. No cCRE contains the variant. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): none. Bound, expressed TFs with a binding model: 1; listed one per row: CTCF. Assayed with no peak here: 382 TFs in the matching biosample, 190 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: LNCAP (e.g. ENCSR673WZL). 32.01 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 162 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E10",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38 in tissues matching 'Liver'. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E11",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between CYP7A1 and free cholesterol in large LDL measurement (EFO_0022176)."
+  },
+  {
+   "id": "E12",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=CYP7A1%20LDL%20cholesterol&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 3955 hits for 'CYP7A1 LDL cholesterol'; top 6 with PMIDs:\nPMID 42754810 (2026): CRISPR/dCas9-induced upregulation of endogenous apolipoprotein A1 and paraoxonase 1 genes reduces the aortic lipid deposits in apoE&lt;sup&gt;-/-&lt;/sup&gt; mice.\nPMID 42650834 (2026): Freeze-Dried &lt;i&gt;Poecilobdella manillensis&lt;/i&gt; Powder Regulates Cholesterol Homeostasis to Alleviate Hyperlipidemia.\nPMID 42796552 (2026): Modulation of Hepatic Cholesterol-Related Pathways by &lt;i&gt;Ophiocordyceps sinensis&lt;/i&gt; and Coenzyme Q10 in a Sequential Gut-Liver In Vitro Model.\nPMID 42397177 (2026): HDAC9 promotes atherosclerosis by suppressing CYP7A1 and impairing hepatic cholesterol excretion.\nPMID 42721809 (2026): Thermosonication-induced structural remodeling of faba bean protein: Improved functionality, digestibility, and cholesterol metabolism regulation for cardiovascular health.\nPMID 42819684 (2026): &lt;i&gt;Lactobacillus plantarum&lt;/i&gt; and &lt;i&gt;Bacillus licheniformis&lt;/i&gt; Ameliorate High-Carbohydrate-High-Fat-Induced Glycolipid Disorders in Common Carp in Association With the Gut Microbiota and Bile Acid Axis."
+  },
+  {
+   "id": "E12a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42754810",
+   "url": "https://europepmc.org/article/MED/42754810",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "These mice also exhibited high levels of hepatic, gallbladder and feces cholesterol, in part due to the upregulation of hepatic scavenger receptor class-B1, cholesterol 7-alpha-hydroxylase, and ATP-binding cassette sub-family-G-member-8 transporter."
+  },
+  {
+   "id": "E12b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42650834",
+   "url": "https://europepmc.org/article/MED/42650834",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "FDPMP administration significantly improved serum lipid profiles by reducing triglycerides, total cholesterol, and low-density lipoprotein cholesterol, while increasing high-density lipoprotein cholesterol levels."
+  },
+  {
+   "id": "E12c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42650834",
+   "url": "https://europepmc.org/article/MED/42650834",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Mechanistically, FDPMP restored cholesterol homeostasis through dual regulation of cholesterol metabolism, characterized by upregulation of cholesterol 7\u03b1-hydroxylase (CYP7A1) to promote bile acid-mediated cholesterol excretion, alongside downregulation of 3-hydroxy-3-methylglutaryl-CoA reductase (HMGCR) and synthase (HMGCS1) to inhibit cholesterol biosynthesis."
+  },
+  {
+   "id": "E12d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42796552",
+   "url": "https://europepmc.org/article/MED/42796552",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "These functional outcomes were accompanied by coordinated changes in protein abundance: a decrease in sterol regulatory element-binding protein 2 (SREBP-2), 3-hydroxy-3-methylglutaryl-CoA reductase (HMGR), and proprotein convertase subtilisin/kexin type 9 (PCSK9) levels, alongside increased low-density lipoprotein receptor (LDLR), cytochrome P450 family 7 subfamily A member 1 (CYP7A1), and ATP-binding cassette transporter A1 (ABCA1) expression."
+  },
+  {
+   "id": "E12e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42397177",
+   "url": "https://europepmc.org/article/MED/42397177",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Pharmacological inhibition of HDAC9 (TMP195) or liver-targeted AAV8-shHdac9 knockdown restored CYP7A1 expression, reduced plasma LDL-C, and attenuated aortic plaque burden in HFD-fed ApoE-/- mice."
+  },
+  {
+   "id": "E12f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42397177",
+   "url": "https://europepmc.org/article/MED/42397177",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Mechanistically, HDAC9 transcriptionally represses Cyp7a1, as the cholesterol-lowering effect of Hdac9 knockdown was abolished by concomitant Cyp7a1 silencing."
+  },
+  {
+   "id": "E12g",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42721809",
+   "url": "https://europepmc.org/article/MED/42721809",
+   "retrieved_utc": "2026-10-26T20:24:27+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The expression analyses further confirmed that UH-FPI upregulated the expression of cholesterol efflux-related proteins (ABCG5 and ABCG8), hepatic cholesterol metabolism regulators (LXR-\u03b1, CYP7A1, and LDL-R), and downregulated the expression of the intestinal cholesterol uptake-related protein NPC1L1 upon normalization with the HF group."
+  }
+ ]
+}

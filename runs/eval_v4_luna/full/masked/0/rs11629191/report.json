@@ -1,0 +1,1431 @@
+{
+ "case_id": "rs11629191",
+ "variant": "rs11629191",
+ "variant_key": "chr14:55887040:C>T",
+ "disease": "Breast cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0174,
+ "seconds": 208.8,
+ "model_calls": 13,
+ "screen": {
+  "n_pass": 445,
+  "counts": {
+   "occupied": 0,
+   "unknown": 113,
+   "occupied_strong_site": 0,
+   "occupied_not_expressed": 0,
+   "unbound_assayed_here": 65,
+   "unbound_assayed_elsewhere": 508,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": true,
+  "occupied": [],
+  "unknown": [
+   {
+    "tf": "CREB3L2",
+    "z": -60.99
+   },
+   {
+    "tf": "CREB3L4",
+    "z": -49.16
+   },
+   {
+    "tf": "TET3",
+    "z": -44.11
+   },
+   {
+    "tf": "MEIS3",
+    "z": -38.69
+   },
+   {
+    "tf": "TGIF1",
+    "z": -38.69
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H0",
+   "title": "Null: no TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No reproducible variant-dependent TF occupancy and regulatory effect will be found in relevant breast cells. Any disease association, if present, would need another explanation, such as a linked causal variant."
+   ],
+   "falsified_if": [
+    "A reproducible effect of this base on TF occupancy and gene regulation is shown in relevant cells, with evidence that the effect depends on a named TF."
+   ],
+   "probability": 0.96,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Speculative CREB3L4-mediated regulation",
+   "is_null": false,
+   "tf": "CREB3L4",
+   "allele_binding_more": "ref",
+   "element": "A regulatory element overlapping the variant is required by this chain but is not supported by the supplied annotations.",
+   "target_gene": null,
+   "cell_type": "MCF7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CREB3L4 is expressed in MCF7, and its own QBiC-SELEX model predicts stronger in-vitro binding to ref C than alt T; a CREB3L2-mapped model gives the same direction. Neither result establishes occupancy, and no CREB3L4 peak at the variant is reported.",
+     "evidence_ids": [
+      "E11",
+      "E15",
+      "E16",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "A regulatory element at the variant is only a possibility: no regulatory feature or cCRE overlaps it, and no TF ChIP-seq peak contains it.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is established. PELI2 and other genes are nearby, but proximity does not show regulation by this variant; the reported molecular QTL is in brain and has low PIP.",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MCF7 is a plausible context because CREB3L4 is expressed there, but locus occupancy or regulatory activity in MCF7 is not demonstrated.",
+     "evidence_ids": [
+      "E11",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A breast-cancer effect through this variant is unestablished. CREB3L4 literature cited here concerns gastric cancer, not a demonstrated breast-cancer effect of this variant.",
+     "evidence_ids": [
+      "E05",
+      "E17",
+      "E18a",
+      "E18b"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "A targeted assay should find CREB3L4-dependent, ref-favoring activity from the variant sequence; that activity should diminish when CREB3L4 is reduced.",
+    "This chain predicts a CREB3L4-dependent effect, unlike the TGIF1- or TET3-specific effects proposed by H2 and H3; it does not specify a target gene."
+   ],
+   "falsified_if": [
+    "Sensitive assays in relevant cells find no CREB3L4 occupancy or no ref-favoring allele-specific effect.",
+    "A reproducible allele-dependent regulatory signal is unchanged by CREB3L4 perturbation."
+   ],
+   "probability": 0.025,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CREB3L4"
+  },
+  {
+   "id": "H3",
+   "title": "Speculative TET3-mediated regulation",
+   "is_null": false,
+   "tf": "TET3",
+   "allele_binding_more": "ref",
+   "element": "A regulatory element overlapping the variant is required by this chain but is not supported by the supplied annotations.",
+   "target_gene": null,
+   "cell_type": "MCF7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TET3 is expressed in MCF7. A QBiC-SELEX model mapped from CXXC4 predicts stronger in-vitro binding to ref C than alt T; this is not a TET3-specific model, and no occupancy at the variant is shown.",
+     "evidence_ids": [
+      "E12",
+      "E04",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "A regulatory element at the variant is only a possibility: no regulatory feature or cCRE overlaps it, and no TF ChIP-seq peak contains it.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is established. Nearby genes are not shown to be regulated by this variant, and the reported low-PIP molecular QTL is in brain.",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MCF7 is a plausible context because TET3 is expressed there, but TET3 occupancy or regulatory activity at this locus is not demonstrated.",
+     "evidence_ids": [
+      "E12",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The supplied literature gives breast-cancer context for TET-family changes and reports a TET3-related demethylation pathway implicated in TNBC progression. This makes a TET3 disease role biologically plausible, but does not connect this variant or its predicted binding change to that role.",
+     "evidence_ids": [
+      "E20a",
+      "E20b",
+      "E20c",
+      "E20d",
+      "E20e",
+      "E20f"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If this chain is correct, a TET3-specific assay should show ref-favoring occupancy or activity, and perturbing TET3 should reduce the allele-dependent effect.",
+    "The effect should depend on TET3 rather than CREB3L4 or TGIF1; no target gene is specified."
+   ],
+   "falsified_if": [
+    "TET3-specific occupancy or allele-dependent activity is absent in relevant cells.",
+    "TET3 perturbation does not change a reproducible allele-dependent regulatory signal."
+   ],
+   "probability": 0.01,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TET3"
+  },
+  {
+   "id": "H2",
+   "title": "Speculative TGIF1-mediated regulation",
+   "is_null": false,
+   "tf": "TGIF1",
+   "allele_binding_more": "ref",
+   "element": "A regulatory element overlapping the variant is required by this chain but is not supported by the supplied annotations.",
+   "target_gene": null,
+   "cell_type": "MCF7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TGIF1 is expressed in MCF7. A QBiC-SELEX model mapped from TGIF2 predicts stronger in-vitro binding to ref C than alt T; this is not a TGIF1-specific model, and no occupancy at the variant is shown.",
+     "evidence_ids": [
+      "E14",
+      "E04",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "A regulatory element at the variant is only a possibility: no regulatory feature or cCRE overlaps it, and no TF ChIP-seq peak contains it.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "No target gene is established; gene proximity does not show that the variant regulates PELI2 or another nearby gene.",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MCF7 is a plausible context because TGIF1 is expressed there, but TGIF1 occupancy or regulatory activity at this locus is not demonstrated.",
+     "evidence_ids": [
+      "E14",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The supplied literature includes breast-cancer-related findings involving MEIS inhibitors and TGIF1 expression, but does not show that TGIF1 perturbation mediates a breast-cancer phenotype at this variant.",
+     "evidence_ids": [
+      "E05",
+      "E19a",
+      "E19b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If this chain is correct, a TGIF1-specific assay should show ref-favoring occupancy or activity, and perturbing TGIF1 should reduce the allele-dependent effect.",
+    "The effect should depend on TGIF1 rather than CREB3L4 or TET3; no target gene is specified."
+   ],
+   "falsified_if": [
+    "TGIF1-specific occupancy or allele-dependent activity is absent in relevant cells.",
+    "TGIF1 perturbation does not change a reproducible allele-dependent regulatory signal."
+   ],
+   "probability": 0.005,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TGIF1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.9,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "CREB3L4",
+   "is_null": false,
+   "probability": 0.04,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "TGIF1",
+   "is_null": false,
+   "probability": 0.035,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "TET3",
+   "is_null": false,
+   "probability": 0.025,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11 reports a QBiC-SELEX change favoring ref C, but occupancy is unknown and E04 reports no ChIP peak at the variant. The best-scoring model is mapped from CREB3L2, so the prediction is not direct evidence of CREB3L4 binding."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "missing",
+   "reason": "E01, E03, and E04 report no overlapping regulatory feature or cCRE. The proposed unannotated element is a hypothesis, not evidence that an element exists."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 establishes proximity only. It provides no evidence that the variant or hypothetical element regulates PELI2."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E11 directly reports CREB3L4 expression in MCF7, supporting its nomination as an expression context. This does not establish locus occupancy or activity there; E04 reports no peak."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects this variant, proposed regulation, or PELI2 to breast cancer in this case."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E14 reports a QBiC-SELEX change favoring ref C, but occupancy is unknown and E04 reports no ChIP peak at the variant. The best-scoring model is mapped from TGIF2, so the prediction is not direct evidence of TGIF1 binding."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "E01, E03, and E04 report no overlapping regulatory feature or cCRE. The proposed unannotated element is a hypothesis, not evidence that an element exists."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 establishes proximity only. It provides no evidence that the variant or hypothetical element regulates PELI2."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E14 directly reports TGIF1 expression in MCF7, supporting its nomination as an expression context. This does not establish locus occupancy or activity there; E04 reports no peak."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects this variant, proposed regulation, or PELI2 to breast cancer in this case."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 reports a QBiC-SELEX change favoring ref C, but occupancy is unknown and E04 reports no ChIP peak at the variant. The best-scoring model is mapped from CXXC4, so the prediction is not direct evidence of TET3 binding."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "missing",
+   "reason": "E01, E03, and E04 report no overlapping regulatory feature or cCRE. The proposed unannotated element is a hypothesis, not evidence that an element exists."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 establishes proximity only. It provides no evidence that the variant or hypothetical element regulates PELI2."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E12 directly reports TET3 expression in MCF7, supporting its nomination as an expression context. This does not establish locus occupancy or activity there; E04 reports no peak."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects this variant, proposed regulation, or PELI2 to breast cancer in this case."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts stronger in-vitro binding to ref C, including a CREB3L4 own-model result, but no occupancy at the variant is shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "missing",
+   "reason": "No regulatory feature or cCRE overlaps the variant, and no TF ChIP-seq peak contains it."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "No target gene is linked to the variant. Nearby genes, including PELI2, are not evidence of variant-mediated regulation; the reported low-PIP QTL is in brain."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "CREB3L4 expression in MCF7 makes the context plausible, but does not show locus occupancy or regulatory activity there."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The cited CREB3L4 cancer evidence concerns gastric cancer, not a breast-cancer effect of this variant. The PELI2 disease score is also not evidence for a CREB3L4-mediated variant effect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "A TGIF2-mapped QBiC-SELEX model predicts stronger in-vitro binding to ref C, but it is not a TGIF1-specific model and there is no occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "No regulatory feature or cCRE overlaps the variant, and no TF ChIP-seq peak contains it."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "missing",
+   "reason": "No target gene is linked to the variant; proximity does not establish regulation of PELI2 or another nearby gene."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TGIF1 expression in MCF7 supports context plausibility, but TGIF1 occupancy or regulatory activity at this locus is not shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited breast-cancer-related evidence mentions MEIS inhibitors and TGIF1 expression, but does not show that TGIF1 mediates a breast-cancer phenotype at this variant."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "A CXXC4-mapped QBiC-SELEX model predicts stronger in-vitro binding to ref C, but it is not a TET3-specific model and there is no occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "missing",
+   "reason": "No regulatory feature or cCRE overlaps the variant, and no TF ChIP-seq peak contains it."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "No target gene is linked to the variant. Nearby genes are not shown to be regulated by it, and the reported low-PIP QTL is in brain."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TET3 expression in MCF7 supports context plausibility, but TET3 occupancy or regulatory activity at this locus is not shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited evidence gives TET3 a breast-cancer and TNBC context, but does not connect this variant or its predicted binding change to that phenotype."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"CREB3L4\"}",
+   "resolves": "H1.binding",
+   "why": "Clarify the model coverage and predictions for the nominated TF, including whether any result is specifically attributable to CREB3L4 rather than the mapped CREB3L2 model."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CREB3L4\",\"biosample\":\"MCF-7\"}",
+   "resolves": "H1.binding",
+   "why": "Check for variant-overlapping occupancy evidence in the nominated cell context; such evidence would materially change the weak binding grade."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"PELI2\"}",
+   "resolves": "H1.phenotype",
+   "why": "Assess whether there is gene-level breast-cancer association evidence relevant to the proposed downstream link."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "round": 1,
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "CREB3L4"
+   },
+   "key": "qbic_tf_detail({\"tf\":\"CREB3L4\"})",
+   "resolves": "H1.binding",
+   "expected": "If the detail confirms that the ref-favoring prediction is not specifically supported by a CREB3L4 model, H1.binding remains weak and H1 gains no advantage over the alternatives; a direct CREB3L4-specific prediction would strengthen that link, though occupancy would still be unshown.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E15"
+  },
+  {
+   "round": 1,
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CREB3L4",
+    "biosample": "MCF-7"
+   },
+   "key": "chip_peaks({\"biosample\":\"MCF-7\",\"tf\":\"CREB3L4\"})",
+   "resolves": "H1.binding",
+   "expected": "A peak overlapping the variant in MCF-7 would add occupancy support and strengthen H1.binding; no peak would leave the QBiC-SELEX result unsupported by occupancy and H1 weak.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E16"
+  },
+  {
+   "round": 1,
+   "tool": "gene_disease",
+   "args": {
+    "gene": "PELI2"
+   },
+   "key": "gene_disease({\"gene\":\"PELI2\"})",
+   "resolves": "H1.phenotype",
+   "expected": "Breast-cancer association evidence for PELI2 could strengthen the proposed phenotype link, while no relevant association would leave it unsupported; either result would be gene-level evidence, not proof that this variant regulates PELI2.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E17"
+  },
+  {
+   "round": 2,
+   "tool": "literature_search",
+   "args": {
+    "query": "CREB3L4 breast cancer"
+   },
+   "key": "literature_search({\"query\":\"CREB3L4 breast cancer\"})",
+   "resolves": "H1.phenotype",
+   "expected": "If the abstracts report CREB3L4 perturbation affecting breast-cancer-relevant phenotypes, H1.phenotype gains support and H1 rises modestly; if not, it remains unsupported.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E18"
+  },
+  {
+   "round": 2,
+   "tool": "literature_search",
+   "args": {
+    "query": "TGIF1 breast cancer"
+   },
+   "key": "literature_search({\"query\":\"TGIF1 breast cancer\"})",
+   "resolves": "H2.phenotype",
+   "expected": "If the abstracts report TGIF1 perturbation affecting breast-cancer-relevant phenotypes, H2.phenotype gains support; otherwise H2 remains weak and unsupported at this link.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E19"
+  },
+  {
+   "round": 2,
+   "tool": "literature_search",
+   "args": {
+    "query": "TET3 breast cancer"
+   },
+   "key": "literature_search({\"query\":\"TET3 breast cancer\"})",
+   "resolves": "H3.phenotype",
+   "expected": "If the abstracts report TET3 perturbation affecting breast-cancer-relevant phenotypes, H3.phenotype gains support; otherwise H3 remains weak and unsupported at this link.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E20"
+  }
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "calls": [
+    {
+     "round": 1,
+     "tool": "qbic_tf_detail",
+     "args": {
+      "tf": "CREB3L4"
+     },
+     "key": "qbic_tf_detail({\"tf\":\"CREB3L4\"})",
+     "resolves": "H1.binding",
+     "expected": "If the detail confirms that the ref-favoring prediction is not specifically supported by a CREB3L4 model, H1.binding remains weak and H1 gains no advantage over the alternatives; a direct CREB3L4-specific prediction would strengthen that link, though occupancy would still be unshown.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E15"
+    },
+    {
+     "round": 1,
+     "tool": "chip_peaks",
+     "args": {
+      "tf": "CREB3L4",
+      "biosample": "MCF-7"
+     },
+     "key": "chip_peaks({\"biosample\":\"MCF-7\",\"tf\":\"CREB3L4\"})",
+     "resolves": "H1.binding",
+     "expected": "A peak overlapping the variant in MCF-7 would add occupancy support and strengthen H1.binding; no peak would leave the QBiC-SELEX result unsupported by occupancy and H1 weak.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E16"
+    },
+    {
+     "round": 1,
+     "tool": "gene_disease",
+     "args": {
+      "gene": "PELI2"
+     },
+     "key": "gene_disease({\"gene\":\"PELI2\"})",
+     "resolves": "H1.phenotype",
+     "expected": "Breast-cancer association evidence for PELI2 could strengthen the proposed phenotype link, while no relevant association would leave it unsupported; either result would be gene-level evidence, not proof that this variant regulates PELI2.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E17"
+    }
+   ],
+   "planner_note": "",
+   "check_results": [
+    {
+     "call": "qbic_tf_detail({\"tf\":\"CREB3L4\"})",
+     "observed": "E15 reports a CREB3L4 own-model QBiC-SELEX effect favoring ref C (effect -1.314), as well as a stronger ref-favoring prediction from a model mapped from CREB3L2. This modestly strengthens the CREB3L4 binding prediction, but does not establish occupancy.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "chip_peaks({\"tf\":\"CREB3L4\",\"biosample\":\"MCF-7\"})",
+     "observed": "E16 reports no CREB3L4 ChIP-seq peak containing the variant in MCF-7 and no peak within 100 bp that contains it; absence may also reflect lack of a CREB3L4 experiment in that biosample.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "gene_disease({\"gene\":\"PELI2\"})",
+     "observed": "E17 reports an Open Targets overall score of 0.00 for PELI2 and breast cancer, with literature evidence score 0.01.",
+     "as_expected": "yes"
+    }
+   ],
+   "chains": [
+    {
+     "id": "H0",
+     "tf": null,
+     "is_null": true,
+     "probability": 0.94
+    },
+    {
+     "id": "H1",
+     "tf": "CREB3L4",
+     "is_null": false,
+     "probability": 0.035
+    },
+    {
+     "id": "H2",
+     "tf": "TGIF1",
+     "is_null": false,
+     "probability": 0.015
+    },
+    {
+     "id": "H3",
+     "tf": "TET3",
+     "is_null": false,
+     "probability": 0.01
+    }
+   ],
+   "grades": [
+    {
+     "hypothesis_id": "H1",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E15 reports a CREB3L4 own-model QBiC-SELEX change favoring ref C, and a CREB3L2-mapped model with the same direction; E11 also reports the mapped prediction. But E16 reports no CREB3L4 peak at the variant in MCF-7, and the predictions do not establish occupancy."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "element",
+     "status": "missing",
+     "reason": "The cited annotations report no regulatory feature or cCRE overlapping the variant and no TF peak containing it. They provide no evidence that an unannotated regulatory element is present."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "gene",
+     "status": "missing",
+     "reason": "E02 establishes proximity for PELI2 and other genes, but no cited evidence links the variant or a regulatory element to a target gene."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "E11 supports CREB3L4 expression in MCF7, making the context plausible, but E16 provides no locus occupancy and no cited evidence demonstrates regulatory activity there."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "phenotype",
+     "status": "missing",
+     "reason": "E05 reports no GWAS association and E17 reports an Open Targets overall score of 0.00 for PELI2 and breast cancer. Neither establishes a breast-cancer effect of this variant or CREB3L4-mediated regulation."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E14 reports a QBiC-SELEX change favoring ref C, but the model is mapped from TGIF2 rather than specific to TGIF1. E04 reports no TF peak containing the variant, so occupancy is unsupported."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "element",
+     "status": "missing",
+     "reason": "The cited annotations report no regulatory feature or cCRE overlapping the variant and no TF peak containing it. They provide no evidence for an unannotated regulatory element."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "gene",
+     "status": "missing",
+     "reason": "E02 gives gene distances but does not show that the variant regulates PELI2 or any other gene."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "E14 supports TGIF1 expression in MCF7, but E04 reports no occupancy at the locus and no regulatory activity in this context is demonstrated."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "phenotype",
+     "status": "missing",
+     "reason": "E05 reports no GWAS association, and the cited evidence does not connect TGIF1-mediated regulation to a breast-cancer phenotype."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E12 reports a QBiC-SELEX change favoring ref C, but the model is mapped from CXXC4 rather than specific to TET3. E04 reports no TF peak containing the variant, so occupancy is unsupported."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "element",
+     "status": "missing",
+     "reason": "The cited annotations report no regulatory feature or cCRE overlapping the variant and no TF peak containing it. They provide no evidence for an unannotated regulatory element."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "gene",
+     "status": "missing",
+     "reason": "E02 gives gene distances but does not show that the variant regulates PELI2 or any other gene."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "E12 supports TET3 expression in MCF7, but E04 reports no occupancy at the locus and no regulatory activity in this context is demonstrated."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "phenotype",
+     "status": "missing",
+     "reason": "E05 reports no GWAS association, and the cited evidence does not connect TET3-mediated regulation to a breast-cancer phenotype."
+    }
+   ],
+   "grades_changed": [
+    "H1.cell_type: supported \u2192 weak",
+    "H2.cell_type: supported \u2192 weak",
+    "H3.cell_type: supported \u2192 weak"
+   ],
+   "max_probability_change": 0.04,
+   "problems": [
+    "All three binding links rely on in-vitro QBiC-SELEX predictions without occupancy evidence. The predicted direction is consistent across the chains (ref C binds more), but no allele-dependent regulatory effect on a gene or phenotype is shown.",
+    "The element, target-gene, and phenotype links remain unsupported. Proximity to PELI2 does not establish it as the target, and the cited evidence provides no variant-to-gene connection.",
+    "TGIF1 and TET3 are selected using models mapped from related TFs (TGIF2 and CXXC4, respectively); these predictions do not establish binding specificity for the named TFs. The evidence also gives no reason to prefer these candidates over other TFs with predicted changes.",
+    "Expression in MCF7 supports that the TFs are present in that context, but does not establish locus activity or a relevant regulatory effect there."
+   ],
+   "critic_checks": [
+    {
+     "tool": "literature_search",
+     "args_json": "{\"query\":\"CREB3L4 breast cancer\"}",
+     "resolves": "H1.phenotype",
+     "why": "Could find quoted evidence of CREB3L4 perturbation or breast-cancer relevance that changes the phenotype assessment, although it would not by itself establish this variant's mechanism."
+    },
+    {
+     "tool": "literature_search",
+     "args_json": "{\"query\":\"TGIF1 breast cancer\"}",
+     "resolves": "H2.phenotype",
+     "why": "Could find quoted evidence of TGIF1 perturbation or breast-cancer relevance that changes the phenotype assessment, although it would not establish variant-specific regulation."
+    },
+    {
+     "tool": "literature_search",
+     "args_json": "{\"query\":\"TET3 breast cancer\"}",
+     "resolves": "H3.phenotype",
+     "why": "Could find quoted evidence of TET3 perturbation or breast-cancer relevance that changes the phenotype assessment, although it would not establish variant-specific regulation."
+    }
+   ]
+  },
+  {
+   "round": 2,
+   "calls": [
+    {
+     "round": 2,
+     "tool": "literature_search",
+     "args": {
+      "query": "CREB3L4 breast cancer"
+     },
+     "key": "literature_search({\"query\":\"CREB3L4 breast cancer\"})",
+     "resolves": "H1.phenotype",
+     "expected": "If the abstracts report CREB3L4 perturbation affecting breast-cancer-relevant phenotypes, H1.phenotype gains support and H1 rises modestly; if not, it remains unsupported.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E18"
+    },
+    {
+     "round": 2,
+     "tool": "literature_search",
+     "args": {
+      "query": "TGIF1 breast cancer"
+     },
+     "key": "literature_search({\"query\":\"TGIF1 breast cancer\"})",
+     "resolves": "H2.phenotype",
+     "expected": "If the abstracts report TGIF1 perturbation affecting breast-cancer-relevant phenotypes, H2.phenotype gains support; otherwise H2 remains weak and unsupported at this link.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E19"
+    },
+    {
+     "round": 2,
+     "tool": "literature_search",
+     "args": {
+      "query": "TET3 breast cancer"
+     },
+     "key": "literature_search({\"query\":\"TET3 breast cancer\"})",
+     "resolves": "H3.phenotype",
+     "expected": "If the abstracts report TET3 perturbation affecting breast-cancer-relevant phenotypes, H3.phenotype gains support; otherwise H3 remains weak and unsupported at this link.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E20"
+    }
+   ],
+   "planner_note": "",
+   "check_results": [
+    {
+     "call": "literature_search({\"query\":\"CREB3L4 breast cancer\"}) for H1.phenotype",
+     "observed": "The results describe CREB3L4 regulation of BAG3 and effects on autophagy and cisplatin resistance in gastric cancer cells, not a demonstrated breast-cancer effect. H1.phenotype remains unsupported for this variant.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "literature_search({\"query\":\"TGIF1 breast cancer\"}) for H2.phenotype",
+     "observed": "The results include a breast-cancer-cell study reporting TGIF1 upregulation alongside MEIS inhibition and a computational MCF7 network result, but no direct TGIF1 perturbation establishing a breast-cancer phenotype through this variant. H2 remains weak at this link.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "literature_search({\"query\":\"TET3 breast cancer\"}) for H3.phenotype",
+     "observed": "The results provide breast-cancer context for TET3, including reported TET3-related demethylation and TNBC progression, but do not connect this variant or its predicted binding change to the phenotype. This modestly supports biological plausibility, not the full chain.",
+     "as_expected": "yes"
+    }
+   ],
+   "chains": [
+    {
+     "id": "H0",
+     "tf": null,
+     "is_null": true,
+     "probability": 0.96
+    },
+    {
+     "id": "H1",
+     "tf": "CREB3L4",
+     "is_null": false,
+     "probability": 0.025
+    },
+    {
+     "id": "H2",
+     "tf": "TGIF1",
+     "is_null": false,
+     "probability": 0.005
+    },
+    {
+     "id": "H3",
+     "tf": "TET3",
+     "is_null": false,
+     "probability": 0.01
+    }
+   ],
+   "grades": [
+    {
+     "hypothesis_id": "H1",
+     "step": "binding",
+     "status": "weak",
+     "reason": "QBiC-SELEX predicts stronger in-vitro binding to ref C, including a CREB3L4 own-model result, but no occupancy at the variant is shown."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "element",
+     "status": "missing",
+     "reason": "No regulatory feature or cCRE overlaps the variant, and no TF ChIP-seq peak contains it."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "gene",
+     "status": "missing",
+     "reason": "No target gene is linked to the variant. Nearby genes, including PELI2, are not evidence of variant-mediated regulation; the reported low-PIP QTL is in brain."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "CREB3L4 expression in MCF7 makes the context plausible, but does not show locus occupancy or regulatory activity there."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "phenotype",
+     "status": "missing",
+     "reason": "The cited CREB3L4 cancer evidence concerns gastric cancer, not a breast-cancer effect of this variant. The PELI2 disease score is also not evidence for a CREB3L4-mediated variant effect."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "binding",
+     "status": "weak",
+     "reason": "A TGIF2-mapped QBiC-SELEX model predicts stronger in-vitro binding to ref C, but it is not a TGIF1-specific model and there is no occupancy evidence."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "element",
+     "status": "missing",
+     "reason": "No regulatory feature or cCRE overlaps the variant, and no TF ChIP-seq peak contains it."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "gene",
+     "status": "missing",
+     "reason": "No target gene is linked to the variant; proximity does not establish regulation of PELI2 or another nearby gene."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "TGIF1 expression in MCF7 supports context plausibility, but TGIF1 occupancy or regulatory activity at this locus is not shown."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The cited breast-cancer-related evidence mentions MEIS inhibitors and TGIF1 expression, but does not show that TGIF1 mediates a breast-cancer phenotype at this variant."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "binding",
+     "status": "weak",
+     "reason": "A CXXC4-mapped QBiC-SELEX model predicts stronger in-vitro binding to ref C, but it is not a TET3-specific model and there is no occupancy evidence."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "element",
+     "status": "missing",
+     "reason": "No regulatory feature or cCRE overlaps the variant, and no TF ChIP-seq peak contains it."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "gene",
+     "status": "missing",
+     "reason": "No target gene is linked to the variant. Nearby genes are not shown to be regulated by it, and the reported low-PIP QTL is in brain."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "TET3 expression in MCF7 supports context plausibility, but TET3 occupancy or regulatory activity at this locus is not shown."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The cited evidence gives TET3 a breast-cancer and TNBC context, but does not connect this variant or its predicted binding change to that phenotype."
+    }
+   ],
+   "grades_changed": [
+    "H2.phenotype: missing \u2192 weak",
+    "H3.phenotype: missing \u2192 weak"
+   ],
+   "max_probability_change": 0.02,
+   "problems": [
+    "All three chains lack evidence for an overlapping regulatory element and for a variant-to-gene link; none identifies a supported target gene.",
+    "No candidate has occupancy evidence at the variant. The QBiC-SELEX results are in-vitro predictions and cannot establish binding in MCF7.",
+    "H2 and H3 rely on models mapped from related TFs (TGIF2 and CXXC4, respectively), without evidence establishing why those predictions should be attributed to TGIF1 or TET3.",
+    "The predicted binding direction is consistently ref-favoring, but no element, gene-expression effect, or phenotype direction is established to complete a directionally consistent causal chain.",
+    "The breast-cancer literature for H1 is not variant- or CREB3L4-specific; H2 and H3 have only indirect disease-context evidence."
+   ],
+   "critic_checks": [
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"CREB3L4\",\"biosample\":\"MCF-7\"}",
+     "resolves": "H1.binding",
+     "why": "Variant-overlapping CREB3L4 occupancy in the relevant cell line could add the missing occupancy evidence to the ref-favoring QBiC-SELEX result."
+    },
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"TGIF1\",\"biosample\":\"MCF-7\"}",
+     "resolves": "H2.binding",
+     "why": "A variant-overlapping TGIF1 peak could add occupancy evidence; the supplied QBiC-SELEX result alone uses a TGIF2-mapped model."
+    },
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"TET3\",\"biosample\":\"MCF-7\"}",
+     "resolves": "H3.binding",
+     "why": "A variant-overlapping TET3 peak could add occupancy evidence; the supplied QBiC-SELEX result alone uses a CXXC4-mapped model."
+    }
+   ]
+  }
+ ],
+ "stop_reason": "round 3: no new call to run (No available call is likely to change a link grade or separate the chains. ENCODE reports no variant-overlapping TF peak in any biosample (E04), so additional Factorbook checks for TGIF1 or TET3 would not supply the missing occupancy evidence. GTEx reports no significant single-tissue eQTLs (E07), and further QBiC or expression queries would not establish an element, target gene, or variant-mediated disease effect.)",
+ "matrix": [
+  {
+   "test": "Paired ref-C and alt-T reporter constructs in MCF7, tested with control treatment and CREB3L4 reduction",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allele-dependent reporter effect specifically reduced by CREB3L4 perturbation."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Ref construct has a CREB3L4-dependent activity difference relative to alt; reducing CREB3L4 weakens that difference."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No specific loss of the allele-dependent effect after CREB3L4 reduction; a TGIF1-dependent effect would require a separate test."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No specific loss of the allele-dependent effect after CREB3L4 reduction; a TET3-dependent effect would require a separate test."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-resolved CUT&RUN or equivalent occupancy assay at the locus in MCF7 for CREB3L4, TGIF1, and TET3",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible variant-overlapping occupancy supporting an allele-specific TF effect."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "CREB3L4 occupancy is detected and favors ref C."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "TGIF1 occupancy is detected and favors ref C."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "TET3 occupancy is detected and favors ref C."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Isogenic editing of C to T and T to C in MCF7, followed by expression and chromatin profiling to identify a target",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible variant-dependent chromatin or gene-expression change attributable to this base."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Editing produces a reproducible regulatory change that depends on CREB3L4; the affected target remains to be identified."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Editing produces a reproducible regulatory change that depends on TGIF1; the affected target remains to be identified."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Editing produces a reproducible regulatory change that depends on TET3; the affected target remains to be identified."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run the paired ref/alt reporter assay in MCF7 with and without CREB3L4 reduction. It is the least costly proposed test that directly distinguishes the leading non-null chain from the null, while recognizing that a reporter result would not by itself prove an endogenous target-gene or disease effect.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/14:55887040-55887040:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:32:49+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr14:55887040:C>T (GRCh38), allele string C/T\nKnown IDs: rs11629191\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -3.12\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/14:54887040-56887040?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:40+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "14 protein-coding genes within 1000 kb of chr14:55887040:C>T, by distance to TSS:\nPELI2: 230.8 kb from TSS (upstream, strand +1)\nKTN1: 328.0 kb from TSS (downstream, strand +1)\nTBPL2: 430.3 kb from TSS (upstream, strand -1)\nATG14: 475.2 kb from TSS (upstream, strand -1)\nTMEM260: 601.3 kb from TSS (upstream, strand +1)\nCHMP4BP1: 615.7 kb from TSS (downstream, strand +1)\nFBXO34: 615.7 kb from TSS (downstream, strand +1)\nDLGAP5: 695.4 kb from TSS (upstream, strand -1)\nLGALS3: 765.7 kb from TSS (downstream, strand +1)\nMAPK1IP1L: 835.4 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:13+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E1716463 (dELS) 1868 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE TF ChIP-seq peak contains chr14:55887040:C>T in any biosample. In the matching biosample MCF-7: 0 peaks from 0 factors. No cCRE contains the variant. Of the TFs with a binding model, 65 were assayed in the matching biosample and 508 only elsewhere, all without a peak here; 536 were never assayed."
+  },
+  {
+   "id": "E05",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs11629191&size=100",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs11629191, strongest first:"
+  },
+  {
+   "id": "E06",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:32:49+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 credible sets contain 14_55887040_C_T: 0 GWAS, 1 molecular QTL.\neqtl for ENSG00000259868 (gtex-v10_ge_brain_nucleus_accumbens_ensg0000025986): PIP 0.03"
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr14_55887040_C_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:02+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr14_55887040_C_T_b38. NES is the effect of the alt allele (T) relative to ref (C)."
+  },
+  {
+   "id": "E08",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PELI2%20AND%20%22breast%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 178 hits for 'PELI2 AND \"breast cancer\"'; top 7 with PMIDs:\nPMID 41023515 (2025): Pellino ubiquitin ligases: double-edged swords in hematologic malignancies-from oncogenic stabilizers to therapeutic vulnerabilities.\nPMID 41331176 (2025): Construction and validation of risk models of prognostic genes associated with parthanatos in papillary thyroid carcinoma based on bioinformatics.\nPMID 40362379 (2025): &lt;i&gt;O&lt;/i&gt;-Desmethyltramadol Enhanced Anti-Cancer Efficacy over Tramadol Through Non-\u03bc-Opioid Receptor and Differential Cellular Contexts of Human Breast Cancer Cells.\nPMID 42757486 (2026): Pemetrexed increases BRCA1 protein stability and sensitizes TNBC cells to radiotherapy.\nPMID 42734444 (2027): Anesthesia inhalation agent sevoflurane induces perioperative cognitive impairment: Apelin/early growth response 1 axis induces ferritinophagy and exacerbates ferroptosis.\nPMID 41079921 (2025): PRMT1/PRMT5-Mediated Differential Arginine Methylation of CRIP1 Promotes the Recurrence of Small Cell Lung Cancer after Chemotherapy.\nPMID 42380137 (2026): HOXC9 accelerates esophageal squamous cell carcinoma progression via OTUD1-FABP5-mediated lipid metabolic reprogramming."
+  },
+  {
+   "id": "E08a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41331176",
+   "url": "https://europepmc.org/article/MED/41331176",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "ResultsSeven prognostic genes (TSHZ3, SERGEF, AKAP12, SGPP2, ASGR1, AK1, PELI2) were identified."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr14:55887040:C>T, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000019), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 0 of 0 occupied (0 with a strong site), 5 of 113 with unknown occupancy. Left out: 65 TFs assayed in the matching biosample and 508 assayed only elsewhere, none with a peak here. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element. No ENCODE TF ChIP-seq peak contains this variant in any biosample; QBiC-SELEX changes below have no occupancy support."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CREB3L2 (bZIP, 4 models; QBiC-SELEX coverage: own model): best model CREB3L1_NA_TAAACA20NCAA_ESY_yang2017_0_3_7mer (a CIS-BP-mapped model of CREB3L1), z -60.99, effect -2.258: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 7.06 TPM, rank 534 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CREB3L4 (bZIP, 4 models; QBiC-SELEX coverage: own model): best model CREB3L2_NA_TAACGG20NGCA_ESZ_yang2017_0_4_7mer (a CIS-BP-mapped model of CREB3L2), z -49.16, effect -2.335: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 48.8 TPM, rank 68 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 91.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TET3 (CxxC, 2 models; QBiC-SELEX coverage: own model): best model CXXC4_FL_GG40NTAGTTT_YWKC_jolma2025_0_4_7mer (a CIS-BP-mapped model of CXXC4), z -44.11, effect -2.102: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 9.96 TPM, rank 419 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 98.8th, alt 70.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "MEIS3 (Homeodomain, 9 models; QBiC-SELEX coverage: own model): best model TGIF2_eDBD_TTGCAA40NGTG_KO_yin2017_0_4_7mer (a CIS-BP-mapped model of TGIF2), z -38.69, effect -2.43: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 15.61 TPM, rank 272 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.8th, alt 94.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TGIF1 (Homeodomain, 9 models; QBiC-SELEX coverage: own model): best model TGIF2_eDBD_TTGCAA40NGTG_KO_yin2017_0_4_7mer (a CIS-BP-mapped model of TGIF2), z -38.69, effect -2.43: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 39.86 TPM, rank 95 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.8th, alt 94.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"CREB3L4\",\"symbol\":\"CREB3L4\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"own_model\",\"variant\":\"chr14:55887040:C>T\",\"gate_p\":5.02e-05,\"models\":[{\"model\":\"CREB3L4_eDBD_TAGGCT40NACC_KO_yin2017_0_3_7mer\",\"mapping\":\"own\",\"group\":\"G017 bZIP, 4 models\",\"quality\":0.941,\"effect\":-1.314,\"z\":-37.55,\"p\":1.4e-308,\"rank_abs_z\":\"12/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":100.0,\"alt_percentile\":100.0,\"k\":7}},{\"model\":\"CREB3L2_NA_TAACGG20NGCA_ESZ_yang2017_0_4_7mer\",\"mapping\":\"CIS-BP (CREB3L2)\",\"group\":\"G017 bZIP, 4 models\",\"quality\":0.796,\"effect\":-2.335,\"z\":-49.16,\"p\":0.0,\"rank_abs_z\":\"6/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":100.0,\"alt_percentile\":91.6,\"k\":7}}]}"
+  },
+  {
+   "id": "E16",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T01:50:38+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE CREB3L4 ChIP-seq peak contains chr14:55887040:C>T in biosamples matching 'MCF-7'. Absence can also mean no CREB3L4 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E17",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:34:03+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: PELI2 and breast cancer (MONDO_0007254), overall score 0.00; by evidence type: literature 0.01"
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=CREB3L4%20breast%20cancer&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T22:14:41+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 189 hits for 'CREB3L4 breast cancer'; top 8 with PMIDs:\nPMID 42098970 (2026): Knockdown of CREB3L4 Inhibits Autophagy and Reduces Cisplatin Resistance in Gastric Cancer Cells by Downregulating BAG3.\nPMID 41096831 (2025): Candidate Transcript Panel in Semen Extracellular Vesicles Can Improve Prediction of Aggressiveness of Prostate Cancer.\nPMID 41155247 (2025): &lt;i&gt;Jumping Translocation Breakpoint&lt;/i&gt; Expression in Midgestation Mouse Embryos.\nPMID 42794669 (2026): Special Issue \"Molecular Biomarkers in Cancers: Advances and Challenges\".\nPMID 41370125 (2025): Mutant GNAS drives a pyloric metaplasia with tumor suppressive glycans in intraductal papillary mucinous neoplasia.\nPMID 41301006 (2025): The Unfolded Protein Response-Novel Mechanisms, Challenges, and Key Considerations for Therapeutic Intervention.\nPMID 39254691 (2024): Identification of novel protein biomarkers and therapeutic targets for ankylosing spondylitis using human circulating plasma proteomics and genome analysis.\nPMID 38796598 (2024): Oncofetal SNRPE promotes HCC tumorigenesis by regulating the FGFR4 expression through alternative splicing."
+  },
+  {
+   "id": "E18a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42098970",
+   "url": "https://europepmc.org/article/MED/42098970",
+   "retrieved_utc": "2026-10-26T22:14:41+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "CREB3L4 is an endoplasmic reticulum membrane-bound transcription factor that has been shown to regulate the expression of Bcl-2 associated athanogene 3 (BAG3), a co-chaperone protein involved in autophagy and survival signaling in various cancers."
+  },
+  {
+   "id": "E18b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42098970",
+   "url": "https://europepmc.org/article/MED/42098970",
+   "retrieved_utc": "2026-10-26T22:14:41+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Notably, knockdown of CREB3L4 inhibited autophagy and alleviated cisplatin resistance in gastric cancer cells by down-regulating BAG3."
+  },
+  {
+   "id": "E19",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TGIF1%20breast%20cancer&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T22:14:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 394 hits for 'TGIF1 breast cancer'; top 8 with PMIDs:\nPMID 42178868 (2026): TG-interacting factor 1 mediates TNF-induced Ccl2 expression in adipocytes to promote prostate cancer progression.\nPMID 41696444 (2025): STC2 promotes anoikis resistance by modulating TGIF1 mRNA stability in colorectal cancer.\nPMID 42356499 (2026): Synthesis and Development of Novel Small-Molecule MEIS2 Inhibitors That Induce Cell Death in Breast Cancer Cells by Targeting the Homeobox Domain.\nPMID 42735560 (2026): 11-Oxo-mogroside V attenuates lung adenocarcinoma progression by disrupting metabolic homeostasis and suppressing TGF\u03b22/Myc-dependent oncogenic signaling.\nPMID 41832702 (2026): A Computational Strategy to Identify Hub Genes in Pathway Analysis of Gamma Tocotrienol-treated MCF-7 Cells and Molecular Docking Study Using Selected Phytochemicals as Therapeutic Agents.\nPMID 42382743 (2026): &lt;i&gt;HK2&lt;/i&gt; knockdown is associated with context-dependent inflammatory and angiogenesis-related transcriptional programmes in glioblastoma cells.\nPMID 42516037 (2026): Myeloid cell reprogramming combined with zoledronic acid effectively suppresses bone metastasis.\nPMID 41516419 (2026): Haplotype GWAS in Colorectal Cancer Patients with a Family History of Gastric or Prostate Cancer."
+  },
+  {
+   "id": "E19a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42356499",
+   "url": "https://europepmc.org/article/MED/42356499",
+   "retrieved_utc": "2026-10-26T22:14:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Our results demonstrate that MEISi-2E, MEISi-3, and MEISi-4 significantly suppress MEIS-driven luciferase activity and downregulate the expression of Meis1, Meis2, and downstream genes such as IL17RB, CDH1, EGR2, PAX6, and SERPINE1 while upregulating negative regulator TGIF1 and SOX3."
+  },
+  {
+   "id": "E19b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41832702",
+   "url": "https://europepmc.org/article/MED/41832702",
+   "retrieved_utc": "2026-10-26T22:14:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Protein- protein interaction (PPI) network analysis further revealed four key gene candidates: EGR1, JUN, SREBF1, and TGIF1."
+  },
+  {
+   "id": "E20",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TET3%20breast%20cancer&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T22:14:51+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1542 hits for 'TET3 breast cancer'; top 7 with PMIDs:\nPMID 42316271 (2026): Changes in active DNA demethylation pathway components during neoadjuvant chemotherapy and their prognostic significance in breast cancer.\nPMID 42612286 (2026): Validating raloxifene-mediated restoration of DNMT-TET epigenetic balance in breast and lung cancer.\nPMID 42555815 (2026): Clinical Significance of SOX2 Promoter Methylation in Breast Cancer Prognosis.\nPMID 42212683 (2026): Oncogenic BRAF and KRAS Promote Global DNA Hypomethylation Through a Directed Pathway That Upregulates TET3.\nPMID 42173327 (2026): GALNT6 coordinates glycolysis and \u03b1-KG-dependent DNA methylation to promote TNBC progression.\nPMID 42725027 (2026): Chaperone-mediated autophagy as a regulator of hallmarks of cancer.\nPMID 42359646 (2026): Regulatory function of ten\u2011eleven translocation\u20112 in transcriptional mechanisms of demethylated myeloma cells."
+  },
+  {
+   "id": "E20a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42316271",
+   "url": "https://europepmc.org/article/MED/42316271",
+   "retrieved_utc": "2026-10-26T22:14:51+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "During chemotherapy, increases in the levels of 5-methyl-2'-deoxycytidine (5-mdC), 5-formyl-2'-deoxycytidine (5-fdC), and 5-carboxyl-2'-deoxycytidine (5-cadC) and decreases in the expression of genes encoding TET (ten-eleven translocation) proteins, TDG (thymine DNA glycosylase), and AID (activation-induced cytidine deaminase) were observed in peripheral blood leukocytes."
+  },
+  {
+   "id": "E20b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42612286",
+   "url": "https://europepmc.org/article/MED/42612286",
+   "retrieved_utc": "2026-10-26T22:14:51+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In both tumour types, DNMT1 was consistently over-expressed, while the TET family demethylases (TET1, TET2, TET3) were coordinately down-regulated, resulting in a striking increase in the DNMT/TET balance index and a transcriptional programme that is biased towards CpG hypermethylation."
+  },
+  {
+   "id": "E20c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42555815",
+   "url": "https://europepmc.org/article/MED/42555815",
+   "retrieved_utc": "2026-10-26T22:14:51+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Additionally, a positive association between deregulated TET3 and TGF\u03b21 highlights a positive feedback loop in the dynamic tumor microenvironment."
+  },
+  {
+   "id": "E20d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42555815",
+   "url": "https://europepmc.org/article/MED/42555815",
+   "retrieved_utc": "2026-10-26T22:14:51+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Reduced TET3 and miR200b expression correlated with poor outcomes, and their integration with SOX2 formed a tri-gene signature that enhanced patient stratification."
+  },
+  {
+   "id": "E20e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42173327",
+   "url": "https://europepmc.org/article/MED/42173327",
+   "retrieved_utc": "2026-10-26T22:14:51+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "This depletion inhibits TET3-mediated DNA demethylation, thereby elevating 5mC levels, which in turn activates genes such as KIF14 to promote TNBC progression."
+  },
+  {
+   "id": "E20f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42173327",
+   "url": "https://europepmc.org/article/MED/42173327",
+   "retrieved_utc": "2026-10-26T22:14:51+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Our study uncovers GALNT6 as a key regulator of metabolic reprogramming (glycolysis/TCA cycle) and epigenetic remodeling (5mC/TET3) to accelerate TNBC progression, suggesting that targeting the GALNT6-mediated metabolic-epigenetic axis may provide a novel therapeutic strategy for TNBC."
+  }
+ ]
+}

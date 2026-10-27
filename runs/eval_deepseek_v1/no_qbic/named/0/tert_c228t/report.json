@@ -1,0 +1,829 @@
+{
+ "case_id": "tert_c228t",
+ "variant": "TERT promoter C228T",
+ "variant_key": "chr5:1295113:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "somatic",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0602,
+ "seconds": 245.0,
+ "model_calls": 9,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1_GABPA_gain",
+   "title": "GABPA gain-of-binding at the C228T ETS site activates TERT",
+   "is_null": false,
+   "tf": "GABPA",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter cCRE",
+   "target_gene": "TERT",
+   "cell_type": "GABPA",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GABPA occupies the TERT promoter element containing C228T in ENCODE HepG2 and SK-N-SH ChIP-seq peaks (E06), and GABPA is expressed in glioblastoma DepMap lines (E07); the alt A allele is the expected stronger GABPA/ETS binder, but the supplied evidence lacks an allele-specific GABPA binding assay.",
+     "evidence_ids": [
+      "E06",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in promoter-like cCRE EH38E3622530, and GABPA occupancy of this element (E06) makes an allele-specific GABPA site a plausible modulator of TERT promoter activity; direct reporter or MPRA evidence is absent.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The cCRE is at the TERT TSS (0.0 kb) and is annotated near TERT, consistent with TERT as the target gene; direct CRISPR or reporter evidence for this element is absent.",
+     "evidence_ids": [
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GABPA is expressed in glioblastoma DepMap lines (E07), and TERT promoter mutations including C228T are common in glioblastoma and melanoma (E04a, E04d, E04g); melanoma GABPA expression or occupancy is not supplied.",
+     "evidence_ids": [
+      "E07",
+      "E04a",
+      "E04d",
+      "E04g"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT promoter mutations and telomerase activation are associated with tumor progression in melanoma and glioblastoma (E04a, E04b, E04d, E04g, E04h); this supports a general TERT/telomerase phenotype, not GABPA-specific causality.",
+     "evidence_ids": [
+      "E04a",
+      "E04b",
+      "E04d",
+      "E04g",
+      "E04h"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GABPA EMSA or ChIP shows stronger GABPA binding to the alt A allele than the ref G allele at C228T.",
+    "A TERT promoter reporter carrying C228T has higher activity than ref, and this gain is reduced by GABPA knockdown.",
+    "GABPA loss reduces TERT expression or telomerase activity preferentially in C228T-mutant tumor cells."
+   ],
+   "falsified_if": [
+    "Allele-specific GABPA binding is not detected at C228T in glioblastoma or melanoma cells.",
+    "GABPA knockdown or loss does not reduce TERT expression or telomerase activity from the alt allele.",
+    "A TERT promoter reporter carrying C228T does not show higher activity than ref, or the gain is not GABPA-dependent."
+   ],
+   "probability": 0.45,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "H0_null",
+   "title": "No TF-mediated allelic effect; linked or passenger explanation",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding or promoter activity difference is found between ref and alt at C228T.",
+    "TERT expression in tumors is explained by linked variants such as rs2853669 in cis (E04e), by other TERT promoter mutations (E04d, E04h), or by passenger/recurrent-mutation selection rather than by this allele's TF binding."
+   ],
+   "falsified_if": [
+    "Allele-specific GABPA or ETS binding and mutant-specific TERT reporter activity are demonstrated at C228T.",
+    "GABPA or ETS loss reduces TERT expression only in C228T-mutant cells."
+   ],
+   "probability": 0.35,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H3_CTCF_repressor_loss",
+   "title": "Loss of a CTCF-associated repressive site at C228T derepresses TERT",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "TERT promoter cCRE",
+   "target_gene": "TERT",
+   "cell_type": "CTCF",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The cCRE has a CTCF z-score of 2.0 as a maximum over ENCODE biosamples (E03), suggesting CTCF may occupy the region; if so, the ref G allele could bind CTCF more strongly than the alt A allele, but this is not allele-specific and is not shown at the variant.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in promoter-like cCRE EH38E3622530, which has some CTCF signal, so loss of a hypothetical repressive CTCF site could increase promoter activity; a repressive role is not established.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The cCRE is at the TERT TSS and is annotated near TERT, consistent with TERT as the target gene; direct evidence that CTCF loss here derepresses TERT is absent.",
+     "evidence_ids": [
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TERT promoter-mutant glioblastoma and melanoma are the relevant disease contexts (E04a, E04d, E04g), but no supplied evidence shows CTCF expression or CTCF-mediated repression in these tumor cells.",
+     "evidence_ids": [
+      "E04a",
+      "E04d",
+      "E04g"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Derepressed TERT would be expected to increase telomerase and support tumor progression; the supplied literature supports general TERT/telomerase biology, not CTCF-loss causality at C228T.",
+     "evidence_ids": [
+      "E04a",
+      "E04b",
+      "E04d"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "CTCF ChIP-seq or EMSA shows ref > alt binding at C228T.",
+    "CTCF knockdown increases TERT expression specifically from the ref promoter."
+   ],
+   "falsified_if": [
+    "CTCF binding is not allele-specific at C228T.",
+    "CTCF loss does not derepress TERT, or the alt allele does not weaken CTCF binding."
+   ],
+   "probability": 0.13,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H2_ELK1_gain",
+   "title": "Alternative ETS factor ELK1 gains binding at C228T",
+   "is_null": false,
+   "tf": "ELK1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter cCRE",
+   "target_gene": "TERT",
+   "cell_type": "ELK1",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt A allele could create an ETS motif bound by ELK1, but no supplied evidence shows ELK1 occupancy, an ELK1 motif change, or allele-specific ELK1 binding at C228T.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in promoter-like cCRE EH38E3622530, so an ETS-factor gain here could in principle increase TERT promoter activity; direct ELK1-specific evidence is absent.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The cCRE is at the TERT TSS and is annotated near TERT, consistent with TERT as the target gene; direct regulation by ELK1 is not shown.",
+     "evidence_ids": [
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TERT promoter-mutant glioblastoma and melanoma are the relevant disease contexts (E04a, E04d, E04g), but no supplied evidence shows ELK1 expression, occupancy, or activity in these tumor cells.",
+     "evidence_ids": [
+      "E04a",
+      "E04d",
+      "E04g"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If ELK1 drove TERT expression, it would be expected to increase telomerase and support tumor maintenance; the supplied literature supports general TERT/telomerase biology, not ELK1-specific causality.",
+     "evidence_ids": [
+      "E04a",
+      "E04b",
+      "E04d",
+      "E04g"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "ELK1 ChIP-seq or EMSA shows allele-specific binding at C228T with alt > ref.",
+    "ELK1 depletion reduces TERT expression in cells carrying the mutant allele."
+   ],
+   "falsified_if": [
+    "ELK1 does not bind the alt allele preferentially at C228T.",
+    "ELK1 depletion does not affect mutant TERT expression while GABPA loss does."
+   ],
+   "probability": 0.07,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ELK1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1_GABPA_gain",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.55,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2_ELK1_gain",
+   "tf": "ELK1",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3_CTCF_repressor_loss",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H0_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.25,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E01/E03 place the variant in a promoter-like cCRE, but neither shows GABPA binding, an ETS motif change, or allele-specific GABPA occupancy. The claim itself concedes no direct allele-specific GABPA assay is provided."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 support that the variant lies in the TERT promoter-like cCRE EH38E3622530. They do not support the allele-specific claim that the alt allele increases promoter activity through a gained ETS/GABPA site; that part is unreferenced and no reporter or MPRA is cited."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 shows TERT is 0.0 kb from the site and E03 annotates the cCRE near TERT, consistent with a TERT promoter element. But proximity and promoter annotation do not directly demonstrate that this element regulates TERT."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04a/E04d/E04g support that TERT promoter mutations, including C228T, are common in melanoma and glioblastoma. They do not show GABPA expression, GABPA occupancy, or GABPA-dependent TERT regulation in those cell types; bladder cancer is explicitly not supported."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The literature supports that TERT promoter mutations are common in these cancers and that telomerase activation supports tumor progression. It does not support the specific claim that GABPA-driven TERT transcription causes this phenotype; the phenotype link is general TERT biology, not GABPA-specific."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "binding",
+   "status": "missing",
+   "reason": "The binding step has an empty evidence_ids list. No cited evidence shows ELK1 binding, an ELK1 motif change, or allele-specific ELK1 occupancy at C228T."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 support that the variant lies in the TERT promoter-like cCRE EH38E3622530, but they do not support the specific claim that an ETS-factor gain at this position increases promoter activity."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02/E03 support proximity of the cCRE to TERT and annotate TERT as nearby, but do not directly show regulation of TERT by this element."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04a/E04d/E04g support TERT promoter-mutant glioblastoma and melanoma contexts, but no evidence is cited for ELK1 expression or activity in those tumor cells. The claim that ELK1 is broadly expressed is unsupported here."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "General TERT/telomerase literature is consistent with a tumor-maintenance phenotype, but no evidence links ELK1-driven TERT expression to it."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E03 reports a CTCF z-score of 2.0 for the cCRE, but this is not allele-specific and does not show CTCF binding at the variant or stronger ref-allele binding. The claim itself says CTCF is nominated only from cCRE signal."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 support that the variant is in the promoter-like cCRE and that the region has some CTCF signal. They do not establish a repressive CTCF site or allele-specific loss of repression."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02/E03 support proximity to TERT and annotate TERT as nearby, but do not directly show that this element regulates TERT or that CTCF loss derepresses it."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04a/E04d/E04g support disease contexts, but no evidence is cited for CTCF expression or CTCF-mediated repression in these tumor cells."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "General TERT/telomerase literature is consistent with a tumor-promoting phenotype, but there is no evidence that derepression via CTCF loss at C228T drives TERT or tumor progression."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E06 supports GABPA ChIP-seq occupancy of a sequence containing the variant only in HepG2 and SK-N-SH, not in glioblastoma/melanoma cells; E07 supports GABPA expression in glioblastoma DepMap lines only. No allele-specific GABPA binding or motif-change assay is supplied, so the claim that alt A is the stronger GABPA/ETS binder is a prediction, not evidence. This is therefore indirect occupancy plus expression context, not a demonstrated allelic binding effect."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 place the variant in a promoter-like cCRE near TERT, and E06 gives GABPA occupancy in other biosamples, but there is no allele-specific reporter/MPRA or perturbation showing that this element's activity is changed by the C228T allele or by GABPA."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02/E03 support proximity/annotation of the cCRE to the TERT TSS, consistent with TERT as the nearest promoter-linked gene, but do not directly show that this element regulates TERT; no CRISPR, reporter, or allelic expression evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 shows GABPA expression in glioblastoma DepMap lines and E04a/E04d/E04g support TERT promoter mutations in glioblastoma/melanoma, but no supplied evidence shows GABPA occupancy or allele-specific activity in glioblastoma or melanoma. E06 occupancy is from HepG2/SK-N-SH, not the disease context."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_gain",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04a/E04b/E04d/E04g/E04h support general TERT/telomerase association with these cancers and TERT promoter mutation frequency, but they do not establish GABPA-specific causality for the phenotype. The phenotype link is therefore only consistent with, not supported for, the proposed GABPA mechanism."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited for ELK1 occupancy, an ELK1 motif change, or allele-specific ELK1 binding at C228T. The claim itself states that no such evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show that the variant lies in a promoter-like cCRE near TERT, so an ETS-factor gain is theoretically plausible at a promoter element, but there is no ELK1-specific motif, occupancy, or functional evidence."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02/E03 support the cCRE's proximity to the TERT TSS, but do not show ELK1-dependent regulation of TERT. This is annotation/proximity only."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04a/E04d/E04g establish that TERT promoter-mutant glioblastoma and melanoma are relevant disease contexts, but no supplied evidence shows ELK1 expression, occupancy, or activity in those cells. Nothing cited bears on the ELK1-specific cell-type claim."
+  },
+  {
+   "hypothesis_id": "H2_ELK1_gain",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The cited literature supports general TERT/telomerase biology in these cancers, not an ELK1-driven phenotype. No ELK1-specific phenotype evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E03 reports a maximum CTCF z-score of 2.0 across ENCODE biosamples in the cCRE, which is weak epigenomic evidence that CTCF may occupy the region. It does not show CTCF binding at the variant, does not show allele-specific binding, and does not show that the ref G allele binds CTCF more strongly than the alt A allele."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 place the variant in a promoter-like cCRE with some CTCF signal, making a hypothetical CTCF site possible, but there is no evidence that CTCF is repressive at this element or that its loss increases TERT promoter activity."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02/E03 support proximity of the cCRE to the TERT TSS, but do not show that CTCF loss at this element derepresses TERT. No CRISPR, reporter, or allele-specific functional evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04a/E04d/E04g support the disease context of TERT promoter-mutant glioblastoma/melanoma, but no supplied evidence shows CTCF expression, occupancy, or CTCF-mediated repression in these tumor cells."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_repressor_loss",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The cited literature supports general TERT/telomerase biology, not CTCF-loss causality at C228T. No evidence connects CTCF binding loss at this allele to TERT expression or tumor phenotype."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"GABPA TERT promoter C228T allele-specific binding\"}",
+   "resolves": "H1.binding",
+   "why": "A direct literature hit for allele-specific GABPA binding or reporter/EMSA at C228T would substantially strengthen or refute the leading chain."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ELK1\"}",
+   "resolves": "H2.binding",
+   "why": "If ELK1 ENCODE ChIP-seq peaks do not contain this TERT promoter variant in any biosample, the alternative ELK1 gain-of-binding chain is strongly weakened."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CTCF\"}",
+   "resolves": "H3.binding",
+   "why": "A CTCF peak containing the variant would show occupancy in the region, but absence of any CTCF peak at this position would weaken the speculative CTCF repressor-loss chain."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "GABPA TERT promoter C228T allele-specific binding ETS"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": null,
+    "tf": "GABPA"
+   },
+   "run": true
+  },
+  {
+   "tool": "tf_expression",
+   "args": {
+    "context": "DepMap:subtype=Glioblastoma",
+    "tf": "GABPA"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific GABPA EMSA or allele-specific GABPA ChIP at C228T using ref vs alt oligos or alleles in glioblastoma/melanoma cells",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_gain",
+     "outcome": "alt > ref GABPA binding at C228T"
+    },
+    {
+     "hypothesis_id": "H2_ELK1_gain",
+     "outcome": "no GABPA allele-specific binding; ELK1 not addressed"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_repressor_loss",
+     "outcome": "no GABPA allele-specific binding"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "no allele-specific GABPA binding; ref = alt"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "TERT promoter reporter assay with ref vs alt C228T allele, with and without GABPA knockdown",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_gain",
+     "outcome": "alt reporter higher than ref; GABPA knockdown reduces the alt-specific gain"
+    },
+    {
+     "hypothesis_id": "H2_ELK1_gain",
+     "outcome": "alt reporter higher than ref via ELK1; GABPA knockdown does not reduce the gain"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_repressor_loss",
+     "outcome": "alt reporter higher than ref via CTCF loss; GABPA knockdown does not reduce the gain"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "no reproducible ref vs alt reporter difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "GABPA ChIP-seq in glioblastoma/melanoma cells for occupancy of the C228T-containing element",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_gain",
+     "outcome": "GABPA peak at the element in glioblastoma/melanoma cells"
+    },
+    {
+     "hypothesis_id": "H2_ELK1_gain",
+     "outcome": "no GABPA peak expected at the element"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_repressor_loss",
+     "outcome": "no GABPA peak expected at the element"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "GABPA peak may be present but would not establish an allelic effect"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "ELK1 ChIP-seq or EMSA at C228T",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_gain",
+     "outcome": "no ELK1 allele-specific binding expected"
+    },
+    {
+     "hypothesis_id": "H2_ELK1_gain",
+     "outcome": "alt > ref ELK1 binding at C228T"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_repressor_loss",
+     "outcome": "no ELK1 allele-specific binding expected"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "no ELK1 allele-specific binding"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific CTCF EMSA or ChIP at C228T",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_gain",
+     "outcome": "no allele-specific CTCF binding expected"
+    },
+    {
+     "hypothesis_id": "H2_ELK1_gain",
+     "outcome": "no allele-specific CTCF binding expected"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_repressor_loss",
+     "outcome": "ref > alt CTCF binding at C228T"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "no allele-specific CTCF binding"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Genotype rs2853669 in cis and test whether TERT expression or reporter activity remains C228T allele-specific after conditioning on the linked haplotype",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_gain",
+     "outcome": "C228T/GABPA-associated effect remains after conditioning on rs2853669 genotype"
+    },
+    {
+     "hypothesis_id": "H2_ELK1_gain",
+     "outcome": "C228T-associated effect remains and is ELK1-dependent"
+    },
+    {
+     "hypothesis_id": "H3_CTCF_repressor_loss",
+     "outcome": "C228T-associated effect remains and is CTCF-dependent"
+    },
+    {
+     "hypothesis_id": "H0_null",
+     "outcome": "TERT expression is explained by rs2853669 or linked haplotype, with no residual C228T allele-specific effect"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Allele-specific GABPA EMSA using ref and alt C228T oligos, ideally with GABPA antibody in nuclear extract from a TERT-expressing glioblastoma or melanoma line; this is the cheapest test that directly separates H1_GABPA_gain (alt > ref GABPA binding) from H0_null (no allele-specific GABPA binding).",
+ "citation_support": 0.9333333333333333,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295113-1295113:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295113:G>A (GRCh38), allele string G/A\nKnown IDs: rs1242535815\nMost severe consequence: upstream_gene_variant\nRegulatory features: ENSR5_832QG promoter\nGERP conservation score at the site: -7.45\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295113-2295113?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T11:57:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295113:G>A, by distance to TSS:\nTERT: 0.0 kb from TSS (upstream, strand -1)\nCLPTM1L: 50.0 kb from TSS (downstream, strand -1)\nSLC6A18: 69.7 kb from TSS (downstream, strand +1)\nSLC6A19: 93.5 kb from TSS (downstream, strand +1)\nSLC12A7: 138.9 kb from TSS (upstream, strand -1)\nSLC6A3: 150.4 kb from TSS (downstream, strand -1)\nLPCAT1: 229.2 kb from TSS (downstream, strand -1)\nNKD2: 287.1 kb from TSS (downstream, strand +1)\nTRIP13: 402.3 kb from TSS (downstream, strand +1)\nBRD9: 402.3 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T11:57:31+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3622530 (PLS: promoter-like), chr5:1294945-1295294.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622530 PLS (contains the variant): DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622529 pELS: DNase z 3.7, H3K27ac z 4.1, H3K4me3 z 4.6, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E04a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41744838",
+   "url": "https://europepmc.org/article/MED/41744838",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "A major molecular feature of melanoma is abnormal telomerase activation; this is most often caused by telomerase reverse transcriptase (TERT) promoter mutations, which occur in 50-82% of cases and are the most common noncoding alteration in this cancer."
+  },
+  {
+   "id": "E04b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41744838",
+   "url": "https://europepmc.org/article/MED/41744838",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Understanding both telomere-dependent and -independent TERT functions is essential for developing effective biomarkers and therapies that overcome resistance and slow melanoma progression."
+  },
+  {
+   "id": "E04c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42577103",
+   "url": "https://europepmc.org/article/MED/42577103",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "CDKN2A and CDK4 mutations act through UV-dependent and cell cycle disruption pathways, while BAP1, POT1, and TERT mutations are considered UV-independent."
+  },
+  {
+   "id": "E04d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Mutations in the telomerase reverse transcriptase (TERT) promoter region (TPM), particularly C228T and C250T, are common in IDH-wildtype glioblastoma (GBM)."
+  },
+  {
+   "id": "E04e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The rs2853669 C allele may increase GBM susceptibility and, when in cis with TPM, is associated with reduced TERT expression and poorer prognosis, underscoring its biological and clinical significance in TPM-mutant GBM."
+  },
+  {
+   "id": "E04f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42807929",
+   "url": "https://europepmc.org/article/MED/42807929",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Additionally, loss of either USP10 or FOXM1 suppresses the expression of the downstream target Telomerase reverse transcriptase (TERT), triggering cellular senescence."
+  },
+  {
+   "id": "E04g",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42859331",
+   "url": "https://europepmc.org/article/MED/42859331",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "TERT promoter (TERTp) mutations are among the most frequent molecular alterations in isocitrate dehydrogenase (IDH) wild-type glioblastoma (GBM), yet the molecular profiles and prognostic implications associated with TERTp status remain incompletely characterized."
+  },
+  {
+   "id": "E04h",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42859331",
+   "url": "https://europepmc.org/article/MED/42859331",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Among 112 patients, 70 (62.5%) harbored TERTp mutations."
+  },
+  {
+   "id": "E05",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=GABPA%20TERT%20promoter%20C228T%20allele-specific%20binding%20ETS&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T00:28:52+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 41 hits for 'GABPA TERT promoter C228T allele-specific binding ETS'; top 8 with PMIDs:\nPMID 40822359 (2025): AURKB and PI3K/AKT/mTOR pathways converge to regulate &lt;i&gt;TERT&lt;/i&gt; expression.\nPMID 39557834 (2024): Mechanistic basis of atypical TERT promoter mutations.\nPMID 37741952 (2023): Pooled genetic screens to identify vulnerabilities in TERT-promoter-mutant glioblastoma.\nPMID 36713366 (2022): <i>TERT</i> promoter mutations and methylation for telomerase activation in urothelial carcinomas: New mechanistic insights and clinical significance.\nPMID 40241101 (2025): The ability of anexelekto (AXL) expression and TERT promoter mutation to predict radioiodine-refractory differentiated thyroid carcinoma.\nPMID 41639451 (2026): Regulatory grammar in human promoters uncovered by MPRA-based deep learning.\nPMID 36394204 (2022): Thyroid carcinoma-featured telomerase activation and telomere maintenance: Biology and translational/clinical significance.\nPMID 38033865 (2023): Reactivation of telomerase reverse transcriptase expression in cancer: the role of TERT promoter mutations."
+  },
+  {
+   "id": "E05a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40822359",
+   "url": "https://europepmc.org/article/MED/40822359",
+   "retrieved_utc": "2026-10-26T00:28:52+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Telomere length maintenance, critical for cancer progression, can be driven by TERT promoter mutations (TERTp MUT ), which are markers of poor prognosis across multiple cancers."
+  },
+  {
+   "id": "E06",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T11:58:44+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "2 ENCODE GABPA ChIP-seq peaks contain chr5:1295113:G>A: biosamples HepG2, SK-N-SH; experiments ENCSR000BJK, ENCSR000BTG."
+  },
+  {
+   "id": "E07",
+   "tool": "tf_expression",
+   "source": "DepMap expression / GTEx v8 medians",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "GABPA in DepMap subtype median Glioblastoma: 15.52 TPM, rank 303 of 1626 TFs (1 = highest); this context is at the 58.4th percentile of GABPA across all DepMap lines; median of 54 lines."
+  }
+ ]
+}

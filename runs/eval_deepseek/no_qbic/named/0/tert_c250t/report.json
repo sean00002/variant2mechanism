@@ -1,0 +1,715 @@
+{
+ "case_id": "tert_c250t",
+ "variant": "TERT promoter C250T",
+ "variant_key": "chr5:1295135:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "somatic",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0327,
+ "seconds": 117.6,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "Null: no allele-specific TF-mediated effect at C250T; recurrent somatic TERT promoter hotspot or linked causal variant.",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": "TERT promoter PLS cCRE EH38E3622530",
+   "target_gene": null,
+   "cell_type": "Glioblastoma",
+   "links": [],
+   "predictions": [
+    "No reproducible allele-specific TF binding difference between ref G and alt A at C250T",
+    "No allele-specific effect on TERT expression attributable to this variant",
+    "Disease association is explained by the recurrent somatic TERT promoter hotspot or a linked causal variant, not by a TF-mediated allelic effect"
+   ],
+   "falsified_if": [
+    "Robust allele-specific TF binding at C250T is demonstrated and perturbing that TF changes TERT expression in the relevant cell context",
+    "The disease association is shown to be caused by this allele acting through a TF rather than by the recurrent somatic hotspot or a linked causal variant"
+   ],
+   "probability": 0.48,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "C250T is proposed to strengthen a GABPA-bound ETS site and increase TERT in glioblastoma.",
+   "is_null": false,
+   "tf": "GABPA",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter PLS cCRE EH38E3622530",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GABPA is nominated as the ETS-family TF, and the alt A allele is predicted to bind GABPA more strongly. E05 shows GABPA ChIP peaks containing the variant in HepG2 and SK-N-SH, but no GABPA peak in glioblastoma and no allele-specific binding test. QBiC-SELEX coverage for GABPA is not_checked because no screen row or qbic_tf_detail lookup was supplied.",
+     "evidence_ids": [
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the TERT promoter ENSR5_832QG and in promoter-like cCRE EH38E3622530, so a putative ETS-site change would act in a TERT promoter element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene, 0.0 kb from its TSS upstream on the minus-strand gene; CLPTM1L is 50 kb away.",
+     "evidence_ids": [
+      "E01",
+      "E02"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant cell type is glioblastoma per the case context, but E03 gives maxima over ENCODE biosamples rather than glioblastoma-specific activity, and E05 provides no glioblastoma GABPA peak; glioblastoma-specific GABPA occupancy is therefore unproven.",
+     "evidence_ids": [
+      "E03",
+      "E05"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT activation is a plausible oncogenic mechanism in glioblastoma, and E04 contains general TERT-glioblastoma literature, but no C250T-specific or GABPA-specific TERT activation evidence is supplied.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GABPA ChIP-qPCR, EMSA or reporter assays show alt A > ref G at C250T in glioblastoma cells",
+    "GABPA knockdown or knockout reduces TERT expression in glioblastoma cells carrying the alt allele",
+    "Disrupting the predicted ETS motif abolishes the allele-specific effect"
+   ],
+   "falsified_if": [
+    "No allele-specific GABPA binding is detectable at C250T in a relevant cellular context",
+    "GABPA perturbation does not change TERT expression in cells carrying the alt allele",
+    "Mutating the predicted ETS motif does not abolish any allele-specific effect"
+   ],
+   "probability": 0.27,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "H3",
+   "title": "C250T is proposed to weaken CTCF binding at the TERT promoter cCRE, altering promoter architecture and TERT expression.",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "TERT promoter PLS cCRE EH38E3622530",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF is nominated as the architectural TF, and the ref G allele is predicted to bind CTCF more strongly than alt A. E03 gives only a maximum CTCF z-score of 2.0 in the containing cCRE, and E07 reports no CTCF peak containing the variant in glioblastoma but 2 CTCF peaks containing it in DOHH2 and endodermal cells; neither test is allele-specific. QBiC-SELEX coverage for CTCF is not_checked because no screen row or qbic_tf_detail lookup was supplied.",
+     "evidence_ids": [
+      "E03",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in promoter-like cCRE EH38E3622530 and the TERT promoter ENSR5_832QG, so a CTCF change would affect a TERT promoter/architectural element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene at 0.0 kb from its TSS, and E01 annotates the variant as upstream of TERT.",
+     "evidence_ids": [
+      "E01",
+      "E02"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The supplied context is glioblastoma, but E03 lacks glioblastoma-specific CTCF occupancy or cCRE activity, and E07 provides no glioblastoma CTCF peak; glioblastoma-specific CTCF action is therefore unproven.",
+     "evidence_ids": [
+      "E03",
+      "E07"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered TERT promoter architecture could change TERT expression and contribute to glioblastoma, but E04 links TERT to glioblastoma only generally and does not establish a CTCF-dependent mechanism or the direction of TERT expression change.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CTCF ChIP shows ref G > alt A at C250T in glioblastoma cells",
+    "The alt allele changes promoter contact or insulation in glioblastoma cells",
+    "CTCF depletion alters TERT expression or promoter architecture in the presence of the ref allele"
+   ],
+   "falsified_if": [
+    "No allele-specific CTCF binding difference is detected at C250T",
+    "CTCF perturbation does not alter TERT promoter architecture or TERT expression",
+    "The ref allele does not preserve a functional CTCF site better than the alt allele"
+   ],
+   "probability": 0.15,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H2",
+   "title": "C250T is proposed to strengthen an ETS1-bound ETS site and increase TERT in melanoma or bladder cancer.",
+   "is_null": false,
+   "tf": "ETS1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT promoter PLS cCRE EH38E3622530",
+   "target_gene": "TERT",
+   "cell_type": "Melanoma and bladder cancer",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ETS1 is an alternative ETS-family TF, and the alt A allele is predicted to bind ETS1 more strongly. E06 reports no ETS1 ChIP peak containing the variant in melanoma and no peak within 100 bp without containing it, so ETS1 occupancy at this element is unsupported. QBiC-SELEX coverage for ETS1 is not_checked because no screen row or qbic_tf_detail lookup was supplied.",
+     "evidence_ids": [
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is in the TERT promoter ENSR5_832QG and promoter-like cCRE EH38E3622530, placing any ETS1 effect at a TERT promoter element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene at 0.0 kb from its TSS; E01 annotates the variant as upstream of TERT.",
+     "evidence_ids": [
+      "E01",
+      "E02"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Melanoma and bladder cancer are in the case header, but E04 contains only general TERT/melanoma literature with no bladder-specific top hit, and E06 provides no melanoma ETS1 occupancy; cell-type-specific ETS1 action is not established.",
+     "evidence_ids": [
+      "E04",
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT activation is linked generally to melanoma in E04, but there is no C250T- or ETS1-specific TERT activation evidence in melanoma or bladder cancer.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ETS1 binds the alt allele more strongly than ref at C250T in melanoma or bladder assays",
+    "ETS1 knockdown reduces TERT expression in cells carrying the alt allele",
+    "The effect is weaker or absent in glioblastoma compared with a GABPA-dependent effect"
+   ],
+   "falsified_if": [
+    "ETS1 does not bind the alt allele more strongly than ref in melanoma or bladder assays",
+    "ETS1 perturbation does not alter TERT expression in cells carrying the alt allele",
+    "The variant shows no ETS1-dependent allele-specific effect in the relevant disease context"
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ETS1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.4,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.35,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "ETS1",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ID is cited for GABPA binding; the claim itself states direct allele-specific binding is not shown. GABPA is an ETS-family candidate without QBiC-SELEX coverage or motif/perturbation evidence, so the binding link is unsupported."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 places the variant in TERT promoter ENSR5_832QG, and E03 places it in promoter-like cCRE EH38E3622530 (PLS). This directly supports a TERT promoter element location."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 reports TERT at 0.0 kb from its TSS upstream, the nearest protein-coding gene; E01 reports TERT upstream_gene_variant. CLPTM1L is 50 kb away."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The case context is glioblastoma, but E03 gives only maxima across ENCODE biosamples, not glioblastoma-specific cCRE activity, and no GABPA occupancy in glioblastoma is shown. Glioblastoma specificity is therefore indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 provides general TERT-cancer literature hits, including glioblastoma-related titles, but no C250T-specific TERT activation evidence. The phenotype link is plausible but indirect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence ID is cited for ETS1 binding; ETS1 is proposed only as an alternative ETS-family TF. No allele-specific binding, motif, or QBiC-SELEX evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly place the variant in TERT promoter ENSR5_832QG and promoter-like cCRE EH38E3622530, supporting a TERT promoter element location."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 identifies TERT as the nearest gene at 0.0 kb from its TSS; E01 annotates the variant as upstream of TERT."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Melanoma and bladder are in the case header, and E04 has general melanoma/TERT hits, but no ETS1 occupancy or cCRE activity is shown in melanoma or bladder, and bladder is not represented in the top E04 titles."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 contains general TERT/melanoma literature, but no C250T- or ETS1-specific TERT activation evidence in melanoma or bladder. The link is indirect."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E03 shows only a modest CTCF z-score of 2.0 in the containing cCRE, as a maximum over biosamples. It does not test CTCF binding at the variant or allele-specific CTCF binding, so this is at best indirect."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly locate the variant in TERT promoter ENSR5_832QG and PLS cCRE EH38E3622530, supporting a promoter/architectural element location."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 reports TERT as the nearest protein-coding gene at 0.0 kb from its TSS; E01 reports it as upstream of TERT."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The supplied context is glioblastoma, but E03 lacks glioblastoma-specific CTCF occupancy or cCRE activity. No cell-type-specific CTCF evidence is provided."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 links TERT to glioblastoma generally, but not to a CTCF-dependent mechanism. The direction of the effect on TERT is also unspecified: ref G is proposed to bind CTCF more, but the consequence for TERT expression is not stated."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E05 shows GABPA ChIP peaks containing the variant only in HepG2/SK-N-SH, not glioblastoma, and gives no allele-specific binding test; it is consistent with GABPA occupancy at the element in some contexts but does not establish alt>A binding. QBiC-SELEX coverage is not_checked; a screen/qbic_tf_detail lookup for GABPA is needed."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 places the variant in promoter ENSR5_832QG and E03 places it in promoter-like cCRE EH38E3622530, directly supporting a TERT promoter element location."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 and E01 directly annotate TERT as the nearest protein-coding gene at 0.0 kb upstream; this supports the gene assignment, though it is proximity/annotation rather than functional regulation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E03 reports maxima over ENCODE biosamples, not glioblastoma-specific cCRE activity, and E05 reports no glioblastoma GABPA peak; glioblastoma-specific GABPA action at this element is unsupported."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 provides general TERT-glioblastoma literature, consistent with a TERT oncogenic role, but no C250T-specific or GABPA-specific evidence linking this allele to glioblastoma phenotype."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E06 reports no ETS1 ChIP peak containing the variant in melanoma and no nearby ETS1 peak, and provides no allele-specific binding evidence; the alt>A ETS1 binding claim is unsupported. QBiC-SELEX coverage is not_checked."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in the TERT promoter ENSR5_832QG and promoter-like cCRE EH38E3622530, supporting a TERT promoter element location."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 and E02 directly annotate the variant as upstream of TERT and TERT as the nearest protein-coding gene at 0.0 kb; this supports the gene assignment but not functional regulation."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04 contains only general TERT/melanoma literature with no bladder-specific top hit, and E06 provides no melanoma ETS1 occupancy; melanoma- or bladder-specific ETS1 action is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 links TERT generally to melanoma, but there is no C250T-specific, ETS1-specific, or bladder-specific evidence connecting this allele to phenotype."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E03 gives only a low maximum CTCF z-score in the containing cCRE and E07 shows CTCF peaks containing the variant only in DOHH2/endodermal cells, not glioblastoma; neither is allele-specific, so ref>alt CTCF binding is only indirectly consistent. QBiC-SELEX coverage is not_checked."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in promoter ENSR5_832QG and promoter-like cCRE EH38E3622530, directly supporting a TERT promoter/architectural element location."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 and E02 directly annotate TERT as the nearest protein-coding gene at 0.0 kb upstream; this supports the gene assignment, not functional regulation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E03 lacks glioblastoma-specific CTCF occupancy or cCRE activity, and E07 reports no glioblastoma CTCF peak; glioblastoma-specific CTCF action at this element is unsupported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 links TERT to glioblastoma only generally and provides no CTCF-dependent mechanism or direction of TERT expression change, so the phenotype link is indirect."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"GABPA\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether GABPA occupies the variant-containing TERT promoter in the relevant glioblastoma context; a peak would upgrade the currently missing binding link, while absence would weaken H1."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ETS1\",\"biosample\":\"melanoma\"}",
+   "resolves": "H2.binding",
+   "why": "Tests ETS1 occupancy at this promoter in a melanoma context; this is the key missing evidence for the alternative ETS1 chain."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CTCF\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "H3.binding",
+   "why": "Tests whether CTCF actually occupies the variant-containing cCRE in glioblastoma, which the current cCRE signal alone does not establish."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "glioblastoma",
+    "tf": "GABPA"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "melanoma",
+    "tf": "ETS1"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "glioblastoma",
+    "tf": "CTCF"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific GABPA ChIP-qPCR at C250T in heterozygous glioblastoma cells",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allelic difference in GABPA ChIP signal at C250T"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt A shows stronger GABPA ChIP signal than ref G at C250T in glioblastoma cells"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No GABPA-specific allelic difference; ETS1, if tested separately, would be the relevant factor"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No GABPA-specific allelic difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "GABPA knockdown or knockout in glioblastoma cells carrying the alt allele, measuring TERT expression",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No change in TERT expression"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "TERT expression decreases"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No or weaker TERT decrease than for GABPA"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No GABPA-dependent TERT decrease"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific ETS1 ChIP-qPCR at C250T in melanoma cells",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allelic difference"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No ETS1-specific allelic difference"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt A shows stronger ETS1 ChIP signal than ref G at C250T in melanoma cells"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No ETS1-specific allelic difference"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific CTCF ChIP-qPCR at C250T in glioblastoma cells",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allelic difference"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No CTCF-specific allelic difference"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No CTCF-specific allelic difference"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Ref G shows stronger CTCF ChIP signal than alt A at C250T in glioblastoma cells"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "TERT promoter reporter assay with ref versus alt allele and ETS-motif mutation in glioblastoma cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allele-specific reporter difference"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt A increases reporter activity, and ETS-motif mutation abolishes the increase"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "An allele-specific increase may be seen, but it is not GABPA-dependent and requires ETS1 perturbation to support H2"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Ref allele shows higher CTCF-dependent architectural or reporter effect"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Allele-specific GABPA ChIP-qPCR at C250T in heterozygous glioblastoma cells is the cheapest experiment that separates H0 from H1: H1 predicts alt A > ref G GABPA binding, whereas H0 predicts no reproducible allelic difference.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 41744838: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295135-1295135:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295135:G>A (GRCh38), allele string G/A\nKnown IDs: rs1561215364\nMost severe consequence: upstream_gene_variant\nRegulatory features: ENSR5_832QG promoter\nGERP conservation score at the site: -4.69\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295135-2295135?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:25:54+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295135:G>A, by distance to TSS:\nTERT: 0.0 kb from TSS (upstream, strand -1)\nCLPTM1L: 50.0 kb from TSS (downstream, strand -1)\nSLC6A18: 69.8 kb from TSS (downstream, strand +1)\nSLC6A19: 93.5 kb from TSS (downstream, strand +1)\nSLC12A7: 138.9 kb from TSS (upstream, strand -1)\nSLC6A3: 150.4 kb from TSS (downstream, strand -1)\nLPCAT1: 229.1 kb from TSS (downstream, strand -1)\nNKD2: 287.1 kb from TSS (downstream, strand +1)\nTRIP13: 402.3 kb from TSS (downstream, strand +1)\nBRD9: 402.3 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3622530 (PLS: promoter-like), chr5:1294945-1295294.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622530 PLS (contains the variant): DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622529 pELS: DNase z 3.7, H3K27ac z 4.1, H3K4me3 z 4.6, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E05",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:26+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE GABPA ChIP-seq peak contains chr5:1295135:G>A in biosamples matching 'glioblastoma'. Absence can also mean no GABPA experiment in that biosample. In other biosamples, 2 GABPA peaks do contain the variant: HepG2, SK-N-SH (experiments ENCSR000BJK, ENCSR000BTG)."
+  },
+  {
+   "id": "E06",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T01:35:22+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE ETS1 ChIP-seq peak contains chr5:1295135:G>A in biosamples matching 'melanoma'. Absence can also mean no ETS1 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E07",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T01:35:22+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE CTCF ChIP-seq peak contains chr5:1295135:G>A in biosamples matching 'glioblastoma'. Absence can also mean no CTCF experiment in that biosample. In other biosamples, 2 CTCF peaks do contain the variant: DOHH2, endodermal cell (experiments ENCSR084RDK, ENCSR398RET)."
+  }
+ ]
+}

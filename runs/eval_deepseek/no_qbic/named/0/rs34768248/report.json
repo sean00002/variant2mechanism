@@ -1,0 +1,719 @@
+{
+ "case_id": "rs34768248",
+ "variant": "rs34768248",
+ "variant_key": "chr5:1295601:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "germline",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0241,
+ "seconds": 213.2,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H4_null",
+   "title": "No TF-mediated effect of rs34768248; association may reflect linkage or weak/passenger annotation",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific GABPA or CTCF binding at chr5:1295601.",
+    "No allele-specific effect on TERT expression or chromatin in relevant cells.",
+    "Any disease association is explained by a linked causal variant or the broader TERT/CLPTM1L locus, not by this base change."
+   ],
+   "falsified_if": [
+    "A reproducible allele-specific TF binding difference is shown at rs34768248.",
+    "The variant reproducibly changes TERT expression or regulatory activity in relevant cancer cells."
+   ],
+   "probability": 0.65,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1_GABPA_alt",
+   "title": "Alt A may strengthen a GABPA/ETS site in the TERT upstream enhancer and increase TERT in TERT-dependent cancers",
+   "is_null": false,
+   "tf": "GABPA",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT upstream enhancer/promoter cCRE region",
+   "target_gene": "TERT",
+   "cell_type": "GABPA-expressing glioblastoma/melanoma/bladder cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Hypothesis: alt A strengthens a GABPA/ETS site at chr5:1295601. No QBiC-SELEX row for GABPA was provided, so coverage is not_checked. GABPA is expressed in DepMap glioblastoma (median 15.52 TPM), but ENCODE GABPA ChIP-seq has no peak containing the variant in the cited 'null' biosamples; absence is not conclusive and no allele-specific binding assay is given.",
+     "evidence_ids": [
+      "E07",
+      "E09"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an ENSR5 enhancer and within 500 bp of pELS/PLS cCREs near TERT, although no cCRE directly overlaps the variant.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest TSS at 0.5 kb and the best L2G gene, but the credible set is hypertension with PIP 0.00 and E04 reports no GWAS Catalog association for rs34768248; TERT assignment is therefore indirect.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GABPA is expressed in the DepMap glioblastoma context, and TERT has broad literature relevance in melanoma/glioblastoma, but the evidence does not establish a GABPA-TERT axis in bladder cancer or in the cited DepMap subtype.",
+     "evidence_ids": [
+      "E09",
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If alt A increased GABPA-driven TERT expression, higher telomerase activity could promote TERT-dependent cancer phenotypes; however, E06 is only generic TERT/telomerase literature and gives no rs34768248-specific or allele-specific phenotype evidence.",
+     "evidence_ids": [
+      "E06"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GABPA binding is higher for alt A than ref G at chr5:1295601.",
+    "TERT expression or regulatory activity is higher in cells carrying alt A, especially GABPA-expressing glioblastoma/melanoma/bladder cancer lines.",
+    "GABPA knockdown or mutation of the ETS site reduces the alt-A-specific effect."
+   ],
+   "falsified_if": [
+    "No allele-specific GABPA binding is detected at chr5:1295601.",
+    "TERT expression or regulatory activity does not differ by allele in GABPA-expressing relevant cells.",
+    "GABPA knockdown or ETS-site mutation does not reduce any alt-A-specific effect."
+   ],
+   "probability": 0.18,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "H3_CTCF_alt",
+   "title": "Alt A may alter CTCF occupancy near the TERT upstream cCRE and change chromatin insulation or promoter-enhancer contact",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "TERT upstream enhancer/promoter cCRE region with nearby CTCF signal",
+   "target_gene": "TERT",
+   "cell_type": "glioblastoma/melanoma/bladder cancer cells with CTCF occupancy near TERT",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Hypothesis: alt A strengthens a CTCF site at chr5:1295601. No QBiC-SELEX row for CTCF was provided, so coverage is not_checked. E03 reports CTCF signal at nearby pELS/PLS cCREs, but no cCRE overlaps the variant and no allele-specific CTCF assay is given.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an ENSR5 enhancer near pELS/PLS cCREs with CTCF signal, but the CTCF z-scores are maxima over ENCODE biosamples and no cCRE directly overlaps the variant.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The element is near TERT and TERT is the best L2G gene, but the credible set is hypertension with PIP 0.00 and no molecular QTL, so a CTCF-to-TERT regulatory link is speculative.",
+     "evidence_ids": [
+      "E02",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TERT has broad cancer literature relevance, but CTCF-dependent TERT regulation, bladder cancer relevance, and the DepMap glioblastoma context are not established by the cited evidence.",
+     "evidence_ids": [
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Allele-specific CTCF occupancy could alter TERT promoter-enhancer contacts and TERT expression, but E06 provides only generic TERT literature and no evidence linking this variant, CTCF, and cancer phenotype.",
+     "evidence_ids": [
+      "E06"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "CTCF binding is higher for alt A than ref G at chr5:1295601.",
+    "Alt A changes chromatin contact or insulator behavior around the TERT promoter.",
+    "TERT expression changes in a CTCF-dependent manner."
+   ],
+   "falsified_if": [
+    "CTCF does not bind the variant-containing sequence allele-specifically.",
+    "No chromatin-contact or TERT expression difference is seen with alt A.",
+    "CTCF depletion does not modify any allele effect."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H2_GABPA_ref",
+   "title": "Ref G may be the stronger GABPA/ETS site; alt A may reduce GABPA binding and TERT expression",
+   "is_null": false,
+   "tf": "GABPA",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "TERT upstream enhancer/promoter cCRE region",
+   "target_gene": "TERT",
+   "cell_type": "GABPA-expressing glioblastoma/melanoma/bladder cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Hypothesis: ref G preserves a stronger GABPA/ETS site than alt A. No QBiC-SELEX row for GABPA was provided, so coverage is not_checked. GABPA is expressed in DepMap glioblastoma, but no allele-specific GABPA ChIP, EMSA, or reporter data are given; E07 reports no GABPA ChIP peak containing the variant in the cited 'null' biosamples.",
+     "evidence_ids": [
+      "E07",
+      "E09"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an ENSR5 enhancer and near pELS/PLS cCREs at TERT, making an allele-specific regulatory effect plausible, though no cCRE directly overlaps the variant.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest TSS and best L2G gene, but the credible set is hypertension with PIP 0.00 and no GWAS Catalog association is reported for rs34768248, so the TERT link is indirect.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TERT is broadly relevant in some cancers in the literature, and GABPA is expressed in DepMap glioblastoma, but bladder-specific and GABPA-dependent TERT regulation are not shown.",
+     "evidence_ids": [
+      "E06",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If alt A reduced GABPA-driven TERT expression, telomerase activity would fall; this chain requires the alt allele to be protective or disease risk to act in the opposite direction, but no such direction or protective-allele evidence is provided.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GABPA binding is higher for ref G than alt A at chr5:1295601.",
+    "TERT expression or regulatory activity is lower in cells carrying alt A.",
+    "Restoring the GABPA site reverses the alt-A-associated reduction."
+   ],
+   "falsified_if": [
+    "GABPA binds alt A more strongly than ref G at chr5:1295601.",
+    "TERT expression or regulatory activity is not lower with alt A in relevant cells.",
+    "The variant has no allele-specific effect on the element."
+   ],
+   "probability": 0.07,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1_GABPA_alt",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.25,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2_GABPA_ref",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3_CTCF_alt",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.45,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited for allele-specific GABPA binding; the step has an empty evidence_ids list and no QBiC-SELEX, ChIP, MPRA, reporter, or allele-specific assay is provided."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 places the variant in an ENSR5 enhancer, and E03 shows pELS/PLS cCREs within 500 bp (nearest 75 bp), supporting the broad element-context claim, although no cCRE directly overlaps the variant."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 shows TERT is the nearest TSS at 0.5 kb and E05 gives TERT as the best L2G gene, but the credible set is for hypertension with PIP 0.00 and no molecular QTL, so functional assignment to TERT is indirect."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 provides broad TERT literature hits in melanoma/glioblastoma contexts, but no bladder-specific evidence, no DepMap expression evidence, and no GABPA/TERT axis in the cited titles."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 supports generic TERT/telomerase relevance in some cancers but does not show that alt A increases GABPA-driven TERT expression or that this variant affects cancer phenotypes."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited for allele-specific GABPA binding to ref G; the step has an empty evidence_ids list and no direct binding or reporter assay."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 support that the variant is in/near a regulatory element, but no allele-specific regulatory activity is shown."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 and E05 support proximity/L2G assignment to TERT, but the genetic evidence is a hypertension credible set with PIP 0.00 and no molecular QTL, making the TERT link indirect."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 only gives broad TERT cancer literature; it does not establish TERT relevance specifically in bladder cancer or in the stated DepMap glioblastoma context."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The phenotype claim depends on the alt allele reducing TERT and being protective or acting opposite to expected disease risk, but E06 provides no direction or protective-allele evidence."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited for allele-specific CTCF binding; the step has an empty evidence_ids list and no CTCF ChIP, QBiC-SELEX, MPRA, or reporter evidence."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 reports CTCF signal at nearby pELS/PLS cCREs (max z 2.8, 1.5, 2.0) and E01 places the variant in an ENSR5 enhancer, but no cCRE overlaps the variant and the CTCF values are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02/E05 link the region to TERT by proximity and L2G, but there is no evidence that CTCF occupancy at this variant affects TERT chromatin regulation; the genetic set is hypertension with PIP 0.00."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 supports broad TERT literature relevance in some cancers but not CTCF-dependent regulation, bladder cancer, or the DepMap glioblastoma context."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 does not provide evidence that allele-specific CTCF occupancy alters TERT promoter-enhancer contacts or cancer phenotypes; the claim is speculative from generic TERT relevance."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "binding",
+   "status": "missing",
+   "reason": "no"
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in an ENSR5 enhancer; E03 shows no cCRE directly overlaps but three pELS/PLS cCREs lie within 500 bp near TERT. This directly supports the element-context claim."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports TERT as nearest TSS at 0.5 kb and E05 supports TERT as best L2G, but the credible set is hypertension with PIP 0.00 and E04 reports no GWAS Catalog association for rs34768248. TERT assignment is therefore indirect."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E09 supports GABPA expression in DepMap glioblastoma, and E06 gives generic TERT cancer literature, but no GABPA-TERT axis, bladder/melanoma context, or GABPA-dependent TERT regulation is shown."
+  },
+  {
+   "hypothesis_id": "H1_GABPA_alt",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 is only generic TERT/telomerase cancer literature; it provides no rs34768248-specific, allele-specific, or GABPA-dependent phenotype evidence."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX row, motif prediction, allele-specific GABPA ChIP, EMSA, or reporter data are provided. E07 reports absence of a GABPA ChIP peak containing the variant in the cited 'null' biosamples, which does not support ref G as the stronger GABPA site; E09 is expression only."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in an ENSR5 enhancer; E03 shows no cCRE directly overlaps but three pELS/PLS cCREs lie within 500 bp near TERT. This directly supports the element-context claim."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports TERT proximity and E05 supports TERT as best L2G, but the credible set is hypertension with PIP 0.00 and E04 reports no GWAS Catalog association for rs34768248. The TERT link is indirect."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 gives generic TERT cancer relevance and E09 supports GABPA expression in DepMap glioblastoma, but bladder-specific relevance and GABPA-dependent TERT regulation are not shown."
+  },
+  {
+   "hypothesis_id": "H2_GABPA_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence_ids are cited. The claim also requires alt A to reduce GABPA-driven TERT and thus be protective or act opposite to expected TERT gain-of-function cancer risk, but no such direction or protective-allele evidence is provided."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E03 reports CTCF signal at nearby pELS/PLS cCREs, but no cCRE overlaps the variant and no allele-specific CTCF binding, motif, EMSA, or ChIP data at chr5:1295601 are given. Nearby CTCF occupancy is at best indirect and does not establish alt-A strengthening."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in an ENSR5 enhancer and E03 shows nearby pELS/PLS cCREs with CTCF signal, while also stating no cCRE directly overlaps. The element-context claim is supported, with the caveat that z-scores are maxima over ENCODE biosamples."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports TERT proximity and E05 supports TERT as best L2G, but the credible set is hypertension with PIP 0.00 and no molecular QTL is reported. A CTCF-to-TERT regulatory link is speculative and indirect."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 provides only generic TERT cancer literature; CTCF-dependent TERT regulation, bladder cancer relevance, and the cited DepMap glioblastoma context for this CTCF mechanism are not established."
+  },
+  {
+   "hypothesis_id": "H3_CTCF_alt",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 is generic TERT literature and gives no evidence linking this variant, allele-specific CTCF occupancy, TERT chromatin contacts, or cancer phenotype."
+  }
+ ],
+ "checks": [],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "GABPA",
+    "biosample": "null"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "null"
+   },
+   "run": true
+  },
+  {
+   "tool": "tf_expression",
+   "args": {
+    "tf": "GABPA",
+    "context": "DepMap:subtype=Glioblastoma"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Recombinant GABPA EMSA or DNA pulldown with ref vs alt oligos spanning chr5:1295601",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_alt",
+     "outcome": "Alt A shows stronger recombinant GABPA binding than ref G."
+    },
+    {
+     "hypothesis_id": "H2_GABPA_ref",
+     "outcome": "Ref G shows stronger recombinant GABPA binding than alt A."
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "No GABPA-specific allele difference; CTCF is not tested by this assay."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific GABPA binding."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific GABPA ChIP-qPCR in a heterozygous GABPA-expressing glioblastoma cell line",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_alt",
+     "outcome": "GABPA ChIP is higher on the alt A haplotype."
+    },
+    {
+     "hypothesis_id": "H2_GABPA_ref",
+     "outcome": "GABPA ChIP is higher on the ref G haplotype."
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "No GABPA allele effect; CTCF may show an allele effect if this chain is true."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific GABPA occupancy."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "TERT upstream enhancer/promoter MPRA or luciferase assay with ref vs alt in GABPA-expressing glioblastoma cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_alt",
+     "outcome": "Alt A increases reporter activity in GABPA-expressing glioblastoma cells."
+    },
+    {
+     "hypothesis_id": "H2_GABPA_ref",
+     "outcome": "Alt A decreases reporter activity."
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "No simple GABPA-dependent change; any effect may be CTCF/contact-mediated."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific reporter activity."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CTCF EMSA or allele-specific CTCF ChIP at chr5:1295601",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_alt",
+     "outcome": "No CTCF allele-specific binding."
+    },
+    {
+     "hypothesis_id": "H2_GABPA_ref",
+     "outcome": "No CTCF allele-specific binding."
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "Alt A shows stronger CTCF binding than ref G."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific CTCF binding."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific TERT expression or eQTL analysis in heterozygous glioblastoma, melanoma, and bladder cancer samples",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_GABPA_alt",
+     "outcome": "Alt A is associated with higher TERT expression."
+    },
+    {
+     "hypothesis_id": "H2_GABPA_ref",
+     "outcome": "Alt A is associated with lower TERT expression."
+    },
+    {
+     "hypothesis_id": "H3_CTCF_alt",
+     "outcome": "No simple expression effect, or an effect explained by chromatin contact rather than GABPA."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific TERT expression effect."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Recombinant GABPA EMSA or DNA pulldown with ref vs alt oligos spanning chr5:1295601 is the cheapest test that separates the top two chains, H1_GABPA_alt and H4_null. H1 predicts stronger GABPA binding to alt A; the null predicts no allele-specific GABPA binding.",
+ "citation_support": 0.9333333333333333,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs34768248 AND TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; dropped the rsID"
+  },
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 41744838: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295601-1295601:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295601:G>A (GRCh38), allele string G/A\nKnown IDs: rs34768248\nMost severe consequence: intron_variant\nRegulatory features: ENSR5_C5GP enhancer\nGERP conservation score at the site: 2.04\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295601-2295601?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-26T02:22:31+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295601:G>A, by distance to TSS:\nTERT: 0.5 kb from TSS (upstream, strand -1)\nCLPTM1L: 49.5 kb from TSS (downstream, strand -1)\nSLC6A18: 70.2 kb from TSS (downstream, strand +1)\nSLC6A19: 94.0 kb from TSS (downstream, strand +1)\nSLC12A7: 139.4 kb from TSS (upstream, strand -1)\nSLC6A3: 149.9 kb from TSS (downstream, strand -1)\nLPCAT1: 228.7 kb from TSS (downstream, strand -1)\nNKD2: 287.6 kb from TSS (downstream, strand +1)\nTRIP13: 402.8 kb from TSS (downstream, strand +1)\nBRD9: 402.8 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-26T02:21:44+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3622531 (pELS) 75 bp away.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622532 pELS: DNase z 2.2, H3K27ac z 3.9, H3K4me3 z 4.4, CTCF z 1.5; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622530 PLS: DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs34768248&size=100",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs34768248, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 credible sets contain 5_1295601_G_A: 1 GWAS, 0 molecular QTL.\nGWAS Hypertension: PIP 0.00; L2G TERT 0.84\nBest L2G gene scores across these sets: TERT 0.84"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E07",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:24:02+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE GABPA ChIP-seq peak contains chr5:1295601:G>A in biosamples matching 'null'. Absence can also mean no GABPA experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr5_1295601_G_A_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T02:24:03+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr5_1295601_G_A_b38 in tissues matching 'null'. NES is the effect of the alt allele (A) relative to ref (G)."
+  },
+  {
+   "id": "E09",
+   "tool": "tf_expression",
+   "source": "DepMap expression / GTEx v8 medians",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "GABPA in DepMap subtype median Glioblastoma: 15.52 TPM, rank 303 of 1626 TFs (1 = highest); this context is at the 58.4th percentile of GABPA across all DepMap lines; median of 54 lines."
+  }
+ ]
+}

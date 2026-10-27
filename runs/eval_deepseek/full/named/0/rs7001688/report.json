@@ -1,0 +1,722 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0175,
+ "seconds": 133.4,
+ "model_calls": 7,
+ "screen": {
+  "n_pass": 441,
+  "top_groups": [
+   {
+    "label": "Rel, 1 model",
+    "z": 33.95,
+    "best_tf": "RELA"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": 32.75,
+    "best_tf": "CASZ1"
+   },
+   {
+    "label": "AT hook, 2 models",
+    "z": 29.74,
+    "best_tf": "HMGA1"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": -29.06,
+    "best_tf": "ZNF580"
+   },
+   {
+    "label": "Unknown, 1 model",
+    "z": 28.95,
+    "best_tf": "NME2"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "chain_4_null",
+   "title": "No TF-mediated effect of rs7001688",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at rs7001688 in relevant chromatin.",
+    "No regulatory effect of the variant in hepatocyte models.",
+    "Any observed LDL association is due to a linked causal variant or is not mediated by this variant."
+   ],
+   "falsified_if": [
+    "Allele-specific RELA, HMGA1, or other TF ChIP-seq/CUT&RUN, MPRA, or CRISPR editing shows a reproducible TF-dependent regulatory effect at rs7001688.",
+    "An eQTL or functional assay links this exact variant to LDL cholesterol through a TF."
+   ],
+   "probability": 0.78,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "chain_1_RELA_FAM110B",
+   "title": "RELA binds the alt allele at an unannotated element and may alter FAM110B",
+   "is_null": false,
+   "tf": "RELA",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "No annotated cCRE overlaps rs7001688 and the nearest cCRE is 1544 bp away. This shows absence of annotated regulatory annotation, not positive evidence for a functional unannotated RELA-responsive element.",
+   "target_gene": "FAM110B",
+   "cell_type": "Hep 3B2.1-7 is the provided expression context and expresses RELA at 73.44 TPM; this does not establish Hep3B as LDL-relevant or that RELA regulates FAM110B there.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G315 names RELA as an own-model TF and predicts that the alt T allele binds RELA more strongly than ref G (z 33.95, effect 1.34). RELA is chosen over mapped RELB and REL because it has an own model, the strongest positive group score, and expression in Hep3B; this is in vitro binding only, and no ENCODE RELA ChIP-seq peak contains the site, although absence is not conclusive.",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant has no annotated cCRE overlap and lies 1544 bp from the nearest cCRE, so any RELA effect would require an unannotated element rather than a known regulatory region.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest listed protein-coding gene at 420.6 kb, but distance alone is not target-gene evidence. E06 is only a literature-search hit about pravastatin cardiovascular response, not direct evidence that rs7001688 regulates FAM110B.",
+     "evidence_ids": [
+      "E02",
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 is the provided expression context and expresses RELA at 73.44 TPM in the QBiC-SELEX RNA context, but the evidence does not show that Hep3B is the disease-relevant cell type for LDL cholesterol or that RELA regulates FAM110B in Hep3B.",
+     "evidence_ids": [
+      "E07",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "There is no provided genetic or perturbation evidence linking rs7001688 to LDL cholesterol through RELA or FAM110B; GWAS Catalog and Open Targets have no record for the variant, and E06 is only an indirect literature title.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "Allele-specific RELA occupancy at rs7001688 in Hep3B cells, with alt greater than ref.",
+    "RELA-dependent regulatory activity or FAM110B expression change after editing rs7001688.",
+    "A measurable LDL-cholesterol effect mediated by this RELA-bound element and FAM110B."
+   ],
+   "falsified_if": [
+    "No RELA occupancy or allele-specific RELA binding at rs7001688 in Hep3B cells.",
+    "No RELA-dependent regulatory or expression effect after editing rs7001688.",
+    "No link between the edited variant and LDL cholesterol in a relevant model."
+   ],
+   "probability": 0.12,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "RELA"
+  },
+  {
+   "id": "chain_2_HMGA1_FAM110B",
+   "title": "HMGA1 binds the alt allele at an unannotated element and may alter FAM110B",
+   "is_null": false,
+   "tf": "HMGA1",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "No annotated cCRE overlaps rs7001688 and the nearest cCRE is 1544 bp away, so this chain requires an unannotated AT-rich element; the evidence does not positively establish such an element.",
+   "target_gene": "FAM110B",
+   "cell_type": "Hep 3B2.1-7 is the provided expression context and expresses HMGA1 at 238.96 TPM; this does not establish disease-relevant HMGA1 function or HMGA1 regulation of FAM110B.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G077 names HMGA1 as an own-model TF and predicts that the alt T allele binds HMGA1 more strongly than ref G (z 29.74, effect 2.006). HMGA1 is chosen by own-model status, strongest positive score, and high Hep3B expression, but the group contains SETBP1 with the opposite direction, and this is in vitro binding only; no ENCODE HMGA1 ChIP-seq peak contains the site, although absence is not conclusive.",
+     "evidence_ids": [
+      "E10",
+      "E07",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant has no annotated cCRE overlap and lies 1544 bp from the nearest cCRE, so an HMGA1 effect would have to act through an unannotated element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest listed protein-coding gene at 420.6 kb, but distance alone is not target-gene evidence. E06 is only a literature-search hit about pravastatin cardiovascular response, not direct evidence that rs7001688 regulates FAM110B.",
+     "evidence_ids": [
+      "E02",
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Hep 3B2.1-7 expresses HMGA1 at high levels in the QBiC-SELEX RNA context, but the evidence does not show that Hep3B is disease-relevant for LDL cholesterol or that HMGA1 regulates FAM110B there.",
+     "evidence_ids": [
+      "E07",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "There is no provided genetic or perturbation evidence linking rs7001688 to LDL cholesterol through HMGA1 or FAM110B; GWAS Catalog and Open Targets have no record for the variant, and E06 is only an indirect literature title.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E06"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "Allele-specific HMGA1 occupancy at rs7001688 in Hep3B cells, with alt greater than ref.",
+    "HMGA1-dependent chromatin accessibility or regulatory activity difference between ref and alt alleles.",
+    "HMGA1-dependent FAM110B expression change and LDL-cholesterol effect."
+   ],
+   "falsified_if": [
+    "No HMGA1 occupancy or allele-specific HMGA1 binding at rs7001688 in Hep3B cells.",
+    "No HMGA1-dependent regulatory or expression effect after editing rs7001688.",
+    "No link between the edited variant and LDL cholesterol in a relevant model."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "HMGA1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "chain_1_RELA_FAM110B",
+   "tf": "RELA",
+   "is_null": false,
+   "probability": 0.25,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain_2_HMGA1_FAM110B",
+   "tf": "HMGA1",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain_3_E2F4_FAM110B",
+   "tf": "E2F4",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain_4_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.62,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Non-null chain graded link-by-link."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 and E03 directly show the variant is not in an annotated cCRE and the nearest cCRE is 1544 bp away. They do not show that the variant lies in a functional unannotated regulatory element."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports FAM110B as the nearest listed protein-coding gene, but it is still 420.6 kb from the TSS. E06 is only a Europe PMC hit/title about pravastatin cardiovascular response, not direct evidence that FAM110B is the target gene for this variant and LDL cholesterol."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07/E08 support RELA expression in the provided ACH-000625 Hep3B context (73.44 TPM), but not that Hep3B is disease-relevant for LDL cholesterol or that RELA regulates FAM110B there."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links RELA occupancy or FAM110B expression to LDL cholesterol. E06 does not establish this, and E04/E05 report no GWAS Catalog or Open Targets association for rs7001688."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E10 is only a QBiC-SELEX in vitro prediction for HMGA1 (own model, z 29.74, effect +2.006, alt binds more). No orthogonal occupancy or allele-specific assay is provided, and the group contains a disagreeing member (SETBP1 z -15.21)."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show absence of annotated cCRE overlap and nearest cCRE 1544 bp away, but do not establish a functional unannotated element at the variant."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is 420.6 kb away by E02. E06 is only a literature-search hit/title and does not directly show FAM110B as the causal target for this variant and LDL cholesterol."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E10 supports high HMGA1 expression in the QBiC RNA context, but this does not show disease-relevant cell-type function or HMGA1 regulation of FAM110B in Hep3B."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence links HMGA1 binding or FAM110B to LDL cholesterol. The chain is speculative and has no genetic or perturbation support."
+  },
+  {
+   "hypothesis_id": "chain_3_E2F4_FAM110B",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E14 is only a QBiC-SELEX in vitro prediction for E2F4 (own model, z 25.88, effect +1.189, alt binds more). No ChIP-seq, MPRA, reporter, or perturbation evidence shows E2F4 occupancy at rs7001688."
+  },
+  {
+   "hypothesis_id": "chain_3_E2F4_FAM110B",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01/E03 show no annotated cCRE at the variant, but do not provide positive evidence for an unannotated E2F4-responsive element at this position."
+  },
+  {
+   "hypothesis_id": "chain_3_E2F4_FAM110B",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is only the nearest listed gene, at 420.6 kb. E06 is an indirect literature hit and does not establish FAM110B as the target of rs7001688 for LDL cholesterol."
+  },
+  {
+   "hypothesis_id": "chain_3_E2F4_FAM110B",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E14 supports E2F4 expression in the QBiC RNA context, but not that Hep3B is the relevant disease cell type or that E2F4 regulates FAM110B there."
+  },
+  {
+   "hypothesis_id": "chain_3_E2F4_FAM110B",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links E2F4 binding or FAM110B expression to LDL cholesterol, and the variant has no GWAS Catalog or Open Targets association."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "binding",
+   "status": "weak",
+   "reason": "No RELA ChIP-seq peak contains the site; binding relies on QBiC-SELEX only."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly shows no cCRE overlap and nearest cCRE 1544 bp away; this supports only absence of annotation."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 gives 420.6 kb distance and E06 is an unrelated pravastatin study; no evidence links RELA to FAM110B."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E08 confirms RELA expression in Hep3B, but no evidence establishes Hep3B LDL relevance or RELA regulation of FAM110B."
+  },
+  {
+   "hypothesis_id": "chain_1_RELA_FAM110B",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 and E05 directly show no GWAS Catalog or Open Targets record for the variant; claim is only absence of evidence."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Binding rests on QBiC-SELEX only; no HMGA1 ChIP-seq peak contains the site and the group contains an opposite-direction member."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly shows no cCRE overlap and nearest cCRE 1544 bp away; supports only absence of annotation."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 gives 420.6 kb distance and E06 is irrelevant; no evidence links HMGA1 to FAM110B."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E10 confirms high HMGA1 expression in Hep3B, but no evidence establishes disease relevance or HMGA1 regulation of FAM110B."
+  },
+  {
+   "hypothesis_id": "chain_2_HMGA1_FAM110B",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 and E05 directly show no GWAS Catalog or Open Targets record; claim is only absence of evidence."
+  }
+ ],
+ "checks": [],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": null
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "RELA",
+    "biosample": null
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "HMGA1",
+    "biosample": null
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific RELA ChIP-qPCR or CUT&RUN-qPCR at rs7001688 in Hep3B cells heterozygous for the variant",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1_RELA_FAM110B",
+     "outcome": "Allele-specific RELA occupancy at rs7001688, alt greater than ref."
+    },
+    {
+     "hypothesis_id": "chain_2_HMGA1_FAM110B",
+     "outcome": "No allele-specific RELA occupancy at rs7001688."
+    },
+    {
+     "hypothesis_id": "chain_4_null",
+     "outcome": "No allele-specific RELA occupancy at rs7001688."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific HMGA1 ChIP-qPCR or CUT&RUN-qPCR at rs7001688 in Hep3B cells heterozygous for the variant",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1_RELA_FAM110B",
+     "outcome": "No allele-specific HMGA1 occupancy at rs7001688."
+    },
+    {
+     "hypothesis_id": "chain_2_HMGA1_FAM110B",
+     "outcome": "Allele-specific HMGA1 occupancy at rs7001688, alt greater than ref."
+    },
+    {
+     "hypothesis_id": "chain_4_null",
+     "outcome": "No allele-specific HMGA1 occupancy at rs7001688."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "CRISPR edit rs7001688 to ref/ref versus alt/alt in Hep3B and measure FAM110B expression",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1_RELA_FAM110B",
+     "outcome": "Editing rs7001688 changes FAM110B expression in a RELA-dependent direction."
+    },
+    {
+     "hypothesis_id": "chain_2_HMGA1_FAM110B",
+     "outcome": "Editing rs7001688 changes FAM110B expression in an HMGA1-dependent direction."
+    },
+    {
+     "hypothesis_id": "chain_4_null",
+     "outcome": "No reproducible change in FAM110B expression after editing rs7001688 in Hep3B."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific MPRA reporter assay for the rs7001688 ref and alt alleles in Hep3B cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1_RELA_FAM110B",
+     "outcome": "Alt allele shows higher reporter activity, potentially RELA-dependent."
+    },
+    {
+     "hypothesis_id": "chain_2_HMGA1_FAM110B",
+     "outcome": "Alt allele shows higher reporter activity, potentially HMGA1-dependent."
+    },
+    {
+     "hypothesis_id": "chain_4_null",
+     "outcome": "No allele-specific reporter activity difference."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The single cheapest experiment that separates the top two chains is allele-specific RELA ChIP-qPCR or CUT&RUN-qPCR at rs7001688 in Hep3B cells heterozygous for the variant: alt-greater-than-ref RELA occupancy supports the RELA chain, while no allele-specific RELA occupancy supports the null over the RELA chain (chain costs medium).",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs7001688 AND FAM110B AND \"ldl cholesterol\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr8:57573391:G>T: 997 models scored, 441 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 316 CIS-BP groups. Expression context: DepMap line ACH-000625. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 73 (BED ZF, 1 model z 24.73, C2H2 ZF, 1 model z -21.17, DM, 5 models z -18.3, C2H2 ZF, 1 model z 16.96, C2H2 ZF, 1 model z -16.13). Passing groups ranked below the ones shown: 233. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G315 (Rel, 1 model): best model RELA_DBD_TGATCC20NCTA_KI_nitta2015_1_3_7mer (own model of RELA), z 33.95, effect 1.34 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: RELA z 33.95. TFs this group covers: RELA (own model) 73.44 TPM, RELB (mapped) 17.37 TPM, REL (mapped) 4.27 TPM; best model's site strength: ref 97.4th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G138 (C2H2 ZF, 1 model): best model CASZ1_FL_AG40NGGAATC_YWKC_jolma2025_0_4_7mer (own model of CASZ1), z 32.75, effect 2.741 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: CASZ1 z 32.75. TFs this group covers: CASZ1 (own model) 4.18 TPM; best model's site strength: ref 99.1th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G077 (AT hook, 2 models): best model HMGA1_FL_GA40NCTGATT_YWPA_jolma2025_0_3_7mer (own model of HMGA1), z 29.74, effect 2.006 (alt binds more); 2 passing models (1 with the best model's sign); members disagree on direction. Passing members: HMGA1 z 29.74, SETBP1 z -15.21. TFs this group covers: HMGA1 (own model) 238.96 TPM, HMGA2 (mapped) 97.36 TPM, SRCAP (mapped) 41.42 TPM, ASH1L (mapped) 21.18 TPM, SETBP1 (own model) 1.24 TPM; best model's site strength: ref 67.3th, alt 96.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G540 (C2H2 ZF, 1 model): best model ZNF580_FL_TGGCCA40NTTC_KAE_yin2017_0_4_7mer (own model of ZNF580), z -29.06, effect -1.205 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF580 z -29.06. TFs this group covers: ZNF580 (own model) 8.54 TPM; best model's site strength: ref 100.0th, alt 94.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G266 (Unknown, 1 model): best model NME2_FL_TA40NTCACTC_YWDA_jolma2025_0_4_7mer (own model of NME2), z 28.95, effect 0.573 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: NME2 z 28.95. TFs this group covers: NME2 (own model) 928.15 TPM; best model's site strength: ref 65.7th, alt 99.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G460 (C2H2 ZF, 1 model): best model ZNF230_FL_TG40NGACCTT_YWDA_jolma2025_0_3_7mer (own model of ZNF230), z 26.94, effect 0.512 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF230 z 26.94. TFs this group covers: ZNF230 (own model) 1.96 TPM; best model's site strength: ref 70.8th, alt 96.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G018 (E2F, 4 models): best model E2F4_eDBD_TCAGGG40NGCA_KO_yin2017_1_3_7mer (own model of E2F4), z 25.88, effect 1.189 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: E2F4 z 25.88, E2F3 z 17.58. TFs this group covers: E2F4 (own model) 58.99 TPM, E2F3 (own model) 36.15 TPM, E2F5 (mapped) 18.97 TPM, E2F6 (mapped) 18.07 TPM, E2F1 (own model) 11.74 TPM, E2F2 (own model) 2.06 TPM; best model's site strength: ref 98.4th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G499 (C2H2 ZF, 1 model): best model ZNF384_FL_GG40NTAGTTT_AATBA_jolma2025_0_3_7mer (own model of ZNF384), z -24.76, effect -0.523 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF384 z -24.76. TFs this group covers: ZNF384 (own model) 82.82 TPM; best model's site strength: ref 82.1th, alt 68.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G031 (TEA, 4 models): best model TEAD1_FL_TCACGC40NACT_KW_yin2017_0_4_7mer (own model of TEAD1), z 23.14, effect 1.505 (alt binds more); 4 passing models (4 with the best model's sign). Passing members: TEAD1 z 23.14, TEAD4 z 10.66, TEAD2 z 9.59, TEAD3 z 8.07. TFs this group covers: TEAD2 (own model) 34.44 TPM, TEAD1 (own model) 29.24 TPM, TEAD4 (own model) 28.13 TPM, TEAD3 (own model) 17.77 TPM; best model's site strength: ref 84.6th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G338 (Unknown, 1 model): best model SNAPC5_FL_CA40NAGCGTA_YWDA_jolma2025_0_3_7mer (own model of SNAPC5), z 22.9, effect 0.368 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: SNAPC5 z 22.9. TFs this group covers: SNAPC5 (own model) 86.73 TPM; best model's site strength: ref 80.4th, alt 98.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE RELA ChIP-seq peak contains chr8:57573391:G>T. Absence can also mean no RELA experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E20",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:45:05+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE HMGA1 ChIP-seq peak contains chr8:57573391:G>T. Absence can also mean no HMGA1 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  }
+ ]
+}

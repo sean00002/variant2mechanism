@@ -1,0 +1,885 @@
+{
+ "case_id": "tert_c250t",
+ "variant": "TERT promoter C250T",
+ "variant_key": "chr5:1295135:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "somatic",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0157,
+ "seconds": 196.6,
+ "model_calls": 9,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The variant will not produce a reproducible TF-dependent difference in TERT regulation; any disease association could arise from linkage or another process."
+   ],
+   "falsified_if": [
+    "Changing this base alone reproducibly alters TERT regulation in relevant cells, and the effect depends on a specific TF."
+   ],
+   "probability": 0.88,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Candidate MAX-mediated effect at the TERT promoter",
+   "is_null": false,
+   "tf": "MAX",
+   "allele_binding_more": "alt",
+   "element": "EH38E3622530, a promoter-like cCRE overlapping the variant",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma cells (candidate context; occupancy is not established there)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The provisional direction for this candidate is greater MAX binding to alt than ref, but this is an untested assumption: MAX has variant-overlapping ChIP peaks only in other biosamples, and no QBiC-SELEX allele-effect result is supplied. MAX is a candidate because it is expressed in the glioblastoma DepMap context and has those ChIP records.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E16"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant overlaps promoter-like cCRE EH38E3622530, whose reported active-chromatin scores are maxima across biosamples rather than glioblastoma-specific measurements.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is immediately adjacent to the variant and near the overlapping promoter-like element, making it a plausible but unproven target; no brain-cortex eQTL is reported.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E17"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MAX is expressed in the glioblastoma DepMap context, but the reported variant-overlapping MAX peaks are from other biosamples and do not establish occupancy in glioblastoma cells.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT promoter mutations are relevant to glioblastoma generally, but the evidence does not connect this variant or MAX to the disease.",
+     "evidence_ids": [
+      "E15d",
+      "E15h",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "A TERT-promoter reporter carrying the two alleles should differ in a glioblastoma cell line, with greater MAX binding to alt as the provisional direction; MAX depletion should reduce or remove the reporter difference. The direction of any TERT-expression effect is not established.",
+    "Unlike the JUN and GABPA candidates, a MAX-dependent reporter effect is predicted."
+   ],
+   "falsified_if": [
+    "A reproducible allele-dependent reporter effect persists unchanged after MAX depletion, or no allele-dependent effect is detected under conditions with demonstrable MAX activity.",
+    "A relevant-cell binding assay shows greater MAX binding to ref rather than alt."
+   ],
+   "probability": 0.06,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "MAX"
+  },
+  {
+   "id": "H2",
+   "title": "Candidate JUN-mediated effect at the TERT promoter",
+   "is_null": false,
+   "tf": "JUN",
+   "allele_binding_more": "ref",
+   "element": "EH38E3622530, a promoter-like cCRE overlapping the variant",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma cells (candidate context; occupancy is not established there)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The provisional direction for this candidate is greater JUN binding to ref than alt, but this is an untested assumption: JUN has variant-overlapping ChIP peaks only in A549, and no QBiC-SELEX allele-effect result is supplied. JUN is a candidate because it is expressed in the glioblastoma DepMap context and has those ChIP records.",
+     "evidence_ids": [
+      "E04",
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant overlaps promoter-like cCRE EH38E3622530, whose reported active-chromatin scores are maxima across biosamples rather than glioblastoma-specific measurements.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is immediately adjacent to the variant and near the overlapping promoter-like element, making it a plausible but unproven target; no brain-cortex eQTL is reported.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E17"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "JUN is expressed in the glioblastoma DepMap context, but its reported variant-overlapping peaks are from A549 rather than a matching context.",
+     "evidence_ids": [
+      "E04",
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT promoter mutations are relevant to glioblastoma generally, but the evidence does not connect this variant or JUN to the disease.",
+     "evidence_ids": [
+      "E15d",
+      "E15h",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "A TERT-promoter reporter carrying the two alleles should differ in a glioblastoma cell line, with greater JUN binding to ref as the provisional direction; JUN depletion should reduce or remove the reporter difference. The direction of any TERT-expression effect is not established.",
+    "Unlike the MAX and GABPA candidates, a JUN-dependent reporter effect is predicted."
+   ],
+   "falsified_if": [
+    "A reproducible allele-dependent reporter effect persists unchanged after JUN depletion, or no allele-dependent effect is detected under conditions with demonstrable JUN activity.",
+    "A relevant-cell binding assay shows greater JUN binding to alt rather than ref."
+   ],
+   "probability": 0.035,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "JUN"
+  },
+  {
+   "id": "H3",
+   "title": "Candidate GABPA-mediated effect at the TERT promoter",
+   "is_null": false,
+   "tf": "GABPA",
+   "allele_binding_more": "alt",
+   "element": "EH38E3622530, a promoter-like cCRE overlapping the variant",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma cells (candidate context; occupancy is not established there)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The provisional direction for this candidate is greater GABPA binding to alt than ref, but this is an untested assumption: GABPA has variant-overlapping ChIP peaks only in other biosamples, and no QBiC-SELEX allele-effect result is supplied. GABPA is a candidate because it is expressed in the glioblastoma DepMap context and has those ChIP records.",
+     "evidence_ids": [
+      "E04",
+      "E11"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant overlaps promoter-like cCRE EH38E3622530, whose reported active-chromatin scores are maxima across biosamples rather than glioblastoma-specific measurements.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is immediately adjacent to the variant and near the overlapping promoter-like element, making it a plausible but unproven target; no brain-cortex eQTL is reported.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E17"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GABPA is expressed in the glioblastoma DepMap context, but its reported variant-overlapping peaks are from other biosamples and do not establish occupancy in glioblastoma cells.",
+     "evidence_ids": [
+      "E04",
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "TERT promoter mutations are relevant to glioblastoma generally, but the evidence does not connect this variant or GABPA to the disease.",
+     "evidence_ids": [
+      "E15d",
+      "E15h",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "A TERT-promoter reporter carrying the two alleles should differ in a glioblastoma cell line, with greater GABPA binding to alt as the provisional direction; GABPA depletion should reduce or remove the reporter difference. The direction of any TERT-expression effect is not established.",
+    "Unlike the MAX and JUN candidates, a GABPA-dependent reporter effect is predicted."
+   ],
+   "falsified_if": [
+    "A reproducible allele-dependent reporter effect persists unchanged after GABPA depletion, or no allele-dependent effect is detected under conditions with demonstrable GABPA activity.",
+    "A relevant-cell binding assay shows greater GABPA binding to ref rather than alt."
+   ],
+   "probability": 0.025,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.7,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "MAX",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "JUN",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04/E05 report MAX peaks over the variant only in other biosamples; no occupancy is shown in glioblastoma cells and no QBiC-SELEX or other allele-specific result establishes the claimed alt-greater direction."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in the promoter-like cCRE EH38E3622530. The claim appropriately qualifies the chromatin scores as maxima across biosamples, not glioblastoma-specific evidence."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E01/E02 support the upstream annotation and proximity to TERT, while E03 identifies a promoter-like element near TERT. None shows that this variant regulates TERT."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 supports MAX expression in the glioblastoma DepMap context, but its site-overlapping occupancy is only reported in other biosamples; expression alone does not establish relevant-cell binding."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15d/E15h support general relevance of TERT promoter mutations in glioblastoma, but do not connect this variant or a MAX-mediated effect to the disease."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04/E06 report JUN peaks over the variant only in other biosamples; no occupancy is shown in glioblastoma cells and no QBiC-SELEX or other allele-specific result establishes the claimed ref-greater direction."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in the promoter-like cCRE EH38E3622530. Its chromatin scores are appropriately described as across-biosample maxima."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E01/E02 support the upstream annotation and proximity to TERT, and E03 places the variant in a promoter-like element near TERT. No cited evidence demonstrates regulation of TERT by this variant."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 supports JUN expression in the glioblastoma DepMap context, but the site-overlapping JUN peaks are from A549, not a matching context; expression does not establish relevant-cell binding."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15d/E15h provide general TERT-promoter and glioblastoma context, but no JUN- or variant-specific disease link."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04/E11 report GABPA peaks over the variant only in other biosamples; no occupancy is shown in glioblastoma cells and no QBiC-SELEX or other allele-specific result establishes the claimed alt-greater direction."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in the promoter-like cCRE EH38E3622530. The claim appropriately notes that the reported chromatin scores are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E01/E02 support the upstream annotation and proximity to TERT, and E03 identifies a promoter-like element near TERT. No evidence demonstrates a regulatory effect on TERT."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E11 supports GABPA expression in the glioblastoma DepMap context, but its site-overlapping occupancy is from other biosamples; expression alone does not establish relevant-cell binding."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15d/E15h support general relevance of TERT promoter mutations in glioblastoma, but do not link this variant or a GABPA-mediated effect to the phenotype."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX allele-effect result or quoted binding assay is supplied, and the variant-overlapping MAX ChIP peaks are only from other biosamples, not the stated glioblastoma context. The alt-greater direction is explicitly an untested assumption."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within promoter-like cCRE EH38E3622530; the claim accurately notes that the activity scores are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is at the variant\u2019s TSS and is among the nearby genes for the overlapping promoter-like cCRE, supporting plausibility but not showing that the element regulates TERT. No brain-cortex eQTL is reported."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "MAX expression in the glioblastoma DepMap context is reported, but the cited variant-overlapping peaks are from other biosamples and do not establish glioblastoma occupancy."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The literature supports general relevance of TERT promoter mutations to glioblastoma, but does not connect this variant or MAX to the disease."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX allele-effect result or quoted binding assay is supplied, and JUN peaks overlapping the variant are only reported in A549, not the stated glioblastoma context. The ref-greater direction is explicitly an untested assumption."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within promoter-like cCRE EH38E3622530; the claim accurately notes that the activity scores are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is at the variant\u2019s TSS and is among the nearby genes for the overlapping promoter-like cCRE, supporting plausibility but not showing that the element regulates TERT. No brain-cortex eQTL is reported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "JUN expression in the glioblastoma DepMap context is reported, but its variant-overlapping peaks are from A549 and do not establish glioblastoma occupancy."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The literature supports general relevance of TERT promoter mutations to glioblastoma, but does not connect this variant or JUN to the disease."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX allele-effect result or quoted binding assay is supplied, and GABPA peaks overlapping the variant are only from other biosamples, not the stated glioblastoma context. The alt-greater direction is explicitly an untested assumption."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant within promoter-like cCRE EH38E3622530; the claim accurately notes that the activity scores are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is at the variant\u2019s TSS and is among the nearby genes for the overlapping promoter-like cCRE, supporting plausibility but not showing that the element regulates TERT. No brain-cortex eQTL is reported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "GABPA expression in the glioblastoma DepMap context is reported, but the variant-overlapping peaks are from other biosamples and do not establish glioblastoma occupancy."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The literature supports general relevance of TERT promoter mutations to glioblastoma, but does not connect this variant or GABPA to the disease."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"MAX\",\"biosample\":\"Glioblastoma\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether variant-overlapping MAX occupancy is reported in the proposed disease context; it would improve cell-context evidence but would not establish allele-specific direction."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Brain - Cortex\"}",
+   "resolves": "H1.gene",
+   "why": "Checks whether the variant has a TERT-relevant expression association in a brain tissue context, providing evidence beyond proximity; this is not a tumor-specific tissue."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"chr5:1295135 G>A TERT glioblastoma melanoma bladder variant\"}",
+   "resolves": "H3.phenotype",
+   "why": "Looks for variant-specific disease or functional evidence that could materially strengthen or undermine the proposed phenotype link."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "MAX",
+    "biosample": "Glioblastoma"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Brain - Cortex"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "chr5:1295135 G>A TERT glioblastoma melanoma bladder variant"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Query existing ENCODE data for MAX occupancy at the variant in glioblastoma-matched biosamples",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No matching MAX peak is expected, though a peak alone would not rule out the null because occupancy need not be causal."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A matching MAX peak is expected, but it would not establish an allelic binding difference or a functional effect."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No matching MAX peak is specifically predicted; JUN-dependent activity could occur independently."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No matching MAX peak is specifically predicted; GABPA-dependent activity could occur independently."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Compare ref- and alt-allele DNA probes in a TF-specific binding assay for MAX, JUN, and GABPA",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible TF-specific allele difference is expected, although an in-vitro binding difference alone would not establish a functional effect."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A MAX-specific allele-binding difference is expected, provisionally stronger for alt."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A JUN-specific allele-binding difference is expected, provisionally stronger for ref."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "A GABPA-specific allele-binding difference is expected, provisionally stronger for alt."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "In a glioblastoma cell line, compare ref- and alt-allele TERT-promoter reporters with control or TF-specific depletion of MAX, JUN, or GABPA",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allele-dependent reporter difference, or any difference does not depend specifically on one of these TFs."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "An allele-dependent reporter difference is reduced or lost with MAX depletion; alt is provisionally predicted to bind MAX more strongly."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "An allele-dependent reporter difference is reduced or lost with JUN depletion; ref is provisionally predicted to bind JUN more strongly."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "An allele-dependent reporter difference is reduced or lost with GABPA depletion; alt is provisionally predicted to bind GABPA more strongly."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Precisely edit the variant in a glioblastoma cell line and measure TERT expression and allele-specific TF occupancy",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "Editing the base produces no reproducible change in TERT expression or TF occupancy attributable to this variant."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Editing produces a reproducible change in TERT expression linked to MAX occupancy or MAX perturbation."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Editing produces a reproducible change in TERT expression linked to JUN occupancy or JUN perturbation."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Editing produces a reproducible change in TERT expression linked to GABPA occupancy or GABPA perturbation."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run the medium-cost ref/alt TERT-promoter reporter assay in a glioblastoma cell line with control and separate MAX, JUN, and GABPA depletion. This is the cheapest listed experiment expected to distinguish the leading null hypothesis from the leading TF-mediated candidate while testing which, if any, TF dependence is specific.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295135-1295135:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295135:G>A (GRCh38), allele string G/A\nKnown IDs: rs1561215364\nMost severe consequence: upstream_gene_variant\nRegulatory features: ENSR5_832QG promoter\nGERP conservation score at the site: -4.69\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295135-2295135?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:25:54+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295135:G>A, by distance to TSS:\nTERT: 0.0 kb from TSS (upstream, strand -1)\nCLPTM1L: 50.0 kb from TSS (downstream, strand -1)\nSLC6A18: 69.8 kb from TSS (downstream, strand +1)\nSLC6A19: 93.5 kb from TSS (downstream, strand +1)\nSLC12A7: 138.9 kb from TSS (upstream, strand -1)\nSLC6A3: 150.4 kb from TSS (downstream, strand -1)\nLPCAT1: 229.1 kb from TSS (downstream, strand -1)\nNKD2: 287.1 kb from TSS (downstream, strand +1)\nTRIP13: 402.3 kb from TSS (downstream, strand +1)\nBRD9: 402.3 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3622530 (PLS: promoter-like), chr5:1294945-1295294.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622530 PLS (contains the variant): DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622529 pELS: DNase z 3.7, H3K27ac z 4.1, H3K4me3 z 4.6, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr5:1295135:G>A: 113 peaks contain the variant, from 47 factors in 22 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: PLS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ARID4A, BCL3, DMAP1, EZH2, EZH2phosphoT487, GABPB1, HDAC1, HNRNPK, IKZF1, KDM4A, LIN54, MAZ (+16 more). Bound, expressed TFs with a binding model: 18; listed one per row: MAX, JUN, BHLHE40, E2F4, EGR1, CTCF, GABPA, ZNF687, NR2C1, ZNF143; also bound: SP2, TGIF2, MNT, ZBTB7A, E2F5, ZBTB26, KLF12, ZNF48. Bound but below 1 TPM: ZFHX2. Assayed with no peak here: 0 TFs in the matching biosample, 554 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 12 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, HCT116, HepG2, Ishikawa, K562, NB4 (+1 more) (e.g. ENCSR000BLP). 58.6 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 48 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUN: bound elsewhere. 11 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549 (e.g. ENCSR022WVP). 91.65 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 16 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "BHLHE40: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR000DZJ). 68.33 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 33 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "E2F4: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878, HepG2 (e.g. ENCSR000DYY). 58.31 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 49 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "EGR1: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, Ishikawa (e.g. ENCSR000BSQ). 28.32 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 151 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: DOHH2, endodermal cell (e.g. ENCSR084RDK). 26.45 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 163 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "GABPA: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, SK-N-SH (e.g. ENCSR000BJK). 15.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 303 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF687: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR647PSR). 10.74 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 436 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2C1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR784VIQ). 18.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 251 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF143: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR936XTK). 15.92 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 297 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs[masked] potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E15a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41744838",
+   "url": "https://europepmc.org/article/MED/41744838",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "A major molecular feature of melanoma is abnormal telomerase activation; this is most often caused by telomerase reverse transcriptase (TERT) promoter mutations, which occur in 50-82% of cases and are the most common noncoding alteration in this cancer."
+  },
+  {
+   "id": "E15b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41744838",
+   "url": "https://europepmc.org/article/MED/41744838",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Understanding both telomere-dependent and -independent TERT functions is essential for developing effective biomarkers and therapies that overcome resistance and slow melanoma progression."
+  },
+  {
+   "id": "E15c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42577103",
+   "url": "https://europepmc.org/article/MED/42577103",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "CDKN2A and CDK4 mutations act through UV-dependent and cell cycle disruption pathways, while BAP1, POT1, and TERT mutations are considered UV-independent."
+  },
+  {
+   "id": "E15d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Mutations in the telomerase reverse transcriptase (TERT) promoter region (TPM), particularly C228T and C250T, are common in IDH-wildtype glioblastoma (GBM)."
+  },
+  {
+   "id": "E15e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The rs[masked] C allele may increase GBM susceptibility and, when in cis with TPM, is associated with reduced TERT expression and poorer prognosis, underscoring its biological and clinical significance in TPM-mutant GBM."
+  },
+  {
+   "id": "E15f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42807929",
+   "url": "https://europepmc.org/article/MED/42807929",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Additionally, loss of either USP10 or FOXM1 suppresses the expression of the downstream target Telomerase reverse transcriptase (TERT), triggering cellular senescence."
+  },
+  {
+   "id": "E15g",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42807929",
+   "url": "https://europepmc.org/article/MED/42807929",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Taken together, these findings highlight the pro-tumorigenic role of USP10 in melanoma and suggest that disrupting the USP10/FOXM1 signaling axis could represent a viable therapeutic approach for treating this aggressive cancer."
+  },
+  {
+   "id": "E15h",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42859331",
+   "url": "https://europepmc.org/article/MED/42859331",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "TERT promoter (TERTp) mutations are among the most frequent molecular alterations in isocitrate dehydrogenase (IDH) wild-type glioblastoma (GBM), yet the molecular profiles and prognostic implications associated with TERTp status remain incompletely characterized."
+  },
+  {
+   "id": "E15i",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42859331",
+   "url": "https://europepmc.org/article/MED/42859331",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The prognostic relevance of CDKN2A deletion may vary according to TERTp status, particularly for OS."
+  },
+  {
+   "id": "E16",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T13:20:19+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE MAX ChIP-seq peak contains chr5:1295135:G>A in biosamples matching 'Glioblastoma'. Absence can also mean no MAX experiment in that biosample. In other biosamples, 12 MAX peaks do contain the variant: A549, HCT116, HepG2, Ishikawa, K562, NB4, SK-N-SH (experiments ENCSR000BLP, ENCSR000BSH, ENCSR000BTJ, ENCSR000BTM, ENCSR000BTY, ENCSR000BVD)."
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr5_1295135_G_A_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T20:17:52+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr5_1295135_G_A_b38 in tissues matching 'Brain - Cortex'. NES is the effect of the alt allele (A) relative to ref (G)."
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=chr5%3A1295135%20G%3EA%20TERT%20glioblastoma%20melanoma%20bladder%20variant&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:18:10+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 0 hits for 'chr5:1295135 G>A TERT glioblastoma melanoma bladder variant'; top 0 with PMIDs:"
+  }
+ ]
+}

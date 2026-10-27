@@ -1,0 +1,911 @@
+{
+ "case_id": "rs6983267",
+ "variant": "rs6983267",
+ "variant_key": "chr8:127401060:G>T",
+ "disease": "Colorectal cancer (8q24)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.539,
+ "seconds": 168.8,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H3",
+   "title": "TCF7L2 bound preferentially to the G allele restrains POU5F1B; the T allele relieves this and raises POU5F1B in colon",
+   "is_null": false,
+   "tf": "TCF7L2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "cCRE EH38E3858447 (pELS) within the POU5F1B intron, 78.9 kb from the POU5F1B TSS",
+   "target_gene": "POU5F1B",
+   "cell_type": "Colon epithelium / colorectal carcinoma cells (HCT 116)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF7L2 occupies this base in HCT 116 (ENCSR000EUV); the proposed direction is stronger binding to ref G, with TCF7L2 acting here as a repressor of POU5F1B, since more binding need not mean more activity. No QBiC-SELEX model was supplied, so coverage is not checked and the direction is untested.",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an active pELS cCRE whose SCREEN-linked genes are CCAT2, PCAT1 and POU5F1B, and the variant is intronic to POU5F1B.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The alt T allele is associated with higher POU5F1B in transverse colon (GTEx NES +0.20, p 8.2e-06), the direction expected if G-bound TCF7L2 represses, and Open Targets L2G ranks POU5F1B first (0.89) versus MYC (0.05).",
+     "evidence_ids": [
+      "E08",
+      "E05",
+      "E02"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The eQTL is in colon tissue and the TCF7L2 peak is in a colorectal line; POU5F1B is a TWAS-implicated colorectal susceptibility gene.",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E06b"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "POU5F1B promotes CRC cell proliferation and metastasis, so higher POU5F1B on the T allele is a coherent route to the T-associated CRC risk reported in the strongest association.",
+     "evidence_ids": [
+      "E06c",
+      "E04"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "CRISPRi of EH38E3858447 in HCT 116 raises or leaves POU5F1B unchanged while MYC is unaffected.",
+    "TCF7L2 knockdown increases POU5F1B in colon lines.",
+    "Allele-specific POU5F1B expression in heterozygous colon tissue favours T.",
+    "MPRA at this base shows higher enhancer output for T in colon cells."
+   ],
+   "falsified_if": [
+    "POU5F1B is unaffected by element perturbation or TCF7L2 depletion.",
+    "Allele-specific expression of POU5F1B favours G.",
+    "No TCF7L2 footprint overlaps the variant base in colon cells."
+   ],
+   "probability": 0.32,
+   "rank": 1,
+   "coverage_status": "mapped",
+   "resolved_symbol": "TCF7L2"
+  },
+  {
+   "id": "H1",
+   "title": "G allele strengthens a TCF7L2 site in the 8q24 enhancer, raising long-range MYC expression in colon epithelium",
+   "is_null": false,
+   "tf": "TCF7L2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "ENCODE cCRE EH38E3858447 / Ensembl enhancer ENSR8_CGMBX at chr8:127401060",
+   "target_gene": "MYC",
+   "cell_type": "Colorectal carcinoma epithelium (HCT 116)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF7L2 occupies this base in HCT 116 (one ENCODE TCF7L2 peak containing the variant, ENCSR000EUV; three further peaks in HepG2), so the TF is physically present at the site; the direction (ref G bound more strongly, consistent with a better TCF/LEF T-site match) is a hypothesis only, as no QBiC-SELEX model was supplied (coverage not checked) and no allele-specific ChIP data were provided.",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an active proximal enhancer-like cCRE (EH38E3858447) with high DNase/H3K27ac z-scores (maxima across biosamples) and an annotated Ensembl enhancer.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "MYC is 334 kb upstream and is proposed as the long-range target; the cited evidence does not support this (L2G for MYC is only 0.05 versus 0.89 for POU5F1B, and no colon eQTL for MYC is reported), so this link rests on the absence of a nearer coding gene other than POU5F1B.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E08"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TCF7L2 ChIP signal at this base is documented specifically in HCT 116, the supplied expression context; no cited evidence quantifies Wnt activity in that line.",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "MYC is required for growth of HCT 116 and of bowel lines generally (CRISPR effect -1.27; 98% of bowel lines dependent), although MYC is a common essential, so this is permissive rather than lineage-specific support for the CRC association at rs6983267.",
+     "evidence_ids": [
+      "E09",
+      "E04",
+      "E06a"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific TCF7L2 ChIP in heterozygous colon cells shows G-allele enrichment.",
+    "CRISPRi/deletion of EH38E3858447 lowers MYC mRNA in HCT 116 more than POU5F1B or PVT1.",
+    "4C/Hi-C from the element shows a contact with the MYC promoter at 335 kb.",
+    "Colon eQTL for MYC emerges in larger or tumour-specific datasets."
+   ],
+   "falsified_if": [
+    "Enhancer perturbation leaves MYC unchanged while POU5F1B or PVT1 change.",
+    "No allele-specific TCF7L2 occupancy at chr8:127401060.",
+    "TCF7L2 binds the T allele more strongly."
+   ],
+   "probability": 0.26,
+   "rank": 2,
+   "coverage_status": "mapped",
+   "resolved_symbol": "TCF7L2"
+  },
+  {
+   "id": "H4",
+   "title": "Null: no TF-mediated allelic effect of rs6983267 itself",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Reporter, MPRA or base-editing assays show no allelic difference at chr8:127401060 in colon cells.",
+    "TCF7L2 ChIP in heterozygous colon cells shows balanced allelic occupancy despite a peak at the site.",
+    "Fine-mapping in additional ancestries moves the credible set to a neighbouring variant in the EH38E3858446/448 cluster.",
+    "Colon eQTL signals at POU5F1B and PVT1 are driven by a linked variant, not this base."
+   ],
+   "falsified_if": [
+    "A reproducible allele-specific reporter/MPRA effect at this exact base.",
+    "Allele-specific TF binding or allele-specific POU5F1B/CCAT2/PVT1 expression in heterozygous colon cells."
+   ],
+   "probability": 0.2,
+   "rank": 3,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2",
+   "title": "Allelic TCF7L2 binding alters the overlapping lncRNA CCAT2/CASC8 transcript at the variant",
+   "is_null": false,
+   "tf": "TCF7L2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "CCAT2 exon overlapping cCRE EH38E3858447",
+   "target_gene": "CCAT2",
+   "cell_type": "Colorectal carcinoma epithelium (HCT 116)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF7L2 binds this base in HCT 116 by ENCODE ChIP-seq; the ref-G-binds-more direction is assumed, not shown, and no QBiC-SELEX model was supplied (coverage not checked).",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is an exonic position of CCAT2 (and intronic in CASC8) inside an active pELS cCRE, so TF occupancy here could affect both transcription and transcript sequence.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "CCAT2 is the transcript directly overlapping the variant; the only reported cis-eQTL in the same transcript family is CASC8 in whole blood (NES -0.32 for alt T), and no colon eQTL for CCAT2 is reported, so effector status is unproven.",
+     "evidence_ids": [
+      "E01",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The cCRE is active and TCF7L2-bound in HCT 116, but no cited data show CCAT2 expression level in that line.",
+     "evidence_ids": [
+      "E03",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "CCAT2 is repeatedly reviewed as a gastrointestinal-cancer lncRNA at 8q24, matching the CRC association, but only review-level titles are cited, so this link is weak.",
+     "evidence_ids": [
+      "E04",
+      "E06",
+      "E06a"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "CCAT2 RNA shows allelic imbalance favouring G in heterozygous colorectal tumours.",
+    "CCAT2 knockdown reduces proliferation in HCT 116 without changing POU5F1B.",
+    "Enhancer CRISPRi changes CCAT2/CASC8 levels more than POU5F1B or MYC."
+   ],
+   "falsified_if": [
+    "CCAT2 expression is allele-independent in heterozygous colon samples.",
+    "Enhancer perturbation changes POU5F1B or MYC but not CCAT2."
+   ],
+   "probability": 0.12,
+   "rank": 4,
+   "coverage_status": "mapped",
+   "resolved_symbol": "TCF7L2"
+  },
+  {
+   "id": "H5",
+   "title": "The element acts as a CTCF-dependent anchor whose allelic occupancy tunes PVT1 in colonic secretory cells",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "CTCF-marked pELS cluster EH38E3858446/447/448",
+   "target_gene": "PVT1",
+   "cell_type": "Colonic goblet (MUC2+/SPDEF+) epithelial cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The cCRE cluster carries CTCF signal (z 4.1 at the variant-containing element, 5.5 nearby), but these are maxima across biosamples over 250 bp elements; no allelic or base-level CTCF evidence is cited and no QBiC-SELEX model was supplied, so coverage is not checked and this binding claim is the weakest of the set.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an open, CTCF-marked pELS that could act as a loop anchor as well as an enhancer.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The only molecular QTL among the 92 credible sets containing this variant is a single-cell eQTL for PVT1 in colon goblet cells (PIP 0.95), pointing to a target not proposed by the other chains.",
+     "evidence_ids": [
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "That QTL is specific to MUC2+/SPDEF+ colonic goblet cells, a cell type not represented by HCT 116, so the effect may be invisible in the supplied expression context.",
+     "evidence_ids": [
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "PVT1 is the lncRNA neighbouring MYC at 8q24 and altered PVT1 output could plausibly affect colonic epithelial proliferation; no cited evidence links PVT1 to the CRC association here.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CTCF ChIP signal at chr8:127401060 in colon cells.",
+    "PVT1 shows genotype-dependent expression in colon secretory cells but not in HCT 116.",
+    "Element deletion changes local loop structure measured by Hi-C without changing MYC in HCT 116."
+   ],
+   "falsified_if": [
+    "No CTCF footprint at the variant base.",
+    "PVT1 expression is genotype-independent in colon single-cell data.",
+    "Element perturbation changes POU5F1B or MYC with no PVT1 change."
+   ],
+   "probability": 0.1,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "TCF7L2",
+   "is_null": false,
+   "probability": 0.4,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "TCF7L2",
+   "is_null": false,
+   "probability": 0.2,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.28,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence cited. TCF7L2 was chosen from Wnt context with no QBiC-SELEX, ChIP or allele-specific data, and coverage is unchecked. The G-binds-more direction is unsupported, and the GWAS risk allele is T in the strongest CRC entry but G in others."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 show the variant in the pELS cCRE EH38E3858447 and the Ensembl enhancer ENSR8_CGMBX, with high DNase and H3K27ac z-scores. These are maxima over biosamples, not HCT 116 specific."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 puts MYC 334 kb away, but E05 gives MYC an L2G of only 0.05 against 0.89 for POU5F1B. Nothing cited (no eQTL, CRISPR or contact data) links this element to MYC. The 'classic target' claim comes from memory, and PVT1 is the only eQTL gene in E05."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E03 has no HCT 116 specific data and says nothing about Wnt activity or TCF7L2 expression. The claim rests on outside knowledge."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 and E06a support a CRC association at the variant. No cited evidence shows that MYC changes drive the phenotype. Allele direction is inconsistent across GWAS entries."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence cited. The TF was chosen on pathway grounds only, with no binding data for TCF7L2 at this site."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 shows a CCAT2 exonic consequence and E03 shows an active pELS. This is consistent with the claim, but it does not show that allelic binding changes CCAT2 transcription."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E01 shows overlap with CCAT2. E06 consists of review titles and gives no perturbation or eQTL evidence for CCAT2 as the effector gene. The claim that CCAT2 feeds back on MYC is not shown by any quote."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "Neither E03 nor E06 shows CCAT2 expression in HCT 116. No expression data were cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports the CRC association at the SNP. E06 titles are review-level, and no quote shows that CCAT2 promotes growth or metastasis. The causal link from this variant to CCAT2 is not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E03 shows CTCF z 4.1 at the variant-containing cCRE, but this is a maximum over biosamples and a 250 bp element. No allelic or motif evidence is cited. The G-binds-more direction is unsupported, and coverage is unchecked."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "The cCRE is open and carries a CTCF signal, but nothing shows loop-anchor function or that the CTCF signal overlaps the variant base."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 L2G 0.89 for POU5F1B is genetic prioritisation across 92 credible sets, including PIP 1.00 entries. It is not perturbation or eQTL evidence. The claim that the variant is in the POU5F1B gene body is partly wrong: E01 shows a POU5F1B intron variant, but E02 puts the TSS 78.9 kb away. The linkage to CTCF looping is not shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06b (TWAS) and E06c (functional work in CRC cells) implicate POU5F1B in colorectal cancer. Neither shows expression in HCT 116 or prostate. Prostate epithelium is also not covered by the supplied expression context."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06c supports POU5F1B promoting CRC cell proliferation and metastasis, but only for the gene, not for this variant acting via CTCF. E04 shows the association. The chain from allele to loop to gene is not demonstrated."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E07 shows a TCF7L2 ChIP peak containing the variant in HCT116, which is occupancy context only. No allele-specific data and no QBiC-SELEX result support the ref-G-stronger direction. Coverage was never checked; a qbic_tf_detail lookup for TCF7L2 is suggested."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in pELS cCRE EH38E3858447 with high DNase and H3K27ac z-scores, and E01 shows an Ensembl enhancer. The z-scores are maxima over biosamples, so this is context rather than perturbation, but it is adequate for the element link."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "missing",
+   "reason": "The chain itself concedes that the evidence does not support MYC. L2G for MYC is 0.05, E08 reports no MYC eQTL, and E02 gives only distance (334 kb). No contact or perturbation data link the element to MYC, and the argument by absence of a nearer gene is not evidence."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 shows TCF7L2 binding in HCT116, but nothing shows the enhancer regulating MYC in colon epithelium. No biosample-specific enhancer activity is cited for HCT116, because the E03 values are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E09 shows MYC is common-essential, which is not lineage-specific and does not link rs6983267 to MYC. E04 and E06a only show the CRC association. The link is permissive at best and is also undercut by the missing gene link."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E07 gives TCF7L2 occupancy in HCT116 only. The ref-G-stronger direction is assumed and no allele-specific or QBiC-SELEX evidence is given. Coverage is unchecked; suggest a qbic_tf_detail lookup for TCF7L2."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 and E03 show the variant is a CCAT2 exonic position inside an active cCRE, so overlap is established. That a TF at this site affects the transcript is speculative, and the exonic overlap is annotation only."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "CCAT2 overlaps the variant (E01), but E08 reports no CCAT2 eQTL. The only related eQTL is CASC8 in whole blood, which is the wrong tissue, and its direction is not tied to the claimed binding. Open Targets does not name CCAT2. Effector status is unproven."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The cCRE is active and TCF7L2 binds in HCT116 (E03, E07), but no CCAT2 expression or perturbation data are cited for that line. The chain concedes this."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 shows only review titles on CCAT2 in cancer, and E06a is about the GWAS locus. No cited quote shows CCAT2 function in CRC and none links the variant to CCAT2. Direction is unspecified."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E07 shows TCF7L2 occupancy in HCT116 only. Both the ref-G-stronger direction and the repressor role are untested hypotheses with no allele-specific or QBiC-SELEX data. Coverage is unchecked; suggest a qbic_tf_detail lookup for TCF7L2."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 shows an active pELS cCRE containing the variant and listing POU5F1B among nearby genes, and E01 gives an intron_variant in POU5F1B. This is epigenomic context linking the element to the gene, with no perturbation data. The 78.9 kb TSS distance is from E02."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E08 shows a significant colon eQTL for POU5F1B with alt T NES +0.20, and E05 gives L2G 0.82-0.89 with PIP 1.00 for POU5F1B. This genetic colocalisation-style evidence is the strongest available. However, the colon eQTL p-value is modest and the L2G is from prostate sets. The repressor mechanism is not shown, though the sign is consistent."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E08 gives a colon eQTL and E07 a TCF7L2 peak in a colorectal line, and E06b shows a TWAS link. The eQTL is in bulk colon tissue and the binding is in a cell line, so the two are not shown in the same cell type."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06c shows POU5F1B promotes CRC cell proliferation, and E08 gives a T-allele increase that is consistent with the T-risk CRC association in E04. However, the E04 effect-allele signals are mixed (G listed for several colon traits). The evidence is not a direct allele-to-phenotype test, so it is only consistent."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E03 gives only CTCF z-scores that are maxima over biosamples for 250 bp elements, with no base-level or allelic CTCF evidence and no motif or QBiC-SELEX data. This is context only. Coverage is unchecked; suggest a qbic_tf_detail lookup for CTCF and a Factorbook CTCF check."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 and E03 show an open pELS with CTCF signal, but loop-anchor function is speculative with no Hi-C or perturbation data."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 shows a PVT1 sc-eQTL in colon goblet cells with PIP 0.95, which is genetic evidence for PVT1. But nothing connects it to CTCF binding, and it is a single molecular QTL from one dataset. The GTEx colon data in E08 do not show PVT1."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 specifies the goblet-cell eQTL, so the cell type matches the QTL. But the chain notes that this cell type is not the supplied HCT116 context, and no CTCF binding or enhancer activity is shown in goblet cells."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The chain admits no cited evidence links PVT1 to the CRC association. E04 only gives the GWAS signal, and nothing cited shows PVT1 function in colorectal cancer or the direction of effect."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"TCF7L2\",\"biosample\":\"HCT116\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether TCF7L2 ChIP-seq peaks in HCT 116 contain the variant, which would give the first direct binding evidence for H1 and H2."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Colon_Transverse\"}",
+   "resolves": "H1.gene",
+   "why": "GTEx colon eQTLs show whether genotype affects MYC, POU5F1B, CCAT2 or PVT1, and they discriminate between the three target genes."
+  },
+  {
+   "tool": "gene_dependency",
+   "args_json": "{\"gene\":\"MYC\"}",
+   "resolves": "H1.phenotype",
+   "why": "Shows whether MYC is required in colorectal lines, which tests the phenotype link in H1 and its relevance versus POU5F1B."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "TCF7L2",
+    "biosample": "HCT116"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": null
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_dependency",
+   "args": {
+    "gene": "MYC"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "dCas9-KRAB CRISPRi of EH38E3858447 in HCT 116, RT-qPCR of MYC, POU5F1B, CCAT2/CASC8, PVT1",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "MYC falls; POU5F1B largely unchanged"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CCAT2/CASC8 falls most; MYC and POU5F1B little changed"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "POU5F1B changes (de-repression or loss, depending on element polarity); MYC unchanged"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No change in HCT 116 (goblet-cell-restricted effect)"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Element may still be functional, but effect is genotype-independent; no prediction tied to the variant base"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific TCF7L2 ChIP-seq (or ChIP-qPCR with allele counting) in heterozygous colon cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "G-allele enriched reads"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "G-allele enriched reads"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "G-allele enriched reads"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Balanced TCF7L2; allelic CTCF instead"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Balanced allelic occupancy"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Existing GTEx/Open Targets colon eQTL and sc-eQTL readout",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No MYC colon eQTL expected (unsupportive)"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CASC8 eQTL in blood only; no colon CCAT2 signal"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "POU5F1B up with T in transverse colon (observed)"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "PVT1 sc-eQTL in goblet cells (observed)"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Signals attributable to linked variants"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "MPRA / prime-edited isogenic G vs T HCT 116 clones, RNA-seq",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "T clones show lower MYC"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "T clones show lower CCAT2"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "T clones show higher POU5F1B"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No difference in HCT 116"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No allelic difference in any gene"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "TCF7L2 siRNA knockdown in HCT 116, RT-qPCR of MYC and POU5F1B",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "MYC falls"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CCAT2 falls"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "POU5F1B rises (repression relieved)"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Little change; CTCF-dependent instead"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Changes, if any, unrelated to this variant"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "4C/Hi-C from EH38E3858447 in HCT 116",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Strong contact with MYC promoter"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Local contacts within CCAT2/CASC8"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Contact with POU5F1B promoter"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "CTCF-anchored loop toward PVT1"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Contacts present but genotype-independent"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "TCF7L2 siRNA knockdown in HCT 116 followed by RT-qPCR of MYC and POU5F1B (low cost): H1 predicts MYC falls with little POU5F1B change, H3 predicts POU5F1B rises as TCF7L2 repression is relieved, so it directly separates the top two chains before committing to CRISPRi or prime editing.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:127401060-127401060:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T16:33:46+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:127401060:G>T (GRCh38), allele string G/T\nKnown IDs: rs6983267\nMost severe consequence: non_coding_transcript_exon_variant\nRegulatory features: ENSR8_CGMBX enhancer\nGERP conservation score at the site: 1.54\nTranscript consequences: CASC8 (intron_variant, non_coding_transcript_variant); CCAT2 (non_coding_transcript_exon_variant); PCAT1 (intron_variant, non_coding_transcript_variant); POU5F1B (intron_variant); PCAT1 (downstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:126401060-128401060?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T16:33:42+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "3 protein-coding genes within 1000 kb of chr8:127401060:G>T, by distance to TSS:\nPOU5F1B: 78.9 kb from TSS (in gene body, strand +1)\nMYC: 334.4 kb from TSS (upstream, strand +1)\nLRATD2: 842.6 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T16:32:58+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3858447 (pELS: proximal enhancer-like), chr8:127401053-127401303.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3858447 pELS (contains the variant): DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 4.1; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858446 pELS: DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 5.5; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858448 pELS: DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 2.2; nearby genes CCAT2, PCAT1, POU5F1B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs6983267&size=100",
+   "retrieved_utc": "2026-10-25T16:33:55+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "69 GWAS Catalog associations for rs6983267, strongest first:\nColorectal cancer: p 2.0e-122, effect allele T, risk-allele frequency NR, PMID 36539618\nProstate-specific antigen levels: p 9.0e-121, effect allele T, risk-allele frequency NR, PMID 39930085\nProstate cancer: p 1.0e-113, effect allele G, risk-allele frequency NR, PMID 33398198\nElevated prostate specific antigen [PSA] (PheCode 796): p 2.0e-96, effect allele G, risk-allele frequency 0.5087, PMID 39024449\nprostate-specific antigen (PSA, maximum, inv-norm transformed): p 7.0e-74, effect allele G, risk-allele frequency 0.5102, PMID 39024449\nCancer (pleiotropy): p 8.0e-74, effect allele G, risk-allele frequency NR, PMID 32887889\nprostate-specific antigen (PSA, mean, inv-norm transformed): p 1.0e-72, effect allele G, risk-allele frequency 0.5102, PMID 39024449\nColorectal cancer or advanced adenoma: p 3.0e-64, effect allele G, risk-allele frequency 0.5228, PMID 30510241\nprostate-specific antigen (PSA, minimum, inv-norm transformed): p 6.0e-52, effect allele G, risk-allele frequency 0.5102, PMID 39024449\nBenign neoplasm of colon (PheCode 208): p 2.0e-48, effect allele G, risk-allele frequency 0.5088, PMID 39024449\nColon polyps: p 6.0e-30, effect allele G, risk-allele frequency 0.566, PMID 39024449\nColon cancer (PheCode 153.2): p 8.0e-26, effect allele G, risk-allele frequency 0.5899, PMID 39024449"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T16:33:46+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "92 credible sets contain 8_127401060_G_T: 91 GWAS, 1 molecular QTL.\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nGWAS Cancer of prostate (PheCode 185): PIP 1.00; L2G POU5F1B 0.82\nGWAS Elevated prostate specific antigen [PSA] (PheCode 796): PIP 1.00; L2G POU5F1B 0.82\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nsceqtl for PVT1 (OTAR2057_IBDverse_ge_Colon_Goblet_MUC2+_SPDEF+_ENS): PIP 0.95\nBest L2G gene scores across these sets: POU5F1B 0.89, MYC 0.05"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs6983267%20AND%20POU5F1B%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 52 hits for 'rs6983267 AND POU5F1B AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 41796348 (2026): Harnessing the LncRNA CCAT2 role in gastric cancer: from molecular insights to clinical implications.\nPMID 40498368 (2025): CCAT2 role in gastrointestinal cancer progression and metastasis: a novel target for therapeutic strategies.\nPMID 35812248 (2022): Genome-Wide Association and Transcriptome-Wide Association Studies Identify Novel Susceptibility Genes Contributing to Colorectal Cancer.\nPMID 35987910 (2022): Transposon-activated POU5F1B promotes colorectal cancer growth and metastasis.\nPMID 39284974 (2024): Systematic prioritization of functional variants and effector genes underlying colorectal cancer risk.\nPMID 39921239 (2025): System genetic analysis of intestinal cancer and periodontitis development as influenced by aging and diabesity using Collaborative Cross mice.\nPMID 36103972 (2022): Long non-coding RNA colon cancer-associated transcript 2: role and function in human cancers.\nPMID 34594420 (2021): Repurposing non-invasive prenatal testing data: Population study of single nucleotide variants associated with colorectal cancer and Lynch syndrome."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35812248",
+   "url": "https://europepmc.org/article/MED/35812248",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In the post-GWAS analyses, we first identified new genome-wide significant associations: three genomic risk loci were identified at 8q24.21 (rs6983267, P = 6.98 \u00d7 10-12), 15q13.3 (rs58658771, P = 1.40 \u00d7 10-10), and 18q21.1 (rs6507874, P = 1.91 \u00d7 10-14)."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35812248",
+   "url": "https://europepmc.org/article/MED/35812248",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In addition, the TWAS also identified four loci statistically significantly associated with CRC risk, largely explained by expression regulation, including six candidate genes (DUSP10, POU5F1B, C11orf53, COLCA1, COLCA2, and GREM1-AS1)."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35987910",
+   "url": "https://europepmc.org/article/MED/35987910",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Correlating this observation, we demonstrate that POU5F1B fosters the proliferation and metastatic potential of CRC cells."
+  },
+  {
+   "id": "E07",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T16:35:30+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "1 ENCODE TCF7L2 ChIP-seq peaks contain chr8:127401060:G>T in biosamples matching 'HCT116': biosamples HCT116; experiments ENCSR000EUV. In other biosamples, 3 TCF7L2 peaks do contain the variant: HepG2 (experiments ENCSR000EVQ, ENCSR346BOD)."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_127401060_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T16:35:30+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2 significant GTEx v8 single-tissue eQTLs for chr8_127401060_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G).\nCASC8 in Whole_Blood: NES -0.32, p 6.3e-10\nPOU5F1B in Colon_Transverse: NES +0.20, p 8.2e-06"
+  },
+  {
+   "id": "E09",
+   "tool": "gene_dependency",
+   "source": "DepMap CRISPRGeneEffect (Biomni copy) and CRISPRInferredCommonEssentials (Public 26Q3)",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "DepMap CRISPR gene effect for MYC (0 = no effect, -1 = median common-essential; < -0.5 called dependent). HCT 116 (ACH-000971): -1.27. Bowel lineage, 63 lines: median -1.89, 98% dependent. All 1183 lines: median -1.83, 95% dependent. common-essential in DepMap: a strong knockout effect here is not evidence for a lineage-specific role."
+  }
+ ]
+}

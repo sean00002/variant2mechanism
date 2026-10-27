@@ -1,0 +1,740 @@
+{
+ "case_id": "rs339331",
+ "variant": "rs339331",
+ "variant_key": "chr6:116888889:T>C",
+ "disease": "Prostate cancer (6q22)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000977 (LNCaP clone FGC)",
+ "config": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0118,
+ "seconds": 171.8,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect at this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The T>C change has no TF-mediated regulatory effect. The prostate-cancer association could arise from linkage to another causal variant or another mechanism.",
+    "Allele-specific PKNOX1 binding and precise editing of this base will not produce a reproducible, PKNOX1-dependent expression change in a relevant prostate model."
+   ],
+   "falsified_if": [
+    "Precise T/C editing reproducibly changes TF binding and target-gene expression, and the effect depends on PKNOX1 or another identified TF."
+   ],
+   "probability": 0.83,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Hypothesized PKNOX1 binding increase and RFX6 activation",
+   "is_null": false,
+   "tf": "PKNOX1",
+   "allele_binding_more": "alt",
+   "element": "cCRE EH38E2496909, a distal enhancer-like element",
+   "target_gene": "RFX6",
+   "cell_type": "Prostate cancer cells; activity and PKNOX1 occupancy at this element in prostate cells are unestablished.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "PKNOX1 is a candidate because it is the only reported TF with a binding model that is both bound at the variant and expressed above 1 TPM; MEIS2 is reported below 1 TPM. However, the PKNOX1 peak is only in HEK293T, not LNCaP, and no PKNOX1 QBiC-SELEX result or allele-specific binding evidence is supplied. C-more-than-T binding is a speculative direction, not an observed result.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in distal enhancer-like cCRE EH38E2496909, but the reported chromatin scores are maxima across biosamples and do not establish activity in prostate cells.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "RFX6 is a candidate target because it is near the variant and is repeatedly favored by credible-set gene prioritization. Direct regulation by this cCRE is not shown, and there is no significant GTEx prostate eQTL for the variant.",
+     "evidence_ids": [
+      "E02",
+      "E07",
+      "E10"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "A prostate-cell mechanism is hypothesized, not demonstrated: PKNOX1 is expressed in LNCaP, but no matching-biosample peak over the variant is reported, and prostate-specific cCRE activity is not established.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If C increases RFX6 activity, this could be consistent with the reported C risk allele and literature linking RFX6 to prostate-cancer progression. The supplied evidence does not show that this variant changes RFX6 or that such a change mediates risk.",
+     "evidence_ids": [
+      "E06",
+      "E09b",
+      "E09c",
+      "E11"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "In a relevant prostate model, the C allele will bind PKNOX1 more strongly than T; if the element is active, editing T to C will increase RFX6 expression.",
+    "The expression effect will depend on PKNOX1 or the cCRE and will be more evident for RFX6 than for GPRC6A."
+   ],
+   "falsified_if": [
+    "A PKNOX1 allele-specific binding assay shows equal binding or stronger binding to T.",
+    "Precise T/C editing produces no RFX6 change, or any RFX6 change is not dependent on PKNOX1 or the cCRE."
+   ],
+   "probability": 0.11,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "PKNOX1"
+  },
+  {
+   "id": "H2",
+   "title": "Hypothesized PKNOX1 binding decrease and RFX6 reduction",
+   "is_null": false,
+   "tf": "PKNOX1",
+   "allele_binding_more": "ref",
+   "element": "cCRE EH38E2496909, a distal enhancer-like element",
+   "target_gene": "RFX6",
+   "cell_type": "Prostate cancer cells; activity and PKNOX1 occupancy at this element in prostate cells are unestablished.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "PKNOX1 is a candidate because it is the only reported TF with a binding model that is both bound at the variant and expressed above 1 TPM; MEIS2 is reported below 1 TPM. The PKNOX1 peak is only in HEK293T, not LNCaP, and no PKNOX1 QBiC-SELEX result or allele-specific binding evidence is supplied. T-more-than-C binding is a speculative direction.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in distal enhancer-like cCRE EH38E2496909, but the reported chromatin scores do not establish that it is active in prostate cells.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "RFX6 is a candidate target based on proximity and repeated credible-set prioritization, but direct regulation by this cCRE is unproven and no significant GTEx prostate eQTL is reported.",
+     "evidence_ids": [
+      "E02",
+      "E07",
+      "E10"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "A prostate-cell mechanism is hypothesized, not demonstrated: PKNOX1 is expressed in LNCaP, but no matching-biosample peak over the variant is reported, and prostate-specific cCRE activity is not established.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "This model predicts that C reduces RFX6. That direction is not supported by the supplied evidence and may conflict with literature describing RFX6 as promoting prostate-cancer progression; the variant's risk association alone does not establish this mechanism.",
+     "evidence_ids": [
+      "E06",
+      "E09b",
+      "E09c",
+      "E11"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "In a relevant prostate model, the T allele will bind PKNOX1 more strongly than C; if the element is active, editing T to C will reduce RFX6 expression.",
+    "Any RFX6 expression difference will depend on PKNOX1 or the cCRE."
+   ],
+   "falsified_if": [
+    "A PKNOX1 allele-specific binding assay shows equal binding or stronger binding to C.",
+    "Precise T/C editing does not reduce RFX6 expression, or any expression change is not dependent on PKNOX1 or the cCRE."
+   ],
+   "probability": 0.04,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "PKNOX1"
+  },
+  {
+   "id": "H3",
+   "title": "Hypothesized PKNOX1-mediated regulation of GPRC6A",
+   "is_null": false,
+   "tf": "PKNOX1",
+   "allele_binding_more": "alt",
+   "element": "cCRE EH38E2496909, a distal enhancer-like element",
+   "target_gene": "GPRC6A",
+   "cell_type": "Prostate cancer cells; activity and PKNOX1 occupancy at this element in prostate cells are unestablished.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "PKNOX1 is a candidate because it is the only reported TF with a binding model that is both bound at the variant and expressed above 1 TPM; MEIS2 is reported below 1 TPM. The PKNOX1 peak is only in HEK293T, not LNCaP, and no PKNOX1 QBiC-SELEX result or allele-specific binding evidence is supplied. C-more-than-T binding is speculative.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in distal enhancer-like cCRE EH38E2496909, but its activity in prostate cells is not established.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "GPRC6A is nearby and is a possible target, but credible-set gene prioritization favors RFX6 and direct regulation of GPRC6A by this cCRE is not shown.",
+     "evidence_ids": [
+      "E02",
+      "E03",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "A prostate-cell mechanism is hypothesized, not demonstrated: no matching-biosample LNCaP peak over the variant or prostate-specific cCRE activity is reported.",
+     "evidence_ids": [
+      "E03",
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The variant is associated with prostate cancer, and GPRC6A has a modest overall gene-disease score that is mostly literature-based. The supplied evidence does not establish a GPRC6A-mediated effect of this variant on prostate-cancer risk.",
+     "evidence_ids": [
+      "E06",
+      "E12"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "In a relevant prostate model, the C allele will bind PKNOX1 more strongly than T and alter GPRC6A expression, with no corresponding RFX6 expression change.",
+    "Editing the variant or perturbing the cCRE will affect GPRC6A more than RFX6."
+   ],
+   "falsified_if": [
+    "A PKNOX1 allele-specific binding assay shows equal binding or stronger binding to T.",
+    "Precise T/C editing or cCRE perturbation affects RFX6 but not GPRC6A."
+   ],
+   "probability": 0.02,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "PKNOX1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.7,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "PKNOX1",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "PKNOX1",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "PKNOX1",
+   "is_null": false,
+   "probability": 0.11,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "PKNOX1 has a variant-overlapping ChIP peak only in HEK293T, not LNCaP; no QBiC-SELEX result or other evidence establishes that C binds more strongly than T."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E2496909, classified as distal enhancer-like. Activity in prostate cells remains unestablished."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "RFX6 is near the variant and repeatedly favored by the cited credible-set gene-prioritization results. These support it as a candidate target, not direct regulation by this cCRE."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "PKNOX1 is expressed in LNCaP, but E04 reports no matching-biosample peak over the variant. Prostate-cell occupancy or element activity is not shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The C allele is associated with prostate-cancer risk, and the literature links RFX6 to prostate-cancer progression. Neither establishes that this variant increases RFX6 or that increased RFX6 mediates its risk association."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "PKNOX1 has a variant-overlapping ChIP peak only in HEK293T, not LNCaP; no QBiC-SELEX result or other evidence establishes that T binds more strongly than C."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E2496909, classified as distal enhancer-like. The reported biosample-maximal scores do not establish prostate-cell activity."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "RFX6 is near the variant and repeatedly favored by the cited credible-set gene-prioritization results. Direct regulation by this cCRE is not demonstrated."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "PKNOX1 is expressed in LNCaP, but E04 reports no matching-biosample peak over the variant. Prostate-cell occupancy or element activity is not shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The C allele is associated with risk, but the proposed decrease in RFX6 lacks supporting evidence. The cited literature instead describes RFX6 as promoting prostate-cancer progression, so this proposed direction is not supported and may conflict with the risk association."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "PKNOX1 has a variant-overlapping ChIP peak only in HEK293T, not LNCaP; no QBiC-SELEX result or other evidence establishes that C binds more strongly than T."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E2496909, classified as distal enhancer-like. Activity in prostate cells remains unestablished."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "GPRC6A is near the cCRE, but the cited credible-set gene prioritization favors RFX6. No direct link from this cCRE to GPRC6A is shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "A prostate-cell mechanism is proposed, not demonstrated; the matching LNCaP ChIP search found no peak over the variant, and prostate-specific element activity is not shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The variant's prostate-cancer association is reported, but the cited evidence does not connect GPRC6A to that association or show a GPRC6A-mediated effect."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04\u2013E05 report a PKNOX1 peak over the variant only in HEK293T, not in the relevant LNCaP/prostate context. No QBiC-SELEX result or allele-specific binding evidence establishes that C binds more than T."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant within cCRE EH38E2496909 and classifies it as distal enhancer-like. The claim correctly notes that the aggregate scores do not establish prostate-cell activity."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports proximity to RFX6, and E07 repeatedly prioritizes RFX6 in credible-set gene linking. These support candidacy, as claimed, but do not demonstrate direct regulation by the cCRE."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "PKNOX1 expression in LNCaP (E05) makes the proposed context plausible, but E04 reports no matching-biosample peak and E03 does not establish prostate-specific cCRE activity."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 identifies C as the prostate-cancer risk allele, and E09c/E11 provide contextual support for RFX6 involvement in progression. No evidence shows this variant increases RFX6 or mediates risk; the proposed direction is only conditionally consistent."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04\u2013E05 report a PKNOX1 peak over the variant only in HEK293T, not in the relevant LNCaP/prostate context. No QBiC-SELEX result or allele-specific binding evidence establishes that T binds more than C."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant within cCRE EH38E2496909 and classifies it as distal enhancer-like. The claim correctly notes that prostate-cell activity is not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports proximity to RFX6, and E07 repeatedly prioritizes RFX6 in credible-set gene linking. These support candidacy, as claimed, but do not demonstrate direct regulation by the cCRE."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "PKNOX1 expression in LNCaP (E05) makes the proposed context plausible, but E04 reports no matching-biosample peak and E03 does not establish prostate-specific cCRE activity."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The C allele is associated with prostate-cancer risk (E06), but the proposed C-driven reduction of RFX6 is unsupported and directionally conflicts with the cited evidence that RFX6 promotes prostate-cancer progression (E09c). No variant-to-RFX6 or mediating effect is shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04\u2013E05 report a PKNOX1 peak over the variant only in HEK293T, not in the relevant LNCaP/prostate context. No QBiC-SELEX result or allele-specific binding evidence establishes that C binds more than T."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant within cCRE EH38E2496909 and classifies it as distal enhancer-like. The claim correctly notes that prostate-cell activity is not established."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02/E03 support proximity of GPRC6A to the variant and cCRE, and E07 gives it some gene-linking support, but prioritization favors RFX6 and no evidence demonstrates regulation of GPRC6A by this element."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E03\u2013E04 provide no positive evidence for PKNOX1 occupancy or cCRE activity in prostate cells; the cited evidence does not establish a prostate-cell mechanism."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 supports the variant\u2013prostate-cancer association and E12 provides modest, mostly literature-based GPRC6A disease context. Neither establishes that this variant affects GPRC6A or that GPRC6A mediates the association."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Prostate\"}",
+   "resolves": "H1.gene",
+   "why": "A prostate-tissue eQTL result for this variant could strengthen or weaken the proposed variant-to-RFX6 regulatory link and clarify the direction."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"RFX6\"}",
+   "resolves": "H1.phenotype",
+   "why": "Disease-association evidence by type could clarify whether RFX6 itself has support for a prostate-cancer role beyond the cited literature context."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"GPRC6A\"}",
+   "resolves": "H3.phenotype",
+   "why": "This could establish whether there is gene-level prostate-cancer evidence for the less-prioritized proposed target."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Prostate"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "RFX6"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "GPRC6A"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Compare T- and C-allele PKNOX1 binding by EMSA using the two variant-containing DNA probes.",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allele-specific PKNOX1 binding difference."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "C probe binds PKNOX1 more strongly."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "T probe binds PKNOX1 more strongly."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "C probe binds PKNOX1 more strongly."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Precisely edit T to C (and the reciprocal edit where feasible) in a prostate cancer cell model; measure RFX6 and GPRC6A expression, with and without PKNOX1 perturbation.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible, PKNOX1-dependent expression difference attributable to the edited base."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "C increases RFX6 expression, and the difference is reduced by PKNOX1 perturbation."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "C decreases RFX6 expression, and the difference is reduced by PKNOX1 perturbation."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "C alters GPRC6A expression more than RFX6, with the difference reduced by PKNOX1 perturbation."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Measure allele-specific PKNOX1 occupancy at the cCRE in a prostate model heterozygous for the variant, alongside local chromatin accessibility.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible allele-specific PKNOX1 occupancy attributable to this base."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Greater PKNOX1 occupancy on C, with the cCRE accessible in the tested cells."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Greater PKNOX1 occupancy on T, with the cCRE accessible in the tested cells."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Greater PKNOX1 occupancy on C, with the cCRE accessible in the tested cells."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run the low-cost allele-specific PKNOX1 EMSA using otherwise identical T- and C-containing probes. Stronger binding to C would favor H1 over H2; stronger binding to T would favor H2. This tests the top two chains' differing binding-direction predictions, but would not establish PKNOX1 occupancy or regulatory activity in prostate cells.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/6:116888889-116888889:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr6:116888889:T>C (GRCh38), allele string T/C\nKnown IDs: rs339331\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 1.28\nTranscript consequences: RFX6 (intron_variant); RFX6 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/6:115888889-117888889?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:26:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "24 protein-coding genes within 1000 kb of chr6:116888889:T>C, by distance to TSS:\nRFX6: 11.7 kb from TSS (in gene body, strand +1)\nGPRC6A: 59.8 kb from TSS (upstream, strand -1)\nFAM162B: 123.1 kb from TSS (upstream, strand -1)\nKPNA5: 207.7 kb from TSS (downstream, strand +1)\nZUP1: 220.1 kb from TSS (upstream, strand -1)\nRSPH4A: 272.4 kb from TSS (downstream, strand +1)\nRWDD1: 317.5 kb from TSS (downstream, strand +1)\nTRAPPC3L: 343.2 kb from TSS (upstream, strand -1)\nCALHM4: 359.9 kb from TSS (downstream, strand +1)\nVGLL2: 376.7 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E2496909 (dELS: distal enhancer-like), chr6:116888741-116889057.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2496909 dELS (contains the variant): DNase z 2.2, H3K27ac z 1.7, H3K4me3 z 1.4, CTCF z 1.5; nearby genes RFX6, GPRC6A, FAM162B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr6:116888889:T>C: 6 peaks contain the variant, from 6 factors in 3 biosamples. In the matching biosample LNCaP clone FGC, LNCaP: 0 peaks from 0 factors. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): CTBP1, PRDM6, ZSCAN5C. Bound, expressed TFs with a binding model: 1; listed one per row: PKNOX1. Bound but below 1 TPM: FEZF1, MEIS2. Assayed with no peak here: 1 TFs in the matching biosample, 569 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "PKNOX1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HEK293T (e.g. ENCSR233FAG). 8.32 TPM in DepMap:ACH-000977 (LNCaP clone FGC), rank 573 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs339331&size=100",
+   "retrieved_utc": "2026-10-25T17:26:01+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "13 GWAS Catalog associations for rs339331, strongest first:\nProstate cancer: p 5.0e-20, effect allele C, risk-allele frequency 0.367114986, PMID 32514122\nPhospholipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nTotal lipids in small HDL: p 2.0e-13, effect allele C, risk-allele frequency NR, PMID 41044249\nConcentration of small HDL particles: p 5.0e-12, effect allele C, risk-allele frequency NR, PMID 41044249\nCholesterol in Small HDL: p 1.0e-11, effect allele C, risk-allele frequency NR, PMID 41044249\nProstate-specific antigen levels: p 4.0e-09, effect allele T, risk-allele frequency NR, PMID 39930085"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "95 credible sets contain 6_116888889_T_C: 94 GWAS, 1 molecular QTL.\nGWAS Cancer of prostate (PheCode 185): PIP 0.23; L2G RFX6 0.87, GPRC6A 0.05\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.42, GPRC6A 0.12\nGWAS Prostate cancer: PIP 0.07; L2G RFX6 0.75, GPRC6A 0.06\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.27, GPRC6A 0.16\nGWAS Prostate cancer: PIP 0.06; L2G RFX6 0.61\nGWAS Cancer of prostate (PheCode 185): PIP 0.06; L2G RFX6 0.75\npqtl for SCG2 (UKB_PPP_EUR_SCG2_P13521_OID21400_v1): PIP 0.01\nBest L2G gene scores across these sets: RFX6 0.87, NUS1 0.55, GPRC6A 0.38, ROS1 0.11"
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr6_116888889_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 significant GTEx v8 single-tissue eQTLs for chr6_116888889_T_C_b38. NES is the effect of the alt allele (C) relative to ref (T).\nFAM162B in Adipose_Subcutaneous: NES +0.14, p 3.2e-04"
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=RFX6%20AND%20%22prostate%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 148 hits for 'RFX6 AND \"prostate cancer\"'; top 7 with PMIDs:\nPMID 41422049 (2025): Multifaceted functions of transcription regulatory factor X6 (RFX6): from pancreatic development to cancer progression.\nPMID 41716817 (2026): RFX6 expression is central to the development and function of the neuroendocrine compartments of the pancreas and intestine and strongly affects diabetes risk.\nPMID 42676892 (2026): The function of phosphoglycerate mutase 1 (PGAM1) and its role in diseases.\nPMID 38932472 (2024): An Inherited Allele Confers Prostate Cancer Progression and Drug Resistance via RFX6/HOXA10-Orchestrated TGF\u03b2 Signaling.\nPMID 40181298 (2025): Genetic associations of prostate cancer in China: a systematic review.\nPMID 41374944 (2025): The Clinical Relevance of Tumor Biomarkers in Prostate Cancer-A Review.\nPMID 42588668 (2026): Sub-Saharan African Prostate Cancer Patient-Derived Cell Lines and High-Throughput Drug Screening: Addressing Ancestry Underrepresentation in Oncobiology Research."
+  },
+  {
+   "id": "E09a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41422049",
+   "url": "https://europepmc.org/article/MED/41422049",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Dysregulated expression or mutations of the RFX6 gene in prostate cancer, hepatocellular carcinoma, gastric cancer, melanoma, and other tumors have garnered significant interest, with studies showing that such alterations affect tumor cell proliferation, migration, and invasion, and are correlated with an unfavorable clinical prognosis in patients carrying RFX6 mutations."
+  },
+  {
+   "id": "E09b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Here the FinnGen cohort phenome-wide analysis, along with multiple genome-wide association studies, has consistently identified the rs[masked]-RFX6/6q22 locus associated with prostate cancer (PCa) risk across diverse populations."
+  },
+  {
+   "id": "E09c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38932472",
+   "url": "https://europepmc.org/article/MED/38932472",
+   "retrieved_utc": "2026-10-26T20:18:46+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Mechanistically, RFX6 upregulates HOXA10 that profoundly correlates with adverse PCa outcomes and is pivotal in RFX6-mediated PCa progression, facilitating the epithelial-mesenchymal transition (EMT) and modulating the TGF\u03b2/SMAD signaling axis."
+  },
+  {
+   "id": "E10",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr6_116888889_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:22+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr6_116888889_T_C_b38 in tissues matching 'Prostate'. NES is the effect of the alt allele (C) relative to ref (T)."
+  },
+  {
+   "id": "E11",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T20:19:57+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: RFX6 and prostate cancer (MONDO_0008315), overall score 0.41; by evidence type: genetic_association 0.66, literature 0.22"
+  },
+  {
+   "id": "E12",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T20:19:57+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: GPRC6A and prostate cancer (MONDO_0008315), overall score 0.12; by evidence type: literature 0.80, genetic_association 0.12"
+  }
+ ]
+}

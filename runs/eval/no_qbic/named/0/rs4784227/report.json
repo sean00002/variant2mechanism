@@ -1,0 +1,981 @@
+{
+ "case_id": "rs4784227",
+ "variant": "rs4784227",
+ "variant_key": "chr16:52565276:C>T",
+ "disease": "Breast cancer (16q12)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.5642,
+ "seconds": 169.3,
+ "model_calls": 8,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1",
+   "title": "Risk allele T strengthens FOXA1 binding at the TOX3 distal enhancer, altering TOX3 expression in breast epithelium",
+   "is_null": false,
+   "tf": "FOXA1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "EH38E3180851 (dELS distal enhancer, chr16:52565011-52565360; Ensembl regulatory feature ENSR16_9QTBS)",
+   "target_gene": "TOX3",
+   "cell_type": "Breast epithelium, modelled by MCF7 (DepMap ACH-000019)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "A FOXA1 ChIP-seq peak in MCF-7 contains the variant (ENCSR126YEB), and the published hypothesis for this locus is that the SNP changes the FOXA1 recognition sequence and increases FOXA1 binding affinity; the forkhead family member is named FOXA1 because it is the forkhead factor whose ChIP peak actually overlaps the site in MCF-7 and in liver/A549/HepG2. No QBiC-SELEX row or lookup for FOXA1 was available, so coverage is not_checked; the allele direction (T binds more) comes only from the literature assertion in E07b, not from any allele-resolved assay here.",
+     "evidence_ids": [
+      "E08",
+      "E07a",
+      "E07b"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies inside a distal enhancer-like cCRE (EH38E3180851) with high H3K27ac (z 6.1) and DNase (z 4.2) and low H3K4me3, i.e. enhancer not promoter; z-scores are maxima across biosamples, so MCF7-specific activity is not demonstrated, though the FOXA1 peak in MCF-7 indicates the region is accessible there.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E08"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TOX3 is the prioritised target: top L2G gene (0.92-0.96) in multiple breast-cancer credible sets and nearest protein-coding TSS (17.5 kb); this is genetic prioritisation plus a review assertion, not contact or perturbation data, and the host lncRNA CASC16 is not excluded.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E06a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant cells are breast epithelium generally rather than strictly luminal: the association is seen for ER-positive/luminal A and also ER-negative disease; MCF7 is used because the only matching FOXA1 peak evidence is in MCF-7.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The T allele is the risk allele at a genome-wide significant breast-cancer locus (p 2e-240; meta-analysis supports T-allele risk); mediation through TOX3 dosage and its direction are not demonstrated, and there is no significant breast eQTL for this variant.",
+     "evidence_ids": [
+      "E04",
+      "E06b",
+      "E09"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Reanalysis of ENCODE MCF-7 FOXA1 ChIP-seq reads at chr16:52565276 shows T-allele-biased reads if MCF-7 is heterozygous; allele-specific FOXA1 ChIP in heterozygous primary/organoid cells shows excess T reads",
+    "FOXA1 knockdown removes the allelic enhancer difference and lowers TOX3 expression",
+    "Isogenic C>T editing in MCF7 raises FOXA1 occupancy at the element and changes TOX3, not CASC16-only, expression",
+    "QBiC-SELEX forkhead models predict increased affinity for the T allele"
+   ],
+   "falsified_if": [
+    "Allele-specific FOXA1 ChIP shows equal or C-biased occupancy",
+    "CRISPR C>T editing leaves FOXA1 occupancy and TOX3 expression unchanged",
+    "Mutating the forkhead core in the element does not abolish the allelic reporter difference"
+   ],
+   "probability": 0.42,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "H5",
+   "title": "Null: no TF-mediated effect of rs4784227 itself",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Editing only rs4784227 in an isogenic background changes neither enhancer activity nor TOX3/CASC16 expression",
+    "No allele-specific read imbalance in MCF-7 FOXA1 ChIP-seq at the position",
+    "A different variant in the same strong-LD block carries the causal allelic activity",
+    "Consistent with no significant breast-mammary eQTL for this variant (E09)"
+   ],
+   "falsified_if": [
+    "Isogenic C>T editing reproducibly alters TOX3/CASC16 expression or enhancer activity",
+    "Reproducible allele-specific TF ChIP signal at the site"
+   ],
+   "probability": 0.3,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H6",
+   "title": "Same FOXA1 allelic binding event, but the regulated product is the CASC16 lncRNA rather than TOX3 protein-coding output",
+   "is_null": false,
+   "tf": "FOXA1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "EH38E3180851 dELS; intronic to CASC16 (ENSR16_9QTBS)",
+   "target_gene": "CASC16",
+   "cell_type": "Breast epithelium (MCF7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Identical binding step to H1: a FOXA1 peak in MCF-7 overlaps the variant and the literature proposes an altered FOXA1 recognition sequence with higher affinity for the variant allele; FOXA1 chosen because it is the only forkhead factor with peak evidence at the site. Coverage not_checked.",
+     "evidence_ids": [
+      "E08",
+      "E07b"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is an intronic position of the CASC16 non-coding transcript that also falls in a distal enhancer-like cCRE, so the element can act internally to the lncRNA unit.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "CASC16 hosts the variant and is the gene named in the association literature for this SNP; no breast eQTL distinguishes CASC16 from TOX3, and L2G prioritises TOX3 only from genetic mapping.",
+     "evidence_ids": [
+      "E01",
+      "E06b",
+      "E05",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Breast epithelium across ER subtypes, consistent with the association being present in both ER-positive and ER-negative disease.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered CASC16 transcription on the T allele modifies breast cancer risk; direction and mediation are not shown by any cited data.",
+     "evidence_ids": [
+      "E04",
+      "E06b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Isogenic editing changes CASC16 transcript level or isoform usage with little or no change in TOX3 mRNA",
+    "CASC16 knockdown, not TOX3 knockdown, reproduces the allele-associated transcriptional phenotype",
+    "Capture-C/HiC shows no enhancer-TOX3 promoter contact gain on the T allele"
+   ],
+   "falsified_if": [
+    "Editing changes TOX3 mRNA without changing CASC16",
+    "CASC16 depletion has no effect while TOX3 depletion does"
+   ],
+   "probability": 0.13,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "H4",
+   "title": "The ref C allele preserves a TFAP2C site that the T allele weakens, lowering enhancer output",
+   "is_null": false,
+   "tf": "TFAP2C",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "EH38E3180851 distal enhancer-like cCRE",
+   "target_gene": "TOX3",
+   "cell_type": "Breast epithelium, ER-positive and ER-negative",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "No evidence cited shows an AP-2 motif or TFAP2C occupancy here; the paralogue choice and the C-preferring direction are prior assumptions, retained to represent the opposite-direction possibility (the risk allele reducing binding). Coverage not_checked.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an active distal enhancer-like cCRE.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The element is assigned to TOX3 by L2G and proximity, with CASC16 overlapping it.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "A broad breast-epithelial factor fits the association being present in both ER-positive and ER-negative disease.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Lower enhancer output on the T risk allele would reduce TOX3 and raise risk; direction is unsupported by any cited measurement, including the absent breast eQTL.",
+     "evidence_ids": [
+      "E04",
+      "E09"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "T allele reduces reporter activity relative to C",
+    "AP-2 occupancy at the element is C-biased",
+    "Allelic effect present in ER-negative lines"
+   ],
+   "falsified_if": [
+    "T allele increases enhancer activity or FOXA1 binding",
+    "No AP-2 occupancy at the element"
+   ],
+   "probability": 0.08,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2C"
+  },
+  {
+   "id": "H2",
+   "title": "Allele-specific GATA3 binding at the same enhancer drives TOX3 regulation",
+   "is_null": false,
+   "tf": "GATA3",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "EH38E3180851 distal enhancer-like cCRE",
+   "target_gene": "TOX3",
+   "cell_type": "ER-positive luminal breast epithelium (MCF7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "No cited evidence shows a GATA motif or GATA3 occupancy at this position; GATA3 is named within the GATA family only as the luminal-breast paralogue, which is prior knowledge outside the evidence. Coverage not_checked. This chain is kept only as the main alternative luminal TF to the FOXA1 explanation.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant sits in an active distal enhancer-like cCRE (H3K27ac z 6.1, DNase z 4.2), a plausible site for lineage TF binding.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "TOX3 is the top L2G gene at the locus and the nearest protein-coding TSS; enhancer-gene linkage is not directly shown.",
+     "evidence_ids": [
+      "E05",
+      "E02"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Luminal credible sets (luminal A, ER-positive) are present, but ER-negative association of similar strength argues against a strictly luminal mechanism.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If GATA3 occupancy changed, altered TOX3 output could shift risk; no direction is demonstrated.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "GATA3 ChIP shows T-allele bias while the overlapping FOXA1 peak is allele-neutral",
+    "GATA3 depletion, not FOXA1 depletion, removes the allelic reporter difference"
+   ],
+   "falsified_if": [
+    "No GATA3 peak overlaps the cCRE in MCF7",
+    "GATA3 knockdown leaves allelic enhancer activity intact"
+   ],
+   "probability": 0.07,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA3"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.35,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "ESR1",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "TFAP2C",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H5",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.3,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04 is GWAS and E06a only calls rs4784227 an enhancer mutation near TOX3. Neither mentions FOXA1, a forkhead motif or allelic binding. The claim of better forkhead match and stronger FOXA1 binding is unsupported, and the TF was chosen from expression and ChIP-seq occupancy that none of the cited evidence shows. Coverage is not checked and no lookup was made."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in dELS cCRE EH38E3180851 with H3K27ac z 6.1, DNase z 4.2 and low H3K4me3 z 1.8. E01 shows an overlapping enhancer regulatory feature. The z-scores are maxima across biosamples, not MCF7-specific, so activity in MCF7 is not shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives L2G 0.92-0.96 for TOX3 and E02 shows TOX3 as the nearest protein-coding TSS, 17.5 kb away. E06a asserts the enhancer-TOX3 link only in a review, with no perturbation or contact data. L2G is genetic prioritisation, not enhancer-gene linkage. CASC16 hosts the variant and is not excluded."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04 and E05 show association with both ER+ and ER- breast cancer and luminal A credible sets. The evidence does not show FOXA1 activity or the enhancer being active in luminal cells specifically. E04 also shows a similar signal in ER-negative disease, so the luminal restriction is over-claimed. The MCF7 context is not tied to any cited data."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 gives a strong association (p 2e-240) with T as the effect allele, and E06b supports T-allele risk in meta-analysis. Neither shows that TOX3 dosage mediates the effect or its direction. The claimed FOXA1 mechanism is not shown, so the chain is only genetic. E04 also has a conflicting entry (Biological Mother: breast cancer, effect allele C)."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "Only E04 (GWAS) is cited and it says nothing about GATA motifs or GATA3 binding. The GATA-type site is speculative, and GATA3 was picked from the GATA family on expression without evidence. Coverage is unchecked."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports an active distal enhancer (H3K27ac z 6.1, DNase z 4.2). The claim that it is co-bound by the luminal TF network is not in E03, and no TF ChIP data are cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives TOX3 the top L2G score, but looping is asserted with no contact data. E02 shows only proximity. This is genetic prioritisation rather than direct enhancer-gene evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04 and E05 do not address GATA3 activity. The association appears in both ER+ and ER- breast cancer, which contradicts a luminal-restricted GATA3 explanation."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 and E06a support association with breast cancer and an enhancer-TOX3 link in a review. They do not show that GATA3 acts through changed TOX3 expression to shift risk, and no direction is given."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04 is GWAS only and says nothing about an ERE, half-ERE or ESR1 binding at this position. The claim is speculative and its ESR1 vs ESR2 rationale is expression-based without evidence. Coverage is not checked."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 shows a distal enhancer-like cCRE. The claim that most ER binding occurs at distal enhancers is a general prior not drawn from the cited evidence. No ER ChIP overlap is shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 L2G 0.96 for TOX3 is genetic prioritisation only. No enhancer-gene link or estrogen-responsiveness of TOX3 is shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04 and E05 show luminal A and ER+ signals, but the association also holds in ER-negative breast cancer (p 2e-26), so ER dependence is not supported. No ER-positive cell data are cited."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "Estrogen-dependent allelic TOX3 induction is not shown in E04 or E06b, which give only an association with the T allele. No hormone-stimulation data exist."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04 is GWAS only. Nothing shows an AP-2 motif, a C-allele preference or TFAP2C binding. The TFAP2C choice among paralogues rests on expression not shown in the evidence. Coverage is not checked."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 supports an active distal enhancer cCRE. No evidence ties it to TFAP2C occupancy."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 supports TOX3 by L2G, and E01 notes the CASC16 intron. The enhancer's target is not distinguished between TOX3 and CASC16 by perturbation or contact data."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04 shows association in both ER+ and ER- breast cancer, which is consistent with a broad lineage. No data show TFAP2C activity in these cells."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 and E06b show T-allele risk. The claim that reduced enhancer output lowers TOX3 and raises risk is directional and unsupported. Other evidence (E05 TOX3 tuQTL and eQTL rows at PIP 0.03-0.07, brain tissues) does not show the effect sign in breast."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 shows a FOXA1 ChIP peak in MCF-7 overlapping the variant, which is context only. The T-higher direction rests on the E07b literature assertion ('may affect... may enhance'), with no allele-resolved assay, and no QBiC lookup was done. Coverage is not_checked, so a qbic_tf_detail lookup for FOXA1 is suggested."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in the dELS cCRE EH38E3180851 with high H3K27ac and DNase and low H3K4me3, and E08 shows FOXA1 occupancy in MCF-7. The claim is appropriately caveated that the z-scores are maxima across biosamples. Epigenomic context is adequate for the element link."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TOX3 has L2G 0.92-0.96 and is the nearest protein-coding TSS (E05, E02), and E06a is a review assertion. These are genetic mapping and proximity only. There is no contact or perturbation data, no breast eQTL (E09), and CASC16 is not excluded."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The breast association (E04, E05) and the MCF-7 FOXA1 peak (E08) are consistent with breast epithelium. No MCF7-specific enhancer activity or expression of TOX3 is shown, and the claim itself admits the subtype is not resolved."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The T-allele risk association is strong (E04, E06b), but mediation through TOX3 dosage and its direction are not shown. There is no breast eQTL (E09). The evidence supports the locus association only."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Same evidence as H1: the MCF-7 FOXA1 peak (E08) and the literature speculation (E07b), with no allele-resolved assay or QBiC lookup. Coverage is not_checked, so a qbic_tf_detail lookup for FOXA1 is suggested."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 shows the variant is intronic to the CASC16 non-coding transcript and E03 places it in a dELS cCRE. Both are directly shown. Whether an enhancer acts on its host lncRNA is an inference, but the element identity is supported."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "gene",
+   "status": "weak",
+   "reason": "The variant lies in CASC16 (E01) and the SNP is named for it in the literature (E06b). That is positional only. No expression, eQTL (E09) or perturbation data link the element to CASC16, and L2G favors TOX3 (E05)."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04 shows the association in both ER-positive and ER-negative breast cancer, which is consistent with breast epithelium. No CASC16 expression or activity in any cell type is cited."
+  },
+  {
+   "hypothesis_id": "H6",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 and E06b support the T-allele risk association only. The claim that altered CASC16 transcription mediates risk has no supporting data, and the chain admits direction and mediation are unshown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited. Nothing shows GATA3 occupancy or a GATA motif at the variant, and the TF choice relies on prior knowledge. Coverage is not_checked, so a qbic_tf_detail and Factorbook GATA3 lookup is suggested."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 shows an active dELS cCRE containing the variant, but nothing ties this element to GATA3. It is generic enhancer context only."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "L2G and proximity for TOX3 (E05, E02) are genetic prioritisation only. Enhancer-gene linkage is not shown, as the claim admits."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Luminal credible sets exist (E05), but ER-negative association (E04) argues against a strictly luminal mechanism. No GATA3 evidence in MCF7 is cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 gives the breast cancer association only. The claimed mediation by GATA3 and TOX3 is hypothetical and no direction is shown."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited. Nothing shows a TFAP2C motif or occupancy at the variant, and the C-preferring direction is an assumption. It also opposes the literature direction in E07b. Coverage is not_checked, so a qbic_tf_detail and Factorbook TFAP2C lookup is suggested."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 shows an active dELS cCRE containing the variant, which is generic context with nothing specific to TFAP2C."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "L2G and proximity (E05, E02) support TOX3 by genetic mapping only. CASC16 overlaps the element (E01), and no enhancer-gene link is shown."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E04 shows the association in both ER subtypes, consistent with a broad breast context. No TFAP2C expression or activity evidence is cited."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The T-allele risk association is shown (E04), but the claimed direction (lower TOX3 on T) has no measurement behind it. E09 shows no breast eQTL, so the chain is unsupported on direction."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"FOXA1\",\"biosample\":\"MCF-7\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether a FOXA1 ChIP peak overlaps the variant in MCF7. This is a precondition for the top hypothesis and also helps rank it against GATA3 and ESR1 (H2, H3)."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Breast_Mammary_Tissue\"}",
+   "resolves": "H1.gene",
+   "why": "Shows whether the T allele changes TOX3 or CASC16 expression in breast, giving the effect direction and distinguishing the target gene. The direction would also test H4's reduced-output claim."
+  },
+  {
+   "tool": "gene_dependency",
+   "args_json": "{\"gene\":\"TOX3\"}",
+   "resolves": "H1.phenotype",
+   "why": "Shows whether TOX3 knockout affects viability in the breast cancer lineage, checking the dosage-to-phenotype link."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs4784227 allele-specific transcription factor binding TOX3 enhancer FOXA1"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "FOXA1",
+    "biosample": "MCF-7"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Breast - Mammary Tissue"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allelic-imbalance reanalysis of existing ENCODE MCF-7 FOXA1 ChIP-seq reads (ENCSR126YEB) at chr16:52565276",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "T-allele-biased reads (if heterozygous)"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "T-allele-biased reads (same binding step)"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No FOXA1 imbalance"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "C-allele-biased or no FOXA1 imbalance"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No imbalance beyond noise"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "QBiC-SELEX detail lookup for FOXA1 and forkhead group; allele-specific affinity prediction for C>T",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Forkhead model predicts higher affinity for T"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "Same prediction as H1"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "GATA model, not forkhead, flagged"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "AP-2 model flagged with C preference"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No significant predicted affinity change"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Isogenic CRISPR C>T edit in MCF7 followed by RT-qPCR of TOX3 and CASC16",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "TOX3 changes"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "CASC16 changes, TOX3 largely unchanged"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "TOX3 changes (GATA3-dependent)"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "TOX3 decreases"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No change in either"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "FOXA1 siRNA knockdown in MCF7 with allelic luciferase reporter for the 350 bp element",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Allelic difference lost, TOX3 falls"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "Allelic difference lost, CASC16 falls"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Allelic difference persists"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Allelic difference persists (AP-2 dependent)"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No allelic difference to begin with"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "GATA3 and TFAP2C ChIP-seq peak overlap at EH38E3180851 in MCF7",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Irrelevant or co-binding without allelic effect"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "Irrelevant"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "GATA3 peak present"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "TFAP2C peak present"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Peaks may exist but no allelic effect"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Capture-C / promoter-capture HiC in MCF7 for contacts of the element with TOX3 vs CASC16 promoters",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Contact with TOX3 promoter"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "Contact confined to CASC16 unit"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Contact with TOX3 promoter"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Contact with TOX3 promoter"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Contacts unrelated to allele"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "TOX3 gene dependency in breast cancer lines (DepMap, ACH-000019)",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Some TOX3 dependence expected but not required"
+    },
+    {
+     "hypothesis_id": "H6",
+     "outcome": "TOX3 dependence not required"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Same as H1"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Same as H1"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Uninformative"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Reanalyse the existing ENCODE MCF-7 FOXA1 ChIP-seq data (ENCSR126YEB) for allele-specific reads at chr16:52565276 after genotyping MCF7 at the site: a reproducible T-allele read bias supports H1 (and H6) over the null, while balanced reads in a heterozygous line argues for H5. This costs nothing beyond analysis and directly tests the binding step that all current chains lack.",
+ "citation_support": 0.9,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/16:52565276-52565276:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:24+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr16:52565276:C>T (GRCh38), allele string C/T\nKnown IDs: rs4784227\nMost severe consequence: intron_variant\nRegulatory features: ENSR16_9QTBS enhancer\nGERP conservation score at the site: -2\nTranscript consequences: CASC16 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/16:51565276-53565276?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:25:47+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "6 protein-coding genes within 1000 kb of chr16:52565276:C>T, by distance to TSS:\nTOX3: 17.5 kb from TSS (upstream, strand -1)\nCHD9NB: 487.6 kb from TSS (downstream, strand -1)\nCHD9: 489.7 kb from TSS (upstream, strand +1)\nRBL2: 868.7 kb from TSS (upstream, strand +1)\nAKTIP: 939.1 kb from TSS (downstream, strand -1)\nHNRNPA1L3: 1011.8 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3180851 (dELS: distal enhancer-like), chr16:52565011-52565360.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3180851 dELS (contains the variant): DNase z 4.2, H3K27ac z 6.1, H3K4me3 z 1.8, CTCF z 1.9; nearby genes CASC16, TOX3, AC026462.5\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs4784227&size=100",
+   "retrieved_utc": "2026-10-25T17:26:28+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "34 GWAS Catalog associations for rs4784227, strongest first:\nBreast cancer: p 2.0e-240, effect allele T, risk-allele frequency NR, PMID 32139696\nPostmenopausal breast cancer: p 5.0e-50, effect allele T, risk-allele frequency NR, PMID 38538606\nBreast cancer (estrogen-receptor negative): p 2.0e-26, effect allele T, risk-allele frequency 0.24, PMID 29058716\nBiological Mother:  Cancer, Breast: p 2.0e-25, effect allele C, risk-allele frequency 0.7783, PMID 39024449\nBreast cancer (estrogen-receptor positive): p 1.0e-13, effect allele T, risk-allele frequency 0.06, PMID 38741014\nParkinson's disease: p 1.0e-10, effect allele T, risk-allele frequency 0.265, PMID 28892059\nSystolic blood pressure: p 1.0e-09, effect allele T, risk-allele frequency 0.2398, PMID 33230300\nBRCA1/2-negative high-risk breast cancer: p 2.0e-09, effect allele T, risk-allele frequency 0.26, PMID 30323354\nPulse pressure: p 2.0e-08, effect allele T, risk-allele frequency 0.2354, PMID 33230300\nCancer: p 3.0e-08, effect allele ?, risk-allele frequency NR, PMID 34290314"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:26:25+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "83 credible sets contain 16_52565276_C_T: 74 GWAS, 9 molecular QTL.\nGWAS Breast cancer: PIP 1.00; L2G TOX3 0.92\nGWAS Malignant neoplasm of breast, excluding all cancers (control: PIP 1.00; L2G TOX3 0.92\nGWAS Breast cancer: PIP 1.00; L2G TOX3 0.93\nGWAS Breast cancer (luminal A): PIP 1.00; L2G TOX3 0.92\nGWAS Malignant neoplasm of breast, ER-positive, excluding all can: PIP 1.00; L2G TOX3 0.92\nGWAS Breast cancer [female] (PheCode 174.1): PIP 1.00; L2G TOX3 0.92\neqtl for ENSG00000285800 (gtex-v10_exon_brain_spinal_cord_ensg00000285800_1_): PIP 0.07\neqtl for ENSG00000285800 (gtex-v10_ge_brain_hippocampus_ensg00000285800): PIP 0.06\ntuqtl for TOX3 (gtex-v10_txrev_brain_hippocampus_ensg00000103460_g): PIP 0.05\neqtl for ENSG00000285800 (gtex-v10_ge_brain_spinal_cord_ensg00000285800): PIP 0.04\ntuqtl for TOX3 (gtex-v10_txrev_brain_substantia_nigra_ensg00000103): PIP 0.04\neqtl for ENSG00000285800 (gtex-v10_exon_brain_hippocampus_ensg00000285800_1_): PIP 0.03\nBest L2G gene scores across these sets: TOX3 0.96"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs4784227%20AND%20TOX3%20AND%20%22breast%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:26:28+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 77 hits for 'rs4784227 AND TOX3 AND \"breast cancer\"'; top 8 with PMIDs:\nPMID 41230718 (2026): Cis-regulatory and long noncoding RNA alterations in breast cancer - current insights, biomarker utility, and the critical need for functional validation.\nPMID 40932605 (2025): Molecular signatures of breast cancer in the Iranian population: a review of cell growth and cell cycle regulators.\nPMID 42001218 (2026): Prioritizing context-specific genetic risk mechanisms in 11 solid cancers.\nPMID 36042591 (2022): Association between the rs4784227-CASC16 polymorphism and the risk of breast cancer: A meta-analysis.\nPMID 39777116 (2025): Identification of significant single-nucleotide polymorphisms associated with breast cancer recurrence and metastasis using GWAS.\nPMID 38741014 (2024): Genome-wide association analyses of breast cancer in women of African ancestry identify new susceptibility loci and improve risk prediction.\nPMID 39587695 (2024): The shared genetic landscape of polycystic ovary syndrome and breast cancer: convergence on ER\u2009+\u2009breast cancer but not ER- breast cancer.\nPMID 38902506 (2024): Hidden secrets of the cancer genome: unlocking the impact of non-coding mutations in gene regulatory elements."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41230718",
+   "url": "https://europepmc.org/article/MED/41230718",
+   "retrieved_utc": "2026-10-25T17:26:28+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Key examples include promoter mutations [e.g., rs2279744 (Mouse double minute 2 homolog gene; MDM2)], enhancer mutations [e.g., rs4784227 (thymocyte selection-associated high mobility group box family member 3 gene; TOX3)], and lncRNAs [e.g., HOX transcript antisense intergenic RNA (HOTAIR)] linked to progression, metastasis, and poor survival."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 36042591",
+   "url": "https://europepmc.org/article/MED/36042591",
+   "retrieved_utc": "2026-10-25T17:26:28+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Our pooled analysis showed a significant association between the rs4784227- (T) allele and breast cancer susceptibility in Asian and North American populations, and intervention with this mutation might be a new therapeutic strategy for breast cancer."
+  },
+  {
+   "id": "E07",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs4784227%20allele-specific%20transcription%20factor%20binding%20TOX3%20enhancer%20FOXA1&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T00:09:57+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 19 hits for 'rs4784227 allele-specific transcription factor binding TOX3 enhancer FOXA1'; top 8 with PMIDs:\nPMID 38902506 (2024): Hidden secrets of the cancer genome: unlocking the impact of non-coding mutations in gene regulatory elements.\nPMID 39777116 (2025): Identification of significant single-nucleotide polymorphisms associated with breast cancer recurrence and metastasis using GWAS.\nPMID 36042591 (2022): Association between the rs4784227-CASC16 polymorphism and the risk of breast cancer: A meta-analysis.\nPMID 31338012 (2019): Association of <i>rs4784227-CASC16 (LOC643714 locus)</i> and <i>rs4782447-ACSF3</i> polymorphisms and their association with breast cancer risk among Iranian population.\nPMID 35011637 (2021): Three-Dimensional Genome Organization in Breast and Gynecological Cancers: How Chromatin Folding Influences Tumorigenic Transcriptional Programs.\nPMID 32765587 (2020): ABC-GWAS: Functional Annotation of Estrogen Receptor-Positive Breast Cancer Genetic Variants.\nPMID 33919522 (2021): Genetic Variants in Transcription Factor Binding Sites in Humans: Triggered by Natural Selection and Triggers of Diseases.\nPMID 38314912 (2024): ChIP-GPT: a managed large language model for robust data extraction from biomedical database records."
+  },
+  {
+   "id": "E07a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 31338012",
+   "url": "https://europepmc.org/article/MED/31338012",
+   "retrieved_utc": "2026-10-26T00:09:57+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "TOX3 and FOXA1 proteins are believed to be involved in the susceptibility of breast cancer."
+  },
+  {
+   "id": "E07b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 31338012",
+   "url": "https://europepmc.org/article/MED/31338012",
+   "retrieved_utc": "2026-10-26T00:09:57+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "rs4784227-CASC16 and rs4782447-ACSF3, as single nucleotide polymorphisms (SNPs), located at the 16q may affect the FOXA1 DNA binding sequence change and therefore may enhance the FOXA1-binding affinity to the promoter of TOX3 gene."
+  },
+  {
+   "id": "E08",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "1 ENCODE FOXA1 ChIP-seq peaks contain chr16:52565276:C>T in biosamples matching 'MCF-7': biosamples MCF-7; experiments ENCSR126YEB. In other biosamples, 7 FOXA1 peaks do contain the variant: A549, HepG2, liver (experiments ENCSR000BLE, ENCSR000BMO, ENCSR000BRD, ENCSR324RCI, ENCSR735KEY, ENCSR865RXA)."
+  },
+  {
+   "id": "E09",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_52565276_C_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:51+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_52565276_C_T_b38 in tissues matching 'Breast - Mammary Tissue'. NES is the effect of the alt allele (T) relative to ref (C)."
+  }
+ ]
+}

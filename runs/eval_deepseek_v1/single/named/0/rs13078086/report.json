@@ -1,0 +1,280 @@
+{
+ "case_id": "rs13078086",
+ "variant": "rs13078086",
+ "variant_key": "chr3:191441666:T>G",
+ "disease": "Colorectal cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0064,
+ "seconds": 34.2,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "Null: no TF-mediated allelic effect; linked causal variant or passenger signal",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at the variant in HCT116.",
+    "No allele-specific enhancer activity; disease association reflects LD with another causal variant or chance."
+   ],
+   "falsified_if": [
+    "Allele-specific TF binding at rs13078086 is reproducibly detected in HCT116 cells and tracks with an allele-specific enhancer/reporter signal.",
+    "CRISPR editing of rs13078086 T>G in HCT116 changes expression of a nearby gene in the predicted direction."
+   ],
+   "probability": 0.45,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "CDX2 loss at the alt G allele reduces a 3q28 enhancer regulating TP63",
+   "is_null": false,
+   "tf": "CDX2",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "rs13078086 lies in a distal non-coding enhancer element near the 3q28 CRC risk locus; the ref T allele preserves a CDX2-binding site and the alt G allele weakens it.",
+   "target_gene": "TP63",
+   "cell_type": "HCT 116 colorectal carcinoma cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CDX2 binds the ref T allele more strongly than the alt G allele at rs13078086; QBiC-SELEX coverage for CDX2 is not_checked because no screen row or qbic_tf_detail lookup is available in this no-evidence setting.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant sits in a distal enhancer element whose activity is allele-dependent, with ref T supporting stronger CDX2-dependent enhancer activity.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "This enhancer regulates a nearby 3q28 target gene, most plausibly TP63 in this locus context.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect is cell-type dependent and detectable in HCT116 colorectal carcinoma cells, where CDX2 is expressed.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Reduced CDX2-dependent enhancer activity at the alt G allele modestly increases colorectal cancer risk, consistent with the GWAS signal.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CDX2 ChIP or EMSA: ref T > alt G.",
+    "Reporter/STARR-seq in HCT116: ref T enhancer activity > alt G.",
+    "CDX2 knockdown reduces enhancer activity and target-gene expression in HCT116."
+   ],
+   "falsified_if": [
+    "Allele-specific ChIP/EMSA shows no CDX2 binding or no T>G preference at this position.",
+    "CRISPR-editing the variant does not alter the candidate target gene or enhancer activity.",
+    "CDX2 knockdown does not reduce enhancer activity in HCT116."
+   ],
+   "probability": 0.3,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CDX2"
+  },
+  {
+   "id": "H2",
+   "title": "FOXA1 gain at the alt G allele activates a 3q28 enhancer near FGF12",
+   "is_null": false,
+   "tf": "FOXA1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "rs13078086 lies in a distal non-coding enhancer; the alt G allele creates or strengthens a FOXA1-binding site and increases enhancer activity.",
+   "target_gene": "FGF12",
+   "cell_type": "HCT 116 colorectal carcinoma cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXA1 binds the alt G allele more strongly than the ref T allele at rs13078086; QBiC-SELEX coverage for FOXA1 is not_checked because no screen row or qbic_tf_detail lookup is available.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a distal enhancer element whose activity is increased by the alt G allele in a FOXA1-dependent manner.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "This enhancer regulates a nearby 3q28 gene, with FGF12 as an alternative candidate to TP63.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect is detectable in HCT116 colorectal carcinoma cells, where FOXA1 is expressed.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Gain of FOXA1-dependent enhancer activity at the alt G allele modestly increases colorectal cancer risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific FOXA1 ChIP or EMSA: alt G > ref T.",
+    "Reporter/STARR-seq in HCT116: alt G enhancer activity > ref T.",
+    "FOXA1 knockdown reduces alt-allele enhancer activity and target-gene expression."
+   ],
+   "falsified_if": [
+    "Allele-specific ChIP/EMSA shows no FOXA1 binding or no G> T preference.",
+    "FOXA1 knockdown does not affect the candidate enhancer or target gene in HCT116.",
+    "Reporter assays show no alt-allele gain of enhancer activity."
+   ],
+   "probability": 0.15,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "H3",
+   "title": "TFAP2A loss at the alt G allele reduces a 3q28 enhancer regulating TP63",
+   "is_null": false,
+   "tf": "TFAP2A",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "rs13078086 lies in a distal non-coding enhancer; the ref T allele supports stronger TFAP2A binding and enhancer activity.",
+   "target_gene": "TP63",
+   "cell_type": "HCT 116 colorectal carcinoma cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TFAP2A binds the ref T allele more strongly than the alt G allele at rs13078086; QBiC-SELEX coverage for TFAP2A is not_checked because no screen row or qbic_tf_detail lookup is available.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a distal enhancer element whose activity is allele-dependent, with ref T supporting stronger TFAP2A-dependent activity.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "This enhancer regulates TP63 at the 3q28 locus.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect is detectable in HCT116 colorectal carcinoma cells, where TFAP2A is expressed.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Reduced TFAP2A-dependent enhancer activity at the alt G allele modestly increases colorectal cancer risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific TFAP2A ChIP or EMSA: ref T > alt G.",
+    "Reporter/STARR-seq in HCT116: ref T enhancer activity > alt G.",
+    "TFAP2A knockdown reduces enhancer activity and TP63 expression in HCT116."
+   ],
+   "falsified_if": [
+    "Allele-specific ChIP/EMSA shows no TFAP2A binding or no T>G preference.",
+    "TFAP2A knockdown does not alter the candidate enhancer or target gene in HCT116.",
+    "CRISPR editing does not change TP63 or nearby gene expression."
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2A"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.45,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "CDX2",
+   "is_null": false,
+   "probability": 0.3,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "TFAP2A",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Allele-specific EMSA with HCT116 nuclear extract using ref-T and alt-G probes, plus anti-CDX2/anti-FOXA1 supershifts",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "no allele-specific shift or supershift"
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "ref T shift stronger; anti-CDX2 supershifts"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "alt G shift stronger; anti-FOXA1 supershifts"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "ref T shift stronger; anti-TFAP2A supershifts"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Single cheapest experiment to separate the top two chains (H0 null vs H1 CDX2): allele-specific EMSA in HCT116 nuclear extract comparing ref-T and alt-G probes, with an anti-CDX2 supershift; a clear ref-T-specific CDX2 shift supports H1, while no reproducible allele-specific shift supports H0. Adding anti-FOXA1 in the same gel also separates H2 if needed.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

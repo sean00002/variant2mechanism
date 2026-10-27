@@ -1,0 +1,315 @@
+{
+ "case_id": "rs2168101",
+ "variant": "rs2168101",
+ "variant_key": "chr11:8233861:C>A",
+ "disease": "Neuroblastoma (LMO1)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000149 (SK-N-SH)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0024,
+ "seconds": 66.6,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H1",
+   "title": "Alt allele creates a GATA3-responsive LMO1 enhancer",
+   "is_null": false,
+   "tf": "GATA3",
+   "allele_binding_more": "alt",
+   "element": "The variant lies in a cis-regulatory element that acts as an enhancer.",
+   "target_gene": "LMO1",
+   "cell_type": "Neuroblastoma cells, including SK-N-SH.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GATA3 is the leading TF candidate; alt A corresponds to T on the opposite strand, the allele reported to create a GATA3-binding site. No QBiC-SELEX result is supplied here.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "Greater GATA3 binding at alt A increases activity of the variant-containing enhancer.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer increases LMO1 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "This effect occurs in neuroblastoma cells such as SK-N-SH, where LMO1 can contribute to tumor biology.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Increased LMO1 expression raises neuroblastoma susceptibility.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "An alt-A enhancer reporter has greater activity than a ref-C reporter in SK-N-SH cells.",
+    "Changing alt A to ref C reduces LMO1 expression; reducing GATA3 should weaken the allelic difference."
+   ],
+   "falsified_if": [
+    "Matched ref-C and alt-A reporters show no reproducible activity difference.",
+    "Editing alt A to ref C does not reduce LMO1 expression in an appropriate neuroblastoma model."
+   ],
+   "probability": 0.65,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA3"
+  },
+  {
+   "id": "H0",
+   "title": "Null: no TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Ref-C and alt-A constructs show no reproducible difference in enhancer activity.",
+    "Editing this base does not produce a consistent change in LMO1 expression; any association could reflect linkage or another cause."
+   ],
+   "falsified_if": [
+    "A reproducible allele-dependent effect is observed in an appropriate cellular assay and is linked to TF occupancy or perturbation."
+   ],
+   "probability": 0.22,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2",
+   "title": "GATA3 binding represses the LMO1 enhancer",
+   "is_null": false,
+   "tf": "GATA3",
+   "allele_binding_more": "alt",
+   "element": "The variant-containing element is a GATA3-responsive enhancer whose activity is repressed by GATA3.",
+   "target_gene": "LMO1",
+   "cell_type": "Neuroblastoma cells, including SK-N-SH.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GATA3 is the candidate TF, and alt A is predicted to bind it more strongly based on the reported allele-specific binding-site interpretation; no QBiC-SELEX result is supplied here.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "Greater GATA3 binding at alt A represses the variant-containing element.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Repression of the element reduces LMO1 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect occurs in neuroblastoma cells in which GATA3 and LMO1 are expressed.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Reduced LMO1 expression lowers neuroblastoma susceptibility.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "An alt-A enhancer reporter has lower activity than a ref-C reporter in SK-N-SH cells.",
+    "Changing ref C to alt A increases GATA3 occupancy but reduces LMO1 expression."
+   ],
+   "falsified_if": [
+    "The alt-A reporter is more active than the ref-C reporter.",
+    "GATA3 depletion fails to change the allelic expression effect despite confirmed GATA3 expression."
+   ],
+   "probability": 0.08,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA3"
+  },
+  {
+   "id": "H3",
+   "title": "A related GATA factor, rather than GATA3, activates LMO1",
+   "is_null": false,
+   "tf": "GATA2",
+   "allele_binding_more": "alt",
+   "element": "The variant-containing element is an enhancer responsive to GATA2.",
+   "target_gene": "LMO1",
+   "cell_type": "Neuroblastoma cells, including SK-N-SH.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GATA2 is a speculative alternative because it is related to GATA3; alt A is hypothesized to bind it more strongly from the proposed GATA motif change. No GATA2-specific QBiC-SELEX result is supplied here.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "Greater GATA2 binding at alt A increases enhancer activity.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The enhancer increases LMO1 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect occurs in neuroblastoma cells that express GATA2 and LMO1.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Increased LMO1 expression raises neuroblastoma susceptibility.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "The alt-A enhancer reporter is more active than the ref-C reporter.",
+    "GATA2 perturbation changes the allelic effect more than GATA3 perturbation does."
+   ],
+   "falsified_if": [
+    "GATA2 is not expressed in the relevant cells or does not occupy the element.",
+    "GATA2 perturbation has no effect on the allelic enhancer or LMO1 expression difference."
+   ],
+   "probability": 0.05,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA2"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.65,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "GATA2",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.22,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Matched ref-C versus alt-A enhancer reporter in SK-N-SH cells",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt-A reporter activity is higher than ref-C."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt-A reporter activity is lower than ref-C."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Alt-A reporter activity is higher than ref-C."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible activity difference."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Isogenic editing of the variant followed by LMO1 expression measurement in SK-N-SH",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A-to-C editing reduces LMO1 expression."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A-to-C editing increases LMO1 expression."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "A-to-C editing reduces LMO1 expression, with the effect dependent on GATA2."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "Editing has no consistent effect on LMO1 expression."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Compare GATA3 and GATA2 occupancy and perturbation effects at the element",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "GATA3 occupancy or perturbation tracks the alt-A effect more strongly than GATA2."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "GATA3 occupancy tracks the effect, while its perturbation supports repression."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "GATA2 occupancy or perturbation tracks the alt-A effect more strongly than GATA3."
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No convincing allele-dependent occupancy or perturbation effect."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run a matched ref-C versus alt-A enhancer reporter assay in SK-N-SH cells. It is the cheapest proposed test of the top two chains: H1 predicts higher alt-A activity, whereas the null predicts no reproducible difference. A reporter result would not by itself establish endogenous chromatin effects or identify the responsible TF.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

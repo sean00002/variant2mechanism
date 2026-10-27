@@ -1,0 +1,811 @@
+{
+ "case_id": "rs12740374",
+ "variant": "rs12740374",
+ "variant_key": "chr1:109274968:G>T",
+ "disease": "LDL cholesterol, myocardial infarction (1p13)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0223,
+ "seconds": 214.7,
+ "model_calls": 8,
+ "screen": null,
+ "chains": [
+  {
+   "id": "chain1_CEBPB_SORT1_hepatocyte",
+   "title": "CEBPB binds the T allele and increases SORT1 in hepatocytes",
+   "is_null": false,
+   "tf": "CEBPB",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "distal enhancer",
+   "target_gene": "SORT1",
+   "cell_type": "liver, plausibly hepatocyte",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CEBPB is the best-supported C/EBP-family candidate: CEBPB ChIP-seq peaks contain this variant in several non-liver ENCODE biosamples (E07), and rs12740374 is a known SORT1 regulatory SNP (E09a). The alt T allele is hypothesized to bind CEBPB more strongly because T increases SORT1 expression (E08), but direct allele-specific CEBPB binding is not shown. QBiC-SELEX coverage for CEBPB is not_checked because no QBiC-SELEX row or qbic_tf_detail lookup was provided.",
+     "evidence_ids": [
+      "E07",
+      "E08",
+      "E09a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the distal enhancer-like cCRE EH38E1374646, near CELSR2, PSRC1, and MYBPHL.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "SORT1 is the strongest L2G gene at this locus and has a liver eQTL in which the T allele increases expression. However, SORT1 is 123 kb away and is not listed among E03 nearby genes, so direct enhancer-SORT1 regulation is not demonstrated.",
+     "evidence_ids": [
+      "E02",
+      "E03",
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant context is liver, plausibly hepatocyte: a liver SORT1 eQTL is present (E08), a liver SORT1 sQTL credible set is reported (E05), and Hep 3B2.1-7 is the provided expression context. No Hep3B-specific ChIP evidence is available.",
+     "evidence_ids": [
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The G allele is the risk allele for higher LDL/high cholesterol in most GWAS entries (E04), so the T allele is protective; T also increases liver SORT1 expression (E08). The causal step from SORT1 to LDL/MI is not directly shown by these evidence IDs.",
+     "evidence_ids": [
+      "E04",
+      "E08"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CEBPB binding is stronger on T than G at the rs12740374-containing enhancer in liver-derived cells.",
+    "CEBPB knockdown reduces the T-allele-dependent increase in SORT1 expression.",
+    "The T allele increases SORT1 expression in liver and is associated with lower LDL cholesterol."
+   ],
+   "falsified_if": [
+    "Allele-specific CEBPB binding at rs12740374 is absent in liver-derived cells.",
+    "The T allele does not increase SORT1 expression in liver or hepatocytes.",
+    "Conditioning on rs12740374 genotype abolishes the liver SORT1 eQTL signal."
+   ],
+   "probability": 0.48,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  },
+  {
+   "id": "null_no_tf_mediated_effect",
+   "title": "No TF-mediated effect of rs12740374; linked or passenger association",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific CEBPB binding at rs12740374 in liver-derived cells.",
+    "The GWAS signal is explained by a linked causal variant or by a non-TF-mediated mechanism.",
+    "SORT1, CELSR2, and PSRC1 eQTLs are not allelic effects of rs12740374 itself after conditioning on linked variants."
+   ],
+   "falsified_if": [
+    "Allele-specific C/EBP-family binding at rs12740374 is demonstrated in a relevant cell type.",
+    "An allele-specific reporter assay shows that rs12740374 itself changes enhancer activity.",
+    "Conditioning on rs12740374 genotype abolishes the SORT1 or CELSR2 liver eQTL signal."
+   ],
+   "probability": 0.3,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "chain3_CEBPB_CELSR2",
+   "title": "CEBPB binds the T allele and alters CELSR2",
+   "is_null": false,
+   "tf": "CEBPB",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "distal enhancer",
+   "target_gene": "CELSR2",
+   "cell_type": "liver or muscle",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CEBPB is the candidate C/EBP-family factor: CEBPB ChIP-seq peaks contain this variant in non-liver ENCODE biosamples (E07), and rs12740374 is a known regulatory SNP at this locus (E09a). The alt T allele is hypothesized to bind CEBPB more strongly, but allele-specific CEBPB binding is not shown. QBiC-SELEX coverage for CEBPB is not_checked.",
+     "evidence_ids": [
+      "E07",
+      "E09a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the distal enhancer-like cCRE EH38E1374646, with CELSR2 among nearby genes.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "CELSR2 has strong L2G support and a liver eQTL in which the T allele increases expression, but direct regulation of CELSR2 by EH38E1374646 is not demonstrated.",
+     "evidence_ids": [
+      "E03",
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CELSR2 QTL credible sets include liver and muscle contexts, but no cell-type-specific enhancer assay establishes which cell type mediates the effect.",
+     "evidence_ids": [
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The T allele is protective for LDL/high cholesterol in most GWAS entries (E04), and T increases liver CELSR2 expression (E08); however, a causal CELSR2-to-lipid effect is not shown by these evidence IDs.",
+     "evidence_ids": [
+      "E04",
+      "E08"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "The T allele changes CELSR2 expression in liver or muscle.",
+    "CEBPB binding at the element is allele-specific and CELSR2-linked.",
+    "CELSR2 expression correlates with LDL cholesterol independently of SORT1."
+   ],
+   "falsified_if": [
+    "The T allele does not change CELSR2 expression in liver or muscle.",
+    "No allele-specific CEBPB binding is observed at the element.",
+    "The SORT1 eQTL fully explains the lipid association after conditioning on SORT1 expression."
+   ],
+   "probability": 0.14,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  },
+  {
+   "id": "chain4_CEBPB_PSRC1",
+   "title": "CEBPB binds the T allele and alters PSRC1",
+   "is_null": false,
+   "tf": "CEBPB",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "distal enhancer",
+   "target_gene": "PSRC1",
+   "cell_type": "liver, pancreas, or monocyte",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CEBPB is the candidate C/EBP-family factor based on CEBPB ChIP-seq peaks containing this variant in non-liver biosamples (E07) and the known regulatory status of rs12740374 (E09a). The alt T allele is hypothesized to bind CEBPB more strongly, but allele-specific binding is not shown. QBiC-SELEX coverage for CEBPB is not_checked.",
+     "evidence_ids": [
+      "E07",
+      "E09a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the distal enhancer-like cCRE EH38E1374646, with PSRC1 among nearby genes.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "PSRC1 has eQTL credible-set support and a liver eQTL in which the T allele increases expression, but the credible-set PIPs are weaker than for SORT1/CELSR2 and direct enhancer-PSRC1 regulation is not shown.",
+     "evidence_ids": [
+      "E03",
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "PSRC1 QTL signals are reported in pancreas and monocyte contexts, and a liver eQTL is present (E08); no hepatocyte-specific enhancer assay is available.",
+     "evidence_ids": [
+      "E05",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The T allele is protective for LDL/high cholesterol in most GWAS entries (E04), and T increases liver PSRC1 expression (E08); however, a causal PSRC1-to-lipid effect is not shown.",
+     "evidence_ids": [
+      "E04",
+      "E08"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "The T allele changes PSRC1 expression in a relevant tissue.",
+    "PSRC1 eQTL and lipid GWAS signals colocalize.",
+    "CEBPB binding at the element is allele-specific and PSRC1-linked."
+   ],
+   "falsified_if": [
+    "PSRC1 expression is not affected by rs12740374 in any relevant tissue.",
+    "PSRC1 eQTL credible sets do not colocalize with the lipid GWAS signal.",
+    "No allele-specific CEBPB binding is observed at the element."
+   ],
+   "probability": 0.08,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPB"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "chain1_CEBPB_SORT1_hepatocyte",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.36,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain2_CEBPA_SORT1_hepatocyte",
+   "tf": "CEBPA",
+   "is_null": false,
+   "probability": 0.2,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain3_CEBPB_CELSR2",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain4_CEBPB_PSRC1",
+   "tf": "CEBPB",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "null_no_tf_mediated_effect",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.26,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids; no QBiC-SELEX row or qbic_tf_detail lookup for CEBPB. The claim that T creates/strengthens a CEBPB site is unsupported."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 places the variant in an enhancer; E03 places it in dELS EH38E1374646 near CELSR2, PSRC1, and MYBPHL."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives SORT1 L2G 0.99 and a liver SORT1 sQTL credible set (PIP 0.72), but this does not show EH38E1374646 regulates SORT1; E02 places SORT1 123 kb away and E03 does not list SORT1 as nearby."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 supports a liver SORT1 sQTL, not hepatocyte-specific regulation; no Hep 3B2.1-7 or primary-hepatocyte evidence is cited."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports an LDL/lipid association and mostly G as risk/T as protective, but no cited evidence shows that higher SORT1 lowers LDL or MI. E06 is only titles, and E04 contains a conflicting LDL entry with effect allele T."
+  },
+  {
+   "hypothesis_id": "chain2_CEBPA_SORT1_hepatocyte",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids and no QBiC-SELEX/qbic_tf_detail lookup for CEBPA. Allele-specific CEBPA binding is unsupported."
+  },
+  {
+   "hypothesis_id": "chain2_CEBPA_SORT1_hepatocyte",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03 support a distal enhancer cCRE containing the variant."
+  },
+  {
+   "hypothesis_id": "chain2_CEBPA_SORT1_hepatocyte",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 supports variant-SORT1 association, but not enhancer-SORT1 regulation; SORT1 is far from the element and not in E03 nearby genes."
+  },
+  {
+   "hypothesis_id": "chain2_CEBPA_SORT1_hepatocyte",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Liver sQTL evidence is tissue-level and does not establish hepatocyte-specific CEBPA action."
+  },
+  {
+   "hypothesis_id": "chain2_CEBPA_SORT1_hepatocyte",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Variant-lipid association is supported by E04, but CEBPA-driven SORT1 effects on LDL/MI are not shown; E06 lacks quotes or experiments."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids; no CEBPB QBiC-SELEX row or qbic_tf_detail lookup. The allele-specific binding claim is unsupported."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03 support a distal enhancer cCRE containing the variant with CELSR2 nearby."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives CELSR2 L2G 0.96-0.98 and modest QTL credible sets, but no perturbation or enhancer-target assay shows EH38E1374646 regulates CELSR2."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 includes CELSR2 QTL credible sets in muscle and a low-PIP liver tuQTL, but this does not establish liver or muscle cell-type-specific regulation by the element."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports a lipid association, but altered CELSR2 expression changing LDL/MI is not shown by the cited evidence; E06 is only titles."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence_ids; no CEBPB QBiC-SELEX row or qbic_tf_detail lookup. Allele-specific CEBPB binding at the element is unsupported."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03 support a distal enhancer cCRE containing the variant with PSRC1 nearby."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives PSRC1 eQTL credible sets with PIP 0.41 and 0.25, weaker than SORT1/CELSR2, and does not show that this enhancer regulates PSRC1."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "PSRC1 QTL signals cited are pancreas and monocyte, not liver; the claim is permissive but not directly supported for hepatocyte."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports variant-lipid association, but PSRC1 expression changes causing LDL/MI changes are not demonstrated; E06 is only titles."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E07 shows CEBPB ChIP-seq peaks containing the variant only in non-liver ENCODE biosamples; no liver/hepatocyte CEBPB ChIP and no allele-specific binding are shown. E09a only identifies rs12740374 as a known SORT1 regulatory SNP, not as CEBPB-bound. E08 gives eQTL direction, not TF binding. QBiC-SELEX coverage is not_checked and no qbic_tf_detail lookup for CEBPB is provided; lookup needed. Alt-T-more binding remains a hypothesis."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in dELS EH38E1374646, and E01 annotates an enhancer; E03 lists nearby CELSR2/PSRC1/MYBPHL. This directly supports the element assignment."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 supports SORT1 as top L2G (0.99) and E08 shows a strong liver SORT1 eQTL with T increasing expression, but E02/E03 place SORT1 123 kb away and not among the cCRE nearby genes; direct enhancer-SORT1 regulation is not demonstrated. The claim itself concedes this."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Liver context is supported by the liver SORT1 eQTL/sQTL (E08/E05) and Hep 3B2.1-7 expression context, but hepatocyte-specific CEBPB binding or enhancer activity is not shown; no Hep3B ChIP."
+  },
+  {
+   "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports the variant-lipid association (G risk in most entries; T protective), and E08 supports T increasing SORT1, but no evidence directly connects SORT1 expression to LDL/MI or shows mediation. Direction is consistent, though one E04 LDL entry lists effect allele T without beta/risk direction."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E07 only shows CEBPB ChIP-seq peaks containing the variant in non-liver biosamples. E09a supports rs12740374 as a regulatory SNP at this locus but does not show CEBPB binding. No allele-specific CEBPB binding is shown. QBiC-SELEX coverage is not_checked and no qbic_tf_detail lookup for CEBPB is provided; lookup needed."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in dELS EH38E1374646 and lists CELSR2 among nearby genes; E01 annotates an enhancer. This directly supports the element assignment."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 gives strong CELSR2 L2G support (0.98) and E08 gives a liver CELSR2 eQTL with T increasing expression, but direct regulation of CELSR2 by EH38E1374646 is not demonstrated."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 reports CELSR2 QTL credible sets in liver and muscle and E08 gives a liver eQTL, but no cell-type-specific enhancer assay establishes which cell type mediates the effect."
+  },
+  {
+   "hypothesis_id": "chain3_CEBPB_CELSR2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports the variant-lipid association and E08 supports T increasing liver CELSR2, but a causal CELSR2-to-lipid effect is not shown by these evidence IDs."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E07 only shows CEBPB ChIP-seq peaks containing the variant in non-liver biosamples. E09a supports rs12740374 as a regulatory SNP at this locus but does not show CEBPB binding. No allele-specific CEBPB binding is shown. QBiC-SELEX coverage is not_checked and no qbic_tf_detail lookup for CEBPB is provided; lookup needed."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in dELS EH38E1374646 and lists PSRC1 among nearby genes; E01 annotates an enhancer. This directly supports the element assignment."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 provides PSRC1 eQTL credible-set support, with weaker PIPs than SORT1/CELSR2, and E08 gives a liver PSRC1 eQTL with T increasing expression, but direct enhancer-PSRC1 regulation is not demonstrated."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 reports PSRC1 QTL signals in pancreas and monocyte contexts and E08 gives a liver eQTL, but no hepatocyte-specific enhancer assay is available."
+  },
+  {
+   "hypothesis_id": "chain4_CEBPB_PSRC1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports the variant-lipid association and E08 supports T increasing liver PSRC1, but a causal PSRC1-to-lipid effect is not shown."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CEBPB\",\"biosample\":\"liver\"}",
+   "resolves": "chain1_CEBPB_SORT1_hepatocyte.binding",
+   "why": "Directly tests whether CEBPB binds this element in a liver biosample; absence would falsify chains 1, 3, and 4 binding steps."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Liver\"}",
+   "resolves": "chain1_CEBPB_SORT1_hepatocyte.gene",
+   "why": "Tests variant-SORT1/CELSR2 expression association and allele direction in liver, separating variant-gene QTL support from enhancer-target inference."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs12740374 CEBPB SORT1 allele-specific reporter\"}",
+   "resolves": "chain1_CEBPB_SORT1_hepatocyte.binding",
+   "why": "Searches for direct reporter/allele-specific C/EBP binding evidence rather than titles; would most change the unsupported binding link."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CEBPB",
+    "biosample": "liver"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Liver"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs12740374 CEBPB SORT1 allele-specific reporter"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific CEBPB ChIP-qPCR or EMSA at rs12740374 in Hep 3B2.1-7 or primary hepatocytes",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+     "outcome": "Stronger CEBPB binding on T than G."
+    },
+    {
+     "hypothesis_id": "chain3_CEBPB_CELSR2",
+     "outcome": "Stronger CEBPB binding on T than G."
+    },
+    {
+     "hypothesis_id": "chain4_CEBPB_PSRC1",
+     "outcome": "Stronger CEBPB binding on T than G."
+    },
+    {
+     "hypothesis_id": "null_no_tf_mediated_effect",
+     "outcome": "No allele-specific CEBPB binding at rs12740374."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Liver eQTL lookup and conditional fine-mapping for SORT1, CELSR2, and PSRC1",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+     "outcome": "T allele increases SORT1 in liver; rs12740374 remains associated after conditioning on linked variants."
+    },
+    {
+     "hypothesis_id": "chain3_CEBPB_CELSR2",
+     "outcome": "T allele increases CELSR2 in liver or muscle."
+    },
+    {
+     "hypothesis_id": "chain4_CEBPB_PSRC1",
+     "outcome": "T allele increases PSRC1 in a relevant tissue."
+    },
+    {
+     "hypothesis_id": "null_no_tf_mediated_effect",
+     "outcome": "Variant-gene association is explained by a linked variant or is not specific to rs12740374."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Literature search for rs12740374 CEBPB allele-specific reporter or EMSA evidence",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+     "outcome": "Literature or reporter evidence supports allele-specific CEBPB binding and SORT1 regulation at rs12740374."
+    },
+    {
+     "hypothesis_id": "chain3_CEBPB_CELSR2",
+     "outcome": "Literature supports CEBPB binding but not CELSR2 as the primary target."
+    },
+    {
+     "hypothesis_id": "chain4_CEBPB_PSRC1",
+     "outcome": "Literature supports CEBPB binding but not PSRC1 as the primary target."
+    },
+    {
+     "hypothesis_id": "null_no_tf_mediated_effect",
+     "outcome": "No direct allele-specific CEBPB reporter evidence at rs12740374."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPRi/dCas9 perturbation of EH38E1374646 followed by SORT1, CELSR2, and PSRC1 expression in Hep 3B2.1-7",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+     "outcome": "CRISPRi at EH38E1374646 reduces SORT1 expression in hepatocytes."
+    },
+    {
+     "hypothesis_id": "chain3_CEBPB_CELSR2",
+     "outcome": "CRISPRi at EH38E1374646 changes CELSR2 expression."
+    },
+    {
+     "hypothesis_id": "chain4_CEBPB_PSRC1",
+     "outcome": "CRISPRi at EH38E1374646 changes PSRC1 expression."
+    },
+    {
+     "hypothesis_id": "null_no_tf_mediated_effect",
+     "outcome": "CRISPRi at EH38E1374646 does not change SORT1, CELSR2, or PSRC1 expression."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CEBPB knockdown plus rs12740374 G/T reporter assay in Hep 3B2.1-7",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain1_CEBPB_SORT1_hepatocyte",
+     "outcome": "CEBPB knockdown reduces T-allele-dependent SORT1 enhancer activity."
+    },
+    {
+     "hypothesis_id": "chain3_CEBPB_CELSR2",
+     "outcome": "CEBPB knockdown reduces T-allele-dependent CELSR2 enhancer activity."
+    },
+    {
+     "hypothesis_id": "chain4_CEBPB_PSRC1",
+     "outcome": "CEBPB knockdown reduces T-allele-dependent PSRC1 enhancer activity."
+    },
+    {
+     "hypothesis_id": "null_no_tf_mediated_effect",
+     "outcome": "CEBPB knockdown does not alter allele-dependent enhancer activity."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Allele-specific CEBPB ChIP-qPCR or EMSA at rs12740374 in Hep 3B2.1-7 or primary hepatocytes: chain1 predicts stronger CEBPB binding on T than G, while the null predicts no allele-specific CEBPB binding.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 42019808: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/1:109274968-109274968:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T18:05:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr1:109274968:G>T (GRCh38), allele string G/T\nKnown IDs: rs12740374\nMost severe consequence: 3_prime_UTR_variant\nRegulatory features: ENSR1_CDSQQ enhancer\nGERP conservation score at the site: -0.782\nTranscript consequences: CELSR2 (3_prime_UTR_variant); PSRC1 (downstream_gene_variant); CELSR2 (downstream_gene_variant); CELSR2 (non_coding_transcript_exon_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/1:108274968-110274968?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T18:05:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "41 protein-coding genes within 1000 kb of chr1:109274968:G>T, by distance to TSS:\nPSRC1: 9.1 kb from TSS (downstream, strand -1)\nCELSR2: 25.4 kb from TSS (in gene body, strand +1)\nMYBPHL: 32.2 kb from TSS (downstream, strand -1)\nSARS1: 61.1 kb from TSS (downstream, strand +1)\nSORT1: 123.0 kb from TSS (downstream, strand -1)\nPSMA5: 151.5 kb from TSS (downstream, strand -1)\nCFAP276: 161.1 kb from TSS (upstream, strand -1)\nELAPOR1: 161.8 kb from TSS (downstream, strand +1)\nTMEM167B: 184.6 kb from TSS (downstream, strand +1)\nSYPL2: 191.6 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:28:56+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E1374646 (dELS: distal enhancer-like), chr1:109274794-109275142.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E1374646 dELS (contains the variant): DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 4.2, CTCF z 1.9; nearby genes CELSR2, PSRC1, MYBPHL\nEH38E2829474 dELS: DNase z 3.2, H3K27ac z 4.8, H3K4me3 z 4.4, CTCF z 1.9; nearby genes CELSR2, PSRC1, MYBPHL\nEH38E2829475 dELS: DNase z 4.6, H3K27ac z 4.5, H3K4me3 z 3.7, CTCF z 1.6; nearby genes CELSR2, PSRC1, MYBPHL\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs12740374&size=100",
+   "retrieved_utc": "2026-10-25T17:29:12+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "100 GWAS Catalog associations for rs12740374, strongest first:\nHigh cholesterol: p 9.9e-324, effect allele G, risk-allele frequency 0.7788, PMID 39024449\nTakes medication for high cholesterol?: p 6.0e-297, effect allele G, risk-allele frequency 0.7815, PMID 39024449\nDisorders of lipid metabolism (PheCode 272): p 7.0e-262, effect allele G, risk-allele frequency 0.778, PMID 39024449\nCirculating TNFSF13 levels: p 4.0e-260, effect allele ?, risk-allele frequency NR, PMID 42097137\nHyperlipidemia (PheCode 272.1): p 6.0e-259, effect allele G, risk-allele frequency 0.778, PMID 39024449\ntotal cholesterol (minimum, inv-norm transformed): p 1.0e-208, effect allele G, risk-allele frequency 0.7774, PMID 39024449\nlow density lipoprotein cholesterol (LDLC, maximum, inv-norm transformed): p 4.0e-164, effect allele G, risk-allele frequency 0.7453, PMID 39024449\nlow density lipoprotein cholesterol (LDLC, mean, inv-norm transformed): p 4.0e-154, effect allele G, risk-allele frequency 0.7454, PMID 39024449\nCirculating LAG3 levels (id: OID05553_OID21315): p 1.0e-153, effect allele ?, risk-allele frequency NR, PMID 42097137\nCirculating LAG3 levels (id: OID01023_OID21315): p 1.0e-152, effect allele ?, risk-allele frequency NR, PMID 42097137\nLDL cholesterol levels: p 2.0e-137, effect allele T, risk-allele frequency NR, PMID 39414775\ntotal cholesterol (maximum, inv-norm transformed): p 2.0e-123, effect allele G, risk-allele frequency 0.7453, PMID 39024449"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:04+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2316 credible sets contain 1_109274968_G_T: 189 GWAS, 11 molecular QTL.\nGWAS Total cholines levels (UKB data field 23436): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Apolipoprotein B levels (UKB data field 23439): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Total cholesterol levels: PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Cholesterol to total lipids in large HDL percentage (UKB dat: PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Total lipids in small VLDL (UKB data field 23510): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Triglycerides in medium VLDL (UKB data field 23508): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nsqtl for SORT1 (gtex-v10_majiq_liver_ensg00000134243_s_109314672-1): PIP 0.72\nsqtl for CELSR2 (gtex-v10_majiq_muscle_ensg00000143126_s_109273436-): PIP 0.49\neqtl for PSRC1 (gtex-v10_ge_pancreas_ensg00000134222): PIP 0.41\neqtl for CELSR2 (gtex-v10_exon_esophagus_mucosa_ensg00000143126_8_1): PIP 0.37\ntuqtl for CELSR2 (gtex-v10_txrev_liver_ensg00000143126_grp_2_contain): PIP 0.32\neqtl for PSRC1 (fairfax_2014_microarray_monocyte_naive_ilmn_231596): PIP 0.25\nBest L2G gene scores across these sets: SORT1 0.99, CELSR2 0.98, PSRC1 0.66"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs12740374%20AND%20SORT1%20AND%20%28%22ldl%20cholesterol%22%20OR%20%22myocardial%20infarction%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:29:12+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 127 hits for 'rs12740374 AND SORT1 AND (\"ldl cholesterol\" OR \"myocardial infarction\")'; top 8 with PMIDs:\nPMID 42019808 (2026): Causal statistical association between remnant cholesterol and coronary heart disease: genetic insights into the PSRC1-CELSR2-SORT1 gene cluster.\nPMID 42820291 (2026): Clinical trials in a dish: cardiometabolic drug development with biological and digital twins.\nPMID 40922271 (2025): Effect of dietary habits on multiple cardiovascular diseases: A comprehensive Mendelian randomization study.\nPMID 41380003 (2025): Computationally efficient whole-genome quantile regression at biobank scale.\nPMID 39858645 (2025): Research Progress and Clinical Translation Potential of Coronary Atherosclerosis Diagnostic Markers from a Genomic Perspective.\nPMID 42211154 (2026): Treatment Target Discovery From Vasculo-Protective Phenotypes.\nPMID 41991941 (2026): Genetic and molecular factors underlying human longevity and epigenetic aging.\nPMID 38266112 (2024): Genome-Wide Genetic Associations Prioritize Evaluation of Causal Mechanisms of Atherosclerotic Disease Risk."
+  },
+  {
+   "id": "E07",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T22:29:03+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE CEBPB ChIP-seq peak contains chr1:109274968:G>T in biosamples matching 'liver'. Absence can also mean no CEBPB experiment in that biosample. In other biosamples, 4 CEBPB peaks do contain the variant: A549, HeLa-S3, IMR-90, MCF-7 (experiments ENCSR000BSR, ENCSR000EDA, ENCSR000EFM, ENCSR752AQK)."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr1_109274968_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:36+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "5 significant GTEx v8 single-tissue eQTLs for chr1_109274968_G_T_b38 in tissues matching 'Liver'. NES is the effect of the alt allele (T) relative to ref (G).\nSORT1 in Liver: NES +1.27, p 3.1e-54\nPSRC1 in Liver: NES +1.24, p 1.1e-37\nCELSR2 in Liver: NES +1.04, p 9.4e-34\nATXN7L2 in Liver: NES +0.40, p 5.9e-07\nSYPL2 in Liver: NES +0.50, p 1.2e-06"
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs12740374%20CEBPB%20SORT1%20allele-specific%20reporter&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T00:33:26+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 2 hits for 'rs12740374 CEBPB SORT1 allele-specific reporter'; top 2 with PMIDs:\nPMID 24997396 (2014): Strategies to fine-map genetic associations with lipid levels by combining epigenomic annotations and liver-specific transcription profiles.\nPMID 25835000 (2015): Lipid-induced epigenomic changes in human macrophages identify a coronary artery disease-associated variant that regulates PPAP2B Expression through Altered C/EBP-beta binding."
+  },
+  {
+   "id": "E09a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 24997396",
+   "url": "https://europepmc.org/article/MED/24997396",
+   "retrieved_utc": "2026-10-26T00:33:26+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "This method recognized the known SORT1 rs12740374 regulatory SNP associated with LDL-cholesterol, and highlighted candidate functional SNPs at 15 additional lipid loci."
+  },
+  {
+   "id": "E09b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 25835000",
+   "url": "https://europepmc.org/article/MED/25835000",
+   "retrieved_utc": "2026-10-26T00:33:26+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "OxLDL-regulated enhancers were enriched for several transcription factors including C/EBP-beta, which has no previously documented role in foam cell formation."
+  },
+  {
+   "id": "E09c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 25835000",
+   "url": "https://europepmc.org/article/MED/25835000",
+   "retrieved_utc": "2026-10-26T00:33:26+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "OxLDL increased C/EBP beta binding to this site and C/EBP beta binding and enhancer activity were stronger with the protective A allele of rs72664324."
+  }
+ ]
+}

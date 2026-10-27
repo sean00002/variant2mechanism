@@ -1,0 +1,918 @@
+{
+ "case_id": "rs642961",
+ "variant": "rs642961",
+ "variant_key": "chr1:209815925:A>G",
+ "disease": "Cleft lip (IRF6)",
+ "origin": "germline",
+ "expression_context": null,
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0168,
+ "seconds": 424.3,
+ "model_calls": 9,
+ "screen": {
+  "n_pass": 222,
+  "counts": {
+   "occupied": 1,
+   "unknown": 249,
+   "occupied_strong_site": 0,
+   "occupied_not_expressed": 0,
+   "unbound_assayed_here": 0,
+   "unbound_assayed_elsewhere": 572,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "ZNF687",
+    "z": -0.21,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": false
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "ETV2",
+    "z": 77.65
+   },
+   {
+    "tf": "ETV3",
+    "z": 77.65
+   },
+   {
+    "tf": "ETV3L",
+    "z": 77.65
+   },
+   {
+    "tf": "FEV",
+    "z": 77.65
+   },
+   {
+    "tf": "FLI1",
+    "z": 77.65
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H5",
+   "title": "No TF-mediated allelic effect; linked causal variant or passenger",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding or enhancer-activity difference at this exact base in disease-relevant cells.",
+    "Any cleft-lip association is explained by linkage disequilibrium with another variant.",
+    "The strong Ets QBiC-SELEX prediction is not occupied in vivo, and the occupied ZNF687 site shows no clear allelic change."
+   ],
+   "falsified_if": [
+    "Allele-specific Ets or other TF binding and enhancer activity are demonstrated at this base in oral/craniofacial cells.",
+    "CRISPR editing of this base changes IRF6 or another cleft-lip gene in a disease-relevant cell type."
+   ],
+   "probability": 0.74,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "FLI1 binding at the alt allele alters IRF6 dosage in oral epithelium",
+   "is_null": false,
+   "tf": "FLI1",
+   "allele_binding_more": "alt",
+   "element": "EH38E2863563 dELS",
+   "target_gene": "IRF6",
+   "cell_type": "oral/craniofacial epithelial cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FLI1 has its own QBiC-SELEX model: the alt G allele is predicted to bind more strongly than ref A (z 13.73, effect +0.906; alt 98.7th vs ref 90.1st percentile). ENCODE has no FLI1 ChIP-seq peak containing the variant in any biosample, and FLI1 expression in GTEx minor salivary gland is modest (8.27 TPM, 51.9th percentile), so occupancy at this base is not established.",
+     "evidence_ids": [
+      "E17",
+      "E18",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in EH38E2863563, a distal enhancer-like cCRE with DNase and H3K27ac marks, consistent with an active enhancer.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "IRF6 is the nearest TSS, 9.7 kb away, and is a cleft-lip L2G gene; IRF6 also has a brain eQTL at this variant (alt G NES -0.62), but no enhancer-target assay or oral epithelial eQTL is given.",
+     "evidence_ids": [
+      "E02",
+      "E07",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "FLI1 is expressed in GTEx minor salivary gland, a craniofacial/secretory tissue, but no oral epithelial expression, matched ENCODE biosample, or ChIP data are provided, so the cell-type link remains inferred.",
+     "evidence_ids": [
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The cleft GWAS association is weak (p 2e-6) and its effect allele is A; the IRF6 brain eQTL has alt G lowering IRF6. A simple alt-G/FLI1-to-IRF6 cleft model therefore has unresolved or opposite direction and needs oral-cell functional evidence.",
+     "evidence_ids": [
+      "E06",
+      "E07",
+      "E08",
+      "E09"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific FLI1 ChIP enrichment at the alt G allele in oral epithelial cells.",
+    "Ref/alt reporter shows the alt G allele changes enhancer activity and IRF6 expression in oral epithelial cells.",
+    "The effect depends on the Ets motif."
+   ],
+   "falsified_if": [
+    "No allele-specific FLI1 binding at this base in disease-relevant cells.",
+    "The alt G allele does not change enhancer activity or IRF6 expression in oral epithelial cells.",
+    "IRF6 is not the target gene of this enhancer in craniofacial epithelium."
+   ],
+   "probability": 0.17,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FLI1"
+  },
+  {
+   "id": "H2",
+   "title": "ETV2-like Ets binding at the alt allele affects UTP25",
+   "is_null": false,
+   "tf": "ETV2",
+   "allele_binding_more": "alt",
+   "element": "EH38E2863563 dELS",
+   "target_gene": "UTP25",
+   "cell_type": "craniofacial epithelial or endothelial cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ETV2 has no independent QBiC-SELEX model at this site; the prediction uses a CIS-BP-mapped ETV5 Ets model, which favors the alt G allele (z 77.65, effect +1.32). ETV2 occupancy is unknown because ENCODE never assayed ETV2 here, so this is not ETV2-specific evidence.",
+     "evidence_ids": [
+      "E12",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is in EH38E2863563, a dELS with active enhancer marks.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "UTP25 is 12 kb from the variant and has the highest L2G score (0.75), but there is no UTP25 eQTL or enhancer-target assay; literature search hits are not direct functional evidence.",
+     "evidence_ids": [
+      "E02",
+      "E07",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "An ETV2-driven mechanism would require ETV2 expression in craniofacial epithelial or endothelial cells; expression and occupancy are not shown in this case.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered UTP25 dosage in craniofacial cells could contribute to cleft lip, but the cleft association is weak and indirect, and no UTP25 dosage or functional enhancer evidence is provided.",
+     "evidence_ids": [
+      "E06",
+      "E09"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ETV2 ChIP occupancy or allele-specific ETV2 binding in a disease-relevant cell type.",
+    "UTP25 expression change in oral/craniofacial cells from the alt G allele.",
+    "The Ets motif is required for the UTP25 effect."
+   ],
+   "falsified_if": [
+    "No ETV2 expression or occupancy in craniofacial cells.",
+    "The alt allele does not change UTP25 expression in relevant cells.",
+    "UTP25 is not regulated by this enhancer."
+   ],
+   "probability": 0.05,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ETV2"
+  },
+  {
+   "id": "H4",
+   "title": "ZNF687 occupancy at the variant has a weak allele-specific effect",
+   "is_null": false,
+   "tf": "ZNF687",
+   "allele_binding_more": "ref",
+   "element": "EH38E2863563 dELS",
+   "target_gene": "IRF6",
+   "cell_type": "GM12878 lymphoblastoid cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ZNF687 has the only ENCODE ChIP-seq peak over the variant, in GM12878. Its own QBiC-SELEX model shows a tiny ref-favoring change below the gate (z -0.21, effect -0.013) and a weak site, so allele-specific ZNF687 binding is not established.",
+     "evidence_ids": [
+      "E05",
+      "E11",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the EH38E2863563 dELS active enhancer-like element.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "IRF6 is the nearest TSS and a cleft-lip L2G gene, but no ZNF687-IRF6 target evidence is given.",
+     "evidence_ids": [
+      "E02",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The only direct occupancy evidence is in GM12878 lymphoblastoid cells, which are not the disease-relevant craniofacial cell type.",
+     "evidence_ids": [
+      "E05"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A ZNF687-mediated effect on IRF6 and cleft lip is possible but weak, because the allelic QBiC effect is negligible and the disease-relevant cell type is not matched.",
+     "evidence_ids": [
+      "E06",
+      "E09"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific ZNF687 ChIP imbalance in GM12878 or another ZNF687-expressing cell type.",
+    "The effect is small and would require a strong reporter or CRISPR validation.",
+    "No strong Ets-like effect should be assigned to ZNF687."
+   ],
+   "falsified_if": [
+    "No allele-specific ZNF687 occupancy at this base.",
+    "ZNF687 does not regulate IRF6 in relevant cells.",
+    "The QBiC-SELEX effect remains below the gate and no functional enhancer change is seen."
+   ],
+   "probability": 0.04,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ZNF687"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "FLI1",
+   "is_null": false,
+   "probability": 0.26,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "ETV2",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "ETV3",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "ZNF687",
+   "is_null": false,
+   "probability": 0.04,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H5",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.53,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX strongly favors alt for an Ets motif, but no FLI1 ChIP occupancy is shown; E16 also uses an ETV5-mapped model, and FLI1 is chosen among several Ets TFs without a discriminating reason."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03/E04 place the variant in a dELS with DNase and H3K27ac marks; this supports the element annotation, though not disease-cell activity."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is nearest and has L2G/eQTL support, but no enhancer-target assay is given; the IRF6 eQTL is in brain, not oral epithelium, and cleft L2G for IRF6 is modest."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No expression or matched biosample evidence is cited for oral/craniofacial epithelial cells."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Only weak cleft GWAS signal and literature titles support the phenotype, with no functional FLI1-IRF6 evidence; direction is unresolved and the cleft GWAS risk allele is A, while alt G is predicted to bind Ets more."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ETV2 QBiC-SELEX strongly favors alt, but ETV2 occupancy is unknown and ENCODE never assayed it; ETV2 expression in the proposed cell type is not shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in EH38E2863563 dELS with active enhancer marks."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "UTP25 has high L2G and is 12 kb away, but no UTP25 eQTL or enhancer-target assay is given; E09 search hits are not direct functional evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No ETV2 expression or occupancy evidence is shown in craniofacial epithelial or endothelial cells."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cleft association is weak and indirect; no UTP25 dosage or functional enhancer evidence is provided."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ETV3 shares the same Ets QBiC-SELEX prediction, but ETV3 occupancy and expression are unknown; the repressor premise is not demonstrated."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "EH38E2863563 is annotated as a dELS with active enhancer marks."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 proximity/L2G/eQTL are indirect; the eQTL is in brain, not oral cells, and no element-target assay is given."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No ETV3 or oral epithelial expression/occupancy evidence is cited."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The IRF6 brain eQTL direction (alt G lower IRF6) is noted, but the cleft GWAS risk allele is A, so the claimed alt-G contribution is directionally inconsistent and functionally unsupported."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ZNF687 has a ChIP peak over the variant only in GM12878, not disease-relevant cells; QBiC-SELEX shows no above-gate change (z -0.21, effect -0.013) and a weak site, so allele-specific ZNF687 binding is not established."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant is in the EH38E2863563 dELS with active enhancer marks."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is nearest and has L2G support, but no ZNF687-IRF6 target evidence is given."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E05 directly shows the only occupancy evidence is in GM12878, which is not the disease-relevant craniofacial cell type; this supports the caveat and undermines the chain."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The phenotype link is speculative: the QBiC effect is negligible and there is no ZNF687-IRF6 or cleft-lip functional evidence."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Only a QBiC-SELEX prediction supports FLI1 binding; no FLI1 ChIP occupancy at the variant in any relevant cell type is shown, so occupancy is not established."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant is directly placed in EH38E2863563, a dELS with DNase and H3K27ac marks in the cited cCRE data."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is the nearest TSS and has L2G/eQTL support, but no enhancer-target assay or oral epithelial eQTL directly links this element to IRF6."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "FLI1 expression in GTEx minor salivary gland is only indirect support for a craniofacial epithelial mechanism; no oral epithelial expression, matched ENCODE biosample, or ChIP data are given."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cleft GWAS is weak and has effect allele A, while the IRF6 brain eQTL has alt G lowering IRF6; the cited evidence shows the causal direction is unresolved or opposite, not established."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The ETV2 prediction uses a CIS-BP-mapped ETV5 model and has no ETV2 occupancy evidence; this is a binding prediction, not ETV2-specific occupancy."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in the EH38E2863563 dELS active enhancer-like element according to the cited epigenomic annotations."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "UTP25 has the highest L2G score and is nearby, but there is no UTP25 eQTL or enhancer-target assay directly connecting this element to UTP25."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "No evidence is cited for ETV2 expression or occupancy in craniofacial epithelial or endothelial cells."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cleft association is weak and indirect, and no UTP25 dosage or functional enhancer evidence is provided."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ZNF687 has an ENCODE ChIP peak over the variant in GM12878, but its QBiC-SELEX effect is negligible and below the gate, so allele-specific binding is not established."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in the EH38E2863563 dELS active enhancer-like element according to the cited epigenomic annotations."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "IRF6 is the nearest TSS and a cleft-lip L2G gene, but no ZNF687-IRF6 target evidence is given."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The only direct occupancy evidence is in GM12878 lymphoblastoid cells, which is the stated cell type but not the disease-relevant craniofacial cell type."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "A ZNF687-mediated effect on IRF6 and cleft lip is possible but weak because the allelic QBiC effect is negligible and the disease-relevant cell type is not matched."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"FLI1\"}",
+   "resolves": "H1.binding",
+   "why": "Clarify whether FLI1 truly has its own QBiC-SELEX model or is only covered by the ETV5 CIS-BP-mapped Ets model used in E16."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"FLI1\"}",
+   "resolves": "H1.binding",
+   "why": "Check whether ENCODE has any FLI1 peak containing the variant in any biosample; this would directly test the occupancy half of the binding link."
+  },
+  {
+   "tool": "tf_expression",
+   "args_json": "{\"tf\":\"FLI1\",\"context\":\"oral epithelial cells\"}",
+   "resolves": "H1.cell_type",
+   "why": "Test the disease-relevant expression assumption for the leading non-null chain; absence would strongly favor H5."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "FLI1"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "FLI1",
+    "biosample": null
+   },
+   "run": true
+  },
+  {
+   "tool": "tf_expression",
+   "args": {
+    "tf": "FLI1",
+    "context": "GTEx:Minor Salivary Gland"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific FLI1 ChIP-qPCR at chr1:209815925 in oral epithelial cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "alt G shows higher FLI1 enrichment than ref A"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "no FLI1 enrichment; ETV2 not tested by this assay"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "no FLI1 enrichment"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no allelic imbalance"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Ref/alt enhancer reporter in an oral epithelial cell line",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "alt G changes enhancer activity"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "alt G changes activity via an Ets motif"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "negligible or no change"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no difference between ref and alt"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPR edit the variant in oral epithelial cells and measure IRF6 and UTP25",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "IRF6 expression changes"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "UTP25 expression changes"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "no change"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no change"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Existing ENCODE FLI1 ChIP-seq across all biosamples",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "a peak would be possible if FLI1 were assayed in a relevant biosample"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "no FLI1 peak"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "no FLI1 peak"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no FLI1 peak"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "ZNF687 allele-specific ChIP in GM12878",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "no ZNF687 allelic imbalance"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "no ZNF687 allelic imbalance"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "ref A shows more ZNF687 binding than alt G"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "no allelic imbalance"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Ref/alt enhancer reporter assay in an oral epithelial cell line; if activity differs, follow with FLI1 ChIP-qPCR and Ets-motif mutation to test whether FLI1 mediates the allelic effect.",
+ "citation_support": 0.9333333333333333,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 42873673: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/1:209815925-209815925:1/G?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:29:41+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr1:209815925:A>G (GRCh38), allele string A/G\nKnown IDs: rs642961\nMost severe consequence: regulatory_region_variant\nRegulatory features: ENSR1_B3JM9C enhancer\nGERP conservation score at the site: 0.516\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/1:208815925-210815925?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:29:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "13 protein-coding genes within 1000 kb of chr1:209815925:A>G, by distance to TSS:\nIRF6: 9.7 kb from TSS (upstream, strand -1)\nENSG00000289700: 9.7 kb from TSS (upstream, strand -1)\nUTP25: 12.0 kb from TSS (upstream, strand +1)\nC1orf74: 31.3 kb from TSS (upstream, strand -1)\nTRAF3IP3: 60.4 kb from TSS (downstream, strand +1)\nSYT14: 85.0 kb from TSS (upstream, strand +1)\nHSD11B1: 129.8 kb from TSS (downstream, strand +1)\nG0S2: 140.5 kb from TSS (downstream, strand +1)\nLAMB3: 162.8 kb from TSS (upstream, strand -1)\nCAMK1G: 232.2 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:29:16+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E2863563 (dELS: distal enhancer-like), chr1:209815915-209816264.\nSCREEN: 2 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2863563 dELS (contains the variant): DNase z 5.3, H3K27ac z 5.0, H3K4me3 z 2.4, CTCF z 1.5; nearby genes IRF6, UTP25, C1orf74\nEH38E2863562 dELS: DNase z 3.2, H3K27ac z 4.9, H3K4me3 z 1.9, CTCF z 1.5; nearby genes IRF6, UTP25, C1orf74\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr1:209815925:A>G: 15 peaks contain the variant, from 6 factors in 6 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): DPF2, MYC, POLR2A, POLR2AphosphoS5, STAT3. Bound, expressed TFs with a binding model: 1; listed one per row: ZNF687. Assayed with no peak here: 0 TFs in the matching biosample, 572 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF687: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR859FDL). expression not filtered (no expression data for this context)."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs642961&size=100",
+   "retrieved_utc": "2026-10-25T17:29:42+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "8 GWAS Catalog associations for rs642961, strongest first:\nSystolic blood pressure: p 6.0e-12, effect allele G, risk-allele frequency NR, PMID 38689001\nHypertension: p 2.0e-08, effect allele A, risk-allele frequency 0.1951, PMID 33230300\nPulse pressure: p 1.0e-07, effect allele G, risk-allele frequency NR, PMID 38689001\nDiastolic blood pressure: p 3.0e-07, effect allele G, risk-allele frequency NR, PMID 38689001\nOrofacial clefts: p 2.0e-06, effect allele A, risk-allele frequency NR, PMID 19270707"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:41+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "18 credible sets contain 1_209815925_A_G: 14 GWAS, 4 molecular QTL.\nGWAS Systolic blood pressure: PIP 0.10; L2G TRAF3IP3 0.11, IRF6 0.11, UTP25 0.10\nGWAS Systolic blood pressure: PIP 0.09; L2G IRF6 0.67, UTP25 0.14, TRAF3IP3 0.08\nGWAS Systolic blood pressure, combined automated + manual reading: PIP 0.05; L2G IRF6 0.13, UTP25 0.10, C1orf74 0.10\nGWAS Orofacial clefts: PIP 0.05; L2G IRF6 0.16, TRAF3IP3 0.12, C1orf74 0.10\nGWAS Systolic blood pressure: PIP 0.05; L2G IRF6 0.13, C1orf74 0.09, UTP25 0.08\nGWAS Systolic blood pressure (MTAG): PIP 0.05; L2G IRF6 0.17, C1orf74 0.09, UTP25 0.08\neqtl for TRAF3IP3 (blueprint_tx_monocyte_enst00000460314): PIP 0.04\neqtl for TRAF3IP3 (twinsuk_tx_blood_enst00000367023): PIP 0.02\neqtl for TRAF3IP3 (twinsuk_exon_blood_ensg00000009790_15_1_209782056_): PIP 0.02\neqtl for TRAF3IP3 (schmiedel_2018_exon_treg_naive_ensg00000009790_15_): PIP 0.02\nBest L2G gene scores across these sets: UTP25 0.75, IRF6 0.67, TRAF3IP3 0.53, C1orf74 0.10"
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr1_209815925_A_G_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T22:31:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "15 significant GTEx v8 single-tissue eQTLs for chr1_209815925_A_G_b38. NES is the effect of the alt allele (G) relative to ref (A).\nSYT14 in Nerve_Tibial: NES -0.50, p 6.7e-20\nDIEXF in Cells_Cultured_fibroblasts: NES -0.23, p 1.9e-14\nDIEXF in Artery_Tibial: NES -0.23, p 1.2e-10\nTRAF3IP3 in Whole_Blood: NES +0.24, p 5.9e-10\nIRF6 in Brain_Cerebellum: NES -0.62, p 2.2e-07\nDIEXF in Whole_Blood: NES -0.15, p 2.9e-07\nSYT14 in Brain_Hippocampus: NES +0.53, p 3.3e-07\nDIEXF in Adipose_Subcutaneous: NES -0.20, p 7.5e-07\nSYT14 in Brain_Spinal_cord_cervical_c-1: NES +0.72, p 2.7e-06\nDIEXF in Lung: NES -0.11, p 3.2e-06\nIRF6 in Brain_Cerebellar_Hemisphere: NES -0.61, p 3.3e-06\nDIEXF in Brain_Frontal_Cortex_BA9: NES +0.35, p 4.6e-06\nDIEXF in Brain_Cortex: NES +0.33, p 7.0e-06\nDIEXF in Adipose_Visceral_Omentum: NES -0.16, p 2.5e-05\nC1orf74 in Whole_Blood: NES +0.15, p 8.6e-05"
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=UTP25%20AND%20%22cleft%20lip%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:21:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 7 hits for 'UTP25 AND \"cleft lip\"'; top 6 with PMIDs:\nPMID 42873673 (2026): Genetic Heterogeneity in Cleft Lip and/or Palate With Alveolar Cleft: A Targeted Analysis of NHEK-Active Enhancer Variants.\nPMID 41075272 (2025): Genetic heterogeneity and homogeneity among orofacial cleft subtypes: genome-wide association studies in the cleft collective.\nPMID 37161310 (2023): A Variant in the <i>IRF6</i> Promoter Associated with the Risk for Orofacial Clefting.\nPMID 40670354 (2025): Identification of functional non-coding variants associated with orofacial cleft.\nPMID 33987535 (2021): Wavelet Screening identifies regions highly enriched for differentially methylated loci for orofacial clefts.\nPMID 30760477 (2019): Wnt signaling in orofacial clefts: crosstalk, pathogenesis and models."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr1:209815925:A>G, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (none: expression filter skipped), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 1 of 1 occupied (0 with a strong site), 5 of 249 with unknown occupancy. Left out: 0 TFs assayed in the matching biosample and 572 assayed only elsewhere, none with a peak here. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element. No occupied TF has a strong site at the variant."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZNF687 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZNF687_FL_TA40NGTTAGC_YWL_jolma2025_0_3_7mer (its own model), z -0.21, effect -0.013: ref allele binds slightly more; occupied, no clear allelic change (|z| below the gate). expression not filtered. Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in GM12878, e.g. ENCSR859FDL. Best model's site strength: ref 92.7th, alt 88.6th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ETV2 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 77.65, effect 1.32: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). expression not filtered. Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 65.0th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ETV3 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 77.65, effect 1.32: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). expression not filtered. Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 65.0th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ETV3L (Ets, 18 models; QBiC-SELEX coverage: mapped models only): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 77.65, effect 1.32: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). expression not filtered. Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 65.0th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "FEV (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 77.65, effect 1.32: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). expression not filtered. Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 65.0th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "FLI1 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 77.65, effect 1.32: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). expression not filtered. Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 65.0th, alt 99.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"FLI1\",\"symbol\":\"FLI1\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"own_model\",\"variant\":\"chr1:209815925:A>G\",\"gate_p\":5.02e-05,\"models\":[{\"model\":\"FLI1_NA_TAGGAT20NAGT_AC_jolma2013_0_3_7mer\",\"mapping\":\"own\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.864,\"effect\":0.906,\"z\":13.73,\"p\":6.3e-43,\"rank_abs_z\":\"35/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":90.1,\"alt_percentile\":98.7,\"k\":7}},{\"model\":\"ELF1_FL_TATGAC40NTCA_KW_yin2017_0_2_7mer\",\"mapping\":\"CIS-BP (ELF1)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.615,\"effect\":0.239,\"z\":7.62,\"p\":2.6e-14,\"rank_abs_z\":\"79/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":92.4,\"alt_percentile\":97.9,\"k\":7}},{\"model\":\"ELF2_eDBD_TGAAAT40NCAA_KR_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (ELF2)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.896,\"effect\":1.749,\"z\":14.38,\"p\":7.1e-47,\"rank_abs_z\":\"32/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":93.6,\"alt_percentile\":99.5,\"k\":7}},{\"model\":\"ELF4_eDBD_TGCGGT40NTCA_KAN_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (ELF4)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.732,\"effect\":1.252,\"z\":16.42,\"p\":1.5e-60,\"rank_abs_z\":\"25/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":70.9,\"alt_percentile\":97.3,\"k\":7}},{\"model\":\"ELK1_NA_TCGGAA20NAGT_ESAG_yang2017_1_3_7mer\",\"mapping\":\"CIS-BP (ELK1)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.779,\"effect\":0.448,\"z\":4.22,\"p\":2.5e-05,\"rank_abs_z\":\"211/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":66.4,\"alt_percentile\":97.4,\"k\":7}},{\"model\":\"ELK3_FL_TTCGAA40NGAC_KX_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (ELK3)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.841,\"effect\":1.11,\"z\":12.98,\"p\":1.5e-38,\"rank_abs_z\":\"38/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":78.9,\"alt_percentile\":98.9,\"k\":7}},{\"model\":\"ELK4_FL_TCCGCC40NTCA_KAE_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (ELK4)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.921,\"effect\":1.362,\"z\":17.75,\"p\":1.8e-70,\"rank_abs_z\":\"20/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":69.3,\"alt_percentile\":99.9,\"k\":7}},{\"model\":\"ERF_NA_TCAGAG20NCG_ESW_yang2017_1_4_7mer\",\"mapping\":\"CIS-BP (ERF)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.729,\"effect\":0.234,\"z\":8.25,\"p\":1.6e-16,\"rank_abs_z\":\"70/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":91.2,\"alt_percentile\":99.7,\"k\":7}},{\"model\":\"ERG_NA_TCTACA20NCAG_ESAG_yang2017_1_4_7mer\",\"mapping\":\"CIS-BP (ERG)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.881,\"effect\":1.053,\"z\":11.1,\"p\":1.2e-28,\"rank_abs_z\":\"48/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":85.0,\"alt_percentile\":99.4,\"k\":7}},{\"model\":\"ETS1_NA_TGTAAA20NGA_ESAF_yang2017_0_4_7mer\",\"mapping\":\"CIS-BP (ETS1)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.873,\"effect\":1.634,\"z\":27.66,\"p\":2.2e-168,\"rank_abs_z\":\"11/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":80.1,\"alt_percentile\":99.6,\"k\":7}}],\"n_models_trimmed\":8}"
+  },
+  {
+   "id": "E18",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T20:42:12+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE FLI1 ChIP-seq peak contains chr1:209815925:A>G. Absence can also mean no FLI1 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E19",
+   "tool": "tf_expression",
+   "source": "DepMap expression / GTEx v8 medians",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "FLI1 in GTEx tissue median Minor Salivary Gland: 8.27 TPM, rank 573 of 1631 TFs (1 = highest); this context is at the 51.9th percentile of FLI1 across all GTEx tissues."
+  }
+ ]
+}

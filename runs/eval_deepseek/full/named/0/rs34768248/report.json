@@ -1,0 +1,795 @@
+{
+ "case_id": "rs34768248",
+ "variant": "rs34768248",
+ "variant_key": "chr5:1295601:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "germline",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0152,
+ "seconds": 128.3,
+ "model_calls": 8,
+ "screen": {
+  "n_pass": 296,
+  "top_groups": [
+   {
+    "label": "bHLH, 3 models",
+    "z": 87.39,
+    "best_tf": "TCF3"
+   },
+   {
+    "label": "Homeodomain, 81 models",
+    "z": 67.98,
+    "best_tf": "HOXD4"
+   },
+   {
+    "label": "bHLH, 1 model",
+    "z": 38.6,
+    "best_tf": "TFAP4"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": 37.09,
+    "best_tf": "ZBTB18"
+   },
+   {
+    "label": "C2H2 ZF, 4 models",
+    "z": 25.12,
+    "best_tf": "ZIC1"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H4_null",
+   "title": "No TF-mediated effect of rs34768248; linked or nonfunctional variant",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding at rs34768248 in relevant cells",
+    "No genotype-TERT expression association after controlling for linked variants",
+    "The QBiC-SELEX binding change is not functional in the relevant chromatin context"
+   ],
+   "falsified_if": [
+    "allele-specific TF occupancy at this base is reproducibly shown and perturbs TERT expression",
+    "a reporter assay shows the G/A change directly alters enhancer activity",
+    "fine-mapping excludes linked variants and supports a direct allelic effect"
+   ],
+   "probability": 0.62,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1_TCF3",
+   "title": "TCF3 binds the alt allele more strongly at a TERT enhancer",
+   "is_null": false,
+   "tf": "TCF3",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "the variant lies in an annotated enhancer near TERT",
+   "target_gene": "TERT",
+   "cell_type": "glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G051's best model is TCF3 (own_model, z 87.39, effect +3.341), supporting stronger binding of alt A than ref G in vitro; TCF3 is chosen within the shared bHLH specificity because it is the best model and has the highest group expression (57.23 TPM). No ENCODE TCF3 ChIP-seq peak contains the variant, so in vivo occupancy is unproven.",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs34768248 lies in ENSR5_C5GP enhancer and near a cCRE cluster by TERT; no cCRE directly overlaps the variant, but the nearest pELS is 75 bp away.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene, 0.5 kb from its TSS; however, the only L2G signal is from a hypertension credible set with PIP 0.00, GWAS Catalog has 0 associations for rs34768248, GTEx brain shows 0 significant eQTLs, and the targeted rs34768248-TERT literature does not establish TERT association. The variant-to-TERT expression link is therefore not established.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E04",
+      "E18",
+      "E20"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The DepMap glioblastoma subtype context expresses TCF3 at 57.23 TPM, but the broad TERT-cancer literature does not establish a TCF3-TERT axis in glioblastoma, melanoma, or bladder cancer.",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No evidence shows that TCF3 binding at rs34768248 changes TERT expression, telomerase activity, or disease risk; if TCF3 activates, alt-A binding might increase TERT, while if TCF3 represses, the direction would be opposite.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific reporter/MPRA shows a G/A difference in glioblastoma cells",
+    "Allele-specific TCF3 ChIP/CUT&RUN shows stronger TCF3 occupancy at A than G",
+    "TCF3 perturbation changes TERT expression in the relevant cell context"
+   ],
+   "falsified_if": [
+    "allele-specific reporter or MPRA shows no G/A difference in glioblastoma cells",
+    "allele-specific TCF3 ChIP/CUT&RUN shows no preferential TCF3 occupancy at A",
+    "TCF3 perturbation does not alter TERT expression in the relevant cell context"
+   ],
+   "probability": 0.25,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TCF3"
+  },
+  {
+   "id": "H2_TCF12",
+   "title": "TCF12 binds the alt allele more strongly at a TERT enhancer",
+   "is_null": false,
+   "tf": "TCF12",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "the variant lies in an annotated enhancer near TERT",
+   "target_gene": "TERT",
+   "cell_type": "glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G051 covers TCF12 as own_model (z 71.51) with the same sign as the best model, so alt A is predicted to bind TCF12 more strongly than ref G in vitro; however, the shared bHLH motif cannot distinguish TCF12 from TCF3, and no allele-specific TCF12 occupancy data are provided.",
+     "evidence_ids": [
+      "E08",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs34768248 lies in ENSR5_C5GP enhancer and near a cCRE cluster by TERT; no cCRE directly overlaps the variant, but the nearest pELS is 75 bp away.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene, 0.5 kb from its TSS; however, the only L2G signal is from a hypertension credible set with PIP 0.00, GWAS Catalog has 0 associations for rs34768248, GTEx brain shows 0 significant eQTLs, and the targeted rs34768248-TERT literature does not establish TERT association. The variant-to-TERT expression link is therefore not established.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E04",
+      "E18",
+      "E20"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The DepMap glioblastoma subtype context expresses TCF12 at 54.67 TPM, but the broad TERT-cancer literature does not establish a TCF12-TERT axis in glioblastoma, melanoma, or bladder cancer.",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No evidence shows that TCF12 binding at rs34768248 changes TERT expression, telomerase activity, or disease risk; the phenotype link remains speculative and direction depends on activator versus repressor function.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific TCF12 ChIP/CUT&RUN shows stronger TCF12 occupancy at A than G",
+    "TCF12 knockdown reduces TERT expression more than TCF3 knockdown in the same cells",
+    "The relevant glioblastoma cells favor TCF12 over TCF3 at this element"
+   ],
+   "falsified_if": [
+    "allele-specific assays show no TCF12 binding difference",
+    "TCF12 perturbation does not change TERT expression",
+    "TCF3, not TCF12, is the dominant factor at this element by allele-specific ChIP"
+   ],
+   "probability": 0.08,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TCF12"
+  },
+  {
+   "id": "H3_TCF4",
+   "title": "TCF4 binds the alt allele more strongly at a TERT enhancer",
+   "is_null": false,
+   "tf": "TCF4",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "the variant lies in an annotated enhancer near TERT",
+   "target_gene": "TERT",
+   "cell_type": "glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX group G051 covers TCF4 as own_model (z 20.2) with the same sign as the best model, so alt A is predicted to bind TCF4 more strongly than ref G in vitro; however, TCF4 is the lowest-ranked shown member and the shared bHLH motif cannot distinguish it from TCF3/TCF12.",
+     "evidence_ids": [
+      "E08",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs34768248 lies in ENSR5_C5GP enhancer and near a cCRE cluster by TERT; no cCRE directly overlaps the variant, but the nearest pELS is 75 bp away.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest protein-coding gene, 0.5 kb from its TSS; however, the only L2G signal is from a hypertension credible set with PIP 0.00, GWAS Catalog has 0 associations for rs34768248, GTEx brain shows 0 significant eQTLs, and the targeted rs34768248-TERT literature does not establish TERT association. The variant-to-TERT expression link is therefore not established.",
+     "evidence_ids": [
+      "E02",
+      "E05",
+      "E04",
+      "E18",
+      "E20"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The DepMap glioblastoma subtype context expresses TCF4 at 27.41 TPM, but the broad TERT-cancer literature does not establish a TCF4-TERT axis in glioblastoma, melanoma, or bladder cancer.",
+     "evidence_ids": [
+      "E08",
+      "E07",
+      "E06"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "No evidence shows that TCF4 binding at rs34768248 changes TERT expression, telomerase activity, or disease risk; the phenotype link remains speculative and direction depends on activator versus repressor function.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific TCF4 ChIP/CUT&RUN shows stronger TCF4 occupancy at A than G",
+    "TCF4 knockdown reduces TERT expression or telomerase activity",
+    "TCF4 motifs are enriched at the accessible TERT upstream region in the relevant cells"
+   ],
+   "falsified_if": [
+    "allele-specific assays show no TCF4 binding difference",
+    "TCF4 perturbation does not affect TERT expression",
+    "TCF3 or TCF12, not TCF4, occupies this element in relevant cells"
+   ],
+   "probability": 0.05,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TCF4"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1_TCF3",
+   "tf": "TCF3",
+   "is_null": false,
+   "probability": 0.3,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2_TCF12",
+   "tf": "TCF12",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3_TCF4",
+   "tf": "TCF4",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.5,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX directly shows TCF3 own-model binding change for this variant (z 87.39, effect +3.341, alt binds more), but this is an in vitro motif prediction with no allele-specific ChIP, reporter, or perturbation evidence."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates ENSR5_C5GP as an enhancer and E03 correctly notes no cCRE overlaps the variant, with the nearest pELS 75 bp away and a cCRE cluster near TERT. The claim is descriptive and matches the evidence, though the enhancer annotation is computational."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is indeed the nearest protein-coding gene at 0.5 kb, and Open Targets reports TERT L2G 0.84. However, the credible set is a hypertension GWAS with PIP 0.00, so it provides essentially no genetic support for this variant affecting TERT in the claimed cancers."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TCF3 expression in DepMap glioblastoma is supported by E08 (57.23 TPM), but the broader claim that TERT is a relevant cancer gene rests on a broad literature search (E06) whose top hits are mostly reviews or unrelated, not direct evidence for a TCF3-TERT axis in glioblastoma."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence shows that TCF3 binding at this variant changes TERT expression or telomerase activity, nor that it contributes to glioblastoma, melanoma, or bladder cancer. The statement is a conditional mechanistic speculation."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TCF12 is a passing own-model member of G051 (z 71.51) with the best model's sign, but the best model is TCF3 and the shared bHLH motif cannot distinguish TCF12 from TCF3. This is still only an in vitro binding prediction without allele-specific occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "element",
+   "status": "supported",
+   "reason": "Same as H1: E01 annotates ENSR5_C5GP as an enhancer, and E03 correctly describes the nearby cCRE cluster and the 75 bp distance to the nearest pELS."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT proximity is supported by E02 and L2G TERT 0.84 by E05, but the Open Targets credible set is hypertension with PIP 0.00, not a cancer association, so genetic support for this variant-gene link is very weak."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TCF12 expression in DepMap glioblastoma is supported (54.67 TPM), but the claim that TERT is a relevant cancer gene in these diseases relies on broad literature (E06) rather than direct cell-type-specific evidence."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence is cited showing that TCF12 binding at this element alters TERT expression or contributes to the cancer phenotype; the link is speculative."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TCF4 is a passing own-model member of G051 (z 20.2) but is the lowest-ranked member shown and is inferred from the same shared bHLH motif dominated by TCF3. No allele-specific occupancy or reporter data are provided, so this remains weak."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "element",
+   "status": "supported",
+   "reason": "Same as H1/H2: E01 annotates ENSR5_C5GP as an enhancer, and E03 accurately reports that no cCRE overlaps the variant, with the nearest pELS 75 bp away."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT proximity is supported by E02 and L2G TERT 0.84 by E05, but the credible set has PIP 0.00 and is for hypertension, not the claimed cancers, so this genetic link is weak."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TCF4 expression in DepMap glioblastoma is supported (27.41 TPM), but the broader cell-type relevance and TERT-cancer link rely on a broad literature search rather than direct evidence."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence demonstrates that TCF4 binding at this variant changes TERT expression or cancer phenotype; the phenotype link is speculative."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Coverage claim own_model is supported by E08: TCF3 is listed as own model with 57.23 TPM and z 87.39, effect +3.341, alt binds more. However, QBiC-SELEX alone is at best weak support for a binding link; no allele-specific occupancy is shown."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in ENSR5_C5GP enhancer and as a TERT upstream variant; E03 shows no cCRE directly overlaps but the nearest pELS is 75 bp away and nearby cCREs list TERT. This supports the element-proximity claim."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 supports TERT being nearest at 0.5 kb, but the causal variant-to-TERT expression link is not established: E05 has PIP 0.00 despite L2G TERT 0.84, E04 has no GWAS Catalog associations, E18 has no brain eQTLs, and E20 does not establish a TERT association. Proximity alone is not a gene link."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E08 supports TCF3 expression in the DepMap glioblastoma context, but E06 does not establish a TCF3-TERT axis in glioblastoma, melanoma, or bladder cancer. Expression context alone does not support the cell-type mechanism."
+  },
+  {
+   "hypothesis_id": "H1_TCF3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence shows that TCF3 binding at rs34768248 changes TERT expression, telomerase activity, or disease risk. The claim itself states this link is speculative."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 lists TCF12 as own model with z 71.51 and the same sign as the best model, so the in vitro QBiC-SELEX prediction is present. But the shared bHLH motif cannot distinguish TCF12 from TCF3, and no allele-specific TCF12 occupancy is shown; QBiC-SELEX alone is weak."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in ENSR5_C5GP enhancer and as a TERT upstream variant; E03 shows no cCRE directly overlaps but the nearest pELS is 75 bp away and nearby cCREs list TERT. This supports the element-proximity claim."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 supports TERT being nearest at 0.5 kb, but the causal variant-to-TERT expression link is not established by the cited genetics: E05 has PIP 0.00, E04 has no GWAS Catalog associations, E18 has no brain eQTLs, and E20 does not establish a TERT association."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E08 supports TCF12 expression in the glioblastoma context, but E06 does not establish a TCF12-TERT axis in the relevant cancers. Expression context alone does not support the cell-type mechanism."
+  },
+  {
+   "hypothesis_id": "H2_TCF12",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence shows that TCF12 binding at rs34768248 changes TERT expression, telomerase activity, or disease risk. The phenotype link remains speculative."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 lists TCF4 as own model with z 20.2 and the same sign as the best model, so an in vitro QBiC-SELEX prediction is present. But TCF4 is the lowest-ranked shown member, the shared bHLH motif cannot distinguish it from TCF3/TCF12, and no allele-specific occupancy is shown; QBiC-SELEX alone is weak."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 annotates the variant in ENSR5_C5GP enhancer and as a TERT upstream variant; E03 shows no cCRE directly overlaps but the nearest pELS is 75 bp away and nearby cCREs list TERT. This supports the element-proximity claim."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 supports TERT being nearest at 0.5 kb, but the causal variant-to-TERT expression link is not established by the cited genetics: E05 has PIP 0.00, E04 has no GWAS Catalog associations, E18 has no brain eQTLs, and E20 does not establish a TERT association."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E08 supports TCF4 expression in the glioblastoma context, but E06 does not establish a TCF4-TERT axis in glioblastoma, melanoma, or bladder cancer. Expression context alone does not support the cell-type mechanism."
+  },
+  {
+   "hypothesis_id": "H3_TCF4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence shows that TCF4 binding at rs34768248 changes TERT expression, telomerase activity, or disease risk. The phenotype link remains speculative."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Brain\"}",
+   "resolves": "H1.gene",
+   "why": "Tests whether rs34768248 is an eQTL for TERT in brain tissue, directly addressing the variant-to-TERT expression link rather than relying on proximity/L2G."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"TCF3\"}",
+   "resolves": "H1.binding",
+   "why": "Checks whether TCF3 ChIP-seq peaks contain this variant in any ENCODE biosample; absence of occupancy would strongly weaken the TCF3 binding chain."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs34768248 TERT\"}",
+   "resolves": "H1.gene",
+   "why": "Targeted search for direct published evidence on this variant and TERT would be more informative than the broad TERT-cancer search in E06."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Brain"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "TCF3",
+    "biosample": null
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs34768248 TERT"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "DepMap glioblastoma: regress TERT expression on rs34768248 genotype in existing lines",
+   "cost": "low",
+   "outcomes": [],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific reporter or MPRA for G vs A in glioblastoma cells",
+   "cost": "medium",
+   "outcomes": [],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific TCF3 ChIP/CUT&RUN in glioblastoma cells",
+   "cost": "high",
+   "outcomes": [],
+   "separates_top_two": true
+  },
+  {
+   "test": "TCF3 knockdown/CRISPRi followed by TERT qPCR in glioblastoma cells",
+   "cost": "medium",
+   "outcomes": [],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Query existing DepMap glioblastoma lines to test whether rs34768248 genotype is associated with TERT expression; this is the cheapest test that separates the top two chains (H1_TCF3 vs H4_null).",
+ "citation_support": 0.8,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs34768248 AND TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; dropped the rsID"
+  },
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 41744838: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295601-1295601:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295601:G>A (GRCh38), allele string G/A\nKnown IDs: rs34768248\nMost severe consequence: intron_variant\nRegulatory features: ENSR5_C5GP enhancer\nGERP conservation score at the site: 2.04\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295601-2295601?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-26T02:22:31+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295601:G>A, by distance to TSS:\nTERT: 0.5 kb from TSS (upstream, strand -1)\nCLPTM1L: 49.5 kb from TSS (downstream, strand -1)\nSLC6A18: 70.2 kb from TSS (downstream, strand +1)\nSLC6A19: 94.0 kb from TSS (downstream, strand +1)\nSLC12A7: 139.4 kb from TSS (upstream, strand -1)\nSLC6A3: 149.9 kb from TSS (downstream, strand -1)\nLPCAT1: 228.7 kb from TSS (downstream, strand -1)\nNKD2: 287.6 kb from TSS (downstream, strand +1)\nTRIP13: 402.8 kb from TSS (downstream, strand +1)\nBRD9: 402.8 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-26T02:21:44+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3622531 (pELS) 75 bp away.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622532 pELS: DNase z 2.2, H3K27ac z 3.9, H3K4me3 z 4.4, CTCF z 1.5; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622530 PLS: DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs34768248&size=100",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs34768248, strongest first:"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:22:30+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 credible sets contain 5_1295601_G_A: 1 GWAS, 0 molecular QTL.\nGWAS Hypertension: PIP 0.00; L2G TERT 0.84\nBest L2G gene scores across these sets: TERT 0.84"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr5:1295601:G>A: 997 models scored, 296 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 229 CIS-BP groups. Expression context: DepMap subtype median Glioblastoma. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 53 (bHLH, 2 models z 147.37, bHLH, 2 models z 62.92, bHLH, 1 model z 45.4, bHLH, 1 model z 38.43, bHLH, 1 model z 37.19). Passing groups ranked below the ones shown: 166. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G051 (bHLH, 3 models): best model TCF3_NA_TACCCG20NCCC_ESY_yang2017_0_2_7mer (own model of TCF3), z 87.39, effect 3.341 (alt binds more); 3 passing models (3 with the best model's sign). Passing members: TCF3 z 87.39, TCF12 z 71.51, TCF4 z 20.2. TFs this group covers: TCF3 (own model) 57.23 TPM, TCF12 (own model) 54.67 TPM, TCF4 (own model) 27.41 TPM; best model's site strength: ref 96.3th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G001 (Homeodomain, 81 models): best model HOXD4_FL_TTTACT40NACA_KV_yin2017_0_3_7mer (own model of HOXD4), z 67.98, effect 2.073 (alt binds more); 14 passing models (12 with the best model's sign); members disagree on direction. Passing members: HOXD4 z 67.98, LHX1 z 9.84, MSX2 z 9.43, HMX2 z 8.34, BARHL1 z 7.26 (+9 more). TFs this group covers: PRRX1 (own model) 33.14 TPM, HOXB3 (own model) 14.88 TPM, HOXB7 (own model) 14.34 TPM, PITX1 (own model) 13.59 TPM, DLX1 (own model) 12.0 TPM, HOXB2 (own model) 10.25 TPM, SHOX2 (own model) 9.84 TPM, HOXC6 (mapped) 5.85 TPM, HOXB6 (mapped) 5.72 TPM, MSX1 (own model) 5.29 TPM (+103 more); best model's site strength: ref 94.4th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G354 (bHLH, 1 model): best model TFAP4_NA_TCACGT20NGCA_ESAC_yang2017_0_3_7mer (own model of TFAP4), z 38.6, effect 2.785 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: TFAP4 z 38.6. TFs this group covers: TFAP4 (own model) 5.49 TPM; best model's site strength: ref 95.8th, alt 99.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G393 (C2H2 ZF, 1 model): best model ZBTB18_eDBD_TACTCC40NGTA_KR_yin2017_0_3_7mer (own model of ZBTB18), z 37.09, effect 2.696 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZBTB18 z 37.09. TFs this group covers: ZBTB18 (own model) 10.9 TPM; best model's site strength: ref 90.4th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G032 (C2H2 ZF, 4 models): best model ZIC1_FL_TTTATT40NATC_KW_yin2017_0_3_7mer (own model of ZIC1), z 25.12, effect 1.864 (alt binds more); 3 passing models (3 with the best model's sign). Passing members: ZIC1 z 25.12, ZIC4 z 16.62, ZIC3 z 9.02. TFs this group covers: ZIC1 (own model) 13.23 TPM, ZIC2 (mapped) 3.7 TPM, ZIC4 (own model) 1.37 TPM, ZIC5 (own model) 0.53 TPM, ZIC3 (own model) 0.0 TPM; best model's site strength: ref 83.3th, alt 99.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G320 (C2H2 ZF, 1 model): best model RLF_DBD2_AG40NGGAATC_YWPA_jolma2025_0_3_7mer (own model of RLF), z -24.34, effect -1.279 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: RLF z -24.34. TFs this group covers: RLF (own model) 8.96 TPM; best model's site strength: ref 97.9th, alt 80.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G211 (Unknown, 1 model): best model ID4_NA_CTACA14N_U_jolma2013_1_3_7mer (own model of ID4), z 17.3, effect 0.819 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ID4 z 17.3. TFs this group covers: ID4 (own model) 1.46 TPM; best model's site strength: ref 99.1th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G401 (C2H2 ZF, 1 model): best model ZBTB37_eDBD_TATGTC40NGGA_KR_yin2017_0_4_7mer (own model of ZBTB37), z -16.47, effect -1.806 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZBTB37 z -16.47. TFs this group covers: ZBTB37 (own model) 1.72 TPM; best model's site strength: ref 91.8th, alt 51.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G432 (Homeodomain, 1 model): best model ZHX3_DBD2_CT40NTCTAGT_YWQA_jolma2025_0_2_7mer (own model of ZHX3), z -15.37, effect -0.381 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZHX3 z -15.37. TFs this group covers: ZHX3 (own model) 12.73 TPM; best model's site strength: ref 99.1th, alt 73.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G086 (bHLH, 2 models): best model MSC_eDBD_TACTTA40NCTA_KR_yin2017_0_4_7mer (own model of MSC), z 15.31, effect 0.661 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: MSC z 15.31, TCF21 z 7.13. TFs this group covers: MSC (own model) 5.11 TPM, TCF21 (own model) 0.05 TPM; best model's site strength: ref 97.5th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr5_1295601_G_A_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T02:24:03+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr5_1295601_G_A_b38 in tissues matching 'Brain'. NES is the effect of the alt allele (A) relative to ref (G)."
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:29:02+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE TCF3 ChIP-seq peak contains chr5:1295601:G>A. Absence can also mean no TCF3 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E20",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs34768248%20TERT&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:29:03+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'rs34768248 TERT'; top 1 with PMIDs:\nPMID 27814745 (2016): Deep targeted sequencing of 12 breast cancer susceptibility regions in 4611 women across four different ethnicities."
+  }
+ ]
+}

@@ -1,0 +1,1132 @@
+{
+ "case_id": "tert_c228t",
+ "variant": "TERT promoter C228T",
+ "variant_key": "chr5:1295113:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "somatic",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.6088,
+ "seconds": 185.3,
+ "model_calls": 8,
+ "screen": {
+  "n_pass": 310,
+  "top_groups": [
+   {
+    "label": "Ets, 18 models",
+    "z": 166.19,
+    "best_tf": "ETV5"
+   },
+   {
+    "label": "Ets, 4 models",
+    "z": 70.12,
+    "best_tf": "ELF3"
+   },
+   {
+    "label": "Ets, 1 model",
+    "z": 47.58,
+    "best_tf": "SPDEF"
+   },
+   {
+    "label": "AP-2, 4 models",
+    "z": -36.84,
+    "best_tf": "TFAP2E"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": 22.77,
+    "best_tf": "ZNF582"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "C228T creates a de novo ETS site occupied by GABPA (GABP complex), activating TERT in glioblastoma",
+   "is_null": false,
+   "tf": "GABPA",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "TERT core promoter cCRE EH38E3622530 (PLS), chr5:1294945-1295294",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma tumor cells (IDH-wildtype)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "18 ETS-specificity models pass the QBiC gate, all alt-preferring, and the site rises from the 97.1th to the 99.3th percentile of k-mer coefficients; within this shared-specificity group GABPA is chosen because it is the only member with direct occupancy evidence at this exact base (two ENCODE ChIP-seq peaks containing chr5:1295113 in HepG2 and SK-N-SH), has its own passing model (z 68.47) and is expressed at 15.5 TPM in glioblastoma lines; the literature also states that canonical TERT promoter mutations create de novo ETS-family binding sites",
+     "evidence_ids": [
+      "E05",
+      "E06",
+      "E16",
+      "E17a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an active promoter-like cCRE at the TERT TSS with high DNase, H3K4me3 and H3K27ac (z-scores are maxima across biosamples, not glioblastoma-specific), and VEP annotates a promoter regulatory feature",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is 0 kb from the variant and is the only gene whose TSS the cCRE abuts; literature states these promoter mutations promote TERT expression partly by generating novel TF binding sites. Support beyond proximity plus literature is still indirect (no eQTL or isogenic knock-in data here)",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E17c"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GABPA is expressed at 15.5 TPM across 54 glioblastoma lines and the promoter cCRE is in an accessible, active state, so the created site can be occupied; GABPA is a DepMap common essential, so its strong knockout effect in CNS lines is not lineage-specific evidence",
+     "evidence_ids": [
+      "E06",
+      "E03",
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Telomerase reactivation averts replicative senescence; TERT promoter mutations are among the most frequent alterations in IDH-wildtype glioblastoma and occur in 50-82% of melanomas. These quotes concern TERT promoter mutations generally, not GABP specifically",
+     "evidence_ids": [
+      "E04a",
+      "E04f",
+      "E04e"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GABPA/GABPB1 ChIP or CUT&RUN in a C228T-heterozygous glioblastoma line shows occupancy only on the mutant allele",
+    "GABPB1 (not common-essential) knockdown lowers TERT mRNA specifically in C228T-mutant lines, not in promoter-wild-type lines",
+    "Reporter activity gain requires the created ETS core; mutating it abolishes the gain"
+   ],
+   "falsified_if": [
+    "No GABP subunit occupancy at the mutant promoter by ChIP/CUT&RUN in mutant lines",
+    "GABPB1/GABPA depletion leaves TERT unchanged in mutant cells",
+    "Isogenic knock-in of the alt allele does not raise TERT"
+   ],
+   "probability": 0.65,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "H5",
+   "title": "Null: no TF-mediated effect of this base change; recurrence reflects a mutational hotspot or a linked driver",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "Allele-specific reporter and ChIP assays show no allelic difference at this base",
+    "TERT mRNA is unrelated to mutation status once linked promoter variants such as rs2853669 are accounted for",
+    "Recurrence is explained by a UV/CC>TT-prone hotspot rather than a functional gain; note that hotspot formation and function are not mutually exclusive (E17a describes a hotspot effect caused by the created ETS site)"
+   ],
+   "falsified_if": [
+    "Allele-specific TF occupancy or reporter activity is demonstrated at this base",
+    "Isogenic knock-in of the alt allele raises TERT expression"
+   ],
+   "probability": 0.13,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2",
+   "title": "Another expressed ETS factor (ETS1) occupies the created site and drives TERT",
+   "is_null": false,
+   "tf": "ETS1",
+   "qbic_coverage": "mapped",
+   "allele_binding_more": "alt",
+   "element": "TERT core promoter cCRE EH38E3622530 (PLS)",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma tumor cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The alt-preferring ETS specificity of group G003 is shared across family members; ETS1 is covered only through a CIS-BP-mapped model and is not among the listed passing members, so the group z-scores belong to ETV5/ELF1/GABPA and are not model-specific evidence for ETS1. ETS1 is nominated solely because it is the highest-expressed covered member (61.0 TPM) in glioblastoma lines, consistent with ETS-site creation reported in the literature",
+     "evidence_ids": [
+      "E05",
+      "E06",
+      "E17a"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The created site lies in the active TERT promoter cCRE with strong H3K4me3/H3K27ac/DNase signal",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "Occupancy of the new site by ETS1 would raise TERT transcription from the adjacent TSS; only proximity supports the gene assignment",
+     "evidence_ids": [
+      "E02",
+      "E17c"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "ETS1 is the most abundant covered ETS-group TF in glioblastoma lines (61.0 TPM), so it is available to bind; no occupancy data support it at this base, unlike GABPA",
+     "evidence_ids": [
+      "E06",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Telomerase reactivation sustains proliferation in glioblastoma and melanoma",
+     "evidence_ids": [
+      "E04a",
+      "E04f"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ETS1 ChIP signal, not GABP, is detected at the mutant promoter",
+    "ETS1 knockdown lowers TERT in mutant lines while GABPB1 knockdown does not",
+    "TERT induction tracks with ETS1 level across mutant lines"
+   ],
+   "falsified_if": [
+    "ETS1 depletion does not change TERT in C228T lines",
+    "GABP subunits, not ETS1, are the factors detected at the mutant allele"
+   ],
+   "probability": 0.12,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ETS1"
+  },
+  {
+   "id": "H4",
+   "title": "The mutation destroys an AP-2 (TFAP2A) site, relieving repression at the TERT promoter",
+   "is_null": false,
+   "tf": "TFAP2A",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "TERT core promoter cCRE EH38E3622530 (PLS)",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma tumor cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Four AP-2 models pass with a ref-preferring sign (TFAP2E z -36.84; site falls from 99.5th to 96.5th percentile); TFAP2A is chosen as the member with its own passing model (z -28.06) and real expression in glioblastoma lines (9.65 TPM). This is an in vitro prediction only and is much smaller in magnitude than the ETS gain",
+     "evidence_ids": [
+      "E05",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "Loss of a TF site inside the active promoter cCRE could change factor composition at the TSS; no evidence shows AP-2 acts at this element",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "If AP-2 is repressive here, its displacement would de-repress TERT; the literature mentions displacement of negative regulators as one mechanism of TERT promoter mutations, but names no specific factor",
+     "evidence_ids": [
+      "E02",
+      "E17c"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TFAP2A (9.65 TPM) and TFAP2C (6.49 TPM) are expressed in glioblastoma lines, so the reference site could be occupied in wild-type cells",
+     "evidence_ids": [
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Higher telomerase activity supports immortalization in glioblastoma and melanoma",
+     "evidence_ids": [
+      "E04a",
+      "E04f"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "AP-2 ChIP signal present on the reference allele and lost on the mutant allele",
+    "TFAP2A overexpression suppresses the wild-type but not the mutant promoter in reporters",
+    "Reporter gain survives mutation of the created ETS core as long as the AP-2 site stays broken"
+   ],
+   "falsified_if": [
+    "No AP-2 occupancy at the wild-type TERT promoter",
+    "TFAP2A perturbation does not alter TERT",
+    "Reporter gain requires the intact created ETS core"
+   ],
+   "probability": 0.06,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2A"
+  },
+  {
+   "id": "H3",
+   "title": "The new ETS-type site is bound by ETV6, whose repressive occupancy modulates rather than drives TERT output",
+   "is_null": false,
+   "tf": "ETV6",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "TERT core promoter cCRE EH38E3622530 (PLS)",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma tumor cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Group G020 shows a large alt-preferring effect (ELF3 model, effect 3.463); within it ELF3/ELF5/EHF/SPDEF are essentially unexpressed (<0.5 TPM), leaving ETV6 (5.65 TPM, own passing model z 46.32) as the plausible binder",
+     "evidence_ids": [
+      "E05",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The created site is in the active TERT promoter cCRE; no evidence identifies ETV6 activity at this element",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "Because alt binds ETV6 more, this chain predicts dampening, not activation, of TERT; it can only explain variable TERT levels among mutant tumors through competition with activating ETS factors, not the overall gain",
+     "evidence_ids": [
+      "E02"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "ETV6 is expressed only modestly (5.65 TPM) in glioblastoma lines, limiting its influence relative to the abundant activating ETS factors",
+     "evidence_ids": [
+      "E07",
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Differences in TERT expression and survival among promoter-mutant tumors exist (shown for cis rs2853669), but no cited evidence links that variability to ETV6",
+     "evidence_ids": [
+      "E04c",
+      "E04d"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "ETV6 ChIP shows occupancy at the mutant allele",
+    "ETV6 knockdown further raises TERT in mutant cells",
+    "TERT induction by the mutation is larger in ETV6-low lines"
+   ],
+   "falsified_if": [
+    "No ETV6 binding at the mutant promoter",
+    "ETV6 knockdown does not change TERT levels"
+   ],
+   "probability": 0.04,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ETV6"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.52,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "ETS1",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "ETV6",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "TFAP2A",
+   "is_null": false,
+   "probability": 0.06,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H5",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.23,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Only QBiC-SELEX predictions (E05/E06) back this: GABPA has its own passing model (z 68.47, alt binds more) and 15.5 TPM. The claim that GABP needs two spaced GGAA sites and is distinct from ETV5/ELF1 is not in any cited evidence. No ChIP, reporter or perturbation data are provided."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in PLS cCRE EH38E3622530 with high DNase, H3K27ac and H3K4me3 z-scores, and E01 gives a promoter regulatory feature. These are maxima across biosamples and not glioblastoma-specific, which is a minor caveat."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is 0 kb from the TSS (E01/E02), which is proximity only. No eQTL, CRISPR or reporter evidence shows the allele raises TERT. The claim of reactivation from a silenced promoter is not shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "GABPA expression of 15.5 TPM (E06) and generic cCRE accessibility are consistent with occupancy. Accessibility is a maximum over biosamples, not glioblastoma-specific. No ChIP in glioblastoma lines is shown."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04a and E04f show TERT promoter mutations are frequent in melanoma and IDH-wt GBM, and E04e links TERT to senescence. None of these quotes ties this variant, or GABP, to the phenotype mechanistically. The quotes do not say C228T specifically."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ETS1 is only CIS-BP-mapped within G003 and is not among the listed passing members. Choosing it for its TPM rather than its own binding evidence is weak. The QBiC result for the group is for a different TF (ETV5) and is applied to ETS1 without a model-specific result."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 shows the variant lies in the active promoter-like cCRE."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 shows only that TERT is nearby. Nothing shows ETS1 occupancy changes TERT transcription."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "ETS1 at 61 TPM (E06) shows it is expressed. The claim that it outcompetes GABP is unsupported by any evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04a and E04f are generic about TERT promoter mutations and do not mention ETS1."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ETV6 passes in G020 (z 46.32, alt binds more, own model per E07). Choosing it by elimination of low-TPM members is reasoned but rests on prediction only. The claim that ETS sites are repressor-class here is not evidenced."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 only shows an active promoter. It says nothing about ETV6 repressing in this context, which is asserted from outside knowledge."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 gives distance only. No evidence shows ETV6 dampens TERT. The direction is also inconsistent: alt binds more, so ETV6 repression would predict lower TERT in mutants, against the known gain of expression."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 gives 5.65 TPM for ETV6, so it is expressed modestly. There is no glioblastoma occupancy data."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E04c and E04d concern the rs2853669 SNP in cis with the promoter mutation, not ETV6. In that cohort cis status lowered TERT expression, and the quotes do not connect this to ETV6 occupancy."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E09 shows 4 AP-2 models with a negative effect, and TFAP2A has its own model (z -28.06, 9.65 TPM). The prediction is in vitro only. The site loss is consistent in direction (ref binds more) but unvalidated."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03 shows an active promoter cCRE. It does not show an AP-2 site matters there."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "missing",
+   "reason": "No evidence shows AP-2 represses TERT. The claim is conditional ('if AP-2 acts as a repressor') and E02 only shows proximity."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TFAP2A and TFAP2C are expressed in glioblastoma lines (E09), so occupancy of the ref allele is plausible. No ChIP data are provided."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04a and E04f are generic about TERT promoter mutations and do not mention AP-2 loss."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC predicts alt-preferring ETS binding, GABPA has its own passing model (z 68.47) and ChIP peaks overlap the base, and the literature says canonical mutations create ETS sites. However, the ChIP peaks are in HepG2 and SK-N-SH, not glioblastoma, and are not allele-specific. There is no perturbation evidence. The GABPA choice is reasoned but the evidence is indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in a PLS cCRE with high DNase, H3K4me3 and H3K27ac, and VEP annotates a promoter regulatory feature. The z-scores are maxima across biosamples, which is acknowledged. This is epigenomic context that fits a promoter element."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity (0 kb from the TERT TSS) plus a literature statement that these mutations promote TERT expression. No eQTL, CRISPR or reporter data are cited here. This is indirect support, as the chain itself acknowledges."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "GABPA expression of 15.5 TPM in glioblastoma lines and the active chromatin context make occupancy plausible, but the chromatin z-scores are not glioblastoma-specific. The DepMap common-essential result is correctly treated as non-lineage-specific. No glioblastoma occupancy data are cited."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Quotes support TERT promoter mutations being frequent in glioblastoma and melanoma and TERT loss triggering senescence in a melanoma context. They do not tie GABPA or this chain to the phenotype, as the chain concedes."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The ETS specificity is shared across the group, but ETS1 has only a CIS-BP-mapped model and is not a listed passing member. ETS1 is nominated purely on expression, so there is no ETS1-specific binding evidence. The literature on ETS site creation is generic."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant lies in an active promoter-like cCRE with strong DNase, H3K4me3 and H3K27ac signal. The cited cCRE data show this directly."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Only proximity and generic literature on mutations promoting TERT expression support this. Nothing is specific to ETS1, and no perturbation or QTL data are cited."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "ETS1 expression of 61 TPM shows availability in glioblastoma lines, and the chain admits no occupancy data. The cited ChIP evidence (E16) is for GABPA, not ETS1, so it does not support ETS1 occupancy."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The quotes support TERT promoter mutations being common in melanoma and glioblastoma, but they say nothing about ETS1. This is general phenotype context only."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "Four AP-2 models pass with ref-preferring sign and TFAP2A has its own model (z -28.06), but this is an in vitro binding prediction alone with a smaller effect than the ETS gain. There is no occupancy or perturbation evidence."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "The cCRE is an active promoter, but no evidence shows AP-2 acts at this element, as the chain itself states. This is context only."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "The literature mentions displacement of negative regulators but names no factor, and nothing cited connects AP-2 to TERT repression. Proximity and a generic mechanism are all that is offered, so this is speculative."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TFAP2A and TFAP2C are expressed in glioblastoma lines, so occupancy of the reference site is possible. There are no ChIP data and the cited evidence is expression only."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The quotes show TERT promoter mutations are common in glioblastoma and melanoma, but nothing links a loss of AP-2 binding to the phenotype."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "G020 shows a strong alt-preferring effect and ETV6 has its own passing model (z 46.32), but this is a binding prediction alone. ETV6 is chosen by exclusion on expression, and its best model is not the group best. No occupancy data are cited."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "The cCRE is an active promoter, but the chain concedes no evidence identifies ETV6 activity there. This is context only."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "missing",
+   "reason": "Only the gene proximity list is cited. Nothing supports ETV6 repression of TERT or dampening of its expression, and the claim of modulation is unsupported."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "ETV6 expression of 5.65 TPM shows it is expressed in glioblastoma lines, so it is available. The claim about its limited influence relative to other ETS factors is an inference and is not shown by the evidence."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The cited rs2853669 cis data on TERT expression and survival do not mention ETV6, and the chain admits no evidence links the variability to it. Nothing bears on the claim."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"GABPA\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "H1.binding",
+   "why": "Tests whether GABPA occupies the promoter in a glioblastoma line, which would upgrade binding beyond a prediction."
+  },
+  {
+   "tool": "gene_dependency",
+   "args_json": "{\"gene\":\"GABPA\"}",
+   "resolves": "H1.cell_type",
+   "why": "Shows whether GABPA loss has an effect in glioblastoma lines, which could favour GABPA over other ETS factors."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Brain\"}",
+   "resolves": "H1.gene",
+   "why": "Tests for a genetic link between the allele and TERT expression, which would replace proximity-only support for the gene link."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "GABPA",
+    "biosample": null
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "TERT promoter mutation C228T GABP ETS binding site recruitment"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_dependency",
+   "args": {
+    "gene": "GABPA"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Query existing ENCODE/Factorbook TF ChIP-seq peaks overlapping chr5:1295113 for GABPA vs ETS1/ELF1/ETV5/TFAP2A/ETV6",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "GABPA peaks overlap the site (already observed in HepG2 and SK-N-SH, E16)"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "ETS1 peaks should overlap at least as consistently as GABPA"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "TFAP2A peaks overlap in wild-type cells; ETS peaks not required"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "ETV6 peaks overlap the site"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No consistent allele-linked TF occupancy at this base"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific CUT&RUN for GABPA/GABPB1 and ETS1 in a C228T-heterozygous glioblastoma line",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "GABP reads strongly skewed to the mutant allele; ETS1 not"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "ETS1 reads skewed to the mutant allele; GABP flat"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Neither ETS factor skewed; AP-2 signal skewed to reference allele"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "ETV6 skewed to mutant allele"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No allelic skew for any factor"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "siRNA knockdown of GABPB1 vs ETS1 in C228T-mutant and wild-type glioblastoma lines, measure TERT mRNA",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "GABPB1 knockdown lowers TERT only in mutant lines; ETS1 knockdown has little effect"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "ETS1 knockdown lowers TERT in mutant lines; GABPB1 knockdown does not"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Neither knockdown changes TERT; TFAP2A overexpression lowers wild-type promoter only"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "ETV6 knockdown raises TERT; ETS knockdowns have modest effects"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No mutation-status-dependent effect of any knockdown"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Luciferase reporter with ref vs alt promoter, plus a version with the created ETS core disrupted",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Alt > ref; gain abolished when the created ETS core is disrupted"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Alt > ref; gain abolished by the same ETS-core disruption (indistinguishable from H1 here)"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Alt > ref even when the created ETS core is disrupted, as long as the AP-2 site stays broken"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Little or no gain, or a decrease, from the alt allele"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No allelic difference"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Isogenic CRISPR knock-in of the alt allele into a TERT-promoter-wild-type glioblastoma line; measure TERT mRNA and telomerase activity",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "TERT rises; rise is GABP-dependent"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "TERT rises; rise is ETS1-dependent"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "TERT rises and is sensitive to TFAP2A level"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "TERT unchanged or lower"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "TERT unchanged"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "eQTL/expression lookup linking allele status to TERT expression in brain or tumor cohorts",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Mutant tumors show higher TERT"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Mutant tumors show higher TERT (same direction)"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Mutant tumors show higher TERT (same direction)"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No consistent increase, or decrease, with mutation"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No association after controlling for linked variants"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Cheapest separator of H1 vs H2: first mine existing ENCODE/Factorbook ChIP-seq (existing data) for ETS1/ELF1/ETV5 peaks overlapping chr5:1295113 to compare with the GABPA peaks already found (E16); if that is uninformative, run a low-cost siRNA knockdown of GABPB1 versus ETS1 in a C228T-mutant and a wild-type glioblastoma line and measure TERT mRNA (GABPB1 avoids the common-essential confound of GABPA, E18).",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "coverage_misstated",
+   "detail": "H2: stated mapped, registry says own_model for ETS1"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295113-1295113:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295113:G>A (GRCh38), allele string G/A\nKnown IDs: rs1242535815\nMost severe consequence: upstream_gene_variant\nRegulatory features: ENSR5_832QG promoter\nGERP conservation score at the site: -7.45\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295113-2295113?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T11:57:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295113:G>A, by distance to TSS:\nTERT: 0.0 kb from TSS (upstream, strand -1)\nCLPTM1L: 50.0 kb from TSS (downstream, strand -1)\nSLC6A18: 69.7 kb from TSS (downstream, strand +1)\nSLC6A19: 93.5 kb from TSS (downstream, strand +1)\nSLC12A7: 138.9 kb from TSS (upstream, strand -1)\nSLC6A3: 150.4 kb from TSS (downstream, strand -1)\nLPCAT1: 229.2 kb from TSS (downstream, strand -1)\nNKD2: 287.1 kb from TSS (downstream, strand +1)\nTRIP13: 402.3 kb from TSS (downstream, strand +1)\nBRD9: 402.3 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T11:57:31+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3622530 (PLS: promoter-like), chr5:1294945-1295294.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622530 PLS (contains the variant): DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622529 pELS: DNase z 3.7, H3K27ac z 4.1, H3K4me3 z 4.6, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E04a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41744838",
+   "url": "https://europepmc.org/article/MED/41744838",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "A major molecular feature of melanoma is abnormal telomerase activation; this is most often caused by telomerase reverse transcriptase (TERT) promoter mutations, which occur in 50-82% of cases and are the most common noncoding alteration in this cancer."
+  },
+  {
+   "id": "E04b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42577103",
+   "url": "https://europepmc.org/article/MED/42577103",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "CDKN2A and CDK4 mutations act through UV-dependent and cell cycle disruption pathways, while BAP1, POT1, and TERT mutations are considered UV-independent."
+  },
+  {
+   "id": "E04c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "The single nucleotide polymorphism (SNP) rs2853669, also located in the TERT promoter, may influence telomerase activity, though its clinical relevance in GBM remains unclear."
+  },
+  {
+   "id": "E04d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Patients carrying the SNP and TPM on the same allele (C/C and T/C cis) had shorter overall survival than those carrying them on different alleles (T/T or T/C trans; 19 vs 25 months, p = 0.048), and TERT expression was also lower in this group (p = 0.038)."
+  },
+  {
+   "id": "E04e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42807929",
+   "url": "https://europepmc.org/article/MED/42807929",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Additionally, loss of either USP10 or FOXM1 suppresses the expression of the downstream target Telomerase reverse transcriptase (TERT), triggering cellular senescence."
+  },
+  {
+   "id": "E04f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42859331",
+   "url": "https://europepmc.org/article/MED/42859331",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "TERT promoter (TERTp) mutations are among the most frequent molecular alterations in isocitrate dehydrogenase (IDH) wild-type glioblastoma (GBM), yet the molecular profiles and prognostic implications associated with TERTp status remain incompletely characterized."
+  },
+  {
+   "id": "E05",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr5:1295113:G>A: 997 models scored, 310 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 230 CIS-BP groups. Expression context: DepMap subtype median Glioblastoma. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 47 (Ets, 3 models z 16.96, Myb/SANT, 1 model z -16.15, Homeodomain, 1 model z -15.52, bHLH, 1 model z -14.2, bHLH, 1 model z -14.2). predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E06",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G003 (Ets, 18 models): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (own model of ETV5), z 166.19, effect 2.121 (alt binds more); 18 passing models (18 with the best model's sign). Passing members: ETV5 z 166.19, ELF1 z 124.32, ELF4 z 85.47, GABPA z 68.47, ELK4 z 56.2 (+13 more). TFs this group covers (own and CIS-BP-mapped models): ETS1 61.01 TPM, ERF 39.81 TPM, ELK3 30.24 TPM, ELK1 26.81 TPM, ETV5 22.15 TPM, ETS2 21.07 TPM, ELF2 18.42 TPM, ELF1 17.41 TPM, GABPA 15.52 TPM, ELF4 15.44 TPM (+15 more); best model's site strength: ref 97.1th, alt 99.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G020 (Ets, 4 models): best model ELF3_NA_TCCGTG20NTGC_ESY_yang2017_0_4_7mer (own model of ELF3), z 70.12, effect 3.463 (alt binds more); 4 passing models (4 with the best model's sign). Passing members: ELF3 z 70.12, ELF5 z 66.13, ETV6 z 46.32, ETV7 z 43.37. TFs this group covers (own and CIS-BP-mapped models): ERF 39.81 TPM, ELF2 18.42 TPM, ELF1 17.41 TPM, ELF4 15.44 TPM, ETV6 5.65 TPM, ELF3 0.47 TPM, ETV7 0.31 TPM, EHF 0.17 TPM, SPI1 0.05 TPM, ELF5 0.03 TPM (+1 more); best model's site strength: ref 99.2th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G345 (Ets, 1 model): best model SPDEF_NA_TCATTG20NCG_ESAD_yang2017_0_3_7mer (own model of SPDEF), z 47.58, effect 1.511 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: SPDEF z 47.58. TFs this group covers (own and CIS-BP-mapped models): ELF2 18.42 TPM, ELF1 17.41 TPM, ELF4 15.44 TPM, SPDEF 0.05 TPM; best model's site strength: ref 98.5th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G030 (AP-2, 4 models): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (own model of TFAP2E), z -36.84, effect -1.289 (alt binds less); 4 passing models (4 with the best model's sign). Passing members: TFAP2E z -36.84, TFAP2B z -30.5, TFAP2A z -28.06, TFAP2C z -24.32. TFs this group covers (own and CIS-BP-mapped models): TFAP2A 9.65 TPM, TFAP2C 6.49 TPM, TFAP2E 0.49 TPM, TFAP2B 0.0 TPM, TFAP2D 0.0 TPM; best model's site strength: ref 99.5th, alt 96.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G541 (C2H2 ZF, 1 model): best model ZNF582_FL_CT40NCGGAGA_AATBA_jolma2025_0_3_7mer (own model of ZNF582), z 22.77, effect 0.322 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: ZNF582 z 22.77. TFs this group covers (own and CIS-BP-mapped models): ZNF582 2.16 TPM; best model's site strength: ref 59.5th, alt 91.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G032 (C2H2 ZF, 4 models): best model ZIC4_eDBD_TGCGTA40NTCA_KT_yin2017_1_3_7mer (own model of ZIC4), z -20.85, effect -0.916 (alt binds less); 3 passing models (3 with the best model's sign). Passing members: ZIC4 z -20.85, ZIC1 z -17.64, ZIC3 z -8.6. TFs this group covers (own and CIS-BP-mapped models): ZIC1 13.23 TPM, ZIC2 3.7 TPM, ZIC4 1.37 TPM, ZIC5 0.53 TPM, ZIC3 0.0 TPM; best model's site strength: ref 99.8th, alt 97.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G575 (C2H2 ZF, 1 model): best model ZNF706_FL_CT40NTCTAGT_YWSA_jolma2025_0_3_7mer (own model of ZNF706), z -19.9, effect -0.524 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF706 z -19.9. TFs this group covers (own and CIS-BP-mapped models): ZNF706 81.43 TPM; best model's site strength: ref 99.9th, alt 99.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G245 (mTERF, 1 model): best model MTERF3_FL_GG40NTAGTTT_YWJA_jolma2025_0_3_7mer (own model of MTERF3), z 18.39, effect 0.175 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: MTERF3 z 18.39. TFs this group covers (own and CIS-BP-mapped models): MTERF3 20.63 TPM; best model's site strength: ref 65.8th, alt 79.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G620 (C2H2 ZF, 1 model): best model ZNF92_FL_TC40NAATCTC_YWIA_jolma2025_0_3_7mer (own model of ZNF92), z -18.29, effect -0.342 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF92 z -18.29. TFs this group covers (own and CIS-BP-mapped models): ZNF92 9.63 TPM; best model's site strength: ref 99.9th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G544 (C2H2 ZF, 1 model): best model ZNF596_FL_GA40NTGTATC_AATA_jolma2025_0_3_7mer (own model of ZNF596), z -18.26, effect -0.275 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF596 z -18.26. TFs this group covers (own and CIS-BP-mapped models): ZNF596 3.59 TPM; best model's site strength: ref 100.0th, alt 99.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T11:58:44+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "2 ENCODE GABPA ChIP-seq peaks contain chr5:1295113:G>A: biosamples HepG2, SK-N-SH; experiments ENCSR000BJK, ENCSR000BTG."
+  },
+  {
+   "id": "E17",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20promoter%20mutation%20C228T%20GABP%20ETS%20binding%20site%20recruitment&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T16:31:05+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 35 hits for 'TERT promoter mutation C228T GABP ETS binding site recruitment'; top 8 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 39557834 (2024): Mechanistic basis of atypical TERT promoter mutations.\nPMID 40822359 (2025): AURKB and PI3K/AKT/mTOR pathways converge to regulate &lt;i&gt;TERT&lt;/i&gt; expression.\nPMID 38201248 (2023): The Biological and Clinical Role of the Telomerase Reverse Transcriptase Gene in Glioblastoma: A Potential Therapeutic Target?\nPMID 38285162 (2024): Mechanisms of telomere maintenance and associated therapeutic vulnerabilities in malignant gliomas.\nPMID 38033865 (2023): Reactivation of telomerase reverse transcriptase expression in cancer: the role of TERT promoter mutations.\nPMID 35903534 (2022): TERT Promoter Mutations and Telomerase in Melanoma.\nPMID 38278800 (2024): The regulations of telomerase reverse transcriptase (TERT) in cancer."
+  },
+  {
+   "id": "E17a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 39557834",
+   "url": "https://europepmc.org/article/MED/39557834",
+   "retrieved_utc": "2026-10-25T16:31:05+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Canonical TERTp mutations create de novo binding sites for ETS family transcription factors that induce favourable conditions for DNA damage formation by UV light, thus creating a hotspot effect but only after a first mutational hit."
+  },
+  {
+   "id": "E17b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 40822359",
+   "url": "https://europepmc.org/article/MED/40822359",
+   "retrieved_utc": "2026-10-25T16:31:05+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Specifically, AURKB, via REST, is recruited to TERTp MUT by TRIM28."
+  },
+  {
+   "id": "E17c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38033865",
+   "url": "https://europepmc.org/article/MED/38033865",
+   "retrieved_utc": "2026-10-25T16:31:05+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "These mutations promote TERT gene expression by multiple mechanisms, including the generation of novel binding sites for nuclear transcription factors, displacement of negative regulators from DNA G-quadruplexes, recruitment of epigenetic activators and disruption of long-range interactions between TERT locus and telomeres."
+  },
+  {
+   "id": "E18",
+   "tool": "gene_dependency",
+   "source": "DepMap CRISPRGeneEffect (Biomni copy) and CRISPRInferredCommonEssentials (Public 26Q3)",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "summary": "DepMap CRISPR gene effect for GABPA (0 = no effect, -1 = median common-essential; < -0.5 called dependent). CNS/Brain lineage, 50 lines: median -0.87, 94% dependent. All 1183 lines: median -0.87, 97% dependent. common-essential in DepMap: a strong knockout effect here is not evidence for a lineage-specific role."
+  }
+ ]
+}

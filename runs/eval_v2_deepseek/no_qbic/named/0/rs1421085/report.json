@@ -1,0 +1,717 @@
+{
+ "case_id": "rs1421085",
+ "variant": "rs1421085",
+ "variant_key": "chr16:53767042:T>C",
+ "disease": "Obesity (FTO)",
+ "origin": "germline",
+ "expression_context": "GTEx:Adipose - Subcutaneous (proxy for preadipocytes)",
+ "config": "no_qbic",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0381,
+ "seconds": 271.1,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "null",
+   "title": "No TF-mediated effect at this base",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF binding at this exact base",
+    "No reproducible adipose allele-specific effect on FTO or IRX3",
+    "The strong obesity association is due to a linked causal variant or is not TF-mediated at this base"
+   ],
+   "falsified_if": [
+    "Allele-specific TF binding at this exact base is demonstrated in preadipocytes",
+    "A linked causal variant is excluded and this base is shown to alter FTO or IRX3 in adipose"
+   ],
+   "probability": 0.55,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "ARID5B_ref",
+   "title": "ARID5B binding on ref T activates IRX3 and increases obesity risk",
+   "is_null": false,
+   "tf": "ARID5B",
+   "allele_binding_more": "ref",
+   "element": "dELS enhancer EH38E3181208",
+   "target_gene": "IRX3",
+   "cell_type": "preadipocyte/adipose",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Hypothesis: ref T binds ARID5B more strongly than alt C. ARID5B is the literature-nominated TF for this locus, but the supplied evidence has no ARID5B QBiC-SELEX model and no adipose/pre-adipocyte ARID5B ChIP peak at the variant (E19), so this allele-specific direction is not demonstrated.",
+     "evidence_ids": [
+      "E19"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in EH38E3181208, a distal enhancer-like cCRE, consistent with a regulatory element.",
+     "evidence_ids": [
+      "E03",
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "If ARID5B positively regulates IRX3 in preadipocytes, ref T would raise IRX3; E17 reports only a pancreas IRX3 eQTL where alt C raises IRX3, E21 finds no subcutaneous adipose eQTL, and E02 gives only distance, so the adipose IRX3 link is unsupported and the required activator direction is not established.",
+     "evidence_ids": [
+      "E02",
+      "E17",
+      "E21"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The disease-relevant context is adipose/pre-adipocyte, but E04 has no ENCODE biosample matching that context and E19 finds no adipose ARID5B ChIP peak; absence is not definitive because the assay may be missing.",
+     "evidence_ids": [
+      "E04",
+      "E19"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "E15 reports T as the obesity/BMI effect allele, so this chain predicts T increases risk if ARID5B activation raises an obesogenic IRX3 signal; this matches the reported T effect direction but depends on the unsupported activator assumption.",
+     "evidence_ids": [
+      "E15",
+      "E16"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ARID5B binding is stronger on ref T than alt C in preadipocytes",
+    "Ref T increases IRX3 in preadipocytes if ARID5B activates IRX3",
+    "T is the obesity-increasing allele"
+   ],
+   "falsified_if": [
+    "Allele-specific ARID5B binding is not stronger on ref T than alt C in preadipocytes",
+    "ARID5B perturbation does not alter IRX3 in preadipocytes",
+    "Adipose eQTL/reporter shows no ref-T-dependent IRX3 effect"
+   ],
+   "probability": 0.25,
+   "rank": 2,
+   "coverage_status": "not_in_coverage",
+   "resolved_symbol": "ARID5B"
+  },
+  {
+   "id": "JUN_alt",
+   "title": "JUN repression on alt C lowers FTO and shifts risk toward ref T",
+   "is_null": false,
+   "tf": "JUN",
+   "allele_binding_more": "alt",
+   "element": "dELS enhancer EH38E3181208",
+   "target_gene": "FTO",
+   "cell_type": "preadipocyte/adipose",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "Hypothesis: alt C binds JUN more strongly than ref T. JUN is highly expressed in adipose and has a ChIP peak containing this variant only in HepG2, not adipose/pre-adipocytes (E05, E20), and no JUN QBiC-SELEX model is supplied, so allele-specific binding is unproven.",
+     "evidence_ids": [
+      "E05",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in EH38E3181208, a distal enhancer-like cCRE, consistent with a regulatory element.",
+     "evidence_ids": [
+      "E03",
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "If JUN represses FTO in preadipocytes, alt C would lower FTO and ref T would leave FTO higher; E17 reports alt C raises FTO only in skeletal muscle, E21 finds no subcutaneous adipose eQTL, and E16 is L2G/fine-mapping evidence, so the adipose repression link is unsupported.",
+     "evidence_ids": [
+      "E16",
+      "E17",
+      "E21"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "JUN is expressed in adipose (E05), but E04 and E20 show no matching adipose ENCODE ChIP peak at the variant, so occupancy in the proposed cell type is not established.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "E15 reports T as the obesity/BMI effect allele; this chain predicts T risk if higher FTO is obesogenic and alt C lowers FTO through JUN repression, but the adipose FTO repression direction is not supported by the supplied data.",
+     "evidence_ids": [
+      "E15",
+      "E16"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "JUN binding is stronger on alt C than ref T in preadipocytes",
+    "Alt C lowers FTO in preadipocytes if JUN represses FTO",
+    "T is the obesity-increasing allele because ref T has less JUN-mediated FTO repression"
+   ],
+   "falsified_if": [
+    "JUN binding is not stronger on alt C than ref T in preadipocytes",
+    "JUN perturbation does not alter FTO in preadipocytes",
+    "Adipose eQTL/reporter does not show alt-C-dependent FTO repression"
+   ],
+   "probability": 0.2,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "JUN"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "ARID5B_ref",
+   "tf": "ARID5B",
+   "is_null": false,
+   "probability": 0.35,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "JUN_alt",
+   "tf": "JUN",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "SP1_alt",
+   "tf": "SP1",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.5,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No ARID5B ChIP peak over the variant in adipose/pre-adipocytes and no ARID5B QBiC-SELEX model/change is provided. The claim itself states the direction is unsupported."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in EH38E3181208, a dELS distal enhancer-like cCRE; E04 confirms the same cCRE class."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E17 reports an IRX3 eQTL in pancreas, not adipose, and E02 only gives distance. No evidence shows ARID5B regulates IRX3 or that the effect is adipocyte-specific."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E04 explicitly states no ENCODE biosample matches the adipose expression context, supporting the claim that matching adipose ChIP data are absent."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E15 reports T as the effect allele for obesity/BMI, whereas this chain predicts alt C as the obesity-increasing allele. The association is strong, but the direction contradicts the chain."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E05 provides only a JUN ChIP peak in HepG2, not adipose/pre-adipocytes, and no JUN QBiC-SELEX change is supplied. Neither required occupancy in the relevant cell type nor an allele-specific binding assay supports the claim."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 and E04 support the variant lying in EH38E3181208, a distal enhancer-like cCRE."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E17 supports higher FTO expression for alt C only in skeletal muscle, not adipose, and E16 is L2G/fine-mapping evidence. No JUN perturbation or adipocyte allele-specific reporter shows JUN regulates FTO."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E05 supports JUN expression in adipose (442.88 TPM, rank 3), and E04/E05 support that no matching adipose ENCODE ChIP exists in the supplied data."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E15 reports T as the obesity/BMI effect allele, while this chain predicts alt C increases risk through FTO. The direction is inconsistent with the chain."
+  },
+  {
+   "hypothesis_id": "SP1_alt",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E11 provides only an SP1 ChIP peak in HCT116, not adipose/pre-adipocytes, and no SP1 QBiC-SELEX change is supplied. Allele-specific binding in the relevant cell type is unproven."
+  },
+  {
+   "hypothesis_id": "SP1_alt",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 and E04 support the variant lying in EH38E3181208, a distal enhancer-like cCRE."
+  },
+  {
+   "hypothesis_id": "SP1_alt",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E17 supports higher FTO expression for alt C in skeletal muscle, not adipose, and E16 is L2G evidence. No SP1 perturbation or adipocyte assay connects SP1 to FTO."
+  },
+  {
+   "hypothesis_id": "SP1_alt",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E11 supports SP1 expression in adipose (41.01 TPM, rank 145), and E04/E11 support that no matching adipose ENCODE ChIP exists in the supplied data."
+  },
+  {
+   "hypothesis_id": "SP1_alt",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E15 reports T as the obesity/BMI effect allele, while this chain predicts alt C increases risk through FTO. The direction is inconsistent with the chain."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No ARID5B QBiC-SELEX model is supplied, and E19 only reports absence of an adipose ARID5B ChIP peak at the variant, with the caveat that the assay may not exist. No allele-specific ARID5B binding in preadipocytes or direction ref T > alt C is demonstrated."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in EH38E3181208, a distal enhancer-like cCRE, and E04 confirms the cCRE class as dELS."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E02 provides only distance to IRX3. E17 reports an IRX3 eQTL in pancreas where alt C raises IRX3, not an adipose/pre-adipocyte ARID5B-dependent effect, and E21 finds no subcutaneous adipose eQTL. The required ref-T/ARID5B activation of IRX3 is not established."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "E04 and E19 show no ENCODE biosample matching adipose/pre-adipocyte and no adipose ARID5B ChIP peak at the variant. Absence is not definitive, but there is no positive evidence for ARID5B relevance or occupancy in the proposed cell type."
+  },
+  {
+   "hypothesis_id": "ARID5B_ref",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 supports T as an obesity/BMI-increasing allele, and E16 supports credible-set/L2G evidence at FTO. This supports the phenotype association and T direction, but not the chain-specific ARID5B\u2013IRX3 mechanism; the phenotype link remains conditional on missing upstream links."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E05/E20 show JUN is highly expressed in adipose and has a ChIP peak containing the variant only in HepG2, not adipose/pre-adipocytes. No JUN QBiC-SELEX model or adipose allele-specific occupancy is provided, so alt C > ref T binding is indirect and unproven."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in EH38E3181208, a distal enhancer-like cCRE, and E04 confirms the cCRE class as dELS."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "gene",
+   "status": "missing",
+   "reason": "E17 reports an FTO eQTL in skeletal muscle where alt C raises FTO, opposite to the proposed alt-C JUN repression lowering FTO. E21 finds no subcutaneous adipose eQTL, and E16 is fine-mapping/L2G evidence, not evidence that JUN represses FTO in preadipocytes."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E05 supports JUN expression in adipose, but E04 and E20 show no matching adipose ENCODE ChIP peak at the variant. Expression in the relevant tissue is present, but occupancy/activity at this element in preadipocytes is not established."
+  },
+  {
+   "hypothesis_id": "JUN_alt",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 supports T as an obesity/BMI-increasing allele, and E16 supports association/credible-set evidence. However, the chain requires alt C to lower FTO through JUN repression, which is not supported and is opposite to the supplied skeletal-muscle FTO eQTL direction; only the T-risk association is consistent."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ARID5B\",\"biosample\":\"adipose\"}",
+   "resolves": "H1.binding",
+   "why": "Would directly test the highest-probability chain by asking whether ARID5B occupies this variant in adipose; absence would strongly weaken ARID5B_ref."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"JUN\",\"biosample\":\"adipose\"}",
+   "resolves": "H2.binding",
+   "why": "Would test whether JUN, a highly expressed adipose TF, actually occupies the variant in adipose rather than only in HepG2."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Adipose_Subcutaneous\"}",
+   "resolves": "H2.gene",
+   "why": "Would test the tissue-relevant gene link for FTO; a null adipose eQTL would weaken both JUN_alt and SP1_alt gene claims and support the null/context-mismatch concern."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "adipose",
+    "tf": "ARID5B"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "adipose",
+    "tf": "JUN"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Adipose - Subcutaneous"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific ARID5B binding assay in preadipocytes (EMSA, mini-reporter, or ChIP-qPCR) comparing ref T and alt C",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific ARID5B binding at this base"
+    },
+    {
+     "hypothesis_id": "ARID5B_ref",
+     "outcome": "Ref T binds ARID5B more strongly than alt C"
+    },
+    {
+     "hypothesis_id": "JUN_alt",
+     "outcome": "No allele-specific ARID5B binding at this base"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific JUN binding assay in preadipocytes comparing ref T and alt C",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No allele-specific JUN binding at this base"
+    },
+    {
+     "hypothesis_id": "ARID5B_ref",
+     "outcome": "No allele-specific JUN binding at this base"
+    },
+    {
+     "hypothesis_id": "JUN_alt",
+     "outcome": "Alt C binds JUN more strongly than ref T"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Adipose/pre-adipocyte allele-specific IRX3 reporter or eQTL assay for rs1421085 ref T vs alt C",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "No reproducible adipose allele-specific IRX3 effect"
+    },
+    {
+     "hypothesis_id": "ARID5B_ref",
+     "outcome": "Ref T increases IRX3 in preadipocytes"
+    },
+    {
+     "hypothesis_id": "JUN_alt",
+     "outcome": "No reproducible adipose allele-specific IRX3 effect"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ARID5B knockdown/knockout in preadipocytes followed by IRX3 expression",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "null",
+     "outcome": "ARID5B perturbation does not change IRX3"
+    },
+    {
+     "hypothesis_id": "ARID5B_ref",
+     "outcome": "ARID5B perturbation changes IRX3 in preadipocytes"
+    },
+    {
+     "hypothesis_id": "JUN_alt",
+     "outcome": "ARID5B perturbation does not change IRX3"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Cheapest separating test for the top two chains (null vs ARID5B_ref): an allele-specific ARID5B binding assay in preadipocytes comparing ref T and alt C, preferably a small reporter or EMSA with preadipocyte ChIP-qPCR confirmation. The null predicts no allele-specific ARID5B binding; ARID5B_ref predicts ref T > alt C ARID5B binding.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 42440472: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/16:53767042-53767042:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:38:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr16:53767042:T>C (GRCh38), allele string T/C\nKnown IDs: rs1421085\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 2.55\nTranscript consequences: FTO (intron_variant, NMD_transcript_variant); FTO (intron_variant); FTO (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/16:52767042-54767042?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:38:17+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "7 protein-coding genes within 1000 kb of chr16:53767042:T>C, by distance to TSS:\nRPGRIP1L: 63.1 kb from TSS (upstream, strand -1)\nFTO: 65.3 kb from TSS (in gene body, strand +1)\nAKTIP: 262.6 kb from TSS (upstream, strand -1)\nRBL2: 333.1 kb from TSS (downstream, strand +1)\nIRX3: 520.4 kb from TSS (downstream, strand -1)\nCHD9: 712.1 kb from TSS (downstream, strand +1)\nCHD9NB: 714.1 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:29:02+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3181208 (dELS: distal enhancer-like), chr16:53766999-53767220.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3181207 dELS: DNase z 3.5, H3K27ac z 3.2, H3K4me3 z 1.5, CTCF z 1.5; nearby genes RPGRIP1L, FTO, AC007497.1\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr16:53767042:T>C: 39 peaks contain the variant, from 37 factors in 4 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ASH2L, DMAP1, EHMT2, EP300, HBP1, IKZF5, KAT2B, LCORL, MED1, POLR2AphosphoS5, RBFOX2, RNF219 (+6 more). Bound, expressed TFs with a binding model: 16; listed one per row: JUN, KLF6, USF2, HMG20B, ATF3, MAX, SP1, TEAD1, ZGPAT, GATAD2A; also bound: PHF21A, ZNF335, FOXP1, ZNF449, ZNF280D, ZNF48. Bound but below 1 TPM: HNF1A, MIXL1, ONECUT1. Assayed with no peak here: 0 TFs in the matching biosample, 554 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUN: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR747VUU). 442.88 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 3 of 1631 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "KLF6: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR757EKM). 247.5 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 11 of 1631 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "USF2: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR145QNL). 114.23 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 31 of 1631 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "HMG20B: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR925QAW). 84.43 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 51 of 1631 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ATF3: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HCT116 (e.g. ENCSR000BUG). 57.63 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 88 of 1631 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR168DYA). 41.99 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 141 of 1631 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SP1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HCT116 (e.g. ENCSR000BSF). 41.01 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 145 of 1631 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TEAD1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR497JLX). 40.88 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 148 of 1631 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZGPAT: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR704IGU). 30.27 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 211 of 1631 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "GATAD2A: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR925BFV). 25.37 TPM in GTEx:Adipose - Subcutaneous (proxy for preadipocytes), rank 260 of 1631 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs1421085&size=100",
+   "retrieved_utc": "2026-10-25T17:29:17+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "100 GWAS Catalog associations for rs1421085, strongest first:\nBody mass index (BMI, mean, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nBody mass index (BMI, maximum, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nWhat is your weight? (pounds, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.5909, PMID 39024449\nWeight (mean, inv-normal transformed): p 2.0e-300, effect allele T, risk-allele frequency 0.669, PMID 39024449\nObesity (PheCode 278.1): p 6.0e-291, effect allele T, risk-allele frequency 0.593, PMID 39024449\nBody mass index (BMI, minimum, inv-normal transformed): p 2.0e-277, effect allele T, risk-allele frequency 0.669, PMID 39024449\nOverweight, obesity and other hyperalimentation (PheCode 278): p 4.0e-246, effect allele T, risk-allele frequency 0.5927, PMID 39024449\nBody shape phenotype PC1: p 2.0e-241, effect allele T, risk-allele frequency 0.596423, PMID 38640244\nType 2 diabetes (PheCode 250.2): p 4.0e-211, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nDiabetes mellitus (PheCode 250): p 8.0e-207, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nHemoglobin A1c (HbA1c, maximum, inv-norm transformed): p 8.0e-195, effect allele T, risk-allele frequency 0.5901, PMID 39024449\nHemoglobin A1c (HbA1c, mean, inv-norm transformed): p 1.0e-185, effect allele T, risk-allele frequency 0.5901, PMID 39024449"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1701 credible sets contain 16_53767042_T_C: 200 GWAS, 0 molecular QTL.\nGWAS Body mass index (BMI, minimum, inv-normal transformed): PIP 0.85; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Body mass index: PIP 0.80; L2G FTO 0.99, RPGRIP1L 0.25\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.67; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Diabetes mellitus (PheCode 250): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Leg fat free mass left (UKB data field 23117): PIP 0.41; L2G FTO 0.99, RPGRIP1L 0.21, CHD9 0.07\nBest L2G gene scores across these sets: FTO 0.99, RPGRIP1L 0.36, CHD9 0.16"
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_53767042_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2 significant GTEx v8 single-tissue eQTLs for chr16_53767042_T_C_b38. NES is the effect of the alt allele (C) relative to ref (T).\nFTO in Muscle_Skeletal: NES +0.14, p 7.5e-08\nIRX3 in Pancreas: NES +0.37, p 8.3e-06"
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs1421085%20AND%20FTO%20AND%20%22obesity%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 653 hits for 'rs1421085 AND FTO AND \"obesity\"'; top 8 with PMIDs:\nPMID 42440472 (2026): A Rapid Genotyping Assay for &lt;i&gt;FTO&lt;/i&gt; and &lt;i&gt;PPAR-\u03b3&lt;/i&gt; Nutrigenetic Variants in Thai Adults with Overweight/Obesity.\nPMID 41862896 (2026): Impact of fat mass and obesity-associated (FTO) gene variants on adult obesity and overweight: a comprehensive meta-analysis.\nPMID 41591493 (2026): Obesity-related RNA m&lt;sup&gt;6&lt;/sup&gt;A demethylase gene FTO rs1421085 is associated with neuroticism in a longitudinal birth cohort study.\nPMID 42197023 (2026): Associations Between FTO rs9939609 Genotype, Physical Activity, and Dietary Behaviors in Young Adults.\nPMID 42757464 (2026): Demethylase FTO attenuates atherosclerotic plaque via upregulating ABCA1 and ABCG1 expression by targeting ATG5.\nPMID 42299366 (2026): Hepatogenomics of MAFLD in Asian Population: Genetic Polymorphisms and Pathway-Based Insights.\nPMID 42534632 (2025): Genetic Polymorphisms Associated with Obesity in Southeast Asian Populations: A Systematic Review without Meta-Analysis.\nPMID 42245481 (2026): FTO in cardiovascular diseases: mechanisms, context dependence, and translational opportunities."
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:30:39+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE ARID5B ChIP-seq peak contains chr16:53767042:T>C in biosamples matching 'adipose'. Absence can also mean no ARID5B experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E20",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:29:32+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE JUN ChIP-seq peak contains chr16:53767042:T>C in biosamples matching 'adipose'. Absence can also mean no JUN experiment in that biosample. In other biosamples, 1 JUN peaks do contain the variant: HepG2 (experiments ENCSR747VUU)."
+  },
+  {
+   "id": "E21",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_53767042_T_C_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_53767042_T_C_b38 in tissues matching 'Adipose - Subcutaneous'. NES is the effect of the alt allele (C) relative to ref (T)."
+  }
+ ]
+}

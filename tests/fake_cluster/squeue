@@ -1,0 +1,8 @@
+#!/bin/bash
+# Fake squeue: prints RUNNING while $FAKE_ROOT/../running holds a positive count (decremented per call),
+# or forever when it holds "forever"; then prints nothing (the job has left the queue).
+f="$FAKE_ROOT/../running"
+n=$(cat "$f" 2>/dev/null || echo 0)
+if [ "$n" = "forever" ]; then echo "4242_[0-1] RUNNING fake-node"; exit 0; fi
+if [ "$n" -gt 0 ]; then echo $((n - 1)) > "$f"; echo "4242_[0-1] RUNNING fake-node"; fi
+exit 0

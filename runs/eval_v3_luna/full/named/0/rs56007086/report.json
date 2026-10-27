@@ -1,0 +1,1023 @@
+{
+ "case_id": "rs56007086",
+ "variant": "rs56007086",
+ "variant_key": "chr16:52565398:G>A",
+ "disease": "Breast cancer (16q12)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0131,
+ "seconds": 202.9,
+ "model_calls": 7,
+ "screen": {
+  "n_pass": 569,
+  "counts": {
+   "occupied": 79,
+   "unknown": 137,
+   "occupied_strong_site": 16,
+   "occupied_not_expressed": 20,
+   "unbound_assayed_here": 49,
+   "unbound_assayed_elsewhere": 425,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "TCF7L2",
+    "z": 12.52,
+    "occupancy": "bound_here",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "SPDEF",
+    "z": -7.0,
+    "occupancy": "bound_here",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "NR2F2",
+    "z": 10.89,
+    "occupancy": "bound_here",
+    "passes_gate": true,
+    "strong_site": false
+   },
+   {
+    "tf": "GATA3",
+    "z": 8.32,
+    "occupancy": "bound_here",
+    "passes_gate": true,
+    "strong_site": false
+   },
+   {
+    "tf": "FOXA1",
+    "z": 6.27,
+    "occupancy": "bound_here",
+    "passes_gate": true,
+    "strong_site": false
+   },
+   {
+    "tf": "CEBPB",
+    "z": -1.64,
+    "occupancy": "bound_here",
+    "passes_gate": false,
+    "strong_site": false
+   },
+   {
+    "tf": "NFIA",
+    "z": 15.29,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "PITX1",
+    "z": 12.33,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "ZNF772",
+    "z": 9.58,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "AHDC1",
+    "z": 9.17,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "ETV3",
+    "z": -47.67
+   },
+   {
+    "tf": "SLC2A4RG",
+    "z": -45.42
+   },
+   {
+    "tf": "MTERF3",
+    "z": 24.43
+   },
+   {
+    "tf": "PBX4",
+    "z": 18.55
+   },
+   {
+    "tf": "SOX12",
+    "z": 17.9
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "Null: no TF-mediated effect of rs56007086",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The G>A change will not cause a reproducible allele-specific TF-binding or regulatory effect. Any disease association, if present, could arise from another variant or mechanism."
+   ],
+   "falsified_if": [
+    "A controlled experiment shows a reproducible effect of this base on TF occupancy and local regulatory activity, with a downstream target-gene effect."
+   ],
+   "probability": 0.72,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2",
+   "title": "SPDEF binding is reduced at the alt allele near the TOX3 locus",
+   "is_null": false,
+   "tf": "SPDEF",
+   "allele_binding_more": "ref",
+   "element": "The variant is annotated in an enhancer feature, but the nearest reported dELS cCRE is 38 bp away and does not overlap the variant.",
+   "target_gene": "TOX3",
+   "cell_type": "MCF-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "SPDEF is a candidate because it is expressed and ChIP-bound over the variant in MCF-7, and its own QBiC-SELEX model predicts stronger in-vitro binding to ref than alt at a strong modeled site. This does not establish allele-specific occupancy in cells.",
+     "evidence_ids": [
+      "E04",
+      "E07",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "The variant has an enhancer-feature annotation, while the nearby dELS cCRE is active in some ENCODE biosample(s) but does not overlap the variant; enhancer function at the variant is not established.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TOX3 is a nearby candidate target, but no supplied evidence connects this variant or nearby cCRE to TOX3 regulation.",
+     "evidence_ids": [
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "SPDEF is expressed and has ChIP-seq occupancy over the variant in MCF-7; these observations support this tested context, not breast tissue generally.",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A SPDEF-mediated effect could matter to breast cancer if it alters a relevant target, but no supplied evidence links this variant to breast-cancer risk or establishes a causal disease path.",
+     "evidence_ids": [
+      "E15",
+      "E16",
+      "E17",
+      "E18a",
+      "E18b",
+      "E35",
+      "E36",
+      "E37"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "If this chain is correct, allele-specific SPDEF occupancy at the variant should be higher on G than A in an appropriate MCF-7 assay.",
+    "A regulatory effect of the base should depend on SPDEF; its direction on TOX3 expression is not specified by the binding result."
+   ],
+   "falsified_if": [
+    "A well-powered allele-specific assay finds no SPDEF occupancy difference between G and A.",
+    "A reproducible allele-dependent regulatory effect persists unchanged after SPDEF perturbation."
+   ],
+   "probability": 0.2,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "SPDEF"
+  },
+  {
+   "id": "H3",
+   "title": "TCF7L2 binding is increased at the alt allele near the TOX3 locus",
+   "is_null": false,
+   "tf": "TCF7L2",
+   "allele_binding_more": "alt",
+   "element": "The variant is annotated in an enhancer feature, but the nearest reported dELS cCRE is 38 bp away and does not overlap the variant.",
+   "target_gene": "TOX3",
+   "cell_type": "MCF-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF7L2 is ChIP-bound over the variant in MCF-7. A QBiC-SELEX model mapped from TCF7L1 predicts stronger alt binding and a strong modeled alt site, but this is indirect evidence for a TCF7L2-specific allelic effect; TCF7L2 expression in MCF-7 is relatively low.",
+     "evidence_ids": [
+      "E04",
+      "E10",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant has an enhancer-feature annotation, while the nearby dELS cCRE does not overlap it; regulatory function at the variant is unconfirmed.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TOX3 is a nearby candidate target, but the supplied evidence does not show that this element regulates TOX3.",
+     "evidence_ids": [
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TCF7L2 occupancy over the variant is reported in MCF-7, although its reported expression there is low relative to the other prominent candidates.",
+     "evidence_ids": [
+      "E10",
+      "E20"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A TCF7L2-mediated effect could be relevant to breast cancer only if it changes a relevant target; there is no supplied evidence that this variant affects breast-cancer risk or has a disease-effect direction.",
+     "evidence_ids": [
+      "E15",
+      "E16",
+      "E17",
+      "E18a",
+      "E18b",
+      "E35",
+      "E36",
+      "E37"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "If this chain is correct, allele-specific TCF7L2 occupancy should be higher on A than G, and the regulatory effect should depend on TCF7L2.",
+    "This predicts the opposite allele direction for TF occupancy from the SPDEF chain."
+   ],
+   "falsified_if": [
+    "A well-powered allele-specific assay finds no greater TCF7L2 occupancy on A than G.",
+    "A reproducible allele-dependent regulatory effect persists unchanged after TCF7L2 perturbation."
+   ],
+   "probability": 0.08,
+   "rank": 3,
+   "coverage_status": "mapped",
+   "resolved_symbol": "TCF7L2"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.45,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H2",
+   "tf": "SPDEF",
+   "is_null": false,
+   "probability": 0.25,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "TCF7L2",
+   "is_null": false,
+   "probability": 0.18,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H5",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "supported",
+   "reason": "MCF-7 ChIP-seq occupancy over the variant and an SPDEF-specific QBiC-SELEX model both support the stated direction: the ref allele binds more. The modeled site is strong on both alleles."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The evidence directly reports an enhancer-feature annotation and a nearby dELS cCRE 38 bp away, while explicitly noting that the cCRE does not overlap the variant. This supports the stated annotation and proximity, not enhancer function at the variant."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TOX3 is nearby and listed among genes near the dELS, but proximity does not establish that the element regulates TOX3; the claim appropriately acknowledges this gap."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "SPDEF expression and ChIP-seq occupancy over the variant are reported in MCF-7, the stated tested context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The literature excerpts provide general TOX3/breast-cancer context, including another TOX3 enhancer variant, but do not link rs56007086 to breast-cancer risk or establish a causal path from this variant to disease."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TCF7L2 has MCF-7 ChIP-seq occupancy over the variant, and the mapped TCF7L1 QBiC-SELEX model predicts greater alt binding. Because the binding change comes from a related factor\u2019s model rather than a TCF7L2-specific model, it is not direct allele-specific evidence for TCF7L2."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "The enhancer-feature annotation and nearby, nonoverlapping dELS cCRE are directly reported, as the claim states."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TOX3 is a plausible nearby candidate, but no evidence connects this element to TOX3 regulation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "TCF7L2 occupancy over the variant is reported in MCF-7. The low expression cited is also consistent with the claim\u2019s qualification."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited literature is general TOX3/breast-cancer context, not evidence that this variant or its proposed regulatory effect changes breast-cancer risk."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "GATA3 is ChIP-bound over the variant in MCF-7, and the mapped GATA2 model predicts a modest alt-favoring change. A related-factor model and weak modeled k-mers make the allelic binding inference indirect. The reported k-mer percentiles (ref 37.1, alt 35.5) also do not intuitively align with the reported positive alt-favoring effect."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "supported",
+   "reason": "The enhancer-feature annotation and nearby, nonoverlapping dELS cCRE are directly reported, as the claim states."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TOX3 is a plausible nearby candidate, but there is no direct evidence that this element regulates it."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "GATA3 expression and ChIP-seq occupancy over the variant are reported in MCF-7."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The evidence provides only general TOX3/breast-cancer context; it does not link this variant or a GATA3-mediated effect to disease risk."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "binding",
+   "status": "weak",
+   "reason": "FOXA1 has MCF-7 ChIP-seq occupancy over the variant, and the mapped FOXA2 model reports a small alt-favoring effect. The related-factor model and weak sites make the allele-specific FOXA1 inference indirect. The reported k-mer percentiles (ref 90.2, alt 81.8) also appear discordant with the reported positive alt-favoring effect."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "element",
+   "status": "supported",
+   "reason": "The enhancer-feature annotation and nearby, nonoverlapping dELS cCRE are directly reported, as the claim states."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TOX3 is a plausible nearby candidate, but the evidence does not demonstrate an element-to-TOX3 regulatory link."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "FOXA1 expression and ChIP-seq occupancy over the variant are reported in MCF-7."
+  },
+  {
+   "hypothesis_id": "H5",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The supplied literature gives general TOX3/breast-cancer context but does not connect rs56007086 or this proposed FOXA1 effect to breast-cancer risk."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "supported",
+   "reason": "MCF-7 ChIP-seq shows SPDEF occupancy over the variant, and its own QBiC-SELEX model detects stronger binding to ref than alt at a strong modeled site. This supports the stated binding direction, though it does not establish allele-specific occupancy in cells."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The evidence reports an enhancer-feature annotation at the variant and a nearby active dELS cCRE that does not overlap it; the claim appropriately does not assert established enhancer function at the variant."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TOX3 is nearby, making it a candidate target, but no evidence connects the variant or nearby cCRE to TOX3 regulation."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "SPDEF is expressed in MCF-7 and MCF-7 ChIP-seq shows occupancy over the variant, directly supporting this tested context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The cited evidence does not connect this variant or a SPDEF-mediated regulatory effect to breast-cancer risk; gene-level TOX3 context and evidence about other variants do not establish that link."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TCF7L2 has MCF-7 ChIP occupancy over the variant, but the allelic QBiC-SELEX change comes from a TCF7L1-mapped model, not a TCF7L2-specific model. The predicted alt direction is therefore indirect for TCF7L2."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "The evidence reports an enhancer-feature annotation at the variant and a nearby active dELS cCRE that does not overlap it; the claim appropriately leaves regulatory function at the variant unconfirmed."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TOX3 is nearby and is a candidate target, but the evidence does not show that the variant or nearby cCRE regulates TOX3."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "TCF7L2 occupancy over the variant is directly reported in MCF-7. Its relatively low expression is noted but does not negate the occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects this variant or a TCF7L2-mediated effect to breast-cancer risk; gene-level TOX3 context and evidence about other variants do not establish that link."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs56007086 breast cancer TOX3\"}",
+   "resolves": "H2.phenotype",
+   "why": "A direct literature result for this variant could materially change whether any proposed TF chain has disease-specific support."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Breast - Mammary Tissue\"}",
+   "resolves": "H2.gene",
+   "why": "A tissue-relevant eQTL result could support or weaken a link between this variant and expression of a candidate target such as TOX3."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"TOX3\"}",
+   "resolves": "H2.phenotype",
+   "why": "Disease-association evidence for the nominated target could clarify whether the proposed gene-to-breast-cancer link has support beyond the general literature excerpts."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs56007086 breast cancer TOX3"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Breast - Mammary Tissue"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "TOX3"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific SPDEF CUT&RUN or ChIP-qPCR at the variant in genotyped heterozygous MCF-7 cells",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible G-versus-A occupancy imbalance attributable to the variant."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Greater SPDEF occupancy on G than A."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No SPDEF-specific G-over-A occupancy prediction; a TCF7L2-mediated effect could occur independently."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific TCF7L2 CUT&RUN or ChIP-qPCR at the variant in MCF-7 cells",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible allele-specific TCF7L2 occupancy attributable to the variant."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No TCF7L2-specific A-over-G occupancy prediction; the proposed effect is SPDEF-dependent."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Greater TCF7L2 occupancy on A than G."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Isogenic G>A base editing followed by local regulatory-activity measurement and SPDEF perturbation",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible base-dependent regulatory effect."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A base-dependent regulatory effect that is reduced or lost after SPDEF perturbation."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Any base-dependent effect is not specifically dependent on SPDEF."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "After confirming that MCF-7 cells are heterozygous at rs56007086, perform targeted allele-specific SPDEF CUT&RUN or ChIP-qPCR across the site. It is the least costly direct test distinguishing the two highest-probability chains: H1 predicts no reproducible imbalance, whereas H2 predicts greater occupancy on G.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs56007086 AND TOX3 AND \"breast cancer\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/16:52565398-52565398:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-26T02:25:34+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr16:52565398:G>A (GRCh38), allele string G/A\nKnown IDs: rs56007086\nMost severe consequence: intron_variant\nRegulatory features: ENSR16_9QTBS enhancer\nGERP conservation score at the site: -4.73\nTranscript consequences: CASC16 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/16:51565398-53565398?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-26T02:25:46+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "6 protein-coding genes within 1000 kb of chr16:52565398:G>A, by distance to TSS:\nTOX3: 17.6 kb from TSS (upstream, strand -1)\nCHD9NB: 487.5 kb from TSS (downstream, strand -1)\nCHD9: 489.6 kb from TSS (upstream, strand +1)\nRBL2: 868.6 kb from TSS (upstream, strand +1)\nAKTIP: 939.0 kb from TSS (downstream, strand -1)\nHNRNPA1L3: 1012.0 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-26T02:25:06+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3180851 (dELS) 38 bp away.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3180851 dELS: DNase z 4.2, H3K27ac z 6.1, H3K4me3 z 1.8, CTCF z 1.9; nearby genes CASC16, TOX3, AC026462.5\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr16:52565398:G>A: 215 peaks contain the variant, from 162 factors in 7 biosamples. In the matching biosample MCF-7: 16 peaks from 11 factors. No cCRE contains the variant. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ARID4A, ARID5B, ASH2L, BCL3, CBX5, CHD4, CTBP1, EP300, GATAD1, GZF1, HBP1, HDAC1 (+51 more). Bound, expressed TFs with a binding model: 79; listed one per row: FOXA1, GATA3, SPDEF, NR2F2, CEBPB, TCF7L2, MYBL2, SP1, YY1, MAX; also bound: JUND, GATAD2A, BHLHE40, ZGPAT, RXRA, ZNF609, RXRB, ZNF770, FOXP4, AHDC1, GMEB1, ZNF772, ZNF788P, HMG20B, ELF1, ELF3, RELA, TBX2, ERF, HMG20A, CREB1, MBD1, ATF1, CREM, FOSL2, THAP11, SOX13, MEF2A, ZNF703, FOXJ3 (+39 more). Bound but below 1 TPM: DLX6, ETS1, FOXA2, FOXA3, GFI1, HLF, HNF1A, HNF1B, HNF4A, MAFF. Assayed with no peak here: 49 TFs in the matching biosample, 425 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "FOXA1: bound here. 5 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7; also in A549, HepG2, liver (e.g. ENCSR126YEB). 88.38 TPM in DepMap:ACH-000019 (MCF7), rank 28 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "GATA3: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7 (e.g. ENCSR000EWV). 346.04 TPM in DepMap:ACH-000019 (MCF7), rank 5 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SPDEF: bound here. 1 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7 (e.g. ENCSR042GSX). 72.51 TPM in DepMap:ACH-000019 (MCF7), rank 40 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2F2: bound here. 1 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7 (e.g. ENCSR000BUY). 38.14 TPM in DepMap:ACH-000019 (MCF7), rank 103 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CEBPB: bound here. 1 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7 (e.g. ENCSR000BSR). 24.33 TPM in DepMap:ACH-000019 (MCF7), rank 169 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TCF7L2: bound here. 1 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7 (e.g. ENCSR000EWT). 4.89 TPM in DepMap:ACH-000019 (MCF7), rank 642 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MYBL2: bound elsewhere. 4 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR581KCO). 49.2 TPM in DepMap:ACH-000019 (MCF7), rank 66 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SP1: bound elsewhere. 4 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, liver (e.g. ENCSR000BPE). 33.01 TPM in DepMap:ACH-000019 (MCF7), rank 122 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "YY1: bound elsewhere. 3 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: liver (e.g. ENCSR382MOM). 61.08 TPM in DepMap:ACH-000019 (MCF7), rank 48 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: liver (e.g. ENCSR521IID). 76.95 TPM in DepMap:ACH-000019 (MCF7), rank 35 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs56007086&size=100",
+   "retrieved_utc": "2026-10-26T02:25:35+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs56007086, strongest first:"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:25:34+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 16_52565398_G_A."
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_52565398_G_A_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T02:27:56+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_52565398_G_A_b38. NES is the effect of the alt allele (A) relative to ref (G)."
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TOX3%20AND%20%22breast%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:25:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 586 hits for 'TOX3 AND \"breast cancer\"'; top 7 with PMIDs:\nPMID 41230718 (2026): Cis-regulatory and long noncoding RNA alterations in breast cancer - current insights, biomarker utility, and the critical need for functional validation.\nPMID 41849381 (2026): A transcription regulator atlas identifies TOX3 as an Atoh1 coactivator in cerebellar development and tumorigenesis.\nPMID 41595182 (2026): Identification and Characterisation of Canine Osteosarcoma Biomarkers and Therapeutic Targets.\nPMID 41596432 (2026): Bone Metastasis in Estrogen Receptor-Positive Breast Cancer: Molecular Insights and Therapeutic Advances.\nPMID 40932605 (2025): Molecular signatures of breast cancer in the Iranian population: a review of cell growth and cell cycle regulators.\nPMID 42700350 (2026): Interactions between circular RNAs (circRNAs) and the Hippo pathway in cancer.\nPMID 41871294 (2026): A reanalysis of a genome-wide association study on breast cancer in Asian populations using the SG10K_Health reference panel for imputation: a multi-Centre case-control analysis."
+  },
+  {
+   "id": "E18a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41230718",
+   "url": "https://europepmc.org/article/MED/41230718",
+   "retrieved_utc": "2026-10-26T02:25:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Key examples include promoter mutations [e.g., rs2279744 (Mouse double minute 2 homolog gene; MDM2)], enhancer mutations [e.g., rs4784227 (thymocyte selection-associated high mobility group box family member 3 gene; TOX3)], and lncRNAs [e.g., HOX transcript antisense intergenic RNA (HOTAIR)] linked to progression, metastasis, and poor survival."
+  },
+  {
+   "id": "E18b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41871294",
+   "url": "https://europepmc.org/article/MED/41871294",
+   "retrieved_utc": "2026-10-26T02:25:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Differences in panel performance influenced association signals, including breast cancer candidate loci such as FGFR2, TOX3, and ESR1."
+  },
+  {
+   "id": "E19",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr16:52565398:G>A, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000019), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 10 of 79 occupied (16 with a strong site), 5 of 137 with unknown occupancy. Left out: 49 TFs assayed in the matching biosample and 425 assayed only elsewhere, none with a peak here; 20 bound but below 1 TPM. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E20",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TCF7L2 (HMG/Sox, 3 models; QBiC-SELEX coverage: mapped models only): best model TCF7L1_eDBD_TTGGCA40NTCG_KW_yin2017_0_3_7mer (a CIS-BP-mapped model of TCF7L1), z 12.52, effect 0.745: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.89 TPM, rank 642 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in MCF-7, e.g. ENCSR000EWT. Best model's site strength: ref 57.0th, alt 97.8th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E21",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SPDEF (Ets, 1 model; QBiC-SELEX coverage: own model): best model SPDEF_NA_TCATTG20NCG_ESAD_yang2017_0_3_7mer (its own model), z -7.0, effect -0.244: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 72.51 TPM, rank 40 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in MCF-7, e.g. ENCSR042GSX. Best model's site strength: ref 99.7th, alt 95.0th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E22",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR2F2 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model PPARD_eDBD_TGTCTT40NTTC_KR_yin2017_0_2_7mer (a CIS-BP-mapped model of PPARD), z 10.89, effect 0.436: alt allele binds more (|z| above the gate), but between weak k-mers. 38.14 TPM, rank 103 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in MCF-7, e.g. ENCSR000BUY. Best model's site strength: ref 77.8th, alt 91.8th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E23",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "GATA3 (GATA, 6 models; QBiC-SELEX coverage: own model): best model GATA2_eDBD_TATGCA40NGAG_KR_yin2017_1_3_7mer (a CIS-BP-mapped model of GATA2), z 8.32, effect 0.197: alt allele binds more (|z| above the gate), but between weak k-mers. 346.04 TPM, rank 5 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in MCF-7, e.g. ENCSR000EWV. Best model's site strength: ref 37.1th, alt 35.5th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E24",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "FOXA1 (Forkhead, 4 models; QBiC-SELEX coverage: own model): best model FOXA2_eDBD_TTGCGA40NGTA_KT_yin2017_1_2_7mer (a CIS-BP-mapped model of FOXA2), z 6.27, effect 0.131: alt allele binds more (|z| above the gate), but between weak k-mers. 88.38 TPM, rank 28 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in MCF-7, e.g. ENCSR126YEB. Best model's site strength: ref 90.2th, alt 81.8th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E25",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CEBPB (bZIP, 3 models; QBiC-SELEX coverage: own model): best model CEBPB_eDBD_TATAAA40NACG_KAN_yin2017_0_4_7mer (its own model), z -1.64, effect -0.203: ref allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 24.33 TPM, rank 169 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in MCF-7, e.g. ENCSR000BSR. Best model's site strength: ref 76.8th, alt 75.0th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E26",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NFIA (SMAD, 4 models; QBiC-SELEX coverage: own model): best model NFIX_FL_TTGAGC40NGTC_KAE_yin2017_1_3_7mer (a CIS-BP-mapped model of NFIX), z 15.29, effect 0.957: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.35 TPM, rank 931 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR226QQM. Best model's site strength: ref 85.7th, alt 97.6th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E27",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "PITX1 (Homeodomain, 11 models; QBiC-SELEX coverage: own model): best model PITX3_eDBD_TCACAT40NATG_KR_yin2017_0_3_7mer (a CIS-BP-mapped model of PITX3), z 12.33, effect 0.611: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.1 TPM, rank 702 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR374MAS. Best model's site strength: ref 99.3th, alt 99.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E28",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZNF772 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZNF772_FL_GC40NCTTGTA_YWSA_jolma2025_0_3_7mer (its own model), z 9.58, effect 0.34: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.6 TPM, rank 806 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR248WAU. Best model's site strength: ref 98.1th, alt 99.3th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E29",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "AHDC1 (AT hook, 1 model; QBiC-SELEX coverage: own model): best model AHDC1_FL_GG40NTAGTTT_YWO_jolma2025_0_4_7mer (its own model), z 9.17, effect 0.313: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 5.44 TPM, rank 609 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR168AUX. Best model's site strength: ref 98.0th, alt 99.7th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E30",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ETV3 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z -47.67, effect -0.77: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 7.33 TPM, rank 516 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 95.8th, alt 86.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E31",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SLC2A4RG (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model SLC2A4RG_FL_CT40NGCGCTA_YWPA_jolma2025_0_3_7mer (its own model), z -45.42, effect -4.513: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 148.81 TPM, rank 15 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.9th, alt 93.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E32",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "MTERF3 (mTERF, 1 model; QBiC-SELEX coverage: own model): best model MTERF3_FL_GG40NTAGTTT_YWJA_jolma2025_0_3_7mer (its own model), z 24.43, effect 0.234: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 19.0 TPM, rank 217 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 71.0th, alt 83.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E33",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "PBX4 (Homeodomain, 1 model; QBiC-SELEX coverage: mapped models only): best model PBX1_eDBD_TAAGTC40NCGT_KR_yin2017_0_4_7mer (a CIS-BP-mapped model of PBX1), z 18.55, effect 0.733: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 3.15 TPM, rank 766 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 75.2th, alt 97.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E34",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SOX12 (HMG/Sox, 18 models; QBiC-SELEX coverage: own model): best model SOX18_eDBD_TCACGC40NACT_KP_yin2017_0_4_7mer (a CIS-BP-mapped model of SOX18), z 17.9, effect 0.672: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 9.17 TPM, rank 439 of 1626 TFs in DepMap:ACH-000019 (MCF7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 74.4th, alt 82.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E35",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs56007086%20breast%20cancer%20TOX3&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T13:30:52+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 0 hits for 'rs56007086 breast cancer TOX3'; top 0 with PMIDs:"
+  },
+  {
+   "id": "E36",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_52565398_G_A_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-26T02:27:56+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_52565398_G_A_b38 in tissues matching 'Breast - Mammary Tissue'. NES is the effect of the alt allele (A) relative to ref (G)."
+  },
+  {
+   "id": "E37",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:34:32+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: TOX3 and breast cancer (MONDO_0007254), overall score 0.58; by evidence type: genetic_association 0.91, literature 0.89"
+  }
+ ]
+}

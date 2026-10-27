@@ -1,0 +1,938 @@
+{
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0231,
+ "seconds": 141.9,
+ "model_calls": 7,
+ "screen": {
+  "n_pass": 441,
+  "counts": {
+   "occupied": 1,
+   "unknown": 112,
+   "occupied_strong_site": 0,
+   "occupied_not_expressed": 0,
+   "unbound_assayed_here": 382,
+   "unbound_assayed_elsewhere": 190,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "CTCF",
+    "z": -1.87,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": false
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "CASZ1",
+    "z": 32.75
+   },
+   {
+    "tf": "SETBP1",
+    "z": 29.74
+   },
+   {
+    "tf": "SRCAP",
+    "z": 29.74
+   },
+   {
+    "tf": "NME2",
+    "z": 28.95
+   },
+   {
+    "tf": "TCF20",
+    "z": -20.49
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "null_no_tf_effect",
+   "title": "No TF-mediated effect of rs7001688",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at this base in liver cells.",
+    "The only ChIP-supported TF, CTCF, is bound over the variant only in LNCAP, has no clear QBiC-SELEX allelic change, and has no HepG2 peak, so it does not support a liver allele-specific mechanism.",
+    "Any LDL-cholesterol association would be due to linkage disequilibrium with another causal variant, or rs7001688 would be a passenger variant."
+   ],
+   "falsified_if": [
+    "Allele-specific TF occupancy, a reporter assay, or CRISPR base editing shows that this exact variant changes expression in liver cells.",
+    "Fine-mapping or functional assays show that rs7001688 itself, rather than a linked variant, is causal for LDL cholesterol."
+   ],
+   "probability": 0.88,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "NME2_alt_cryptic_site",
+   "title": "NME2 gains binding on the alt allele at a cryptic site and changes FAM110B expression",
+   "is_null": false,
+   "tf": "NME2",
+   "allele_binding_more": "alt",
+   "element": "The variant lies in an unannotated intronic/intergenic region with no overlapping cCRE and no cCRE within 500 bp; the nearest H3K4me3 cCRE is 1544 bp away. The QBiC-SELEX summary also notes that no occupied TF has a strong site at the variant, so a functional cryptic NME2 element is unproven.",
+   "target_gene": "FAM110B",
+   "cell_type": "Hepatocyte/liver-cancer line context (Hep 3B2.1-7; HepG2 as ENCODE liver-cancer stand-in)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "NME2 is predicted to bind the alt T allele more strongly in vitro: its own QBiC-SELEX model gives z=28.95, effect=0.573, and the alt site reaches the 99.1st percentile. NME2 is very highly expressed in Hep 3B2.1-7 (928.15 TPM, rank 1/1626 TFs). However, ENCODE has no NME2 ChIP peak in HepG2, and absence can also mean no NME2 experiment in that biosample, so occupancy at this variant is unknown.",
+     "evidence_ids": [
+      "E15",
+      "E18",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is not in an annotated cCRE and no cCRE is within 500 bp, so this would require an unannotated allele-specific NME2 binding element. The QBiC-SELEX summary adds that no occupied TF has a strong site at the variant, leaving the element speculative.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E04",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest protein-coding gene at 420.6 kb, but there is no liver eQTL for the variant, no GWAS Catalog or Open Targets record for the variant, and no Open Targets association between FAM110B and free cholesterol in large LDL. E09 is only gene-level literature and does not establish variant-to-FAM110B regulation.",
+     "evidence_ids": [
+      "E02",
+      "E08",
+      "E17",
+      "E19",
+      "E09",
+      "E06",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The liver/hepatocyte-like context is expression-compatible because NME2 is highly expressed in Hep 3B2.1-7, but NME2 occupancy at this variant is untested and no NME2 ChIP peak is reported in HepG2.",
+     "evidence_ids": [
+      "E15",
+      "E18",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Allele-specific NME2 binding could alter FAM110B expression and LDL cholesterol, but this is inferential: there is no variant-level LDL cholesterol or statin-response evidence for rs7001688, and the FAM110B disease link is weak or absent in Open Targets.",
+     "evidence_ids": [
+      "E09",
+      "E06",
+      "E07",
+      "E19"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific NME2 ChIP or CUT&RUN in liver cells should show stronger T-allele occupancy at rs7001688.",
+    "A liver eQTL or allele-specific reporter should show that the T allele alters FAM110B expression if this chain is correct."
+   ],
+   "falsified_if": [
+    "NME2 ChIP/CUT&RUN in liver cells shows no occupancy or no allele-specific binding at rs7001688.",
+    "Allele-specific reporter or CRISPR base editing shows no effect of the T allele on FAM110B expression or an LDL-related readout.",
+    "No eQTL, chromatin-loop, or perturbation evidence connects this variant to FAM110B."
+   ],
+   "probability": 0.07,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "NME2"
+  },
+  {
+   "id": "CASZ1_alt_cryptic_site",
+   "title": "CASZ1 gains binding on the alt allele at a non-canonical site",
+   "is_null": false,
+   "tf": "CASZ1",
+   "allele_binding_more": "alt",
+   "element": "The variant is in an unannotated intronic/intergenic region with no overlapping cCRE and no cCRE within 500 bp, so a CASZ1-bound element here would be unannotated and unproven.",
+   "target_gene": "FAM110B",
+   "cell_type": "Hepatocyte/liver-cancer line context (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CASZ1 is predicted to bind the alt T allele more strongly in vitro: its own QBiC-SELEX model gives z=32.75, effect=2.741, and the alt site reaches the 99.8th percentile. CASZ1 is only lowly expressed in Hep 3B2.1-7 (4.18 TPM, rank 776/1626), and ENCODE never assayed CASZ1, so occupancy is unknown.",
+     "evidence_ids": [
+      "E12",
+      "E04",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No cCRE overlaps the variant and no cCRE is within 500 bp; the nearest H3K4me3 cCRE is 1544 bp away. This supports only an unannotated region, not a functional CASZ1 element.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is the nearest protein-coding gene at 420.6 kb, but there is no liver eQTL for the variant and no variant-level GWAS/Open Targets record; Open Targets also shows no FAM110B association with free cholesterol in large LDL. Direct CASZ1-to-FAM110B regulation is not established.",
+     "evidence_ids": [
+      "E02",
+      "E08",
+      "E17",
+      "E19",
+      "E09",
+      "E06",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CASZ1 expression is detectable in Hep 3B2.1-7, but at low level, so this chain requires a functional effect despite low TF abundance and unknown occupancy.",
+     "evidence_ids": [
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If the alt allele increases CASZ1 binding and CASZ1 regulates FAM110B, this could contribute to LDL cholesterol variation, but the direction and target gene are hypothetical and lack variant-level LDL evidence.",
+     "evidence_ids": [
+      "E09",
+      "E06",
+      "E07",
+      "E19"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "CASZ1 occupancy at rs7001688 should be detectable in liver cells despite low CASZ1 expression.",
+    "An alt-specific CASZ1 reporter or CRISPR edit should alter FAM110B expression if this chain is correct."
+   ],
+   "falsified_if": [
+    "CASZ1 ChIP/CUT&RUN in liver cells shows no occupancy or no allele-specific binding at rs7001688.",
+    "Reporter or CRISPR base editing shows no T-allele effect in liver cells.",
+    "No eQTL or perturbation evidence connects the variant to FAM110B."
+   ],
+   "probability": 0.03,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CASZ1"
+  },
+  {
+   "id": "TCF20_ref_repressor_loss",
+   "title": "TCF20 loses repressive binding on the alt allele and derepresses FAM110B",
+   "is_null": false,
+   "tf": "TCF20",
+   "allele_binding_more": "ref",
+   "element": "The variant is not in an annotated cCRE and no cCRE is within 500 bp, so a functional TCF20 element here would be cryptic and unproven.",
+   "target_gene": "FAM110B",
+   "cell_type": "Hepatocyte/liver-cancer line context (Hep 3B2.1-7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF20 is predicted to bind the ref G allele slightly more strongly in vitro: its own QBiC-SELEX model gives z=-20.49, effect=-0.151, with the ref site at the 76.7th and alt at the 78.8th percentile. The site is weak on both alleles, QBiC-SELEX detects a change but the effect size is small, and TCF20 occupancy is unknown because ENCODE never assayed TCF20.",
+     "evidence_ids": [
+      "E16",
+      "E04",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "No cCRE overlaps the variant and no cCRE is within 500 bp, so this would require an unannotated TCF20 element; the evidence does not show that such an element is functional in liver cells.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "If TCF20 represses FAM110B, loss of ref-allele TCF20 binding on the alt allele could increase FAM110B expression. However, FAM110B is 420.6 kb away, there is no liver eQTL for the variant, no variant-level GWAS/Open Targets record, and no Open Targets FAM110B association with free cholesterol in large LDL.",
+     "evidence_ids": [
+      "E02",
+      "E08",
+      "E17",
+      "E19",
+      "E09",
+      "E06",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "TCF20 is expressed in Hep 3B2.1-7 (23.44 TPM), making a liver-cell repressor mechanism expression-compatible, but occupancy and repressor function at this variant are untested.",
+     "evidence_ids": [
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered TCF20 repression of FAM110B could affect LDL cholesterol, but the direction and target gene are speculative and there is no variant-level LDL or statin-response evidence.",
+     "evidence_ids": [
+      "E09",
+      "E06",
+      "E07",
+      "E19"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "TCF20 ChIP or a reporter assay should show stronger G-allele binding and, if repressive, lower reporter activity.",
+    "The T allele should reduce TCF20 occupancy and increase FAM110B expression if this chain is correct."
+   ],
+   "falsified_if": [
+    "TCF20 ChIP/CUT&RUN in liver cells shows no occupancy or no ref-allele preference at rs7001688.",
+    "A reporter or CRISPR edit shows no T-allele derepression of FAM110B.",
+    "No eQTL or perturbation evidence connects the variant to FAM110B."
+   ],
+   "probability": 0.02,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TCF20"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "NME2_alt_cryptic_site",
+   "tf": "NME2",
+   "is_null": false,
+   "probability": 0.2,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "CASZ1_alt_cryptic_site",
+   "tf": "CASZ1",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "SRCAP_alt_mapped_model",
+   "tf": "SRCAP",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "TCF20_ref_repressor_loss",
+   "tf": "TCF20",
+   "is_null": false,
+   "probability": 0.04,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "null_no_tf_effect",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.6,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX supports alt-allele NME2 binding and a strong alt site, but there is no NME2 ChIP occupancy at the variant; ENCODE never assayed NME2, so this is in vitro prediction only."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "element",
+   "status": "weak",
+   "reason": "The evidence directly shows no cCRE overlap and no cCRE within 500 bp, but this supports only an unannotated region, not a functional cryptic NME2 element."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is 420.6 kb away and there is no eQTL, chromatin loop, reporter, or CRISPR evidence tying this element to FAM110B; the cited literature hit is not variant-level evidence."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "NME2 is directly shown to be very highly expressed in the provided Hep 3B2.1-7 context, which supports cell-type expression compatibility, though occupancy is untested."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Only an indirect FAM110B/statin-response literature hit is cited; there is no variant-level LDL cholesterol, statin-response, or expression evidence for rs7001688."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts stronger alt-allele CASZ1 binding with a strong site, but CASZ1 occupancy is unknown because ENCODE never assayed it and CASZ1 is only lowly expressed."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "element",
+   "status": "weak",
+   "reason": "No cCRE overlaps and none is within 500 bp, but that only shows the variant is unannotated; it does not provide positive evidence for a CASZ1-bound element."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is only the nearest protein-coding gene at 420.6 kb; no eQTL, loop, or perturbation evidence connects this variant or a CASZ1-bound element to FAM110B."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "CASZ1 expression is directly measured but very low in Hep 3B2.1-7, so the cell-type support is weak for a functional occupancy mechanism."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The phenotype step is hypothetical and supported only by indirect FAM110B literature; there is no variant-level LDL cholesterol or statin-response evidence."
+  },
+  {
+   "hypothesis_id": "SRCAP_alt_mapped_model",
+   "step": "binding",
+   "status": "weak",
+   "reason": "The QBiC-SELEX signal comes from a CIS-BP-mapped HMGA1 model, not an SRCAP own model, and SRCAP occupancy is unknown; this is indirect and overclaims SRCAP-specific binding."
+  },
+  {
+   "hypothesis_id": "SRCAP_alt_mapped_model",
+   "step": "element",
+   "status": "weak",
+   "reason": "The variant is unannotated and no cCRE is within 500 bp, but the evidence does not show a functional SRCAP/HMGA1-like cryptic element in liver cells."
+  },
+  {
+   "hypothesis_id": "SRCAP_alt_mapped_model",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is 420.6 kb away and is supported only by proximity and a weak literature hit; no direct SRCAP-to-FAM110B regulatory evidence is provided."
+  },
+  {
+   "hypothesis_id": "SRCAP_alt_mapped_model",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "SRCAP is expressed in the provided Hep 3B2.1-7 context, supporting expression compatibility, but occupancy at the variant is untested."
+  },
+  {
+   "hypothesis_id": "SRCAP_alt_mapped_model",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The phenotype link is inferential and relies on the weak FAM110B literature association; no variant-level LDL cholesterol evidence is given."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX gives only a small ref-allele preference at a weak site on both alleles, and TCF20 occupancy is unknown; no repressor assay is provided."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "element",
+   "status": "weak",
+   "reason": "The variant is unannotated and no cCRE is within 500 bp, but there is no positive evidence that a functional TCF20 element exists here."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is only the nearest gene at 420.6 kb; the proposed TCF20 repression of FAM110B and the resulting derepression are not supported by eQTL, loop, or perturbation data."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "TCF20 expression in Hep 3B2.1-7 is directly shown, so expression compatibility is supported, though occupancy and repressor function are not."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The direction and target are speculative; the only cited phenotype support is indirect FAM110B/statin literature, not rs7001688-level LDL evidence."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "binding",
+   "status": "weak",
+   "reason": "All links rely on indirect or negative evidence; binding has QBiC-SELEX only, no occupancy, and downstream links lack variant-level support."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "element",
+   "status": "weak",
+   "reason": "No cCRE overlaps and none within 500 bp, consistent with an unannotated element, but no functional allele-specific NME2 element is shown; E10 notes no occupied TF has a strong site."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is nearest at 420.6 kb, but there is no liver eQTL, no GWAS/Open Targets variant record, and only gene-level literature; variant-to-FAM110B regulation is not established."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "NME2 is highly expressed in Hep 3B2.1-7, but occupancy at the variant is untested and no NME2 HepG2 peak is reported; expression context only."
+  },
+  {
+   "hypothesis_id": "NME2_alt_cryptic_site",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Only indirect gene-level FAM110B/LDL literature and absent variant-level GWAS/Open Targets/eQTL evidence; no variant-level LDL connection."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX supports alt>ref with a strong site, but CASZ1 occupancy is unknown because ENCODE never assayed it; QBiC alone is weak."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "element",
+   "status": "weak",
+   "reason": "No cCRE overlaps and none within 500 bp, so this would be an unannotated element, but no functional CASZ1 element is demonstrated."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is nearest at 420.6 kb, but no liver eQTL, no variant-level GWAS/Open Targets record, and only gene-level literature; direct CASZ1-to-FAM110B regulation is not established."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "CASZ1 is detectable but lowly expressed in Hep 3B2.1-7 and occupancy is unknown; this is expression-compatible at best."
+  },
+  {
+   "hypothesis_id": "CASZ1_alt_cryptic_site",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "No variant-level LDL evidence and no CASZ1-FAM110B regulatory evidence; only indirect FAM110B gene-level literature and negative association records."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX shows ref>alt by effect (-0.151, z=-20.49), but the site is weak on both alleles, the site-strength percentiles are directionally inconsistent with the effect (ref 76.7 vs alt 78.8), and TCF20 occupancy is untested; weak."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "element",
+   "status": "weak",
+   "reason": "No cCRE overlaps and none within 500 bp, so a functional TCF20 element would be unannotated and unproven in liver cells."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "gene",
+   "status": "weak",
+   "reason": "FAM110B is 420.6 kb away, with no liver eQTL and no variant-level GWAS/Open Targets record; the TCF20-to-FAM110B repressor link is indirect."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TCF20 is expressed in Hep 3B2.1-7, but occupancy and repressor function at this variant are untested."
+  },
+  {
+   "hypothesis_id": "TCF20_ref_repressor_loss",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "No variant-level LDL or statin-response evidence; the phenotype link is speculative and supported only by indirect gene-level literature."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Liver\"}",
+   "resolves": "NME2_alt_cryptic_site.gene",
+   "why": "A liver eQTL for rs7001688 would directly test whether this variant is connected to FAM110B expression; absence would weaken all non-null gene/phenotype chains."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"NME2\",\"biosample\":\"HepG2\"}",
+   "resolves": "NME2_alt_cryptic_site.binding",
+   "why": "The top non-null chain depends on NME2 occupancy; ChIP evidence over the variant in the liver-cancer ENCODE stand-in would either support or refute the binding step."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"FAM110B\"}",
+   "resolves": "NME2_alt_cryptic_site.phenotype",
+   "why": "The chains all rely on FAM110B as the LDL/statin-response target; an Open Targets gene-disease association check tests the main literature and phenotype assumption."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Liver"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "NME2",
+    "biosample": "HepG2"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "FAM110B"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific NME2 ChIP-qPCR or CUT&RUN at rs7001688 in Hep 3B2.1-7 with heterozygous G/T",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "NME2_alt_cryptic_site",
+     "outcome": "T allele shows higher NME2 occupancy at rs7001688"
+    },
+    {
+     "hypothesis_id": "CASZ1_alt_cryptic_site",
+     "outcome": "No NME2 occupancy or no allele-specific NME2 effect"
+    },
+    {
+     "hypothesis_id": "TCF20_ref_repressor_loss",
+     "outcome": "No NME2 occupancy or no allele-specific NME2 effect"
+    },
+    {
+     "hypothesis_id": "null_no_tf_effect",
+     "outcome": "No allele-specific NME2 occupancy"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Liver eQTL lookup for rs7001688 and FAM110B in GTEx liver or a larger liver dataset",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "NME2_alt_cryptic_site",
+     "outcome": "T allele associates with altered FAM110B expression"
+    },
+    {
+     "hypothesis_id": "CASZ1_alt_cryptic_site",
+     "outcome": "T allele associates with altered FAM110B expression if CASZ1 mediates the effect"
+    },
+    {
+     "hypothesis_id": "TCF20_ref_repressor_loss",
+     "outcome": "T allele associates with increased FAM110B expression if TCF20 represses FAM110B"
+    },
+    {
+     "hypothesis_id": "null_no_tf_effect",
+     "outcome": "No significant liver eQTL for rs7001688 and FAM110B"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific reporter or MPRA of rs7001688 G versus T in liver cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "NME2_alt_cryptic_site",
+     "outcome": "Allele-specific reporter activity with the T allele; direction depends on whether NME2 activates or represses"
+    },
+    {
+     "hypothesis_id": "CASZ1_alt_cryptic_site",
+     "outcome": "Allele-specific reporter activity with the T allele if CASZ1 binds functionally"
+    },
+    {
+     "hypothesis_id": "TCF20_ref_repressor_loss",
+     "outcome": "T allele increases reporter activity if TCF20 represses"
+    },
+    {
+     "hypothesis_id": "null_no_tf_effect",
+     "outcome": "No allelic reporter activity"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPR base editing of rs7001688 G>T in Hep3B, measuring FAM110B expression and an LDL/cholesterol readout",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "NME2_alt_cryptic_site",
+     "outcome": "T edit changes FAM110B expression and/or an LDL-related readout"
+    },
+    {
+     "hypothesis_id": "CASZ1_alt_cryptic_site",
+     "outcome": "T edit changes FAM110B expression only if CASZ1 mediates the effect"
+    },
+    {
+     "hypothesis_id": "TCF20_ref_repressor_loss",
+     "outcome": "T edit increases FAM110B expression if TCF20 repression is lost"
+    },
+    {
+     "hypothesis_id": "null_no_tf_effect",
+     "outcome": "No change in FAM110B expression or LDL-related readout"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CTCF ChIP in liver cells or HepG2 over rs7001688",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "NME2_alt_cryptic_site",
+     "outcome": "No CTCF allele-specific effect expected"
+    },
+    {
+     "hypothesis_id": "CASZ1_alt_cryptic_site",
+     "outcome": "No CTCF allele-specific effect expected"
+    },
+    {
+     "hypothesis_id": "TCF20_ref_repressor_loss",
+     "outcome": "No CTCF allele-specific effect expected"
+    },
+    {
+     "hypothesis_id": "null_no_tf_effect",
+     "outcome": "No liver CTCF occupancy at the variant; if any occupancy, not allele-specific"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Allele-specific NME2 ChIP-qPCR in Hep 3B2.1-7 at rs7001688, with genotyping to distinguish G/T; this directly tests the NME2 binding step that separates the top two chains (null versus NME2 alt-binding).",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "literature_fallback",
+   "detail": "no hits for 'rs7001688 AND FAM110B AND \"ldl cholesterol\"'; dropped the rsID"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:27+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr8:57573391:G>T: 1 peaks contain the variant, from 1 factors in 1 biosamples. In the matching biosample HepG2 (HepG2 stands in for Hep 3B2.1-7 (both liver cancer lines)): 0 peaks from 0 factors. No cCRE contains the variant. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): none. Bound, expressed TFs with a binding model: 1; listed one per row: CTCF. Assayed with no peak here: 382 TFs in the matching biosample, 190 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: LNCAP (e.g. ENCSR673WZL). 32.01 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 162 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs7001688, strongest first:"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:33:20+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets has no record of 8_57573391_G_T."
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=FAM110B%20AND%20%22ldl%20cholesterol%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:33:21+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 1 hits for 'FAM110B AND \"ldl cholesterol\"'; top 1 with PMIDs:\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr8:57573391:G>T, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000625), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 1 of 1 occupied (0 with a strong site), 5 of 112 with unknown occupancy. Left out: 382 TFs assayed in the matching biosample and 190 assayed only elsewhere, none with a peak here. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element. No occupied TF has a strong site at the variant."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CTCF (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model CTCF_FL_TG40NCTGTGG_YWL_jolma2025_0_3_7mer (its own model), z -1.87, effect -0.18: ref allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 32.01 TPM, rank 162 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in LNCAP, e.g. ENCSR673WZL. Best model's site strength: ref 79.0th, alt 72.6th percentile of its k-mer coefficients: a weak site (neither allele reaches the 97.5th), so the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CASZ1 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model CASZ1_FL_AG40NGGAATC_YWKC_jolma2025_0_4_7mer (its own model), z 32.75, effect 2.741: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.18 TPM, rank 776 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.1th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SETBP1 (AT hook, 2 models; QBiC-SELEX coverage: own model): best model HMGA1_FL_GA40NCTGATT_YWPA_jolma2025_0_3_7mer (a CIS-BP-mapped model of HMGA1), z 29.74, effect 2.006: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.24 TPM, rank 1043 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 67.3th, alt 96.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SRCAP (AT hook, 2 models; QBiC-SELEX coverage: mapped models only): best model HMGA1_FL_GA40NCTGATT_YWPA_jolma2025_0_3_7mer (a CIS-BP-mapped model of HMGA1), z 29.74, effect 2.006: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 41.42 TPM, rank 114 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 67.3th, alt 96.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NME2 (Unknown, 1 model; QBiC-SELEX coverage: own model): best model NME2_FL_TA40NTCACTC_YWDA_jolma2025_0_4_7mer (its own model), z 28.95, effect 0.573: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 928.15 TPM, rank 1 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 65.7th, alt 99.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TCF20 (Unknown, 1 model; QBiC-SELEX coverage: own model): best model TCF20_DBD_CT40NGCGCTA_YWCB_jolma2025_0_3_7mer (its own model), z -20.49, effect -0.151: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 23.44 TPM, rank 236 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 76.7th, alt 78.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:31+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr8_57573391_G_T_b38 in tissues matching 'Liver'. NES is the effect of the alt allele (T) relative to ref (G)."
+  },
+  {
+   "id": "E18",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T02:41:57+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE NME2 ChIP-seq peak contains chr8:57573391:G>T in biosamples matching 'HepG2'. Absence can also mean no NME2 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E19",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T01:41:58+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: no association between FAM110B and free cholesterol in large LDL measurement (EFO_0022176)."
+  }
+ ]
+}

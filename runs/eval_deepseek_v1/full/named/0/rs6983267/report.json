@@ -1,0 +1,917 @@
+{
+ "case_id": "rs6983267",
+ "variant": "rs6983267",
+ "variant_key": "chr8:127401060:G>T",
+ "disease": "Colorectal cancer (8q24)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0,
+ "seconds": 0.5,
+ "model_calls": 7,
+ "screen": {
+  "n_pass": 421,
+  "top_groups": [
+   {
+    "label": "Nuclear receptor, 1 model",
+    "z": 53.69,
+    "best_tf": "NR2E1"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": -34.16,
+    "best_tf": "ZNF493"
+   },
+   {
+    "label": "C2H2 ZF, 2 models",
+    "z": -31.27,
+    "best_tf": "GFI1B"
+   },
+   {
+    "label": "T-box, 2 models",
+    "z": 26.18,
+    "best_tf": "TBX19"
+   },
+   {
+    "label": "C2H2 ZF, 1 model",
+    "z": -23.26,
+    "best_tf": "ZBTB43"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "TCF7L2 binds the ref G allele more; risk allele T loses TCF7L2-mediated repression, increasing POU5F1B and CRC risk",
+   "is_null": false,
+   "tf": "TCF7L2",
+   "qbic_coverage": "mapped",
+   "allele_binding_more": "ref",
+   "element": "EH38E3858447 pELS",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "TCF7L2 is named as the candidate TF; QBiC-SELEX coverage is mapped, not own_model, through CIS-BP-mapped models of related HMG/Sox TFs (LEF1, TCF7, TCF7L1), and the passing mapped models predict ref G binds more strongly than alt T. ENCODE TCF7L2 ChIP-seq has a peak in HCT116 that contains the variant, supporting occupancy at this element, though not allele specificity.",
+     "evidence_ids": [
+      "E18",
+      "E19"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the proximal enhancer-like cCRE EH38E3858447 with DNase, H3K27ac, and CTCF signal.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is the strongest L2G gene at this locus and is a TWAS candidate functionally implicated in CRC growth and metastasis; TCF7L2 regulation of POU5F1B is proposed, not directly shown by these evidence IDs.",
+     "evidence_ids": [
+      "E05",
+      "E06b",
+      "E06c"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is the provided DepMap expression context, and TCF7L2 ChIP-seq has a variant-containing peak in HCT116.",
+     "evidence_ids": [
+      "E07",
+      "E19"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "rs6983267 is strongly associated with colorectal cancer, with T reported as the CRC effect allele.",
+     "evidence_ids": [
+      "E04",
+      "E06a"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "Allele-specific TCF7L2 ChIP shows ref G > alt T at rs6983267 in HCT116",
+    "alt T increases EH38E3858447 enhancer activity and POU5F1B expression in HCT116",
+    "TCF7L2 knockdown increases POU5F1B expression in HCT116"
+   ],
+   "falsified_if": [
+    "TCF7L2 ChIP is not allele-specific at rs6983267 in HCT116",
+    "alt T does not increase EH38E3858447 enhancer activity or POU5F1B expression in HCT116",
+    "TCF7L2 knockdown does not increase POU5F1B expression"
+   ],
+   "probability": 0.45,
+   "rank": 1,
+   "coverage_status": "mapped",
+   "resolved_symbol": "TCF7L2"
+  },
+  {
+   "id": "H0",
+   "title": "Null: no TF-mediated allelic effect at rs6983267",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TCF7L2 occupancy at chr8:127401060",
+    "Changing G to T does not alter EH38E3858447 enhancer activity in HCT116",
+    "TCF7L2 perturbation does not change POU5F1B expression in HCT116",
+    "The CRC association is driven by a linked causal variant or haplotype"
+   ],
+   "falsified_if": [
+    "Allele-specific TCF7L2 binding is demonstrated at chr8:127401060",
+    "Reporter or MPRA shows an allele-specific enhancer activity difference for G vs T in HCT116",
+    "TCF7L2 knockdown changes POU5F1B expression in HCT116"
+   ],
+   "probability": 0.35,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2",
+   "title": "NR2F6 binds the alt T allele more and is proposed to activate POU5F1B in HCT116 cells",
+   "is_null": false,
+   "tf": "NR2F6",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "EH38E3858447 pELS",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "NR2F6 has its own QBiC-SELEX model and is a passing member in group G002 with z 20.82 and effect +1.92, predicting alt T binds more strongly. However, no ENCODE NR2F6 ChIP-seq peak contains the variant in HCT116, so occupancy at this enhancer in the case cell type is not supported.",
+     "evidence_ids": [
+      "E14",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the proximal enhancer-like cCRE EH38E3858447.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is the strongest L2G gene and a functional CRC candidate; NR2F6 activation of POU5F1B is proposed, not directly shown.",
+     "evidence_ids": [
+      "E05",
+      "E06b",
+      "E06c"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is the provided expression context and NR2F6 is listed at 37.02 TPM in the QBiC-SELEX group row, but no HCT116 NR2F6 ChIP peak is reported.",
+     "evidence_ids": [
+      "E07",
+      "E14"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "rs6983267 is strongly associated with colorectal cancer risk.",
+     "evidence_ids": [
+      "E04",
+      "E06a"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "Allele-specific NR2F6 ChIP shows alt T > ref G at rs6983267 in HCT116",
+    "alt T increases POU5F1B expression in HCT116",
+    "NR2F6 knockdown decreases POU5F1B expression in HCT116"
+   ],
+   "falsified_if": [
+    "NR2F6 does not occupy the rs6983267 enhancer in HCT116",
+    "NR2F6 ChIP is not allele-specific at rs6983267",
+    "NR2F6 knockdown does not decrease POU5F1B expression"
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "NR2F6"
+  },
+  {
+   "id": "H3",
+   "title": "ZBTB43 binds the ref G allele more and is proposed to repress POU5F1B",
+   "is_null": false,
+   "tf": "ZBTB43",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "EH38E3858447 pELS",
+   "target_gene": "POU5F1B",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ZBTB43 has its own QBiC-SELEX model and is a passing member in group G404 with z -23.26 and effect -1.724, predicting alt T binds less and ref G binds more. This is an in vitro binding prediction only; no ZBTB43 ChIP evidence at this element is provided.",
+     "evidence_ids": [
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in the proximal enhancer-like cCRE EH38E3858447.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "POU5F1B is the strongest L2G gene and a functional CRC candidate; ZBTB43 repression of POU5F1B is proposed, not directly shown.",
+     "evidence_ids": [
+      "E05",
+      "E06b",
+      "E06c"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is the provided expression context and ZBTB43 is listed at 8.32 TPM in the QBiC-SELEX group row.",
+     "evidence_ids": [
+      "E07",
+      "E12"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "rs6983267 is strongly associated with colorectal cancer risk.",
+     "evidence_ids": [
+      "E04",
+      "E06a"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "Allele-specific ZBTB43 ChIP shows ref G > alt T at rs6983267 in HCT116",
+    "alt T increases POU5F1B expression in HCT116 if ZBTB43 represses it",
+    "ZBTB43 knockdown increases POU5F1B expression in HCT116"
+   ],
+   "falsified_if": [
+    "ZBTB43 does not occupy the rs6983267 enhancer in HCT116",
+    "ZBTB43 ChIP is not allele-specific at rs6983267",
+    "ZBTB43 knockdown does not change POU5F1B expression"
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ZBTB43"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.3,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "TCF7L2",
+   "is_null": false,
+   "probability": 0.35,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "NR2F6",
+   "is_null": false,
+   "probability": 0.2,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "ZBTB43",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E03 reports chromatin/cCRE overlap, not TCF7L2 binding. TCF7L2 is not in any provided QBiC-SELEX group row, and qbic_coverage is correctly left as not_checked, but no evidence supports the ref-G>alt-T TCF7L2 binding claim. TCF7L2 is also chosen without a QBiC-SELEX group or literature citation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 places the variant in an Ensembl enhancer and E03 places it in pELS EH38E3858447 with DNase, H3K27ac, and CTCF signal."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E05 gives POU5F1B as the strongest L2G gene (0.89); E06b lists POU5F1B among TWAS candidate genes; E06c supports POU5F1B function in CRC proliferation/metastasis. This supports POU5F1B as an effector gene, not TCF7L2 regulation of it."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E07 states the DepMap expression context is ACH-000971, which the case identifies as HCT116. This supports the cell-type context claim, though not TCF7L2 expression."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 and E06a strongly support rs6983267 association with colorectal cancer. However, E04 reports the CRC effect allele as T, while H1 claims ref G increases CRC risk; this is a chain-level direction inconsistency."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E14 directly shows NR2F6 as an own-model passing member with z 20.82 and effect +1.92, i.e. the alt T allele is predicted to bind more in QBiC-SELEX. But this is an in vitro binding prediction only; no allele-specific ChIP, reporter, or other perturbation evidence is provided. NR2F6 selection is at least justified by passing status and 37.02 TPM."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03 support that the variant lies in pELS EH38E3858447."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E05/E06b/E06c support POU5F1B as the strongest L2G gene and as functionally implicated in CRC. They do not show that NR2F6 regulates POU5F1B, so the chain title's 'activates' is over-claimed."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E14 lists NR2F6 at 37.02 TPM and E07 identifies the expression context as ACH-000971/HCT116. This supports the expression-context claim."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04/E06a support CRC association. The alt T allele is the reported CRC effect allele, which is direction-consistent with alt-T-enhanced NR2F6 binding only if NR2F6 truly activates POU5F1B; that activation is not evidenced."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 directly shows ZBTB43 as an own-model passing member with z -23.26 and effect -1.724, i.e. alt T binds less and ref G is predicted to bind more by QBiC-SELEX. This is an in vitro binding prediction only; no ChIP or allele-specific evidence. ZBTB43 selection is justified by own-model passing status and 8.32 TPM."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03 support that the variant lies in pELS EH38E3858447."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E05/E06b/E06c support POU5F1B as the strongest L2G gene and functionally implicated in CRC. They do not show ZBTB43 repression of POU5F1B, so the chain title's 'represses' is over-claimed."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E12 lists ZBTB43 at 8.32 TPM and E07 identifies the expression context as ACH-000971/HCT116. This supports the expression-context claim."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04/E06a support CRC association. The chain does not explicitly state the risk-allele direction, and the ref-G-binding/repression model is not directly tested."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "TCF7L2 coverage=mapped is shown in E18, but only via CIS-BP-mapped models of related HMG/Sox TFs (LEF1, TCF7, TCF7L1), not an own TCF7L2 model. The passing mapped models predict ref G binds more strongly (negative effects for alt), but that is a binding prediction from related TFs. E19 supports TCF7L2 occupancy at the variant-containing element in HCT116 by ChIP peak, not allele specificity."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly place the variant in cCRE EH38E3858447 (pELS) with enhancer chromatin marks. Caveat: E03 z-scores are maxima over ENCODE biosamples, not HCT116-specific."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05 supports POU5F1B as the best L2G gene (0.89 vs MYC 0.05), E06b supports POU5F1B as a TWAS candidate, and E06c supports a functional CRC role for POU5F1B. None of these shows TCF7L2 regulation of POU5F1B; the TF-to-gene link is proposed and unsupported by the cited IDs."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E07 identifies HCT116 as the DepMap expression context, and E19 directly reports a TCF7L2 ChIP-seq peak containing the variant in HCT116. This supports TCF7L2 occupancy in the case cell type, but not allele-specific occupancy."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 directly reports a strong colorectal cancer association (p 2.0e-122, effect allele T), and E06a confirms the CRC association. Flag: other E04 CRC/adenoma/colon-cancer rows list G as the effect allele, so the CRC risk-allele direction is not uniform across the cited GWAS rows."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E14 confirms NR2F6 has an own QBiC-SELEX model and is the passing member in G002 with z 20.82 and effect +1.92, predicting alt T binds more. This is an in vitro binding prediction only. E20 reports no HCT116 NR2F6 ChIP peak containing the variant, so occupancy at this element in the case cell type is not supported. G002 also contains members with disagreeing direction."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly place the variant in cCRE EH38E3858447 (pELS). Caveat: the chromatin z-scores in E03 are maxima over biosamples, not HCT116-specific."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05, E06b, and E06c support POU5F1B as the prioritized locus gene and a functional CRC candidate, but do not show NR2F6 activation of POU5F1B. The TF-to-gene regulatory link remains unsupported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E07 establishes HCT116 as the expression context, E14 lists NR2F6 at 37.02 TPM, and E20 reports no HCT116 NR2F6 ChIP peak. The cited evidence supports expression context but not occupancy in HCT116."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 reports a strong CRC association with effect allele T in the top row, and E06a confirms the association. Flag: other E04 CRC-related rows report G as the effect allele, so risk-allele direction is not uniform."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E12 confirms ZBTB43 has an own QBiC-SELEX model in G404 with z -23.26 and effect -1.724, predicting alt T binds less and ref G binds more. This is an in vitro binding prediction only; no ZBTB43 ChIP evidence at this element is provided."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly place the variant in cCRE EH38E3858447 (pELS). Caveat: E03 signal values are maxima over biosamples, not HCT116-specific."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E05, E06b, and E06c support POU5F1B as the best L2G gene and a functional CRC candidate, but do not show ZBTB43 repression of POU5F1B. The TF-to-gene regulatory link is proposed, not demonstrated."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E07 establishes HCT116 as the expression context, and E12 lists ZBTB43 at 8.32 TPM. This supports expression in the case cell type, but no ZBTB43 occupancy evidence is provided."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E04 reports a strong CRC association with effect allele T in the top row, and E06a confirms the association. Flag: other E04 CRC-related rows report G as the effect allele, so risk-allele direction is not uniform."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"TCF7L2\"}",
+   "resolves": "H1.binding",
+   "why": "Determines whether TCF7L2 has its own QBiC-SELEX model, is mapped, or is not in coverage, and whether any QBiC-SELEX direction exists for the ref>alt claim. Without this, H1 binding is unsupported."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"NR2F6\",\"biosample\":\"HCT116\"}",
+   "resolves": "H2.binding",
+   "why": "Tests whether NR2F6 actually occupies the rs6983267-containing enhancer in the case cell type; QBiC-SELEX alone is only an in vitro binding prediction."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ZBTB43\",\"biosample\":\"HCT116\"}",
+   "resolves": "H3.binding",
+   "why": "Tests whether ZBTB43 actually occupies the rs6983267-containing enhancer in the case cell type; QBiC-SELEX alone is only an in vitro binding prediction."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "TCF7L2"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "TCF7L2",
+    "biosample": "HCT116"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "NR2F6",
+    "biosample": "HCT116"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific TCF7L2 ChIP-qPCR at rs6983267 in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "ref G > alt T TCF7L2 occupancy"
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allele-specific TCF7L2 occupancy"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No allele-specific TCF7L2 occupancy"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No allele-specific TCF7L2 occupancy"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific reporter/MPRA of EH38E3858447 G vs T in HCT116",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "alt T increases enhancer activity"
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No allele-specific enhancer activity"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "alt T increases enhancer activity if NR2F6 activates POU5F1B"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "alt T increases enhancer activity if ZBTB43 represses POU5F1B"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "TCF7L2 knockdown in HCT116 with POU5F1B expression readout",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "POU5F1B expression increases"
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No change in POU5F1B expression"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No change in POU5F1B expression"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No change in POU5F1B expression"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific NR2F6 ChIP-qPCR at rs6983267 in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No NR2F6 allele-specific occupancy"
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No NR2F6 allele-specific occupancy"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "alt T > ref G NR2F6 occupancy"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No NR2F6 allele-specific occupancy"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific ZBTB43 ChIP-qPCR at rs6983267 in HCT116",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No ZBTB43 allele-specific occupancy"
+    },
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No ZBTB43 allele-specific occupancy"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No ZBTB43 allele-specific occupancy"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "ref G > alt T ZBTB43 occupancy"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Allele-specific reporter/MPRA of EH38E3858447 with G vs T in HCT116; H1 predicts alt T increases enhancer activity via loss of TCF7L2 repression, H0 predicts no allele-specific activity difference.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:127401060-127401060:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T16:33:46+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr8:127401060:G>T (GRCh38), allele string G/T\nKnown IDs: rs6983267\nMost severe consequence: non_coding_transcript_exon_variant\nRegulatory features: ENSR8_CGMBX enhancer\nGERP conservation score at the site: 1.54\nTranscript consequences: CASC8 (intron_variant, non_coding_transcript_variant); CCAT2 (non_coding_transcript_exon_variant); PCAT1 (intron_variant, non_coding_transcript_variant); POU5F1B (intron_variant); PCAT1 (downstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:126401060-128401060?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T16:33:42+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "3 protein-coding genes within 1000 kb of chr8:127401060:G>T, by distance to TSS:\nPOU5F1B: 78.9 kb from TSS (in gene body, strand +1)\nMYC: 334.4 kb from TSS (upstream, strand +1)\nLRATD2: 842.6 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T16:32:58+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3858447 (pELS: proximal enhancer-like), chr8:127401053-127401303.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3858447 pELS (contains the variant): DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 4.1; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858446 pELS: DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 5.5; nearby genes CCAT2, PCAT1, POU5F1B\nEH38E3858448 pELS: DNase z 5.2, H3K27ac z 4.8, H3K4me3 z 1.5, CTCF z 2.2; nearby genes CCAT2, PCAT1, POU5F1B\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs6983267&size=100",
+   "retrieved_utc": "2026-10-25T16:33:55+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "69 GWAS Catalog associations for rs6983267, strongest first:\nColorectal cancer: p 2.0e-122, effect allele T, risk-allele frequency NR, PMID 36539618\nProstate-specific antigen levels: p 9.0e-121, effect allele T, risk-allele frequency NR, PMID 39930085\nProstate cancer: p 1.0e-113, effect allele G, risk-allele frequency NR, PMID 33398198\nElevated prostate specific antigen [PSA] (PheCode 796): p 2.0e-96, effect allele G, risk-allele frequency 0.5087, PMID 39024449\nprostate-specific antigen (PSA, maximum, inv-norm transformed): p 7.0e-74, effect allele G, risk-allele frequency 0.5102, PMID 39024449\nCancer (pleiotropy): p 8.0e-74, effect allele G, risk-allele frequency NR, PMID 32887889\nprostate-specific antigen (PSA, mean, inv-norm transformed): p 1.0e-72, effect allele G, risk-allele frequency 0.5102, PMID 39024449\nColorectal cancer or advanced adenoma: p 3.0e-64, effect allele G, risk-allele frequency 0.5228, PMID 30510241\nprostate-specific antigen (PSA, minimum, inv-norm transformed): p 6.0e-52, effect allele G, risk-allele frequency 0.5102, PMID 39024449\nBenign neoplasm of colon (PheCode 208): p 2.0e-48, effect allele G, risk-allele frequency 0.5088, PMID 39024449\nColon polyps: p 6.0e-30, effect allele G, risk-allele frequency 0.566, PMID 39024449\nColon cancer (PheCode 153.2): p 8.0e-26, effect allele G, risk-allele frequency 0.5899, PMID 39024449"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T16:33:46+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "92 credible sets contain 8_127401060_G_T: 91 GWAS, 1 molecular QTL.\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nGWAS Cancer of prostate (PheCode 185): PIP 1.00; L2G POU5F1B 0.82\nGWAS Elevated prostate specific antigen [PSA] (PheCode 796): PIP 1.00; L2G POU5F1B 0.82\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nGWAS Prostate cancer: PIP 1.00; L2G POU5F1B 0.82\nsceqtl for PVT1 (OTAR2057_IBDverse_ge_Colon_Goblet_MUC2+_SPDEF+_ENS): PIP 0.95\nBest L2G gene scores across these sets: POU5F1B 0.89, MYC 0.05"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs6983267%20AND%20POU5F1B%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 52 hits for 'rs6983267 AND POU5F1B AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 41796348 (2026): Harnessing the LncRNA CCAT2 role in gastric cancer: from molecular insights to clinical implications.\nPMID 40498368 (2025): CCAT2 role in gastrointestinal cancer progression and metastasis: a novel target for therapeutic strategies.\nPMID 35812248 (2022): Genome-Wide Association and Transcriptome-Wide Association Studies Identify Novel Susceptibility Genes Contributing to Colorectal Cancer.\nPMID 35987910 (2022): Transposon-activated POU5F1B promotes colorectal cancer growth and metastasis.\nPMID 39284974 (2024): Systematic prioritization of functional variants and effector genes underlying colorectal cancer risk.\nPMID 39921239 (2025): System genetic analysis of intestinal cancer and periodontitis development as influenced by aging and diabesity using Collaborative Cross mice.\nPMID 36103972 (2022): Long non-coding RNA colon cancer-associated transcript 2: role and function in human cancers.\nPMID 34594420 (2021): Repurposing non-invasive prenatal testing data: Population study of single nucleotide variants associated with colorectal cancer and Lynch syndrome."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35812248",
+   "url": "https://europepmc.org/article/MED/35812248",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In the post-GWAS analyses, we first identified new genome-wide significant associations: three genomic risk loci were identified at 8q24.21 (rs6983267, P = 6.98 \u00d7 10-12), 15q13.3 (rs58658771, P = 1.40 \u00d7 10-10), and 18q21.1 (rs6507874, P = 1.91 \u00d7 10-14)."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35812248",
+   "url": "https://europepmc.org/article/MED/35812248",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In addition, the TWAS also identified four loci statistically significantly associated with CRC risk, largely explained by expression regulation, including six candidate genes (DUSP10, POU5F1B, C11orf53, COLCA1, COLCA2, and GREM1-AS1)."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35987910",
+   "url": "https://europepmc.org/article/MED/35987910",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Correlating this observation, we demonstrate that POU5F1B fosters the proliferation and metastatic potential of CRC cells."
+  },
+  {
+   "id": "E06d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35987910",
+   "url": "https://europepmc.org/article/MED/35987910",
+   "retrieved_utc": "2026-10-25T16:33:56+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "We further determine that POU5F1B, in spite of its phylogenetic relationship with the POU5F1/OCT4 transcription factor, is a membrane-enriched protein that associates with protein kinases and known targets or interactors as well as with cytoskeleton-related molecules, and induces intracellular signaling events and the release of trans-acting factors involved in cell growth and cell adhesion."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr8:127401060:G>T: 997 models scored, 421 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 348 CIS-BP groups. Expression context: DepMap line ACH-000971. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 79 (C2H2 ZF, 1 model z -47.51, C2H2 ZF, 1 model z 44.45, IRF, 2 models z 24.49, Nuclear receptor, 1 model z 21.74, C2H2 ZF, 1 model z -14.52). Passing groups ranked below the ones shown: 259. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G372 (Nuclear receptor, 1 model): best model TLX_NA_Lib1_NA_bhimsaria2023_0(2)_2_7mer (own model of NR2E1), z 53.69, effect 1.968 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: NR2E1 z 53.69. TFs this group covers: HNF4A (own model) 2.95 TPM, HNF4G (own model) 2.24 TPM, NR2E1 (own model) 0.0 TPM; best model's site strength: ref 96.7th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G521 (C2H2 ZF, 1 model): best model ZNF493_FL_TG40NTCTTGC_YWRA_jolma2025_0_2_7mer (own model of ZNF493), z -34.16, effect -0.598 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZNF493 z -34.16. TFs this group covers: ZNF493 (own model) 1.33 TPM; best model's site strength: ref 100.0th, alt 88.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G071 (C2H2 ZF, 2 models): best model GFI1B_eDBD_TTCTCA40NCCT_KR_yin2017_0_3_7mer (own model of GFI1B), z -31.27, effect -2.144 (alt binds less); 2 passing models (2 with the best model's sign). Passing members: GFI1B z -31.27, GFI1 z -29.52. TFs this group covers: GFI1 (own model) 2.9 TPM, GFI1B (own model) 0.05 TPM; best model's site strength: ref 99.9th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G101 (T-box, 2 models): best model TBX19_eDBD_TCTTGT40NCAG_KP_yin2017_0_4_7mer (own model of TBX19), z 26.18, effect 4.18 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: TBX19 z 26.18, TBXT z 11.73. TFs this group covers: TBX19 (own model) 1.92 TPM, TBXT (own model) 0.0 TPM; best model's site strength: ref 79.0th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G404 (C2H2 ZF, 1 model): best model ZBTB43_eDBD_TACGGT40NTAC_KR_yin2017_0_3_7mer (own model of ZBTB43), z -23.26, effect -1.724 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZBTB43 z -23.26. TFs this group covers: ZBTB43 (own model) 8.32 TPM; best model's site strength: ref 99.8th, alt 87.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G233 (CCCH ZF, 1 model): best model MBNL2_FL_TCTAAG40NTTA_KZ_yin2017_0_4_7mer (own model of MBNL2), z -22.42, effect -2.708 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: MBNL2 z -22.42. TFs this group covers: MBNL2 (own model) 26.09 TPM; best model's site strength: ref 99.1th, alt 51.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G002 (Nuclear receptor, 29 models): best model NR2F6_FL_TGCCTC40NCAA_KV_yin2017_0_4_7mer (own model of NR2F6), z 20.82, effect 1.92 (alt binds more); 11 passing models (9 with the best model's sign); members disagree on direction. Passing members: NR2F6 z 20.82, NR2C1 z 7.56, THRA z 7.37, NR2C2 z -6.01, NR4A1 z 6.0 (+6 more). TFs this group covers: NR2F2 (own model) 61.74 TPM, PPARG (own model) 47.9 TPM, ESRRA (own model) 38.54 TPM, NR1D2 (own model) 37.06 TPM, NR2F6 (own model) 37.02 TPM, RARG (own model) 31.32 TPM, NR2F1 (own model) 28.42 TPM, NR2C2 (own model) 22.6 TPM, NR1H2 (mapped) 20.86 TPM, PPARD (own model) 20.8 TPM (+28 more); best model's site strength: ref 98.6th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G413 (C2H2 ZF, 1 model): best model ZBTB8A_DBD_GG40NGGTTTA_YWEA_jolma2025_0_2_7mer (own model of ZBTB8A), z -19.7, effect -0.603 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: ZBTB8A z -19.7. TFs this group covers: ZBTB8A (own model) 6.4 TPM; best model's site strength: ref 97.8th, alt 62.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G037 (Nuclear receptor, 3 models): best model ESRRG_FL_TGAGCT40NGCA_KW_yin2017_0_3_7mer (own model of ESRRG), z 19.58, effect 0.719 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: ESRRG z 19.58, ESRRB z 7.9. TFs this group covers: ESRRA (own model) 38.54 TPM, ESRRB (own model) 0.41 TPM, ESR2 (mapped) 0.23 TPM, ESR1 (own model) 0.0 TPM, ESRRG (own model) 0.0 TPM; best model's site strength: ref 97.9th, alt 99.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G077 (AT hook, 2 models): best model SETBP1_DBD2_TC40NGGCTGT_YWHA_jolma2025_0_4_7mer (own model of SETBP1), z -16.06, effect -0.331 (alt binds less); 1 passing models (1 with the best model's sign). Passing members: SETBP1 z -16.06. TFs this group covers: HMGA1 (own model) 1349.55 TPM, HMGA2 (mapped) 125.72 TPM, SRCAP (mapped) 32.16 TPM, ASH1L (mapped) 18.03 TPM, SETBP1 (own model) 0.01 TPM; best model's site strength: ref 95.5th, alt 68.2th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"TCF7L2\",\"symbol\":\"TCF7L2\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"mapped\",\"variant\":\"chr8:127401060:G>T\",\"gate_p\":5.02e-05,\"models\":[{\"model\":\"LEF1_FL_TAGTCG40NAGA_KZ_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (LEF1)\",\"group\":\"G041 HMG/Sox, 3 models\",\"quality\":0.63,\"effect\":-0.47,\"z\":-4.66,\"p\":3.2e-06,\"rank_abs_z\":\"351/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":98.8,\"alt_percentile\":98.4,\"k\":7}},{\"model\":\"TCF7_eDBD_TCGGAC40NCCA_KS_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (TCF7)\",\"group\":\"G041 HMG/Sox, 3 models\",\"quality\":0.732,\"effect\":-0.229,\"z\":-4.59,\"p\":4.4e-06,\"rank_abs_z\":\"367/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":96.9,\"alt_percentile\":99.2,\"k\":7}},{\"model\":\"TCF7L1_eDBD_TTGGCA40NTCG_KW_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (TCF7L1)\",\"group\":\"G041 HMG/Sox, 3 models\",\"quality\":0.602,\"effect\":-0.275,\"z\":-3.47,\"p\":0.00052,\"rank_abs_z\":\"486/997\",\"passed_gate\":false,\"site_strength\":{\"ref_percentile\":83.5,\"alt_percentile\":92.1,\"k\":7}}]}"
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T16:35:30+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "1 ENCODE TCF7L2 ChIP-seq peaks contain chr8:127401060:G>T in biosamples matching 'HCT116': biosamples HCT116; experiments ENCSR000EUV. In other biosamples, 3 TCF7L2 peaks do contain the variant: HepG2 (experiments ENCSR000EVQ, ENCSR346BOD)."
+  },
+  {
+   "id": "E20",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:23:51+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE NR2F6 ChIP-seq peak contains chr8:127401060:G>T in biosamples matching 'HCT116'. Absence can also mean no NR2F6 experiment in that biosample. In other biosamples, 2 NR2F6 peaks do contain the variant: HepG2 (experiments ENCSR518WPL, ENCSR798IJO)."
+  }
+ ]
+}

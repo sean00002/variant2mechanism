@@ -1,0 +1,138 @@
+# variant2mechanism settings.
+
+cluster:                     # the backup backend (qbic.backend: slurm): QBiC-SELEX on a Slurm cluster over SSH
+  host: my-cluster           # an SSH alias from ~/.ssh/config
+  data_dir: /path/on/cluster/qbic_selex_v2_primary          # read-only
+  model_dir: /path/on/cluster/qbic_selex_v2_primary/tf_models_primary_collection   # the 997 primary models
+  cov_dir: /path/on/cluster/qbic_selex_v2_primary/covs_primary                      # their covariances
+  qbic_selex: /path/on/cluster/QBiC-SELEX/.venv/bin/qbic-selex
+  genome: /path/on/cluster/hg38.fa
+  genome_fai_md5: 1954682fe412d4c5f8b93ad8e4083181   # md5 of hg38.fa.fai; part of the cache key, so keep it
+  jobs_dir: /path/on/cluster/variant2mechanism_jobs  # every job file goes here
+qbic:
+  backend: local             # local: qbic-selex on this machine (the default); slurm: a cluster over SSH (the
+                             # backup). Both fill the same cache, which already holds the 15 gold-set variants.
+local:                       # the local backend (variant2mechanism.qbic.local)
+  qbic_selex: qbic-selex     # the one installed in this project's environment
+  model_dir: ~/.cache/variant2mechanism/qbic_weights/tf_models_primary_collection
+  cov_dir: ~/.cache/variant2mechanism/covs_primary        # 997 covariances, 133 GB; not on this laptop yet
+  genome: ~/.cache/variant2mechanism/genome/hg38.fa       # must have the cluster's .fai md5; not here yet
+  workers: 6                 # parallel qbic-selex processes, about 1.2 GB each with statistics
+  device: cpu
+  jobs_dir: state/qbic_jobs  # gitignored
+slurm:
+  partition: cpu             # your CPU partition; for a GPU partition also set gres: gpu:1 and device: gpu
+  gres: ""                   # empty leaves out the --gres line
+  device: cpu
+  cpus_per_task: 4
+  mem: 16G
+  time: "04:00:00"
+  model_chunks: 16           # array tasks; models split round-robin; retune after the timing run
+  poll_seconds: 60
+  timeout_hours: 6
+data:
+  dir: data                  # agent-lab/data, inside the repo (gitignored except the gold set)
+  weights_dir: ~/.cache/variant2mechanism/qbic_weights/tf_models_primary_collection   # local copy (30 MB), outside Dropbox
+  model_list: src/variant2mechanism/qbic/resources/primary_collection.txt   # md5 550d40e985c2c806c5901e88e44f925d; tracked
+  depmap_cache: ~/.cache/variant2mechanism/depmap
+  table_s1: data/TableS1_metadata_experiments.csv
+  table_s3: data/reference/qbic/TableS3_primary_model_collection_cross_experiment_validation_top1.csv
+  table_s5: data/TableS5_model_to_tfs_mapping.csv
+  table_s6: data/TableS6_tf_to_models_mapping.csv
+  lambert: data/reference/tf_families/DatabaseExtract_v_1.01.csv
+  hgnc: data/reference/hgnc/hgnc_complete_set.txt
+  gtex: data/reference/gtex/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz
+  depmap_models: data/reference/depmap/DepMap_Model.csv
+  depmap_expression: data/reference/depmap/DepMap_OmicsExpressionProteinCodingGenesTPMLogp1.csv
+  depmap_crispr: data/reference/depmap/DepMap_CRISPRGeneEffect.csv
+  depmap_common_essentials: data/reference/depmap/CRISPRInferredCommonEssentials.csv   # DepMap Public 26Q3
+  ccres: data/reference/encode/ENCFF420VPZ.bed.gz
+cache:
+  db: cache/qbic.sqlite      # committed to the repo
+  groups: cache/groups.json  # committed to the repo
+  log: runs/qbic_calls.jsonl
+  allow_miss_jobs: false     # a cache miss submits a cluster job only once this is set to true (spec 1, cp5)
+screen:
+  alpha: 0.05                # Bonferroni over the 997 primary models
+  jaccard: 0.5
+  min_tpm: 1.0
+  top_groups: 10
+  delta: 0.0                 # minimum-effect margin; kept at 0 on 25 Oct after the gold batch
+                             # (controls pass as broadly as cases, but a functional SNP can have a small effect)
+  strong_site_pct: 97.5      # screen v3, the site-strength rule (26 Oct): an occupied TF has a strong site when the
+                             # better allele's best k-mer over the variant reaches this percentile of its best
+                             # model's coefficients (24% of random SNVs do); strong sites first within each
+                             # occupancy class. Chosen after seeing the three near-miss pairs, so not tested apart
+
+llm:
+  # Default since 26 Oct 2026: DeepSeek V4.1 Flash for all three roles. Every call goes
+  # through OpenRouter in chat-completions form (key: OPENROUTER_API_KEY); `--profile claude` uses Claude models.
+  generator: deepseek/deepseek-v4.1-flash-1017    # generate, investigate, revise
+  critic: deepseek/deepseek-v4.1-flash-1017       # critique, regrade
+  summariser: deepseek/deepseek-v4.1-flash-1017   # literature quotes
+  effort: {generator: medium, critic: medium, summariser: low}   # OpenRouter's reasoning effort
+  max_tokens: {generator: 32000, critic: 16000, summariser: 4000}
+  prices_per_mtok:                # OpenRouter list prices per million tokens, used only for the worst-case
+                                  # reservation; the budget records the cost OpenRouter reports for each call
+    deepseek/deepseek-v4.1-flash-1017: {input: 0.30, output: 1.20}   # peak hours; base $0.15/$0.60
+    anthropic/claude-opus-5: {input: 5.0, output: 25.0}
+    anthropic/claude-sonnet-5.5: {input: 2.0, output: 10.0}
+    anthropic/claude-haiku-5.5: {input: 0.10, output: 0.50}
+    openai/gpt-6-luna: {input: 0.10, output: 0.50}           # prompts over 272k tokens: $0.20/$0.75
+  openrouter:
+    provider: {}                  # extra provider routing; require_parameters is always on
+budget_usd:                       # the DeepSeek budget; Claude's is in profiles.claude
+  dev: 0.50                       # smoke tests
+  eval: 3.9                       # set on 26 Oct 2026; raised by $0.50 to rerun full on screen v3,
+                                  # then by $0.40 for the masked no_qbic and full grid
+  spare: 0.0
+  state_file: state/budget_deepseek.json   # outside runs/, gitignored
+investigate:                     # refinement rounds (agent/stages/investigate.py; multi-round since 26 Oct 2026)
+  max_tool_calls: 3              # per round
+  max_rounds: 3                  # plan, act, revise, regrade; the loop stops earlier when a round leaves the top
+                                 # chain and its link grades unchanged, or brings no new information (26 Oct 2026)
+tools:
+  # Retries (raised after an Ensembl outage; spec 2 said at most 4 tries per request):
+  http_tries: 6              # per request, waiting 2, 4, 8, 16, 32 s; a server's Retry-After wins (up to 120 s)
+  tool_retry_rounds: 2       # then re-run the whole tool, after a failure that may be transient (timeout, 429, 5xx)
+  tool_retry_wait: 60        # seconds before each re-run
+  max_summary_chars: 2000
+  http_cache: cache/http
+runs:
+  dev_dir: runs/dev_v6_deepseek   # single runs outside the evaluation (v6: v5 with ReMap in chip_peaks)
+eval:
+  gold_set: data/gold_set.csv     # never the outdated copy at the repo root
+  exclude: {}                     # case_id: reason; left out of the grid and the metrics, the row kept in gold_set.csv
+                                  # (rs1427407 was here, then was removed from the gold set on 25 Oct 2026)
+  concurrency: 4
+  runs_dir: runs/eval_v6_deepseek # v6: v5 plus ReMap in chip_peaks. Kept: runs/eval_v5_luna (not-assayed fix), runs/eval_v4_luna (the multi-round
+                                  # loop), runs/eval_v3_deepseek (screen v3,
+                                  # one round), runs/eval_v2_deepseek (screen v2),
+                                  # runs/eval (Claude, v1), runs/eval_v1 (Claude, before the coverage fix),
+                                  # runs/eval_deepseek_v1 and runs/eval_deepseek (DeepSeek, v1)
+profiles:                         # `--profile NAME` merges one of these over the settings above
+  claude:                         # the default until 26 Oct 2026. The first grids (runs/eval) called the Anthropic
+                                  # API directly with claude-opus-5, claude-sonnet-5-5 and claude-haiku-5-5; the
+                                  # same models now go through OpenRouter
+    llm:
+      generator: anthropic/claude-opus-5   # Opus 5 chosen over Opus 5.5 on 25 Oct (Opus 5.5's biology
+                                  # classifier declined the revise stage twice)
+      critic: anthropic/claude-sonnet-5.5
+      summariser: anthropic/claude-haiku-5.5
+    runs: {dev_dir: runs/dev_v2_claude}
+    eval: {runs_dir: runs/eval_v2_claude}   # the Claude screen-v1 grid stays in runs/eval
+    budget_usd:
+      dev: 5.0                    # every model call before the pilot
+      eval: 26.0                  # raised from 12 to 18 on 25 Oct 2026 to rerun full, then to 26 (the $3 spare
+                                  # plus $5) for the named single and no_qbic grid
+      spare: 0.0
+      state_file: state/budget.json
+  luna:                           # openai/gpt-6-luna for all three roles (added 26 Oct 2026)
+    llm: {generator: openai/gpt-6-luna, critic: openai/gpt-6-luna, summariser: openai/gpt-6-luna}
+    runs: {dev_dir: runs/dev_v6_luna}            # v6: ReMap in chip_peaks; v5, v4 and v3 kept
+    eval: {runs_dir: runs/eval_v6_luna}
+    budget_usd:                   # a $2 cap for Luna: a trial run, then the named grid
+      dev: 0.20
+      eval: 1.80
+      spare: 0.0
+      state_file: state/budget_luna.json

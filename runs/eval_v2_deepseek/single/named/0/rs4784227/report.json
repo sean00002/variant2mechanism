@@ -1,0 +1,361 @@
+{
+ "case_id": "rs4784227",
+ "variant": "rs4784227",
+ "variant_key": "chr16:52565276:C>T",
+ "disease": "Breast cancer (16q12)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.005,
+ "seconds": 55.1,
+ "model_calls": 2,
+ "screen": null,
+ "chains": [
+  {
+   "id": "C1",
+   "title": "FOXA1 binds the alt T allele more and activates a TOX3 enhancer",
+   "is_null": false,
+   "tf": "FOXA1",
+   "allele_binding_more": "alt",
+   "element": "rs4784227 FOXA1-bound enhancer",
+   "target_gene": "TOX3",
+   "cell_type": "MCF7 mammary epithelial",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXA1 binds the alt T allele more strongly than ref C. FOXA1 is chosen from prior 16q12.1 breast-cancer literature; no ChIP, expression, or QBiC-SELEX evidence was supplied for this case, and FOXA1 has no QBiC-SELEX model/evidence here.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "rs4784227 lies in a FOXA1-bound regulatory element/enhancer; the T allele creates a stronger FOXA1 site.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The FOXA1-bound enhancer increases TOX3 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect occurs in MCF7 mammary epithelial cells, the supplied expression context.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Higher TOX3 expression increases breast cancer risk at 16q12.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific FOXA1 ChIP in MCF7 shows higher FOXA1 occupancy on T than C at rs4784227.",
+    "A C-vs-T enhancer reporter in MCF7 shows higher activity for T.",
+    "TOX3 expression is higher with the T allele in MCF7/breast models.",
+    "The T allele is associated with increased breast cancer risk."
+   ],
+   "falsified_if": [
+    "FOXA1 ChIP is not higher on T than C.",
+    "The T allele does not increase enhancer reporter activity.",
+    "TOX3 expression is not higher with T."
+   ],
+   "probability": 0.35,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "C2",
+   "title": "FOXA1 binds the ref C allele more and represses TOX3; T loses repression",
+   "is_null": false,
+   "tf": "FOXA1",
+   "allele_binding_more": "ref",
+   "element": "rs4784227 FOXA1-bound silencer",
+   "target_gene": "TOX3",
+   "cell_type": "MCF7 mammary epithelial",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXA1 binds the ref C allele more strongly than alt T. FOXA1 is chosen as the same locus candidate; no ChIP, expression, or QBiC-SELEX evidence was supplied, and FOXA1 has no QBiC-SELEX model/evidence here.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "rs4784227 lies in a FOXA1-bound silencer/repressive element; the C allele creates a stronger FOXA1 site.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "FOXA1 represses TOX3; loss of the C-allele site on T increases TOX3 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The repressive FOXA1 effect occurs in MCF7 mammary epithelial cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Derepressed TOX3 increases breast cancer risk at 16q12.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific FOXA1 ChIP in MCF7 shows higher FOXA1 occupancy on C than T.",
+    "A C-vs-T enhancer reporter shows lower activity for C if FOXA1 is repressive.",
+    "TOX3 expression is higher with T because the repressive C site is lost.",
+    "The T allele is associated with increased breast cancer risk."
+   ],
+   "falsified_if": [
+    "FOXA1 ChIP is higher on T than C or shows no allelic difference.",
+    "The C allele does not repress enhancer reporter activity.",
+    "TOX3 expression is not higher with T."
+   ],
+   "probability": 0.3,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "NULL",
+   "title": "Null: no TF-mediated effect of rs4784227",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF ChIP difference at rs4784227.",
+    "No C-vs-T enhancer reporter difference in MCF7.",
+    "TOX3 expression is not associated with rs4784227 after controlling for linked variants.",
+    "The 16q12 risk signal is driven by a linked causal variant or another mechanism."
+   ],
+   "falsified_if": [
+    "A reproducible allele-specific TF occupancy and enhancer/reporter effect is shown for rs4784227.",
+    "TOX3 expression tracks rs4784227 independently of linked variants."
+   ],
+   "probability": 0.25,
+   "rank": 3,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "C3",
+   "title": "GATA3 binds the alt T allele more and activates TOX3",
+   "is_null": false,
+   "tf": "GATA3",
+   "allele_binding_more": "alt",
+   "element": "rs4784227 GATA3-bound enhancer",
+   "target_gene": "TOX3",
+   "cell_type": "MCF7 mammary epithelial",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GATA3 binds the alt T allele more strongly than ref C. GATA3 is a competing breast-lineage TF; no ChIP, expression, or QBiC-SELEX evidence was supplied, and GATA3 has no QBiC-SELEX model/evidence here.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "rs4784227 lies in a GATA3-bound enhancer; the T allele creates a stronger GATA3 site.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "The GATA3-bound enhancer increases TOX3 expression.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect occurs in MCF7 mammary epithelial cells.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Higher TOX3 expression increases breast cancer risk at 16q12.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GATA3 ChIP in MCF7 shows higher GATA3 occupancy on T than C.",
+    "FOXA1 ChIP shows no allele-specific difference at rs4784227.",
+    "GATA3 knockdown reduces T-allele enhancer reporter activity.",
+    "The T allele is associated with increased breast cancer risk."
+   ],
+   "falsified_if": [
+    "GATA3 ChIP is not higher on T than C.",
+    "GATA3 knockdown does not affect the T-allele reporter.",
+    "FOXA1, not GATA3, shows allele-specific occupancy."
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA3"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "C1",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.35,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "C2",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.3,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "C3",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "NULL",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.25,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "Allele-specific FOXA1 ChIP in MCF7",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "FOXA1 occupancy T > C"
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "FOXA1 occupancy C > T"
+    },
+    {
+     "hypothesis_id": "NULL",
+     "outcome": "No FOXA1 allelic difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "EMSA with recombinant FOXA1, C vs T probes",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "T probe shifts more than C"
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "C probe shifts more than T"
+    },
+    {
+     "hypothesis_id": "NULL",
+     "outcome": "No differential shift"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "C-vs-T enhancer reporter in MCF7",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "T reporter higher than C"
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "C reporter lower/repressive, T higher"
+    },
+    {
+     "hypothesis_id": "NULL",
+     "outcome": "No allele-specific difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific GATA3 ChIP in MCF7",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "No GATA3 allelic difference, FOXA1 difference present"
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "No GATA3 allelic difference, FOXA1 opposite difference present"
+    },
+    {
+     "hypothesis_id": "C3",
+     "outcome": "GATA3 occupancy T > C"
+    },
+    {
+     "hypothesis_id": "NULL",
+     "outcome": "No GATA3 allelic difference"
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "TOX3 expression by rs4784227 allele in MCF7",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "C1",
+     "outcome": "T allele higher TOX3"
+    },
+    {
+     "hypothesis_id": "C2",
+     "outcome": "T allele higher TOX3 due to loss of repression"
+    },
+    {
+     "hypothesis_id": "C3",
+     "outcome": "T allele higher TOX3"
+    },
+    {
+     "hypothesis_id": "NULL",
+     "outcome": "No independent allelic association"
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "EMSA with recombinant FOXA1 and matched C vs T probes centered on rs4784227; stronger T shift supports C1, stronger C shift supports C2, and no differential shift argues against both.",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

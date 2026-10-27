@@ -1,0 +1,950 @@
+{
+ "case_id": "rs1421085",
+ "variant": "rs1421085",
+ "variant_key": "chr16:53767042:T>C",
+ "disease": "Obesity (FTO)",
+ "origin": "germline",
+ "expression_context": "GTEx:Adipose - Subcutaneous (proxy for preadipocytes)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0452,
+ "seconds": 251.4,
+ "model_calls": 9,
+ "screen": {
+  "n_pass": 425,
+  "top_groups": [
+   {
+    "label": "Nuclear receptor, 3 models",
+    "z": 62.01,
+    "best_tf": "ESRRG"
+   },
+   {
+    "label": "Homeodomain, 9 models",
+    "z": 54.71,
+    "best_tf": "PKNOX2"
+   },
+   {
+    "label": "Nuclear receptor, 29 models",
+    "z": 32.74,
+    "best_tf": "NR4A3"
+   },
+   {
+    "label": "Forkhead, 10 models",
+    "z": -32.62,
+    "best_tf": "FOXL1"
+   },
+   {
+    "label": "bZIP, 3 models",
+    "z": 28.3,
+    "best_tf": "NFE2L3"
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H4_null",
+   "title": "Null: linked causal variant or no allelic TF effect",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No TF binds rs1421085 allele-specifically in the relevant adipose/preadipocyte context.",
+    "Reporter assays show no allelic difference for the rs1421085-containing enhancer.",
+    "The obesity association is explained by a linked causal variant rather than rs1421085 itself."
+   ],
+   "falsified_if": [
+    "Allele-specific TF binding or enhancer reporter activity differs between ref T and alt C at rs1421085.",
+    "CRISPR allele swap at rs1421085 changes FTO or IRX3 expression in preadipocytes.",
+    "Conditional analysis shows the obesity signal is not explained by a linked causal variant."
+   ],
+   "probability": 0.58,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2_ESRRA",
+   "title": "ESRRA repressor chain",
+   "is_null": false,
+   "tf": "ESRRA",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "alt",
+   "element": "distal enhancer-like cCRE EH38E3181208",
+   "target_gene": "FTO",
+   "cell_type": "subcutaneous adipose / preadipocyte (proxy)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ESRRA has an own QBiC-SELEX model in group G037 and is predicted to bind alt C more strongly. ESRRA is chosen within G037 over the group-leading ESRRG because ESRRA has much higher adipose expression (34.08 vs 0.06 TPM). No adipose ESRRA ChIP-seq peak contains the variant, so occupancy is unproven.",
+     "evidence_ids": [
+      "E08",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs1421085 lies in the distal enhancer-like cCRE EH38E3181208 (dELS).",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "FTO is the best L2G gene for the BMI credible sets at this locus, supporting FTO as the candidate target gene, though L2G does not prove enhancer-gene regulation.",
+     "evidence_ids": [
+      "E05"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GTEx subcutaneous adipose is the supplied expression context and is used as a proxy for preadipocytes; preadipocyte-specific evidence is not supplied.",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "rs1421085 is strongly associated with obesity/BMI with effect allele T in E04. If ESRRA represses FTO, stronger alt C binding would lower FTO and be protective, making ref T risk, but this repression is unproven.",
+     "evidence_ids": [
+      "E04",
+      "E06b",
+      "E06c"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ESRRA ChIP/CUT&RUN will show ESRRA occupancy at the rs1421085 enhancer in preadipocytes.",
+    "Allele-specific ESRRA binding will favor alt C.",
+    "ESRRA knockdown or inhibition will increase FTO expression if ESRRA is a repressor.",
+    "The alt C allele will be protective or lower risk in allele-resolved functional follow-up."
+   ],
+   "falsified_if": [
+    "ESRRA does not occupy the rs1421085 enhancer in adipose or preadipocytes.",
+    "Allele-specific ESRRA binding does not favor alt C.",
+    "ESRRA perturbation does not change FTO expression or enhancer activity."
+   ],
+   "probability": 0.27,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ESRRA"
+  },
+  {
+   "id": "H3_FOXC1",
+   "title": "FOXC1 activator chain",
+   "is_null": false,
+   "tf": "FOXC1",
+   "qbic_coverage": "own_model",
+   "allele_binding_more": "ref",
+   "element": "distal enhancer-like cCRE EH38E3181208",
+   "target_gene": "IRX3",
+   "cell_type": "subcutaneous adipose / preadipocyte (proxy)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXC1 has an own QBiC-SELEX model in group G007 and is predicted to bind ref T more strongly (negative effect). FOXC1 is chosen within G007 because it has high adipose expression (22.42 TPM), but FOXL1 is the group leader and G007 members disagree on direction; occupancy is unproven.",
+     "evidence_ids": [
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "rs1421085 lies in the distal enhancer-like cCRE EH38E3181208 (dELS).",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "IRX3 is a nearby candidate gene, but E02 supports only proximity/distance, not enhancer-gene contact or FOXC1-dependent regulation.",
+     "evidence_ids": [
+      "E02"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GTEx subcutaneous adipose is the supplied expression context and is used as a proxy for preadipocytes; preadipocyte-specific evidence is not supplied.",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "rs1421085 is strongly associated with obesity/BMI with effect allele T in E04. If FOXC1 activates IRX3, stronger ref T binding would make ref T risk, but the activation sign is unproven.",
+     "evidence_ids": [
+      "E04",
+      "E06b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "FOXC1 ChIP/CUT&RUN will show FOXC1 occupancy at the rs1421085 enhancer.",
+    "Allele-specific FOXC1 binding will favor ref T.",
+    "FOXC1 overexpression or knockdown will change IRX3 expression in preadipocytes.",
+    "The ref T allele will show higher enhancer activity in reporter assays if FOXC1 activates the element."
+   ],
+   "falsified_if": [
+    "FOXC1 does not bind the rs1421085 enhancer in adipose or preadipocytes.",
+    "Allele-specific assays do not show stronger ref T binding.",
+    "FOXC1 perturbation does not affect IRX3 or the enhancer reporter."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXC1"
+  },
+  {
+   "id": "H1_ARID5B_classic",
+   "title": "ARID5B enhancer-derepression chain",
+   "is_null": false,
+   "tf": "ARID5B",
+   "qbic_coverage": "not_in_coverage",
+   "allele_binding_more": "ref",
+   "element": "distal enhancer-like cCRE EH38E3181208",
+   "target_gene": "IRX3",
+   "cell_type": "subcutaneous adipose / preadipocyte (proxy)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ARID5B is proposed to bind ref T more strongly than alt C, but QBiC-SELEX reports ARID5B as not_in_coverage and no ENCODE ARID5B ChIP-seq peak contains the variant; the supplied evidence does not support this binding change.",
+     "evidence_ids": [
+      "E18",
+      "E19"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "rs1421085 lies in the distal enhancer-like cCRE EH38E3181208 (dELS).",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "IRX3 is a nearby candidate gene, but E02 supports only proximity/distance, not enhancer-gene contact or regulation.",
+     "evidence_ids": [
+      "E02"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GTEx subcutaneous adipose is the supplied expression context and is used as a proxy for preadipocytes; preadipocyte-specific evidence is not supplied.",
+     "evidence_ids": [
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "rs1421085 is associated with obesity/BMI, but the allelic direction is unresolved: E04 reports effect allele T, while E06d reports the C allele associated with overweight/obesity. The classic ARID5B C-risk/derepression prediction is not supported by E04.",
+     "evidence_ids": [
+      "E04",
+      "E06d"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Allele-specific ARID5B EMSA/ChIP in preadipocytes will show stronger binding to ref T than alt C.",
+    "The C allele will increase IRX3 expression if ARID5B normally represses this enhancer.",
+    "The C allele will be the obesity-increasing allele in allele-resolved functional assays, which conflicts with E04's reported effect allele T."
+   ],
+   "falsified_if": [
+    "ARID5B does not bind the rs1421085 region allele-specifically in preadipocytes.",
+    "Allele-specific reporter or CRISPR swap shows no functional difference between T and C.",
+    "IRX3 is not derepressed by the C allele in preadipocytes."
+   ],
+   "probability": 0.05,
+   "rank": 4,
+   "coverage_status": "not_in_coverage",
+   "resolved_symbol": "ARID5B"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1_ARID5B_classic",
+   "tf": "ARID5B",
+   "is_null": false,
+   "probability": 0.4,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2_ESRRA",
+   "tf": "ESRRA",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3_FOXC1",
+   "tf": "FOXC1",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H4_null",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.4,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence is cited for ARID5B binding. The chain explicitly notes that no supplied QBiC-SELEX row names ARID5B, and qbic_coverage is only 'not_checked'. The claim that ARID5B binds ref T more strongly is unsupported."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs1421085 in EH38E3181208, a distal enhancer-like cCRE. This supports the element-location claim."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports only that IRX3 is 520.4 kb downstream. This is proximity, not enhancer-gene contact or IRX3 regulation, and E05 does not rank IRX3 among the top L2G genes for this variant."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 supplies GTEx subcutaneous adipose as the expression context, but does not establish preadipocytes as the relevant cell type or provide preadipocyte-specific occupancy/chromatin evidence."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 and E06c support association with obesity/BMI, but the allele direction is unresolved and contradictory: E04 reports effect allele T, E06d says the C allele was associated with overweight/obesity, and E06b gives an OR without specifying the allele. H1's prediction that alt C increases obesity risk conflicts with E04."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 directly shows ESRRA among the passing G037 members and gives the group as alt-binds-more, but this is only a QBiC-SELEX binding prediction. No ChIP/CUT&RUN, allele-specific reporter, MPRA, or perturbation evidence shows ESRRA occupancy at rs1421085. ESRRA is also not the group-leading model."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs1421085 in EH38E3181208, a distal enhancer-like cCRE."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E05 directly supports FTO as the best L2G gene for the BMI credible sets. This supports the L2G claim, but it does not show that ESRRA regulates FTO or that FTO is the functional target of this enhancer."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 supplies GTEx subcutaneous adipose, not preadipocyte-specific evidence. The preadipocyte proxy is plausible but not directly demonstrated."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports strong obesity/BMI association with effect allele T, but the mechanistic phenotype direction depends on the unproven assumption that ESRRA represses FTO. Without regulatory-sign evidence, the claimed protective effect of alt C is not established."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11 directly shows FOXC1 among passing G007 members with a negative best-model direction, but the evidence is only a QBiC-SELEX binding prediction. G007 members disagree on direction, FOXC1 is not the best model (FOXL1 is), and no occupancy or allele-specific assay is supplied."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs1421085 in EH38E3181208, a distal enhancer-like cCRE."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports only that IRX3 is 520.4 kb downstream. This is proximity, not contact or FOXC1-dependent regulation, and E05 does not rank IRX3 among the top L2G genes."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 supplies GTEx subcutaneous adipose as a proxy context but does not demonstrate preadipocyte relevance or FOXC1 activity/occupancy in that context."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 supports obesity/BMI association with effect allele T, but H3 requires the unproven assumption that FOXC1 activates IRX3. No perturbation or reporter evidence establishes that regulatory sign, so the phenotype link remains indirect."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E18 reports ARID5B as not_in_coverage and E19 reports no ENCODE ARID5B ChIP-seq peak containing the variant; there is no positive binding evidence, so the proposed ARID5B binding change is missing."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs1421085 in the distal enhancer-like cCRE EH38E3181208 (dELS)."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports only that IRX3 is nearby (520.4 kb from TSS), not enhancer-gene contact or ARID5B-dependent regulation."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 gives GTEx subcutaneous adipose as the expression context, which is only a proxy; no preadipocyte-specific evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H1_ARID5B_classic",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 strongly supports obesity/BMI association with effect allele T, while E06d reports C-allele association with overweight/obesity; association is supported but the allelic direction needed for this ARID5B chain is unresolved."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E08 gives ESRRA an own QBiC-SELEX model in G037 and predicts alt C binds more, with ESRRA chosen over ESRRG due to adipose expression; E20 shows no adipose ESRRA ChIP-seq peak containing the variant, so this is binding prediction only."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs1421085 in the distal enhancer-like cCRE EH38E3181208 (dELS)."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E05 supports FTO as the best L2G candidate gene for BMI credible sets at this locus, while explicitly not proving enhancer-gene regulation."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 gives GTEx subcutaneous adipose as the expression context, which is only a proxy; no preadipocyte-specific evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H2_ESRRA",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 and E06b/E06c support obesity/BMI association with effect allele T, but the proposed ESRRA repression of FTO that would link stronger alt C binding to protection is unproven."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11 gives FOXC1 an own QBiC-SELEX model in G007 and predicts stronger ref T binding, but FOXL1 is the group leader, G007 members disagree on direction, and occupancy is unproven."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places rs1421085 in the distal enhancer-like cCRE EH38E3181208 (dELS)."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports only that IRX3 is nearby (520.4 kb from TSS), not enhancer-gene contact or FOXC1-dependent regulation."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E07 gives GTEx subcutaneous adipose as the expression context, which is only a proxy; no preadipocyte-specific evidence is supplied."
+  },
+  {
+   "hypothesis_id": "H3_FOXC1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E04 and E06b support obesity/BMI association with effect allele T, but the proposed FOXC1 activation of IRX3 that would make stronger ref T binding risk is unproven."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"ARID5B\"}",
+   "resolves": "H1.binding",
+   "why": "H1 currently has no binding evidence and ARID5B coverage is only 'not_checked'. This lookup would determine whether ARID5B has its own QBiC-SELEX model at this variant and in which direction."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ESRRA\",\"biosample\":\"adipose\"}",
+   "resolves": "H2.binding",
+   "why": "H2's binding link is only a QBiC-SELEX prediction. ENCODE ChIP-seq peaks in adipose would test whether ESRRA actually occupies the rs1421085-containing element."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"FOXC1\",\"biosample\":\"adipose\"}",
+   "resolves": "H3.binding",
+   "why": "H3 relies on a FOXC1 QBiC-SELEX prediction from a group with direction disagreement and a non-FOXC1 best model. Adipose ChIP-seq would test occupancy at the locus."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "ARID5B"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": null,
+    "tf": "ARID5B"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": "adipose",
+    "tf": "ESRRA"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific ESRRA EMSA with T vs C rs1421085 oligonucleotides",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_ARID5B_classic",
+     "outcome": "No ESRRA allele-specific binding at rs1421085."
+    },
+    {
+     "hypothesis_id": "H2_ESRRA",
+     "outcome": "ESRRA binds alt C more strongly than ref T."
+    },
+    {
+     "hypothesis_id": "H3_FOXC1",
+     "outcome": "No ESRRA allele-specific binding at rs1421085."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific ESRRA binding at rs1421085."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific ARID5B EMSA with T vs C rs1421085 oligonucleotides",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_ARID5B_classic",
+     "outcome": "ARID5B binds ref T more strongly than alt C."
+    },
+    {
+     "hypothesis_id": "H2_ESRRA",
+     "outcome": "No ARID5B allele-specific binding at rs1421085."
+    },
+    {
+     "hypothesis_id": "H3_FOXC1",
+     "outcome": "No ARID5B allele-specific binding at rs1421085."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific ARID5B binding at rs1421085."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific FOXC1 EMSA with T vs C rs1421085 oligonucleotides",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_ARID5B_classic",
+     "outcome": "No FOXC1 allele-specific binding at rs1421085."
+    },
+    {
+     "hypothesis_id": "H2_ESRRA",
+     "outcome": "No FOXC1 allele-specific binding at rs1421085."
+    },
+    {
+     "hypothesis_id": "H3_FOXC1",
+     "outcome": "FOXC1 binds ref T more strongly than alt C."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allele-specific FOXC1 binding at rs1421085."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Enhancer reporter or MPRA with ref T vs alt C rs1421085 in preadipocytes",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_ARID5B_classic",
+     "outcome": "Allelic enhancer activity difference, with C predicted to derepress activity if C is the ARID5B-loss risk allele."
+    },
+    {
+     "hypothesis_id": "H2_ESRRA",
+     "outcome": "Alt C lowers enhancer activity if ESRRA is a repressor."
+    },
+    {
+     "hypothesis_id": "H3_FOXC1",
+     "outcome": "Ref T shows higher enhancer activity if FOXC1 is an activator."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No allelic difference in enhancer activity."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ESRRA knockdown/inhibition in preadipocytes followed by FTO expression measurement",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_ARID5B_classic",
+     "outcome": "No specific ESRRA-dependent effect; ARID5B perturbation is the relevant test."
+    },
+    {
+     "hypothesis_id": "H2_ESRRA",
+     "outcome": "ESRRA knockdown increases FTO expression if ESRRA represses FTO."
+    },
+    {
+     "hypothesis_id": "H3_FOXC1",
+     "outcome": "No specific ESRRA-dependent effect; FOXC1 perturbation is the relevant test."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No FTO expression change after ESRRA knockdown."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPR allele swap at rs1421085 in preadipocytes with FTO/IRX3 expression readout",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1_ARID5B_classic",
+     "outcome": "C allele swap changes IRX3 expression if ARID5B represses this enhancer."
+    },
+    {
+     "hypothesis_id": "H2_ESRRA",
+     "outcome": "C allele swap lowers FTO expression if ESRRA represses FTO."
+    },
+    {
+     "hypothesis_id": "H3_FOXC1",
+     "outcome": "T allele swap increases IRX3 expression if FOXC1 activates this enhancer."
+    },
+    {
+     "hypothesis_id": "H4_null",
+     "outcome": "No change, or the signal is explained by a linked variant rather than rs1421085."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Allele-specific ESRRA EMSA with recombinant ESRRA on T vs C rs1421085 oligonucleotides is the cheapest experiment that separates the top two chains (H2_ESRRA vs H4_null). It tests the predicted alt-C-greater ESRRA binding directly; a follow-up ChIP-qPCR in heterozygous preadipocytes would test occupancy in chromatin.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/16:53767042-53767042:1/C?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:38:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr16:53767042:T>C (GRCh38), allele string T/C\nKnown IDs: rs1421085\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 2.55\nTranscript consequences: FTO (intron_variant, NMD_transcript_variant); FTO (intron_variant); FTO (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/16:52767042-54767042?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:38:17+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "7 protein-coding genes within 1000 kb of chr16:53767042:T>C, by distance to TSS:\nRPGRIP1L: 63.1 kb from TSS (upstream, strand -1)\nFTO: 65.3 kb from TSS (in gene body, strand +1)\nAKTIP: 262.6 kb from TSS (upstream, strand -1)\nRBL2: 333.1 kb from TSS (downstream, strand +1)\nIRX3: 520.4 kb from TSS (downstream, strand -1)\nCHD9: 712.1 kb from TSS (downstream, strand +1)\nCHD9NB: 714.1 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:29:02+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3181208 (dELS: distal enhancer-like), chr16:53766999-53767220.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3181207 dELS: DNase z 3.5, H3K27ac z 3.2, H3K4me3 z 1.5, CTCF z 1.5; nearby genes RPGRIP1L, FTO, AC007497.1\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs1421085&size=100",
+   "retrieved_utc": "2026-10-25T17:29:17+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "100 GWAS Catalog associations for rs1421085, strongest first:\nBody mass index (BMI, mean, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nBody mass index (BMI, maximum, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.669, PMID 39024449\nWhat is your weight? (pounds, inv-normal transformed): p 9.9e-324, effect allele T, risk-allele frequency 0.5909, PMID 39024449\nWeight (mean, inv-normal transformed): p 2.0e-300, effect allele T, risk-allele frequency 0.669, PMID 39024449\nObesity (PheCode 278.1): p 6.0e-291, effect allele T, risk-allele frequency 0.593, PMID 39024449\nBody mass index (BMI, minimum, inv-normal transformed): p 2.0e-277, effect allele T, risk-allele frequency 0.669, PMID 39024449\nOverweight, obesity and other hyperalimentation (PheCode 278): p 4.0e-246, effect allele T, risk-allele frequency 0.5927, PMID 39024449\nBody shape phenotype PC1: p 2.0e-241, effect allele T, risk-allele frequency 0.596423, PMID 38640244\nType 2 diabetes (PheCode 250.2): p 4.0e-211, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nDiabetes mellitus (PheCode 250): p 8.0e-207, effect allele T, risk-allele frequency 0.5926, PMID 39024449\nHemoglobin A1c (HbA1c, maximum, inv-norm transformed): p 8.0e-195, effect allele T, risk-allele frequency 0.5901, PMID 39024449\nHemoglobin A1c (HbA1c, mean, inv-norm transformed): p 1.0e-185, effect allele T, risk-allele frequency 0.5901, PMID 39024449"
+  },
+  {
+   "id": "E05",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1701 credible sets contain 16_53767042_T_C: 200 GWAS, 0 molecular QTL.\nGWAS Body mass index (BMI, minimum, inv-normal transformed): PIP 0.85; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Body mass index: PIP 0.80; L2G FTO 0.99, RPGRIP1L 0.25\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.67; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Diabetes mellitus (PheCode 250): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20, CHD9 0.06\nGWAS Impedance of leg left (UKB data field 23108): PIP 0.46; L2G FTO 0.99, RPGRIP1L 0.20\nGWAS Leg fat free mass left (UKB data field 23117): PIP 0.41; L2G FTO 0.99, RPGRIP1L 0.21, CHD9 0.07\nBest L2G gene scores across these sets: FTO 0.99, RPGRIP1L 0.36, CHD9 0.16"
+  },
+  {
+   "id": "E06",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs1421085%20AND%20FTO%20AND%20%22obesity%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 653 hits for 'rs1421085 AND FTO AND \"obesity\"'; top 8 with PMIDs:\nPMID 42440472 (2026): A Rapid Genotyping Assay for &lt;i&gt;FTO&lt;/i&gt; and &lt;i&gt;PPAR-\u03b3&lt;/i&gt; Nutrigenetic Variants in Thai Adults with Overweight/Obesity.\nPMID 41862896 (2026): Impact of fat mass and obesity-associated (FTO) gene variants on adult obesity and overweight: a comprehensive meta-analysis.\nPMID 41591493 (2026): Obesity-related RNA m&lt;sup&gt;6&lt;/sup&gt;A demethylase gene FTO rs1421085 is associated with neuroticism in a longitudinal birth cohort study.\nPMID 42197023 (2026): Associations Between FTO rs9939609 Genotype, Physical Activity, and Dietary Behaviors in Young Adults.\nPMID 42757464 (2026): Demethylase FTO attenuates atherosclerotic plaque via upregulating ABCA1 and ABCG1 expression by targeting ATG5.\nPMID 42299366 (2026): Hepatogenomics of MAFLD in Asian Population: Genetic Polymorphisms and Pathway-Based Insights.\nPMID 42534632 (2025): Genetic Polymorphisms Associated with Obesity in Southeast Asian Populations: A Systematic Review without Meta-Analysis.\nPMID 42245481 (2026): FTO in cardiovascular diseases: mechanisms, context dependence, and translational opportunities."
+  },
+  {
+   "id": "E06a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42440472",
+   "url": "https://europepmc.org/article/MED/42440472",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "ObjectivesThe aim of this study is to develop, validate, and apply a cost-effective 4-plex high-resolution melting (HRM) assay for simultaneous detection of FTO (rs9939609 and rs1421085) and PPAR-\u03b3 (rs1801282 and rs3856806) variants using standard laboratory equipment."
+  },
+  {
+   "id": "E06b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41862896",
+   "url": "https://europepmc.org/article/MED/41862896",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "In the obesity group, the rs1421085 exhibited the strongest effect, with an odds ratio (OR) of 2.16 (95% CI: 1.58\u20132.95)."
+  },
+  {
+   "id": "E06c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41862896",
+   "url": "https://europepmc.org/article/MED/41862896",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "CONCLUSION: This meta-analysis provides strong evidence that FTO polymorphisms, particularly rs1421085 and rs9939609, are significantly associated with increased susceptibility to obesity in adults, while their impact on overweight is comparatively weaker."
+  },
+  {
+   "id": "E06d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41591493",
+   "url": "https://europepmc.org/article/MED/41591493",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Based on findings that experimental manipulation of the RNA m6A methylation in animal experiments can affect anxiety, and given that the C-allele of FTO rs1421085 had a significant association with indicators of overweight and obesity in our previous study, we have examined the possible association of FTO rs1421085 genotype with neuroticism in the same longitudinally observed sample."
+  },
+  {
+   "id": "E06e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41591493",
+   "url": "https://europepmc.org/article/MED/41591493",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Statistically significant assocation between the FTO rs1421085 genotype and neuroticism emerged by age 25, with an additive effect of each T-allele."
+  },
+  {
+   "id": "E06f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42534632",
+   "url": "https://europepmc.org/article/MED/42534632",
+   "retrieved_utc": "2026-10-25T17:29:18+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "LEP variants were not significantly associated with obesity in Malaysians, and FTO variants showed mixed results, with rs9939609 (OR = 3.72, P = 0.009) and rs1421085 (OR = 3.22, P < 0.001) variants being associated with obesity and higher body mass index (BMI) in Indonesians, but no significant findings in Malaysians."
+  },
+  {
+   "id": "E07",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr16:53767042:T>C: 997 models scored, 425 pass the gate (Bonferroni 0.05/997, p < 5.02e-05, |z| > 4.05), in 275 CIS-BP groups. Expression context: GTEx tissue median Adipose - Subcutaneous. Groups shown: 10; dropped because no TF in the group reaches 1 TPM: 53 (CUT; Homeodomain, 3 models z -47.91, C2H2 ZF, 1 model z -42.95, Homeodomain, 2 models z -30.65, C2H2 ZF, 2 models z 21.18, Homeodomain; POU, 1 model z -19.44). Passing groups ranked below the ones shown: 212. In the group rows, 'own model' means the TF has its own QBiC-SELEX model and 'mapped' that it is covered only through CIS-BP-mapped models of related TFs. A TF not named in any group row may still have its own model, even one that passes the gate: look it up with qbic_tf_detail before stating its coverage or a QBiC-SELEX direction for it. predicted_effect > 0 means the alternate allele binds more strongly. In vitro binding only: expression and chromatin decide whether a change matters."
+  },
+  {
+   "id": "E08",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G037 (Nuclear receptor, 3 models): best model ESRRG_FL_TGAGCT40NGCA_KW_yin2017_0_3_7mer (own model of ESRRG), z 62.01, effect 2.149 (alt binds more); 3 passing models (3 with the best model's sign). Passing members: ESRRG z 62.01, ESRRB z 25.92, ESRRA z 17.39. TFs this group covers: ESRRA (own model) 34.08 TPM, ESR1 (own model) 2.07 TPM, ESR2 (mapped) 0.83 TPM, ESRRB (own model) 0.16 TPM, ESRRG (own model) 0.06 TPM; best model's site strength: ref 94.0th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G008 (Homeodomain, 9 models): best model PKNOX2_eDBD_TAACGT40NGAT_KAN_yin2017_0_4_7mer (own model of PKNOX2), z 54.71, effect 3.047 (alt binds more); 9 passing models (9 with the best model's sign). Passing members: PKNOX2 z 54.71, TGIF2 z 42.72, MEIS3 z 40.95, TGIF2LX z 36.97, MEIS2 z 35.14 (+4 more). TFs this group covers: TGIF1 (own model) 13.07 TPM, TGIF2 (own model) 11.62 TPM, MEIS3 (own model) 9.23 TPM, PKNOX1 (own model) 7.35 TPM, MEIS2 (own model) 5.53 TPM, MEIS1 (own model) 4.65 TPM, PKNOX2 (own model) 2.8 TPM, TGIF2LX (own model) 0.0 TPM, TGIF2LY (own model) 0.0 TPM; best model's site strength: ref 95.5th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G002 (Nuclear receptor, 29 models): best model NR4A3_DBD_TTCGTA20NTA_KH_nitta2015_1_3_7mer (own model of NR4A3), z 32.74, effect 2.426 (alt binds more); 19 passing models (18 with the best model's sign); members disagree on direction. Passing members: NR4A3 z 32.74, NR2C1 z 21.97, NR5A1 z 21.36, NR4A1 z 16.25, NR4A2 z 15.74 (+14 more). TFs this group covers: NR4A1 (own model) 139.74 TPM, NR1D1 (own model) 118.5 TPM, PPARG (own model) 111.14 TPM, NR2F2 (own model) 101.24 TPM, NR1H2 (mapped) 73.96 TPM, RXRB (own model) 63.05 TPM, NR1H3 (own model) 53.67 TPM, THRA (own model) 41.46 TPM, RXRA (own model) 39.73 TPM, RARA (own model) 37.57 TPM (+28 more); best model's site strength: ref 99.6th, alt 100.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G007 (Forkhead, 10 models): best model FOXL1_NA_TGCTCG20NCTC_ESW_yang2017_0_2_7mer (own model of FOXL1), z -32.62, effect -1.076 (alt binds less); 7 passing models (6 with the best model's sign); members disagree on direction. Passing members: FOXL1 z -32.62, FOXC2 z -16.49, FOXG1 z -15.83, FOXC1 z -15.51, FOXF1 z 7.79 (+2 more). TFs this group covers: FOXJ3 (own model) 33.71 TPM, FOXJ2 (own model) 24.29 TPM, FOXC1 (own model) 22.42 TPM, FOXP4 (mapped) 20.41 TPM, FOXP1 (own model) 14.95 TPM, FOXK2 (mapped) 13.86 TPM, FOXK1 (own model) 10.32 TPM, FOXS1 (mapped) 4.39 TPM, FOXF2 (mapped) 3.25 TPM, FOXC2 (own model) 3.09 TPM (+18 more); best model's site strength: ref 99.9th, alt 98.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G043 (bZIP, 3 models): best model NFE2L3_FL_TACGAG20NAGC_KH_nitta2015_1_3_7mer (own model of NFE2L3), z 28.3, effect 1.411 (alt binds more); 2 passing models (2 with the best model's sign). Passing members: NFE2L3 z 28.3, NFE2L1 z 8.62. TFs this group covers: NFE2L1 (own model) 185.6 TPM, NFE2L2 (mapped) 65.58 TPM, NFE2L3 (own model) 8.21 TPM, NFE2 (own model) 0.6 TPM; best model's site strength: ref 96.9th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G033 (bZIP, 3 models): best model ATF2_eDBD_TGAACC40NCCA_KP_yin2017_0_3_7mer (own model of ATF2), z 28.08, effect 1.047 (alt binds more); 3 passing models (3 with the best model's sign). Passing members: ATF2 z 28.08, CREB5 z 27.01, ATF7 z 10.29. TFs this group covers: ATF7 (own model) 38.23 TPM, ATF2 (own model) 26.88 TPM, CREB5 (own model) 6.45 TPM, ATF7-NPFF (mapped); best model's site strength: ref 98.6th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G022 (Forkhead, 4 models): best model FOXB1_NA_TGAGCA30NCGA_ESAI_yang2017_0_4_7mer (own model of FOXB1), z -23.72, effect -1.232 (alt binds less); 4 passing models (4 with the best model's sign). Passing members: FOXB1 z -23.72, FOXA1 z -13.3, FOXA3 z -8.79, FOXA2 z -7.96. TFs this group covers: FOXS1 (mapped) 4.39 TPM, FOXA3 (own model) 0.06 TPM, FOXA1 (own model) 0.05 TPM, FOXA2 (own model) 0.0 TPM, FOXB1 (own model) 0.0 TPM, FOXB2 (mapped) 0.0 TPM; best model's site strength: ref 99.8th, alt 99.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G048 (Homeodomain, 3 models): best model SIX1_eDBD_TTAACC40NCTA_KQ_yin2017_0_4_7mer (own model of SIX1), z -22.75, effect -0.856 (alt binds less); 3 passing models (3 with the best model's sign). Passing members: SIX1 z -22.75, SIX2 z -19.68, SIX4 z -8.7. TFs this group covers: SIX5 (mapped) 16.4 TPM, SIX1 (own model) 8.49 TPM, SIX2 (own model) 5.54 TPM, SIX4 (own model) 0.69 TPM; best model's site strength: ref 99.8th, alt 99.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G009 (Paired box, 8 models): best model PAX7_FL_TCGTTT40NGTC_KAF_yin2017_0_4_7mer (own model of PAX7), z 22.55, effect 1.934 (alt binds more); 8 passing models (8 with the best model's sign). Passing members: PAX7 z 22.55, PAX3 z 16.01, PAX9 z 15.43, PAX8 z 15.39, PAX2 z 12.88 (+3 more). TFs this group covers: PAX8 (own model) 2.24 TPM, PAX3 (own model) 0.4 TPM, PAX9 (own model) 0.14 TPM, PAX5 (own model) 0.04 TPM, PAX1 (own model) 0.03 TPM, PAX2 (own model) 0.01 TPM, PAX6 (own model) 0.01 TPM, PAX4 (own model) 0.0 TPM, PAX7 (own model) 0.0 TPM; best model's site strength: ref 90.7th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "Group G162 (Unknown, 1 model): best model DACH1_FL_TG40NTGTGTT_YWO_jolma2025_0_3_7mer (own model of DACH1), z 21.79, effect 0.795 (alt binds more); 1 passing models (1 with the best model's sign). Passing members: DACH1 z 21.79. TFs this group covers: DACH1 (own model) 6.37 TPM; best model's site strength: ref 86.1th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E18",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"ARID5B\",\"symbol\":\"ARID5B\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"not_in_coverage\"}"
+  },
+  {
+   "id": "E19",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:30:39+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE ARID5B ChIP-seq peak contains chr16:53767042:T>C. Absence can also mean no ARID5B experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E20",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:44:29+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE ESRRA ChIP-seq peak contains chr16:53767042:T>C in biosamples matching 'adipose'. Absence can also mean no ESRRA experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  }
+ ]
+}

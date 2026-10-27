@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Fake sbatch: 'runs' every array task at once, writing results from the example weights.
+
+FAKE_WEIGHTS: weights dir. FAKE_FAIL_TASK: a task index that writes a log but no results.
+FAKE_DROP_MODEL: one model left out of every results file. Prints '4242;cluster'.
+"""
+import gzip
+import hashlib
+import os
+import random
+import re
+import sys
+from pathlib import Path
+
+import pandas as pd
+from qbic_selex.kmers import sliding_window
+from qbic_selex.models import load_model
+
+script = Path(sys.argv[-1]).read_text()
+last = int(re.search(r"--array=0-(\d+)", script).group(1))
+stats = "--compute-stats" in script
+weights = {p.name.removesuffix(".weights.qbic"): p for p in Path(os.environ["FAKE_WEIGHTS"]).rglob("*.weights.qbic")}
+variants = pd.read_csv("variants.tsv", sep="\t")
+fail = os.environ.get("FAKE_FAIL_TASK")
+drop = os.environ.get("FAKE_DROP_MODEL")
+
+
+def context(key: str, ref: str) -> str:
+    rng = random.Random(int(hashlib.md5(key.encode()).hexdigest(), 16))
+    s = [rng.choice("ACGT") for _ in range(21)]
+    s[10] = ref
+    return "".join(s)
+
+
+for i in range(last + 1):
+    nn = f"{i:02d}"
+    log = Path(f"slurm-4242_{nn}.out")
+    if fail is not None and int(fail) == i:
+        log.write_text("Traceback (most recent call last):\nModelInputError: covariance missing for X\n")
+        continue
+    log.write_text("INFO Statistics on GPU: FakeGPU 1\n" if stats else "INFO effects only\n")
+    rows = []
+    for m in Path(f"models_{nn}.txt").read_text().split():
+        if m == drop:
+            continue
+        model = load_model(weights[m])
+        for v in variants.itertuples(index=False):
+            ref = context(v.variant_key, v.ref)
+            alt = ref[:10] + v.alt + ref[11:]
+            eff = (sum(model.complete[x] for x in sliding_window(alt, model.kmer_size))
+                   - sum(model.complete[x] for x in sliding_window(ref, model.kmer_size)))
+            row = {**v._asdict(), "ref_sequence": ref, "alt_sequence": alt, "model": m,
+                   "predicted_effect": float(eff), "qbic_status": "ok"}
+            if stats:
+                row["z_score"], row["p_value"] = float(eff) / 0.05, 0.5
+            rows.append(row)
+    cols = ["variant_key", "chrom", "pos", "ref", "alt", "ref_sequence", "alt_sequence", "model", "predicted_effect"]
+    cols += ["z_score", "p_value"] if stats else []
+    with gzip.open(f"results_{nn}.csv.gz", "wt") as f:
+        pd.DataFrame(rows, columns=cols + ["qbic_status"]).to_csv(f, index=False)
+    Path(f"done_{nn}").write_text("3\n")
+print("4242;cluster")

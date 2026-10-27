@@ -1,0 +1,456 @@
+{
+ "case_id": "rs11629191",
+ "variant": "rs11629191",
+ "variant_key": "chr14:55887040:C>T",
+ "disease": "Breast cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "single",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "claude-opus-5",
+  "critic": "claude-sonnet-5-5",
+  "summariser": "claude-haiku-5-5"
+ },
+ "cost_usd": 0.1579,
+ "seconds": 73.1,
+ "model_calls": 1,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H5",
+   "title": "Null: no TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific binding for any TF in heterozygous cells",
+    "No allelic difference in reporter assays or in MPRA",
+    "Base editing/prime editing of the single base in MCF7 changes no neighbouring gene's expression",
+    "Fine-mapping credible set contains a better-supported linked variant, or the association is driven by LD with a coding/other regulatory variant"
+   ],
+   "falsified_if": [
+    "Reproducible allele-specific binding plus a concordant allelic reporter or editing effect is demonstrated"
+   ],
+   "probability": 0.43,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Alt T creates a stronger FOXA1 (forkhead) site in a luminal enhancer, raising expression of a nearby 14q22.1 gene",
+   "is_null": false,
+   "tf": "FOXA1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "alt",
+   "element": "Putative distal enhancer at chr14:55,887,040 active in ER+ luminal breast epithelium (MCF7)",
+   "target_gene": "SAMD4A (alternatives: GCH1, FBXO34, WDHD1)",
+   "cell_type": "ER-positive luminal breast epithelial cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The C>T change is predicted to improve match to the forkhead core motif (TGTTT/GTAAACA family), so the alt allele is bound more strongly by FOXA1; FOXA1 is chosen within the forkhead specificity group because it is the dominant, highly expressed forkhead factor in MCF7 and in luminal breast tissue (FOXA2/FOXA3 are essentially absent).",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a non-coding region expected to carry luminal enhancer marks (H3K27ac, ATAC accessibility) co-bound by FOXA1 in MCF7.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Stronger FOXA1 pioneering increases accessibility and looping of this enhancer to a 14q22.1 promoter, most plausibly SAMD4A, raising its transcription.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The effect is restricted to FOXA1-expressing luminal breast cells, where the enhancer is open.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered dosage of the FOXA1-driven target gene modestly shifts proliferation/differentiation of luminal progenitors, contributing to ER+ breast cancer risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific FOXA1 ChIP-seq signal in heterozygous breast cells favours the T allele",
+    "EMSA supershift with FOXA1 antibody shows stronger complex on the T probe",
+    "FOXA1 knockdown abolishes the allelic reporter difference",
+    "Reporter activity higher for T than C in MCF7, no difference in FOXA1-negative cells (e.g. MDA-MB-231)"
+   ],
+   "falsified_if": [
+    "No allelic imbalance in FOXA1 ChIP or no FOXA1 occupancy at the locus",
+    "Reporter shows no allelic difference, or the C allele is more active",
+    "QBiC-SELEX forkhead models show the ref allele is the stronger binder"
+   ],
+   "probability": 0.22,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "H2",
+   "title": "Ref C preserves a GATA3 site; alt T disrupts it, lowering enhancer output",
+   "is_null": false,
+   "tf": "GATA3",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "Same putative luminal enhancer at chr14:55,887,040",
+   "target_gene": "SAMD4A (alternatives: GCH1, FBXO34)",
+   "cell_type": "ER-positive luminal breast epithelial cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The C allele can complete a WGATAA-like core that the T allele breaks, so GATA3 binds the ref allele more; within the GATA specificity group GATA3 is chosen because it is the only GATA factor highly expressed in MCF7 and luminal breast tissue.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "GATA3 co-occupies FOXA1/ER enhancers in luminal cells, and this site is expected to fall in such a cluster.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Loss of GATA3 binding on the risk allele reduces enhancer activity and lowers expression of the looped 14q22.1 target.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Restricted to GATA3-high luminal cells; no effect in basal/mesenchymal lines.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Reduced target-gene expression weakens luminal differentiation control, increasing ER+ breast cancer risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific GATA3 ChIP favours the C allele",
+    "GATA3 knockdown removes the allelic reporter difference while FOXA1 knockdown does not",
+    "Reporter activity lower for T than C"
+   ],
+   "falsified_if": [
+    "No GATA3 occupancy or no allelic imbalance at the site",
+    "T allele shows equal or higher reporter activity",
+    "Motif analysis shows no GATA core is created or destroyed"
+   ],
+   "probability": 0.16,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA3"
+  },
+  {
+   "id": "H3",
+   "title": "Alt T weakens an ESR1 half-site/ERE, blunting oestrogen-responsive enhancer activity",
+   "is_null": false,
+   "tf": "ESR1",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "Oestrogen-responsive enhancer at chr14:55,887,040",
+   "target_gene": "GCH1 (alternative: SAMD4A)",
+   "cell_type": "ER-positive breast cancer cells (MCF7)",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The variant sits in or beside an ERE half-site (GGTCA-like) that the C allele matches better, so ESR1 binds the ref allele more; ESR1 rather than ESR2 because ESR2 is not meaningfully expressed in MCF7.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The element is expected to be an E2-inducible ER binding site in MCF7.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Weaker ER recruitment on the alt allele reduces E2-induced transcription of the nearby target gene.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Effect confined to ER+ cells and dependent on oestrogen stimulation.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Altered oestrogen-responsive gene dosage shifts hormone-driven proliferation and ER+ breast cancer risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allelic reporter difference appears only after E2 treatment and is lost with fulvestrant",
+    "ER ChIP shows E2-dependent occupancy with C-allele bias",
+    "No allelic effect in ER-negative cells even if FOXA1 is present"
+   ],
+   "falsified_if": [
+    "No ER binding at the locus in E2-treated MCF7",
+    "Allelic reporter difference is identical with and without oestrogen"
+   ],
+   "probability": 0.1,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ESR1"
+  },
+  {
+   "id": "H4",
+   "title": "Alt T disrupts a CTCF site, altering TAD/loop insulation at 14q22.1",
+   "is_null": false,
+   "tf": "CTCF",
+   "qbic_coverage": "not_checked",
+   "allele_binding_more": "ref",
+   "element": "CTCF-bound insulator/loop anchor at chr14:55,887,040",
+   "target_gene": "SAMD4A / GCH1 (enhancer-promoter rewiring within the sub-TAD)",
+   "cell_type": "Broadly expressed; phenotype read out in breast epithelium",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The C>T change falls in the core CTCF 19-mer and weakens binding, so the ref allele binds CTCF more; CTCF is a single-member specificity (CTCFL is testis-restricted and not expressed in MCF7).",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The element acts as a constitutive loop anchor rather than a cell-type-specific enhancer.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "gene",
+     "claim": "Weaker insulation on the alt allele lets an adjacent enhancer contact a different promoter, changing expression of a 14q22.1 gene.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CTCF binding is ubiquitous, but the expression consequence is seen where the neighbouring enhancers are active, i.e. breast epithelium.",
+     "evidence_ids": [],
+     "status": "missing"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Rewired enhancer-promoter contacts alter target dosage and contribute to breast cancer risk.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "Allele-specific CTCF ChIP/CUT&RUN favours C across many cell types, not just breast",
+    "4C/Hi-C shows allele-dependent contact changes",
+    "Episomal reporter shows little or no allelic difference (insulators act in chromatin context)"
+   ],
+   "falsified_if": [
+    "No CTCF peak at the variant in any ENCODE cell type",
+    "Allelic effect is breast-restricted and reporter-detectable"
+   ],
+   "probability": 0.09,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.22,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.16,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "ESR1",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H4",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.09,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H5",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.43,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [],
+ "grades_final": [],
+ "checks": [],
+ "investigate_calls": [],
+ "matrix": [
+  {
+   "test": "QBiC-SELEX lookup of FOXA1, GATA3, ESR1 and CTCF at this variant (direction and magnitude of predicted binding change)",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Forkhead model predicts stronger binding to T"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "GATA model predicts stronger binding to C"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Nuclear-receptor model predicts stronger binding to C"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "CTCF model predicts stronger binding to C"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No model shows a meaningful allelic difference"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific analysis of existing MCF7/breast FOXA1, GATA3, ER and CTCF ChIP-seq at heterozygous sites, plus overlap with ENCODE H3K27ac/ATAC",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "FOXA1 peak present with reads biased to T"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "GATA3 peak with reads biased to C"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "ER peak, E2-dependent, biased to C"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "CTCF peak biased to C, present across cell types"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No peak or balanced reads"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allelic luciferase reporter (C vs T, ~500 bp) in MCF7 \u00b1 oestrogen and in MDA-MB-231",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "T > C in MCF7 only, E2-independent"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "C > T in MCF7 only"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "C > T only after E2"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No or minimal allelic difference episomally"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No allelic difference in any condition"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "EMSA/competition with MCF7 nuclear extract plus FOXA1 and GATA3 supershift",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Stronger T complex, supershifted by anti-FOXA1"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Stronger C complex, supershifted by anti-GATA3"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Stronger C complex, supershifted by anti-ER"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Stronger C complex, supershifted by anti-CTCF"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Equal binding, no specific complex"
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Prime-edit C/T homozygous MCF7 clones and measure 1 Mb neighbourhood expression by RNA-seq",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Target gene up in T clones"
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Target gene down in T clones"
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Target gene down in T clones only with E2"
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "Shift in which neighbouring promoter responds; contact changes on Hi-C"
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No expression change"
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Mine existing MCF7/breast ChIP-seq (FOXA1, GATA3, ER, CTCF) for allele-specific read imbalance at chr14:55,887,040 in heterozygous samples, together with a QBiC-SELEX lookup of these TFs. This costs nothing new and immediately separates the null (no peak or balanced reads) from the FOXA1 chain (T-biased FOXA1 occupancy).",
+ "citation_support": null,
+ "flags": [],
+ "evidence": []
+}

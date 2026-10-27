@@ -1,0 +1,670 @@
+{
+ "case_id": "rs4784227",
+ "variant": "rs4784227",
+ "variant_key": "chr16:52565276:C>T",
+ "disease": "Breast cancer (16q12)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0102,
+ "seconds": 123.9,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "There will be no reproducible allele-specific TF occupancy or TF-dependent enhancer effect attributable to this C-to-T change in relevant breast cells.",
+    "The strong breast-cancer association may reflect a linked causal change, a non-TF mechanism, or another effect not mediated by this variant."
+   ],
+   "falsified_if": [
+    "In relevant breast cells, the variant shows reproducible allele-specific binding by a TF and variant- or TF-perturbation demonstrates a corresponding allele-dependent regulatory effect."
+   ],
+   "probability": 0.76,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Hypothesized alt-enhanced FOXA1 binding affects a TOX3-linked enhancer",
+   "is_null": false,
+   "tf": "FOXA1",
+   "allele_binding_more": "alt",
+   "element": "EH38E3180851",
+   "target_gene": "TOX3",
+   "cell_type": "MCF7 breast cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXA1 occupies the variant-containing site in MCF-7; this chain hypothesizes stronger binding to alt T, but the supplied evidence has no allele-specific measurement or FOXA1 QBiC-SELEX result establishing that direction. FOXA1 is selected as a candidate because it is expressed and has MCF-7 occupancy at the site, not because it is shown to be the variant-sensitive factor.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in distal enhancer-like cCRE EH38E3180851, with activity marks reported among ENCODE biosamples; these maxima do not establish activity in MCF-7 specifically.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TOX3 is a plausible target based on proximity and high breast-cancer L2G scores, but no supplied evidence directly links this cCRE to TOX3; the reported GTEx results do not provide a significant eQTL for the variant.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MCF-7 is a plausible context because FOXA1 is abundant there and ChIP-seq peaks containing the variant are reported in MCF-7; this does not establish MCF-7-specific activity of the cCRE or allele-specific binding.",
+     "evidence_ids": [
+      "E05"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "This chain proposes that greater FOXA1 binding on T increases enhancer output and TOX3 expression, potentially contributing to breast-cancer risk. The variant is strongly associated with breast cancer and T is reported as the effect allele in several associations, but the regulatory chain and its effect on risk are untested; one listed association reports C as the effect allele.",
+     "evidence_ids": [
+      "E15",
+      "E16",
+      "E21"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If the binding hypothesis is correct, allele-informative MCF-7 FOXA1 ChIP-seq or CUT&RUN reads will be enriched for T over C at this site.",
+    "A variant-dependent FOXA1 or enhancer perturbation will change enhancer output and, if TOX3 is the target, TOX3 expression preferentially from the T-bearing haplotype."
+   ],
+   "falsified_if": [
+    "Adequately powered allele-specific measurements show no FOXA1 enrichment on T, or show enrichment on C.",
+    "FOXA1 or enhancer perturbation produces no variant-dependent effect on enhancer output or on TOX3 expression."
+   ],
+   "probability": 0.14,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "H2",
+   "title": "Hypothesized alt-enhanced GATA3 binding represses a TOX3-linked enhancer",
+   "is_null": false,
+   "tf": "GATA3",
+   "allele_binding_more": "alt",
+   "element": "EH38E3180851",
+   "target_gene": "TOX3",
+   "cell_type": "MCF7 breast cancer cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GATA3 occupies the variant-containing site in MCF-7; this chain hypothesizes stronger binding to alt T, but the supplied evidence has no allele-specific measurement or GATA3 QBiC-SELEX result establishing that direction. GATA3 is a candidate because it is highly expressed and has MCF-7 occupancy here, not because it is shown to be the variant-sensitive factor.",
+     "evidence_ids": [
+      "E04",
+      "E06"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in distal enhancer-like cCRE EH38E3180851, with activity marks reported among ENCODE biosamples; these maxima do not establish activity in MCF-7 specifically.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TOX3 is a plausible target based on proximity and high breast-cancer L2G scores, but no supplied evidence directly links this cCRE to TOX3; the reported GTEx results do not provide a significant eQTL for the variant.",
+     "evidence_ids": [
+      "E02",
+      "E16",
+      "E17",
+      "E20"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MCF-7 is a plausible context because GATA3 is highly expressed there and ChIP-seq peaks containing the variant are reported in MCF-7; this does not establish MCF-7-specific activity of the cCRE or allele-specific binding.",
+     "evidence_ids": [
+      "E06"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "This chain proposes that greater GATA3 binding on T represses enhancer output and lowers TOX3 expression, potentially contributing to breast-cancer risk. Neither repression nor the expression effect is established, and the risk association does not establish this mechanism; one listed association reports C as the effect allele.",
+     "evidence_ids": [
+      "E15",
+      "E16",
+      "E21"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If the binding hypothesis is correct, allele-informative MCF-7 GATA3 ChIP-seq or CUT&RUN reads will be enriched for T over C at this site.",
+    "Greater GATA3 activity or occupancy will reduce enhancer output and, if TOX3 is the target, reduce TOX3 expression preferentially from the T-bearing haplotype."
+   ],
+   "falsified_if": [
+    "Adequately powered allele-specific measurements show no GATA3 enrichment on T, or show enrichment on C.",
+    "GATA3 or enhancer perturbation does not produce the predicted allele-dependent reduction in enhancer output or TOX3 expression."
+   ],
+   "probability": 0.1,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GATA3"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.58,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.3,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "GATA3",
+   "is_null": false,
+   "probability": 0.12,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E05 shows FOXA1 occupancy over the variant in MCF-7, but no allele-specific assay or QBiC-SELEX result supports stronger binding to T."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in EH38E3180851, a distal enhancer-like cCRE with activity marks reported across ENCODE biosamples; the claim appropriately notes that these marks are not MCF-7-specific."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 and E16 prioritize nearby TOX3, including a high breast-cancer L2G score, but do not demonstrate that this element regulates TOX3."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E05 directly reports FOXA1 peaks containing the variant in MCF-7, and reports high FOXA1 expression in the stated context."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 supports a strong breast-cancer association with T reported as a risk allele, and E16 prioritizes TOX3; neither establishes the proposed FOXA1-to-enhancer-to-TOX3 mechanism or its effect on risk."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E06 shows GATA3 occupancy over the variant in MCF-7, but no allele-specific assay or QBiC-SELEX result supports stronger binding to T."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 place the variant in EH38E3180851, a distal enhancer-like cCRE with activity marks reported across ENCODE biosamples; the claim appropriately notes that these marks are not MCF-7-specific."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 and E16 prioritize nearby TOX3, including a high breast-cancer L2G score, but do not demonstrate that this element regulates TOX3."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E06 directly reports GATA3 peaks containing the variant in MCF-7, and reports high GATA3 expression in the stated context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 supports a strong breast-cancer association with T reported as a risk allele, and E16 prioritizes TOX3; neither establishes GATA3-mediated repression, a TOX3 expression change, or the resulting risk mechanism."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "FOXA1 occupancy at the variant in MCF-7 is reported, but no QBiC-SELEX or other allele-specific evidence establishes stronger binding to T."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant is directly reported within enhancer-like cCRE EH38E3180851; the claim appropriately notes that activity marks are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and high breast-cancer L2G scores make TOX3 plausible, but no evidence directly links this cCRE to TOX3."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "FOXA1 expression and ChIP-seq occupancy at the variant are directly reported in MCF-7, supporting it as a plausible context."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant has strong breast-cancer association evidence, including T as an effect allele, but the proposed FOXA1-to-TOX3 mechanism and its risk direction are untested."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "GATA3 occupancy at the variant in MCF-7 is reported, but no QBiC-SELEX or other allele-specific evidence establishes stronger binding to T."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant is directly reported within enhancer-like cCRE EH38E3180851; the claim appropriately notes that activity marks are maxima across biosamples."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "Proximity and high breast-cancer L2G scores make TOX3 plausible, but no evidence directly links this cCRE to TOX3."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "GATA3 expression and ChIP-seq occupancy at the variant are directly reported in MCF-7, supporting it as a plausible context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant has breast-cancer association evidence, including T as an effect allele, but neither GATA3-mediated repression nor its effect on TOX3 and risk is established."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"chr16:52565276 TOX3 breast cancer variant enhancer functional study allele-specific\"}",
+   "resolves": "H1.gene",
+   "why": "Could find variant-specific enhancer-to-gene or perturbation evidence that would materially improve or weaken TOX3 assignment."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Breast Mammary Tissue\"}",
+   "resolves": "H2.gene",
+   "why": "A variant-associated expression effect in breast tissue could provide evidence for a regulatory target and direction, although the supplied GTEx summary reports no significant single-tissue eQTLs."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"TOX3\"}",
+   "resolves": "H1.phenotype",
+   "why": "Could clarify whether gene-level disease evidence supports TOX3 as a breast-cancer effector, while not by itself validating either variant-specific TF mechanism."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "chr16:52565276 TOX3 breast cancer variant enhancer functional study allele-specific"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Breast - Mammary Tissue"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "TOX3"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Reanalyze allele-informative MCF-7 FOXA1 ChIP-seq reads spanning the variant for allelic imbalance, accounting for mapping bias.",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible T-versus-C FOXA1 occupancy imbalance."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "More FOXA1 reads from the T-bearing allele."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No required FOXA1 imbalance; GATA3, rather than FOXA1, is the proposed allele-sensitive factor."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Measure allele-specific GATA3 occupancy at the site in MCF-7 using allele-informative ChIP-seq or CUT&RUN reads.",
+   "cost": "existing data",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible T-versus-C GATA3 occupancy imbalance."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No required GATA3 imbalance; FOXA1 is the proposed allele-sensitive factor."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "More GATA3 occupancy from the T-bearing allele."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Perturb the variant-containing cCRE in MCF-7 and measure allele-specific enhancer output and TOX3 expression.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible variant-dependent TF-mediated change in enhancer output or TOX3 expression."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A FOXA1-dependent increase in enhancer output and TOX3 expression on the T-bearing haplotype."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A GATA3-dependent decrease in enhancer output and TOX3 expression on the T-bearing haplotype."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The cheapest discriminator between the top two hypotheses (H0 and H1) is allele-specific reanalysis of existing MCF-7 FOXA1 ChIP-seq reads spanning the variant, if the reads and genotype are informative. Test for T-allele enrichment while controlling mapping bias; no enrichment would favor H0 over H1, whereas reproducible T enrichment would support H1's binding prediction but would not by itself prove enhancer activity, TOX3 targeting, or disease mediation.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/16:52565276-52565276:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:24+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr16:52565276:C>T (GRCh38), allele string C/T\nKnown IDs: rs4784227\nMost severe consequence: intron_variant\nRegulatory features: ENSR16_9QTBS enhancer\nGERP conservation score at the site: -2\nTranscript consequences: CASC16 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/16:51565276-53565276?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:25:47+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "6 protein-coding genes within 1000 kb of chr16:52565276:C>T, by distance to TSS:\nTOX3: 17.5 kb from TSS (upstream, strand -1)\nCHD9NB: 487.6 kb from TSS (downstream, strand -1)\nCHD9: 489.7 kb from TSS (upstream, strand +1)\nRBL2: 868.7 kb from TSS (upstream, strand +1)\nAKTIP: 939.1 kb from TSS (downstream, strand -1)\nHNRNPA1L3: 1011.8 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3180851 (dELS: distal enhancer-like), chr16:52565011-52565360.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3180851 dELS (contains the variant): DNase z 4.2, H3K27ac z 6.1, H3K4me3 z 1.8, CTCF z 1.9; nearby genes CASC16, TOX3, AC026462.5\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr16:52565276:C>T: 276 peaks contain the variant, from 193 factors in 7 biosamples. In the matching biosample MCF-7: 14 peaks from 9 factors. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ARID4A, ARID5B, ASH2L, BCL3, CBX5, CHD4, CTBP1, DPF2, EP300, GATAD1, GZF1, HBP1 (+64 more). Bound, expressed TFs with a binding model: 95; listed one per row: FOXA1, GATA3, SPDEF, NR2F2, TCF7L2, SP1, MYBL2, MAX, JUND, RXRA; also bound: YY1, GATAD2A, ZGPAT, CREM, FOSL2, ZNF609, ZNF703, TEAD1, RXRB, FOXP4, EGR1, MEF2D, ZNF800, AHDC1, GMEB1, ZNF772, ZNF788P, HMG20B, ELF1, TRAFD1, E2F4, ELF3, RELA, MLX, TBX2, ERF, HMG20A, BHLHE40, CREB1, ZBTB7B (+55 more). Bound but below 1 TPM: DLX6, ETS1, FOXA2, FOXA3, GATA4, GFI1, HLF, HNF1A, HNF1B, HNF4A. Assayed with no peak here: 45 TFs in the matching biosample, 411 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "FOXA1: bound here. 8 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7; also in A549, HepG2, liver (e.g. ENCSR126YEB). 88.38 TPM in DepMap:ACH-000019 (MCF7), rank 28 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "GATA3: bound here. 7 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7; also in A549, T47D (e.g. ENCSR000EWV). 346.04 TPM in DepMap:ACH-000019 (MCF7), rank 5 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SPDEF: bound here. 2 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7 (e.g. ENCSR042GSX). 72.51 TPM in DepMap:ACH-000019 (MCF7), rank 40 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2F2: bound here. 2 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7; also in HepG2 (e.g. ENCSR000BUY). 38.14 TPM in DepMap:ACH-000019 (MCF7), rank 103 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TCF7L2: bound here. 1 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample MCF-7 (e.g. ENCSR000EWT). 4.89 TPM in DepMap:ACH-000019 (MCF7), rank 642 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SP1: bound elsewhere. 6 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, HepG2, liver (e.g. ENCSR386YIH). 33.01 TPM in DepMap:ACH-000019 (MCF7), rank 122 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MYBL2: bound elsewhere. 5 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR000BRO). 49.2 TPM in DepMap:ACH-000019 (MCF7), rank 66 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 4 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, liver (e.g. ENCSR521IID). 76.95 TPM in DepMap:ACH-000019 (MCF7), rank 35 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUND: bound elsewhere. 4 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, liver (e.g. ENCSR000BGK). 44.21 TPM in DepMap:ACH-000019 (MCF7), rank 83 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "RXRA: bound elsewhere. 4 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, liver (e.g. ENCSR352QSB). 30.65 TPM in DepMap:ACH-000019 (MCF7), rank 132 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs4784227&size=100",
+   "retrieved_utc": "2026-10-25T17:26:28+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "34 GWAS Catalog associations for rs4784227, strongest first:\nBreast cancer: p 2.0e-240, effect allele T, risk-allele frequency NR, PMID 32139696\nPostmenopausal breast cancer: p 5.0e-50, effect allele T, risk-allele frequency NR, PMID 38538606\nBreast cancer (estrogen-receptor negative): p 2.0e-26, effect allele T, risk-allele frequency 0.24, PMID 29058716\nBiological Mother:  Cancer, Breast: p 2.0e-25, effect allele C, risk-allele frequency 0.7783, PMID 39024449\nBreast cancer (estrogen-receptor positive): p 1.0e-13, effect allele T, risk-allele frequency 0.06, PMID 38741014\nParkinson's disease: p 1.0e-10, effect allele T, risk-allele frequency 0.265, PMID 28892059\nSystolic blood pressure: p 1.0e-09, effect allele T, risk-allele frequency 0.2398, PMID 33230300\nBRCA1/2-negative high-risk breast cancer: p 2.0e-09, effect allele T, risk-allele frequency 0.26, PMID 30323354\nPulse pressure: p 2.0e-08, effect allele T, risk-allele frequency 0.2354, PMID 33230300\nCancer: p 3.0e-08, effect allele ?, risk-allele frequency NR, PMID 34290314"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:26:25+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "83 credible sets contain 16_52565276_C_T: 74 GWAS, 9 molecular QTL.\nGWAS Breast cancer: PIP 1.00; L2G TOX3 0.92\nGWAS Malignant neoplasm of breast, excluding all cancers (control: PIP 1.00; L2G TOX3 0.92\nGWAS Breast cancer: PIP 1.00; L2G TOX3 0.93\nGWAS Breast cancer (luminal A): PIP 1.00; L2G TOX3 0.92\nGWAS Malignant neoplasm of breast, ER-positive, excluding all can: PIP 1.00; L2G TOX3 0.92\nGWAS Breast cancer [female] (PheCode 174.1): PIP 1.00; L2G TOX3 0.92\neqtl for ENSG00000285800 (gtex-v10_exon_brain_spinal_cord_ensg00000285800_1_): PIP 0.07\neqtl for ENSG00000285800 (gtex-v10_ge_brain_hippocampus_ensg00000285800): PIP 0.06\ntuqtl for TOX3 (gtex-v10_txrev_brain_hippocampus_ensg00000103460_g): PIP 0.05\neqtl for ENSG00000285800 (gtex-v10_ge_brain_spinal_cord_ensg00000285800): PIP 0.04\ntuqtl for TOX3 (gtex-v10_txrev_brain_substantia_nigra_ensg00000103): PIP 0.04\neqtl for ENSG00000285800 (gtex-v10_exon_brain_hippocampus_ensg00000285800_1_): PIP 0.03\nBest L2G gene scores across these sets: TOX3 0.96"
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_52565276_C_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:51+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_52565276_C_T_b38. NES is the effect of the alt allele (T) relative to ref (C)."
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TOX3%20AND%20%22breast%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:25:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 586 hits for 'TOX3 AND \"breast cancer\"'; top 7 with PMIDs:\nPMID 41230718 (2026): Cis-regulatory and long noncoding RNA alterations in breast cancer - current insights, biomarker utility, and the critical need for functional validation.\nPMID 41849381 (2026): A transcription regulator atlas identifies TOX3 as an Atoh1 coactivator in cerebellar development and tumorigenesis.\nPMID 41595182 (2026): Identification and Characterisation of Canine Osteosarcoma Biomarkers and Therapeutic Targets.\nPMID 41596432 (2026): Bone Metastasis in Estrogen Receptor-Positive Breast Cancer: Molecular Insights and Therapeutic Advances.\nPMID 40932605 (2025): Molecular signatures of breast cancer in the Iranian population: a review of cell growth and cell cycle regulators.\nPMID 42700350 (2026): Interactions between circular RNAs (circRNAs) and the Hippo pathway in cancer.\nPMID 41871294 (2026): A reanalysis of a genome-wide association study on breast cancer in Asian populations using the SG10K_Health reference panel for imputation: a multi-Centre case-control analysis."
+  },
+  {
+   "id": "E18a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41230718",
+   "url": "https://europepmc.org/article/MED/41230718",
+   "retrieved_utc": "2026-10-26T02:25:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Key examples include promoter mutations [e.g., rs[masked] (Mouse double minute 2 homolog gene; MDM2)], enhancer mutations [e.g., rs[masked] (thymocyte selection-associated high mobility group box family member 3 gene; TOX3)], and lncRNAs [e.g., HOX transcript antisense intergenic RNA (HOTAIR)] linked to progression, metastasis, and poor survival."
+  },
+  {
+   "id": "E18b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41871294",
+   "url": "https://europepmc.org/article/MED/41871294",
+   "retrieved_utc": "2026-10-26T02:25:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Differences in panel performance influenced association signals, including breast cancer candidate loci such as FGFR2, TOX3, and ESR1."
+  },
+  {
+   "id": "E19",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=chr16%3A52565276%20TOX3%20breast%20cancer%20variant%20enhancer%20functional%20study%20allele-specific&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:17:42+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 0 hits for 'chr16:52565276 TOX3 breast cancer variant enhancer functional study allele-specific'; top 0 with PMIDs:"
+  },
+  {
+   "id": "E20",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr16_52565276_C_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:27:51+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr16_52565276_C_T_b38 in tissues matching 'Breast - Mammary Tissue'. NES is the effect of the alt allele (T) relative to ref (C)."
+  },
+  {
+   "id": "E21",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T02:34:32+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: TOX3 and breast cancer (MONDO_0007254), overall score 0.58; by evidence type: genetic_association 0.91, literature 0.89"
+  }
+ ]
+}

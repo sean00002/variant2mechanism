@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+"""Fake ssh: records each call, then runs the remote command locally with the jobs dir mapped to a temp dir.
+
+Environment: FAKE_ROOT (local stand-in for the remote jobs dir), FAKE_REMOTE (the remote jobs dir),
+FAKE_BIN (dir with fake sbatch/squeue/sacct), FAKE_MASTER (exit code for -O check), FAKE_DOWN (1 = unreachable).
+"""
+import json
+import os
+import subprocess
+import sys
+
+argv = sys.argv[1:]
+with open(os.path.join(os.environ["FAKE_ROOT"], "..", "ssh_calls.jsonl"), "a") as f:
+    f.write(json.dumps(argv) + "\n")
+
+if "-O" in argv:
+    sys.exit(int(os.environ.get("FAKE_MASTER", "255")))
+if os.environ.get("FAKE_DOWN") == "1":
+    sys.stderr.write("ssh: connect to host: Connection refused\n")
+    sys.exit(255)
+
+sys.stderr.write("[compsci-session] using compute node: fake-node\n")   # as the real proxy does
+sys.stderr.flush()
+command = argv[-1].replace(os.environ["FAKE_REMOTE"], os.environ["FAKE_ROOT"])
+env = {**os.environ, "PATH": os.environ["FAKE_BIN"] + os.pathsep + os.environ["PATH"]}
+r = subprocess.run(["bash", "-c", command], stdin=sys.stdin.buffer, env=env)
+sys.exit(r.returncode)

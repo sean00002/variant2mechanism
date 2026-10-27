@@ -1,0 +1,599 @@
+{
+ "case_id": "rs642961",
+ "variant": "rs642961",
+ "variant_key": "chr1:209815925:A>G",
+ "disease": "Cleft lip (IRF6)",
+ "origin": "germline",
+ "expression_context": null,
+ "config": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0133,
+ "seconds": 581.0,
+ "model_calls": 7,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H3",
+   "title": "No TF-mediated allelic effect; the association is explained by linkage, pleiotropy or a bystander regulatory variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No reproducible allele-specific ZNF687 occupancy or enhancer activity should be detected at this exact base in the disease-relevant cell type.",
+    "The cleft-lip association should be attributable to a linked causal variant, pleiotropy, or nearby regulatory variation rather than this A>G change.",
+    "The ZNF687 ChIP peak in GM12878 should not be allele-specific or relevant to craniofacial epithelium."
+   ],
+   "falsified_if": [
+    "Allele-specific ZNF687 binding and enhancer activity are demonstrated at this base in craniofacial cells.",
+    "The A allele reproducibly alters IRF6 or UTP25 expression in a disease-relevant cell type.",
+    "Fine-mapping excludes linked variants and supports this position as the causal regulatory change."
+   ],
+   "probability": 0.58,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "ZNF687 binding at the IRF6 dELS is a candidate activator of IRF6 in craniofacial epithelium",
+   "is_null": false,
+   "tf": "ZNF687",
+   "allele_binding_more": "ref",
+   "element": "EH38E2863563 dELS / IRF6 enhancer",
+   "target_gene": "IRF6",
+   "cell_type": "craniofacial epithelial cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ZNF687 is the only ENCODE-bound, expressed TF with a binding model reported at this variant (E04), but its only containing peak is in GM12878, not a craniofacial sample (E05), and no ZNF687 QBiC-SELEX model is supplied. The ref-A > alt-G direction is therefore not directly measured; I set ref more because the IRF6 eQTL shows alt G lowering IRF6 (E08), which is consistent with a ref-bound activator, but this is an assumption.",
+     "evidence_ids": [
+      "E04",
+      "E05",
+      "E08"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in EH38E2863563, a distal enhancer-like cCRE with DNase and H3K27ac signal at the IRF6 locus; the signal values are biosample maxima and not craniofacial-specific.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "IRF6 is 9.7 kb away, although ENSG00000289700 is also listed at 9.7 kb, so IRF6 is not uniquely nearest. E08 reports IRF6 eQTLs in brain cerebellum/hemisphere with alt G NES -0.62 and -0.61, i.e. A is associated with higher IRF6, but not in craniofacial epithelium.",
+     "evidence_ids": [
+      "E02",
+      "E08"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The cleft-lip GWAS and cleft literature point to craniofacial epithelial biology, but no expression context was provided and the E12 lookup for keratinocyte failed, so this cell type is inferred rather than measured.",
+     "evidence_ids": [
+      "E06",
+      "E09",
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The orofacial cleft GWAS reports an association at this variant with effect allele A (p 2.0e-06); if A increases ZNF687-driven IRF6 expression in craniofacial epithelium, altered IRF6 dosage could contribute, but the mechanism is not demonstrated.",
+     "evidence_ids": [
+      "E06",
+      "E09"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ZNF687 should bind the ref A allele more strongly than the alt G allele at this base in an allele-specific binding assay.",
+    "EH38E2863563 should show allele-dependent enhancer activity in craniofacial epithelial cells, with the A allele increasing activity if ZNF687 activates IRF6.",
+    "The A allele should associate with higher IRF6 expression in a craniofacial-relevant context, matching the direction of the brain IRF6 eQTL."
+   ],
+   "falsified_if": [
+    "ZNF687 does not bind this site allele-specifically, or binds the alt G allele more strongly than ref A.",
+    "The A allele reduces rather than increases IRF6 enhancer activity or IRF6 expression in craniofacial epithelial cells.",
+    "EH38E2863563 does not contact or regulate the IRF6 promoter in craniofacial cells."
+   ],
+   "probability": 0.3,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ZNF687"
+  },
+  {
+   "id": "H2",
+   "title": "ZNF687 binding at the same dELS regulates UTP25 and contributes to cleft lip",
+   "is_null": false,
+   "tf": "ZNF687",
+   "allele_binding_more": "ref",
+   "element": "EH38E2863563 dELS near UTP25",
+   "target_gene": "UTP25",
+   "cell_type": "craniofacial epithelial cells",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ZNF687 is the only ENCODE-bound, expressed TF with a binding model at this variant (E04), but its containing peak is only in GM12878 (E05) and no ZNF687 QBiC-SELEX model is supplied. The ref-A > alt-G direction is not measured and is inferred by analogy to H1 rather than from UTP25 allele-specific data.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in EH38E2863563, a dELS whose SCREEN nearby genes include UTP25 as well as IRF6; this is proximity-based and does not establish UTP25 as the target.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "UTP25 is 12.0 kb from the variant and has the best L2G score across credible sets (0.75), but the relevant credible-set PIPs are low (0.05-0.10) and the source set for 0.75 is unspecified. Open Targets gives UTP25 a cleft-lip score of 0.35, genetic association 0.57, while E08 contains no UTP25 eQTL.",
+     "evidence_ids": [
+      "E02",
+      "E07",
+      "E09",
+      "E11"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "UTP25 cleft-lip literature hits and the Open Targets association support a disease link, but they do not establish UTP25 expression or function in craniofacial epithelium; no expression or chromatin-contact data are provided, and the E12 keratinocyte lookup failed.",
+     "evidence_ids": [
+      "E09",
+      "E11",
+      "E12"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If the A allele increases ZNF687-driven UTP25 expression in craniofacial epithelium, altered UTP25 dosage could contribute to the orofacial cleft association, but UTP25 mediation is not shown and the cleft GWAS signal is modest.",
+     "evidence_ids": [
+      "E06",
+      "E09",
+      "E11"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Chromatin contact or reporter assays should link EH38E2863563 to the UTP25 promoter in craniofacial cells.",
+    "The A allele should increase UTP25 expression in a craniofacial-relevant context.",
+    "UTP25, rather than IRF6, should show the stronger allele-specific regulatory effect in the disease-relevant cell type."
+   ],
+   "falsified_if": [
+    "EH38E2863563 does not contact the UTP25 promoter in craniofacial cells.",
+    "The variant has no allele-specific effect on UTP25 expression.",
+    "UTP25 is not expressed or required in the relevant craniofacial epithelium."
+   ],
+   "probability": 0.12,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ZNF687"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "TFAP2A",
+   "is_null": false,
+   "probability": 0.6,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H2",
+   "tf": "TFAP2A",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.3,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No evidence IDs are cited, and no TFAP2A ChIP-seq, QBiC-SELEX, or allele-specific binding assay is supplied. E04 lists only ZNF687 as a bound, expressed TF with a model in coverage; TFAP2A is absent. The ref>A direction is unsupported."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01 and E03 directly place the variant in EH38E2863563 / ENSR1_B3JM9C, a dELS with DNase and H3K27ac signal. Caveats: the z-scores are maxima over biosamples, not craniofacial-specific, and GERP 0.516 is only modest conservation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 gives IRF6 at 9.7 kb but ENSG00000289700 is at the same distance, so 'nearest' is not unique. E08 provides an IRF6 eQTL, but only in brain cerebellum/hemisphere, not craniofacial epithelium. The direction (alt G lowers IRF6, so A raises IRF6) agrees with H1, contradicting H1's own prediction wording about an 'opposite' GTEx direction."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E06 provides a cleft-lip GWAS association and E09 provides cleft-related literature hit titles, but no expression, chromatin, or functional data in craniofacial epithelial cells. The chain itself admits the cell type is inferred, not measured."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E06 directly reports an orofacial cleft association at this variant with effect allele A (p 2.0e-06). The association is modest and the IRF6-dosage mechanism is not demonstrated, but the genetic association claim itself is supported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "Same as H1.binding: no evidence IDs, no TFAP2A ChIP-seq or QBiC-SELEX, and TFAP2A is not in the covered bound-factor list in E04. The ref>A binding direction is unsupported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly lists UTP25 among the SCREEN nearby genes for EH38E2863563, and E01/E03 place the variant in that dELS. However, 'possible target' is proximity-based only; no contact or reporter evidence links the element to UTP25."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E07 gives UTP25 an L2G score of 0.75, but the relevant credible-set PIPs are low (0.05-0.10) and the source set for 0.75 is unspecified. E09 is only a literature-search hit list for 'UTP25 AND cleft lip'; no quoted evidence shows UTP25 causality. E08 contains no UTP25 eQTL."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E09 shows cleft-lip literature hits from a UTP25 query, but the titles do not establish UTP25 expression or function in craniofacial epithelium. No expression or chromatin-contact data in a craniofacial cell type are provided."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 supports a cleft-lip association at the variant, but UTP25 mediation is not shown. The claim is explicitly conditional and speculative, and E09 does not provide UTP25 functional or dosage evidence."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": ""
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03 directly place the variant in EH38E2863563, a distal enhancer-like cCRE, and E03 lists IRF6 among nearby genes; the claim correctly notes the signal values are biosample maxima and not craniofacial-specific."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 supports the 9.7 kb distance and the co-located ENSG00000289700 caveat. E08 gives IRF6 eQTLs only in brain tissues, not craniofacial epithelium, so IRF6 as the target of this element in the proposed cell type is indirect."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "Cleft GWAS/literature can be read as consistent with craniofacial epithelial biology, but no expression context is supplied and the keratinocyte lookup failed; the cell type is inferred, not measured."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E06 directly reports an orofacial cleft association at this variant with effect allele A, but the proposed ZNF687-driven IRF6 mechanism and altered IRF6 dosage are explicitly not demonstrated; only a weak phenotype/mechanism link is supported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "ZNF687 occupancy is reported only in GM12878, not craniofacial epithelium, and there is no QBiC-SELEX or allele-specific binding evidence. The ref-more direction is inferred by analogy, not measured."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E01/E03 support that the variant lies in EH38E2863563 dELS and that SCREEN lists UTP25 among nearby genes; the claim appropriately notes this is proximity-based and does not establish UTP25 as the target."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E07 supports a best L2G score for UTP25 but with low credible-set PIPs and an unspecified source set; E11 supports a UTP25 cleft-lip genetic association, but there is no UTP25 eQTL or contact evidence tying this variant to UTP25."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "UTP25 cleft-lip literature and Open Targets association are consistent with disease relevance, but they do not establish UTP25 expression or function in craniofacial epithelium, and the keratinocyte lookup failed."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is associated with orofacial cleft in E06, and E09/E11 support a UTP25 disease link, but UTP25 mediation of this variant's phenotype is not shown and the cleft GWAS signal is modest."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"TFAP2A\",\"biosample\":\"keratinocyte\"}",
+   "resolves": "H1.binding",
+   "why": "Directly tests whether TFAP2A occupies this exact variant in a craniofacial-relevant epithelial biosample; a negative result would collapse both H1 and H2 binding links and strengthen H3."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"UTP25\"}",
+   "resolves": "H2.gene",
+   "why": "Tests whether UTP25 has any Open Targets disease association with cleft lip, which is the main distinguishing claim of H2; absence would weaken H2.gene and H2.phenotype."
+  },
+  {
+   "tool": "tf_expression",
+   "args_json": "{\"tf\":\"TFAP2A\",\"context\":\"keratinocyte\"}",
+   "resolves": "H1.cell_type",
+   "why": "Checks whether TFAP2A is expressed in a craniofacial-relevant epithelial context, resolving the inferred cell-type link in both H1 and H2."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "TFAP2A",
+    "biosample": null
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "UTP25"
+   },
+   "run": true
+  },
+  {
+   "tool": "tf_expression",
+   "args": {
+    "tf": "TFAP2A",
+    "context": "keratinocyte"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific ZNF687 binding assay (EMSA with recombinant ZNF687 or ChIP-qPCR in a heterozygous ZNF687-expressing line) at chr1:209815925 ref-A vs alt-G",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "ZNF687 binds ref A more strongly than alt G; supports the ZNF687-IRF6 chain."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "ZNF687 binds ref A more strongly than alt G; supports the shared binding link but does not distinguish H1 from H2."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No reproducible allele-specific ZNF687 binding at this base; supports the null."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ZNF687 ChIP-qPCR or ChIP-seq in craniofacial epithelial/keratinocyte cells at EH38E2863563",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "ZNF687 occupies the element in craniofacial epithelial cells; supports use of this enhancer."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "ZNF687 occupies the element in craniofacial epithelial cells; supports the shared element but not UTP25 targeting."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No ZNF687 occupancy at this element in craniofacial epithelial cells; supports the null."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific reporter assay for EH38E2863563 in craniofacial epithelial cells, with IRF6 and UTP25 expression readouts",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "The A allele increases enhancer activity and IRF6 expression; G is lower."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "The A allele increases UTP25 expression, with little or no IRF6 effect."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No allele-specific enhancer activity and no allele-specific IRF6 or UTP25 expression."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Capture Hi-C, ABC, or CRISPRi linking EH38E2863563 to the IRF6 versus UTP25 promoter in craniofacial cells",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "The element contacts the IRF6 promoter."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "The element contacts the UTP25 promoter."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "No specific contact to either promoter, or contact is not allele-dependent."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run the cheapest discriminating assay: allele-specific ZNF687 binding at chr1:209815925 (EMSA with recombinant ZNF687, or ChIP-qPCR in a heterozygous ZNF687-expressing line) comparing ref-A and alt-G oligos. Ref-A binding more strongly supports H1; no reproducible allele-specific binding supports H3.",
+ "citation_support": 0.8,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 42873673: not an exact substring of the abstract"
+  },
+  {
+   "flag": "tool_failed",
+   "detail": "E12 tf_expression: local DepMap/GTEx lookup failed: Unknown expression context 'keratinocyte'. Use DepMap:<ModelID>, DepMap:subtype=<Oncotree subtype>, GTEx:<tissue> or none."
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/1:209815925-209815925:1/G?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:29:41+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr1:209815925:A>G (GRCh38), allele string A/G\nKnown IDs: rs642961\nMost severe consequence: regulatory_region_variant\nRegulatory features: ENSR1_B3JM9C enhancer\nGERP conservation score at the site: 0.516\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/1:208815925-210815925?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:29:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "13 protein-coding genes within 1000 kb of chr1:209815925:A>G, by distance to TSS:\nIRF6: 9.7 kb from TSS (upstream, strand -1)\nENSG00000289700: 9.7 kb from TSS (upstream, strand -1)\nUTP25: 12.0 kb from TSS (upstream, strand +1)\nC1orf74: 31.3 kb from TSS (upstream, strand -1)\nTRAF3IP3: 60.4 kb from TSS (downstream, strand +1)\nSYT14: 85.0 kb from TSS (upstream, strand +1)\nHSD11B1: 129.8 kb from TSS (downstream, strand +1)\nG0S2: 140.5 kb from TSS (downstream, strand +1)\nLAMB3: 162.8 kb from TSS (upstream, strand -1)\nCAMK1G: 232.2 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:29:16+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E2863563 (dELS: distal enhancer-like), chr1:209815915-209816264.\nSCREEN: 2 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2863563 dELS (contains the variant): DNase z 5.3, H3K27ac z 5.0, H3K4me3 z 2.4, CTCF z 1.5; nearby genes IRF6, UTP25, C1orf74\nEH38E2863562 dELS: DNase z 3.2, H3K27ac z 4.9, H3K4me3 z 1.9, CTCF z 1.5; nearby genes IRF6, UTP25, C1orf74\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr1:209815925:A>G: 15 peaks contain the variant, from 6 factors in 6 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): DPF2, MYC, POLR2A, POLR2AphosphoS5, STAT3. Bound, expressed TFs with a binding model: 1; listed one per row: ZNF687. Assayed with no peak here: 0 TFs in the matching biosample, 572 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF687: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR859FDL). expression not filtered (no expression data for this context)."
+  },
+  {
+   "id": "E06",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs642961&size=100",
+   "retrieved_utc": "2026-10-25T17:29:42+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "8 GWAS Catalog associations for rs642961, strongest first:\nSystolic blood pressure: p 6.0e-12, effect allele G, risk-allele frequency NR, PMID 38689001\nHypertension: p 2.0e-08, effect allele A, risk-allele frequency 0.1951, PMID 33230300\nPulse pressure: p 1.0e-07, effect allele G, risk-allele frequency NR, PMID 38689001\nDiastolic blood pressure: p 3.0e-07, effect allele G, risk-allele frequency NR, PMID 38689001\nOrofacial clefts: p 2.0e-06, effect allele A, risk-allele frequency NR, PMID 19270707"
+  },
+  {
+   "id": "E07",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:41+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "18 credible sets contain 1_209815925_A_G: 14 GWAS, 4 molecular QTL.\nGWAS Systolic blood pressure: PIP 0.10; L2G TRAF3IP3 0.11, IRF6 0.11, UTP25 0.10\nGWAS Systolic blood pressure: PIP 0.09; L2G IRF6 0.67, UTP25 0.14, TRAF3IP3 0.08\nGWAS Systolic blood pressure, combined automated + manual reading: PIP 0.05; L2G IRF6 0.13, UTP25 0.10, C1orf74 0.10\nGWAS Orofacial clefts: PIP 0.05; L2G IRF6 0.16, TRAF3IP3 0.12, C1orf74 0.10\nGWAS Systolic blood pressure: PIP 0.05; L2G IRF6 0.13, C1orf74 0.09, UTP25 0.08\nGWAS Systolic blood pressure (MTAG): PIP 0.05; L2G IRF6 0.17, C1orf74 0.09, UTP25 0.08\neqtl for TRAF3IP3 (blueprint_tx_monocyte_enst00000460314): PIP 0.04\neqtl for TRAF3IP3 (twinsuk_tx_blood_enst00000367023): PIP 0.02\neqtl for TRAF3IP3 (twinsuk_exon_blood_ensg00000009790_15_1_209782056_): PIP 0.02\neqtl for TRAF3IP3 (schmiedel_2018_exon_treg_naive_ensg00000009790_15_): PIP 0.02\nBest L2G gene scores across these sets: UTP25 0.75, IRF6 0.67, TRAF3IP3 0.53, C1orf74 0.10"
+  },
+  {
+   "id": "E08",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr1_209815925_A_G_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T22:31:38+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "15 significant GTEx v8 single-tissue eQTLs for chr1_209815925_A_G_b38. NES is the effect of the alt allele (G) relative to ref (A).\nSYT14 in Nerve_Tibial: NES -0.50, p 6.7e-20\nDIEXF in Cells_Cultured_fibroblasts: NES -0.23, p 1.9e-14\nDIEXF in Artery_Tibial: NES -0.23, p 1.2e-10\nTRAF3IP3 in Whole_Blood: NES +0.24, p 5.9e-10\nIRF6 in Brain_Cerebellum: NES -0.62, p 2.2e-07\nDIEXF in Whole_Blood: NES -0.15, p 2.9e-07\nSYT14 in Brain_Hippocampus: NES +0.53, p 3.3e-07\nDIEXF in Adipose_Subcutaneous: NES -0.20, p 7.5e-07\nSYT14 in Brain_Spinal_cord_cervical_c-1: NES +0.72, p 2.7e-06\nDIEXF in Lung: NES -0.11, p 3.2e-06\nIRF6 in Brain_Cerebellar_Hemisphere: NES -0.61, p 3.3e-06\nDIEXF in Brain_Frontal_Cortex_BA9: NES +0.35, p 4.6e-06\nDIEXF in Brain_Cortex: NES +0.33, p 7.0e-06\nDIEXF in Adipose_Visceral_Omentum: NES -0.16, p 2.5e-05\nC1orf74 in Whole_Blood: NES +0.15, p 8.6e-05"
+  },
+  {
+   "id": "E09",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=UTP25%20AND%20%22cleft%20lip%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:21:47+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 7 hits for 'UTP25 AND \"cleft lip\"'; top 6 with PMIDs:\nPMID 42873673 (2026): Genetic Heterogeneity in Cleft Lip and/or Palate With Alveolar Cleft: A Targeted Analysis of NHEK-Active Enhancer Variants.\nPMID 41075272 (2025): Genetic heterogeneity and homogeneity among orofacial cleft subtypes: genome-wide association studies in the cleft collective.\nPMID 37161310 (2023): A Variant in the <i>IRF6</i> Promoter Associated with the Risk for Orofacial Clefting.\nPMID 40670354 (2025): Identification of functional non-coding variants associated with orofacial cleft.\nPMID 33987535 (2021): Wavelet Screening identifies regions highly enriched for differentially methylated loci for orofacial clefts.\nPMID 30760477 (2019): Wnt signaling in orofacial clefts: crosstalk, pathogenesis and models."
+  },
+  {
+   "id": "E10",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:31:05+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE TFAP2A ChIP-seq peak contains chr1:209815925:A>G. Absence can also mean no TFAP2A experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E11",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T20:22:47+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: UTP25 and cleft lip (EFO_0003959), overall score 0.35; by evidence type: genetic_association 0.57, literature 0.04"
+  },
+  {
+   "id": "E12",
+   "tool": "tf_expression",
+   "source": "local DepMap/GTEx",
+   "url": "",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": false,
+   "summary": "local DepMap/GTEx lookup failed: Unknown expression context 'keratinocyte'. Use DepMap:<ModelID>, DepMap:subtype=<Oncotree subtype>, GTEx:<tissue> or none."
+  }
+ ]
+}

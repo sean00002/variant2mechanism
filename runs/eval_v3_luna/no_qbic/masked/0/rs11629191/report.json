@@ -1,0 +1,564 @@
+{
+ "case_id": "rs11629191",
+ "variant": "rs11629191",
+ "variant_key": "chr14:55887040:C>T",
+ "disease": "Breast cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000019 (MCF7)",
+ "config": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0093,
+ "seconds": 132.1,
+ "model_calls": 8,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H0",
+   "title": "No TF-mediated effect at this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The variant will not show a reproducible allele-specific TF-binding and regulatory effect in a relevant cell context; any disease relationship would be absent or due to another variant or process."
+   ],
+   "falsified_if": [
+    "The variant shows reproducible allele-specific TF occupancy and a linked regulatory effect on a target gene in a relevant cell context."
+   ],
+   "probability": 0.96,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "Speculative ESR1-to-PELI2 regulatory chain",
+   "is_null": false,
+   "tf": "ESR1",
+   "allele_binding_more": "alt",
+   "element": "Unverified regulatory element at the variant",
+   "target_gene": "PELI2",
+   "cell_type": "MCF7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "This is an unsupported candidate model: it hypothesizes that ESR1 binds the alt T allele more strongly than ref C. No QBiC-SELEX result is supplied, and no ESR1 occupancy at the site is reported; the evidence does not support this direction or rank ESR1 above related TFs.",
+     "evidence_ids": [
+      "E04",
+      "E09"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The model requires a regulatory element containing the variant, but none is demonstrated: no cCRE overlaps the site, and the nearest listed cCRE is 1868 bp away.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "PELI2 is only a candidate target based on distance; no evidence links this variant or an element at the site to PELI2.",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MCF7 is the stated expression context, but the supplied evidence does not establish ESR1 occupancy or activity at this site in MCF7.",
+     "evidence_ids": [
+      "E04",
+      "E09"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A PELI2-mediated breast-cancer effect is hypothetical; the variant has no reported GWAS Catalog association, and the supplied gene-level evidence does not establish a PELI2\u2013breast cancer link.",
+     "evidence_ids": [
+      "E05",
+      "E10"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "If this model is correct, an allele-specific binding assay in MCF7 will show greater ESR1 binding to T than C; this distinguishes it from H2's proposed FOXA1/C-greater-than-T model.",
+    "If the variant affects PELI2 through this chain, perturbing ESR1 or the site will alter the allele-dependent regulatory effect; the direction of the resulting PELI2 change is not specified."
+   ],
+   "falsified_if": [
+    "A suitably sensitive assay finds no ESR1 occupancy or no T-greater-than-C binding difference at the site.",
+    "ESR1 perturbation and variant editing do not affect the proposed allele-dependent regulatory effect or PELI2 expression in relevant cells."
+   ],
+   "probability": 0.02,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ESR1"
+  },
+  {
+   "id": "H2",
+   "title": "Speculative FOXA1-to-PELI2 regulatory chain",
+   "is_null": false,
+   "tf": "FOXA1",
+   "allele_binding_more": "ref",
+   "element": "Unverified regulatory element at the variant",
+   "target_gene": "PELI2",
+   "cell_type": "MCF7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "This is an unsupported candidate model: it hypothesizes that FOXA1 binds the ref C allele more strongly than alt T. No QBiC-SELEX result is supplied, and no FOXA1 occupancy at the site is reported; the evidence does not support this direction or rank FOXA1 above related TFs.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "missing"
+    },
+    {
+     "step": "element",
+     "claim": "The model requires a regulatory element containing the variant, but none is demonstrated: no cCRE overlaps the site, and the nearest listed cCRE is 1868 bp away.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "PELI2 is only a candidate target based on distance; no evidence links this variant or an element at the site to PELI2.",
+     "evidence_ids": [
+      "E02",
+      "E06",
+      "E07"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "MCF7 is the stated expression context, but the supplied evidence does not establish FOXA1 occupancy or activity at this site in MCF7.",
+     "evidence_ids": [
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A PELI2-mediated breast-cancer effect is hypothetical; the variant has no reported GWAS Catalog association, and the supplied gene-level evidence does not establish a PELI2\u2013breast cancer link.",
+     "evidence_ids": [
+      "E05",
+      "E10"
+     ],
+     "status": "supported"
+    }
+   ],
+   "predictions": [
+    "If this model is correct, an allele-specific binding assay in MCF7 will show greater FOXA1 binding to C than T; this distinguishes it from H1's proposed ESR1/T-greater-than-C model.",
+    "If the variant affects PELI2 through this chain, perturbing FOXA1 or the site will alter the allele-dependent regulatory effect; the direction of the resulting PELI2 change is not specified."
+   ],
+   "falsified_if": [
+    "A suitably sensitive assay finds no FOXA1 occupancy or no C-greater-than-T binding difference at the site.",
+    "FOXA1 perturbation and variant editing do not affect the proposed allele-dependent regulatory effect or PELI2 expression in relevant cells."
+   ],
+   "probability": 0.02,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H0",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.9,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H1",
+   "tf": "ESR1",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "ref"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04 reports no ESR1 peak at the variant in any biosample, including MCF-7; no QBiC-SELEX result is supplied. The proposed T-greater-than-C binding direction is unsupported."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 reports no overlapping cCRE and a nearest cCRE 1868 bp away. It does not identify or demonstrate activity of the hypothesized unannotated element."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 gives PELI2's distance from the variant, which makes it a candidate but does not establish a regulatory connection."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "MCF7 is the stated expression context, but E04 provides no ESR1 occupancy there and no evidence of ESR1 activity at this site."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E05 reports no GWAS Catalog association for the variant. E08a concerns prognostic genes in papillary thyroid carcinoma, not a PELI2-mediated breast cancer effect."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "E04 reports no FOXA1 peak at the variant in any biosample, including MCF-7; no QBiC-SELEX result is supplied. The proposed C-greater-than-T binding direction is unsupported."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "missing",
+   "reason": "E03 reports no overlapping cCRE and a nearest cCRE 1868 bp away. It does not identify or demonstrate activity of the hypothesized unannotated element."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 gives PELI2's distance from the variant, which makes it a candidate but does not establish a regulatory connection."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "missing",
+   "reason": "MCF7 is the stated expression context, but E04 provides no FOXA1 occupancy there and no evidence of FOXA1 activity at this site."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E05 reports no GWAS Catalog association for the variant. E08a's thyroid-cancer prognostic-gene result does not support a PELI2-mediated breast cancer effect."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX result or occupancy evidence supports the proposed ESR1 T-greater-than-C binding direction; E04 and E09 report no relevant peak."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly reports no cCRE overlap and places the nearest cCRE 1868 bp away, supporting the claim that no overlapping element is demonstrated."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports PELI2 as a distance-based candidate; E06 and E07 provide no cited variant-to-PELI2 link."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E04 and E09 do not establish ESR1 occupancy or activity at the site in MCF7."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E05 reports no GWAS Catalog association, and E10 does not establish a PELI2\u2013breast cancer link."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "missing",
+   "reason": "No QBiC-SELEX result or occupancy evidence supports the proposed FOXA1 C-greater-than-T binding direction; E04 reports no relevant peak."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly reports no cCRE overlap and places the nearest cCRE 1868 bp away, supporting the claim that no overlapping element is demonstrated."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E02 supports PELI2 as a distance-based candidate; E06 and E07 provide no cited variant-to-PELI2 link."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E04 does not establish FOXA1 occupancy or activity at the site in MCF7."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "supported",
+   "reason": "E05 reports no GWAS Catalog association, and E10 does not establish a PELI2\u2013breast cancer link."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ESR1\",\"biosample\":\"MCF-7\"}",
+   "resolves": "H1.binding",
+   "why": "A targeted occupancy result at the variant in the stated cell context could change the assessment of ESR1 binding; it would not by itself establish the allele-specific direction."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"PELI2\"}",
+   "resolves": "H2.phenotype",
+   "why": "This would test whether there is gene-level evidence linking PELI2 to breast cancer, while still not establishing that this variant acts through PELI2."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"PELI2 breast cancer regulatory variant\"}",
+   "resolves": "H1.phenotype",
+   "why": "The supplied literature hit is about thyroid cancer; a targeted search could uncover or rule out relevant breast-cancer evidence for the proposed gene-to-phenotype link."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "ESR1",
+    "biosample": "MCF-7"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "PELI2"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "PELI2 breast cancer regulatory variant"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific ESR1 CUT&RUN in MCF7, with variant genotyping and sequencing across the site",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible ESR1 occupancy with allele-specific imbalance at the variant."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "ESR1 occupancy with greater signal from the T allele than the C allele."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No ESR1-specific T-greater-than-C occupancy; FOXA1 occupancy, if present, is not tested by this assay."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific FOXA1 CUT&RUN in MCF7, with variant genotyping and sequencing across the site",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "No reproducible FOXA1 occupancy with allele-specific imbalance at the variant."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No FOXA1-specific C-greater-than-T occupancy; ESR1 occupancy, if present, is not tested by this assay."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "FOXA1 occupancy with greater signal from the C allele than the T allele."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Isogenic editing of C/T at the site in MCF7 followed by PELI2 expression measurement and ESR1 perturbation",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H0",
+     "outcome": "Editing does not reproducibly change PELI2 expression in an ESR1-dependent manner."
+    },
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Editing changes PELI2 expression, and the effect depends on ESR1; the expression-change direction is not specified."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No ESR1-dependent PELI2 effect; a FOXA1-dependent effect would remain possible."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Run allele-specific ESR1 CUT&RUN in MCF7, first confirming the cell line's genotype at the site. It is the most direct, relatively low-burden test of the proposed H1 binding step against the null; a positive result would support ESR1 occupancy but would not by itself establish an allele-specific regulatory effect, the PELI2 target, or a breast-cancer link.",
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/14:55887040-55887040:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:32:49+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr14:55887040:C>T (GRCh38), allele string C/T\nKnown IDs: rs11629191\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -3.12\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/14:54887040-56887040?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:40+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "14 protein-coding genes within 1000 kb of chr14:55887040:C>T, by distance to TSS:\nPELI2: 230.8 kb from TSS (upstream, strand +1)\nKTN1: 328.0 kb from TSS (downstream, strand +1)\nTBPL2: 430.3 kb from TSS (upstream, strand -1)\nATG14: 475.2 kb from TSS (upstream, strand -1)\nTMEM260: 601.3 kb from TSS (upstream, strand +1)\nCHMP4BP1: 615.7 kb from TSS (downstream, strand +1)\nFBXO34: 615.7 kb from TSS (downstream, strand +1)\nDLGAP5: 695.4 kb from TSS (upstream, strand -1)\nLGALS3: 765.7 kb from TSS (downstream, strand +1)\nMAPK1IP1L: 835.4 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:13+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No cCRE overlaps the variant; nearest is EH38E1716463 (dELS) 1868 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE TF ChIP-seq peak contains chr14:55887040:C>T in any biosample. In the matching biosample MCF-7: 0 peaks from 0 factors. No cCRE contains the variant. Of the TFs with a binding model, 65 were assayed in the matching biosample and 508 only elsewhere, all without a peak here; 536 were never assayed."
+  },
+  {
+   "id": "E05",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs11629191&size=100",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 GWAS Catalog associations for rs11629191, strongest first:"
+  },
+  {
+   "id": "E06",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:32:49+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "1 credible sets contain 14_55887040_C_T: 0 GWAS, 1 molecular QTL.\neqtl for ENSG00000259868 (gtex-v10_ge_brain_nucleus_accumbens_ensg0000025986): PIP 0.03"
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr14_55887040_C_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:02+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "0 significant GTEx v8 single-tissue eQTLs for chr14_55887040_C_T_b38. NES is the effect of the alt allele (T) relative to ref (C)."
+  },
+  {
+   "id": "E08",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PELI2%20AND%20%22breast%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 178 hits for 'PELI2 AND \"breast cancer\"'; top 7 with PMIDs:\nPMID 41023515 (2025): Pellino ubiquitin ligases: double-edged swords in hematologic malignancies-from oncogenic stabilizers to therapeutic vulnerabilities.\nPMID 41331176 (2025): Construction and validation of risk models of prognostic genes associated with parthanatos in papillary thyroid carcinoma based on bioinformatics.\nPMID 40362379 (2025): &lt;i&gt;O&lt;/i&gt;-Desmethyltramadol Enhanced Anti-Cancer Efficacy over Tramadol Through Non-\u03bc-Opioid Receptor and Differential Cellular Contexts of Human Breast Cancer Cells.\nPMID 42757486 (2026): Pemetrexed increases BRCA1 protein stability and sensitizes TNBC cells to radiotherapy.\nPMID 42734444 (2027): Anesthesia inhalation agent sevoflurane induces perioperative cognitive impairment: Apelin/early growth response 1 axis induces ferritinophagy and exacerbates ferroptosis.\nPMID 41079921 (2025): PRMT1/PRMT5-Mediated Differential Arginine Methylation of CRIP1 Promotes the Recurrence of Small Cell Lung Cancer after Chemotherapy.\nPMID 42380137 (2026): HOXC9 accelerates esophageal squamous cell carcinoma progression via OTUD1-FABP5-mediated lipid metabolic reprogramming."
+  },
+  {
+   "id": "E08a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41331176",
+   "url": "https://europepmc.org/article/MED/41331176",
+   "retrieved_utc": "2026-10-25T17:32:50+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "ResultsSeven prognostic genes (TSHZ3, SERGEF, AKAP12, SGPP2, ASGR1, AK1, PELI2) were identified."
+  },
+  {
+   "id": "E09",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-26T00:36:39+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "No ENCODE ESR1 ChIP-seq peak contains chr14:55887040:C>T in biosamples matching 'MCF-7'. Absence can also mean no ESR1 experiment in that biosample. 0 peaks lie within 100 bp without containing it."
+  },
+  {
+   "id": "E10",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:34:03+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "Open Targets: PELI2 and breast cancer (MONDO_0007254), overall score 0.00; by evidence type: literature 0.01"
+  },
+  {
+   "id": "E11",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PELI2%20breast%20cancer%20regulatory%20variant&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:24:13+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 33 hits for 'PELI2 breast cancer regulatory variant'; top 8 with PMIDs:\nPMID 41331176 (2025): Construction and validation of risk models of prognostic genes associated with parthanatos in papillary thyroid carcinoma based on bioinformatics.\nPMID 42060612 (2026): Unraveling the role of ChREBP in lung adenocarcinoma: Expression, regulatory networks, and potential functional impact.\nPMID 42272870 (2026): T-cell-targeted immunotherapy in neurofibromatosis type 2-related vestibular schwannoma: current evidence and future direction.\nPMID 41716334 (2026): Nanomedicine-based lactate metabolism and lactylation regulation for exploring new therapeutic strategies in cancer.\nPMID 38453895 (2024): Isoform alterations in the ubiquitination machinery impacting gastrointestinal malignancies.\nPMID 40830878 (2025): The components and regulation of the Hippo pathway and its relationships with the progression and treatment of Non-small cell lung cancer (NSCLC).\nPMID 41009541 (2025): Kinesin Spindle Protein (KIF11) in Mitosis and Cancer.\nPMID 41049757 (2025): &lt;i&gt;USP20&lt;/i&gt; as a super-enhancer-regulated gene drives T-ALL progression &lt;i&gt;via&lt;/i&gt; HIF1A deubiquitination."
+  },
+  {
+   "id": "E11a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41331176",
+   "url": "https://europepmc.org/article/MED/41331176",
+   "retrieved_utc": "2026-10-26T20:24:13+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Seven prognostic genes (TSHZ3, SERGEF, AKAP12, SGPP2, ASGR1, AK1, PELI2) were identified."
+  }
+ ]
+}

@@ -1,0 +1,1158 @@
+{
+ "case_id": "tert_c250t",
+ "variant": "TERT promoter C250T",
+ "variant_key": "chr5:1295135:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "somatic",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0426,
+ "seconds": 135.3,
+ "model_calls": 9,
+ "screen": {
+  "n_pass": 477,
+  "counts": {
+   "occupied": 18,
+   "unknown": 145,
+   "occupied_strong_site": 14,
+   "occupied_not_expressed": 1,
+   "unbound_assayed_here": 0,
+   "unbound_assayed_elsewhere": 554,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "GABPA",
+    "z": 167.5,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "KLF12",
+    "z": -15.38,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "NR2C1",
+    "z": 15.31,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "TGIF2",
+    "z": -12.19,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "ZNF143",
+    "z": -11.71,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "ZBTB7A",
+    "z": -10.91,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "SP2",
+    "z": -9.83,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "EGR1",
+    "z": -8.0,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "BHLHE40",
+    "z": -7.34,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "E2F4",
+    "z": -5.4,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "ETV2",
+    "z": 167.5
+   },
+   {
+    "tf": "ETV3",
+    "z": 167.5
+   },
+   {
+    "tf": "FLI1",
+    "z": 167.5
+   },
+   {
+    "tf": "ZNF92",
+    "z": -33.21
+   },
+   {
+    "tf": "EBF4",
+    "z": -24.35
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "chain_1",
+   "title": "GABPA alt-gaining ETS site activates TERT",
+   "is_null": false,
+   "tf": "GABPA",
+   "allele_binding_more": "alt",
+   "element": "The variant lies in promoter-like cCRE EH38E3622530 with DNase, H3K27ac and H3K4me3 signal, consistent with an active TERT upstream promoter element, although the cCRE z-scores are maxima over ENCODE biosamples rather than glioblastoma-specific.",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma, with relevance to melanoma and bladder cancer",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "GABPA binds the alt allele more strongly. The GABPA own QBiC-SELEX model gives alt effect +4.05 (z 71.32; E32), and the shared Ets model also gives alt-gaining binding (E17). GABPA ENCODE peaks contain the variant in HepG2 and SK-N-SH (E33), but E04 states that no ENCODE biosample matches the glioblastoma expression context, so disease-context occupancy is not established. I choose GABPA over ETV2/ETV3/FLI1 because GABPA has an own QBiC model and some ChIP occupancy, whereas those rely on an ETV5-mapped model and have unknown occupancy.",
+     "evidence_ids": [
+      "E32",
+      "E17",
+      "E33",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is in a promoter-like cCRE with active chromatin marks, so an allele-specific TF change could alter promoter activity.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest coding gene at 0.0 kb and the variant is annotated as a TERT upstream promoter variant, making TERT the target gene.",
+     "evidence_ids": [
+      "E01",
+      "E02"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Glioblastoma is a relevant context because GABPA is expressed at 15.52 TPM in DepMap glioblastoma lines and TERT promoter mutations are reported in glioblastoma; this supports disease context, not GABPA occupancy in that context.",
+     "evidence_ids": [
+      "E17",
+      "E15"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Predicted phenotype: alt-enhanced GABPA binding increases TERT promoter activity and telomerase, supporting tumor maintenance. General TERT promoter mutation literature supports novel TF-site/TERT activation (E34d), but a pooled screen reported no detected ETS-factor dependency for TPMs (E34b), so the phenotype is a model prediction rather than demonstrated.",
+     "evidence_ids": [
+      "E34d",
+      "E34b",
+      "E15"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Alt allele shows stronger GABPA ChIP/CUT&RUN signal at this base in a relevant cell type.",
+    "Alt allele increases TERT reporter activity in glioblastoma cells in a GABPA-dependent manner.",
+    "GABPA knockdown reduces the alt-dependent TERT increase."
+   ],
+   "falsified_if": [
+    "Allele-specific GABPA occupancy or a ref/alt TERT reporter assay in glioblastoma cells fails to show alt-enhanced GABPA binding or GABPA-dependent TERT activation.",
+    "The alt allele does not increase TERT expression or telomerase activity in a relevant cell type.",
+    "GABPA is not expressed or not bound at this element in the disease-relevant cell type."
+   ],
+   "probability": 0.45,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "chain_4",
+   "title": "Null: no TF-mediated effect of this base",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at this exact base in disease-relevant cells.",
+    "Disease association is explained by a linked causal variant, recurrent somatic mutational hotspot/passenger status, or no allelic TF effect.",
+    "TERT activation, if present, is not mediated by a TF binding change at this base."
+   ],
+   "falsified_if": [
+    "Allele-specific TF occupancy and reporter assays in relevant cells show that this base directly changes TF binding and TERT expression.",
+    "A linked causal variant is excluded and the C250T base itself is shown to be functional."
+   ],
+   "probability": 0.4,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "chain_2",
+   "title": "ETV3 alt-gaining Ets site activates TERT, weak because the model is shared and occupancy is unknown",
+   "is_null": false,
+   "tf": "ETV3",
+   "allele_binding_more": "alt",
+   "element": "The variant lies in the TERT promoter-like cCRE EH38E3622530.",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ETV3 binds the alt allele more strongly in the shared ETV5-mapped Ets QBiC-SELEX model (effect +2.421, z 167.5; E28). ETV3 occupancy at this site is unknown because ENCODE never assayed ETV3, and the model is not ETV3-specific, so this binding evidence is weak.",
+     "evidence_ids": [
+      "E28"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is in an active promoter-like cCRE, so an ETV3 site change could affect promoter output.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest gene and the variant is annotated as a TERT upstream promoter variant.",
+     "evidence_ids": [
+      "E01",
+      "E02"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "Glioblastoma is a plausible context because ETV3 is expressed at 8.69 TPM in DepMap glioblastoma lines and TERT promoter mutations occur in glioblastoma.",
+     "evidence_ids": [
+      "E28",
+      "E15"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Predicted phenotype: alt-enhanced ETV3 binding would increase TERT transcription and telomerase activity. No direct ETV3-C250T perturbation evidence is cited, and the shared ETV5-mapped model makes this a weak prediction.",
+     "evidence_ids": [
+      "E34d",
+      "E15"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "ETV3 ChIP or allele-specific binding assay shows alt-enhanced occupancy at this base in glioblastoma cells.",
+    "ETV3 depletion reduces alt-dependent TERT expression.",
+    "ETV3 binding correlates with TERT expression in relevant tumor cells."
+   ],
+   "falsified_if": [
+    "ETV3 is not expressed or not bound at the TERT promoter in glioblastoma cells.",
+    "Allele-specific assays show no ETV3 occupancy difference at this base.",
+    "Alt-dependent TERT activation remains after ETV3 depletion."
+   ],
+   "probability": 0.08,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ETV3"
+  },
+  {
+   "id": "chain_3",
+   "title": "Loss of KLF12 repressor on the alt allele derepresses TERT, speculative",
+   "is_null": false,
+   "tf": "KLF12",
+   "allele_binding_more": "ref",
+   "element": "The variant lies in the TERT promoter-like cCRE EH38E3622530.",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma, but KLF12 relevance is weak because expression is low",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "KLF12 binds the ref allele more strongly in QBiC-SELEX (effect -0.439, z -15.38; E18). The best model is KLF5-mapped and KLF12 ChIP is only in HepG2, so factor-specific disease-relevant occupancy is weak.",
+     "evidence_ids": [
+      "E18",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is in an active promoter-like cCRE, so loss of a repressive TF site could change promoter activity.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is the nearest gene and is annotated as the upstream promoter target.",
+     "evidence_ids": [
+      "E01",
+      "E02"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "KLF12 relevance to glioblastoma is weak: it is expressed at only 4.47 TPM in DepMap glioblastoma lines, and no disease-context occupancy is shown.",
+     "evidence_ids": [
+      "E18"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "Speculative phenotype: if KLF12 represses TERT, then the alt allele losing KLF12 binding would derepress TERT and increase telomerase activity. No direct evidence shows KLF12 represses TERT.",
+     "evidence_ids": [],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "KLF12 ChIP signal is stronger on the ref allele at this base.",
+    "KLF12 knockdown increases TERT expression.",
+    "The alt allele shows reduced KLF12 occupancy and increased TERT reporter activity."
+   ],
+   "falsified_if": [
+    "KLF12 is not expressed or not bound at the TERT promoter in glioblastoma cells.",
+    "Alt allele does not reduce KLF12 occupancy at this base.",
+    "KLF12 loss does not derepress TERT in relevant cells."
+   ],
+   "probability": 0.07,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "KLF12"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "chain_1",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.63,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain_2",
+   "tf": "ETV3",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "chain_3",
+   "tf": "KLF12",
+   "is_null": false,
+   "probability": 0.06,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "chain_4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.24,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "chain_1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E17 gives a strong alt-gaining QBiC-SELEX change for GABPA (z 167.5, effect +2.421), but the cited occupancy is ENCODE ChIP in HepG2/SK-N-SH only; E04 explicitly says no ENCODE biosample matches the glioblastoma expression context, so no peak counts as bound here. The best QBiC model is also ETV5-mapped, not GABPA-specific."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in PLS cCRE EH38E3622530 with DNase, H3K27ac and H3K4me3 signal, consistent with an active promoter-like element. Caveat: the z-scores are maxima over ENCODE biosamples, not glioblastoma-specific."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 annotates the variant as a TERT upstream_gene_variant; E02 places TERT 0.0 kb from its TSS and as the nearest coding gene."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E17 shows GABPA is expressed at 15.52 TPM in DepMap glioblastoma, and E15 includes TERT promoter-mutant glioblastoma literature. This supports disease context, though not GABPA occupancy in that context."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "E15 is only a broad Europe PMC result list with titles, not evidence that alt-enhanced GABPA binding at C250T increases TERT expression, telomerase activity, or tumor maintenance. The mechanistic phenotype is asserted, not shown."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E28 is QBiC-SELEX only (alt effect +2.421, z 167.5); ETV3 occupancy is unknown because ENCODE never assayed it. The shared ETV5-mapped model and absence of relevant occupancy make this weak, not supported."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the active PLS cCRE EH38E3622530. Same caveat: activity marks are maxima over biosamples, not glioblastoma-specific."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 and E02 support TERT as the nearest gene and the variant as a TERT upstream promoter variant."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E28 shows ETV3 is expressed at 8.69 TPM in DepMap glioblastoma, and E15 supports TERT promoter mutations in glioblastoma. This is expression/context support, not functional evidence."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links ETV3 binding at this base to TERT transcription or telomerase activity; E15 is generic TERT/disease literature."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E18 gives a ref-gaining QBiC-SELEX change (effect -0.439, z -15.38), but KLF12 ChIP is only in HepG2 ('bound elsewhere'), not glioblastoma; E04 says no matching biosample peak counts as bound. The best model is KLF5-mapped, and KLF12 expression is low at 4.47 TPM."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the active PLS cCRE EH38E3622530, so the element context is supported, with the same biosample-max caveat."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 and E02 support TERT as the nearest gene and upstream promoter target."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "KLF12 is expressed in DepMap glioblastoma but only at 4.47 TPM (rank 787); E15 supports TERT promoter mutations in glioblastoma but does not show KLF12 is functional or relevant in that context. Low expression weakens the relevance claim."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "The claim requires KLF12 to be a TERT repressor and loss of its site to derepress TERT, but no cited assay supports KLF12 repression at TERT; E15 is generic disease literature."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "chain_1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX supports alt-gaining GABPA binding (own model effect +4.05, z 71.32; E32/E17), and GABPA ChIP peaks contain the variant in HepG2/SK-N-SH (E33). However E04 states no ENCODE biosample matches the glioblastoma expression context, so relevant-cell-type occupancy is not established. One side (binding change) is present, but occupancy is not in the disease-relevant cell type, making the link weak rather than supported."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in cCRE EH38E3622530, a promoter-like (PLS) element with DNase, H3K27ac and H3K4me3 signal. The claim appropriately notes these are maxima over ENCODE biosamples, not glioblastoma-specific."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 annotates the variant as a TERT upstream_gene_variant in a TERT promoter regulatory feature, and E02 places TERT at 0.0 kb from its TSS. This directly supports TERT as the nearest/annotated target gene."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E17 shows GABPA expression in DepMap glioblastoma lines (15.52 TPM, rank 303/1626), and E15 provides glioblastoma TERT-promoter literature context. The claim limits itself to disease context and does not assert glioblastoma GABPA occupancy."
+  },
+  {
+   "hypothesis_id": "chain_1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "General TERT promoter mutation literature supports TERT activation via novel TF sites (E34d), but there is no direct GABPA/C250T perturbation or reporter evidence. E34b additionally reports no detected ETS-factor dependency in a pooled TPM screen. The phenotype remains an indirect model prediction."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E28 gives an alt-gaining QBiC-SELEX change for an ETV5-mapped model (effect +2.421, z 167.5), but the model is not ETV3-specific and ETV3 occupancy is unknown because ENCODE never assayed ETV3. QBiC-SELEX alone is at best weak support for a binding link."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly supports that the variant lies in an active promoter-like cCRE (EH38E3622530)."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 and E02 directly annotate the variant as a TERT upstream promoter variant and place TERT at 0.0 kb from the TSS."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "E28 shows ETV3 expression in DepMap glioblastoma lines (8.69 TPM), and E15 supplies glioblastoma TERT-promoter context. This supports a plausible disease context, not occupancy."
+  },
+  {
+   "hypothesis_id": "chain_2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The phenotype is an indirect prediction from general TERT promoter mutation mechanisms (E34d, E15). There is no ETV3-specific perturbation or allele-specific reporter evidence, and the shared ETV5-mapped model further weakens the specific ETV3 claim."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E18 supports ref-gaining KLF12 binding in QBiC-SELEX (effect -0.439, z -15.38), but the best model is KLF5-mapped and KLF12 ChIP is only in HepG2. Factor-specific disease-relevant occupancy is not established."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in the promoter-like cCRE EH38E3622530 with active chromatin marks."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01 and E02 directly support TERT as the nearest/annotated upstream promoter target."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E18 shows only low KLF12 expression in DepMap glioblastoma lines (4.47 TPM, rank 787/1626) and no glioblastoma-context occupancy. The claim itself admits weak KLF12 relevance."
+  },
+  {
+   "hypothesis_id": "chain_3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No evidence is cited to show that KLF12 represses TERT or that loss of KLF12 binding at the alt allele derepresses TERT. The phenotype is speculative and lacks direct support."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"GABPA\"}",
+   "resolves": "chain_1.binding",
+   "why": "Confirms whether the GABPA QBiC-SELEX hit is GABPA's own model or an ETV5-mapped model, which determines whether the allele-specific binding change is factor-specific."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"GABPA\",\"biosample\":\"glioblastoma\"}",
+   "resolves": "chain_1.binding",
+   "why": "Tests directly whether ENCODE has GABPA occupancy over this variant in the disease-relevant context; absence would keep the binding link weak or missing."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"TERT promoter C250T GABPA allele-specific binding reporter glioblastoma\"}",
+   "resolves": "chain_1.binding",
+   "why": "Searches for the most decisive missing evidence: allele-specific GABPA occupancy or reporter/perturbation assays at C250T in glioblastoma-relevant cells."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "GABPA"
+   },
+   "run": true
+  },
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "biosample": null,
+    "tf": "GABPA"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "TERT promoter C250T GABPA ETS binding site allele-specific glioblastoma"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific GABPA ChIP-qPCR or CUT&RUN at C250T in a glioblastoma line heterozygous for the mutation (ref/alt discrimination).",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1",
+     "outcome": "Alt allele has stronger GABPA occupancy at this base."
+    },
+    {
+     "hypothesis_id": "chain_2",
+     "outcome": "Ets occupancy may be alt-enhanced, but GABPA-specific binding is not required by this model; GABPA signal alone does not support chain_2."
+    },
+    {
+     "hypothesis_id": "chain_3",
+     "outcome": "No GABPA occupancy difference; KLF12 is instead stronger on the ref allele."
+    },
+    {
+     "hypothesis_id": "chain_4",
+     "outcome": "No allele-specific GABPA occupancy at this base."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Ref/alt TERT promoter luciferase reporter (or MPRA) in glioblastoma cells, with and without GABPA knockdown.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1",
+     "outcome": "Alt allele increases TERT reporter activity; the increase is reduced by GABPA knockdown/CRISPRi."
+    },
+    {
+     "hypothesis_id": "chain_2",
+     "outcome": "Alt allele increases reporter activity, but GABPA knockdown has little effect; ETV3 knockdown reduces it."
+    },
+    {
+     "hypothesis_id": "chain_3",
+     "outcome": "Alt allele increases reporter activity through loss of KLF12 repression; GABPA knockdown has little effect and KLF12 knockdown increases the ref reporter."
+    },
+    {
+     "hypothesis_id": "chain_4",
+     "outcome": "No reproducible alt-dependent increase in TERT reporter activity at this base."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "GABPA CRISPRi/knockdown followed by TERT expression and telomerase activity in a TERT promoter-mutant glioblastoma line.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1",
+     "outcome": "GABPA depletion lowers TERT expression in TERT promoter-mutant glioblastoma cells."
+    },
+    {
+     "hypothesis_id": "chain_2",
+     "outcome": "No change with GABPA depletion; ETV3 depletion lowers TERT."
+    },
+    {
+     "hypothesis_id": "chain_3",
+     "outcome": "No change with GABPA depletion; KLF12 depletion raises TERT."
+    },
+    {
+     "hypothesis_id": "chain_4",
+     "outcome": "No change with GABPA depletion, as expected if this base has no TF-mediated effect."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "ETV3 knockdown/CRISPRi in the same TERT promoter-mutant glioblastoma cell system.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1",
+     "outcome": "No change in TERT expression or reporter activity after ETV3 depletion."
+    },
+    {
+     "hypothesis_id": "chain_2",
+     "outcome": "ETV3 depletion reduces the alt-dependent TERT increase."
+    },
+    {
+     "hypothesis_id": "chain_3",
+     "outcome": "No change after ETV3 depletion."
+    },
+    {
+     "hypothesis_id": "chain_4",
+     "outcome": "No change after ETV3 depletion."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Allele-specific KLF12 ChIP plus KLF12 knockdown in the glioblastoma reporter system.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1",
+     "outcome": "No allele-specific KLF12 occupancy and no KLF12-dependent change in TERT reporter activity."
+    },
+    {
+     "hypothesis_id": "chain_2",
+     "outcome": "No allele-specific KLF12 occupancy and no KLF12-dependent change in TERT reporter activity."
+    },
+    {
+     "hypothesis_id": "chain_3",
+     "outcome": "KLF12 occupies the ref allele more strongly; KLF12 knockdown increases TERT expression or ref reporter activity."
+    },
+    {
+     "hypothesis_id": "chain_4",
+     "outcome": "No allele-specific KLF12 occupancy and no KLF12-dependent TERT change."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Deep sequencing of the TERT promoter and flanking region in tumors, plus mutational-signature analysis, to test linkage and passenger status of C250T.",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "chain_1",
+     "outcome": "C250T usually occurs without a linked functional promoter variant and is not explained by a passenger signature alone."
+    },
+    {
+     "hypothesis_id": "chain_2",
+     "outcome": "C250T usually occurs without a linked functional promoter variant and is not explained by a passenger signature alone."
+    },
+    {
+     "hypothesis_id": "chain_3",
+     "outcome": "C250T usually occurs without a linked functional promoter variant and is not explained by a passenger signature alone."
+    },
+    {
+     "hypothesis_id": "chain_4",
+     "outcome": "A linked causal variant or recurrent passenger/hotspot mechanism explains the association; C250T itself need not be functional."
+    }
+   ],
+   "separates_top_two": false
+  }
+ ],
+ "next_experiment": "Ref/alt TERT promoter luciferase reporter (or MPRA) in a glioblastoma cell line, with and without GABPA knockdown: it is the cheapest assay that separates alt-dependent TERT promoter activity (chain_1) from no allelic effect at this base (chain_4); adding GABPA knockdown then distinguishes chain_1 from the other TF chains.",
+ "citation_support": 0.9333333333333333,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 41744838: not an exact substring of the abstract"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295135-1295135:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:26:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr5:1295135:G>A (GRCh38), allele string G/A\nKnown IDs: rs1561215364\nMost severe consequence: upstream_gene_variant\nRegulatory features: ENSR5_832QG promoter\nGERP conservation score at the site: -4.69\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295135-2295135?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:25:54+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295135:G>A, by distance to TSS:\nTERT: 0.0 kb from TSS (upstream, strand -1)\nCLPTM1L: 50.0 kb from TSS (downstream, strand -1)\nSLC6A18: 69.8 kb from TSS (downstream, strand +1)\nSLC6A19: 93.5 kb from TSS (downstream, strand +1)\nSLC12A7: 138.9 kb from TSS (upstream, strand -1)\nSLC6A3: 150.4 kb from TSS (downstream, strand -1)\nLPCAT1: 229.1 kb from TSS (downstream, strand -1)\nNKD2: 287.1 kb from TSS (downstream, strand +1)\nTRIP13: 402.3 kb from TSS (downstream, strand +1)\nBRD9: 402.3 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:25:50+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E3622530 (PLS: promoter-like), chr5:1294945-1295294.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622530 PLS (contains the variant): DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622529 pELS: DNase z 3.7, H3K27ac z 4.1, H3K4me3 z 4.6, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr5:1295135:G>A: 113 peaks contain the variant, from 47 factors in 22 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: PLS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ARID4A, BCL3, DMAP1, EZH2, EZH2phosphoT487, GABPB1, HDAC1, HNRNPK, IKZF1, KDM4A, LIN54, MAZ (+16 more). Bound, expressed TFs with a binding model: 18; listed one per row: MAX, JUN, BHLHE40, E2F4, EGR1, CTCF, GABPA, ZNF687, NR2C1, ZNF143; also bound: SP2, TGIF2, MNT, ZBTB7A, E2F5, ZBTB26, KLF12, ZNF48. Bound but below 1 TPM: ZFHX2. Assayed with no peak here: 0 TFs in the matching biosample, 554 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound elsewhere. 12 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, HCT116, HepG2, Ishikawa, K562, NB4 (+1 more) (e.g. ENCSR000BLP). 58.6 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 48 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUN: bound elsewhere. 11 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549 (e.g. ENCSR022WVP). 91.65 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 16 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "BHLHE40: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR000DZJ). 68.33 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 33 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "E2F4: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878, HepG2 (e.g. ENCSR000DYY). 58.31 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 49 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "EGR1: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, Ishikawa (e.g. ENCSR000BSQ). 28.32 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 151 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "CTCF: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: DOHH2, endodermal cell (e.g. ENCSR084RDK). 26.45 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 163 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "GABPA: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, SK-N-SH (e.g. ENCSR000BJK). 15.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 303 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF687: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR647PSR). 10.74 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 436 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2C1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR784VIQ). 18.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 251 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ZNF143: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR936XTK). 15.92 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 297 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs2853669 potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr5:1295135:G>A, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap subtype median Glioblastoma), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 10 of 18 occupied (14 with a strong site), 5 of 145 with unknown occupancy. Left out: 0 TFs assayed in the matching biosample and 554 assayed only elsewhere, none with a peak here; 1 bound but below 1 TPM. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "GABPA (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 167.5, effect 2.421: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 15.52 TPM, rank 303 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, SK-N-SH, e.g. ENCSR000BJK. Best model's site strength: ref 94.8th, alt 99.9th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E18",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "KLF12 (C2H2 ZF, 6 models; QBiC-SELEX coverage: own model): best model KLF5_eDBD_TAACGC40NGTG_KS_yin2017_0_4_7mer (a CIS-BP-mapped model of KLF5), z -15.38, effect -0.439: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.47 TPM, rank 787 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR552YWL. Best model's site strength: ref 99.9th, alt 98.9th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E19",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR2C1 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model RORC_NA_Lib1_NA_bhimsaria2023_0(3)_3_7mer (a CIS-BP-mapped model of RORC), z 15.31, effect 1.182: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 18.52 TPM, rank 251 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in GM12878, e.g. ENCSR784VIQ. Best model's site strength: ref 98.3th, alt 99.2th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E20",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TGIF2 (Homeodomain, 9 models; QBiC-SELEX coverage: own model): best model PKNOX2_eDBD_TAACGT40NGAT_KAN_yin2017_0_4_7mer (a CIS-BP-mapped model of PKNOX2), z -12.19, effect -1.113: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 10.31 TPM, rank 452 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR993LMB. Best model's site strength: ref 98.3th, alt 71.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E21",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZNF143 (C2H2 ZF, 2 models; QBiC-SELEX coverage: own model): best model ZNF143_NA_TGCAAG20NCG_V_jolma2013_0_3_7mer (its own model), z -11.71, effect -0.649: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 15.92 TPM, rank 297 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in GM12878, e.g. ENCSR936XTK. Best model's site strength: ref 100.0th, alt 98.4th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E22",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZBTB7A (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZBTB7A_eDBD_TTTGCT40NCGT_KR_yin2017_0_4_7mer (its own model), z -10.91, effect -0.707: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 8.49 TPM, rank 531 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in K562, e.g. ENCSR000BME. Best model's site strength: ref 99.9th, alt 99.9th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E23",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "SP2 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model SP2_eDBD_TCATGT40NCTG_KV_yin2017_0_4_7mer (its own model), z -9.83, effect -0.269: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 15.49 TPM, rank 305 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR946RZN. Best model's site strength: ref 100.0th, alt 99.7th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E24",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "EGR1 (C2H2 ZF, 4 models; QBiC-SELEX coverage: own model): best model EGR3_NA_TCATGC20NGTA_ESZ_yang2017_0_4_7mer (a CIS-BP-mapped model of EGR3), z -8.0, effect -0.422: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 28.32 TPM, rank 151 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, Ishikawa, e.g. ENCSR000BSQ. Best model's site strength: ref 99.8th, alt 99.7th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E25",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "BHLHE40 (bHLH, 2 models; QBiC-SELEX coverage: own model): best model BHLHE40_eDBD_TTAGTG40NACC_KR_yin2017_0_3_7mer (its own model), z -7.34, effect -0.318: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 68.33 TPM, rank 33 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in GM12878, e.g. ENCSR000DZJ. Best model's site strength: ref 99.6th, alt 93.6th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E26",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "E2F4 (E2F, 4 models; QBiC-SELEX coverage: own model): best model E2F3_NA_TTACAT20NACA_ESAF_yang2017_0_4_7mer (a CIS-BP-mapped model of E2F3), z -5.4, effect -0.455: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 58.31 TPM, rank 49 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in GM12878, HepG2, e.g. ENCSR000DYY. Best model's site strength: ref 99.5th, alt 99.4th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E27",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ETV2 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 167.5, effect 2.421: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.4 TPM, rank 1063 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 94.8th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E28",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ETV3 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 167.5, effect 2.421: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 8.69 TPM, rank 521 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 94.8th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E29",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "FLI1 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 167.5, effect 2.421: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.71 TPM, rank 767 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 94.8th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E30",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZNF92 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZNF92_FL_TC40NAATCTC_YWIA_jolma2025_0_3_7mer (its own model), z -33.21, effect -0.623: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 9.63 TPM, rank 481 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E31",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "EBF4 (EBF1, 2 models; QBiC-SELEX coverage: own model): best model EBF1_NA_TATAAG20NCG_AC_jolma2013_1_3_7mer (a CIS-BP-mapped model of EBF1), z -24.35, effect -0.646: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.58 TPM, rank 952 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.9th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E32",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"GABPA\",\"symbol\":\"GABPA\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"own_model\",\"variant\":\"chr5:1295135:G>A\",\"gate_p\":5.02e-05,\"models\":[{\"model\":\"GABPA_FL_TC40NGCGATT_YWL_jolma2025_0_2_7mer\",\"mapping\":\"own\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.658,\"effect\":4.05,\"z\":71.32,\"p\":0.0,\"rank_abs_z\":\"7/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":96.3,\"alt_percentile\":99.8,\"k\":7}},{\"model\":\"ELF1_FL_TATGAC40NTCA_KW_yin2017_0_2_7mer\",\"mapping\":\"CIS-BP (ELF1)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.615,\"effect\":3.222,\"z\":164.23,\"p\":0.0,\"rank_abs_z\":\"2/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":96.6,\"alt_percentile\":100.0,\"k\":7}},{\"model\":\"ELF2_eDBD_TGAAAT40NCAA_KR_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (ELF2)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.896,\"effect\":6.017,\"z\":54.18,\"p\":0.0,\"rank_abs_z\":\"9/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":98.8,\"alt_percentile\":100.0,\"k\":7}},{\"model\":\"ELF4_eDBD_TGCGGT40NTCA_KAN_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (ELF4)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.732,\"effect\":4.814,\"z\":110.16,\"p\":0.0,\"rank_abs_z\":\"4/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":98.0,\"alt_percentile\":100.0,\"k\":7}},{\"model\":\"ELK1_NA_TCGGAA20NAGT_ESAG_yang2017_1_3_7mer\",\"mapping\":\"CIS-BP (ELK1)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.779,\"effect\":2.107,\"z\":20.4,\"p\":1.6e-92,\"rank_abs_z\":\"34/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":92.4,\"alt_percentile\":99.9,\"k\":7}},{\"model\":\"ELK3_FL_TTCGAA40NGAC_KX_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (ELK3)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.841,\"effect\":2.718,\"z\":34.59,\"p\":3.1e-262,\"rank_abs_z\":\"16/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":94.0,\"alt_percentile\":100.0,\"k\":7}},{\"model\":\"ELK4_FL_TCCGCC40NTCA_KAE_yin2017_0_3_7mer\",\"mapping\":\"CIS-BP (ELK4)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.921,\"effect\":3.594,\"z\":62.15,\"p\":0.0,\"rank_abs_z\":\"8/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":70.7,\"alt_percentile\":99.6,\"k\":7}},{\"model\":\"ERF_NA_TCAGAG20NCG_ESW_yang2017_1_4_7mer\",\"mapping\":\"CIS-BP (ERF)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.729,\"effect\":0.529,\"z\":19.81,\"p\":2.3e-87,\"rank_abs_z\":\"36/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":99.5,\"alt_percentile\":99.7,\"k\":7}},{\"model\":\"ERG_NA_TCTACA20NCAG_ESAG_yang2017_1_4_7mer\",\"mapping\":\"CIS-BP (ERG)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.881,\"effect\":2.441,\"z\":24.39,\"p\":2e-131,\"rank_abs_z\":\"22/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":98.7,\"alt_percentile\":99.8,\"k\":7}},{\"model\":\"ETS1_NA_TGTAAA20NGA_ESAF_yang2017_0_4_7mer\",\"mapping\":\"CIS-BP (ETS1)\",\"group\":\"G003 Ets, 18 models\",\"quality\":0.873,\"effect\":1.226,\"z\":25.6,\"p\":1.5e-144,\"rank_abs_z\":\"20/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":99.6,\"alt_percentile\":100.0,\"k\":7}}],\"n_models_trimmed\":8}"
+  },
+  {
+   "id": "E33",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": "2026-10-25T17:27:26+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "2 ENCODE GABPA ChIP-seq peaks contain chr5:1295135:G>A: biosamples HepG2, SK-N-SH; experiments ENCSR000BJK, ENCSR000BTG."
+  },
+  {
+   "id": "E34",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20promoter%20C250T%20GABPA%20ETS%20binding%20site%20allele-specific%20glioblastoma&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T13:10:14+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 30 hits for 'TERT promoter C250T GABPA ETS binding site allele-specific glioblastoma'; top 8 with PMIDs:\nPMID 40822359 (2025): AURKB and PI3K/AKT/mTOR pathways converge to regulate &lt;i&gt;TERT&lt;/i&gt; expression.\nPMID 37741952 (2023): Pooled genetic screens to identify vulnerabilities in TERT-promoter-mutant glioblastoma.\nPMID 36713366 (2022): <i>TERT</i> promoter mutations and methylation for telomerase activation in urothelial carcinomas: New mechanistic insights and clinical significance.\nPMID 38033865 (2023): Reactivation of telomerase reverse transcriptase expression in cancer: the role of TERT promoter mutations.\nPMID 38285162 (2024): Mechanisms of telomere maintenance and associated therapeutic vulnerabilities in malignant gliomas.\nPMID 40272676 (2025): TERT Amplification a Risk Stratification Marker in Papillary Thyroid Carcinoma, Significantly Correlated with Tumor Recurrence and Survival.\nPMID 35903534 (2022): TERT Promoter Mutations and Telomerase in Melanoma.\nPMID 34395278 (2021): Clinical Application of <i>TERT</i> Promoter Mutations in Urothelial Carcinoma."
+  },
+  {
+   "id": "E34a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37741952",
+   "url": "https://europepmc.org/article/MED/37741952",
+   "retrieved_utc": "2026-10-26T13:10:14+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Here we used pooled CRISPR/Cas9-based approaches to identify vulnerabilities associated with telomerase reverse transcriptase (TERT) promoter mutations (TPMs) found in >80% of glioblastomas."
+  },
+  {
+   "id": "E34b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 37741952",
+   "url": "https://europepmc.org/article/MED/37741952",
+   "retrieved_utc": "2026-10-26T13:10:14+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "However, we could not detect dependencies on either TERT itself or on an E-twenty six transcription (ETS) factor known to activate TPMs."
+  },
+  {
+   "id": "E34c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38033865",
+   "url": "https://europepmc.org/article/MED/38033865",
+   "retrieved_utc": "2026-10-26T13:10:14+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Point mutations in the core promoter region of the telomerase reverse transcriptase (TERT) gene have been found to occur at high frequencies in several tumour types and considered a primary cause of telomerase reactivation in cancer cells."
+  },
+  {
+   "id": "E34d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38033865",
+   "url": "https://europepmc.org/article/MED/38033865",
+   "retrieved_utc": "2026-10-26T13:10:14+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "These mutations promote TERT gene expression by multiple mechanisms, including the generation of novel binding sites for nuclear transcription factors, displacement of negative regulators from DNA G-quadruplexes, recruitment of epigenetic activators and disruption of long-range interactions between TERT locus and telomeres."
+  },
+  {
+   "id": "E34e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 35903534",
+   "url": "https://europepmc.org/article/MED/35903534",
+   "retrieved_utc": "2026-10-26T13:10:14+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "A growing number of recent studies suggest that the most common mutations in the TERT promoter (ATG start site -124C>T and -146C>T) are associated with increased TERT mRNA expression, telomerase activity, telomere length, and poor prognosis."
+  }
+ ]
+}

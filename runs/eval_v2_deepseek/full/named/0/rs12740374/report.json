@@ -1,0 +1,1103 @@
+{
+ "case_id": "rs12740374",
+ "variant": "rs12740374",
+ "variant_key": "chr1:109274968:G>T",
+ "disease": "LDL cholesterol, myocardial infarction (1p13)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "full",
+ "mode": "named",
+ "seed": 0,
+ "models": {
+  "generator": "deepseek/deepseek-v4.1-flash-1017",
+  "critic": "deepseek/deepseek-v4.1-flash-1017",
+  "summariser": "deepseek/deepseek-v4.1-flash-1017"
+ },
+ "cost_usd": 0.0337,
+ "seconds": 134.8,
+ "model_calls": 8,
+ "screen": {
+  "n_pass": 239,
+  "counts": {
+   "occupied": 140,
+   "unknown": 78,
+   "occupied_not_expressed": 12,
+   "unbound_assayed_here": 251,
+   "unbound_assayed_elsewhere": 170,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "CEBPG",
+    "z": 26.76,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "CEBPA",
+    "z": 22.81,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "MLX",
+    "z": -15.37,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "GFI1",
+    "z": 14.71,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "KLF6",
+    "z": -13.34,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "KLF12",
+    "z": -13.34,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "HNF4A",
+    "z": 11.41,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "NR2F6",
+    "z": 11.41,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "RXRB",
+    "z": 11.41,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   },
+   {
+    "tf": "RXRA",
+    "z": 11.41,
+    "occupancy": "bound_here",
+    "passes_gate": true
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "ZNF43",
+    "z": 35.83
+   },
+   {
+    "tf": "RFX2",
+    "z": 23.16
+   },
+   {
+    "tf": "TFAP2A",
+    "z": -21.21
+   },
+   {
+    "tf": "TFAP2E",
+    "z": -21.21
+   },
+   {
+    "tf": "ZNF345",
+    "z": 20.62
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "title": "CEBPG binds the T allele, activates an enhancer, increases liver SORT1, and lowers LDL/MI risk",
+   "is_null": false,
+   "tf": "CEBPG",
+   "allele_binding_more": "alt",
+   "element": "active distal enhancer-like cCRE EH38E1374646 (dELS)",
+   "target_gene": "SORT1",
+   "cell_type": "liver hepatocyte lineage; HepG2 ENCODE ChIP as a stand-in for Hep3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CEBPG binds the alt T allele more strongly than the ref G allele. CEBPG has its own QBiC-SELEX model at this variant (z 26.76, effect +2.321, ref 64.5th to alt 99.4th percentile), is occupied over the variant in HepG2 ChIP-seq, and is expressed in Hep3B2.1-7 (46.37 TPM). The QBiC-SELEX result is in vitro and the ChIP peak is not allele-specific, so cellular allele-specific occupancy remains untested.",
+     "evidence_ids": [
+      "E20"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in an active distal enhancer-like cCRE, EH38E1374646, with DNase, H3K27ac and H3K4me3 signal and dense HepG2 TF ChIP occupancy. This supports an active regulatory element, though allele-sensitive enhancer activity is not directly assayed by these marks.",
+     "evidence_ids": [
+      "E03",
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The alt T allele is associated with higher SORT1 expression in liver (NES +1.27), and SORT1 is the top L2G gene in the 1p13 credible sets. This links the element to SORT1 by genetic evidence, not by direct perturbation.",
+     "evidence_ids": [
+      "E17",
+      "E16"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant context is liver hepatocyte lineage: CEBPG is expressed in Hep3B2.1-7 and occupied at the variant in HepG2, which is used here as a liver-lineage stand-in. Direct occupancy in Hep3B2.1-7 or primary hepatocytes is not shown.",
+     "evidence_ids": [
+      "E04",
+      "E20"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The genetic direction is consistent with the T allele being protective: G is the risk allele for high cholesterol/LDLC, T is associated with higher liver SORT1, and SORT1 has the strongest L2G score. MI is not directly listed in the cited GWAS rows and one LDL record reports effect allele T, so the LDL/MI causal direction through SORT1 is inferred rather than directly demonstrated.",
+     "evidence_ids": [
+      "E15",
+      "E17",
+      "E16",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "An allele-specific reporter should show higher activity from the T allele than the G allele.",
+    "CEBPG knockdown should reduce T-allele-specific enhancer activity more than G-allele activity.",
+    "CEBPG occupancy or footprinting should be stronger on the T allele at this base."
+   ],
+   "falsified_if": [
+    "CEBPG does not show T-allele-biased occupancy at this base in an allele-specific assay.",
+    "CEBPG knockdown or loss does not reduce T-allele enhancer activity or liver SORT1 expression.",
+    "An allele-specific reporter shows no difference between G and T at this base."
+   ],
+   "probability": 0.35,
+   "rank": 1,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPG"
+  },
+  {
+   "id": "null_no_TF_mediated_effect",
+   "title": "No TF-mediated allelic effect; rs12740374 tags a linked causal variant or is a passenger",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "No allele-specific TF occupancy at this exact base after controlling for linked variants.",
+    "The disease association is explained by another variant in the 1p13 credible set or by a passenger signal at the SORT1/CELSR2/PSRC1 locus.",
+    "An allele-specific reporter at this base shows no G-vs-T difference."
+   ],
+   "falsified_if": [
+    "A direct allele-specific assay at this exact base shows changed TF occupancy and enhancer activity that tracks with SORT1 expression.",
+    "Conditioning on nearby credible-set variants does not remove the rs12740374 signal, and base editing of rs12740374 alone changes SORT1."
+   ],
+   "probability": 0.32,
+   "rank": 2,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "title": "CEBPA binds the T allele, activates the enhancer, increases liver SORT1, and lowers LDL/MI risk",
+   "is_null": false,
+   "tf": "CEBPA",
+   "allele_binding_more": "alt",
+   "element": "active distal enhancer-like cCRE EH38E1374646 (dELS)",
+   "target_gene": "SORT1",
+   "cell_type": "liver hepatocyte lineage; HepG2 ENCODE ChIP as a stand-in for Hep3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CEBPA binds the alt T allele more strongly than the ref G allele. CEBPA has an own-model QBiC-SELEX change at this variant (z 22.63, effect +2.803, ref 66.0th to alt 98.8th percentile), is occupied over the variant in HepG2 ChIP-seq, and is highly expressed in Hep3B2.1-7 (141.33 TPM). The strongest CEBPA-row model is CEBPB-mapped, so C/EBP-family specificity is not fully resolved; no allele-specific ChIP is shown.",
+     "evidence_ids": [
+      "E35",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in active distal enhancer EH38E1374646 with DNase, H3K27ac and H3K4me3 marks and dense HepG2 TF occupancy. This supports an active enhancer, but allele-sensitive activity is not directly assayed.",
+     "evidence_ids": [
+      "E03",
+      "E04"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "The alt T allele is associated with higher liver SORT1 expression (NES +1.27), and SORT1 is the strongest L2G gene in the 1p13 credible sets. This is genetic colocalization, not direct CEBPA perturbation.",
+     "evidence_ids": [
+      "E17",
+      "E16"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The relevant cell context is liver hepatocyte lineage: CEBPA is expressed in Hep3B2.1-7 and occupied at the variant in HepG2, used as a liver-lineage stand-in. Direct occupancy in the exact expression context is not shown.",
+     "evidence_ids": [
+      "E04",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "G is the risk allele for high cholesterol/LDLC, T is associated with higher liver SORT1, and SORT1 has the top L2G score. This fits a protective T-allele direction, but MI is not directly listed in the cited GWAS rows and one LDL record reports effect allele T; the phenotype direction through SORT1 is inferred.",
+     "evidence_ids": [
+      "E15",
+      "E17",
+      "E16",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "An allele-specific reporter should show higher activity from the T allele than the G allele.",
+    "CEBPA knockdown should reduce T-allele-specific enhancer activity more than G-allele activity.",
+    "CEBPA occupancy or footprinting should be stronger on the T allele at this base."
+   ],
+   "falsified_if": [
+    "CEBPA does not show T-allele-biased occupancy at this base in an allele-specific assay.",
+    "CEBPA knockdown or loss does not reduce T-allele enhancer activity or liver SORT1 expression.",
+    "CEBPG, not CEBPA, accounts for the C/EBP-family allele-specific effect in perturbation experiments."
+   ],
+   "probability": 0.25,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CEBPA"
+  },
+  {
+   "id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "title": "MLX binds the G allele more strongly and represses SORT1, raising LDL/MI risk",
+   "is_null": false,
+   "tf": "MLX",
+   "allele_binding_more": "ref",
+   "element": "active distal enhancer-like cCRE EH38E1374646 (dELS)",
+   "target_gene": "SORT1",
+   "cell_type": "liver hepatocyte lineage; HepG2 ENCODE ChIP as a stand-in for Hep3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "MLX binds the ref G allele more strongly than the alt T allele. MLX has its own QBiC-SELEX model (z -15.37, effect -0.496, ref 99.4th vs alt 82.1st percentile), is occupied over the variant in HepG2, and is expressed in Hep3B2.1-7 (57.97 TPM). This is in vitro binding plus peak occupancy, not allele-specific cellular occupancy.",
+     "evidence_ids": [
+      "E22"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is in active distal enhancer EH38E1374646 with DNase/H3K27ac/H3K4me3 marks and dense TF occupancy, so an allele-specific repressive factor is plausible. Direct allele-specific repressor activity is not shown.",
+     "evidence_ids": [
+      "E03",
+      "E04"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "The T allele is associated with higher liver SORT1 (NES +1.27), implying lower SORT1 on G; this is compatible with stronger G-allele MLX repression. This is an inference from eQTL direction, not MLX perturbation.",
+     "evidence_ids": [
+      "E17",
+      "E16"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "The matching context is liver hepatocyte lineage: MLX is expressed in Hep3B2.1-7 and occupied at the variant in HepG2 as a stand-in. Direct occupancy in Hep3B2.1-7 or primary hepatocytes is not shown.",
+     "evidence_ids": [
+      "E04",
+      "E22"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "If G-bound MLX represses SORT1, G carriers should have lower liver SORT1 and higher LDL risk, matching G as the high-cholesterol/LDLC risk allele. MLX repression and the SORT1-to-LDL direction are not directly demonstrated, and MI is not directly listed.",
+     "evidence_ids": [
+      "E15",
+      "E17",
+      "E16",
+      "E18"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "MLX ChIP or footprinting should be stronger on the G allele than the T allele.",
+    "MLX knockdown should increase SORT1 more strongly in G-allele cells than in T-allele cells.",
+    "If MLX represses this element, the G allele should show lower enhancer activity than the T allele."
+   ],
+   "falsified_if": [
+    "MLX does not bind the G allele more strongly at this site in an allele-specific assay.",
+    "MLX knockdown does not increase SORT1 or enhancer activity preferentially on the G allele.",
+    "The disease direction is not explained by G-allele MLX repression of SORT1."
+   ],
+   "probability": 0.08,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "MLX"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "tf": "CEBPA",
+   "is_null": false,
+   "probability": 0.45,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "tf": "CEBPG",
+   "is_null": false,
+   "probability": 0.25,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "tf": "MLX",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "null_no_TF_mediated_effect",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.2,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E21 gives HepG2 ChIP occupancy over the variant and a QBiC-SELEX alt-binding effect, but the best QBiC model is CIS-BP-mapped CEBPB, not a CEBPA own-model change; allele-specific CEBPA occupancy is not shown and C/EBP-family redundancy is unresolved."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in EH38E1374646, a dELS with DNase/H3K27ac/H3K4me3 signal, and E04 shows dense HepG2 TF ChIP occupancy; this supports an active distal enhancer, though allele-sensitive enhancer activity itself is not assayed here."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E17 shows the alt T allele associated with higher liver SORT1 expression (NES +1.27), and E16 assigns SORT1 the top L2G score in the credible sets."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "HepG2 ChIP occupancy is used as a stand-in for Hep3B2.1-7, and expression is shown in Hep3B2.1-7, but there is no direct occupancy evidence in the exact expression context or primary hepatocytes."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 strongly supports G as the high-cholesterol/LDLC risk allele, but MI is not directly listed, one LDL record reports effect allele T, and the T-to-lower-LDL direction is inferred through SORT1 rather than directly shown."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E20 provides both HepG2 ChIP occupancy over the variant and a CEBPG own-model QBiC-SELEX change in the stated direction (z 26.76, effect +2.321, alt binds more), with CEBPG expressed in Hep3B2.1-7."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 and E04 support the variant residing in an active distal enhancer EH38E1374646 with liver-lineage TF occupancy; allele-specific enhancer activity is not directly tested."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E17 links the alt T allele to higher liver SORT1 expression, and E16 ranks SORT1 as the strongest L2G gene in the 1p13 credible sets."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "The claim relies on HepG2 as an ENCODE stand-in for Hep3B2.1-7; CEBPG expression is from Hep3B2.1-7 but occupancy is not directly shown there."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The G-risk/LDL association is supported by E15, but the MI component and the causal SORT1-to-LDL direction are indirect; E15 also contains an LDL record with effect allele T."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E22 provides HepG2 ChIP occupancy over the variant and an MLX own-model QBiC-SELEX change in the stated direction (z -15.37, effect -0.496, ref binds more), with MLX expressed in Hep3B2.1-7."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03/E04 support an active distal enhancer at the variant with dense TF occupancy, making an allele-specific repressive factor plausible; direct allele-specific repressor activity is not shown."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E17 shows T higher SORT1 in liver, which implies lower SORT1 on G, consistent with stronger G-allele MLX repression; this is an inference from eQTL direction, not MLX perturbation."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "MLX occupancy is in HepG2 as a stand-in for Hep3B2.1-7; the exact liver-lineage context is approximated rather than directly assayed."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Direction is internally consistent with G as risk and G-bound MLX repressing SORT1, but MLX repression, the SORT1-to-LDL effect, and MI are not directly demonstrated by the cited evidence."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E20 gives both halves required for a supported binding link: a QBiC-SELEX change in the stated direction from CEBPG's own model (z 26.76, effect +2.321, ref 64.5th to alt 99.4th percentile, above the |z|>4.05 gate) and occupancy over the variant (ENCODE ChIP peak ENCSR639IIZ in HepG2, the liver-lineage stand-in), with expression in the stated DepMap line (46.37 TPM). Caveat correctly stated: the ChIP peak is not allele-specific, so cellular allele-specific occupancy is untested; that limits, but does not remove, support."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant inside cCRE EH38E1374646 (dELS, DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 4.2) and E04 shows dense HepG2 occupancy at the base, directly supporting an active distal enhancer-like element. Two caveats worth flagging: E03's z-scores are maxima over biosamples, not biosample-specific, so liver/hepatocyte activity of this cCRE is not shown; and no allele-sensitive enhancer (reporter/MPRA) assay is cited, so the claim properly stops at 'active element, allele effect untested'."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E17 gives a direct variant-to-gene association in the relevant tissue: SORT1 in Liver, NES +1.27 (T allele), p 3.1e-54, and E16 gives L2G SORT1 0.99 with PIP 1.00 credible sets. This is colocalising-QTL/fine-mapping evidence, which is second-tier but directly on point for this variant and gene. It is not perturbation, and SORT1 lies 123 kb away with no chromatin-contact or CRISPR data cited, so the element-to-promoter step remains genetic inference rather than demonstrated."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "Expression of CEBPG is shown in the exact stated context (DepMap ACH-000625 Hep 3B2.1-7, 46.37 TPM, rank 84/1626) and occupancy is shown in HepG2, explicitly used as a liver-lineage stand-in (E20, E04). The limitation (no occupancy in Hep3B2.1-7 or primary hepatocytes) is disclosed and is a stand-in caveat rather than a missing link."
+  },
+  {
+   "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant-trait association is strong and in the stated direction (E15: G risk allele for high cholesterol p 9.9e-324, LDLC p 4.0e-164; E17: T associated with higher liver SORT1), so T-protective is consistent. But the mechanistic leg SORT1 -> lower LDL is not demonstrated by any cited perturbation, and MI is supported only by Europe PMC bibliographic titles (E18), not by a quoted assay or a GWAS row. E15 also contains a discordant record ('LDL cholesterol levels', effect allele T, PMID 39414775), so allele coding across studies is not uniform. The chain over-claims in its title ('lowers LDL/MI risk') relative to what is shown; the body text is appropriately hedged."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "binding",
+   "status": "supported",
+   "reason": "CEBPA has its own model in coverage (E35: CEBPA_NA_lib5_20N_rm2017, quality 0.948, effect +2.803, z 22.63, alt 98.8th vs ref 66.0th percentile, above gate) plus occupancy over the variant (E21, ENCSR142IGM, HepG2) and high expression (141.33 TPM). Both required components are present. The family caveat is fair: the best-scoring rows in E21/E35 are CIS-BP-mapped CEBPB/CEBPE models, so C/EBP-paralog specificity is unresolved and no allele-specific ChIP is shown; that is a caveat on specificity, not a missing link."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03/E04 directly place the variant in the dELS cCRE EH38E1374646 with DNase, H3K27ac and H3K4me3 signal and dense HepG2 factor occupancy. As with the CEBPG chain, the marks are maxima over biosamples and no allele-sensitive enhancer assay is cited, so only the 'active element' claim is supported, not an allele-specific activity claim."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E17 (SORT1 Liver NES +1.27, p 3.1e-54) and E16 (L2G SORT1 0.99, PIP 1.00) directly tie this variant to SORT1 expression in liver at the genetic level. The chain is explicit that this is colocalisation, not CEBPA perturbation, which is the correct reading; no perturbation of CEBPA or of the element is cited."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "CEBPA expression is documented in the exact stated line (141.33 TPM, rank 18/1626 in ACH-000625) and occupancy in HepG2 as the stated liver stand-in (E21). The gap (no direct occupancy in Hep3B2.1-7 or primary hepatocytes) is disclosed."
+  },
+  {
+   "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "Same structure as the CEBPG chain: G-as-risk for cholesterol/LDLC and T-higher-SORT1 are solid (E15, E17, E16), so the T-protective direction is internally consistent, but the SORT1 -> LDL step is inferred, MI rests on E18 titles only, and E15 contains a discordant LDL row with effect allele T. The title's 'lowers LDL/MI risk' over-reaches the cited evidence; the step text is properly hedged."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "binding",
+   "status": "supported",
+   "reason": "E22 supplies an own-model QBiC-SELEX change in the stated direction (z -15.37, effect -0.496, ref 99.4th vs alt 82.1st percentile, above gate) plus occupancy over the variant in HepG2 (ENCSR125DAD) and expression in ACH-000625 (57.97 TPM). Both halves of the binding criterion are met. Worth flagging that the effect size (-0.496) is modest and the ref-site is already near-maximal (99.4th percentile), so the predicted allelic difference in occupancy is small; no allele-specific occupancy is shown."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "element",
+   "status": "weak",
+   "reason": "E03/E04 support an active dELS (DNase/H3K27ac/H3K4me3, dense factor occupancy) \u2014 but that is enhancer-like, activating chromatin, which is in tension with the chain's premise that this element is a site of MLX-mediated repression. No silencer assay, no repressor-domain evidence, and no allele-specific activity data are cited, so the repressive reading is an extrapolation from the marks rather than something they show."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "gene",
+   "status": "weak",
+   "reason": "The underlying eQTL is direct (E17: SORT1 Liver NES +1.27 for T; E16 L2G SORT1 0.99), so T-higher-SORT1 is supported. What is not supported is the added step that G-allele MLX binding lowers SORT1: no MLX perturbation, no MLX ChIP with allele resolution, and no repressor assay is cited. The 'compatible with' framing is honest, but the link as stated is inference on top of the QTL."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "MLX is expressed in the exact stated line (57.97 TPM, rank 73/1626, E22) and occupied at the variant in HepG2 as the declared liver-lineage stand-in. Direct occupancy in Hep3B2.1-7 or primary hepatocytes is not shown, as the chain states."
+  },
+  {
+   "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The direction is internally consistent only if one grants two unproven premises: that MLX represses this element, and that higher SORT1 lowers LDL. E15 does put G as the risk allele for high cholesterol/LDLC, which matches 'G binds MLX more -> lower SORT1 -> higher LDL' only under those premises; no perturbation supports either. MI appears only as Europe PMC titles (E18), and E15's discordant LDL row (effect allele T, PMID 39414775) is unresolved. Over-claim flagged: the title asserts a repression mechanism and an MI consequence that the cited evidence does not establish."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "qbic_tf_detail",
+   "args_json": "{\"tf\":\"CEBPA\"}",
+   "resolves": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL.binding",
+   "why": "Determines whether CEBPA has a usable own-model allele effect at this variant or whether the signal is only through the CEBPB-mapped model, which would decide whether the CEBPA chain should be upgraded or demoted relative to CEBPG."
+  },
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"rs12740374 CEBP allele-specific binding SORT1 enhancer reporter\"}",
+   "resolves": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL.binding",
+   "why": "Finds direct allele-specific ChIP, footprinting, reporter, or MPRA evidence for the C/EBP site; this is the evidence class most likely to distinguish CEBPA from CEBPG and to confirm or falsify the activator chains."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"SORT1\"}",
+   "resolves": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL.phenotype",
+   "why": "Checks whether SORT1 has direct Open Targets disease association evidence for LDL/MI, which would strengthen or weaken the phenotypic inference shared by all three TF chains."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "qbic_tf_detail",
+   "args": {
+    "tf": "CEBPA"
+   },
+   "run": true
+  },
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "rs12740374 CEBP allele-specific binding SORT1 enhancer reporter"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "SORT1"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Allele-specific enhancer reporter or MPRA comparing G and T at this base in liver-lineage cells",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "T allele gives higher reporter/MPRA activity than G in HepG2 or Hep3B2.1-7."
+    },
+    {
+     "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "T allele gives higher reporter/MPRA activity than G."
+    },
+    {
+     "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+     "outcome": "T allele gives higher reporter activity than G if G-bound MLX represses."
+    },
+    {
+     "hypothesis_id": "null_no_TF_mediated_effect",
+     "outcome": "No reproducible G-vs-T difference at this exact base."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CEBPG knockdown in the allele-specific reporter or endogenous SORT1 assay",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "CEBPG knockdown reduces the T-allele-specific reporter signal or SORT1 induction."
+    },
+    {
+     "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "CEBPG knockdown has little effect; CEBPA knockdown reduces the T-allele signal."
+    },
+    {
+     "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+     "outcome": "CEBPG knockdown has little effect; MLX knockdown increases G-allele activity."
+    },
+    {
+     "hypothesis_id": "null_no_TF_mediated_effect",
+     "outcome": "No allele-specific effect before or after CEBPG knockdown."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Allele-specific ChIP, footprinting, or base-edited occupancy assay for CEBPG/CEBPA/MLX at the variant",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "CEBPG occupancy or footprinting is stronger on T than G."
+    },
+    {
+     "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "CEBPA occupancy or footprinting is stronger on T than G."
+    },
+    {
+     "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+     "outcome": "MLX occupancy or footprinting is stronger on G than T."
+    },
+    {
+     "hypothesis_id": "null_no_TF_mediated_effect",
+     "outcome": "No allele-specific TF occupancy at this base after controlling for linked variants."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "CRISPRi or knockout of CEBPG versus CEBPA in Hep3B2.1-7 with SORT1 expression readout",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "CEBPG_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "CEBPG loss lowers SORT1 in liver-lineage cells."
+    },
+    {
+     "hypothesis_id": "CEBPA_alt_enhancer_SORT1_liver_lower_LDL",
+     "outcome": "CEBPA loss lowers SORT1; CEBPG loss has little effect."
+    },
+    {
+     "hypothesis_id": "MLX_ref_represses_SORT1_liver_higher_LDL",
+     "outcome": "MLX loss raises SORT1, preferentially on the G allele."
+    },
+    {
+     "hypothesis_id": "null_no_TF_mediated_effect",
+     "outcome": "No TF loss effect on SORT1 beyond linked-variant effects."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The single cheapest experiment that separates the top two chains is an allele-specific enhancer reporter or MPRA comparing G and T at chr1:109274968 in HepG2 or Hep3B2.1-7. CEBPG predicts higher T-allele activity; the null predicts no reproducible G-vs-T difference at this exact base.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "quote_rejected",
+   "detail": "PMID 42019808: not an exact substring of the abstract"
+  },
+  {
+   "flag": "tool_failed",
+   "detail": "E37 gene_disease: Open Targets lookup failed: no disease matches 'LDL cholesterol, myocardial infarction'"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/1:109274968-109274968:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T18:05:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr1:109274968:G>T (GRCh38), allele string G/T\nKnown IDs: rs12740374\nMost severe consequence: 3_prime_UTR_variant\nRegulatory features: ENSR1_CDSQQ enhancer\nGERP conservation score at the site: -0.782\nTranscript consequences: CELSR2 (3_prime_UTR_variant); PSRC1 (downstream_gene_variant); CELSR2 (downstream_gene_variant); CELSR2 (non_coding_transcript_exon_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/1:108274968-110274968?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T18:05:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "41 protein-coding genes within 1000 kb of chr1:109274968:G>T, by distance to TSS:\nPSRC1: 9.1 kb from TSS (downstream, strand -1)\nCELSR2: 25.4 kb from TSS (in gene body, strand +1)\nMYBPHL: 32.2 kb from TSS (downstream, strand -1)\nSARS1: 61.1 kb from TSS (downstream, strand +1)\nSORT1: 123.0 kb from TSS (downstream, strand -1)\nPSMA5: 151.5 kb from TSS (downstream, strand -1)\nCFAP276: 161.1 kb from TSS (upstream, strand -1)\nELAPOR1: 161.8 kb from TSS (downstream, strand +1)\nTMEM167B: 184.6 kb from TSS (downstream, strand +1)\nSYPL2: 191.6 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:28:56+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E1374646 (dELS: distal enhancer-like), chr1:109274794-109275142.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E1374646 dELS (contains the variant): DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 4.2, CTCF z 1.9; nearby genes CELSR2, PSRC1, MYBPHL\nEH38E2829474 dELS: DNase z 3.2, H3K27ac z 4.8, H3K4me3 z 4.4, CTCF z 1.9; nearby genes CELSR2, PSRC1, MYBPHL\nEH38E2829475 dELS: DNase z 4.6, H3K27ac z 4.5, H3K4me3 z 3.7, CTCF z 1.6; nearby genes CELSR2, PSRC1, MYBPHL\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr1:109274968:G>T: 501 peaks contain the variant, from 261 factors in 25 biosamples. In the matching biosample HepG2 (HepG2 stands in for Hep 3B2.1-7 (both liver cancer lines)): 224 peaks from 188 factors. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): AFF1, ARID4A, ARID5B, ASH2L, BCL3, BRD4, CBFA2T3, CTBP1, DMAP1, DPF2, EED, EP300 (+97 more). Bound, expressed TFs with a binding model: 140; listed one per row: FOXA1, MAX, SP1, TCF7L2, FOXA2, USF1, JUND, RXRA, NR2F2, TCF12; also bound: ELF1, CREB1, EGR1, ATF3, NRF1, NCOA1, HNF4A, E2F4, YY1, NR2F6, ZNF281, MEIS2, FOXK2, FOXJ3, FOXA3, ZNF687, HNF1B, SOX6, FOXP1, ZHX2, MEF2D, CREM, ZBTB33, FOSL2, KLF9, CEBPA, KDM2A, MYBL2, ERF, ELF3 (+100 more). Bound but below 1 TPM: EGR2, ESR1, HOXD1, KLF1, KLF11, KLF4, MITF, MSX2, NKX3-1, NR5A1. Assayed with no peak here: 251 TFs in the matching biosample, 170 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "FOXA1: bound here. 9 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, Ishikawa, MCF-7, T47D (+1 more) (e.g. ENCSR865RXA). 53.15 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 84 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound here. 8 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, HeLa-S3, K562, MCF-7 (e.g. ENCSR168DYA). 33.54 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 153 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SP1: bound here. 7 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, HCT116, liver (e.g. ENCSR000BJX). 23.48 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 234 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TCF7L2: bound here. 6 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in HeLa-S3, MCF-7, Panc1 (e.g. ENCSR346BOD). 24.15 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 229 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "FOXA2: bound here. 6 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, liver (e.g. ENCSR066EBK). 22.07 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 253 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "USF1: bound here. 5 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, K562 (e.g. ENCSR099FCQ). 85.08 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 42 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUND: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, K562, MCF-7 (e.g. ENCSR000BGK). 48.46 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 97 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "RXRA: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in liver (e.g. ENCSR416HDG). 31.42 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 167 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2F2: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in MCF-7 (e.g. ENCSR000BVM). 22.86 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 243 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TCF12: bound here. 3 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, MCF-7 (e.g. ENCSR000BJG). 40.85 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 123 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs12740374&size=100",
+   "retrieved_utc": "2026-10-25T17:29:12+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "100 GWAS Catalog associations for rs12740374, strongest first:\nHigh cholesterol: p 9.9e-324, effect allele G, risk-allele frequency 0.7788, PMID 39024449\nTakes medication for high cholesterol?: p 6.0e-297, effect allele G, risk-allele frequency 0.7815, PMID 39024449\nDisorders of lipid metabolism (PheCode 272): p 7.0e-262, effect allele G, risk-allele frequency 0.778, PMID 39024449\nCirculating TNFSF13 levels: p 4.0e-260, effect allele ?, risk-allele frequency NR, PMID 42097137\nHyperlipidemia (PheCode 272.1): p 6.0e-259, effect allele G, risk-allele frequency 0.778, PMID 39024449\ntotal cholesterol (minimum, inv-norm transformed): p 1.0e-208, effect allele G, risk-allele frequency 0.7774, PMID 39024449\nlow density lipoprotein cholesterol (LDLC, maximum, inv-norm transformed): p 4.0e-164, effect allele G, risk-allele frequency 0.7453, PMID 39024449\nlow density lipoprotein cholesterol (LDLC, mean, inv-norm transformed): p 4.0e-154, effect allele G, risk-allele frequency 0.7454, PMID 39024449\nCirculating LAG3 levels (id: OID05553_OID21315): p 1.0e-153, effect allele ?, risk-allele frequency NR, PMID 42097137\nCirculating LAG3 levels (id: OID01023_OID21315): p 1.0e-152, effect allele ?, risk-allele frequency NR, PMID 42097137\nLDL cholesterol levels: p 2.0e-137, effect allele T, risk-allele frequency NR, PMID 39414775\ntotal cholesterol (maximum, inv-norm transformed): p 2.0e-123, effect allele G, risk-allele frequency 0.7453, PMID 39024449"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:04+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2316 credible sets contain 1_109274968_G_T: 189 GWAS, 11 molecular QTL.\nGWAS Total cholines levels (UKB data field 23436): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Apolipoprotein B levels (UKB data field 23439): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Total cholesterol levels: PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Cholesterol to total lipids in large HDL percentage (UKB dat: PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Total lipids in small VLDL (UKB data field 23510): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Triglycerides in medium VLDL (UKB data field 23508): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nsqtl for SORT1 (gtex-v10_majiq_liver_ensg00000134243_s_109314672-1): PIP 0.72\nsqtl for CELSR2 (gtex-v10_majiq_muscle_ensg00000143126_s_109273436-): PIP 0.49\neqtl for PSRC1 (gtex-v10_ge_pancreas_ensg00000134222): PIP 0.41\neqtl for CELSR2 (gtex-v10_exon_esophagus_mucosa_ensg00000143126_8_1): PIP 0.37\ntuqtl for CELSR2 (gtex-v10_txrev_liver_ensg00000143126_grp_2_contain): PIP 0.32\neqtl for PSRC1 (fairfax_2014_microarray_monocyte_naive_ilmn_231596): PIP 0.25\nBest L2G gene scores across these sets: SORT1 0.99, CELSR2 0.98, PSRC1 0.66"
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr1_109274968_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:36+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "39 significant GTEx v8 single-tissue eQTLs for chr1_109274968_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G).\nCELSR2 in Muscle_Skeletal: NES +0.54, p 2.3e-76\nSORT1 in Liver: NES +1.27, p 3.1e-54\nPSRC1 in Liver: NES +1.24, p 1.1e-37\nCELSR2 in Liver: NES +1.04, p 9.4e-34\nPSRC1 in Esophagus_Mucosa: NES +0.40, p 1.8e-24\nCELSR2 in Esophagus_Mucosa: NES +0.31, p 1.1e-16\nPSRC1 in Whole_Blood: NES +0.30, p 4.0e-16\nPSRC1 in Pancreas: NES +0.53, p 2.2e-13\nCELSR2 in Pancreas: NES +0.32, p 2.8e-13\nPSRC1 in Muscle_Skeletal: NES +0.35, p 1.5e-12\nPSRC1 in Skin_Not_Sun_Exposed_Suprapubic: NES +0.29, p 2.0e-12\nPSRC1 in Testis: NES +0.35, p 9.0e-12\nCELSR2 in Skin_Sun_Exposed_Lower_leg: NES +0.12, p 5.1e-11\nSORT1 in Esophagus_Mucosa: NES +0.13, p 8.4e-11\nPSRC1 in Brain_Cortex: NES +0.34, p 2.5e-09"
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs12740374%20AND%20SORT1%20AND%20%28%22ldl%20cholesterol%22%20OR%20%22myocardial%20infarction%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:29:12+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 127 hits for 'rs12740374 AND SORT1 AND (\"ldl cholesterol\" OR \"myocardial infarction\")'; top 8 with PMIDs:\nPMID 42019808 (2026): Causal statistical association between remnant cholesterol and coronary heart disease: genetic insights into the PSRC1-CELSR2-SORT1 gene cluster.\nPMID 42820291 (2026): Clinical trials in a dish: cardiometabolic drug development with biological and digital twins.\nPMID 40922271 (2025): Effect of dietary habits on multiple cardiovascular diseases: A comprehensive Mendelian randomization study.\nPMID 41380003 (2025): Computationally efficient whole-genome quantile regression at biobank scale.\nPMID 39858645 (2025): Research Progress and Clinical Translation Potential of Coronary Atherosclerosis Diagnostic Markers from a Genomic Perspective.\nPMID 42211154 (2026): Treatment Target Discovery From Vasculo-Protective Phenotypes.\nPMID 41991941 (2026): Genetic and molecular factors underlying human longevity and epigenetic aging.\nPMID 38266112 (2024): Genome-Wide Genetic Associations Prioritize Evaluation of Causal Mechanisms of Atherosclerotic Disease Risk."
+  },
+  {
+   "id": "E19",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "QBiC-SELEX screen of chr1:109274968:G>T, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000625), bound here before bound elsewhere, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 10 of 140 occupied, 5 of 78 with unknown occupancy. Left out: 251 TFs assayed in the matching biosample and 170 assayed only elsewhere, none with a peak here; 12 bound but below 1 TPM. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only."
+  },
+  {
+   "id": "E20",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CEBPG (bZIP, 1 model; QBiC-SELEX coverage: own model): best model CEBPG_eDBD_TACTTT40NTCT_KN_yin2017_0_4_7mer (its own model), z 26.76, effect 2.321: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 46.37 TPM, rank 103 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR639IIZ. Best model's site strength: ref 64.5th, alt 99.4th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E21",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "CEBPA (bZIP, 3 models; QBiC-SELEX coverage: own model): best model CEBPB_eDBD_TATAAA40NACG_KAN_yin2017_0_4_7mer (a CIS-BP-mapped model of CEBPB), z 22.81, effect 2.331: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 141.33 TPM, rank 18 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR142IGM. Best model's site strength: ref 87.0th, alt 99.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E22",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "MLX (bHLH, 1 model; QBiC-SELEX coverage: own model): best model MLX_eDBD_TAGGCT40NACC_KAN_yin2017_0_4_6mer (its own model), z -15.37, effect -0.496: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 57.97 TPM, rank 73 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR125DAD. Best model's site strength: ref 99.4th, alt 82.1th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E23",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "GFI1 (C2H2 ZF, 2 models; QBiC-SELEX coverage: own model): best model GFI1_eDBD_TCTGCT40NTGT_KR_yin2017_1_2_7mer (its own model), z 14.71, effect 0.372: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.47 TPM, rank 921 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR849FVL. Best model's site strength: ref 87.9th, alt 97.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E24",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "KLF6 (C2H2 ZF, 6 models; QBiC-SELEX coverage: own model): best model KLF6_eDBD_TGCTCC40NCCG_KW_yin2017_0_3_7mer (its own model), z -13.34, effect -0.351: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 46.95 TPM, rank 99 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR757EKM. Best model's site strength: ref 98.6th, alt 82.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E25",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "KLF12 (C2H2 ZF, 6 models; QBiC-SELEX coverage: own model): best model KLF6_eDBD_TGCTCC40NCCG_KW_yin2017_0_3_7mer (a CIS-BP-mapped model of KLF6), z -13.34, effect -0.351: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.14 TPM, rank 1054 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR552YWL. Best model's site strength: ref 98.6th, alt 82.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E26",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "HNF4A (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model COUP-TF2_NA_Lib1_NA_bhimsaria2023_0(2)_2_7mer (a CIS-BP-mapped model of NR2F2), z 11.41, effect 0.416: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 90.19 TPM, rank 38 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR469FBY. Best model's site strength: ref 95.5th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E27",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "NR2F6 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model COUP-TF2_NA_Lib1_NA_bhimsaria2023_0(2)_2_7mer (a CIS-BP-mapped model of NR2F2), z 11.41, effect 0.416: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 47.82 TPM, rank 98 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR798IJO. Best model's site strength: ref 95.5th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E28",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "RXRB (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model COUP-TF2_NA_Lib1_NA_bhimsaria2023_0(2)_2_7mer (a CIS-BP-mapped model of NR2F2), z 11.41, effect 0.416: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 32.41 TPM, rank 159 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR560SEP. Best model's site strength: ref 95.5th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E29",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "RXRA (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model COUP-TF2_NA_Lib1_NA_bhimsaria2023_0(2)_2_7mer (a CIS-BP-mapped model of NR2F2), z 11.41, effect 0.416: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 31.42 TPM, rank 167 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: bound here: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR416HDG. Best model's site strength: ref 95.5th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E30",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZNF43 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZNF43_FL_GC40NTATAGG_YWRA_jolma2025_0_3_7mer (its own model), z 35.83, effect 3.431: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 8.74 TPM, rank 525 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 93.6th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E31",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "RFX2 (RFX, 4 models; QBiC-SELEX coverage: own model): best model RFX4_eDBD_TACTCG40NCAA_KAN_yin2017_0_3_7mer (a CIS-BP-mapped model of RFX4), z 23.16, effect 1.235: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.97 TPM, rank 708 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 95.8th, alt 99.0th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E32",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TFAP2A (AP-2, 4 models; QBiC-SELEX coverage: own model): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (a CIS-BP-mapped model of TFAP2E), z -21.21, effect -0.98: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 7.65 TPM, rank 570 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.8th, alt 98.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E33",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "TFAP2E (AP-2, 4 models; QBiC-SELEX coverage: own model): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (its own model), z -21.21, effect -0.98: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.06 TPM, rank 961 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.8th, alt 98.8th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E34",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "ZNF345 (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZNF345_eDBD_TGTAAG40NACT_KT_yin2017_0_3_7mer (its own model), z 20.62, effect 0.964: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.64 TPM, rank 1005 of 1626 TFs in DepMap:ACH-000625 (Hep 3B2.1-7). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 97.7th, alt 99.9th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E35",
+   "tool": "qbic_tf_detail",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "summary": "{\"tf\":\"CEBPA\",\"symbol\":\"CEBPA\",\"via\":\"hgnc_symbol\",\"notes\":[],\"coverage\":\"own_model\",\"variant\":\"chr1:109274968:G>T\",\"gate_p\":5.02e-05,\"models\":[{\"model\":\"CEBPA_NA_lib5_20N_rm2017_0_3_7mer\",\"mapping\":\"own\",\"group\":\"G035 bZIP, 3 models\",\"quality\":0.948,\"effect\":2.803,\"z\":22.63,\"p\":2.2e-113,\"rank_abs_z\":\"9/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":66.0,\"alt_percentile\":98.8,\"k\":7}},{\"model\":\"CEBPB_eDBD_TATAAA40NACG_KAN_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (CEBPB)\",\"group\":\"G035 bZIP, 3 models\",\"quality\":0.748,\"effect\":2.331,\"z\":22.81,\"p\":3.9e-115,\"rank_abs_z\":\"8/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":87.0,\"alt_percentile\":99.8,\"k\":7}},{\"model\":\"CEBPE_eDBD_TTAGGC40NATA_KR_yin2017_0_4_7mer\",\"mapping\":\"CIS-BP (CEBPE)\",\"group\":\"G035 bZIP, 3 models\",\"quality\":0.817,\"effect\":1.731,\"z\":11.28,\"p\":1.7e-29,\"rank_abs_z\":\"28/997\",\"passed_gate\":true,\"site_strength\":{\"ref_percentile\":77.0,\"alt_percentile\":99.3,\"k\":7}}]}"
+  },
+  {
+   "id": "E36",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=rs12740374%20CEBP%20allele-specific%20binding%20SORT1%20enhancer%20reporter&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T02:37:52+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 5 hits for 'rs12740374 CEBP allele-specific binding SORT1 enhancer reporter'; top 5 with PMIDs:\nPMID 34038741 (2021): Genetic effects on liver chromatin accessibility identify disease regulatory variants.\nPMID 34024118 (2021): Single-Cell Epigenomics and Functional Fine-Mapping of Atherosclerosis GWAS Loci.\nPMID 31317254 (2020): Identifying causal variants and genes using functional genomics in specialized cell types and contexts.\nPMID 25835000 (2015): Lipid-induced epigenomic changes in human macrophages identify a coronary artery disease-associated variant that regulates PPAP2B Expression through Altered C/EBP-beta binding.\nPMID 32687525 (2020): Cross-species regulatory sequence activity prediction."
+  },
+  {
+   "id": "E36a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 25835000",
+   "url": "https://europepmc.org/article/MED/25835000",
+   "retrieved_utc": "2026-10-26T02:37:52+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "OxLDL increased C/EBP beta binding to this site and C/EBP beta binding and enhancer activity were stronger with the protective A allele of rs72664324."
+  },
+  {
+   "id": "E37",
+   "tool": "gene_disease",
+   "source": "Open Targets",
+   "url": "",
+   "retrieved_utc": null,
+   "kind": "genetic",
+   "ok": false,
+   "summary": "Open Targets lookup failed: no disease matches 'LDL cholesterol, myocardial infarction'"
+  }
+ ]
+}

@@ -1,0 +1,925 @@
+{
+ "case_id": "rs12740374",
+ "variant": "rs12740374",
+ "variant_key": "chr1:109274968:G>T",
+ "disease": "LDL cholesterol, myocardial infarction (1p13)",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+ "config": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0183,
+ "seconds": 221.8,
+ "model_calls": 9,
+ "screen": null,
+ "chains": [
+  {
+   "id": "H5",
+   "title": "No TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The lipid associations and expression associations may arise from linkage to another causal change or a mechanism that does not involve altered TF binding at this base.",
+    "Precise editing of this base will not reproducibly alter SORT1 or CELSR2 expression through a TF-mediated mechanism."
+   ],
+   "falsified_if": [
+    "Precise editing of this base reproducibly changes SORT1 or CELSR2 expression, and the allele-dependent effect is shown to depend on a specific TF's occupancy at the variant."
+   ],
+   "probability": 0.5,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H1",
+   "title": "FOXA1-mediated regulation of SORT1",
+   "is_null": false,
+   "tf": "FOXA1",
+   "allele_binding_more": "alt",
+   "element": "EH38E1374646",
+   "target_gene": "SORT1",
+   "cell_type": "Liver; the relevant cell type is not resolved",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXA1 occupies the variant in HepG2 and is expressed in the stated liver cancer cell context. FOXA1 is a reasonable lead among the listed liver-context factors because it has more reported HepG2 peaks here than FOXA2 and is more highly expressed in the stated context; this does not establish that it is causal. Alt (T) is the working prediction for stronger binding, not a direction supported by allele-specific evidence: no QBiC-SELEX result is supplied.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in enhancer-like cCRE EH38E1374646, but the reported activity maxima do not establish activity in liver cells.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "SORT1 is a plausible target: it has a high locus-to-gene score and the T allele is associated with higher SORT1 expression in bulk liver. These data do not demonstrate that this cCRE or FOXA1 causes the expression association.",
+     "evidence_ids": [
+      "E16",
+      "E17",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "A liver-context mechanism is plausible from FOXA1 occupancy in HepG2 and the bulk-liver SORT1 eQTL, but hepatocyte-specific enhancer activity or FOXA1 mediation is not established.",
+     "evidence_ids": [
+      "E05",
+      "E17",
+      "E21"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The variant is associated with cholesterol and LDL traits. Several reported associations list G as the effect allele, whereas T is associated with higher liver SORT1 expression; the evidence does not establish that this expression change mediates the lipid associations. Literature describes protective effects of hepatic expression of the gene cluster, not a FOXA1-mediated effect of this variant.",
+     "evidence_ids": [
+      "E15",
+      "E18b"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Precise G-to-T editing in an appropriate liver-cell model will change SORT1 expression in the direction suggested by the liver eQTL, and FOXA1 perturbation will attenuate that allele-dependent difference.",
+    "FOXA1 occupancy will be higher on T than G if the working binding-direction prediction is correct; the supplied evidence does not establish this direction."
+   ],
+   "falsified_if": [
+    "Precise editing produces no reproducible SORT1 expression difference in a relevant liver-cell model.",
+    "The allele-dependent SORT1 difference persists unchanged after effective FOXA1 perturbation."
+   ],
+   "probability": 0.2,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "H4",
+   "title": "FOXA1-mediated regulation of CELSR2",
+   "is_null": false,
+   "tf": "FOXA1",
+   "allele_binding_more": "alt",
+   "element": "EH38E1374646",
+   "target_gene": "CELSR2",
+   "cell_type": "Liver; the relevant cell type is not resolved",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXA1 occupies the variant in HepG2 and is expressed in the stated context. It is a candidate, not a demonstrated mediator. Alt (T) is the working prediction for stronger binding, not a direction supported by allele-specific evidence: no QBiC-SELEX result is supplied.",
+     "evidence_ids": [
+      "E04",
+      "E05"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in enhancer-like cCRE EH38E1374646, but liver-specific activity is not established.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "CELSR2 is a plausible alternative target because it has a high locus-to-gene score and the T allele is associated with higher CELSR2 expression in bulk liver. The evidence does not resolve CELSR2 versus SORT1 as the causal target.",
+     "evidence_ids": [
+      "E16",
+      "E17",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "FOXA1 occupancy in HepG2 and the bulk-liver CELSR2 eQTL are consistent with a liver-context mechanism, but do not establish cell-specific enhancer activity or FOXA1 mediation.",
+     "evidence_ids": [
+      "E05",
+      "E17",
+      "E21"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The variant is associated with cholesterol and LDL traits, but the supplied evidence does not establish that altered CELSR2 expression mediates those associations.",
+     "evidence_ids": [
+      "E15",
+      "E16"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "Precise G-to-T editing in an appropriate liver-cell model will change CELSR2 expression in the direction suggested by the liver eQTL, and FOXA1 perturbation will attenuate that allele-dependent difference.",
+    "The allele-dependent expression effect will be clearer for CELSR2 than for SORT1 in a targeted test of both genes."
+   ],
+   "falsified_if": [
+    "Precise editing produces no reproducible CELSR2 expression difference in a relevant liver-cell model.",
+    "The allele-dependent CELSR2 difference persists unchanged after effective FOXA1 perturbation."
+   ],
+   "probability": 0.16,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA1"
+  },
+  {
+   "id": "H2",
+   "title": "FOXA2-mediated regulation of SORT1",
+   "is_null": false,
+   "tf": "FOXA2",
+   "allele_binding_more": "alt",
+   "element": "EH38E1374646",
+   "target_gene": "SORT1",
+   "cell_type": "Liver; the relevant cell type is not resolved",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "FOXA2 occupies the variant in HepG2 and is expressed in the stated context. FOXA2 has related binding specificity to FOXA1, and the available occupancy evidence does not distinguish their causal roles. Alt (T) is the working prediction for stronger binding, not a direction supported by allele-specific evidence: no FOXA2 QBiC-SELEX result is supplied.",
+     "evidence_ids": [
+      "E04",
+      "E09"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in enhancer-like cCRE EH38E1374646; liver-specific activity is not established by the supplied biosample-maximal scores.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "SORT1 is a plausible target based on its high locus-to-gene score and the positive T-allele liver eQTL, but neither result assigns the effect to FOXA2 or to this element.",
+     "evidence_ids": [
+      "E16",
+      "E17",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "FOXA2 occupancy in HepG2 and a bulk-liver SORT1 eQTL are consistent with a liver-context mechanism, but do not establish hepatocyte-specific enhancer activity or FOXA2 mediation.",
+     "evidence_ids": [
+      "E09",
+      "E17",
+      "E21"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The variant is associated with cholesterol and LDL traits, but the evidence does not connect a FOXA2-dependent expression change to those traits.",
+     "evidence_ids": [
+      "E15"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If FOXA2 mediates the liver eQTL, precise editing will alter SORT1 expression and FOXA2 perturbation will attenuate the allele-dependent difference.",
+    "In matched perturbation experiments, FOXA2 loss will attenuate the allele-dependent SORT1 effect more than FOXA1 or USF1 loss."
+   ],
+   "falsified_if": [
+    "Effective FOXA2 perturbation leaves the allele-dependent SORT1 expression difference unchanged.",
+    "The variant has no reproducible effect on SORT1 expression after precise editing in a relevant liver-cell model."
+   ],
+   "probability": 0.08,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "FOXA2"
+  },
+  {
+   "id": "H3",
+   "title": "USF1-mediated regulation of SORT1",
+   "is_null": false,
+   "tf": "USF1",
+   "allele_binding_more": "alt",
+   "element": "EH38E1374646",
+   "target_gene": "SORT1",
+   "cell_type": "Liver; the relevant cell type is not resolved",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "USF1 occupies the variant in HepG2 and is highly expressed in the stated context. Its occupancy makes it a candidate, but does not show that it mediates the variant effect. Alt (T) is the working prediction for stronger binding, not a direction supported by allele-specific evidence: no USF1 QBiC-SELEX result is supplied.",
+     "evidence_ids": [
+      "E04",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in enhancer-like cCRE EH38E1374646, although the activity maxima are not liver-specific.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "SORT1 is a plausible target because of its high locus-to-gene score and the positive T-allele liver eQTL; these data do not establish USF1-dependent regulation.",
+     "evidence_ids": [
+      "E16",
+      "E17",
+      "E21"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "cell_type",
+     "claim": "USF1 occupancy in HepG2 and the bulk-liver SORT1 eQTL are consistent with a liver-context hypothesis, but do not resolve the relevant liver cell type or establish USF1 mediation.",
+     "evidence_ids": [
+      "E10",
+      "E17",
+      "E21"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "The variant is associated with cholesterol and LDL traits, but no supplied evidence establishes a USF1-mediated path from this variant to those traits.",
+     "evidence_ids": [
+      "E15"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If USF1 mediates the liver eQTL, precise editing will alter SORT1 expression and USF1 perturbation will attenuate the allele-dependent difference.",
+    "USF1 perturbation, rather than FOXA1 or FOXA2 perturbation, will preferentially attenuate the allele-dependent SORT1 effect."
+   ],
+   "falsified_if": [
+    "Effective USF1 perturbation leaves the allele-dependent SORT1 expression difference unchanged.",
+    "The variant has no reproducible effect on SORT1 expression after precise editing in a relevant liver-cell model."
+   ],
+   "probability": 0.06,
+   "rank": 5,
+   "coverage_status": "own_model",
+   "resolved_symbol": "USF1"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "FOXA1",
+   "is_null": false,
+   "probability": 0.25,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "FOXA2",
+   "is_null": false,
+   "probability": 0.15,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H3",
+   "tf": "USF1",
+   "is_null": false,
+   "probability": 0.1,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.5,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "FOXA1 occupancy over the variant in HepG2 and expression in the stated context are supported by E04\u2013E05. No QBiC-SELEX result or other allele-specific binding evidence shows stronger binding to T than G."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in enhancer-like cCRE EH38E1374646. The evidence does not establish liver-specific activity, but that qualification is acknowledged in the claim."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E16 assigns SORT1 a high L2G score, and E17 reports a strong liver SORT1 eQTL with the alt allele associated with higher expression. These support SORT1 as a plausible target, though not as a proven causal target."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "FOXA1 occupancy is shown in HepG2 and a SORT1 eQTL is shown in bulk liver, but the cCRE activity data are maxima across biosamples and do not establish activity or mechanism in hepatocytes."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 supports cholesterol and LDL associations. E18a reports colocalized signals at the locus but does not, in the quoted text, establish a CHD association or a FOXA1-mediated causal path."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "FOXA2 occupancy over the variant in HepG2 and expression in the stated context are supported by E04 and E09. No QBiC-SELEX result or other allele-specific binding evidence shows stronger binding to T than G."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in enhancer-like cCRE EH38E1374646. Liver-specific activity is not established, as the claim notes."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E16 gives SORT1 a high L2G score, and E17 reports a strong liver SORT1 eQTL with higher expression associated with T. This supports SORT1 as a plausible target, not definitive causal assignment."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "FOXA2 occupancy in HepG2 and a bulk-liver SORT1 eQTL are consistent with a liver mechanism, but neither establishes cell-specific cCRE activity or FOXA2 mediation in hepatocytes."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 supports cholesterol and LDL associations. The E18a quote reports locus colocalization but does not itself establish CHD association or FOXA2-mediated causality."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "USF1 occupancy over the variant in HepG2 and high expression in the stated context are supported by E04 and E10. No QBiC-SELEX result or other allele-specific evidence shows stronger binding to T than G."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 directly places the variant in enhancer-like cCRE EH38E1374646. The claim appropriately notes that the activity maxima are not liver-specific."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E16 gives SORT1 a high L2G score, and E17 reports a strong liver SORT1 eQTL with higher expression associated with T. These support SORT1 as a plausible target, not definitive causal assignment."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "USF1 occupancy in HepG2 and a bulk-liver SORT1 eQTL are consistent with a liver mechanism, but do not establish hepatocyte-specific enhancer activity or USF1 mediation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "E15 supports cholesterol and LDL associations. E18a reports colocalized signals at the locus but does not, in the quoted text, establish CHD association or USF1-mediated causality."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "FOXA1 occupancy over the variant in HepG2 is reported, but no QBiC-SELEX or other allele-specific binding evidence supports stronger binding by T. The peak-count and expression rationale makes FOXA1 a candidate, not a demonstrated mediator."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant directly overlaps the enhancer-like cCRE EH38E1374646. The evidence does not establish liver-specific activity, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "SORT1 has a high locus-to-gene score and a strong liver eQTL in which T is associated with higher expression. These support SORT1 as a plausible target, but do not assign the effect to this element or FOXA1."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "FOXA1 occupancy in HepG2 and a bulk-liver SORT1 eQTL are consistent with a liver-context mechanism, but neither resolves the relevant liver cell type nor establishes FOXA1 mediation."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is associated with lipid traits, and the cited literature provides indirect support for a protective phenotype from hepatic expression of the gene cluster. It does not show that this variant or FOXA1-mediated SORT1 regulation causes the phenotype."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "FOXA2 occupancy over the variant in HepG2 is reported, but no QBiC-SELEX or other allele-specific binding evidence supports stronger binding by T. The evidence does not establish FOXA2's causal role or the stated relationship in binding specificity."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant directly overlaps enhancer-like cCRE EH38E1374646. Liver-specific activity is not established, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "SORT1 has a high locus-to-gene score and a strong liver eQTL in which T is associated with higher expression. These support SORT1 as a plausible target, but do not assign the effect to this element or FOXA2."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "FOXA2 occupancy in HepG2 and a bulk-liver SORT1 eQTL are consistent with a liver-context hypothesis, but do not resolve the relevant liver cell type or establish FOXA2 mediation."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is associated with cholesterol and LDL traits, but the evidence does not connect a FOXA2-dependent expression change to those traits."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "USF1 occupancy over the variant in HepG2 is reported, but no QBiC-SELEX or other allele-specific binding evidence supports stronger binding by T. Occupancy and expression establish candidacy, not mediation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant directly overlaps enhancer-like cCRE EH38E1374646. The activity maxima are not liver-specific, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "SORT1 has a high locus-to-gene score and a strong liver eQTL in which T is associated with higher expression. These support SORT1 as a plausible target, but do not establish USF1-dependent regulation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "USF1 occupancy in HepG2 and a bulk-liver SORT1 eQTL are consistent with a liver-context hypothesis, but do not resolve the relevant liver cell type or establish USF1 mediation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is associated with cholesterol and LDL traits, but the evidence does not connect a USF1-dependent expression change to those traits."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "FOXA1 occupancy over the variant in HepG2 is reported, but no QBiC-SELEX or other allele-specific binding evidence supports stronger binding by T. The evidence does not establish FOXA1 as the mediator."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "supported",
+   "reason": "The variant directly overlaps enhancer-like cCRE EH38E1374646. Liver-specific activity is not established, as the claim acknowledges."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "supported",
+   "reason": "CELSR2 has a high locus-to-gene score and a liver eQTL in which T is associated with higher expression. These support CELSR2 as a plausible target, while not resolving it versus SORT1 or assigning regulation to FOXA1."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "FOXA1 occupancy in HepG2 and a bulk-liver CELSR2 eQTL are consistent with a liver-context mechanism, but do not establish cell-specific enhancer activity or FOXA1 mediation."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The variant is associated with cholesterol and LDL traits, and CELSR2 has locus-to-gene support; however, no evidence shows that altered CELSR2 expression mediates those associations."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "literature_search",
+   "args_json": "{\"query\":\"SORT1 CELSR2 PSRC1 locus liver enhancer variant allele-specific reporter CRISPR perturbation FOXA1 FOXA2 USF1\"}",
+   "resolves": "H1.gene",
+   "why": "Could identify quoted functional perturbation or reporter evidence that distinguishes SORT1 from neighboring candidate genes and strengthens or weakens the proposed regulatory link."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"SORT1\"}",
+   "resolves": "H1.phenotype",
+   "why": "Would assess gene-level evidence connecting SORT1 to the stated lipid or myocardial-infarction phenotype, beyond the variant association and locus-level quote."
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args_json": "{\"tissue\":\"Liver\"}",
+   "resolves": "H2.gene",
+   "why": "Would check the liver eQTL evidence for this variant and clarify its direction and strength for SORT1 and nearby genes."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "tool": "literature_search",
+   "args": {
+    "query": "SORT1 CELSR2 PSRC1 locus liver enhancer variant allele-specific reporter CRISPR perturbation FOXA1 FOXA2 USF1"
+   },
+   "run": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "SORT1"
+   },
+   "run": true
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Liver"
+   },
+   "run": true
+  }
+ ],
+ "matrix": [
+  {
+   "test": "Paired G/T allele reporter assay in a liver-context cell line, with and without FOXA1 depletion; measure reporter output.",
+   "cost": "low",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "Allele-dependent reporter output is reduced or lost with FOXA1 depletion."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "Any allele-dependent reporter effect is preferentially reduced by FOXA2 depletion, not FOXA1 depletion."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Any allele-dependent reporter effect is preferentially reduced by USF1 depletion, not FOXA1 depletion."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "A FOXA1-dependent allele effect may be observed, but this assay alone does not identify CELSR2 as the endogenous target."
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "No reproducible allele-dependent, FOXA1-dependent reporter effect."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Precise G/T base editing in a liver-context cell model; measure SORT1 and CELSR2 expression, with matched TF perturbations.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "T editing increases SORT1 expression, and FOXA1 perturbation attenuates the difference."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "T editing increases SORT1 expression, and FOXA2 perturbation attenuates the difference."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "T editing increases SORT1 expression, and USF1 perturbation attenuates the difference."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "T editing increases CELSR2 expression, and FOXA1 perturbation attenuates the difference."
+    },
+    {
+     "hypothesis_id": "H5",
+     "outcome": "Editing does not reproducibly produce a TF-dependent expression difference in either candidate gene."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "The cheapest informative first test is a paired G/T allele reporter assay in a liver-context cell line with and without FOXA1 depletion. H1 predicts a FOXA1-dependent allele effect; the null predicts no reproducible FOXA1-dependent effect. A positive reporter result would still require endogenous editing to establish the target gene and causal mechanism.",
+ "citation_support": 1.0,
+ "flags": [
+  {
+   "flag": "tool_failed",
+   "detail": "E20 gene_disease: Open Targets lookup failed: no disease matches 'LDL cholesterol, myocardial infarction'"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/1:109274968-109274968:1/T?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T18:05:00+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "Variant chr1:109274968:G>T (GRCh38), allele string G/T\nKnown IDs: rs12740374\nMost severe consequence: 3_prime_UTR_variant\nRegulatory features: ENSR1_CDSQQ enhancer\nGERP conservation score at the site: -0.782\nTranscript consequences: CELSR2 (3_prime_UTR_variant); PSRC1 (downstream_gene_variant); CELSR2 (downstream_gene_variant); CELSR2 (non_coding_transcript_exon_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/1:108274968-110274968?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T18:05:25+00:00",
+   "kind": "computational",
+   "ok": true,
+   "summary": "41 protein-coding genes within 1000 kb of chr1:109274968:G>T, by distance to TSS:\nPSRC1: 9.1 kb from TSS (downstream, strand -1)\nCELSR2: 25.4 kb from TSS (in gene body, strand +1)\nMYBPHL: 32.2 kb from TSS (downstream, strand -1)\nSARS1: 61.1 kb from TSS (downstream, strand +1)\nSORT1: 123.0 kb from TSS (downstream, strand -1)\nPSMA5: 151.5 kb from TSS (downstream, strand -1)\nCFAP276: 161.1 kb from TSS (upstream, strand -1)\nELAPOR1: 161.8 kb from TSS (downstream, strand +1)\nTMEM167B: 184.6 kb from TSS (downstream, strand +1)\nSYPL2: 191.6 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:28:56+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "The variant lies in cCRE EH38E1374646 (dELS: distal enhancer-like), chr1:109274794-109275142.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E1374646 dELS (contains the variant): DNase z 4.9, H3K27ac z 4.8, H3K4me3 z 4.2, CTCF z 1.9; nearby genes CELSR2, PSRC1, MYBPHL\nEH38E2829474 dELS: DNase z 3.2, H3K27ac z 4.8, H3K4me3 z 4.4, CTCF z 1.9; nearby genes CELSR2, PSRC1, MYBPHL\nEH38E2829475 dELS: DNase z 4.6, H3K27ac z 4.5, H3K4me3 z 3.7, CTCF z 1.6; nearby genes CELSR2, PSRC1, MYBPHL\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "ENCODE TF ChIP-seq at chr1:109274968:G>T: 501 peaks contain the variant, from 261 factors in 25 biosamples. In the matching biosample HepG2 (HepG2 stands in for Hep 3B2.1-7 (both liver cancer lines)): 224 peaks from 188 factors. cCRE class at the variant: dELS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): AFF1, ARID4A, ARID5B, ASH2L, BCL3, BRD4, CBFA2T3, CTBP1, DMAP1, DPF2, EED, EP300 (+97 more). Bound, expressed TFs with a binding model: 140; listed one per row: FOXA1, MAX, SP1, TCF7L2, FOXA2, USF1, JUND, RXRA, NR2F2, TCF12; also bound: ELF1, CREB1, EGR1, ATF3, NRF1, NCOA1, HNF4A, E2F4, YY1, NR2F6, ZNF281, MEIS2, FOXK2, FOXJ3, FOXA3, ZNF687, HNF1B, SOX6, FOXP1, ZHX2, MEF2D, CREM, ZBTB33, FOSL2, KLF9, CEBPA, KDM2A, MYBL2, ERF, ELF3 (+100 more). Bound but below 1 TPM: EGR2, ESR1, HOXD1, KLF1, KLF11, KLF4, MITF, MSX2, NKX3-1, NR5A1. Assayed with no peak here: 251 TFs in the matching biosample, 170 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "FOXA1: bound here. 9 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, Ishikawa, MCF-7, T47D (+1 more) (e.g. ENCSR865RXA). 53.15 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 84 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "MAX: bound here. 8 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, HeLa-S3, K562, MCF-7 (e.g. ENCSR168DYA). 33.54 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 153 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "SP1: bound here. 7 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, HCT116, liver (e.g. ENCSR000BJX). 23.48 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 234 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TCF7L2: bound here. 6 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in HeLa-S3, MCF-7, Panc1 (e.g. ENCSR346BOD). 24.15 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 229 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "FOXA2: bound here. 6 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, liver (e.g. ENCSR066EBK). 22.07 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 253 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "USF1: bound here. 5 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, K562 (e.g. ENCSR099FCQ). 85.08 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 42 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "JUND: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, K562, MCF-7 (e.g. ENCSR000BGK). 48.46 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 97 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "RXRA: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in liver (e.g. ENCSR416HDG). 31.42 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 167 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "NR2F2: bound here. 4 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in MCF-7 (e.g. ENCSR000BVM). 22.86 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 243 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "summary": "TCF12: bound here. 3 ENCODE ChIP-seq peak(s) contain the variant, in the matching biosample HepG2; also in A549, MCF-7 (e.g. ENCSR000BJG). 40.85 TPM in DepMap:ACH-000625 (Hep 3B2.1-7), rank 123 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs12740374&size=100",
+   "retrieved_utc": "2026-10-25T17:29:12+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "100 GWAS Catalog associations for rs12740374, strongest first:\nHigh cholesterol: p 9.9e-324, effect allele G, risk-allele frequency 0.7788, PMID 39024449\nTakes medication for high cholesterol?: p 6.0e-297, effect allele G, risk-allele frequency 0.7815, PMID 39024449\nDisorders of lipid metabolism (PheCode 272): p 7.0e-262, effect allele G, risk-allele frequency 0.778, PMID 39024449\nCirculating TNFSF13 levels: p 4.0e-260, effect allele ?, risk-allele frequency NR, PMID 42097137\nHyperlipidemia (PheCode 272.1): p 6.0e-259, effect allele G, risk-allele frequency 0.778, PMID 39024449\ntotal cholesterol (minimum, inv-norm transformed): p 1.0e-208, effect allele G, risk-allele frequency 0.7774, PMID 39024449\nlow density lipoprotein cholesterol (LDLC, maximum, inv-norm transformed): p 4.0e-164, effect allele G, risk-allele frequency 0.7453, PMID 39024449\nlow density lipoprotein cholesterol (LDLC, mean, inv-norm transformed): p 4.0e-154, effect allele G, risk-allele frequency 0.7454, PMID 39024449\nCirculating LAG3 levels (id: OID05553_OID21315): p 1.0e-153, effect allele ?, risk-allele frequency NR, PMID 42097137\nCirculating LAG3 levels (id: OID01023_OID21315): p 1.0e-152, effect allele ?, risk-allele frequency NR, PMID 42097137\nLDL cholesterol levels: p 2.0e-137, effect allele T, risk-allele frequency NR, PMID 39414775\ntotal cholesterol (maximum, inv-norm transformed): p 2.0e-123, effect allele G, risk-allele frequency 0.7453, PMID 39024449"
+  },
+  {
+   "id": "E16",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:29:04+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "2316 credible sets contain 1_109274968_G_T: 189 GWAS, 11 molecular QTL.\nGWAS Total cholines levels (UKB data field 23436): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Apolipoprotein B levels (UKB data field 23439): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Total cholesterol levels: PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Cholesterol to total lipids in large HDL percentage (UKB dat: PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Total lipids in small VLDL (UKB data field 23510): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nGWAS Triglycerides in medium VLDL (UKB data field 23508): PIP 1.00; L2G SORT1 0.99, CELSR2 0.96, PSRC1 0.20\nsqtl for SORT1 (gtex-v10_majiq_liver_ensg00000134243_s_109314672-1): PIP 0.72\nsqtl for CELSR2 (gtex-v10_majiq_muscle_ensg00000143126_s_109273436-): PIP 0.49\neqtl for PSRC1 (gtex-v10_ge_pancreas_ensg00000134222): PIP 0.41\neqtl for CELSR2 (gtex-v10_exon_esophagus_mucosa_ensg00000143126_8_1): PIP 0.37\ntuqtl for CELSR2 (gtex-v10_txrev_liver_ensg00000143126_grp_2_contain): PIP 0.32\neqtl for PSRC1 (fairfax_2014_microarray_monocyte_naive_ilmn_231596): PIP 0.25\nBest L2G gene scores across these sets: SORT1 0.99, CELSR2 0.98, PSRC1 0.66"
+  },
+  {
+   "id": "E17",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr1_109274968_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:36+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "39 significant GTEx v8 single-tissue eQTLs for chr1_109274968_G_T_b38. NES is the effect of the alt allele (T) relative to ref (G).\nCELSR2 in Muscle_Skeletal: NES +0.54, p 2.3e-76\nSORT1 in Liver: NES +1.27, p 3.1e-54\nPSRC1 in Liver: NES +1.24, p 1.1e-37\nCELSR2 in Liver: NES +1.04, p 9.4e-34\nPSRC1 in Esophagus_Mucosa: NES +0.40, p 1.8e-24\nCELSR2 in Esophagus_Mucosa: NES +0.31, p 1.1e-16\nPSRC1 in Whole_Blood: NES +0.30, p 4.0e-16\nPSRC1 in Pancreas: NES +0.53, p 2.2e-13\nCELSR2 in Pancreas: NES +0.32, p 2.8e-13\nPSRC1 in Muscle_Skeletal: NES +0.35, p 1.5e-12\nPSRC1 in Skin_Not_Sun_Exposed_Suprapubic: NES +0.29, p 2.0e-12\nPSRC1 in Testis: NES +0.35, p 9.0e-12\nCELSR2 in Skin_Sun_Exposed_Lower_leg: NES +0.12, p 5.1e-11\nSORT1 in Esophagus_Mucosa: NES +0.13, p 8.4e-11\nPSRC1 in Brain_Cortex: NES +0.34, p 2.5e-09"
+  },
+  {
+   "id": "E18",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=SORT1%20AND%20%28%22ldl%20cholesterol%22%20OR%20%22myocardial%20infarction%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:19:55+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 868 hits for 'SORT1 AND (\"ldl cholesterol\" OR \"myocardial infarction\")'; top 8 with PMIDs:\nPMID 41892715 (2026): Genome-Wide Association Studies of Myocardial Infarction: A Systematic Literature Review.\nPMID 42615437 (2026): South Asian Cardiovascular Risk: Role of Coronary Artery Calcium Scoring and Computed Tomography Angiography.\nPMID 42820291 (2026): Clinical trials in a dish: cardiometabolic drug development with biological and digital twins.\nPMID 42019808 (2026): Causal statistical association between remnant cholesterol and coronary heart disease: genetic insights into the PSRC1-CELSR2-SORT1 gene cluster.\nPMID 41999980 (2026): From lipoprotein metabolism to blood clotting: Highlights of the 2025 Fredrickson lipid research conference.\nPMID 42358645 (2026): The role of sortilin in cardiovascular calcification: mechanisms and therapeutic potential.\nPMID 39858645 (2025): Research Progress and Clinical Translation Potential of Coronary Atherosclerosis Diagnostic Markers from a Genomic Perspective.\nPMID 42511725 (2026): Special Issue \"Advances in Molecular Forensic Pathology and Toxicology: An Update\"."
+  },
+  {
+   "id": "E18a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42019808",
+   "url": "https://europepmc.org/article/MED/42019808",
+   "retrieved_utc": "2026-10-26T20:19:55+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Colocalization identified shared signals at the PSRC1-CELSR2-SORT1 locus, with lead variants rs[masked] and rs[masked]."
+  },
+  {
+   "id": "E18b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42019808",
+   "url": "https://europepmc.org/article/MED/42019808",
+   "retrieved_utc": "2026-10-26T20:19:55+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Hepatic expression of PSRC1-CELSR2-SORT1 protects against CHD via RC reduction, independent of LDL-C, supporting RC as promising target for CHD prevention."
+  },
+  {
+   "id": "E18c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42358645",
+   "url": "https://europepmc.org/article/MED/42358645",
+   "retrieved_utc": "2026-10-26T20:19:55+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Sortilin (encoded by SORT1), a multi-ligand intracellular trafficking receptor, has recently emerged as a critical molecular mediator linking metabolic risk factors-such as dyslipidemia, diabetes, hypertension, and chronic kidney disease-to pro-calcific cellular responses."
+  },
+  {
+   "id": "E18d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 39858645",
+   "url": "https://europepmc.org/article/MED/39858645",
+   "retrieved_utc": "2026-10-26T20:19:55+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "GWASs and sequencing studies have identified key genetic variations associated with CAD, including JCAD/KIAA1462, GUCY1A3, PCSK9, and SORT1, which regulate inflammation, lipid metabolism, and vascular function."
+  },
+  {
+   "id": "E19",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=SORT1%20CELSR2%20PSRC1%20locus%20liver%20enhancer%20variant%20allele-specific%20reporter%20CRISPR%20perturbation%20FOXA1%20FOXA2%20USF1&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-26T20:21:11+00:00",
+   "kind": "literature",
+   "ok": true,
+   "summary": "Europe PMC: 0 hits for 'SORT1 CELSR2 PSRC1 locus liver enhancer variant allele-specific reporter CRISPR perturbation FOXA1 FOXA2 USF1'; top 0 with PMIDs:"
+  },
+  {
+   "id": "E20",
+   "tool": "gene_disease",
+   "source": "Open Targets",
+   "url": "",
+   "retrieved_utc": null,
+   "kind": "genetic",
+   "ok": false,
+   "summary": "Open Targets lookup failed: no disease matches 'LDL cholesterol, myocardial infarction'"
+  },
+  {
+   "id": "E21",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr1_109274968_G_T_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:30:36+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "summary": "5 significant GTEx v8 single-tissue eQTLs for chr1_109274968_G_T_b38 in tissues matching 'Liver'. NES is the effect of the alt allele (T) relative to ref (G).\nSORT1 in Liver: NES +1.27, p 3.1e-54\nPSRC1 in Liver: NES +1.24, p 1.1e-37\nCELSR2 in Liver: NES +1.04, p 9.4e-34\nATXN7L2 in Liver: NES +0.40, p 5.9e-07\nSYPL2 in Liver: NES +0.50, p 1.2e-06"
+  }
+ ]
+}
