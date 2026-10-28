@@ -32,17 +32,21 @@ def tf_expression(case: Case, tf: str, context: str | None = None) -> ToolResult
         e = get_expression().tf_expression([sym], ctx_text)[sym]
     except ContextError as err:
         return failed("tf_expression", args, "local DepMap/GTEx", "expression", message=str(err))
+    min_tpm = float(load_config()["screen"].get("min_tpm", 1.0))
     if e.get("tpm") is None:
-        summary = f"{sym}: no expression value ({e.get('note') or e['source']})."
+        status = "not_tested"
+        summary = f"{sym}: no expression value ({e.get('note') or e['source']}), so expression says nothing here."
     else:
+        status = "found" if e["tpm"] >= min_tpm else "tested_negative"
         summary = (f"{sym} in {e['source']}: {e['tpm']} TPM, rank {e['rank_among_tfs']} of {e['n_tfs']} TFs "
                    f"(1 = highest); this context is at the {e['percentile_across_contexts']}th percentile of "
                    f"{sym} across all {'DepMap lines' if 'DepMap' in e['source'] else 'GTEx tissues'}"
-                   + (f"; median of {e['n_lines']} lines" if "n_lines" in e else "") + ".")
+                   + (f"; median of {e['n_lines']} lines" if "n_lines" in e else "") + "."
+                   + (f" Below {min_tpm:g} TPM: treated as not expressed." if status == "tested_negative" else ""))
     if name["notes"]:
         summary += " Note: " + " ".join(name["notes"])
     return ToolResult("tf_expression", args, summary, {"symbol": sym, **e}, "DepMap expression / GTEx v8 medians",
-                      "local files", "expression")
+                      "local files", "expression", status=status)
 
 
 # -- gene dependency ---------------------------------------------------------------------------------------
@@ -120,7 +124,9 @@ def gene_dependency(case: Case, gene: str, effects: pd.DataFrame | None = None, 
         reg = get_registry()
         entrez = next((e for e, s in reg.entrez_to_symbol.items() if s == gene), None)
     if gene not in effects.columns:
-        return failed("gene_dependency", args, "DepMap CRISPR", "expression", message=f"{gene} not in the matrix")
+        return ToolResult("gene_dependency", args, f"DepMap's CRISPR screen has no data for {gene}, so it says nothing "
+                          "about dependency here.", {"gene": gene}, "DepMap CRISPRGeneEffect", "local files",
+                          "expression", status="not_tested")
     col = effects[gene].dropna()
     lineage, lines, own = lineage_lines(case.expression_context, models)
     in_lin = col[col.index.isin(lines)]
@@ -141,6 +147,8 @@ def gene_dependency(case: Case, gene: str, effects: pd.DataFrame | None = None, 
             "line_effect": float(col[own]) if own and own in col.index else None,
             "lineage_median": float(np.median(in_lin)) if len(in_lin) else None, "lineage_n": int(len(in_lin)),
             "all_median": float(np.median(col)), "common_essential": essential}
+    effect = full["line_effect"] if full["line_effect"] is not None else full["lineage_median"]
+    dependent = (effect if effect is not None else full["all_median"]) < DEPENDENT
     return ToolResult("gene_dependency", args, " ".join(parts), full,
                       "DepMap CRISPRGeneEffect (Biomni copy) and CRISPRInferredCommonEssentials (Public 26Q3)",
-                      "local files", "expression")
+                      "local files", "expression", status="found" if dependent else "tested_negative")

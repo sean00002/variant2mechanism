@@ -235,7 +235,8 @@ def occupancy_results(case: Case, reg, expression=None, ccre_class: str | None =
     args = {"variant": occ.variant, "expression_context": case.expression_context}
     out = [ToolResult("occupancy", {**args, "part": "element"}, element_line(occ, cands, ccre_class, reg),
                       {"n_peaks": len(occ.peaks), "match": occ.match.biosamples, "counts": {k: v for k, v in
-                       cands.items() if k != "rows"}}, SOURCE, FACTORBOOK, "epigenomic")]
+                       cands.items() if k != "rows"}}, SOURCE, FACTORBOOK, "epigenomic",
+                      status="found" if occ.peaks else "tested_negative")]
     for r in cands["rows"][:MAX_ROWS]:
         out.append(ToolResult("occupancy", {**args, "tf": r["tf"]}, candidate_line(r, ctx_label), r, SOURCE,
                               FACTORBOOK, "epigenomic"))

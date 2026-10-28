@@ -33,5 +33,7 @@ def literature_search(case: Case, query: str, page_size: int = 8, masked: bool =
              f"top {len(papers)} with PMIDs:"]
     lines += [f"PMID {p['pmid']} ({p['year']}): {p['title']}" + ("" if p["abstract"] else " [no abstract]")
               for p in papers]
+    if not papers:
+        lines.append("No papers: weak evidence, since the literature is incomplete and searches miss papers.")
     return ToolResult("literature_search", args, "\n".join(lines), papers, "Europe PMC REST", url, "literature",
-                      retrieved_utc=r.retrieved_utc)
+                      retrieved_utc=r.retrieved_utc, status="found" if papers else "tested_negative")

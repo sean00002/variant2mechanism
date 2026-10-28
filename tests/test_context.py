@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from variant2mechanism.context.base import SUMMARY_LIMIT, Case
+from variant2mechanism.context.base import STATUSES, SUMMARY_LIMIT, Case
 from variant2mechanism.context.catalog import tool_definitions
 from variant2mechanism.context.ccre import ccre_lookup
 from variant2mechanism.context.chip import chip_peaks
@@ -63,16 +63,17 @@ def test_ccre_local_and_screen(rs6983267, tert):
 def test_gwas(rs6983267):
     r = gwas_lookup(rs6983267)
     assert r.ok and r.summary.startswith("69 GWAS Catalog associations") and "effect allele" in r.summary
+    assert r.status == "found"
 
 
 def test_gwas_needs_rsid(tert):
     r = gwas_lookup(tert)
-    assert not r.ok and "no rsID" in r.summary
+    assert not r.ok and r.status == "failed" and "no rsID" in r.summary
 
 
 def test_finemap(rs6983267):
     r = finemap_lookup(rs6983267)
-    assert r.ok and "PIP" in r.summary and "POU5F1B" in r.summary
+    assert r.ok and r.status == "found" and "PIP" in r.summary and "POU5F1B" in r.summary
 
 
 def test_literature_and_masking(rs6983267):
@@ -87,8 +88,9 @@ def test_chip_peaks_tells_no_experiment_from_no_peak(rs6983267):
     """ENCODE assayed TCF7L2 in K562 (no peak here), HOXB13 only in A549, and never TFAP2A."""
     absent = chip_peaks(rs6983267, "TCF7L2", biosample="K562")
     assert absent.full["status"] == "assayed_no_peak" and "evidence against TCF7L2 occupancy" in absent.summary
+    assert absent.status == "tested_negative"
     none_here = chip_peaks(rs6983267, "HOXB13", biosample="LNCaP clone FGC")
-    assert none_here.ok and none_here.full["status"] == "not_assayed"
+    assert none_here.ok and none_here.full["status"] == "not_assayed" and none_here.status == "not_tested"
     assert "ENCODE says nothing about it there, for or against" in none_here.summary and "A549" in none_here.summary
     assert "ENCODE never assayed TFAP2A" in chip_peaks(rs6983267, "TFAP2A").summary
     assert "ReMap 2022 has no TFAP2A peak" in chip_peaks(rs6983267, "TFAP2A").summary
@@ -98,19 +100,54 @@ def test_remap_supplies_occupancy_encode_lacks():
     """rs339331: ENCODE assayed HOXB13 only in A549; ReMap has HOXB13 peaks over it in LNCaP (published ChIP-seq)."""
     case = Case(Variant.make("chr6", 116888889, "T", "C"), "Prostate cancer", http=Http(FIXTURES, offline=True))
     r = chip_peaks(case, "HOXB13", biosample="LNCaP clone FGC")
-    assert r.full["status"] == "peak" and "ENCODE has no HOXB13 ChIP-seq experiment" in r.summary
+    assert r.full["status"] == "peak" and r.status == "found" and "ENCODE has no HOXB13 ChIP-seq experiment" in r.summary
     assert "LNCaP (GSE" in r.summary and "nearest summit 11 bp" in r.summary
     assert chip_peaks(case, "HOXB13", biosample="K562").full["status"] == "not_assayed"   # ReMap: no K562 peak
 
 
 def test_investigate_tools(rs6983267, tert):
     c = chip_peaks(rs6983267, "TCF7L2", biosample="HCT116")
-    assert c.ok and "HCT116" in c.summary and c.full["status"] == "peak"
+    assert c.ok and "HCT116" in c.summary and c.full["status"] == "peak" and c.status == "found"
     assert "SK-N-SH" in chip_peaks(tert, "GABPA").summary
     e = eqtl_lookup(rs6983267, tissue="Colon")
-    assert e.ok and "NES is the effect of the alt allele" in e.summary
+    assert e.ok and e.status == "found" and "NES is the effect of the alt allele" in e.summary
     g = gene_disease(rs6983267, "MYC", ensembl_id="ENSG00000136997")
     assert g.ok and "MONDO_0005575" in g.summary
+
+
+def test_answers_say_what_an_absence_means(rs6983267, tert):
+    """Tested and found nothing (evidence against) is not the same answer as could not test (no evidence)."""
+    liver = eqtl_lookup(rs6983267, tissue="Liver")
+    assert liver.status == "tested_negative" and "GTEx v8 tested" in liver.summary
+    somatic = eqtl_lookup(tert)                                   # a hotspot GTEx never genotyped
+    assert somatic.ok and somatic.status == "not_tested" and "says nothing" in somatic.summary
+    bad = eqtl_lookup(rs6983267, tissue="Moon")
+    assert bad.status == "failed" and "no GTEx v8 tissue matches 'Moon'" in bad.summary
+    assert gene_disease(rs6983267, "OR4F5", ensembl_id="ENSG00000186092").status == "tested_negative"
+    none = literature_search(rs6983267, 'rs6983267 AND "qzxv no such term"')
+    assert none.status == "tested_negative" and "weak evidence" in none.summary
+
+
+def test_controls_answer_negative_or_not_tested(http):
+    c = Case(Variant.make("chr3", 191441666, "T", "G"), "Colorectal cancer", rsid="rs13078086", http=http)
+    assert gwas_lookup(c).status == "tested_negative" and "weak evidence" in gwas_lookup(c).summary
+    assert finemap_lookup(c).status == "not_tested"              # Open Targets has no record of it
+    d = Case(Variant.make("chr8", 57573391, "G", "T"), "LDL cholesterol", rsid="rs7001688", http=http)
+    assert finemap_lookup(d).status == "not_tested"
+
+
+def test_every_answer_has_a_status(rs6983267, tert):
+    results = [variant_annotation(rs6983267), nearest_genes(rs6983267), gwas_lookup(rs6983267), gwas_lookup(tert),
+               finemap_lookup(rs6983267), eqtl_lookup(rs6983267), chip_peaks(rs6983267, "TFAP2A")]
+    assert all(r.status in STATUSES for r in results)
+
+
+@pytest.mark.data           # the ENCODE cCRE file in data/reference/
+def test_ccre_status(rs6983267, http):
+    assert ccre_lookup(rs6983267).status == "found"
+    c = Case(Variant.make("chr3", 191441666, "T", "G"), "Colorectal cancer", rsid="rs13078086", http=http)
+    r = ccre_lookup(c)
+    assert r.status == "tested_negative" and "No cCRE overlaps the variant" in r.summary
 
 
 @pytest.mark.data           # the ENCODE cCRE file in data/reference/
@@ -234,6 +271,26 @@ def test_gene_dependency_flags_common_essential(essentials):
     other = gene_dependency(case, "OTHER", effects, models, essentials, entrez="333")
     assert not other.full["common_essential"] and COMMON_ESSENTIAL_LINE not in other.summary
     assert other.full["lineage_median"] == pytest.approx(-0.4)
+
+
+def test_gene_dependency_status(essentials):
+    effects, models = small_depmap()
+    case = Case(Variant.make("chr8", 1, "G", "T"), "Colorectal cancer", expression_context="DepMap:ACH-1 (L1)")
+    assert gene_dependency(case, "ESS1", effects, models, essentials, entrez="111").status == "found"      # L1: -1.20
+    assert gene_dependency(case, "OTHER", effects, models, essentials, entrez="333").status == "tested_negative"
+    missing = gene_dependency(case, "NOPE", effects, models, essentials, entrez="999")
+    assert missing.ok and missing.status == "not_tested" and "no data for NOPE" in missing.summary
+
+
+@pytest.mark.data
+def test_tf_expression_status():
+    """At or above screen.min_tpm (1 TPM) a TF counts as expressed; below it, as tested and not expressed."""
+    from variant2mechanism.context.depmap import tf_expression
+    case = Case(Variant.make("chr8", 127401060, "G", "T"), "Colorectal cancer",
+                expression_context="DepMap:ACH-000971 (HCT 116)")
+    assert tf_expression(case, "TCF7L2").status == "found"
+    myod1 = tf_expression(case, "MYOD1")
+    assert myod1.status == "tested_negative" and "treated as not expressed" in myod1.summary
 
 
 @pytest.mark.data

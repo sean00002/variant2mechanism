@@ -18,6 +18,8 @@ ENCODE_SEARCH = ("https://www.encodeproject.org/search/?type=Experiment&assay_ti
                  "&field=accession")
 UCSC_API = "https://api.genome.ucsc.edu/getData/track"
 REMAP = "ReMap 2022 (UCSC track ReMapTFs)"
+# the shared status of each ChIP-seq answer; "unknown" (the experiment list could not be read) claims nothing
+STATUS = {"peak": "found", "assayed_no_peak": "tested_negative", "not_assayed": "not_tested", "unknown": "not_tested"}
 
 
 def _norm(name: str) -> str:
@@ -88,7 +90,7 @@ def chip_peaks(case: Case, tf: str, biosample: str | None = None, flank: int = 1
         lead = ("" if remap_here else ", so ENCODE says nothing about it there, for or against")
         return ToolResult("chip_peaks", args, f"ENCODE has no {tf} ChIP-seq experiment{where}{lead}.{known}{rtext}",
                           {"status": status, "assayed_in": sorted(assays), "remap": remap},
-                          f"ENCODE experiment search; {REMAP}", ENCODE_SEARCH, "epigenomic")
+                          f"ENCODE experiment search; {REMAP}", ENCODE_SEARCH, "epigenomic", status=STATUS[status])
     q = ('{ peaksrange(assembly: "GRCh38", target: "%s", range: [{chrom: "%s", chrom_start: %d, chrom_end: %d}], '
          'limit: 500) { data } }' % (tf.replace('"', ""), v.chrom, v.pos - flank, v.pos + flank))
     r = case.http.graphql(FACTORBOOK, q)
@@ -129,4 +131,4 @@ def chip_peaks(case: Case, tf: str, biosample: str | None = None, flank: int = 1
     return ToolResult("chip_peaks", args, summary + rtext,
                       {"status": status, "matching": over, "other_biosamples": elsewhere, "remap": remap},
                       f"Factorbook (ENCODE TF ChIP-seq peaks); {REMAP}", FACTORBOOK, "epigenomic",
-                      retrieved_utc=r.retrieved_utc)
+                      retrieved_utc=r.retrieved_utc, status=STATUS[status])

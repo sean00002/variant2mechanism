@@ -68,6 +68,7 @@ def ccre_lookup(case: Case, flank: int = 500, bed_path: str | Path | None = None
                      f"DNase z {c['dnase_zscore']:.1f}, H3K27ac z {c['enhancer_zscore']:.1f}, "
                      f"H3K4me3 z {c['promoter_zscore']:.1f}, CTCF z {c['ctcf_zscore']:.1f}; nearby genes {genes}")
     lines.append("Biosample-specific z-scores are not in this call; the values above are maxima over biosamples.")
+    inside = local is not None and local["distance"] == 0
     return ToolResult("ccre_lookup", args, "\n".join(lines), {"local": local, "screen": cres},
                       "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN", SCREEN, "epigenomic",
-                      retrieved_utc=r.retrieved_utc)
+                      retrieved_utc=r.retrieved_utc, status="found" if inside else "tested_negative")

@@ -228,7 +228,7 @@ def test_rounds_stop_when_the_answer_holds(agent_cfg, tmp_path):
 
 
 @pytest.mark.data
-def test_no_experiment_is_not_news(agent_cfg, tmp_path):
+def test_not_tested_is_not_news(agent_cfg, tmp_path):
     """ENCODE never assayed HOXB13 in LNCaP or TFAP2A at all: those answers do not use up a call, and a round of
     nothing else ends the loop."""
     none_here = ("chip_peaks", {"tf": "HOXB13", "biosample": "LNCaP clone FGC"}, "H1.binding", "a HOXB13 peak")
@@ -237,7 +237,7 @@ def test_no_experiment_is_not_news(agent_cfg, tmp_path):
     t = FakeTransport(plans=plans, revise_probs=[[0.2, 0.6, 0.2]])
     report, _ = run(agent_cfg, tmp_path, transport=t)
     assert [(c["round"], c["status"]) for c in report["investigate_calls"]] == [
-        (1, "no experiment"), (1, "run"), (1, "run"), (1, "run"), (2, "no experiment")]
+        (1, "not tested"), (1, "run"), (1, "run"), (1, "run"), (2, "not tested")]
     assert len(report["rounds"]) == 1 and report["stop_reason"] == "round 2: its calls brought no new information"
     ev = {e["id"]: e for e in report["evidence"]}
     assert "for or against" in ev[report["investigate_calls"][0]["evidence_id"]]["summary"]

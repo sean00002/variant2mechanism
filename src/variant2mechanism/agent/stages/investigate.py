@@ -7,9 +7,10 @@ round), runs the rest with the ledger first, and the generator revises, saying c
 the expectation. The critic then regrades and suggests checks for the next round. The loop stops when the planner has
 no new call to run, or after `max_rounds`. Round 1 always revises and regrades, so every run has a revision.
 
-An empty search is not news: a ChIP-seq call for a TF in a biosample ENCODE never assayed it in is answered "no
-experiment" and does not count against the round's calls, and a round whose calls bring no new information ends the
-loop. So does a round that leaves the top chain and the grades of its links as they were.
+An answer that tests nothing is not news. Every tool result has a status (context/base.py); a "not tested" answer,
+such as ChIP-seq for a TF in a biosample ENCODE never assayed or eQTLs for a variant GTEx never genotyped, does not
+count against the round's calls, and a round whose calls bring no new information ends the loop. So does a round that
+leaves the top chain and the grades of its links as they were. A "tested, negative" answer is news: evidence against.
 """
 
 import json
@@ -34,12 +35,25 @@ def _checks_text(checks) -> str:
 
 
 def outcome(res: ToolResult) -> str:
-    """What a call brought: "new" information, "no experiment" (ENCODE never ran it), or "failed"."""
-    if not res.ok:
+    """What a call brought: "new" information (found, or tested and negative), "not tested", or "failed"."""
+    if not res.ok or res.status == "failed":
         return "failed"
-    if res.tool == "chip_peaks" and isinstance(res.full, dict) and res.full.get("status") == "not_assayed":
-        return "no experiment"
+    if res.status == "not_tested":
+        return "not tested"
     return "new"
+
+
+def qbic_status(out: dict) -> str:
+    """The shared status of a qbic_tf_detail answer: found if a model of the TF passes the gate, tested_negative if
+    its models were scored and none passes, not_tested if the TF is not in coverage, unscored or not resolved."""
+    if "error" in out:
+        return "failed"
+    if out.get("coverage") == "not_in_coverage" or "models" not in out:
+        return "not_tested"
+    scored = [m for m in out["models"] if "z" in m]
+    if not scored:
+        return "not_tested"
+    return "found" if any(m.get("passed_gate") for m in scored) else "tested_negative"
 
 
 def run_tool(state: RunState, name: str, args: dict) -> tuple[str, str]:
@@ -58,7 +72,7 @@ def run_tool(state: RunState, name: str, args: dict) -> tuple[str, str]:
             out = {**out, "coverage": REGISTRY_TO_COVERAGE[out["coverage"]]}
         res = ToolResult("qbic_tf_detail", args, json.dumps(out, separators=(",", ":")), out,
                          "QBiC-SELEX 1.0.0 primary collection (997 models)", "cache/qbic.sqlite", "computational",
-                         ok="error" not in out, limit=3000)
+                         ok="error" not in out, limit=3000, status=qbic_status(out))
         ev = state.ledger.add_evidence("investigate", res)
         return tool_result_text(ev, [], state.mask), outcome(res)
     clean = {k: v for k, v in args.items() if v is not None}
@@ -100,7 +114,7 @@ def plan(state: RunState, rnd: int, max_rounds: int, max_calls: int) -> Plan:
 
 def act(state: RunState, rnd: int, calls: list, max_calls: int) -> list[dict]:
     """Run the planned calls in order; invalid calls, repeats and calls beyond `max_calls` are recorded, not run. A
-    "no experiment" answer does not count against `max_calls`."""
+    "not tested" answer does not count against `max_calls`."""
     done = {c["key"] for c in state.investigate_calls if c["run"]}
     records, used = [], 0
     for p in calls:
@@ -119,7 +133,7 @@ def act(state: RunState, rnd: int, calls: list, max_calls: int) -> list[dict]:
             else:
                 done.add(rec["key"])
                 text, got = run_tool(state, p.tool, args)
-                used += got != "no experiment"
+                used += got != "not tested"
                 if text.startswith("Error"):
                     rec["status"] = text
                 else:

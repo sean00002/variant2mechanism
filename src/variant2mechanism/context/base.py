@@ -1,4 +1,9 @@
-"""Shared types for the context tools: the case they run on and what they return."""
+"""Shared types for the context tools: the case they run on and what they return.
+
+Every result carries a status, so that an absence is never read the wrong way: found (the tool found what it looked
+for), tested_negative (it looked and found nothing: evidence against), not_tested (the data cannot answer here, such
+as a TF ENCODE never assayed or a variant GTEx never genotyped: no evidence either way), or failed.
+"""
 
 import time
 from dataclasses import dataclass, field
@@ -8,6 +13,8 @@ from ..qbic.variants import Variant
 from .http import Http, HttpResult
 
 SUMMARY_LIMIT = 2000
+STATUSES = ("found", "tested_negative", "not_tested", "failed")
+STATUS_WORDS = {"found": "found", "tested_negative": "tested, negative", "not_tested": "not tested", "failed": "failed"}
 
 
 @dataclass
@@ -58,10 +65,17 @@ class ToolResult:
     limit: int = SUMMARY_LIMIT          # QBiC-SELEX results use their own 3,000-character limit
     retryable: bool = False             # failed, but a later attempt might succeed
     attempts: int = 1
+    status: str = ""                    # one of STATUSES; left empty, it is found if ok and failed if not
 
     def __post_init__(self):
         if len(self.summary) > self.limit:
             self.summary = self.summary[: self.limit - 15].rstrip() + "\n[truncated]"
+        if not self.ok:
+            self.status = "failed"
+        elif not self.status:
+            self.status = "found"
+        if self.status not in STATUSES:
+            raise ValueError(f"{self.tool}: status must be one of {STATUSES}, not {self.status!r}")
 
 
 def failed(tool: str, args: dict, source: str, kind: str, r: HttpResult | None = None, message: str | None = None):

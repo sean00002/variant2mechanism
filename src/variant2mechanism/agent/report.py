@@ -44,7 +44,7 @@ def build_report(state: RunState, ranked: list, cit: dict, seconds: float) -> di
         "citation_support": cit["citation_support"],
         "flags": state.flags,
         "evidence": [{"id": e.id, "tool": e.tool, "source": e.source, "url": e.url, "retrieved_utc": e.retrieved_utc,
-                      "kind": e.kind, "ok": e.ok, "summary": e.summary} for e in ev],
+                      "kind": e.kind, "ok": e.ok, "status": e.status, "summary": e.summary} for e in ev],
     }
 
 
@@ -98,7 +98,8 @@ def render_markdown(r: dict) -> str:
         out += [f"Citation support: {r['citation_support']:.2f} of links cite only evidence that passed every check.", ""]
     out += ["## Evidence", ""]
     for e in r["evidence"]:
-        status = "" if e["ok"] else " (failed)"
+        status = {"tested_negative": " (tested, negative)", "not_tested": " (not tested)", "failed": " (failed)"}.get(
+            e.get("status") or ("found" if e["ok"] else "failed"), "")
         out += [f'<a id="{e["id"].lower()}"></a>**{e["id"]}** {e["tool"]}{status}, {e["source"]} '
                 f"({e['url']}; retrieved {e['retrieved_utc'] or 'local'})", "", "> " + e["summary"].replace("\n", "\n> "),
                 ""]

@@ -20,11 +20,21 @@ CALLS = [
         ("finemap_lookup", {}), ("literature_search", {"query": 'rs6983267 AND POU5F1B AND "colorectal cancer"'}),
         ("chip_peaks", {"tf": "TCF7L2", "biosample": "HCT116"}), ("eqtl_lookup", {"tissue": "Colon"}),
         ("gene_disease", {"gene": "MYC"}),
+        # negative answers: tested in a tissue with no eQTL, a gene with no association, a search with no hits
+        ("eqtl_lookup", {"tissue": "Liver"}), ("gene_disease", {"gene": "OR4F5", "ensembl_id": "ENSG00000186092"}),
+        ("literature_search", {"query": 'rs6983267 AND "qzxv no such term"'}),
     ]),
     ("tert_c228t", Case(Variant.make("chr5", 1295113, "G", "A"), "Glioblastoma", origin="somatic"), [
         ("variant_annotation", {}), ("nearest_genes", {}), ("ccre_lookup", {}),
         ("literature_search", {"query": 'TERT AND promoter AND C228T AND GABPA'}),
-        ("chip_peaks", {"tf": "GABPA"}),
+        ("chip_peaks", {"tf": "GABPA"}), ("eqtl_lookup", {}),          # a somatic hotspot GTEx never genotyped
+    ]),
+    # controls: no GWAS association, no credible set, a variant outside any cCRE, a variant Open Targets lacks
+    ("rs13078086", Case(Variant.make("chr3", 191441666, "T", "G"), "Colorectal cancer", rsid="rs13078086"), [
+        ("gwas_lookup", {}), ("finemap_lookup", {}), ("ccre_lookup", {}),
+    ]),
+    ("rs7001688", Case(Variant.make("chr8", 57573391, "G", "T"), "LDL cholesterol", rsid="rs7001688"), [
+        ("finemap_lookup", {}),
     ]),
 ]
 
@@ -54,7 +64,7 @@ def main():
         case.http = http
         for name, args in calls:
             r = LOCAL_TOOLS[name](case, **args)
-            print(f"{case_id:11} {name:18} ok={r.ok} {r.summary.splitlines()[0][:100]}")
+            print(f"{case_id:11} {name:18} {r.status:15} {r.summary.splitlines()[0][:100]}")
 
 
 if __name__ == "__main__":
