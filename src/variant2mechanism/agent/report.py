@@ -41,6 +41,7 @@ def build_report(state: RunState, ranked: list, cit: dict, seconds: float) -> di
         "rounds": state.rounds, "stop_reason": state.stop_reason,
         "matrix": [r.model_dump() for r in state.revised.matrix],
         "next_experiment": state.revised.next_experiment,
+        "verdict": state.verdict,
         "citation_support": cit["citation_support"],
         "flags": state.flags,
         "evidence": [{"id": e.id, "tool": e.tool, "source": e.source, "url": e.url, "retrieved_utc": e.retrieved_utc,
@@ -54,6 +55,9 @@ def render_markdown(r: dict) -> str:
            f"{r['models']['generator']}, critic {r['models']['critic']}, summariser {r['models']['summariser']}. "
            f"Cost ${r['cost_usd']:.2f} over {r['model_calls']} model calls; {r['seconds']:.0f} s.", "",
            f"Variant `{r['variant_key']}` ({r['origin']}); expression context: {r['expression_context'] or 'none'}.", ""]
+    if r.get("verdict"):
+        out += [f"**Verdict: {r['verdict']['verdict']}.** {r['verdict']['reason'][0].upper()}{r['verdict']['reason'][1:]}.",
+                ""]
     if r["screen"]:
         occ = "; ".join(f"{x['tf']} ({x['occupancy'].replace('_', ' ')}, z {x['z']}"
                         + ("" if x["passes_gate"] else ", no clear allelic change")

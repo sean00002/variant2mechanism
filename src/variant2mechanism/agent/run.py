@@ -17,6 +17,7 @@ from .stages.gather import gather
 from .stages.generate import generate, single
 from .stages.investigate import refine
 from .stages.screen import screen
+from .stages.verdict import verdict
 
 log = logging.getLogger(__name__)
 CONFIGS = ("single", "no_qbic", "full")
@@ -64,6 +65,7 @@ def run_case(spec: CaseSpec, config: str = "full", masked: bool = False, seed: i
                 state.flag("tool_failed", f"{e.id} {e.tool}: {e.summary.splitlines()[0][:160]}")
         cit = citation_check(state)
         ranked = rank(state, cit["statuses"])
+        state.verdict = verdict(state, ranked, cit["statuses"])
         state.ledger.add_chains("rank", 2, ranked, {h.id: i for i, h in enumerate(ranked, 1)})
         report = build_report(state, ranked, cit, time.time() - t0)
         write_report(state, report)

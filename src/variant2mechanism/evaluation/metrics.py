@@ -121,6 +121,7 @@ def score_run(report: dict, gold_row: dict, labels: pd.DataFrame | None, reg) ->
         out["coverage_honest"] = stated_ok and not violation
         if report["case_id"] == "rs1421085" and top is not None:
             out["substitution"] = (not top["is_null"]) and resolves_to(reg, top["tf"]) != tf
+    out |= verdict_scores(report, gold_row, top, reg)
     v0 = sorted(report.get("chains_v0", []), key=lambda c: -c["probability"])
     if v0 and top is not None:
         out["revision_changed_top_tf"] = (v0[0]["tf"] or "null") != (top["tf"] or "null")
@@ -129,6 +130,22 @@ def score_run(report: dict, gold_row: dict, labels: pd.DataFrame | None, reg) ->
     shared = set(g0) & set(g1)
     out["link_status_changes"] = sum(g0[k] != g1[k] for k in shared)
     return out
+
+
+def verdict_scores(report: dict, gold_row: dict, top: dict | None, reg) -> dict:
+    """The verdict (stages/verdict.py) scored like a classifier that may abstain. At a TF case it is right when it says
+    mechanism and the top chain names the causal TF; at a control, when it says no mechanism. Undetermined is an
+    abstention, never an error; mechanism at a control is over-claiming."""
+    v = (report.get("verdict") or {}).get("verdict")
+    if v is None:
+        return {}
+    if is_control(gold_row):
+        right = v == "no mechanism"
+    else:
+        target = resolves_to(reg, scoring_tf(gold_row)) or scoring_tf(gold_row)
+        right = v == "mechanism" and top is not None and not top["is_null"] and resolves_to(reg, top["tf"]) == target
+    return {"verdict": v, "verdict_correct": right, "abstained": v == "undetermined",
+            "verdict_overclaim": (v == "mechanism") if is_control(gold_row) else None}
 
 
 def group_recovery(top: dict | None, target: str | None, reg) -> bool | None:
@@ -161,6 +178,22 @@ def by_type(ctl: pd.DataFrame, kind: str) -> pd.DataFrame:
     return ctl[ctl["control_type"] == kind] if "control_type" in ctl else ctl.iloc[0:0]
 
 
+def verdict_summary(g: pd.DataFrame) -> dict:
+    """Accuracy of the verdict, the share of runs it answers (not undetermined), its accuracy when it answers, and
+    over-claiming at controls; empty for runs made before the verdict existed."""
+    if "verdict" not in g or g["verdict"].isna().all():
+        return {}
+    g = g[g["verdict"].notna()]
+    answered = g[~g["abstained"].astype(bool)]
+    ctl = g[g.control]
+
+    def share(s):
+        return round(float(s.astype(bool).mean()), 3) if len(s) else None
+    return {"verdict_accuracy": share(g["verdict_correct"]), "answered": share(~g["abstained"].astype(bool)),
+            "accuracy_answered": share(answered["verdict_correct"]),
+            "verdict_overclaim_controls": share(ctl["verdict_overclaim"])}
+
+
 def summarise(df: pd.DataFrame) -> pd.DataFrame:
     """Configuration x mode table; TF cases and controls averaged separately."""
     def m(s):
@@ -183,6 +216,7 @@ def summarise(df: pd.DataFrame) -> pd.DataFrame:
                     "null_top1_near_miss": m(by_type(ctl, "control_near_miss").null_top1),
                     "overclaim_near_miss": m(by_type(ctl, "control_near_miss").overclaim),
                     "brier_controls": m(ctl.brier), "citation_support": m(g.citation_support),
+                    **verdict_summary(g),
                     "investigate_calls": m(g.investigate_calls), "cost_per_run": m(g.cost_usd),
                     "minutes_per_run": m(g.seconds / 60)})
     return pd.DataFrame(out)

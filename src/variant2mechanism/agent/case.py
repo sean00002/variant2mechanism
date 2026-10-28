@@ -86,6 +86,7 @@ class RunState:
     stop_reason: str = ""
     screen: dict | None = None
     occupancy: object | None = None  # context/occupancy.Occupancy, from gather (no_qbic and full)
+    verdict: dict | None = None      # stages/verdict.py: mechanism, no mechanism or undetermined, with its facts
 
     def mask(self, text: str) -> str:
         return mask_rsids(text) if self.masked else text

@@ -264,6 +264,10 @@ def test_offline_no_qbic_run_and_report(agent_cfg, tmp_path):
     phen = report["chains"][0]["links"][-1]
     assert phen["evidence_ids"] == [] and phen["status"] == "missing"
     assert any(f["flag"] == "no_citation" for f in report["flags"])
+    v = report["verdict"]                       # no_qbic: QBiC-SELEX never decides; occupancy and expression may
+    assert v["verdict"] in ("mechanism", "no mechanism", "undetermined") and v["reason"]
+    assert all(f["qbic"][0] == "unknown" for f in v["facts"].values())
+    assert f"**Verdict: {v['verdict']}.**" in (run_dir / "report.md").read_text()
 
 
 @pytest.mark.data
