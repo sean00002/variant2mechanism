@@ -87,6 +87,8 @@ class RunState:
     screen: dict | None = None
     occupancy: object | None = None  # context/occupancy.Occupancy, from gather (no_qbic and full)
     verdict: dict | None = None      # stages/verdict.py: mechanism, no mechanism or undetermined, with its facts
+    tournament: dict | None = None   # stages/tournament.py: the pairwise games, strengths and ranking
+    probability_llm: dict | None = None   # the model's own probabilities, kept when rank.method is pairwise
 
     def mask(self, text: str) -> str:
         return mask_rsids(text) if self.masked else text

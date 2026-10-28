@@ -19,6 +19,7 @@ counts neither way. The same function scores saved reports.
 from ...context.chip import same_biosample
 from ..case import RunState
 from .investigate import qbic_status
+from .tournament import beats_null
 
 FOR, AGAINST, UNKNOWN = "for", "against", "unknown"
 FACTS = ("qbic", "occupancy", "expression")
@@ -129,7 +130,11 @@ def verdict(state: RunState, ranked: list, statuses: dict, pairwise_ok: bool | N
     facts = chain_facts(chains, state.spec.variant, state.spec.expression_context, get_registry(), state.qbic,
                         state.occupancy, get_expression() if gathered else None,
                         float(state.llm.cfg["screen"]["min_tpm"]), lambda s: remap_peaks(state.tool_case, s))
+    if pairwise_ok is None and state.tournament and not ranked[0].is_null:
+        null = next(h for h in ranked if h.is_null)
+        pairwise_ok = beats_null(state.tournament, ranked[0].id, null.id)
     v, why = decide(chains, facts, pairwise_ok, (state.llm.cfg.get("verdict") or {}).get("binding", "either"))
-    out = {"verdict": v, "reason": why, "facts": facts}
+    association = {e.tool: e.status for e in state.ledger.evidence() if e.tool in ("gwas_lookup", "finemap_lookup")}
+    out = {"verdict": v, "reason": why, "pairwise_ok": pairwise_ok, "association": association, "facts": facts}
     state.ledger.log("verdict", v, out)
     return out

@@ -271,6 +271,37 @@ def test_offline_no_qbic_run_and_report(agent_cfg, tmp_path):
 
 
 @pytest.mark.data
+def test_tournament_ranks_the_chains_and_checks_the_null(agent_cfg, tmp_path):
+    """Every pair in both orders; the earlier chain wins by default, so H1 leads and beats the null both times."""
+    report, t = run(agent_cfg, tmp_path)
+    assert sum(1 for c in t.calls if schema_title(c) == "Comparison") == 6           # 3 pairs x 2 orders
+    tour = report["tournament"]
+    assert tour["ranking"] == ["H1", "H2", "H3"] and len(tour["matches"]) == 3
+    assert report["verdict"]["pairwise_ok"] is True and report["rank_method"] == "llm"
+    assert "Pairwise ranking (Bradley-Terry strengths): H1" in (tmp_path / "run" / "report.md").read_text()
+
+
+@pytest.mark.data
+def test_position_bias_ties_every_pair(agent_cfg, tmp_path):
+    """A critic that always prefers the first chain shown ties every pair, so the top chain cannot beat the null."""
+    report, _ = run(agent_cfg, tmp_path, transport=FakeTransport(compare=lambda a, b: "A"))
+    assert all(m["scores"] == [1.0, 0.0] for m in report["tournament"]["matches"])
+    assert report["verdict"]["pairwise_ok"] is False and report["verdict"]["verdict"] == "undetermined"
+    assert "does not beat the null" in report["verdict"]["reason"]
+
+
+@pytest.mark.data
+def test_pairwise_ranking_replaces_the_model_probabilities(agent_cfg, tmp_path):
+    agent_cfg["rank"] = {"method": "pairwise"}
+    prefer_h2 = {"H2": 0, "H1": 1, "H3": 2}
+    t = FakeTransport(compare=lambda a, b: "A" if prefer_h2[a] < prefer_h2[b] else "B")
+    report, _ = run(agent_cfg, tmp_path, transport=t)
+    top = report["chains"][0]
+    assert top["id"] == "H2" and top["probability"] == report["tournament"]["strengths"]["H2"]
+    assert top["probability_llm"] == pytest.approx(0.3) and report["rank_method"] == "pairwise"
+
+
+@pytest.mark.data
 def test_citation_checks_catch_problems(agent_cfg, tmp_path):
     c1 = chain("H1", "ARID5B", "ref", 0.5, ev="E99")       # E99 does not exist
     c2 = chain("H2", "LEF1", "ref", 0.3)

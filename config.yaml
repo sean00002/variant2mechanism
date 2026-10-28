@@ -90,6 +90,10 @@ budget_usd:                       # the DeepSeek budget; Claude's is in profiles
 verdict:                         # agent/stages/verdict.py: mechanism, no mechanism or undetermined (v7)
   binding: either                # the top chain's binding counts when the critic graded it supported (critic), when
                                  # QBiC-SELEX passes the gate in the claimed direction (code), or either
+tournament:                      # agent/stages/tournament.py (v7): after the last round the critic compares every
+  enabled: true                  # pair of chains in both orders: 2 x C(n, 2) critic calls, 6 to 20 per run
+rank:
+  method: llm                    # llm: the model's probabilities; pairwise: the tournament's Bradley-Terry strengths
 investigate:                     # refinement rounds (agent/stages/investigate.py; multi-round since 26 Oct 2026)
   max_tool_calls: 3              # per round
   max_rounds: 3                  # plan, act, revise, regrade; the loop stops earlier when a round leaves the top

@@ -52,8 +52,9 @@ class FakeTransport:
     """Round k plans `plans[k]` (each call: tool, arguments, the link it resolves, the expected result) and revises to
     `revise_probs[k]`; by default round 2 repeats a round-1 call and names an unknown tool, and round 3 plans nothing."""
 
-    def __init__(self, chains=None, plans=None, revise_probs=None, quote_from_abstract=True):
+    def __init__(self, chains=None, plans=None, revise_probs=None, quote_from_abstract=True, compare=None):
         self.calls: list[dict] = []
+        self.compare = compare          # (id shown as A, id shown as B) -> "A", "B" or "neither"; default: earlier wins
         self.chains = chains or default_chains()
         self.plans = PLANS if plans is None else plans
         self.revise_probs = revise_probs
@@ -103,4 +104,10 @@ class FakeTransport:
                                              "outcomes": [{"hypothesis_id": c["id"], "outcome": "x"}
                                                           for c in self.chains], "separates_top_two": True}],
                                  "next_experiment": "Allele-specific TCF7L2 ChIP-qPCR in HCT116."}))
+        if title == "Comparison":
+            prompt = next(m["content"] for m in params["messages"] if m["role"] == "user")
+            a, b = (re.search(rf"Chain {x} \((\w+)\)", prompt).group(1) for x in "AB")
+            order = [c["id"] for c in self.chains]
+            winner = self.compare(a, b) if self.compare else ("A" if order.index(a) < order.index(b) else "B")
+            return message(text({"winner": winner, "reason": "fake", "evidence_ids": ["E01"]}))
         raise AssertionError(f"unexpected call: {title}")

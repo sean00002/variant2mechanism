@@ -2,6 +2,7 @@
 
 import json
 
+from ..context.base import STATUS_WORDS
 from .case import RunState
 
 STATUS_MARK = {"supported": "supported", "weak": "weak", "missing": "missing"}
@@ -16,6 +17,8 @@ def build_report(state: RunState, ranked: list, cit: dict, seconds: float) -> di
         d.update(cit["coverage"].get(h.id, {}))
         for link in d["links"]:
             link["status"] = statuses.get((h.id, link["step"]), "missing")
+        if state.probability_llm:
+            d["probability_llm"] = state.probability_llm.get(h.id)
         chains.append(d)
     ev = state.ledger.evidence()
     return {
@@ -42,6 +45,8 @@ def build_report(state: RunState, ranked: list, cit: dict, seconds: float) -> di
         "matrix": [r.model_dump() for r in state.revised.matrix],
         "next_experiment": state.revised.next_experiment,
         "verdict": state.verdict,
+        "rank_method": (state.llm.cfg.get("rank") or {}).get("method", "llm"),
+        "tournament": state.tournament,
         "citation_support": cit["citation_support"],
         "flags": state.flags,
         "evidence": [{"id": e.id, "tool": e.tool, "source": e.source, "url": e.url, "retrieved_utc": e.retrieved_utc,
@@ -58,6 +63,16 @@ def render_markdown(r: dict) -> str:
     if r.get("verdict"):
         out += [f"**Verdict: {r['verdict']['verdict']}.** {r['verdict']['reason'][0].upper()}{r['verdict']['reason'][1:]}.",
                 ""]
+        assoc = {"gwas_lookup": "GWAS Catalog", "finemap_lookup": "Open Targets fine-mapping"}
+        if r["verdict"].get("association"):
+            out += ["Association with the disease (not part of the verdict): " + "; ".join(
+                f"{assoc[k]} {STATUS_WORDS.get(v, v)}" for k, v in r["verdict"]["association"].items()) + ".", ""]
+    if r.get("tournament"):
+        t = r["tournament"]
+        flips = sum(1 for m in t["matches"] if m["scores"][0] != m["scores"][1])
+        out += ["Pairwise ranking (Bradley-Terry strengths): " + ", ".join(
+            f"{k} {t['strengths'][k]:.2f}" for k in t["ranking"]) + f". {flips} of {len(t['matches'])} pairs "
+            "came out differently in the two orders.", ""]
     if r["screen"]:
         occ = "; ".join(f"{x['tf']} ({x['occupancy'].replace('_', ' ')}, z {x['z']}"
                         + ("" if x["passes_gate"] else ", no clear allelic change")

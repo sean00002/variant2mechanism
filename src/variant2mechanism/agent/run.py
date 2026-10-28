@@ -17,6 +17,7 @@ from .stages.gather import gather
 from .stages.generate import generate, single
 from .stages.investigate import refine
 from .stages.screen import screen
+from .stages.tournament import tournament
 from .stages.verdict import verdict
 
 log = logging.getLogger(__name__)
@@ -60,6 +61,8 @@ def run_case(spec: CaseSpec, config: str = "full", masked: bool = False, seed: i
             critique(state)
             inv = cfg["investigate"]
             refine(state, int(inv["max_rounds"]), int(inv["max_tool_calls"]))
+            if (cfg.get("tournament") or {}).get("enabled"):
+                tournament(state)
         for e in state.ledger.evidence():       # a degraded run must be visible: one flag per failed tool call
             if not e.ok:
                 state.flag("tool_failed", f"{e.id} {e.tool}: {e.summary.splitlines()[0][:160]}")

@@ -90,10 +90,16 @@ def citation_check(state: RunState) -> dict:
 
 
 def rank(state: RunState, statuses: dict) -> list:
+    """By the model's probabilities (rank.method llm) or by the tournament's strengths (pairwise), which then stand
+    in for the probabilities; the model's are kept in state.probability_llm."""
     hyps = state.revised.hypotheses
     total = sum(h.probability for h in hyps) or 1.0
     for h in hyps:
         h.probability = h.probability / total
+    if (state.llm.cfg.get("rank") or {}).get("method", "llm") == "pairwise" and state.tournament:
+        state.probability_llm = {h.id: h.probability for h in hyps}
+        for h in hyps:
+            h.probability = state.tournament["strengths"].get(h.id, 0.0)
 
     def supported(h):
         return sum(statuses.get((h.id, lk.step)) == "supported" for lk in h.links)

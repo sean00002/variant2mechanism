@@ -70,6 +70,12 @@ class Plan(BaseModel):
     stop_reason: str                        # empty unless `calls` is empty
 
 
+class Comparison(BaseModel):               # one pairwise comparison of two chains (stages/tournament.py)
+    winner: Literal["A", "B", "neither"]
+    reason: str
+    evidence_ids: list[str]
+
+
 class CheckResult(BaseModel):
     call: str
     observed: str
