@@ -1,0 +1,278 @@
+Final source unchanged across these tests and both final reruns.
+906 v9 tests passed. Legacy suite: 198 passed, 6 failed due subprocess Python missing pandas, 1 real-cluster test skipped.
+Rerun all mock-cluster tests with project Python on PATH: 8 passed, 1 skipped. Unique total: 1,110 passed; 1 skipped.
+Lint passed. No cluster jobs submitted.
+
+v2m-general-final3-tests-20261110.log
+........................................................................ [  7%]
+........................................................................ [ 15%]
+........................................................................ [ 23%]
+........................................................................ [ 31%]
+........................................................................ [ 39%]
+........................................................................ [ 47%]
+........................................................................ [ 55%]
+........................................................................ [ 63%]
+........................................................................ [ 71%]
+........................................................................ [ 79%]
+........................................................................ [ 87%]
+........................................................................ [ 95%]
+..........................................                               [100%]
+906 passed in 132.12s (0:02:12)
+
+v2m-general-nonv9-tests-20261110.log
+..............................................FFFFFFs................... [ 35%]
+........................................................................ [ 70%]
+.............................................................            [100%]
+=================================== FAILURES ===================================
+__________________________ test_end_to_end_with_stats __________________________
+
+small_cfg = {'cluster': {'host': 'my-cluster', 'data_dir': '/path/on/cluster/qbic_selex_v2_primary', 'model_dir': '/path/on/cluste.../eval_v8_opus5'}, 'budget_usd': {'dev': 0.0, 'eval': 14.0, 'spare': 0.0, 'state_file': 'state/budget_v8_opus5.json'}}}}
+fake_cluster = <class 'qbic_fixtures.fake_cluster.<locals>.Fake'>
+
+    def test_end_to_end_with_stats(small_cfg, fake_cluster):
+        c = cluster(small_cfg, fake_cluster)
+>       run_id = c.run([TERT, OTHER], stats=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_cluster.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/variant2mechanism/qbic/backend.py:138: in run
+    run = self.submit(todo, stats, **overrides)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/variant2mechanism/qbic/cluster.py:122: in submit
+    out = self._ssh(f"cd {remote} && env -u SLURM_JOB_ID sbatch --parsable job.sbatch").stdout.decode().strip()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <variant2mechanism.qbic.cluster.Cluster object at 0x1157d9160>
+command = 'cd /remote/jobs/20261110T144912Z-0e4410 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch'
+stdin = None, check = True, timeout = 600
+
+    def _ssh(self, command: str, stdin: bytes | None = None, check: bool = True,
+             timeout: float = 600) -> subprocess.CompletedProcess:
+        argv = [self.ssh_bin, "-o", "BatchMode=yes", "-o", "ConnectTimeout=300", self.host, command]
+        r = subprocess.run(argv, input=stdin, capture_output=True, timeout=timeout)
+        if check and r.returncode != 0:
+>           raise ClusterError(f"ssh command failed ({r.returncode}): {command[:120]}\n"
+                               f"{r.stderr.decode(errors='replace')[-800:]}")
+E           variant2mechanism.qbic.backend.BackendError: ssh command failed (1): cd /remote/jobs/20261110T144912Z-0e4410 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch
+E           [compsci-session] using compute node: fake-node
+E           Traceback (most recent call last):
+E             File "tests/fake_cluster/sbatch", line 15, in <module>
+E               import pandas as pd
+E           ModuleNotFoundError: No module named 'pandas'
+
+src/variant2mechanism/qbic/cluster.py:79: BackendError
+_______________________ test_cache_hit_makes_no_ssh_call _______________________
+
+small_cfg = {'cluster': {'host': 'my-cluster', 'data_dir': '/path/on/cluster/qbic_selex_v2_primary', 'model_dir': '/path/on/cluste.../eval_v8_opus5'}, 'budget_usd': {'dev': 0.0, 'eval': 14.0, 'spare': 0.0, 'state_file': 'state/budget_v8_opus5.json'}}}}
+fake_cluster = <class 'qbic_fixtures.fake_cluster.<locals>.Fake'>
+
+    def test_cache_hit_makes_no_ssh_call(small_cfg, fake_cluster):
+>       cluster(small_cfg, fake_cluster).run([TERT], stats=True)
+
+tests/test_cluster.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/variant2mechanism/qbic/backend.py:138: in run
+    run = self.submit(todo, stats, **overrides)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/variant2mechanism/qbic/cluster.py:122: in submit
+    out = self._ssh(f"cd {remote} && env -u SLURM_JOB_ID sbatch --parsable job.sbatch").stdout.decode().strip()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <variant2mechanism.qbic.cluster.Cluster object at 0x1165ff830>
+command = 'cd /remote/jobs/20261110T144912Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch'
+stdin = None, check = True, timeout = 600
+
+    def _ssh(self, command: str, stdin: bytes | None = None, check: bool = True,
+             timeout: float = 600) -> subprocess.CompletedProcess:
+        argv = [self.ssh_bin, "-o", "BatchMode=yes", "-o", "ConnectTimeout=300", self.host, command]
+        r = subprocess.run(argv, input=stdin, capture_output=True, timeout=timeout)
+        if check and r.returncode != 0:
+>           raise ClusterError(f"ssh command failed ({r.returncode}): {command[:120]}\n"
+                               f"{r.stderr.decode(errors='replace')[-800:]}")
+E           variant2mechanism.qbic.backend.BackendError: ssh command failed (1): cd /remote/jobs/20261110T144912Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch
+E           [compsci-session] using compute node: fake-node
+E           Traceback (most recent call last):
+E             File "tests/fake_cluster/sbatch", line 15, in <module>
+E               import pandas as pd
+E           ModuleNotFoundError: No module named 'pandas'
+
+src/variant2mechanism/qbic/cluster.py:79: BackendError
+___________________ test_effects_only_does_not_satisfy_stats ___________________
+
+small_cfg = {'cluster': {'host': 'my-cluster', 'data_dir': '/path/on/cluster/qbic_selex_v2_primary', 'model_dir': '/path/on/cluste.../eval_v8_opus5'}, 'budget_usd': {'dev': 0.0, 'eval': 14.0, 'spare': 0.0, 'state_file': 'state/budget_v8_opus5.json'}}}}
+fake_cluster = <class 'qbic_fixtures.fake_cluster.<locals>.Fake'>
+
+    def test_effects_only_does_not_satisfy_stats(small_cfg, fake_cluster):
+        c = cluster(small_cfg, fake_cluster)
+>       c.run([TERT], stats=False)
+
+tests/test_cluster.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/variant2mechanism/qbic/backend.py:138: in run
+    run = self.submit(todo, stats, **overrides)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/variant2mechanism/qbic/cluster.py:122: in submit
+    out = self._ssh(f"cd {remote} && env -u SLURM_JOB_ID sbatch --parsable job.sbatch").stdout.decode().strip()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <variant2mechanism.qbic.cluster.Cluster object at 0x1156a3020>
+command = 'cd /remote/jobs/20261110T144913Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch'
+stdin = None, check = True, timeout = 600
+
+    def _ssh(self, command: str, stdin: bytes | None = None, check: bool = True,
+             timeout: float = 600) -> subprocess.CompletedProcess:
+        argv = [self.ssh_bin, "-o", "BatchMode=yes", "-o", "ConnectTimeout=300", self.host, command]
+        r = subprocess.run(argv, input=stdin, capture_output=True, timeout=timeout)
+        if check and r.returncode != 0:
+>           raise ClusterError(f"ssh command failed ({r.returncode}): {command[:120]}\n"
+                               f"{r.stderr.decode(errors='replace')[-800:]}")
+E           variant2mechanism.qbic.backend.BackendError: ssh command failed (1): cd /remote/jobs/20261110T144913Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch
+E           [compsci-session] using compute node: fake-node
+E           Traceback (most recent call last):
+E             File "tests/fake_cluster/sbatch", line 15, in <module>
+E               import pandas as pd
+E           ModuleNotFoundError: No module named 'pandas'
+
+src/variant2mechanism/qbic/cluster.py:79: BackendError
+_______________________ test_failed_task_gives_log_tail ________________________
+
+small_cfg = {'cluster': {'host': 'my-cluster', 'data_dir': '/path/on/cluster/qbic_selex_v2_primary', 'model_dir': '/path/on/cluste.../eval_v8_opus5'}, 'budget_usd': {'dev': 0.0, 'eval': 14.0, 'spare': 0.0, 'state_file': 'state/budget_v8_opus5.json'}}}}
+fake_cluster = <class 'qbic_fixtures.fake_cluster.<locals>.Fake'>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1151d78f0>
+
+    def test_failed_task_gives_log_tail(small_cfg, fake_cluster, monkeypatch):
+        monkeypatch.setenv("FAKE_FAIL_TASK", "1")
+        with pytest.raises(ClusterJobFailed, match="covariance missing") as e:
+>           cluster(small_cfg, fake_cluster).run([TERT], stats=True)
+
+tests/test_cluster.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/variant2mechanism/qbic/backend.py:138: in run
+    run = self.submit(todo, stats, **overrides)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/variant2mechanism/qbic/cluster.py:122: in submit
+    out = self._ssh(f"cd {remote} && env -u SLURM_JOB_ID sbatch --parsable job.sbatch").stdout.decode().strip()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <variant2mechanism.qbic.cluster.Cluster object at 0x1151d6ea0>
+command = 'cd /remote/jobs/20261110T144913Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch'
+stdin = None, check = True, timeout = 600
+
+    def _ssh(self, command: str, stdin: bytes | None = None, check: bool = True,
+             timeout: float = 600) -> subprocess.CompletedProcess:
+        argv = [self.ssh_bin, "-o", "BatchMode=yes", "-o", "ConnectTimeout=300", self.host, command]
+        r = subprocess.run(argv, input=stdin, capture_output=True, timeout=timeout)
+        if check and r.returncode != 0:
+>           raise ClusterError(f"ssh command failed ({r.returncode}): {command[:120]}\n"
+                               f"{r.stderr.decode(errors='replace')[-800:]}")
+E           variant2mechanism.qbic.backend.BackendError: ssh command failed (1): cd /remote/jobs/20261110T144913Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch
+E           [compsci-session] using compute node: fake-node
+E           Traceback (most recent call last):
+E             File "tests/fake_cluster/sbatch", line 15, in <module>
+E               import pandas as pd
+E           ModuleNotFoundError: No module named 'pandas'
+
+src/variant2mechanism/qbic/cluster.py:79: BackendError
+________________________ test_missing_model_is_rejected ________________________
+
+small_cfg = {'cluster': {'host': 'my-cluster', 'data_dir': '/path/on/cluster/qbic_selex_v2_primary', 'model_dir': '/path/on/cluste.../eval_v8_opus5'}, 'budget_usd': {'dev': 0.0, 'eval': 14.0, 'spare': 0.0, 'state_file': 'state/budget_v8_opus5.json'}}}}
+fake_cluster = <class 'qbic_fixtures.fake_cluster.<locals>.Fake'>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1151d7dd0>
+
+    def test_missing_model_is_rejected(small_cfg, fake_cluster, monkeypatch):
+        from variant2mechanism.qbic.cache import CacheImportError
+        monkeypatch.setenv("FAKE_DROP_MODEL", "ETV4_eDBD_TTTGCC40NTGA_KS_yin2017_0_4_7mer")
+        c = cluster(small_cfg, fake_cluster)
+        with pytest.raises(CacheImportError, match="model set differs"):
+>           c.run([TERT], stats=True)
+
+tests/test_cluster.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/variant2mechanism/qbic/backend.py:138: in run
+    run = self.submit(todo, stats, **overrides)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/variant2mechanism/qbic/cluster.py:122: in submit
+    out = self._ssh(f"cd {remote} && env -u SLURM_JOB_ID sbatch --parsable job.sbatch").stdout.decode().strip()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <variant2mechanism.qbic.cluster.Cluster object at 0x1151d6270>
+command = 'cd /remote/jobs/20261110T144913Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch'
+stdin = None, check = True, timeout = 600
+
+    def _ssh(self, command: str, stdin: bytes | None = None, check: bool = True,
+             timeout: float = 600) -> subprocess.CompletedProcess:
+        argv = [self.ssh_bin, "-o", "BatchMode=yes", "-o", "ConnectTimeout=300", self.host, command]
+        r = subprocess.run(argv, input=stdin, capture_output=True, timeout=timeout)
+        if check and r.returncode != 0:
+>           raise ClusterError(f"ssh command failed ({r.returncode}): {command[:120]}\n"
+                               f"{r.stderr.decode(errors='replace')[-800:]}")
+E           variant2mechanism.qbic.backend.BackendError: ssh command failed (1): cd /remote/jobs/20261110T144913Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch
+E           [compsci-session] using compute node: fake-node
+E           Traceback (most recent call last):
+E             File "tests/fake_cluster/sbatch", line 15, in <module>
+E               import pandas as pd
+E           ModuleNotFoundError: No module named 'pandas'
+
+src/variant2mechanism/qbic/cluster.py:79: BackendError
+___________________________ test_timeout_then_import ___________________________
+
+small_cfg = {'cluster': {'host': 'my-cluster', 'data_dir': '/path/on/cluster/qbic_selex_v2_primary', 'model_dir': '/path/on/cluste.../eval_v8_opus5'}, 'budget_usd': {'dev': 0.0, 'eval': 14.0, 'spare': 0.0, 'state_file': 'state/budget_v8_opus5.json'}}}}
+fake_cluster = <class 'qbic_fixtures.fake_cluster.<locals>.Fake'>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1165fd070>
+
+    def test_timeout_then_import(small_cfg, fake_cluster, monkeypatch):
+        fake_cluster.running("forever")
+        small_cfg["slurm"]["timeout_hours"] = 0.001
+        ticks = iter(range(0, 10_000, 5))
+        c = cluster(small_cfg, fake_cluster, clock=lambda: next(ticks))
+        with pytest.raises(ClusterTimeout) as e:
+>           c.run([TERT], stats=True)
+
+tests/test_cluster.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/variant2mechanism/qbic/backend.py:138: in run
+    run = self.submit(todo, stats, **overrides)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/variant2mechanism/qbic/cluster.py:122: in submit
+    out = self._ssh(f"cd {remote} && env -u SLURM_JOB_ID sbatch --parsable job.sbatch").stdout.decode().strip()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <variant2mechanism.qbic.cluster.Cluster object at 0x1165fcec0>
+command = 'cd /remote/jobs/20261110T144914Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch'
+stdin = None, check = True, timeout = 600
+
+    def _ssh(self, command: str, stdin: bytes | None = None, check: bool = True,
+             timeout: float = 600) -> subprocess.CompletedProcess:
+        argv = [self.ssh_bin, "-o", "BatchMode=yes", "-o", "ConnectTimeout=300", self.host, command]
+        r = subprocess.run(argv, input=stdin, capture_output=True, timeout=timeout)
+        if check and r.returncode != 0:
+>           raise ClusterError(f"ssh command failed ({r.returncode}): {command[:120]}\n"
+                               f"{r.stderr.decode(errors='replace')[-800:]}")
+E           variant2mechanism.qbic.backend.BackendError: ssh command failed (1): cd /remote/jobs/20261110T144914Z-368a33 && env -u SLURM_JOB_ID sbatch --parsable job.sbatch
+E           [compsci-session] using compute node: fake-node
+E           Traceback (most recent call last):
+E             File "tests/fake_cluster/sbatch", line 15, in <module>
+E               import pandas as pd
+E           ModuleNotFoundError: No module named 'pandas'
+
+src/variant2mechanism/qbic/cluster.py:79: BackendError
+=========================== short test summary info ============================
+FAILED tests/test_cluster.py::test_end_to_end_with_stats - variant2mechanism....
+FAILED tests/test_cluster.py::test_cache_hit_makes_no_ssh_call - variant2mech...
+FAILED tests/test_cluster.py::test_effects_only_does_not_satisfy_stats - vari...
+FAILED tests/test_cluster.py::test_failed_task_gives_log_tail - variant2mecha...
+FAILED tests/test_cluster.py::test_missing_model_is_rejected - variant2mechan...
+FAILED tests/test_cluster.py::test_timeout_then_import - variant2mechanism.qb...
+6 failed, 198 passed, 1 skipped in 59.43s
+
+v2m-general-cluster-fixture-tests-20261110.log
+........s                                                                [100%]
+8 passed, 1 skipped in 4.95s
+

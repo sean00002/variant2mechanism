@@ -1,0 +1,319 @@
+{
+  "comparisons": [
+    {
+      "case": "rs12740374",
+      "before": {
+        "case": "rs12740374",
+        "historical": true,
+        "origin": "germline",
+        "request": {
+          "variant": "GRCh38:1:109274968:G:T",
+          "supplied_disease": [],
+          "supplied_context": []
+        },
+        "run_folder": "dev11_rs12740374_general_recovery_20261110",
+        "graph_sha256": "7fa6ff71242d8781c9f749c2cf9ef813739c0f45491068467f1fa98928a9f286",
+        "resolution": {
+          "molecular_status": "not_established",
+          "molecular_label": "No supported variant-level molecular claim yet",
+          "supported_molecular_claim_ids": [],
+          "claim_hypotheses": {},
+          "required_link_status": "unresolved",
+          "required_link_label": "Complete mechanism chain unresolved",
+          "supported_required_path_ids": [],
+          "required_gaps": {
+            "H1": [
+              "C1"
+            ],
+            "H2": [],
+            "H3": [
+              "C4"
+            ],
+            "H4": [],
+            "H5": [],
+            "H6": [
+              "C7"
+            ]
+          },
+          "note": "Molecular support includes optional claims and is scoped to their linked evidence. Required-link completion is relative to each stated endpoint; a molecular-only endpoint is not disease mediation. Neither field chooses a winning hypothesis or changes the whole-hypothesis comparison."
+        },
+        "stored_outcome": "multiple_explanations",
+        "stop_reason": "budget_model_calls",
+        "cost": 0.03515,
+        "model_calls": 18,
+        "tool_calls": 15,
+        "literature_reads": 5,
+        "accepted_literature_records": 0,
+        "review": {},
+        "initial_claim_ids": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6"
+        ],
+        "claim_count": 8,
+        "evidence_count": 1013
+      },
+      "after": {
+        "case": "rs12740374",
+        "historical": false,
+        "origin": "germline",
+        "request": {
+          "variant": "GRCh38:1:109274968:G:T",
+          "supplied_disease": [],
+          "supplied_context": []
+        },
+        "run_folder": "dev13_rs12740374_source_repair_20261110",
+        "graph_sha256": "775b694a5d8187687343119ed699f70de5e170b29d98ec70d43f58b12d0e61e5",
+        "resolution": {
+          "molecular_status": "supported",
+          "molecular_label": "Supported partial mechanism",
+          "supported_molecular_claim_ids": [
+            "C5",
+            "C10"
+          ],
+          "claim_hypotheses": {
+            "C5": [
+              "H1"
+            ],
+            "C10": [
+              "H1"
+            ]
+          },
+          "required_link_status": "unresolved",
+          "required_link_label": "Complete mechanism chain unresolved",
+          "supported_required_path_ids": [],
+          "required_gaps": {
+            "H1": [
+              "C1"
+            ],
+            "H2": [],
+            "H3": [],
+            "H4": [],
+            "H5": [
+              "C8"
+            ],
+            "H6": [
+              "C9"
+            ]
+          },
+          "note": "Molecular support includes optional claims and is scoped to their linked evidence. Required-link completion is relative to each stated endpoint; a molecular-only endpoint is not disease mediation. Neither field chooses a winning hypothesis or changes the whole-hypothesis comparison."
+        },
+        "stored_outcome": "multiple_explanations",
+        "stop_reason": "budget_model_calls",
+        "cost": 0.0822,
+        "model_calls": 17,
+        "tool_calls": 13,
+        "literature_reads": 6,
+        "accepted_literature_records": 5,
+        "review": {
+          "verdict": "The new run recovered a supported in-vitro binding difference and a supported Hep3B reporter effect. It still did not establish the T-versus-G direction from those extracts, connect the molecular effects to a causal target gene, or complete a disease mechanism.",
+          "factor_recovery": "CEBPA is implicated by the accepted EMSA/antibody observation; the acting member in endogenous liver remains unresolved.",
+          "repair_result": "Two source-local repair calls. The first retained E1017 and led to supported C5. The second proposed an unlisted sentence range and was correctly refused; a later normal extraction retained the reporter result as E1018/C10.",
+          "notes": [
+            "T7 read Musunuru et al. (PMID 20686566, PMC3062476). Five literature records were accepted, compared with zero in the previous run. They are five extracted assays/descriptions from one paper, not five independent confirmations.",
+            "D32 refused the first EMSA record: the direction checker encountered antibody-induced impairment in the same passage as stronger minor-allele binding. The repair used the exact whole-sentence selector @span:437:782 at sec3/p4, retained E1017 with direction unspecified and no base assignment, and the coordinator added C5 to H1. The comparison remains explicit in the observed-result text.",
+            "C5 is an in-vitro binding claim supported by the named variant's minor-versus-major probes and the C/EBP-alpha antibody result. It is not evidence of endogenous CEBPA occupancy in liver or proof that CEBPA rather than CEBPB/CEBPE mediates the disease chain. Its structured effect_allele field is T, but its text and direction-unspecified evidence do not establish a T-over-G effect; do not count it as allele-direction recovery.",
+            "D57 refused an overlong reporter quote. The immediate retry then proposed @span:828:1161, which was not one of the offered whole-sentence selectors, so D63 refused it. This failure was preserved and did not trigger an unbounded retry. Later extraction from the same primary source produced E1018; C10 supports the rs12740374-specific reporter effect in Hep3B cells without a genomic direction.",
+            "E1014 is a reporter-design caption without a directional result. E1015 shows dominant-negative C/EBP reducing the haplotype-specific reporter difference; E1016 records C/EBP-alpha addition in mouse NIH 3T3 cells. These were retained as context, not treated as direct allele-comparing evidence for C1 in human liver.",
+            "C2, C3 and C4 preserve liver expression associations for SORT1, PSRC1 and CELSR2. These associations do not by themselves assign a causal target or establish lipid mediation. C6 and C7 remain unsupported reporter drafts alongside supported C10, showing that claim reuse/refinement is still imperfect.",
+            "The initial QBiC link E113 to group claim C1 was refused because its rationale omitted the member names required by the group-link contract. The final critic flagged the missing prediction link. C1 remains unresolved; no prediction was silently upgraded into an experimental binding result.",
+            "The stored outcome is multiple_explanations, with H1/H2/H3 tied. These include different molecular and association scopes and are not three validated competing disease mechanisms. Supported partial claims and unresolved complete chains are reported separately.",
+            "The run used 17 model sends, 13 tool calls and 6 literature reads; 357,193 input tokens and $0.082200. The previous run used 18 sends, 15 tools, 5 reads and $0.035150. This change improved evidence retention but did not demonstrate lower cost; decisions, output lengths and caching differ."
+          ]
+        },
+        "initial_claim_ids": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "claim_count": 10,
+        "evidence_count": 1018
+      }
+    },
+    {
+      "case": "tert_c228t",
+      "before": {
+        "case": "tert_c228t",
+        "historical": true,
+        "origin": "somatic",
+        "request": {
+          "variant": "GRCh38:5:1295113:G:A",
+          "supplied_disease": [],
+          "supplied_context": []
+        },
+        "run_folder": "dev12_tert_c228t_general_recovery_20261110",
+        "graph_sha256": "550656c3e4c9b15cad192d63ba5a02181d321eae15d0e59cb056a3649ec5fc7b",
+        "resolution": {
+          "molecular_status": "not_established",
+          "molecular_label": "No supported variant-level molecular claim yet",
+          "supported_molecular_claim_ids": [],
+          "claim_hypotheses": {},
+          "required_link_status": "unresolved",
+          "required_link_label": "Complete mechanism chain unresolved",
+          "supported_required_path_ids": [],
+          "required_gaps": {
+            "H1": [
+              "C1"
+            ],
+            "H2": [
+              "C3"
+            ],
+            "H3": [
+              "C4"
+            ],
+            "H4": [
+              "C5",
+              "C6"
+            ],
+            "H5": [
+              "C7",
+              "C8"
+            ],
+            "H6": [
+              "C9",
+              "C10"
+            ]
+          },
+          "note": "Molecular support includes optional claims and is scoped to their linked evidence. Required-link completion is relative to each stated endpoint; a molecular-only endpoint is not disease mediation. Neither field chooses a winning hypothesis or changes the whole-hypothesis comparison."
+        },
+        "stored_outcome": "no_supported_explanation",
+        "stop_reason": "budget_model_calls",
+        "cost": 0.042411,
+        "model_calls": 17,
+        "tool_calls": 18,
+        "literature_reads": 8,
+        "accepted_literature_records": 0,
+        "review": {},
+        "initial_claim_ids": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10"
+        ],
+        "claim_count": 13,
+        "evidence_count": 263
+      },
+      "after": {
+        "case": "tert_c228t",
+        "historical": false,
+        "origin": "somatic",
+        "request": {
+          "variant": "GRCh38:5:1295113:G:A",
+          "supplied_disease": [],
+          "supplied_context": []
+        },
+        "run_folder": "dev14_tert_c228t_alias_repair_20261110",
+        "graph_sha256": "b020689cd75979e3f2ff13cadc2b7cefba31f5ef65e025931889b6ce04bce817",
+        "resolution": {
+          "molecular_status": "supported",
+          "molecular_label": "Supported partial mechanism",
+          "supported_molecular_claim_ids": [
+            "C7"
+          ],
+          "claim_hypotheses": {
+            "C7": [
+              "H3"
+            ]
+          },
+          "required_link_status": "unresolved",
+          "required_link_label": "Complete mechanism chain unresolved",
+          "supported_required_path_ids": [],
+          "required_gaps": {
+            "H1": [
+              "C1"
+            ],
+            "H2": [
+              "C2"
+            ],
+            "H3": [
+              "C3"
+            ]
+          },
+          "note": "Molecular support includes optional claims and is scoped to their linked evidence. Required-link completion is relative to each stated endpoint; a molecular-only endpoint is not disease mediation. Neither field chooses a winning hypothesis or changes the whole-hypothesis comparison."
+        },
+        "stored_outcome": "no_supported_explanation",
+        "stop_reason": "budget_model_calls",
+        "cost": 0.042341,
+        "model_calls": 17,
+        "tool_calls": 15,
+        "literature_reads": 7,
+        "accepted_literature_records": 1,
+        "review": {
+          "verdict": "The new run verified the C228T alias, found a primary promoter study and retained a supported A-versus-G reporter effect in the reported cell-line assays. Endogenous regulation, a specific TF and disease mediation remain unresolved.",
+          "factor_recovery": "No supported ETS-member or GABPA binding claim was recovered; the supported finding is reporter activity.",
+          "repair_result": "One source-local repair call copied @span:951:1045 from body/p3 after an overlong quote was refused. E264 was accepted, mapped to the case and linked to supported C7.",
+          "notes": [
+            "T4 produced catalogue identity metadata: CIViC variant 248, C228T / -124C>T, was verified as the same substitution through its GRCh37 chr5:1295228 G>A coordinates and T1 NCBI placements. C250T / -146C>T, variant 4004, was verified different at chr5:1295250. Neither catalogue label was counted as experimental evidence.",
+            "The verified alias was used in discovery. The early query combined TERT C228T OR -124C>T with assay terms without adequate grouping and returned many irrelevant hits; subsequent queries still reached primary studies. This remains a search-efficiency limitation rather than a successful query-design demonstration.",
+            "T11 read Huang et al. (PMID 23348506, PMC4423787; DOI 10.1126/science.1229259). D44 refused the first body/p3 record because the quote exceeded 600 characters. The immediate repair copied an offered exact source sentence and retained E264; the original refusal remains auditable.",
+            "The accepted experiment's identity proof used the paper's explicit coordinate definition plus NCBI assembly mapping, rather than inferring a coordinate from the C228T suffix. The paper's C>T notation was converted to genomic G>A for the case chr5:1295113:G>A; the effect allele was normalised from T to A and the original notation/provenance retained. The new catalogue-only experiment-mapping path has synthetic regression coverage but was not the path used by E264.",
+            "C7 supports increased reporter activity for case allele A versus G. Its context stays within the reported A375, RPMI-7951, UACC-62, T24 and HepG2 assays; it does not become a generic tissue or endogenous-locus claim. The selected sentence is interpreted with its source paragraph and explicit variant definition, not as a standalone allele-identifying quote.",
+            "C7 is retained as an optional molecular finding in H3. Required C3 (endogenous regulatory activity) remains unassessed; the stored whole-hypothesis outcome is no_supported_explanation. This does not erase the supported reporter finding. C6 is an earlier unassessed duplicate draft.",
+            "C1/C2 binding hypotheses remain unassessed. Their initial model-sharing-group prediction links were refused because the rationale did not identify a member; no ETS-member-specific or GABPA binding experiment was accepted. Regulatory overlaps C4/C5 remain annotations, not allelic effects.",
+            "The run used 17 model sends, 15 tool calls and 7 literature reads; 286,659 input tokens and $0.042341. One literature experiment was accepted, compared with zero previously. There is no complete variant-to-cancer chain, and this single positive development case does not test specificity."
+          ]
+        },
+        "initial_claim_ids": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "claim_count": 7,
+        "evidence_count": 264
+      }
+    }
+  ],
+  "verification": {
+    "tests": "1,120 tests passed; one real-cluster test skipped. Production source, v9 tests and the report generator passed lint",
+    "source_frozen": true,
+    "tests_frozen": true,
+    "previous_graphs_and_gold_preserved": true,
+    "configuration_frozen": true,
+    "case_inputs_verified": true,
+    "budget_before": {
+      "dev": {
+        "spent": 0.566387,
+        "reserved": {}
+      }
+    },
+    "budget_after": {
+      "dev": {
+        "spent": 0.690928,
+        "reserved": {}
+      }
+    },
+    "budget_cap": 5,
+    "this_task_cost": 0.124541,
+    "remaining_budget_usd": 4.309072,
+    "new_runs": [
+      {
+        "case": "rs12740374",
+        "run": "dev13_rs12740374_source_repair_20261110",
+        "graph_sha256": "775b694a5d8187687343119ed699f70de5e170b29d98ec70d43f58b12d0e61e5",
+        "outcome": "multiple_explanations",
+        "cost": 0.0822,
+        "model_calls": 17
+      },
+      {
+        "case": "tert_c228t",
+        "run": "dev14_tert_c228t_alias_repair_20261110",
+        "graph_sha256": "b020689cd75979e3f2ff13cadc2b7cefba31f5ef65e025931889b6ce04bce817",
+        "outcome": "no_supported_explanation",
+        "cost": 0.042341,
+        "model_calls": 17
+      }
+    ],
+    "browser_visual_check": "not performed; structural and interaction validation only",
+    "conclusion": "Both reruns now retain supported partial mechanisms: an in-vitro binding difference and Hep3B reporter effect for rs12740374, and an allele-resolved reporter effect for TERT. Source-local repair and verified identity mapping were exercised. Neither run completes a variant-to-disease mechanism, and one rs12740374 repair attempt still failed."
+  }
+}

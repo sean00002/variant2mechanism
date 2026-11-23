@@ -1,9 +1,9 @@
 """One model client (spec 2, section 7): role -> model, effort and max_tokens; response cache; trace; budget guard.
 
-Every call is an OpenAI-style chat completion sent through OpenRouter (agent/openrouter.py), whatever the model.
-Since 26 October 2026 the default is DeepSeek V4.1 Flash for every role and the Anthropic API is no longer called
-directly. Structured output goes in `response_format` as a strict JSON schema and is validated here with Pydantic, so
-a validation error can be sent back once.
+Every call is an OpenAI-style chat completion sent through OpenRouter (agent/openrouter.py), whatever the model, or,
+with `llm.api: anthropic`, converted for the Anthropic API (agent/anthropic_api.py, from 3 November 2026; it was
+last called directly before 26 October). Structured output goes in `response_format` as a strict JSON schema and is
+validated here with Pydantic, so a validation error can be sent back once.
 """
 
 import fcntl
@@ -51,7 +51,7 @@ class LLMResult:
     cached: bool
     parsed: BaseModel | None = None
     model: str = ""
-    provider: str | None = None         # the OpenRouter provider that served the call
+    provider: str | None = None         # the OpenRouter provider that served the call, or "Anthropic API"
     latency: float = 0.0
     retries: list[str] = field(default_factory=list)
 
@@ -185,6 +185,9 @@ class Budget:
 
 
 class LLMClient:
+    """`seed` is a repeat number, not a sampling seed: no seed is sent to the model. It only enters the response
+    cache key, so each repeat makes its own calls and replays its own answers."""
+
     def __init__(self, cfg: Config | None = None, transport=None, phase: str = "dev", trace_path: Path | None = None,
                  seed: int = 0, cache_dir: Path | None = None, budget: Budget | None = None):
         self.cfg = cfg or load_config()
@@ -200,7 +203,12 @@ class LLMClient:
 
     @property
     def transport(self):
-        if self._transport is None:
+        if self._transport is None and self.cfg["llm"].get("api") == "anthropic":
+            from .anthropic_api import anthropic_transport
+            # llm.cache_system: the instructions go to the API's prompt cache (a client that repeats them)
+            self._transport = anthropic_transport(**({"cache_system": True} if self.cfg["llm"].get("cache_system")
+                                                     else {}))
+        elif self._transport is None:
             from .openrouter import openrouter_transport
             self._transport = openrouter_transport((self.cfg["llm"].get("openrouter") or {}).get("provider"))
         return self._transport
@@ -210,11 +218,18 @@ class LLMClient:
         return llm[role], llm["effort"][role], int(llm["max_tokens"][role])
 
     def price(self, model: str, usage: dict) -> float:
-        """What OpenRouter reports it charged; list prices only when a reply carries no cost (as in tests)."""
+        """What OpenRouter reports it charged; list prices when a reply carries no cost (the Anthropic API, tests).
+        Prompt tokens read from the provider's prompt cache, or written to it, are charged at the model's
+        `cache_read` and `cache_write` prices where its entry gives them, and as ordinary input where it does not."""
         if usage.get("cost") is not None:
             return float(usage["cost"])
         p = self.cfg["llm"]["prices_per_mtok"][model]
-        return (usage.get("prompt_tokens", 0) * p["input"] + usage.get("completion_tokens", 0) * p["output"]) / 1e6
+        details = usage.get("prompt_tokens_details") or {}
+        read = (details.get("cached_tokens") or 0) if "cache_read" in p else 0
+        written = (details.get("cache_write_tokens") or 0) if "cache_write" in p else 0
+        fresh = usage.get("prompt_tokens", 0) - read - written
+        return (fresh * p["input"] + read * p.get("cache_read", 0.0) + written * p.get("cache_write", 0.0)
+                + usage.get("completion_tokens", 0) * p["output"]) / 1e6
 
     def worst_case(self, model: str, body: dict) -> float:
         p = self.cfg["llm"]["prices_per_mtok"][model]
@@ -222,10 +237,11 @@ class LLMClient:
         return chars / 3.5 * p["input"] / 1e6 + body["max_tokens"] * p["output"] / 1e6
 
     def call(self, role: str, stage: str, system: str, messages: list[dict], tools: list[dict] | None = None,
-             output_model: type[BaseModel] | None = None, check=None) -> LLMResult:
+             output_model: type[BaseModel] | None = None, check=None, trace: dict | None = None) -> LLMResult:
         """One model call. With `output_model`, the JSON is validated (and `check(parsed)` run); one retry with the
-        error message, then the stage fails loudly."""
-        res = self._call(role, stage, system, messages, tools, output_model)
+        error message, then the stage fails loudly. `trace` adds fields to the call's trace line (such as a hash of
+        the evidence shown), never to the request or its cache key."""
+        res = self._call(role, stage, system, messages, tools, output_model, trace=trace)
         if output_model is None:
             return res
         try:
@@ -235,7 +251,7 @@ class LLMClient:
             err = str(e)[:1500]
         retry_msgs = messages + [res.echo(), {"role": "user", "content": f"That output failed validation: {err}\n"
                                                                          "Return the corrected JSON in full."}]
-        res2 = self._call(role, stage, system, retry_msgs, tools, output_model)
+        res2 = self._call(role, stage, system, retry_msgs, tools, output_model, trace=trace)
         try:
             res2.parsed = self._parse(res2, output_model, check)
         except (ValidationError, SchemaCheckError, json.JSONDecodeError) as e:
@@ -249,7 +265,8 @@ class LLMClient:
         parsed = output_model.model_validate_json(res.text)
         return check(parsed) if check else parsed
 
-    def _call(self, role, stage, system, messages, tools, output_model, max_tokens=None, _retried=False) -> LLMResult:
+    def _call(self, role, stage, system, messages, tools, output_model, max_tokens=None, _retried=False,
+              trace=None) -> LLMResult:
         model, effort, mt = self.role(role)
         body: dict[str, Any] = {"model": model, "messages": ([{"role": "system", "content": system}] if system else [])
                                 + messages, "max_tokens": max_tokens or mt, "reasoning": {"effort": effort}}
@@ -283,21 +300,26 @@ class LLMClient:
             path.write_text(json.dumps(resp))
         res = LLMResult(message, finish, resp.get("usage") or {}, cost, cached, model=resp.get("model") or model,
                         provider=resp.get("provider"), latency=round(time.time() - t0, 2))
-        self._trace(stage, role, res, body["max_tokens"])
+        prompt = hashlib.sha256(json.dumps(body["messages"], sort_keys=True, default=str).encode()).hexdigest()
+        self._trace(stage, role, res, body["max_tokens"], {"prompt_sha256": prompt, "cache_key": key, **(trace or {})})
         self.total_cost += cost
         self.calls += 1
         if finish == "content_filter":
-            raise Refused(f"{stage}: the provider's content filter stopped the reply; the stage stops here.")
+            why = f" ({message['refusal']})" if message.get("refusal") else ""
+            raise Refused(f"{stage}: the provider's content filter stopped the reply{why}; the stage stops here.")
         if finish == "length":
             if _retried:
                 raise LLMError(f"{stage}: hit max_tokens twice ({body['max_tokens']})")
-            again = self._call(role, stage, system, messages, tools, output_model, body["max_tokens"] * 2, True)
+            again = self._call(role, stage, system, messages, tools, output_model, body["max_tokens"] * 2, True,
+                               trace=trace)
             again.cost += res.cost
             again.retries = ["max_tokens"] + again.retries
             return again
         return res
 
-    def _trace(self, stage: str, role: str, res: LLMResult, max_tokens: int) -> None:
+    def _trace(self, stage: str, role: str, res: LLMResult, max_tokens: int, extra: dict | None = None) -> None:
+        """One line per call. `prompt_sha256` hashes the messages sent; `cache_key` names the cached reply
+        (cache/llm/<key>.json); the repeat number is part of that key only."""
         if not self.trace_path:
             return
         u = res.usage
@@ -305,7 +327,9 @@ class LLMClient:
                 "input_tokens": u.get("prompt_tokens"), "output_tokens": u.get("completion_tokens"),
                 "thinking_tokens": (u.get("completion_tokens_details") or {}).get("reasoning_tokens"),
                 "cache_read_tokens": (u.get("prompt_tokens_details") or {}).get("cached_tokens"),
+                **({"cache_write_tokens": w} if (w := (u.get("prompt_tokens_details") or {}).get("cache_write_tokens"))
+                   else {}),
                 "cost_usd": round(res.cost, 6), "latency_s": res.latency, "finish_reason": res.finish_reason,
-                "cache_hit": res.cached, "max_tokens": max_tokens}
+                "cache_hit": res.cached, "max_tokens": max_tokens, "repeat": self.seed, **(extra or {})}
         with open(self.trace_path, "a") as f:
             f.write(json.dumps(line) + "\n")

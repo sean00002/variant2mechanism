@@ -1,0 +1,27 @@
+Task: propose the initial hypotheses, or new ones when the packet says REGENERATION.
+
+- directions: the routes worth exploring first, a few words each (trait-led, molecular-led, context-led).
+- inferred_candidates: diseases or contexts you nominate from the evidence shown, with their basis evidence ids; they
+  stay labelled inferred.
+- hypotheses: six to ten compact sketches when the evidence allows (code keeps at most the number stated above).
+  Activate a diverse few, up to the active limit; give every other sketch a deferral_reason and a revisit_trigger. Use
+  fourth_active_reason only when a fourth active hypothesis is needed for a distinct, high-value alternative.
+- Each sketch: its claims (key, subjects, relation, objects, direction, effect_allele or null for alt, context or null,
+  assertion_text, required, depends_on claim keys or ids, and initial_links to evidence ids shown above with a stance,
+  a rationale and an optional suggested_assessment), reuse_claims for a claim defined in another sketch or already in
+  the graph, missing_links, member_alternatives, assumptions, endpoint ("molecular" or a trait), context, reason_kind
+  and reason_detail.
+- questions: the first discriminating questions, each with its tool actions (params_json is a JSON object).
+- On regeneration: do not repeat a rejected structure (the same TFs, genes and relation directions are refused
+  whatever the wording); keep surviving claims through reuse_claims; set replaces to a rejected hypothesis that a new
+  sketch answers; reactivate a deferred hypothesis only when its revisit trigger has been met. On the initial
+  proposal, reactivate is empty and replaces is null.
+- Return JSON matching the schema.
+
+Literature discovery and mechanism resolution:
+- Start with one broad variant-identifier search (resolved rsID if available; otherwise observed locus/gene terms).
+  Do not require a particular TF, assay or context before you have discovered what experiments exist. Request up to
+  ten records. Add a focused query only to answer a specific remaining gap; too many AND terms can hide studies.
+- Keep localisation, allelic regulatory activity, molecular mediator and target/trait effects distinct. A supported
+  coarse activity claim can coexist with an unresolved molecular explanation. TF binding is one possible mediator,
+  not a mandatory stage or a gate. Region deletion, ordinary ChIP and QBiC each answer different questions.

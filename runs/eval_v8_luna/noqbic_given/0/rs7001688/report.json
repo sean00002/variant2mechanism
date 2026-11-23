@@ -1,0 +1,590 @@
+{
+ "version": "v8",
+ "case_id": "rs7001688",
+ "variant": "rs7001688",
+ "variant_key": "chr8:57573391:G>T",
+ "disease": "LDL cholesterol",
+ "origin": "germline",
+ "arm": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "code_only": false,
+ "infer_context": false,
+ "literature_before": null,
+ "dropped_tfs": [],
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0038,
+ "model_calls": 4,
+ "seconds": 61.4,
+ "flags": [],
+ "context": {
+  "context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+  "route": "given",
+  "reason": "given with the case",
+  "tried": [],
+  "names": [
+   "HepG2"
+  ],
+  "tissue": null
+ },
+ "intake": {
+  "disease_line": {
+   "state": "no_association",
+   "matches": [],
+   "maf": 0.4595,
+   "reason": "common variant (MAF 0.4595): neither the GWAS Catalog nor Open Targets lists an association with LDL cholesterol"
+  },
+  "promoter": {
+   "ok": true,
+   "promoter_of": [],
+   "nearest_tss": {
+    "gene": "ENSG00000253821",
+    "biotype": "lncRNA",
+    "distance": 80477
+   },
+   "url": "https://rest.ensembl.org/overlap/region/human/8:57572391-57574391?feature=gene;feature=transcript;content-type=application/json"
+  }
+ },
+ "element": {
+  "status": "no_ccre",
+  "in_ccre": false,
+  "accession": "EH38E3835076",
+  "class": "CA-H3K4me3",
+  "distance": 1544,
+  "n": 0,
+  "here": [],
+  "active_elsewhere": []
+ },
+ "gene_links": {},
+ "eqtl": [],
+ "l2g": {},
+ "screen": {
+  "counts": {
+   "families_passing": null,
+   "candidates": 1,
+   "with_chip_here": 0,
+   "with_chip_anywhere": 1,
+   "with_summit_here": 0,
+   "shown": 1
+  },
+  "z_thr": null,
+  "use_qbic": false,
+  "families": [
+   {
+    "gid": "G161",
+    "label": "C2H2 ZF, 1 model",
+    "dbd": "C2H2 ZF",
+    "n_tfs": 1,
+    "n_unexpressed": 0,
+    "tier_here": 3,
+    "tier_any": 2,
+    "named": "CTCF",
+    "paralogs": [],
+    "max_tpm": 32.01,
+    "assayed": true,
+    "fid": "F1",
+    "members": [
+     {
+      "tf": "CTCF",
+      "tpm": 32.01,
+      "state": "expressed",
+      "grade_here": 3,
+      "grade_any": 2,
+      "summit_here": null,
+      "summit_any": null,
+      "cells_any": [
+       "LNCAP"
+      ],
+      "assayed_here": true
+     }
+    ],
+    "n_members": 1
+   }
+  ],
+  "evidence_ids": {
+   "F1": "E13"
+  }
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "CTCF binding at an intergenic site; target gene and LDL effect unresolved",
+   "family_id": "F1",
+   "tf": "CTCF",
+   "member_reason": "",
+   "allele_binding_more": "alt",
+   "element": "Intergenic site; no overlapping cCRE is reported.",
+   "target_gene": "FAM110B",
+   "cell_type": "Hep 3B2.1-7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The family screen reports greater in-vitro binding for the alternate T allele and names CTCF; its cited CTCF ChIP-seq peak is elsewhere, not at this variant.",
+     "evidence_ids": [
+      "E12",
+      "E13"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "binding",
+      "status": "weak",
+      "reason": "E12 supports an alternate-allele in-vitro binding prediction, and E13 maps the candidate to CTCF. This is binding-prediction evidence, not direct occupancy at the variant; E13 places the CTCF peak elsewhere. The CTCF model is assessed as CTCF's own model."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "binding",
+      "status": "weak",
+      "reason": "E12 reports greater in-vitro binding for the alternate allele and maps the model to CTCF, but this is a binding prediction, not evidence of occupancy at the variant in the stated cell type. E13 reports CTCF expression; E14 is not tested in the matched biosample and provides no evidence for or against binding there."
+     }
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intergenic and does not overlap a reported cCRE, so a regulatory element at this position is not established.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E05"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "element",
+      "status": "supported",
+      "reason": "E01, E03 and E05 support the stated absence of an overlapping cCRE and that a regulatory element at this position is not established. This does not rule out regulatory activity outside the reported cCRE annotations."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "element",
+      "status": "weak",
+      "reason": "E03 and E05 directly report no overlapping cCRE, so a regulatory element is not established. However, E01 labels the consequence intron_variant while also reporting no transcript consequences, leaving the intergenic classification inconsistent."
+     }
+    },
+    {
+     "step": "gene",
+     "claim": "FAM110B is a tentative candidate: it is the nearest listed protein-coding gene by TSS and has literature search hits mentioning LDL, but the evidence does not link this variant to FAM110B regulation.",
+     "evidence_ids": [
+      "E02",
+      "E11"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "gene",
+      "status": "weak",
+      "reason": "E02 makes FAM110B the nearest listed protein-coding gene by TSS, and E11 reports literature-search hits mentioning FAM110B and LDL. Neither links this variant to FAM110B regulation; the gene assignment remains speculative."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "gene",
+      "status": "weak",
+      "reason": "E02 makes FAM110B the nearest listed protein-coding gene by TSS, but proximity and the literature search hits in E11 do not link the variant to FAM110B regulation. E15 reports no significant liver eQTL, which provides no support for that link."
+     }
+    },
+    {
+     "step": "cell_type",
+     "claim": "The supplied expression context is Hep 3B2.1-7; CTCF is reported at 32 TPM, but matched-biosample ChIP-seq support is absent.",
+     "evidence_ids": [
+      "E10",
+      "E12",
+      "E13"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "cell_type",
+      "status": "weak",
+      "reason": "E10 supplies Hep 3B2.1-7 as the expression context and E13 reports CTCF expression there. E12 reports no matched-biosample ChIP-seq support, so relevance of this cell type to binding at the variant is not established."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "cell_type",
+      "status": "supported",
+      "reason": "E10 gives Hep 3B2.1-7 as the expression context and E13 reports CTCF expression there at 32 TPM. The claim correctly notes that matched-biosample ChIP-seq support is absent; E14 is not tested and does not count against it."
+     }
+    },
+    {
+     "step": "phenotype",
+     "claim": "No LDL-cholesterol mechanism or association is established by these data; the intake reports no association, and the GWAS Catalog search found none.",
+     "evidence_ids": [
+      "E07",
+      "E10"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "phenotype",
+      "status": "missing",
+      "reason": "No positive evidence connects this variant or the proposed FAM110B mechanism to LDL cholesterol. E07 and E10 report no cataloged association, but the catalog result is weak negative evidence and does not establish absence of a causal effect."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "phenotype",
+      "status": "supported",
+      "reason": "E07 and E10 report no listed LDL-cholesterol association, while E16 reports no FAM110B association with the specified large-LDL free-cholesterol measurement. These data do not establish an LDL-cholesterol mechanism or association for this chain."
+     }
+    }
+   ],
+   "predictions": [
+    "If this hypothesis is correct, the T allele should show greater CTCF occupancy than G at the site in Hep 3B2.1-7; a downstream effect on FAM110B remains unsubstantiated."
+   ],
+   "falsified_if": [
+    "Allele-specific occupancy assays in Hep 3B2.1-7 show no greater CTCF binding to T than G.",
+    "Variant perturbation or allele-specific assays provide no evidence of a regulatory effect on FAM110B."
+   ],
+   "rank": null,
+   "eliminated": "element: the variant is not in a cCRE and no TF is bound there in the context",
+   "tiers": {
+    "binding": {
+     "tier": 1,
+     "name": "indirect",
+     "reason": "CTCF ChIP peak elsewhere"
+    },
+    "cell_type": {
+     "tier": 2,
+     "name": "supporting",
+     "reason": "expressed (32.0 TPM)"
+    },
+    "element": {
+     "tier": -1,
+     "name": "contradicted",
+     "reason": "the variant is not in a cCRE and no TF is bound there in the context"
+    },
+    "gene": {
+     "tier": 1,
+     "name": "indirect",
+     "reason": "FAM110B is the nearest gene or overlaps the variant"
+    },
+    "phenotype": {
+     "tier": -1,
+     "name": "contradicted",
+     "reason": "common variant (MAF 0.4595): neither the GWAS Catalog nor Open Targets lists an association with LDL cholesterol"
+    }
+   },
+   "minimum": {
+    "binding change": "fail",
+    "ChIP-seq": "pass",
+    "expressed": "pass",
+    "element open": "fail"
+   },
+   "evidence_family": "E13"
+  }
+ ],
+ "ranking": [],
+ "eliminated": {
+  "H1": "element: the variant is not in a cCRE and no TF is bound there in the context"
+ },
+ "rejected_eliminations": [],
+ "verdict": {
+  "tf": {
+   "verdict": "no mechanism",
+   "reason": "every chain was eliminated"
+  },
+  "disease": {
+   "state": "no_association",
+   "reason": "common variant (MAF 0.4595): neither the GWAS Catalog nor Open Targets lists an association with LDL cholesterol"
+  },
+  "overall": {
+   "verdict": "no mechanism",
+   "reason": "every chain was eliminated"
+  },
+  "gene": {
+   "gene": null,
+   "tier": null,
+   "name": null,
+   "reason": "no chain",
+   "resolved": false
+  }
+ },
+ "critique": {
+  "problems": [
+   "The CTCF evidence is an in-vitro binding prediction, not variant-site occupancy evidence in Hep 3B2.1-7.",
+   "No cCRE overlaps the variant, and E01's intron_variant label conflicts with its report of no transcript consequences; the element annotation needs reconciliation.",
+   "FAM110B is only a proximity-based candidate. No variant-to-FAM110B regulatory link is established, and the liver eQTL lookup was negative.",
+   "The provided evidence does not establish an LDL-cholesterol association or a disease mechanism for H1."
+  ],
+  "checks": [
+   {
+    "tool": "chip_peaks",
+    "args_json": "{\"tf\":\"CTCF\",\"biosample\":\"Hep 3B2.1-7\"}",
+    "resolves": "H1.binding",
+    "why": "Could establish whether CTCF has an overlapping peak in the stated cell context; a positive result would strengthen the in-vivo binding link."
+   },
+   {
+    "tool": "eqtl_lookup",
+    "args_json": "{\"tissue\":\"Liver\"}",
+    "resolves": "H1.gene",
+    "why": "Could reveal a liver eQTL for this variant and provide evidence relevant to a cis-regulatory target-gene link."
+   },
+   {
+    "tool": "gene_disease",
+    "args_json": "{\"gene\":\"FAM110B\"}",
+    "resolves": "H1.phenotype",
+    "why": "Could identify gene-level LDL association evidence that changes the plausibility of the proposed target gene, though it would not by itself connect this variant to the disease."
+   }
+  ],
+  "next_experiment": "Create isogenic G and T alleles by endogenous base editing in Hep 3B2.1-7, then measure CTCF occupancy at the site (for example, by CUT&RUN) and expression of nearby candidate genes, including FAM110B. This would directly test allele-dependent occupancy and whether the variant affects a candidate target gene."
+ },
+ "lookups": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CTCF",
+    "biosample": "Hep 3B2.1-7"
+   },
+   "resolves": "H1.binding",
+   "why": "Could establish whether CTCF has an overlapping peak in the stated cell context; a positive result would strengthen the in-vivo binding link.",
+   "run": true,
+   "status": "not tested",
+   "evidence_id": "E14",
+   "new_information": false
+  },
+  {
+   "tool": "eqtl_lookup",
+   "args": {
+    "tissue": "Liver"
+   },
+   "resolves": "H1.gene",
+   "why": "Could reveal a liver eQTL for this variant and provide evidence relevant to a cis-regulatory target-gene link.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E15",
+   "new_information": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "FAM110B"
+   },
+   "resolves": "H1.phenotype",
+   "why": "Could identify gene-level LDL association evidence that changes the plausibility of the proposed target gene, though it would not by itself connect this variant to the disease.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E16",
+   "new_information": true
+  }
+ ],
+ "gene_choice": {},
+ "papers": [
+  {
+   "pmid": "41663970",
+   "title": "Unraveling key genes and mitochondrial-related mechanisms of atherosclerosis severity: explorations based on interpretable machine learning.",
+   "year": "2026",
+   "journal": "BMC Cardiovasc Disord",
+   "genes": [],
+   "variants": [],
+   "diseases": [
+    "Atherosclerosis"
+   ]
+  },
+  {
+   "pmid": "22666496",
+   "title": "Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy.",
+   "year": "2012",
+   "journal": "PLoS One",
+   "genes": [
+    "DNAJC5B"
+   ],
+   "variants": [
+    "rs13279522"
+   ],
+   "diseases": [
+    "Cardiovascular Diseases",
+    "Coronary Disease"
+   ]
+  },
+  {
+   "pmid": "27795741",
+   "title": "Hepatic transcriptome implications for palm fruit juice deterrence of type 2 diabetes mellitus in young male Nile rats.",
+   "year": "2016",
+   "journal": "Genes Nutr",
+   "genes": [],
+   "variants": [],
+   "diseases": [
+    "Diabetes Mellitus",
+    "Diabetes Mellitus Type 2",
+    "Fibrosis",
+    "Metabolic Syndrome"
+   ]
+  }
+ ],
+ "tie_break": null,
+ "literature_flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/8:57573391-57573391:1/T?content-type=application/json&Conservation=1",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "Variant chr8:57573391:G>T (GRCh38), allele string G/T\nKnown IDs: rs7001688\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: 0.267\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/8:56573391-58573391?feature=gene;biotype=protein_coding;content-type=application/json",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "5 protein-coding genes within 1000 kb of chr8:57573391:G>T, by distance to TSS:\nFAM110B: 420.6 kb from TSS (upstream, strand +1)\nBPNT2: 579.5 kb from TSS (upstream, strand -1)\nUBXN2B: 838.0 kb from TSS (upstream, strand +1)\nCYP7A1: 926.8 kb from TSS (downstream, strand -1)\nSDCBP: 979.5 kb from TSS (upstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "No cCRE overlaps the variant; nearest is EH38E3835076 (CA-H3K4me3) 1544 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "promoter_check",
+   "source": "Ensembl REST (transcripts of every gene type)",
+   "url": "",
+   "kind": "genomic",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "The variant is not within 1 kb upstream or 500 bp downstream of any transcript start. Nearest transcript start: ENSG00000253821 (+80477 bp)."
+  },
+  {
+   "id": "E05",
+   "tool": "element_activity",
+   "source": "SCREEN V4 (ENCODE cCRE registry), downloads.wenglab.org",
+   "url": "",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "The variant is not inside a cCRE (the nearest, EH38E3835076, is 1544 bp away), so SCREEN has no activity data for this base."
+  },
+  {
+   "id": "E06",
+   "tool": "gene_links",
+   "source": "SCREEN V4 (ENCODE cCRE registry), downloads.wenglab.org",
+   "url": "",
+   "kind": "regulatory",
+   "ok": true,
+   "status": "not_tested",
+   "stage": "gather",
+   "summary": "No cCRE at the variant, so SCREEN has no cCRE-gene links for it."
+  },
+  {
+   "id": "E07",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs7001688&size=100",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "0 GWAS Catalog associations for rs7001688. The Catalog lists reported associations only, often just the lead variant of each signal, so this is weak evidence against an association."
+  },
+  {
+   "id": "E08",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "kind": "genetic",
+   "ok": true,
+   "status": "not_tested",
+   "stage": "gather",
+   "summary": "Open Targets has no record of 8_57573391_G_T, so it says nothing about fine-mapping here."
+  },
+  {
+   "id": "E09",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "GTEx v8 tested chr8_57573391_G_T_b38: no significant single-tissue eQTL in any tissue."
+  },
+  {
+   "id": "E10",
+   "tool": "intake",
+   "source": "v2m intake (code)",
+   "url": "",
+   "kind": "genetic",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "Code's intake. Expression context: DepMap:ACH-000625 (Hep 3B2.1-7) (given: given with the case). Association with the disease: no association (common variant (MAF 0.4595): neither the GWAS Catalog nor Open Targets lists an association with LDL cholesterol)."
+  },
+  {
+   "id": "E11",
+   "tool": "literature_search",
+   "source": "PubTator3 (NCBI)",
+   "url": "https://www.ncbi.nlm.nih.gov/research/pubtator3-api/search/?text=FAM110B%20ldl%20cholesterol&page=1",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "PubTator3: 3 hits for 'FAM110B ldl cholesterol'; top 3 with PMIDs:\nPMID 41663970 (2026): Unraveling key genes and mitochondrial-related mechanisms of atherosclerosis severity: explorations based on interpretable machine learning. [no abstract]\nPMID 22666496 (2012): Genome-wide study of gene variants associated with differential cardiovascular event reduction by pravastatin therapy.\nPMID 27795741 (2016): Hepatic transcriptome implications for palm fruit juice deterrence of type 2 diabetes mellitus in young male Nile rats."
+  },
+  {
+   "id": "E12",
+   "tool": "family_screen",
+   "source": "v2m family screen (code)",
+   "url": "",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "screen",
+   "summary": "Family screen of chr8:57573391:G>T (code). Without QBiC-SELEX: families with a member bound at the variant by ChIP-seq. Candidates (at least one member not known to be unexpressed): 1; with ChIP-seq in the matched biosamples: 0 (summit within 50 bp: 0); anywhere: 1. Ordered by ChIP-seq grade of the best member in the matched biosamples, then anywhere, then expression; shown: 1. ChIP grades: summit within 50 bp of the variant; peak within 50 bp; none. Sources: QBiC-SELEX 1.0.0, ReMap 2022 (UCSC track ReMapTFs), ENCODE TF ChIP-seq, DepMap and GTEx expression. Effect > 0: the alternate allele binds more. In vitro binding only."
+  },
+  {
+   "id": "E13",
+   "tool": "family_screen",
+   "source": "v2m family screen (code)",
+   "url": "",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "screen",
+   "summary": "F1 C2H2 ZF family. Expression context: DepMap:ACH-000625 (Hep 3B2.1-7). Code names CTCF (32.0 TPM; peak elsewhere (LNCAP))."
+  },
+  {
+   "id": "E14",
+   "tool": "chip_peaks",
+   "source": "ENCODE experiment search; ReMap 2022 (UCSC track ReMapTFs)",
+   "url": "https://www.encodeproject.org/search/?type=Experiment&assay_title=TF+ChIP-seq&status=released&assembly=GRCh38&format=json&limit=all&field=target.label&field=biosample_ontology.term_name&field=accession",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "not_tested",
+   "stage": "investigate",
+   "summary": "ENCODE has no CTCF ChIP-seq experiment in biosamples matching 'Hep 3B2.1-7', so ENCODE says nothing about it there, for or against. ENCODE assayed CTCF in: 22Rv1, A549, A673, AG04449, AG04450, AG09309, AG09319, AG10803, B cell, BE2C, BJ, C4-2B. ReMap 2022 has no CTCF peak over the variant (ReMap lists peaks only, so this is no evidence against binding)."
+  },
+  {
+   "id": "E15",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr8_57573391_G_T_b38&datasetId=gtex_v8",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "investigate",
+   "summary": "GTEx v8 tested chr8_57573391_G_T_b38: no significant single-tissue eQTL in Liver."
+  },
+  {
+   "id": "E16",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "investigate",
+   "summary": "Open Targets: no association between FAM110B and free cholesterol in large LDL measurement (EFO_0022176); no evidence there links them."
+  }
+ ]
+}

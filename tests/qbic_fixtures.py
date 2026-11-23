@@ -62,7 +62,9 @@ def fake_cluster(tmp_path, monkeypatch):
 
 @pytest.fixture
 def agent_cfg(small_cfg, tmp_path) -> Config:
-    """small_cfg with its own budget file and HTTP/model caches, for agent tests."""
-    small_cfg["budget_usd"] = {**small_cfg["budget_usd"], "state_file": str(tmp_path / "state" / "budget.json")}
+    """small_cfg with its own budget (file and caps, so tests never depend on the real ones) and HTTP/model caches,
+    for agent tests. The fake model's calls cost fractions of a cent."""
+    small_cfg["budget_usd"] = {"dev": 5.0, "eval": 5.0, "spare": 0.0,
+                               "state_file": str(tmp_path / "state" / "budget.json")}
     small_cfg["tools"] = {**small_cfg["tools"], "http_cache": str(tmp_path / "cache" / "http")}
     return small_cfg

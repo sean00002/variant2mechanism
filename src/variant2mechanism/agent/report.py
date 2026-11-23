@@ -2,6 +2,7 @@
 
 import json
 
+from ..context.base import STATUS_WORDS
 from .case import RunState
 
 STATUS_MARK = {"supported": "supported", "weak": "weak", "missing": "missing"}
@@ -16,6 +17,8 @@ def build_report(state: RunState, ranked: list, cit: dict, seconds: float) -> di
         d.update(cit["coverage"].get(h.id, {}))
         for link in d["links"]:
             link["status"] = statuses.get((h.id, link["step"]), "missing")
+        if state.probability_llm:
+            d["probability_llm"] = state.probability_llm.get(h.id)
         chains.append(d)
     ev = state.ledger.evidence()
     return {
@@ -41,10 +44,13 @@ def build_report(state: RunState, ranked: list, cit: dict, seconds: float) -> di
         "rounds": state.rounds, "stop_reason": state.stop_reason,
         "matrix": [r.model_dump() for r in state.revised.matrix],
         "next_experiment": state.revised.next_experiment,
+        "verdict": state.verdict,
+        "rank_method": (state.llm.cfg.get("rank") or {}).get("method", "llm"),
+        "tournament": state.tournament,
         "citation_support": cit["citation_support"],
         "flags": state.flags,
         "evidence": [{"id": e.id, "tool": e.tool, "source": e.source, "url": e.url, "retrieved_utc": e.retrieved_utc,
-                      "kind": e.kind, "ok": e.ok, "summary": e.summary} for e in ev],
+                      "kind": e.kind, "ok": e.ok, "status": e.status, "summary": e.summary} for e in ev],
     }
 
 
@@ -54,6 +60,19 @@ def render_markdown(r: dict) -> str:
            f"{r['models']['generator']}, critic {r['models']['critic']}, summariser {r['models']['summariser']}. "
            f"Cost ${r['cost_usd']:.2f} over {r['model_calls']} model calls; {r['seconds']:.0f} s.", "",
            f"Variant `{r['variant_key']}` ({r['origin']}); expression context: {r['expression_context'] or 'none'}.", ""]
+    if r.get("verdict"):
+        out += [f"**Verdict: {r['verdict']['verdict']}.** {r['verdict']['reason'][0].upper()}{r['verdict']['reason'][1:]}.",
+                ""]
+        assoc = {"gwas_lookup": "GWAS Catalog", "finemap_lookup": "Open Targets fine-mapping"}
+        if r["verdict"].get("association"):
+            out += ["Association with the disease (not part of the verdict): " + "; ".join(
+                f"{assoc[k]} {STATUS_WORDS.get(v, v)}" for k, v in r["verdict"]["association"].items()) + ".", ""]
+    if r.get("tournament"):
+        t = r["tournament"]
+        flips = sum(1 for m in t["matches"] if m["scores"][0] != m["scores"][1])
+        out += ["Pairwise ranking (Bradley-Terry strengths): " + ", ".join(
+            f"{k} {t['strengths'][k]:.2f}" for k in t["ranking"]) + f". {flips} of {len(t['matches'])} pairs "
+            "came out differently in the two orders.", ""]
     if r["screen"]:
         occ = "; ".join(f"{x['tf']} ({x['occupancy'].replace('_', ' ')}, z {x['z']}"
                         + ("" if x["passes_gate"] else ", no clear allelic change")
@@ -98,7 +117,8 @@ def render_markdown(r: dict) -> str:
         out += [f"Citation support: {r['citation_support']:.2f} of links cite only evidence that passed every check.", ""]
     out += ["## Evidence", ""]
     for e in r["evidence"]:
-        status = "" if e["ok"] else " (failed)"
+        status = {"tested_negative": " (tested, negative)", "not_tested": " (not tested)", "failed": " (failed)"}.get(
+            e.get("status") or ("found" if e["ok"] else "failed"), "")
         out += [f'<a id="{e["id"].lower()}"></a>**{e["id"]}** {e["tool"]}{status}, {e["source"]} '
                 f"({e['url']}; retrieved {e['retrieved_utc'] or 'local'})", "", "> " + e["summary"].replace("\n", "\n> "),
                 ""]

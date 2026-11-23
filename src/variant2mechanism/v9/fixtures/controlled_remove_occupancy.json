@@ -1,0 +1,551 @@
+{
+  "description": "Controlled test (a), occupancy coverage removed (SPEC 11; plan section 14). Every entity and observation is stipulated for software testing, not biological evidence. Synthetic group SG1 (TFA, TFB) is predicted to bind the T allele more (P1). Occupancy coverage is removed: the occupancy tool returns no records for either TF, which is missing data. Expected: the occupancy claims stay unresolved, no contradiction is created, a request to reject a TF hypothesis for lack of a peak is refused, and both TF candidates stay active.",
+  "case": {
+    "case_id": "SYN-2",
+    "variant": {
+      "assembly": "GRCh38",
+      "chrom": "SYN",
+      "pos": 2,
+      "ref": "C",
+      "alt": "T",
+      "rsid": null,
+      "input_text": "synthetic variant V2 (fixture)",
+      "reference_check": "unavailable"
+    },
+    "origin": "unknown",
+    "supplied_disease": [],
+    "supplied_context": [],
+    "inferred_candidates": [],
+    "input_provenance": {
+      "case": "synthetic fixture: stipulated, not biological data",
+      "origin": "not supplied"
+    }
+  },
+  "retrieval_time": "2026-11-08T00:00:00+00:00",
+  "tools": {
+    "syn_binding_prediction": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: the predicted allele effect on binding of synthetic group SG1.",
+        "params": {},
+        "result_semantics": "records_found: a stipulated prediction. Fixture data only.",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-2",
+        "rate_policy": "parallel",
+        "evidence_classes": [
+          "prediction"
+        ]
+      },
+      "responses": [
+        {
+          "params": {},
+          "retrieval_status": "records_found",
+          "observations": [
+            {
+              "group": "SG1",
+              "members": [
+                "TFA",
+                "TFB"
+              ],
+              "binds_more": "alt",
+              "allele": "T"
+            }
+          ],
+          "coverage": {
+            "requested_scope": "allele effect of synthetic group SG1",
+            "assessed_scope": "the stipulated prediction of the fixture",
+            "limitations": [
+              "Stipulated fixture prediction; not from any model."
+            ]
+          },
+          "evidence": [
+            {
+              "evidence_class": "prediction",
+              "source_ids": [
+                "SYN-PREDICTION-2"
+              ],
+              "observed_result": "Synthetic group SG1 (members TFA and TFB) is predicted to bind the T allele more strongly than the C allele.",
+              "data": {
+                "group_id": "SG1",
+                "fixture_observation": "P1"
+              },
+              "allele": "T",
+              "direction": "increases",
+              "context": null,
+              "about_tfs": [
+                "TFA",
+                "TFB"
+              ],
+              "about_variants": [
+                "SYN:2"
+              ],
+              "independence_group": "SYN-PREDICTION-2",
+              "origin": "fixture",
+              "access": "not_applicable",
+              "limitations": [
+                "Stipulated fixture prediction; not biological evidence."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "syn_occupancy": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: occupancy of a TF at element E2 (coverage removed).",
+        "params": {
+          "tf": {
+            "type": "str",
+            "required": true,
+            "normalise": "upper",
+            "description": "the TF symbol"
+          }
+        },
+        "result_semantics": "no_records_found: no occupancy data for the TF, which is missing data, not a negative result.",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-2",
+        "rate_policy": "parallel",
+        "evidence_classes": [
+          "occupancy"
+        ]
+      },
+      "responses": [
+        {
+          "params": {
+            "tf": "TFA"
+          },
+          "retrieval_status": "no_records_found",
+          "observations": [],
+          "coverage": {
+            "requested_scope": "TFA occupancy at element E2 in context Z",
+            "assessed_scope": "",
+            "limitations": [
+              "Coverage removed on purpose for this controlled test: the fixture holds no occupancy data, which is missing data, not a negative result."
+            ]
+          },
+          "message": "no occupancy records for TFA: coverage removed",
+          "evidence": []
+        },
+        {
+          "params": {
+            "tf": "TFB"
+          },
+          "retrieval_status": "no_records_found",
+          "observations": [],
+          "coverage": {
+            "requested_scope": "TFB occupancy at element E2 in context Z",
+            "assessed_scope": "",
+            "limitations": [
+              "Coverage removed on purpose for this controlled test: the fixture holds no occupancy data, which is missing data, not a negative result."
+            ]
+          },
+          "message": "no occupancy records for TFB: coverage removed",
+          "evidence": []
+        }
+      ]
+    }
+  },
+  "roles": {
+    "coordinator": [
+      {
+        "directions": [],
+        "inferred_candidates": [],
+        "hypotheses": [
+          {
+            "key": "h_tfa",
+            "title": "TFA binds the T allele at element E2",
+            "summary": "P1 predicts more SG1 binding to T; TFA is a member, and its occupancy at E2 in context Z would place it there.",
+            "mechanism_class": "tf_binding",
+            "endpoint": "molecular",
+            "context": {
+              "label": "context Z",
+              "species": "human",
+              "condition": null
+            },
+            "activate": true,
+            "deferral_reason": null,
+            "revisit_trigger": null,
+            "reason_kind": "predicted_allelic_binding",
+            "reason_detail": "P1 predicts that group SG1, of which TFA is a member, binds T more than C",
+            "member_alternatives": [
+              "TFB"
+            ],
+            "missing_links": [
+              "which SG1 member acts at E2"
+            ],
+            "assumptions": [],
+            "replaces": null,
+            "claims": [
+              {
+                "key": "bind_a",
+                "subjects": [
+                  {
+                    "kind": "variant",
+                    "label": "V2",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "alters_binding",
+                "objects": [
+                  {
+                    "kind": "tf",
+                    "label": "TFA",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "direction": "increases",
+                "effect_allele": null,
+                "context": null,
+                "assertion_text": "The T allele increases TFA binding at the variant",
+                "required": true,
+                "depends_on": [],
+                "initial_links": [
+                  {
+                    "evidence_id": "E1",
+                    "stance": "supports",
+                    "applicability": null,
+                    "rationale": "P1: SG1 (member TFA) is predicted to bind T more",
+                    "suggested_assessment": null
+                  }
+                ]
+              },
+              {
+                "key": "occ_a",
+                "subjects": [
+                  {
+                    "kind": "tf",
+                    "label": "TFA",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "occupies",
+                "objects": [
+                  {
+                    "kind": "element",
+                    "label": "E2",
+                    "canonical_id": "SYN:E2",
+                    "members": []
+                  }
+                ],
+                "direction": "unspecified",
+                "effect_allele": null,
+                "context": {
+                  "label": "context Z",
+                  "species": "human",
+                  "condition": null
+                },
+                "assertion_text": "TFA occupies element E2 in context Z",
+                "required": false,
+                "depends_on": [],
+                "initial_links": []
+              }
+            ],
+            "reuse_claims": []
+          },
+          {
+            "key": "h_tfb",
+            "title": "TFB binds the T allele at element E2",
+            "summary": "P1 predicts more SG1 binding to T; TFB is a member, and its occupancy at E2 in context Z would place it there.",
+            "mechanism_class": "tf_binding",
+            "endpoint": "molecular",
+            "context": {
+              "label": "context Z",
+              "species": "human",
+              "condition": null
+            },
+            "activate": true,
+            "deferral_reason": null,
+            "revisit_trigger": null,
+            "reason_kind": "predicted_allelic_binding",
+            "reason_detail": "P1 predicts that group SG1, of which TFB is a member, binds T more than C",
+            "member_alternatives": [
+              "TFA"
+            ],
+            "missing_links": [
+              "which SG1 member acts at E2"
+            ],
+            "assumptions": [],
+            "replaces": null,
+            "claims": [
+              {
+                "key": "bind_b",
+                "subjects": [
+                  {
+                    "kind": "variant",
+                    "label": "V2",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "alters_binding",
+                "objects": [
+                  {
+                    "kind": "tf",
+                    "label": "TFB",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "direction": "increases",
+                "effect_allele": null,
+                "context": null,
+                "assertion_text": "The T allele increases TFB binding at the variant",
+                "required": true,
+                "depends_on": [],
+                "initial_links": [
+                  {
+                    "evidence_id": "E1",
+                    "stance": "supports",
+                    "applicability": null,
+                    "rationale": "P1: SG1 (member TFB) is predicted to bind T more",
+                    "suggested_assessment": null
+                  }
+                ]
+              },
+              {
+                "key": "occ_b",
+                "subjects": [
+                  {
+                    "kind": "tf",
+                    "label": "TFB",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "occupies",
+                "objects": [
+                  {
+                    "kind": "element",
+                    "label": "E2",
+                    "canonical_id": "SYN:E2",
+                    "members": []
+                  }
+                ],
+                "direction": "unspecified",
+                "effect_allele": null,
+                "context": {
+                  "label": "context Z",
+                  "species": "human",
+                  "condition": null
+                },
+                "assertion_text": "TFB occupies element E2 in context Z",
+                "required": false,
+                "depends_on": [],
+                "initial_links": []
+              }
+            ],
+            "reuse_claims": []
+          }
+        ],
+        "fourth_active_reason": null,
+        "reactivate": [],
+        "questions": [
+          {
+            "text": "Is TFA bound at element E2 in context Z?",
+            "route": "computational",
+            "target_claims": [
+              "occ_a"
+            ],
+            "hypotheses": [
+              "h_tfa"
+            ],
+            "rubric": {
+              "consequence": "high",
+              "discrimination": "high",
+              "applicability": "high",
+              "cost": "low"
+            },
+            "possible_outcomes": [
+              "a peak: occupancy supported",
+              "no record: occupancy stays unresolved"
+            ],
+            "actions": [
+              {
+                "tool": "syn_occupancy",
+                "params_json": "{\"tf\": \"TFA\"}",
+                "purpose": "occupancy of TFA"
+              }
+            ]
+          },
+          {
+            "text": "Is TFB bound at element E2 in context Z?",
+            "route": "computational",
+            "target_claims": [
+              "occ_b"
+            ],
+            "hypotheses": [
+              "h_tfb"
+            ],
+            "rubric": {
+              "consequence": "high",
+              "discrimination": "high",
+              "applicability": "high",
+              "cost": "low"
+            },
+            "possible_outcomes": [
+              "a peak: occupancy supported",
+              "no record: occupancy stays unresolved"
+            ],
+            "actions": [
+              {
+                "tool": "syn_occupancy",
+                "params_json": "{\"tf\": \"TFB\"}",
+                "purpose": "occupancy of TFB"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hypothesis_updates": [
+          {
+            "hypothesis_id": "H1",
+            "action": "reject",
+            "reason": "no occupancy record for TFA at element E2",
+            "claim_id": null,
+            "new_claim": null,
+            "new_claim_id": null,
+            "required": false,
+            "revisit_trigger": null,
+            "revision": null
+          }
+        ],
+        "assessments": [],
+        "questions": [],
+        "stop": {
+          "stop": true,
+          "reason": "Occupancy coverage is absent in this fixture and no other tool can test binding."
+        }
+      }
+    ],
+    "computational_investigator": [
+      {
+        "answers": [
+          {
+            "question_id": "Q1",
+            "status": "unanswerable",
+            "answer_summary": "No occupancy record for TFA: coverage was removed. Missing data, not evidence against binding.",
+            "claim_ids": [
+              "C2"
+            ],
+            "tool_call_ids": [
+              "T2"
+            ],
+            "experiments": [],
+            "proposed_updates": [
+              {
+                "kind": "assess",
+                "claim_id": "C2",
+                "base_version": 1,
+                "evidence_id": null,
+                "experiment_index": null,
+                "stance": null,
+                "applicability": null,
+                "rationale": "no occupancy record for TFA: unresolved, not contradicted",
+                "limitations": [],
+                "suggested_assessment": "unresolved",
+                "new_claim": null
+              }
+            ],
+            "remaining_gap": "TFA occupancy at E2 is untested",
+            "next_question": "",
+            "follow_up_actions": []
+          },
+          {
+            "question_id": "Q2",
+            "status": "unanswerable",
+            "answer_summary": "No occupancy record for TFB: coverage was removed. Missing data, not evidence against binding.",
+            "claim_ids": [
+              "C4"
+            ],
+            "tool_call_ids": [
+              "T3"
+            ],
+            "experiments": [],
+            "proposed_updates": [
+              {
+                "kind": "assess",
+                "claim_id": "C4",
+                "base_version": 1,
+                "evidence_id": null,
+                "experiment_index": null,
+                "stance": null,
+                "applicability": null,
+                "rationale": "no occupancy record for TFB: unresolved, not contradicted",
+                "limitations": [],
+                "suggested_assessment": "unresolved",
+                "new_claim": null
+              }
+            ],
+            "remaining_gap": "TFB occupancy at E2 is untested",
+            "next_question": "",
+            "follow_up_actions": []
+          }
+        ]
+      }
+    ],
+    "critic": [
+      {
+        "challenges": [],
+        "passage_checks": [],
+        "activation_flags": [],
+        "reportable_ids": [
+          "H1",
+          "H2"
+        ],
+        "consequential": false
+      },
+      {
+        "comparisons": [
+          {
+            "a": "H1",
+            "b": "H2",
+            "outcome": "insufficient_evidence",
+            "decisive_claim_ids": [
+              "C1",
+              "C3"
+            ],
+            "decisive_gaps": [
+              "no member-specific evidence for either TF"
+            ],
+            "reason": "both rest on the same group prediction"
+          }
+        ],
+        "outcome": {
+          "category": "no_supported_explanation",
+          "leading_ids": [],
+          "summary": "Both members rest on the same group prediction, which leaves their binding claims unresolved; occupancy coverage is absent, which is missing data and rules neither member out.",
+          "weakest_links": [
+            {
+              "hypothesis_id": "H1",
+              "claim_id": "C1",
+              "why": "binding is predicted only"
+            },
+            {
+              "hypothesis_id": "H2",
+              "claim_id": "C3",
+              "why": "binding is predicted only"
+            }
+          ],
+          "next_experiments": [
+            {
+              "text": "Allele-resolved occupancy of TFA and TFB at element E2 in context Z.",
+              "distinguishes": [
+                "H1",
+                "H2"
+              ],
+              "claim_ids": [
+                "C2",
+                "C4"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

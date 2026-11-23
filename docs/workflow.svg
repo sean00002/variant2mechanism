@@ -1,10 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" width="1100" height="650" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 600" width="1100" height="600" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="The v8 workflow: code gathers evidence and screens TF families with QBiC-SELEX, the generator writes one chain per top family, the critic grades them and asks for up to three lookups, and code assigns link tiers, ranks the chains and gives the verdict.">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#4a5661"/>
     </marker>
+    <marker id="arrow-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a96a1"/>
+    </marker>
     <style>
       .tag { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; }
+      .head { font-size: 17px; font-weight: 600; fill: #16212b; }
       .title { font-size: 15px; font-weight: 600; fill: #16212b; }
       .body { font-size: 12.5px; fill: #2b3640; }
       .small { font-size: 11.5px; fill: #59656f; }
@@ -14,127 +18,114 @@
       .neutral { fill: #f3f5f7; stroke: #9aa6b1; }
       .gen-t { fill: #2c6aa0; } .crit-t { fill: #a0650f; } .code-t { fill: #2f7a52; } .neutral-t { fill: #5b6672; }
       .flow { stroke: #4a5661; stroke-width: 1.6; fill: none; }
+      .bypass { stroke: #8a96a1; stroke-width: 1.4; stroke-dasharray: 5 4; fill: none; }
     </style>
   </defs>
 
-  <rect x="1" y="1" width="1098" height="648" rx="16" fill="#ffffff" stroke="#d6dde1"/>
+  <rect x="1" y="1" width="1098" height="598" rx="16" fill="#ffffff" stroke="#d6dde1"/>
+  <text class="head" x="30" y="40">variant2mechanism v8: code decides, the models write and critique</text>
+  <rect class="code" x="742" y="27" width="14" height="14" rx="3"/>
+  <text class="small" x="762" y="39">Code</text>
+  <rect class="gen" x="812" y="27" width="14" height="14" rx="3"/>
+  <text class="small" x="832" y="39">Generator model</text>
+  <rect class="crit" x="938" y="27" width="14" height="14" rx="3"/>
+  <text class="small" x="958" y="39">Critic model</text>
 
-  <!-- Row 1: input, gather, draft, critique -->
-  <rect class="neutral" x="30" y="80" width="170" height="160" rx="10"/>
-  <text class="tag neutral-t" x="46" y="104">INPUT</text>
-  <text class="body" x="46" y="130">A non-coding variant</text>
-  <text class="body" x="46" y="149">A disease or trait</text>
-  <text class="body" x="46" y="168">A cell context</text>
-  <text class="small" x="46" y="198" font-style="italic">e.g. rs339331,</text>
-  <text class="small" x="46" y="215" font-style="italic">prostate cancer, LNCaP</text>
+  <!-- Row 1: input, gather, screen, chains -->
+  <rect class="neutral" x="30" y="70" width="175" height="200" rx="10"/>
+  <text class="tag neutral-t" x="46" y="94">INPUT</text>
+  <text class="body" x="46" y="120">A non-coding variant</text>
+  <text class="body" x="46" y="138">A disease or trait</text>
+  <text class="body" x="46" y="156">A cell context, or one</text>
+  <text class="body" x="46" y="174">inferred by code</text>
+  <text class="small" x="46" y="214" font-style="italic">e.g. rs339331,</text>
+  <text class="small" x="46" y="231" font-style="italic">prostate cancer, LNCaP</text>
 
-  <rect class="code" x="230" y="60" width="310" height="200" rx="10"/>
-  <text class="tag code-t" x="246" y="84">CODE AND TOOLS</text>
-  <text class="title" x="246" y="106">1 · Gather evidence</text>
-  <text class="body" x="246" y="130">Ensembl · ENCODE elements and ChIP-seq</text>
-  <text class="body" x="246" y="148">GWAS Catalog · Open Targets fine-mapping</text>
-  <text class="body" x="246" y="166">GTEx eQTLs · literature, quotes checked</text>
-  <rect x="246" y="180" width="278" height="64" rx="8" fill="#ffffff" stroke="#2f7a52" stroke-dasharray="4 3"/>
-  <text class="body" x="260" y="201" font-weight="600">QBiC-SELEX screen</text>
-  <text class="small" x="260" y="219">997 TF binding models: whose binding</text>
-  <text class="small" x="260" y="235">the variant changes, ChIP-bound TFs first</text>
+  <rect class="code" x="230" y="70" width="263" height="200" rx="10"/>
+  <text class="tag code-t" x="246" y="94">CODE AND TOOLS</text>
+  <text class="title" x="246" y="116">1 · Gather evidence</text>
+  <text class="body" x="246" y="140">Ensembl VEP · cCRE registry</text>
+  <text class="body" x="246" y="158">SCREEN downloads · ReMap ChIP</text>
+  <text class="body" x="246" y="176">GWAS Catalog · Open Targets</text>
+  <text class="body" x="246" y="194">GTEx eQTLs · PubTator3 papers</text>
+  <rect x="246" y="206" width="231" height="50" rx="8" fill="#ffffff" stroke="#2f7a52" stroke-dasharray="4 3"/>
+  <text class="small" x="258" y="226">Intake: the context and the</text>
+  <text class="small" x="258" y="243">disease line, set by code</text>
 
-  <rect class="gen" x="570" y="60" width="240" height="200" rx="10"/>
-  <text class="tag gen-t" x="586" y="84">GENERATOR MODEL</text>
-  <text class="title" x="586" y="106">2 · Draft</text>
-  <text class="body" x="586" y="130">3 to 5 mechanism chains,</text>
-  <text class="body" x="586" y="148">one of them "no TF effect"</text>
+  <rect class="code" x="518" y="70" width="263" height="200" rx="10"/>
+  <text class="tag code-t" x="534" y="94">CODE</text>
+  <text class="title" x="534" y="116">2 · Family screen</text>
+  <rect x="534" y="128" width="231" height="56" rx="8" fill="#ffffff" stroke="#2f7a52" stroke-dasharray="4 3"/>
+  <text class="body" x="546" y="149" font-weight="600">QBiC-SELEX</text>
+  <text class="small" x="546" y="168">997 TF models, Bonferroni gate</text>
+  <text class="body" x="534" y="206">Families ordered by ChIP grade</text>
+  <text class="body" x="534" y="224">here, then anywhere, then |z|;</text>
+  <text class="body" x="534" y="242">code names one member each</text>
+
+  <rect class="gen" x="806" y="70" width="264" height="200" rx="10"/>
+  <text class="tag gen-t" x="822" y="94">GENERATOR MODEL</text>
+  <text class="title" x="822" y="116">3 · Chains</text>
+  <text class="body" x="822" y="140">One chain per top-5 family:</text>
   <g font-size="11px" fill="#2c6aa0">
-    <rect x="586" y="162" width="208" height="46" rx="6" fill="#ffffff" stroke="#9cc0e0"/>
-    <text x="596" y="181">TF → allele → element →</text>
-    <text x="596" y="199">gene → cell type → phenotype</text>
+    <rect x="822" y="150" width="232" height="44" rx="6" fill="#ffffff" stroke="#9cc0e0"/>
+    <text x="832" y="168">TF → allele → element →</text>
+    <text x="832" y="185">gene → cell type → disease</text>
   </g>
-  <text class="small" x="586" y="230">every link cites evidence IDs;</text>
-  <text class="small" x="586" y="246">probabilities sum to 1</text>
+  <text class="body" x="822" y="216">each link cites evidence IDs;</text>
+  <text class="body" x="822" y="234">it may change the member or</text>
+  <text class="body" x="822" y="252">family, and must say why</text>
 
-  <rect class="crit" x="840" y="60" width="230" height="200" rx="10"/>
-  <text class="tag crit-t" x="856" y="84">CRITIC MODEL</text>
-  <text class="title" x="856" y="106">3 · Critique</text>
-  <text class="body" x="856" y="130">Grades every link</text>
-  <rect x="856" y="142" width="64" height="20" rx="4" fill="#dcefe3"/>
-  <text x="888" y="156" font-size="10.5px" font-weight="600" fill="#276b44" text-anchor="middle">supported</text>
-  <rect x="926" y="142" width="44" height="20" rx="4" fill="#f6e8cf"/>
-  <text x="948" y="156" font-size="10.5px" font-weight="600" fill="#94590b" text-anchor="middle">weak</text>
-  <rect x="976" y="142" width="56" height="20" rx="4" fill="#e8ecee"/>
-  <text x="1004" y="156" font-size="10.5px" font-weight="600" fill="#5f6a73" text-anchor="middle">missing</text>
-  <text class="body" x="856" y="188">with a written reason,</text>
-  <text class="body" x="856" y="206">against the evidence only,</text>
-  <text class="body" x="856" y="224">and suggests checks</text>
+  <path class="flow" d="M205,170 L228,170" marker-end="url(#arrow)"/>
+  <path class="flow" d="M493,170 L516,170" marker-end="url(#arrow)"/>
+  <path class="flow" d="M781,170 L804,170" marker-end="url(#arrow)"/>
+  <path class="flow" d="M938,270 L938,328" marker-end="url(#arrow)"/>
 
-  <path class="flow" d="M200,160 L228,160" marker-end="url(#arrow)"/>
-  <path class="flow" d="M540,160 L568,160" marker-end="url(#arrow)"/>
-  <path class="flow" d="M810,160 L838,160" marker-end="url(#arrow)"/>
+  <!-- the code-only baseline skips steps 3 to 5 -->
+  <path class="bypass" d="M650,270 L650,298 L362,298 L362,328" marker-end="url(#arrow-grey)"/>
+  <text class="small" x="638" y="291" text-anchor="end">code-only baseline: code writes the chains, no model call</text>
 
-  <!-- Row 2: the refinement loop -->
-  <rect x="30" y="300" width="870" height="230" rx="12" fill="#fbfcfd" stroke="#9aa6b1" stroke-dasharray="6 4"/>
-  <text class="title" x="146" y="328">4 · Refine, up to 3 rounds</text>
-  <text class="small" x="352" y="328">stops when the answer holds, a round brings nothing new, or after round 3</text>
+  <!-- Row 2, right to left: critique, lookups, tiers, output -->
+  <rect class="crit" x="806" y="330" width="264" height="190" rx="10"/>
+  <text class="tag crit-t" x="822" y="354">CRITIC MODEL</text>
+  <text class="title" x="822" y="376">4 · Critique</text>
+  <text class="body" x="822" y="400">Grades every link: supported,</text>
+  <text class="body" x="822" y="418">weak or missing; names problems;</text>
+  <text class="body" x="822" y="436">asks for up to 3 lookups; may</text>
+  <text class="body" x="822" y="454">propose eliminations</text>
+  <text class="small" x="822" y="486">Its grades are shown in the report,</text>
+  <text class="small" x="822" y="503">never used to rank</text>
 
-  <path class="flow" d="M955,260 L955,282 L126,282 L126,348" marker-end="url(#arrow)"/>
+  <rect class="code" x="518" y="330" width="263" height="190" rx="10"/>
+  <text class="tag code-t" x="534" y="354">CODE AND TOOLS</text>
+  <text class="title" x="534" y="376">5 · One round of lookups</text>
+  <text class="body" x="534" y="400">Code checks the critic's lookups</text>
+  <text class="body" x="534" y="418">and runs at most 3: ChIP, eQTL,</text>
+  <text class="body" x="534" y="436">expression, gene-disease, papers</text>
+  <text class="body crit-t" x="534" y="470" font-weight="600">then the critic regrades once</text>
 
-  <rect class="gen" x="50" y="350" width="152" height="108" rx="9"/>
-  <text class="tag gen-t" x="64" y="372">GENERATOR</text>
-  <text class="title" x="64" y="393">Plan</text>
-  <text class="small" x="64" y="413">up to 3 tool calls, each</text>
-  <text class="small" x="64" y="429">naming the link it tests</text>
-  <text class="small" x="64" y="445">and the result expected</text>
+  <rect class="code" x="230" y="330" width="263" height="190" rx="10"/>
+  <text class="tag code-t" x="246" y="354">CODE</text>
+  <text class="title" x="246" y="376">6 · Tiers and verdict</text>
+  <text class="body" x="246" y="400">Each link gets a tier by fixed</text>
+  <text class="body" x="246" y="418">rules, direct to contradicted.</text>
+  <text class="body" x="246" y="436">Code eliminates, ranks, and</text>
+  <text class="body" x="246" y="454">gives a verdict on three lines:</text>
+  <text class="body" x="246" y="478" font-weight="600">TF · gene · disease → overall</text>
 
-  <rect class="code" x="232" y="350" width="152" height="108" rx="9"/>
-  <text class="tag code-t" x="246" y="372">CODE AND TOOLS</text>
-  <text class="title" x="246" y="393">Act</text>
-  <text class="small" x="246" y="413">checks each call,</text>
-  <text class="small" x="246" y="429">refuses repeats,</text>
-  <text class="small" x="246" y="445">runs the rest</text>
+  <rect class="neutral" x="30" y="330" width="175" height="190" rx="10"/>
+  <text class="tag neutral-t" x="46" y="354">OUTPUT</text>
+  <text class="body" x="46" y="380">report.html: the</text>
+  <text class="body" x="46" y="398">mechanism map</text>
+  <text class="body" x="46" y="422">report.json: every</text>
+  <text class="body" x="46" y="440">evidence row</text>
+  <text class="body" x="46" y="464">trace.jsonl: each</text>
+  <text class="body" x="46" y="482">model call</text>
+  <text class="small" x="46" y="506" font-style="italic">v2m replay re-runs it</text>
 
-  <rect class="gen" x="414" y="350" width="152" height="108" rx="9"/>
-  <text class="tag gen-t" x="428" y="372">GENERATOR</text>
-  <text class="title" x="428" y="393">Revise</text>
-  <text class="small" x="428" y="413">result vs expectation;</text>
-  <text class="small" x="428" y="429">updates the chains</text>
-  <text class="small" x="428" y="445">and probabilities</text>
+  <path class="flow" d="M806,425 L783,425" marker-end="url(#arrow)"/>
+  <path class="flow" d="M518,425 L495,425" marker-end="url(#arrow)"/>
+  <path class="flow" d="M230,425 L207,425" marker-end="url(#arrow)"/>
 
-  <rect class="crit" x="596" y="350" width="152" height="108" rx="9"/>
-  <text class="tag crit-t" x="610" y="372">CRITIC</text>
-  <text class="title" x="610" y="393">Regrade</text>
-  <text class="small" x="610" y="413">grades every link again</text>
-  <text class="small" x="610" y="429">and suggests the checks</text>
-  <text class="small" x="610" y="445">for the next round</text>
-
-  <path class="flow" d="M202,404 L230,404" marker-end="url(#arrow)"/>
-  <path class="flow" d="M384,404 L412,404" marker-end="url(#arrow)"/>
-  <path class="flow" d="M566,404 L594,404" marker-end="url(#arrow)"/>
-  <path class="flow" d="M672,458 L672,478 L126,478 L126,460" marker-end="url(#arrow)"/>
-  <text class="small" x="400" y="472" text-anchor="middle">the answer changed: next round</text>
-
-  <text class="small" x="50" y="510">Tools: QBiC-SELEX for any TF · ChIP-seq (ENCODE, ReMap) · GTEx eQTLs · Open Targets · DepMap · Europe PMC</text>
-
-  <path class="flow" d="M748,404 L916,404" marker-end="url(#arrow)"/>
-  <text class="small" x="832" y="396" text-anchor="middle">stop</text>
-
-  <rect class="code" x="918" y="330" width="160" height="170" rx="10"/>
-  <text class="tag code-t" x="932" y="354">CODE</text>
-  <text class="title" x="932" y="376">5 · Report</text>
-  <text class="small" x="932" y="398">ranks the chains</text>
-  <text class="small" x="932" y="416">checks every citation</text>
-  <text class="small" x="932" y="434">prediction matrix</text>
-  <text class="small" x="932" y="452">the cheapest experiment</text>
-  <text class="small" x="932" y="468">that separates the</text>
-  <text class="small" x="932" y="484">top two chains</text>
-
-  <!-- The ledger: memory shared by every stage -->
-  <rect x="30" y="552" width="1040" height="44" rx="10" fill="#eef1f4" stroke="#9aa6b1"/>
-  <text class="body" x="550" y="579" text-anchor="middle"><tspan font-weight="600">Evidence ledger (memory):</tspan> every tool result gets an ID (E01, E02, …); every claim cites IDs; the planner sees every earlier call</text>
-
-  <!-- Legend -->
-  <g class="small">
-    <rect class="gen" x="30" y="614" width="14" height="14" rx="3"/><text x="52" y="625">generator model</text>
-    <rect class="crit" x="170" y="614" width="14" height="14" rx="3"/><text x="192" y="625">critic model</text>
-    <rect class="code" x="290" y="614" width="14" height="14" rx="3"/><text x="312" y="625">code and tools (no model)</text>
-    <text x="1070" y="625" text-anchor="end">Models: DeepSeek V4.1 Flash, GPT-6 Luna or Claude, through one client</text>
-  </g>
+  <text class="small" x="30" y="556">The models write and critique the chains; code assigns every tier, ranks the chains and gives the verdict. QBiC-SELEX predicts</text>
+  <text class="small" x="30" y="573">in vitro binding only. Every evidence row has an ID (E01, E02, ...), and a citation of an ID not in the ledger is refused.</text>
 </svg>

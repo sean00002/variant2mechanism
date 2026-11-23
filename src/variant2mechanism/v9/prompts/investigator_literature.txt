@@ -1,0 +1,93 @@
+Route: literature (Europe PMC search and full-text reading). Steps:
+- "answer" (triage): read the search results. To read a paper, set status needs_follow_up and give follow_up_actions
+  of literature_read with its pmcid (prefer the pmcid; the pmid only for a paper without one) and focus terms. Look
+  for contradicting studies too, not only support. Prefer primary experiments: a review can point to a primary paper
+  but is not one. When an article read is already among the results, extract from it in this step.
+- "repair": fix the specified rejected extractions against their ORIGINAL read and location. Choose a supplied
+  @span:start:end selector as passage so code copies exact source text; do not recopy or edit it. Recheck all
+  scientific fields and reuse existing claim/evidence IDs. Do not request another paper to fix a quotation.
+- "extract": the articles you asked for are shown with location ids. For each relevant experiment, add one entry to
+  experiments and link it with experiment_index; an article's text is evidence only through an experiment you
+  extract from it.
+
+Each experiment is one assay:
+- source_id (PMID:...), pmcid, doi, publication_type, access (full_text or abstract_only) and location (the location
+  id shown, such as sec2/p3 or fig1).
+- passage: one exact, contiguous passage of 20 to 600 characters copied from the text shown, with no ellipses or
+  edits, that states the result; a supplied @span:start:end selector is an alternative to copying text; code refuses a passage it cannot find in the article. Quote a result from the
+  Results (or a figure or table), not from the Introduction or Discussion, which retell or interpret. Keep any
+  negation that governs the result inside the quote ("did not increase", "no detectable binding").
+- intervention: what the experiment manipulated or applied; endpoint: what it measured (the readout); comparator:
+  what it was compared with.
+- manipulated: allele (the variant's alleles compared or edited: EMSA or a reporter with both alleles, base or prime
+  editing, allele-specific expression), element (a region deleted, repressed, activated, or tested in a reporter
+  without an allele comparison), tf (a TF knocked down, knocked out or overexpressed), gene (the target gene
+  manipulated) or none (observational: ChIP, eQTL, association, imaging). A knockdown, knockout or overexpression is
+  tf or gene: it never tests an element or an allele.
+- about_variants: the variant the experiment tested, as the passage names it or, when the passage names none, as its
+  heading or caption does (prefer the rsID; preserve paper coordinates and strand); empty when the experiment
+  names no variant. When the passage names a variant, name that one; in a paper about one variant, a passage need
+  not repeat it. An allele comparison must name the variant whose alleles it compared, and only that one (one
+  experiment per variant): papers often test a nearby variant in the same figure, and code refuses an allele
+  comparison that names no variant or several. Never list a variant the experiment did not test.
+  Retain a mutation shorthand actually named by the paper (for example C87T) even when case identity is unresolved.
+  Code namespaces unresolved names to the paper, so they cannot support or contradict the case. An explicit
+  coordinate/allele definition or an exact source-backed catalogue alias and gene can establish identity.
+  Read the identity metadata in the case header: verified_same, verified_different, or unresolved. Unresolved
+  is NOT different. Never infer a coordinate from a numeric suffix, complement a shorthand name to invent an
+  alias, or substitute the case coordinate from memory. Keep the assay in paper scope pending verification.
+  Use verified catalogue aliases as additional literature search terms; do not restrict every query to an rsID.
+- compared_allele: only for a design that compares alleles, the single allele whose effect direction describes.
+  Write one base (for example T), never a mutation pair such as C>T. A paper-defined mutation alias may identify
+  its alternate base in a mutant-versus-wild-type assay. Use null when the effect allele cannot be identified.
+  It is never a genotype: genotype_or_allele is the
+  system's genotype at the variant (for example a cell line homozygous for one allele).
+- direction: the change the passage reports, for compared_allele when alleles are compared; code turns a
+  loss-of-function result (a deletion, knockdown or inhibitor that lowered the readout) into the effect of what was
+  removed.
+- organism, tissue_or_cell, treatment, result, scope_supports and scope_does_not_test.
+- about_tfs, about_genes, about_elements and about_traits: what the experiment is about, named as the quoted
+  paragraph or its heading names them. Name a region as the paper does, or "the enhancer containing <rsID>" only when
+  the paper names that rsID.
+- Write "allele-specific", "base editing" or "in vivo" in the record only when the paper says so: code reads these
+  words to decide what the experiment can establish.
+- authors_hypothesis_vs_result: result for an observation; hypothesis for the authors' interpretation (context only);
+  mixed when the passage holds both.
+- Split a paper into separate experiments by intervention and endpoint. A region-disrupting edit is not an allele
+  swap, an episomal reporter is not the endogenous locus, and a result in another species is not a human one.
+- Keep negation, uncertainty and conditions as written. Abstract-only access is a limitation, not a negative.
+
+Discovery:
+- Prefer broad variant/locus results over assuming a particular assay or TF must appear. Non-review metadata is
+  only triage: inspect the paper's methods/results before calling it a primary experiment.
+- A read returns 'reference' discovery records with actual bibliography ids, PMID/PMC/DOI and cited_by_locations.
+  Follow a relevant citation to its own paper. Reference labels alone are not global ids. When only a DOI/title is
+  present, search it exactly. On the extract step, name the specific reference and next action in remaining_gap
+  for the coordinator; the next round can read it. A reference is never an experiment from the citing paper.
+- Distinguish localisation, allele-to-activity, and the molecular explanation of that activity. A coarse supported
+  effect need not be discarded when its mediator is unknown. Extract unexpected measured factors as scoped new
+  claims, even if initial QBiC candidates differ. Binding or occupancy alone does not establish enhancer mediation.
+- Reuse the persistent unread-paper leads: a new search is not needed when a relevant primary-study candidate is
+  already listed. For a mechanism question, prioritise experiments that test the missing link over another
+  association summary. Use OR for alternative assay terms instead of requiring all possible assays in one paper.
+
+Claim construction and repair:
+- For a variant alters_binding TF claim, use the variant as subject and a factor with kind tf as object. A TF gene
+  name is still kind tf in a binding claim. Use separate claims for separately measured factors; reserve complex
+  for an experimentally supported complex. A binding_event is not a substitute for the bound factor in this relation.
+- Set compared_allele to the allele the quoted experiment compares, and direction to the reported change for that
+  allele. For a claim about the opposite allele, invert increases/decreases once. Do not infer effect allele from
+  risk status or assume alt means risk. Keep genomic strand and paper strand distinct.
+- For a deletion/knockdown experiment, record the observed direction of the readout after the intervention; code
+  handles interpretation of what was removed. Do not pre-invert it in the extracted record.
+- Code may retain verified experiments while refusing individual malformed claim updates. Reuse the accepted
+  evidence IDs and repair only the refused claim; do not repeat a read or invent a new experiment to repair JSON.
+- Match a claim to the measured endpoint. For a reporter experiment, add a new alters_regulatory_activity claim
+  about the tested promoter/enhancer reporter construct, explicitly saying reporter in the assertion and object
+  label; include the actual cell system. Keep endogenous activity and disease mediation as separate unresolved
+  claims. Do not discard a valid reporter finding because it cannot settle the broader hypothesis. Never label a
+  cell line as primary tissue or a multiple-line result as a single-cell experiment.
+
+When bases are not stated, a minor-versus-major experiment is still an observation. Set compared_allele null and direction unspecified;
+retain the relative comparison in result/comparator and its limitation. Do not infer minor equals alternate. Seek an explicit same-variant
+allele definition if direction matters. No new molecular experiment is needed merely to repair quote formatting.

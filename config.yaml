@@ -47,6 +47,7 @@ data:
   depmap_crispr: data/reference/depmap/DepMap_CRISPRGeneEffect.csv
   depmap_common_essentials: data/reference/depmap/CRISPRInferredCommonEssentials.csv   # DepMap Public 26Q3
   ccres: data/reference/encode/ENCFF420VPZ.bed.gz
+  screen_dir: data/screen      # SCREEN V4 downloads (29 Oct 2026): core-collection class matrix, cCRE-gene links
 cache:
   db: cache/qbic.sqlite      # committed to the repo
   groups: cache/groups.json  # committed to the repo
@@ -67,26 +68,40 @@ screen:
 llm:
   # Default since 26 Oct 2026: DeepSeek V4.1 Flash for all three roles. Every call goes
   # through OpenRouter in chat-completions form (key: OPENROUTER_API_KEY); `--profile claude` uses Claude models.
+  api: openrouter                 # or anthropic: the same calls to the Anthropic API directly, with the model IDs
+                                  # it uses (claude-opus-5) and key V2M_ANTHROPIC_API_KEY; text stages only (3 Nov 2026)
   generator: deepseek/deepseek-v4.1-flash-1017    # generate, investigate, revise
   critic: deepseek/deepseek-v4.1-flash-1017       # critique, regrade
   summariser: deepseek/deepseek-v4.1-flash-1017   # literature quotes
-  effort: {generator: medium, critic: medium, summariser: low}   # OpenRouter's reasoning effort
+  effort: {generator: medium, critic: medium, summariser: low}   # OpenRouter's reasoning effort; the Anthropic
+                                  # API's output_config.effort
   max_tokens: {generator: 32000, critic: 16000, summariser: 4000}
-  prices_per_mtok:                # OpenRouter list prices per million tokens, used only for the worst-case
-                                  # reservation; the budget records the cost OpenRouter reports for each call
+  prices_per_mtok:                # list prices per million tokens, for the worst-case reservation; the budget records
+                                  # the cost OpenRouter reports for each call, and these prices for the Anthropic API
     deepseek/deepseek-v4.1-flash-1017: {input: 0.30, output: 1.20}   # peak hours; base $0.15/$0.60
     anthropic/claude-opus-5: {input: 5.0, output: 25.0}
+    anthropic/claude-opus-5.5: {input: 4.0, output: 20.0}    # OpenRouter list price, 3 Nov 2026
     anthropic/claude-sonnet-5.5: {input: 2.0, output: 10.0}
     anthropic/claude-haiku-5.5: {input: 0.10, output: 0.50}
     openai/gpt-6-luna: {input: 0.10, output: 0.50}           # prompts over 272k tokens: $0.20/$0.75
+    claude-opus-5: {input: 5.0, output: 25.0}                # Anthropic API list price, 3 Nov 2026
+    claude-sonnet-5-5: {input: 2.0, output: 10.0,            # Anthropic API list price, 3 Nov 2026
+                        cache_read: 0.10, cache_write: 2.50} # prompt cache: a read, and a 5-minute write (22 Nov 2026)
   openrouter:
     provider: {}                  # extra provider routing; require_parameters is always on
 budget_usd:                       # the DeepSeek budget; Claude's is in profiles.claude
-  dev: 0.50                       # smoke tests
-  eval: 3.9                       # set on 26 Oct 2026; raised by $0.50 to rerun full on screen v3,
-                                  # then by $0.40 for the masked no_qbic and full grid
+  dev: 0.0                        # v7: no development runs outside the pilot
+  eval: 1.00                      # v7 (28 Oct 2026): the smoke run and the 5-run pilot, $1.50 across DeepSeek and
+                                  # Luna; v1 to v6 spent $3.90 from state/budget_deepseek.json
   spare: 0.0
-  state_file: state/budget_deepseek.json   # outside runs/, gitignored
+  state_file: state/budget_v7_deepseek.json   # outside runs/, gitignored; a new file for v7
+verdict:                         # agent/stages/verdict.py: mechanism, no mechanism or undetermined (v7)
+  binding: either                # the top chain's binding counts when the critic graded it supported (critic), when
+                                 # QBiC-SELEX passes the gate in the claimed direction (code), or either
+tournament:                      # agent/stages/tournament.py (v7): after the last round the critic compares every
+  enabled: true                  # pair of chains in both orders: 2 x C(n, 2) critic calls, 6 to 20 per run
+rank:
+  method: llm                    # llm: the model's probabilities; pairwise: the tournament's Bradley-Terry strengths
 investigate:                     # refinement rounds (agent/stages/investigate.py; multi-round since 26 Oct 2026)
   max_tool_calls: 3              # per round
   max_rounds: 3                  # plan, act, revise, regrade; the loop stops earlier when a round leaves the top
@@ -99,18 +114,97 @@ tools:
   max_summary_chars: 2000
   http_cache: cache/http
 runs:
-  dev_dir: runs/dev_v6_deepseek   # single runs outside the evaluation (v6: v5 with ReMap in chip_peaks)
+  dev_dir: runs/dev_v7_deepseek   # single runs outside the evaluation (v7: statuses, verdict, pairwise)
 eval:
   gold_set: data/gold_set.csv     # never the outdated copy at the repo root
   exclude: {}                     # case_id: reason; left out of the grid and the metrics, the row kept in gold_set.csv
                                   # (rs1427407 was here, then was removed from the gold set on 25 Oct 2026)
   concurrency: 4
-  runs_dir: runs/eval_v6_deepseek # v6: v5 plus ReMap in chip_peaks. Kept: runs/eval_v5_luna (not-assayed fix), runs/eval_v4_luna (the multi-round
+  runs_dir: runs/eval_v7_deepseek # v7: tool statuses, the verdict, pairwise comparison, seeds. Kept: runs/eval_v6_luna
+                                  # (v5 plus ReMap in chip_peaks), runs/eval_v5_luna (not-assayed fix), runs/eval_v4_luna (the multi-round
                                   # loop), runs/eval_v3_deepseek (screen v3,
                                   # one round), runs/eval_v2_deepseek (screen v2),
                                   # runs/eval (Claude, v1), runs/eval_v1 (Claude, before the coverage fix),
                                   # runs/eval_deepseek_v1 and runs/eval_deepseek (DeepSeek, v1)
+v8:                               # src/variant2mechanism/v8 (design: agent-lab/v8-plan-draft.md)
+  family: {top_n: 5, table_n: 12}   # chains for the top 5 families; the table shows up to 12
+  chip: {window_bp: 50}             # grade 1: a ReMap summit within 50 bp; grade 2: inside a peak extended by 50 bp
+  site: {background: 200000}        # random 21-mers per model for the site-strength percentile
+  literature: {max_papers: 8}       # PubTator3, with Europe PMC as the fallback
+  lookups: {max_calls: 3}           # one round, from the critic's checks
+  screen_cache: cache/screen        # per-cCRE SCREEN lookups
+  runs_dir: runs/eval_v8_luna       # the saved v8 grid; `v2m replay` reads it from here, whatever the profile
+  dev_dir: runs/dev_v8_luna
+v9:                               # src/variant2mechanism/v9, the claim-graph engine (`v2m v9 ...`; SPEC 12, 13.9, 13.10)
+  limits:                         # resource caps set from cost and latency, never from gold outcomes; ceilings, not targets
+    max_sketches: 8               # hypotheses kept from one proposal
+    max_active: 3                 # active at once (a fourth only with a stated reason)
+    max_new_hypotheses_per_plan: 2 # evidence-led branches while existing hypotheses remain viable
+    max_additional_hypotheses: 4  # total evidence-led branches per run (separate from bounded regeneration)
+    max_regenerations: 1          # new proposals once no hypothesis is active
+    max_model_calls: 24           # every send, repairs and max_tokens retries included
+    call_guard: 4                 # sends one structured call can take (reply, max_tokens retry, repair, its retry): a
+                                  # call starts only while calls + 4 <= the cap. Fixed in code (roles.GUARD); the
+                                  # commands refuse another value
+    reserve_model_calls: 2        # sends kept back for the final comparison
+    reserve_audit_calls: 4        # preserve one guarded audit call before the final comparison
+    max_tool_calls: 24            # agent-initiated tool calls; code's fact collection is counted apart
+    fulltext_soft: 5              # full-text articles: the engine's target
+    fulltext_hard: 8              # and the cap (a re-read is free)
+    http_requests: 150            # network sends per run (Http9); saved responses cost nothing
+    wall_seconds: 1200
+  runs_dir: runs/dev_v9_release   # default run folder: <runs_dir>/<request id>/; an existing folder is never reused
+  roles:                          # v9 role -> the llm key above whose model, effort and max_tokens it uses
+    coordinator: generator
+    computational_investigator: generator
+    literature_investigator: generator
+    critic: critic
+    extraction: summariser        # the literature investigator's extraction step, after its reads
+  critic:                         # the fill's critic (`v2m v9 fill --read --critic`, v9/critic.py): a second model
+                                  # reads each experiment that is the only record behind a cell against its claims.
+                                  # It runs on a model client of its own, from another provider than the reader's
+    api: anthropic                # the Anthropic API directly, key V2M_ANTHROPIC_API_KEY
+    model: claude-sonnet-5-5      # needs a list price in llm.prices_per_mtok (claude-opus-5 has one too)
+    effort: low
+    max_tokens: 4000
+  tool_allowlist:                 # the tools a run may call (every registered tool); any other is refused, uncharged
+    - variant_annotation
+    - ccre_overlap
+    - qbic_inventory
+    - qbic_tf_detail
+    - chip_occupancy
+    - gtex_eqtl
+    - tf_expression
+    - gwas_associations
+    - credible_sets_l2g
+    - depmap_context
+    - civic_lookup
+    - screen_online
+    - literature_search
+    - literature_read
+    - evidence_inspect
+  literature:                     # the literature route's policy, fixed in v9/literature.py (the commands refuse other
+                                  # values): Europe PMC search (resultType=core); full text from Europe PMC when open
+                                  # access, else NCBI PMC (JATS, no key, no e-mail), else the abstract
+    max_results: 10               # records one search may list
+    read_chars: 14000             # characters of one read shown to the investigator
+    passage_chars: 600            # longest verified passage; a public export keeps verified passages only
+  screen_api_key_env: V2M_SCREEN_API_KEY   # screen_online runs only when this variable is set; the key travels in a
+                                  # header and is never logged, cached or written to a run folder
+default_profile: release          # used when no --profile is given; `--profile none` uses the settings above alone
 profiles:                         # `--profile NAME` merges one of these over the settings above
+  release:                        # the default from M1 (3 Nov 2026): GPT-6 Luna in every role, with its own folders,
+                                  # so a run never lands among the saved grids; `v2m v8 run` charges the dev budget
+    llm: {generator: openai/gpt-6-luna, critic: openai/gpt-6-luna, summariser: openai/gpt-6-luna}
+    runs: {dev_dir: runs/dev_release}
+    eval: {runs_dir: runs/eval_release}
+    v8: {runs_dir: runs/eval_v8_release, dev_dir: runs/dev_v8_release}
+    v9: {runs_dir: runs/dev_v9_release}   # `v2m v9 run` charges the dev budget below
+    budget_usd:
+      dev: 5.00                   # cumulative development ceiling, set 10 Nov 2026
+      eval: 0.0                   # an evaluation grid needs its own budget, set before it runs
+      spare: 0.0
+      state_file: state/budget_release.json
   claude:                         # the default until 26 Oct 2026. The first grids (runs/eval) called the Anthropic
                                   # API directly with claude-opus-5, claude-sonnet-5-5 and claude-haiku-5-5; the
                                   # same models now go through OpenRouter
@@ -129,10 +223,55 @@ profiles:                         # `--profile NAME` merges one of these over th
       state_file: state/budget.json
   luna:                           # openai/gpt-6-luna for all three roles (added 26 Oct 2026)
     llm: {generator: openai/gpt-6-luna, critic: openai/gpt-6-luna, summariser: openai/gpt-6-luna}
-    runs: {dev_dir: runs/dev_v6_luna}            # v6: ReMap in chip_peaks; v5, v4 and v3 kept
-    eval: {runs_dir: runs/eval_v6_luna}
-    budget_usd:                   # a $2 cap for Luna: a trial run, then the named grid
-      dev: 0.20
-      eval: 1.80
+    runs: {dev_dir: runs/dev_v7_luna}            # v7; v6, v5, v4 and v3 kept
+    eval: {runs_dir: runs/eval_v7_luna}
+    budget_usd:                   # v7 (28 Oct 2026): the 5-run pilot; v3 to v6 spent from state/budget_luna.json
+      dev: 0.0
+      eval: 0.50
       spare: 0.0
-      state_file: state/budget_luna.json
+      state_file: state/budget_v7_luna.json
+  luna_v8:                        # v8 tests (29 Oct 2026): GPT-6 Luna only, for every stage of the testing plan
+    llm: {generator: openai/gpt-6-luna, critic: openai/gpt-6-luna, summariser: openai/gpt-6-luna}
+    runs: {dev_dir: runs/dev_v8_luna}
+    eval: {runs_dir: runs/eval_v8_luna}
+    budget_usd:
+      dev: 0.30                   # build-time smoke checks
+      eval: 3.00                  # every stage of the testing plan on Luna (projected $1.30 to $2.50)
+      spare: 0.0
+      state_file: state/budget_v8_luna.json
+  deepseek_v8:                    # the v8 grid replicated on DeepSeek V4.1 Flash (29 Oct 2026), the same stages as luna_v8
+    llm: {generator: deepseek/deepseek-v4.1-flash-1017, critic: deepseek/deepseek-v4.1-flash-1017,
+          summariser: deepseek/deepseek-v4.1-flash-1017}
+    v8: {runs_dir: runs/eval_v8_deepseek, dev_dir: runs/dev_v8_deepseek}
+    runs: {dev_dir: runs/dev_v8_deepseek}
+    eval: {runs_dir: runs/eval_v8_deepseek}
+    budget_usd:
+      dev: 0.0
+      eval: 3.00                  # the Luna cap; the 5-case pilot sets the projection
+      spare: 0.0
+      state_file: state/budget_v8_deepseek.json
+  opus55_v8:                      # the v8 main arm and memory test on Claude Opus 5.5 (3 Nov 2026), after M1; the same
+                                  # 15 cases and stages as luna_v8, for comparison
+    llm: {generator: anthropic/claude-opus-5.5, critic: anthropic/claude-opus-5.5,
+          summariser: anthropic/claude-opus-5.5}
+    v8: {runs_dir: runs/eval_v8_opus55, dev_dir: runs/dev_v8_opus55}
+    runs: {dev_dir: runs/dev_v8_opus55}
+    eval: {runs_dir: runs/eval_v8_opus55}
+    budget_usd:
+      dev: 0.0
+      eval: 12.00                 # projected $7 to $13 at Luna's token counts ($4/$20 per Mtok)
+      spare: 0.0
+      state_file: state/budget_v8_opus55.json
+  opus5_v8:                       # the v8 main arm on Claude Opus 5 through the Anthropic API (3 Nov 2026), key
+                                  # V2M_ANTHROPIC_API_KEY: the 15 cases of luna_v8, repeat 0, after M1. Opus 5.5 is
+                                  # in opus55_v8: the content filter stopped both of its pilot runs
+    llm: {api: anthropic, generator: claude-opus-5, critic: claude-opus-5, summariser: claude-opus-5}
+    v8: {runs_dir: runs/eval_v8_opus5, dev_dir: runs/dev_v8_opus5}
+    runs: {dev_dir: runs/dev_v8_opus5}
+    eval: {runs_dir: runs/eval_v8_opus5}
+    budget_usd:
+      dev: 0.0
+      eval: 14.00                 # $10 at first (projected $7.50 at Luna's token counts, $5/$25 per Mtok); raised
+                                  # to $14 on 3 Nov, after the pilot cost $0.80 a run
+      spare: 0.0
+      state_file: state/budget_v8_opus5.json

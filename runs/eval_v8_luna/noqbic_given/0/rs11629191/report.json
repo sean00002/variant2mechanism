@@ -1,0 +1,688 @@
+{
+ "version": "v8",
+ "case_id": "rs11629191",
+ "variant": "rs11629191",
+ "variant_key": "chr14:55887040:C>T",
+ "disease": "Breast cancer",
+ "origin": "germline",
+ "arm": "no_qbic",
+ "mode": "masked",
+ "seed": 0,
+ "code_only": false,
+ "infer_context": false,
+ "literature_before": null,
+ "dropped_tfs": [],
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0047,
+ "model_calls": 4,
+ "seconds": 78.5,
+ "flags": [
+  {
+   "flag": "tool_failed",
+   "detail": "E15 gene_disease: Open Targets lookup failed: no Ensembl ID for ENSG00000259868"
+  }
+ ],
+ "context": {
+  "context": "DepMap:ACH-000019 (MCF7)",
+  "route": "given",
+  "reason": "given with the case",
+  "tried": [],
+  "names": [
+   "MCF-7"
+  ],
+  "tissue": null
+ },
+ "intake": {
+  "disease_line": {
+   "state": "no_association",
+   "matches": [],
+   "maf": 0.2736,
+   "reason": "common variant (MAF 0.2736): neither the GWAS Catalog nor Open Targets lists an association with Breast cancer"
+  },
+  "promoter": {
+   "ok": true,
+   "promoter_of": [],
+   "nearest_tss": {
+    "gene": "ENSG00000259868",
+    "biotype": "lncRNA",
+    "distance": 40658
+   },
+   "url": "https://rest.ensembl.org/overlap/region/human/14:55886040-55888040?feature=gene;feature=transcript;content-type=application/json"
+  }
+ },
+ "element": {
+  "status": "no_ccre",
+  "in_ccre": false,
+  "accession": "EH38E1716463",
+  "class": "dELS",
+  "distance": 1868,
+  "n": 0,
+  "here": [],
+  "active_elsewhere": []
+ },
+ "gene_links": {},
+ "eqtl": [],
+ "l2g": {},
+ "screen": {
+  "counts": {
+   "families_passing": null,
+   "candidates": 1,
+   "with_chip_here": 0,
+   "with_chip_anywhere": 1,
+   "with_summit_here": 0,
+   "shown": 1
+  },
+  "z_thr": null,
+  "use_qbic": false,
+  "families": [
+   {
+    "gid": "G161",
+    "label": "C2H2 ZF, 1 model",
+    "dbd": "C2H2 ZF",
+    "n_tfs": 1,
+    "n_unexpressed": 0,
+    "tier_here": 3,
+    "tier_any": 2,
+    "named": "CTCF",
+    "paralogs": [],
+    "max_tpm": 38.35,
+    "assayed": true,
+    "fid": "F1",
+    "members": [
+     {
+      "tf": "CTCF",
+      "tpm": 38.35,
+      "state": "expressed",
+      "grade_here": 3,
+      "grade_any": 2,
+      "summit_here": null,
+      "summit_any": 64,
+      "cells_any": [
+       "GM04648",
+       "Loucy"
+      ],
+      "assayed_here": true
+     }
+    ],
+    "n_members": 1
+   }
+  ],
+  "evidence_ids": {
+   "F1": "E13"
+  }
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "CTCF binding hypothesis",
+   "family_id": "F1",
+   "tf": "CTCF",
+   "member_reason": "",
+   "allele_binding_more": "alt",
+   "element": "The variant is outside an annotated cCRE, and no element activity or cCRE-to-gene link is available for this site.",
+   "target_gene": "ENSG00000259868",
+   "cell_type": "MCF7",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The F1 in-vitro binding screen reports greater binding of the alternate T allele; CTCF is the named family member, but its ChIP-seq peak is elsewhere.",
+     "evidence_ids": [
+      "E12",
+      "E13"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "binding",
+      "status": "supported",
+      "reason": "E12 reports greater in-vitro binding for the alternate allele, and E13 identifies CTCF as the named F1 member. Under the stated rule, the QBiC-SELEX model counts as CTCF's own model; the peak elsewhere limits evidence for occupancy in MCF7, not for the model's binding prediction."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "binding",
+      "status": "weak",
+      "reason": "E12\u2013E13 report greater in-vitro binding for the alternate allele and name CTCF, but this is a binding screen rather than evidence of in-cell occupancy or function."
+     }
+    },
+    {
+     "step": "element",
+     "claim": "No cCRE overlaps the variant, so the evidence does not establish a regulatory element at this position.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E05",
+      "E06"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "element",
+      "status": "supported",
+      "reason": "E03 and E05 report that no annotated cCRE overlaps the variant. This supports the claim that the supplied evidence does not establish a regulatory element here; it does not prove that no functional element exists."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "element",
+      "status": "supported",
+      "reason": "E03 and E05 show that the variant does not overlap an annotated cCRE; E06 reports no cCRE-gene link. This supports the claim that the supplied evidence does not establish a regulatory element here."
+     }
+    },
+    {
+     "step": "gene",
+     "claim": "The only gene-specific lead is a low-PIP brain-nucleus eQTL for ENSG00000259868; GTEx v8 found no significant single-tissue eQTL. The evidence does not provide an HGNC symbol for this Ensembl ID or establish it as the target in MCF7.",
+     "evidence_ids": [
+      "E08",
+      "E09"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "gene",
+      "status": "supported",
+      "reason": "E08 reports only a low-PIP eQTL for ENSG00000259868 in brain nucleus accumbens, and E09 reports no significant GTEx v8 single-tissue eQTL. These results do not establish this gene as the target in MCF7."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "gene",
+      "status": "weak",
+      "reason": "E08 provides only a low-PIP eQTL for ENSG00000259868 in brain, and E09 reports no significant GTEx v8 eQTL. These are indirect and do not establish this gene as the target in MCF7. E15 failed and adds no evidence."
+     }
+    },
+    {
+     "step": "cell_type",
+     "claim": "CTCF is expressed in the stated MCF7 context, but the supplied CTCF ChIP-seq peak is from other cell lines, not MCF7.",
+     "evidence_ids": [
+      "E12",
+      "E13"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "cell_type",
+      "status": "supported",
+      "reason": "E13 reports CTCF expression in the MCF7 context. E12 reports no matched-biosample ChIP-seq peak near the variant and says the observed peak is elsewhere, so the evidence supports expression but not local CTCF occupancy in MCF7."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "cell_type",
+      "status": "supported",
+      "reason": "E13 reports CTCF expression in MCF7, while E14 directly reports no CTCF ChIP-seq peak overlapping the variant in MCF7. This supports the stated distinction between expression and occupancy evidence."
+     }
+    },
+    {
+     "step": "phenotype",
+     "claim": "The supplied evidence does not establish an association with breast cancer; the variant has no listed GWAS association, and the intake reports no disease association.",
+     "evidence_ids": [
+      "E07",
+      "E10"
+     ],
+     "critique": {
+      "hypothesis_id": "H1",
+      "step": "phenotype",
+      "status": "supported",
+      "reason": "E07 and E10 provide no listed breast-cancer association for the variant. This supports the cautious claim that the supplied evidence does not establish a phenotype link, not a claim that the variant has no effect."
+     },
+     "regrade": {
+      "hypothesis_id": "H1",
+      "step": "phenotype",
+      "status": "supported",
+      "reason": "E07 and E10 report no listed breast-cancer association, supporting the claim that the supplied evidence does not establish a phenotype link. E15 is a failed lookup and does not change this assessment."
+     }
+    }
+   ],
+   "predictions": [
+    "The T allele should show greater CTCF binding than C in an allele-comparative binding assay; if this hypothesis is functional in MCF7, allele-specific CTCF occupancy should also favor T."
+   ],
+   "falsified_if": [
+    "A suitably powered allele-comparative assay fails to reproduce greater CTCF binding to T.",
+    "In MCF7, allele-specific occupancy or perturbation tests show no CTCF-dependent regulatory effect at the variant."
+   ],
+   "rank": null,
+   "eliminated": "element: the variant is not in a cCRE and no TF is bound there in the context",
+   "tiers": {
+    "binding": {
+     "tier": 1,
+     "name": "indirect",
+     "reason": "CTCF ChIP peak elsewhere"
+    },
+    "cell_type": {
+     "tier": 2,
+     "name": "supporting",
+     "reason": "expressed (38.4 TPM)"
+    },
+    "element": {
+     "tier": -1,
+     "name": "contradicted",
+     "reason": "the variant is not in a cCRE and no TF is bound there in the context"
+    },
+    "gene": {
+     "tier": 0,
+     "name": "untested",
+     "reason": "nothing links the element to ENSG00000259868"
+    },
+    "phenotype": {
+     "tier": -1,
+     "name": "contradicted",
+     "reason": "common variant (MAF 0.2736): neither the GWAS Catalog nor Open Targets lists an association with Breast cancer"
+    }
+   },
+   "minimum": {
+    "binding change": "fail",
+    "ChIP-seq": "pass",
+    "expressed": "pass",
+    "element open": "fail"
+   },
+   "evidence_family": "E13"
+  }
+ ],
+ "ranking": [],
+ "eliminated": {
+  "H1": "element: the variant is not in a cCRE and no TF is bound there in the context"
+ },
+ "rejected_eliminations": [],
+ "verdict": {
+  "tf": {
+   "verdict": "no mechanism",
+   "reason": "every chain was eliminated"
+  },
+  "disease": {
+   "state": "no_association",
+   "reason": "common variant (MAF 0.2736): neither the GWAS Catalog nor Open Targets lists an association with Breast cancer"
+  },
+  "overall": {
+   "verdict": "no mechanism",
+   "reason": "every chain was eliminated"
+  },
+  "gene": {
+   "gene": null,
+   "tier": null,
+   "name": null,
+   "reason": "no chain",
+   "resolved": false
+  }
+ },
+ "critique": {
+  "problems": [
+   "The alternate-allele CTCF result is in vitro only; E14 provides tested-negative evidence for CTCF occupancy at the variant in MCF7.",
+   "No regulatory element or cCRE-to-gene link is established at the variant, and the low-PIP brain eQTL does not establish ENSG00000259868 as the target in MCF7.",
+   "No breast-cancer association is established by the supplied evidence. The failed E15 lookup provides no additional evidence."
+  ],
+  "checks": [
+   {
+    "tool": "chip_peaks",
+    "args_json": "{\"tf\":\"CTCF\",\"biosample\":\"MCF7\"}",
+    "resolves": "H1.cell_type",
+    "why": "A CTCF ChIP-seq peak containing the variant in MCF7 would add direct evidence of local occupancy; its absence would leave the in-vitro binding prediction unvalidated in the stated cell context."
+   },
+   {
+    "tool": "gene_disease",
+    "args_json": "{\"gene\":\"ENSG00000259868\"}",
+    "resolves": "H1.phenotype",
+    "why": "A gene-level breast-cancer association could add context for the proposed target, although it would not establish that this variant regulates the gene."
+   }
+  ],
+  "next_experiment": "Test the C/T alleles in a validated allele-comparative CTCF binding assay, then assess allele-specific CTCF occupancy and regulatory effect in MCF7; the negative ChIP-seq result makes the in-cell follow-up especially important."
+ },
+ "lookups": [
+  {
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CTCF",
+    "biosample": "MCF7"
+   },
+   "resolves": "H1.cell_type",
+   "why": "A CTCF ChIP-seq peak containing the variant in MCF7 would add direct evidence of local occupancy; its absence would leave the in-vitro binding prediction unvalidated in the stated cell context.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E14",
+   "new_information": true
+  },
+  {
+   "tool": "gene_disease",
+   "args": {
+    "gene": "ENSG00000259868"
+   },
+   "resolves": "H1.phenotype",
+   "why": "A gene-level breast-cancer association could add context for the proposed target, although it would not establish that this variant regulates the gene.",
+   "run": true,
+   "status": "failed",
+   "evidence_id": "E15",
+   "new_information": false
+  }
+ ],
+ "gene_choice": {},
+ "papers": [
+  {
+   "pmid": "38536652",
+   "title": "Potential Cause-and-Effect Relationship between Gut Microbiota and Childhood Neuroblastoma: A Mendelian Randomization Analysis.",
+   "year": "2024",
+   "journal": "Indian J Pediatr",
+   "genes": [
+    "MUC4",
+    "PELI2"
+   ],
+   "variants": [],
+   "diseases": [
+    "Neoplasms",
+    "Neuroblastoma"
+   ]
+  },
+  {
+   "pmid": "35180880",
+   "title": "Novel insight into pancreatic adenocarcinoma pathogenesis using liquid association analysis.",
+   "year": "2022",
+   "journal": "BMC Med Genomics",
+   "genes": [
+    "AOX1",
+    "CXCL12",
+    "KLK1",
+    "LAMC2",
+    "NQO1",
+    "TSPAN1"
+   ],
+   "variants": [],
+   "diseases": [
+    "Carcinoma Pancreatic Ductal",
+    "Neoplasms",
+    "Pancreatic Neoplasms"
+   ]
+  },
+  {
+   "pmid": "41331176",
+   "title": "Construction and validation of risk models of prognostic genes associated with parthanatos in papillary thyroid carcinoma based on bioinformatics.",
+   "year": "2025",
+   "journal": "Discov Oncol",
+   "genes": [
+    "AK1",
+    "AKAP12",
+    "ASGR1",
+    "NCAM1",
+    "PELI2",
+    "SERGEF",
+    "SGPP2",
+    "TSHZ3"
+   ],
+   "variants": [],
+   "diseases": [
+    "Thyroid Cancer Papillary"
+   ]
+  },
+  {
+   "pmid": "37397026",
+   "title": "Construction and validation of a novel IGFBP3-related signature to predict prognosis and therapeutic decision making for Hepatocellular Carcinoma.",
+   "year": "2023",
+   "journal": "PeerJ",
+   "genes": [
+    "IGFBP3"
+   ],
+   "variants": [],
+   "diseases": [
+    "Carcinogenesis",
+    "Carcinoma Hepatocellular",
+    "Neoplasms"
+   ]
+  },
+  {
+   "pmid": "37636042",
+   "title": "Sex-biased genome-editing effects of CRISPR-Cas9 across cancer cells dependent on p53 status.",
+   "year": "2023",
+   "journal": "iScience",
+   "genes": [
+    "APC2",
+    "FANCB",
+    "FOXO4",
+    "KAT2B",
+    "KDM4E",
+    "LEF1",
+    "MYC",
+    "PIK3CA",
+    "RYBP",
+    "SOX9",
+    "SUV39H1",
+    "TLR7",
+    "TP53"
+   ],
+   "variants": [],
+   "diseases": [
+    "Neoplasms"
+   ]
+  },
+  {
+   "pmid": "36841821",
+   "title": "PELI1 and EGFR cooperate to promote breast cancer metastasis.",
+   "year": "2023",
+   "journal": "Oncogenesis",
+   "genes": [
+    "EGFR",
+    "MUL1",
+    "PELI1"
+   ],
+   "variants": [],
+   "diseases": [
+    "Breast Neoplasms",
+    "Carcinogenesis",
+    "Inflammation",
+    "Neoplasm Metastasis",
+    "Neoplasms"
+   ]
+  },
+  {
+   "pmid": "33472590",
+   "title": "Identification and analysis of long non-coding RNAs and mRNAs in chicken macrophages infected with avian infectious bronchitis coronavirus.",
+   "year": "2021",
+   "journal": "BMC Genomics",
+   "genes": [
+    "MIR146A",
+    "MIR30D"
+   ],
+   "variants": [],
+   "diseases": [
+    "Virus Diseases"
+   ]
+  },
+  {
+   "pmid": "38416769",
+   "title": "Anthracyclines induce cardiotoxicity through a shared gene expression response signature.",
+   "year": "2024",
+   "journal": "PLoS Genet",
+   "genes": [],
+   "variants": [],
+   "diseases": [
+    "Breast Neoplasms",
+    "Cardiotoxicity",
+    "Neoplasms"
+   ]
+  }
+ ],
+ "tie_break": null,
+ "literature_flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/14:55887040-55887040:1/T?content-type=application/json&Conservation=1",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "Variant chr14:55887040:C>T (GRCh38), allele string C/T\nKnown IDs: rs11629191\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -3.12\nTranscript consequences: none (intergenic)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/14:54887040-56887040?feature=gene;biotype=protein_coding;content-type=application/json",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "14 protein-coding genes within 1000 kb of chr14:55887040:C>T, by distance to TSS:\nPELI2: 230.8 kb from TSS (upstream, strand +1)\nKTN1: 328.0 kb from TSS (downstream, strand +1)\nTBPL2: 430.3 kb from TSS (upstream, strand -1)\nATG14: 475.2 kb from TSS (upstream, strand -1)\nTMEM260: 601.3 kb from TSS (upstream, strand +1)\nCHMP4BP1: 615.7 kb from TSS (downstream, strand +1)\nFBXO34: 615.7 kb from TSS (downstream, strand +1)\nDLGAP5: 695.4 kb from TSS (upstream, strand -1)\nLGALS3: 765.7 kb from TSS (downstream, strand +1)\nMAPK1IP1L: 835.4 kb from TSS (downstream, strand +1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "No cCRE overlaps the variant; nearest is EH38E1716463 (dELS) 1868 bp away.\nSCREEN: 0 cCREs within 500 bp (max z-score across ENCODE biosamples):\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "promoter_check",
+   "source": "Ensembl REST (transcripts of every gene type)",
+   "url": "",
+   "kind": "genomic",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "The variant is not within 1 kb upstream or 500 bp downstream of any transcript start. Nearest transcript start: ENSG00000259868 (+40658 bp)."
+  },
+  {
+   "id": "E05",
+   "tool": "element_activity",
+   "source": "SCREEN V4 (ENCODE cCRE registry), downloads.wenglab.org",
+   "url": "",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "The variant is not inside a cCRE (the nearest, EH38E1716463, is 1868 bp away), so SCREEN has no activity data for this base."
+  },
+  {
+   "id": "E06",
+   "tool": "gene_links",
+   "source": "SCREEN V4 (ENCODE cCRE registry), downloads.wenglab.org",
+   "url": "",
+   "kind": "regulatory",
+   "ok": true,
+   "status": "not_tested",
+   "stage": "gather",
+   "summary": "No cCRE at the variant, so SCREEN has no cCRE-gene links for it."
+  },
+  {
+   "id": "E07",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs11629191&size=100",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "0 GWAS Catalog associations for rs11629191. The Catalog lists reported associations only, often just the lead variant of each signal, so this is weak evidence against an association."
+  },
+  {
+   "id": "E08",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform (credible sets, L2G)",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "kind": "genetic",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "1 credible sets contain 14_55887040_C_T: 0 GWAS, 1 molecular QTL.\neqtl for ENSG00000259868 (gtex-v10_ge_brain_nucleus_accumbens_ensg0000025986): PIP 0.03"
+  },
+  {
+   "id": "E09",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr14_55887040_C_T_b38&datasetId=gtex_v8",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "gather",
+   "summary": "GTEx v8 tested chr14_55887040_C_T_b38: no significant single-tissue eQTL in any tissue."
+  },
+  {
+   "id": "E10",
+   "tool": "intake",
+   "source": "v2m intake (code)",
+   "url": "",
+   "kind": "genetic",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "Code's intake. Expression context: DepMap:ACH-000019 (MCF7) (given: given with the case). Association with the disease: no association (common variant (MAF 0.2736): neither the GWAS Catalog nor Open Targets lists an association with Breast cancer)."
+  },
+  {
+   "id": "E11",
+   "tool": "literature_search",
+   "source": "PubTator3 (NCBI)",
+   "url": "https://www.ncbi.nlm.nih.gov/research/pubtator3-api/search/?text=PELI2%20breast%20cancer&page=1",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "PubTator3: 72 hits for 'PELI2 breast cancer'; top 8 with PMIDs:\nPMID 38536652 (2024): Potential Cause-and-Effect Relationship between Gut Microbiota and Childhood Neuroblastoma: A Mendelian Randomization Analysis.\nPMID 35180880 (2022): Novel insight into pancreatic adenocarcinoma pathogenesis using liquid association analysis.\nPMID 41331176 (2025): Construction and validation of risk models of prognostic genes associated with parthanatos in papillary thyroid carcinoma based on bioinformatics.\nPMID 37397026 (2023): Construction and validation of a novel IGFBP3-related signature to predict prognosis and therapeutic decision making for Hepatocellular Carcinoma.\nPMID 37636042 (2023): Sex-biased genome-editing effects of CRISPR-Cas9 across cancer cells dependent on p53 status.\nPMID 36841821 (2023): PELI1 and EGFR cooperate to promote breast cancer metastasis.\nPMID 33472590 (2021): Identification and analysis of long non-coding RNAs and mRNAs in chicken macrophages infected with avian infectious bronchitis coronavirus.\nPMID 38416769 (2024): Anthracyclines induce cardiotoxicity through a shared gene expression response signature."
+  },
+  {
+   "id": "E11a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38536652",
+   "url": "https://europepmc.org/article/MED/38536652",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "Two SNP genes (MUC4 and PELI2) of Erysipelotrichia were extracted and analyzed."
+  },
+  {
+   "id": "E11b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 38536652",
+   "url": "https://europepmc.org/article/MED/38536652",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "stage": "gather",
+   "summary": "Furthermore, the discovery of two SNP genes, MUC4 and PELI2, provides potential targets for the diagnosis and treatment of NB."
+  },
+  {
+   "id": "E12",
+   "tool": "family_screen",
+   "source": "v2m family screen (code)",
+   "url": "",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "screen",
+   "summary": "Family screen of chr14:55887040:C>T (code). Without QBiC-SELEX: families with a member bound at the variant by ChIP-seq. Candidates (at least one member not known to be unexpressed): 1; with ChIP-seq in the matched biosamples: 0 (summit within 50 bp: 0); anywhere: 1. Ordered by ChIP-seq grade of the best member in the matched biosamples, then anywhere, then expression; shown: 1. ChIP grades: summit within 50 bp of the variant; peak within 50 bp; none. Sources: QBiC-SELEX 1.0.0, ReMap 2022 (UCSC track ReMapTFs), ENCODE TF ChIP-seq, DepMap and GTEx expression. Effect > 0: the alternate allele binds more. In vitro binding only."
+  },
+  {
+   "id": "E13",
+   "tool": "family_screen",
+   "source": "v2m family screen (code)",
+   "url": "",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "stage": "screen",
+   "summary": "F1 C2H2 ZF family. Expression context: DepMap:ACH-000019 (MCF7). Code names CTCF (38.4 TPM; peak elsewhere (GM04648, Loucy))."
+  },
+  {
+   "id": "E14",
+   "tool": "chip_peaks",
+   "source": "Factorbook (ENCODE TF ChIP-seq peaks); ReMap 2022 (UCSC track ReMapTFs)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "tested_negative",
+   "stage": "investigate",
+   "summary": "No ENCODE CTCF ChIP-seq peak contains chr14:55887040:C>T in biosamples matching 'MCF7', although ENCODE assayed CTCF there (MCF-7): evidence against CTCF occupancy at the variant in that biosample. 0 peaks lie within 100 bp without containing it. ReMap 2022 (published ChIP-seq, reprocessed): 1 CTCF peaks contain the variant, in 1 biosamples: GM04648 (GSE148179). 0 of them in biosamples matching 'MCF7'."
+  },
+  {
+   "id": "E15",
+   "tool": "gene_disease",
+   "source": "Open Targets",
+   "url": "",
+   "kind": "genetic",
+   "ok": false,
+   "status": "failed",
+   "stage": "investigate",
+   "summary": "Open Targets lookup failed: no Ensembl ID for ENSG00000259868"
+  }
+ ]
+}

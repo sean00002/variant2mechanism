@@ -1,0 +1,735 @@
+{
+  "description": "Controlled test (b), wrong TF with a supported element-to-gene link (SPEC 11; plan section 14). Every entity and observation is stipulated for software testing, not biological evidence. H1 attributes binding at element E3 to TFA; a TFA ChIP peak (C1) covers E3 without allele-resolved reads; activating E3 raises GENE1 in context Z (R1); a binding assay shows TFB binding the A allele more (B1). Expected: the TFA member claim is superseded by a TFB claim and swapped into H1, the element-to-gene claim keeps its evidence, and neither the TFB assay can support the TFA claim nor the TFA ChIP the TFB claim.",
+  "case": {
+    "case_id": "SYN-3",
+    "variant": {
+      "assembly": "GRCh38",
+      "chrom": "SYN",
+      "pos": 3,
+      "ref": "G",
+      "alt": "A",
+      "rsid": null,
+      "input_text": "synthetic variant V3 (fixture)",
+      "reference_check": "unavailable"
+    },
+    "origin": "unknown",
+    "supplied_disease": [],
+    "supplied_context": [],
+    "inferred_candidates": [],
+    "input_provenance": {
+      "case": "synthetic fixture: stipulated, not biological data",
+      "origin": "not supplied"
+    }
+  },
+  "retrieval_time": "2026-11-08T00:00:00+00:00",
+  "tools": {
+    "syn_element_overlap": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: which synthetic element the variant lies in.",
+        "params": {},
+        "result_semantics": "records_found: a stipulated overlap.",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-3",
+        "rate_policy": "parallel",
+        "evidence_classes": [
+          "synthetic"
+        ]
+      },
+      "responses": [
+        {
+          "params": {},
+          "retrieval_status": "records_found",
+          "observations": [
+            {
+              "element": "E3",
+              "variant": "V3",
+              "overlaps": true
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_class": "synthetic",
+              "source_ids": [
+                "SYN-ANNOTATION-3"
+              ],
+              "observed_result": "Synthetic variant V3 lies inside synthetic element E3.",
+              "independence_group": "SYN-ANNOTATION-3",
+              "origin": "fixture",
+              "access": "not_applicable",
+              "limitations": [
+                "Stipulated fixture observation; not biological evidence."
+              ],
+              "about_elements": [
+                "E3"
+              ],
+              "data": {
+                "fixture_observation": "S0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "syn_chip": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: ChIP-seq peaks of a TF over element E3 in context Z.",
+        "params": {
+          "tf": {
+            "type": "str",
+            "required": true,
+            "normalise": "upper",
+            "description": "the TF symbol"
+          }
+        },
+        "result_semantics": "records_found: a stipulated peak; no_records_found: no data for the TF (missing data).",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-3",
+        "rate_policy": "parallel",
+        "evidence_classes": [
+          "occupancy"
+        ]
+      },
+      "responses": [
+        {
+          "params": {
+            "tf": "TFA"
+          },
+          "retrieval_status": "records_found",
+          "observations": [
+            {
+              "tf": "TFA",
+              "element": "E3",
+              "context": "context Z",
+              "peak": true
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_class": "occupancy",
+              "source_ids": [
+                "SYN-CHIP-TFA"
+              ],
+              "observed_result": "In context Z, a TFA ChIP-seq peak covers element E3.",
+              "independence_group": "SYN-CHIP-TFA",
+              "origin": "fixture",
+              "access": "not_applicable",
+              "limitations": [
+                "Stipulated fixture observation; not biological evidence."
+              ],
+              "about_tfs": [
+                "TFA"
+              ],
+              "about_elements": [
+                "E3"
+              ],
+              "context": {
+                "label": "context Z",
+                "biosample": "context Z",
+                "source": "evidence"
+              },
+              "data": {
+                "fixture_observation": "C1"
+              }
+            }
+          ]
+        },
+        {
+          "params": {
+            "tf": "TFB"
+          },
+          "retrieval_status": "no_records_found",
+          "observations": [],
+          "message": "no ChIP-seq records for TFB",
+          "evidence": []
+        }
+      ]
+    },
+    "syn_binding_assay": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: an allele-resolved binding assay of a TF on the element E3 sequence.",
+        "params": {
+          "tf": {
+            "type": "str",
+            "required": true,
+            "normalise": "upper",
+            "description": "the TF symbol"
+          }
+        },
+        "result_semantics": "records_found: a stipulated assay result.",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-3",
+        "rate_policy": "parallel",
+        "evidence_classes": [
+          "synthetic"
+        ]
+      },
+      "responses": [
+        {
+          "params": {
+            "tf": "TFB"
+          },
+          "retrieval_status": "records_found",
+          "observations": [
+            {
+              "tf": "TFB",
+              "binds_more": "A"
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_class": "synthetic",
+              "source_ids": [
+                "SYN-BINDING-TFB"
+              ],
+              "observed_result": "In a stipulated binding assay, TFB binds the A allele of the element E3 sequence more than the G allele.",
+              "independence_group": "SYN-BINDING-TFB",
+              "origin": "fixture",
+              "access": "not_applicable",
+              "limitations": [
+                "Stipulated fixture observation; not biological evidence."
+              ],
+              "about_tfs": [
+                "TFB"
+              ],
+              "about_elements": [
+                "E3"
+              ],
+              "about_variants": [
+                "SYN:3"
+              ],
+              "allele": "A",
+              "direction": "increases",
+              "data": {
+                "fixture_observation": "B1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "syn_perturbation": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: matched interventions that activate element E3, with a gene's expression change.",
+        "params": {
+          "gene": {
+            "type": "str",
+            "required": true,
+            "normalise": "upper",
+            "description": "the gene measured"
+          }
+        },
+        "result_semantics": "records_found: a stipulated intervention record.",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-3",
+        "rate_policy": "parallel",
+        "evidence_classes": [
+          "perturbation"
+        ]
+      },
+      "responses": [
+        {
+          "params": {
+            "gene": "GENE1"
+          },
+          "retrieval_status": "records_found",
+          "observations": [
+            {
+              "intervention": "activate element E3",
+              "gene": "GENE1",
+              "change": "increase"
+            }
+          ],
+          "evidence": [
+            {
+              "evidence_class": "perturbation",
+              "source_ids": [
+                "SYN-PERTURBATION-3"
+              ],
+              "observed_result": "In context Z, a matched intervention that activates element E3 increases GENE1 expression.",
+              "independence_group": "SYN-PERTURBATION-3",
+              "origin": "fixture",
+              "access": "not_applicable",
+              "limitations": [
+                "Stipulated fixture observation; not biological evidence."
+              ],
+              "about_genes": [
+                "GENE1"
+              ],
+              "about_elements": [
+                "E3"
+              ],
+              "direction": "increases",
+              "context": {
+                "label": "context Z",
+                "biosample": "context Z",
+                "source": "evidence"
+              },
+              "data": {
+                "fixture_observation": "R1"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "roles": {
+    "coordinator": [
+      {
+        "directions": [],
+        "inferred_candidates": [],
+        "hypotheses": [
+          {
+            "key": "h_tfa",
+            "title": "TFA binds the A allele at element E3, which raises GENE1",
+            "summary": "TFA binding at E3 would raise E3's activity and GENE1 expression in context Z.",
+            "mechanism_class": "tf_binding",
+            "endpoint": "molecular",
+            "context": {
+              "label": "context Z",
+              "species": "human",
+              "condition": null
+            },
+            "activate": true,
+            "deferral_reason": null,
+            "revisit_trigger": null,
+            "reason_kind": "prior_knowledge",
+            "reason_detail": "TFA is proposed from background knowledge as a factor acting at elements like E3; to be tested",
+            "member_alternatives": [
+              "TFB"
+            ],
+            "missing_links": [],
+            "assumptions": [],
+            "replaces": null,
+            "claims": [
+              {
+                "key": "bind_a",
+                "subjects": [
+                  {
+                    "kind": "variant",
+                    "label": "V3",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "alters_binding",
+                "objects": [
+                  {
+                    "kind": "tf",
+                    "label": "TFA",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "direction": "increases",
+                "effect_allele": null,
+                "context": null,
+                "assertion_text": "The A allele increases TFA binding at the variant",
+                "required": true,
+                "depends_on": [],
+                "initial_links": []
+              },
+              {
+                "key": "reg",
+                "subjects": [
+                  {
+                    "kind": "element",
+                    "label": "E3",
+                    "canonical_id": "SYN:E3",
+                    "members": []
+                  }
+                ],
+                "relation": "regulates",
+                "objects": [
+                  {
+                    "kind": "gene",
+                    "label": "GENE1",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "direction": "increases",
+                "effect_allele": null,
+                "context": {
+                  "label": "context Z",
+                  "species": "human",
+                  "condition": null
+                },
+                "assertion_text": "Activating element E3 increases GENE1 expression in context Z",
+                "required": true,
+                "depends_on": [],
+                "initial_links": []
+              },
+              {
+                "key": "overlap",
+                "subjects": [
+                  {
+                    "kind": "variant",
+                    "label": "V3",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "overlaps",
+                "objects": [
+                  {
+                    "kind": "element",
+                    "label": "E3",
+                    "canonical_id": "SYN:E3",
+                    "members": []
+                  }
+                ],
+                "direction": "unspecified",
+                "effect_allele": null,
+                "context": null,
+                "assertion_text": "Variant V3 lies in element E3",
+                "required": false,
+                "depends_on": [],
+                "initial_links": [
+                  {
+                    "evidence_id": "E1",
+                    "stance": "supports",
+                    "applicability": null,
+                    "rationale": "S0 places V3 inside E3",
+                    "suggested_assessment": "supported_in_scope"
+                  }
+                ]
+              }
+            ],
+            "reuse_claims": []
+          }
+        ],
+        "fourth_active_reason": null,
+        "reactivate": [],
+        "questions": [
+          {
+            "text": "Is TFA bound at element E3 in context Z?",
+            "route": "computational",
+            "target_claims": [
+              "bind_a"
+            ],
+            "hypotheses": [
+              "h_tfa"
+            ],
+            "rubric": {
+              "consequence": "high",
+              "discrimination": "high",
+              "applicability": "high",
+              "cost": "low"
+            },
+            "possible_outcomes": [],
+            "actions": [
+              {
+                "tool": "syn_chip",
+                "params_json": "{\"tf\": \"TFA\"}",
+                "purpose": "TFA occupancy at E3"
+              }
+            ]
+          },
+          {
+            "text": "Does activating element E3 change GENE1 in context Z?",
+            "route": "computational",
+            "target_claims": [
+              "reg"
+            ],
+            "hypotheses": [
+              "h_tfa"
+            ],
+            "rubric": {
+              "consequence": "high",
+              "discrimination": "high",
+              "applicability": "high",
+              "cost": "low"
+            },
+            "possible_outcomes": [],
+            "actions": [
+              {
+                "tool": "syn_perturbation",
+                "params_json": "{\"gene\": \"GENE1\"}",
+                "purpose": "test the element-to-gene link"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hypothesis_updates": [],
+        "assessments": [],
+        "questions": [
+          {
+            "text": "Which member binds the A allele: does TFB bind it allele-specifically?",
+            "route": "computational",
+            "target_claims": [
+              "C1"
+            ],
+            "hypotheses": [
+              "H1"
+            ],
+            "rubric": {
+              "consequence": "high",
+              "discrimination": "high",
+              "applicability": "high",
+              "cost": "low"
+            },
+            "possible_outcomes": [],
+            "actions": [
+              {
+                "tool": "syn_binding_assay",
+                "params_json": "{\"tf\": \"TFB\"}",
+                "purpose": "member attribution"
+              }
+            ]
+          }
+        ],
+        "stop": {
+          "stop": false,
+          "reason": ""
+        }
+      },
+      {
+        "hypothesis_updates": [
+          {
+            "hypothesis_id": "H1",
+            "action": "replace_required_claim",
+            "reason": "swap in the TFB binding claim that superseded C1",
+            "claim_id": "C1",
+            "new_claim": null,
+            "new_claim_id": "C4",
+            "required": true,
+            "revisit_trigger": null,
+            "revision": null
+          },
+          {
+            "hypothesis_id": "H1",
+            "action": "revise",
+            "reason": "the factor is TFB, not TFA",
+            "claim_id": null,
+            "new_claim": null,
+            "new_claim_id": null,
+            "required": false,
+            "revisit_trigger": null,
+            "revision": {
+              "title": "TFB binds the A allele at element E3, which raises GENE1",
+              "summary": null,
+              "endpoint": null,
+              "assumptions": null,
+              "member_alternatives": [
+                "TFA"
+              ],
+              "missing_links": null,
+              "remove_claim_ids": []
+            }
+          }
+        ],
+        "assessments": [],
+        "questions": [],
+        "stop": {
+          "stop": true,
+          "reason": "The member attribution is settled by the binding assay and the element-to-gene link is supported; nothing affordable could change a required claim."
+        }
+      }
+    ],
+    "computational_investigator": [
+      {
+        "answers": [
+          {
+            "question_id": "Q1",
+            "status": "answered",
+            "answer_summary": "A TFA peak covers E3 in context Z; occupancy without allele-resolved reads does not test allele dependence.",
+            "claim_ids": [
+              "C1"
+            ],
+            "tool_call_ids": [
+              "T2"
+            ],
+            "experiments": [],
+            "proposed_updates": [
+              {
+                "kind": "attach_evidence",
+                "claim_id": "C1",
+                "base_version": null,
+                "evidence_id": "E2",
+                "experiment_index": null,
+                "stance": "supports",
+                "applicability": null,
+                "rationale": "a TFA peak covers E3; occupancy is indirect for allele-dependent binding",
+                "limitations": [],
+                "suggested_assessment": null,
+                "new_claim": null
+              }
+            ],
+            "remaining_gap": "",
+            "next_question": "",
+            "follow_up_actions": []
+          },
+          {
+            "question_id": "Q2",
+            "status": "answered",
+            "answer_summary": "Activating E3 increases GENE1 in context Z, as C2 claims.",
+            "claim_ids": [
+              "C2"
+            ],
+            "tool_call_ids": [
+              "T3"
+            ],
+            "experiments": [],
+            "proposed_updates": [
+              {
+                "kind": "attach_evidence",
+                "claim_id": "C2",
+                "base_version": 1,
+                "evidence_id": "E3",
+                "experiment_index": null,
+                "stance": "supports",
+                "applicability": null,
+                "rationale": "a matched activation of E3 raises GENE1 in context Z",
+                "limitations": [],
+                "suggested_assessment": "supported_in_scope",
+                "new_claim": null
+              }
+            ],
+            "remaining_gap": "",
+            "next_question": "",
+            "follow_up_actions": []
+          }
+        ]
+      },
+      {
+        "answers": [
+          {
+            "question_id": "Q3",
+            "status": "answered",
+            "answer_summary": "The binding assay shows TFB, not TFA, binding the A allele more: the member attribution moves to TFB.",
+            "claim_ids": [
+              "C1"
+            ],
+            "tool_call_ids": [
+              "T4"
+            ],
+            "experiments": [],
+            "proposed_updates": [
+              {
+                "kind": "attach_evidence",
+                "claim_id": "C1",
+                "base_version": null,
+                "evidence_id": "E4",
+                "experiment_index": null,
+                "stance": "supports",
+                "applicability": null,
+                "rationale": "E4 read as support for the TFA claim",
+                "limitations": [],
+                "suggested_assessment": null,
+                "new_claim": null
+              },
+              {
+                "kind": "supersede_claim",
+                "claim_id": "C1",
+                "base_version": null,
+                "evidence_id": null,
+                "experiment_index": null,
+                "stance": null,
+                "applicability": null,
+                "rationale": "the binding assay names TFB as the factor that binds A more; the TFA attribution is withdrawn",
+                "limitations": [],
+                "suggested_assessment": null,
+                "new_claim": {
+                  "key": "bind_b",
+                  "subjects": [
+                    {
+                      "kind": "variant",
+                      "label": "V3",
+                      "canonical_id": null,
+                      "members": []
+                    }
+                  ],
+                  "relation": "alters_binding",
+                  "objects": [
+                    {
+                      "kind": "tf",
+                      "label": "TFB",
+                      "canonical_id": null,
+                      "members": []
+                    }
+                  ],
+                  "direction": "increases",
+                  "effect_allele": null,
+                  "context": null,
+                  "assertion_text": "The A allele increases TFB binding at the variant",
+                  "required": true,
+                  "depends_on": [],
+                  "initial_links": []
+                }
+              },
+              {
+                "kind": "attach_evidence",
+                "claim_id": "key:bind_b",
+                "base_version": 1,
+                "evidence_id": "E4",
+                "experiment_index": null,
+                "stance": "supports",
+                "applicability": null,
+                "rationale": "TFB binds the A allele more in the binding assay",
+                "limitations": [],
+                "suggested_assessment": "supported_in_scope",
+                "new_claim": null
+              },
+              {
+                "kind": "attach_evidence",
+                "claim_id": "key:bind_b",
+                "base_version": null,
+                "evidence_id": "E2",
+                "experiment_index": null,
+                "stance": "supports",
+                "applicability": null,
+                "rationale": "reuse the TFA ChIP peak for the TFB claim",
+                "limitations": [],
+                "suggested_assessment": null,
+                "new_claim": null
+              }
+            ],
+            "remaining_gap": "",
+            "next_question": "",
+            "follow_up_actions": []
+          }
+        ]
+      }
+    ],
+    "critic": [
+      {
+        "challenges": [],
+        "passage_checks": [],
+        "activation_flags": [],
+        "reportable_ids": [
+          "H1"
+        ],
+        "consequential": false
+      },
+      {
+        "comparisons": [],
+        "outcome": {
+          "category": "leading_explanation",
+          "leading_ids": [
+            "H1"
+          ],
+          "summary": "TFB binding of the A allele is supported by the binding assay, and activating E3 raises GENE1 in context Z; the TFA attribution was withdrawn without losing the element-to-gene evidence.",
+          "weakest_links": [],
+          "next_experiments": [
+            {
+              "text": "Allele-resolved TFB occupancy at element E3 in context Z.",
+              "distinguishes": [
+                "H1"
+              ],
+              "claim_ids": [
+                "C4"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

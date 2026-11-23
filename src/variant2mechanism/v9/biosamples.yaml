@@ -1,0 +1,189 @@
+# v9 biosample identities (SPEC 3.4 and 13.13). Owned by v9; context/biosample_match.yaml is v8's and is only read.
+#
+# Built on 8 Nov 2026 from local files, without network access:
+#   - data/screen/core_biosamples.json: the 170 SCREEN core-collection columns, 72 distinct ENCODE term names
+#     (every one is a record below, with in_screen_core: true);
+#   - data/reference/depmap/DepMap_Model.csv: DepMap ModelID and RRID (Cellosaurus) for the cell lines (the file
+#     states no DepMap release);
+#   - context/biosample_match.yaml: the v8 DepMap line names and its declared proxy (Hep 3B2.1-7 -> HepG2).
+# ENCODE ontology term IDs are not in the local data (the cached ENCODE search holds term names only), so `ontology`
+# stays null until they are fetched. ENCODE cell-type terms do not say whether the cells were primary or differentiated
+# in vitro, so their kind is unknown.
+#
+# Fields: name (the normalised biosample name), kind (cell_line | primary_cell | tissue | organism | unknown), tissue
+# (organ-level, lower case; two biosamples sharing it are proxies of each other, except two distinct cell lines, which
+# are proxies only when declared), organ (true: the name is a whole organ, so its scope carries the tissue only),
+# aliases, depmap, rrid, ontology, in_screen_core, proxies (declared proxies beyond a shared tissue), genotypes (at a
+# variant, when a source states it), note.
+# Matching normalises names by removing spaces, hyphens and underscores and ignoring case.
+
+version: "2026-11-08"
+
+tissues:          # organ-level tissue -> keywords found in free-text labels (one tissue must match, else none)
+  adipose: [adipose, adipocyte, preadipocyte]
+  adrenal gland: [adrenal]
+  artery: [artery, arterial, aorta, aortic]
+  blood: [blood, monocyte, lymphocyte, lymphoblastoid, leukocyte, leukaemia, leukemia, erythroid, myeloid,
+          macrophage, t cell, t-cell, b cell, b-cell]
+  bone: [bone, osteoblast, osteocyte, osteosarcoma]
+  brain: [brain, astrocyte, neuron, neural, glial, glioma, glioblastoma, hippocampus, cerebellum]
+  breast: [breast, mammary]
+  cartilage: [cartilage, chondrocyte]
+  cervix: [cervix, cervical]
+  colon: [colon, colonic, colorectal, rectum]
+  endoderm: [endoderm]
+  endothelium: [endothelial, huvec]
+  esophagus: [esophagus, esophageal, oesophagus, oesophageal]
+  eye: [retina, retinal, retinoblastoma]
+  heart: [heart, cardiac, cardiomyocyte, ventricle, atrium, atrial, myocardium, epicardium]
+  kidney: [kidney, renal]
+  liver: [liver, hepatic, hepatocyte, hepatoma, hepatocellular, hepatoblastoma]
+  lung: [lung, pulmonary, bronchial, alveolar]
+  muscle: [skeletal muscle, skeletal, myotube, myoblast, gastrocnemius]
+  nerve: [nerve, schwann]
+  ovary: [ovary, ovarian]
+  pancreas: [pancrea, islet]
+  peripheral nervous system: [neuroblastoma]
+  pituitary: [pituitary]
+  pluripotent stem cell: [embryonic stem, pluripotent, ipsc, hesc]
+  prostate: [prostate]
+  skin: [skin, keratinocyte, foreskin, melanocyte]
+  small intestine: [small intestine, ileum, jejunum, duodenum, peyer]
+  spleen: [spleen]
+  stomach: [stomach, gastric]
+  testis: [testis, testes]
+  thyroid: [thyroid]
+  uterus: [uterus, uterine, endometrium, endometrial]
+  vagina: [vagina, vaginal]
+
+biosamples:
+  # --- cell lines in the SCREEN core collection -------------------------------------------------------------------
+  - {name: A673, kind: cell_line, tissue: bone, aliases: [A-673], depmap: ACH-000052, rrid: CVCL_0080,
+     in_screen_core: true}
+  - {name: AG04450, kind: cell_line, tissue: lung, in_screen_core: true, note: fetal lung fibroblast line}
+  - {name: Caco-2, kind: cell_line, tissue: colon, aliases: [CACO2], depmap: ACH-000003, rrid: CVCL_0025,
+     in_screen_core: true}
+  - {name: DND-41, kind: cell_line, tissue: blood, depmap: ACH-000981, rrid: CVCL_2022, in_screen_core: true}
+  - {name: GM12878, kind: cell_line, tissue: blood, in_screen_core: true, note: lymphoblastoid line}
+  - {name: GM23338, kind: cell_line, tissue: pluripotent stem cell, in_screen_core: true,
+     note: induced pluripotent stem cell line}
+  - {name: H1, kind: cell_line, tissue: pluripotent stem cell, aliases: [H1-hESC, H1 hESC], in_screen_core: true,
+     note: embryonic stem cell line}
+  - {name: H9, kind: cell_line, tissue: pluripotent stem cell, aliases: [H9 hESC], in_screen_core: true,
+     note: "embryonic stem cell line; not the DepMap T-cell lymphoma line also named H9 (ACH-002240)"}
+  - {name: HCT116, kind: cell_line, tissue: colon, aliases: [HCT 116], depmap: ACH-000971, rrid: CVCL_0291,
+     in_screen_core: true}
+  - {name: HFFc6, kind: cell_line, tissue: skin, in_screen_core: true, note: foreskin fibroblast line}
+  - {name: HL-60, kind: cell_line, tissue: blood, depmap: ACH-000002, rrid: CVCL_0002, in_screen_core: true}
+  - {name: HeLa-S3, kind: cell_line, tissue: cervix, in_screen_core: true, proxies: [HeLa],
+     note: "a HeLa subline; HeLa itself is a separate record"}
+  - {name: HepG2, kind: cell_line, tissue: liver, aliases: [Hep G2], depmap: ACH-000739, rrid: CVCL_0027,
+     in_screen_core: true, note: hepatoblastoma line; distinct from Hep 3B2.1-7}
+  - {name: IMR-90, kind: cell_line, tissue: lung, in_screen_core: true, note: fetal lung fibroblast line}
+  - {name: K562, kind: cell_line, tissue: blood, depmap: ACH-000551, rrid: CVCL_0004, in_screen_core: true}
+  - {name: MCF-7, kind: cell_line, tissue: breast, depmap: ACH-000019, rrid: CVCL_0031, in_screen_core: true}
+  - {name: MM.1S, kind: cell_line, tissue: blood, aliases: [MM1-S, MM.1-S], depmap: ACH-000763, rrid: CVCL_8792,
+     in_screen_core: true}
+  - {name: NCI-H929, kind: cell_line, tissue: blood, depmap: ACH-000050, rrid: CVCL_1600, in_screen_core: true}
+  - {name: OCI-LY7, kind: cell_line, tissue: blood, depmap: ACH-001617, rrid: CVCL_1881, in_screen_core: true}
+  - {name: PC-3, kind: cell_line, tissue: prostate, depmap: ACH-000090, rrid: CVCL_0035, in_screen_core: true}
+  - {name: PC-9, kind: cell_line, tissue: lung, depmap: ACH-000779, rrid: CVCL_B260, in_screen_core: true}
+  - {name: Panc1, kind: cell_line, tissue: pancreas, aliases: [PANC-1], depmap: ACH-000164, rrid: CVCL_0480,
+     in_screen_core: true}
+  - {name: SK-N-SH, kind: cell_line, tissue: peripheral nervous system, depmap: ACH-000149, rrid: CVCL_0531,
+     in_screen_core: true, note: neuroblastoma line}
+  - {name: WERI-Rb-1, kind: cell_line, tissue: eye, depmap: ACH-001421, rrid: CVCL_1792, in_screen_core: true}
+
+  # --- cell lines outside the core collection ---------------------------------------------------------------------
+  - name: Hep 3B2.1-7
+    kind: cell_line
+    tissue: liver
+    aliases: [Hep3B, Hep 3B, Hep3B2.1-7]
+    depmap: ACH-000625
+    rrid: CVCL_0326
+    proxies: [HepG2]
+    genotypes:
+      - {variant: rs12740374, key: "GRCh38:1:109274968:G:T", genotype: GG,
+         source: "Musunuru et al. 2010, Nature, PMID 20686566 (Fig. 3f legend)"}
+    note: "hepatocellular carcinoma line, not in the SCREEN core collection; HepG2 is a proxy at best, never exact"
+  - name: SK-HEP-1
+    kind: cell_line
+    tissue: liver
+    aliases: [SKHEP1, SK-HEP1]
+    depmap: ACH-000361
+    rrid: CVCL_0525
+    genotypes:
+      - {variant: rs12740374, key: "GRCh38:1:109274968:G:T", genotype: GT,
+         source: "Musunuru et al. 2010, Nature, PMID 20686566"}
+  - {name: HeLa, kind: cell_line, tissue: cervix, depmap: ACH-001086, rrid: CVCL_0030}
+  - {name: LNCaP clone FGC, kind: cell_line, tissue: prostate, aliases: [LNCaP], depmap: ACH-000977,
+     rrid: CVCL_1379}
+
+  # --- cell types (ENCODE term names; primary or differentiated in vitro is not recorded locally) -------------------
+  - {name: CD14-positive monocyte, kind: unknown, tissue: blood, aliases: [CD14+ monocyte], in_screen_core: true}
+  - {name: astrocyte, kind: unknown, tissue: brain, aliases: [astrocytes], in_screen_core: true}
+  - {name: bipolar neuron, kind: unknown, tissue: brain, in_screen_core: true}
+  - {name: brain microvascular endothelial cell, kind: unknown, tissue: endothelium, in_screen_core: true}
+  - {name: cardiac muscle cell, kind: unknown, tissue: heart, aliases: [cardiomyocyte, cardiomyocytes],
+     in_screen_core: true}
+  - {name: chondrocyte, kind: unknown, tissue: cartilage, in_screen_core: true}
+  - {name: endodermal cell, kind: unknown, tissue: endoderm, in_screen_core: true}
+  - {name: endothelial cell, kind: unknown, tissue: endothelium, in_screen_core: true}
+  - {name: glutamatergic neuron, kind: unknown, tissue: brain, in_screen_core: true}
+  - {name: hepatocyte, kind: unknown, tissue: liver, aliases: [hepatocytes], in_screen_core: true,
+     note: "the ENCODE term; primary hepatocytes from donors are a separate record (a proxy)"}
+  - {name: keratinocyte, kind: unknown, tissue: skin, aliases: [keratinocytes], in_screen_core: true}
+  - {name: mesothelial cell of epicardium, kind: unknown, tissue: heart, in_screen_core: true}
+  - {name: neural progenitor cell, kind: unknown, tissue: brain, in_screen_core: true}
+  - {name: osteocyte, kind: unknown, tissue: bone, in_screen_core: true}
+  - {name: progenitor cell of endocrine pancreas, kind: unknown, tissue: pancreas, in_screen_core: true}
+  - {name: type B pancreatic cell, kind: unknown, tissue: pancreas, aliases: [pancreatic beta cell, beta cell],
+     in_screen_core: true}
+  - name: primary hepatocyte
+    kind: primary_cell
+    tissue: liver
+    aliases: [primary hepatocytes, primary human hepatocytes, human primary hepatocytes, PHH]
+    note: "donor hepatocytes; a proxy for liver tissue and for the ENCODE hepatocyte term, never exact"
+
+  # --- tissues (ENCODE term names; organ: true means the name is the whole organ) ----------------------------------
+  - {name: "Peyer's patch", kind: tissue, tissue: small intestine, in_screen_core: true}
+  - {name: adrenal gland, kind: tissue, tissue: adrenal gland, organ: true, in_screen_core: true}
+  - {name: ascending aorta, kind: tissue, tissue: artery, in_screen_core: true}
+  - {name: body of pancreas, kind: tissue, tissue: pancreas, in_screen_core: true}
+  - {name: breast epithelium, kind: tissue, tissue: breast, in_screen_core: true}
+  - {name: colonic mucosa, kind: tissue, tissue: colon, in_screen_core: true}
+  - {name: coronary artery, kind: tissue, tissue: artery, aliases: [Artery - Coronary], in_screen_core: true}
+  - {name: dorsolateral prefrontal cortex, kind: tissue, tissue: brain, in_screen_core: true}
+  - {name: esophagus muscularis mucosa, kind: tissue, tissue: esophagus, in_screen_core: true}
+  - {name: esophagus squamous epithelium, kind: tissue, tissue: esophagus, in_screen_core: true}
+  - {name: gastrocnemius medialis, kind: tissue, tissue: muscle, in_screen_core: true}
+  - {name: heart left ventricle, kind: tissue, tissue: heart, aliases: [Heart - Left Ventricle], in_screen_core: true}
+  - {name: heart right ventricle, kind: tissue, tissue: heart, in_screen_core: true}
+  - {name: left lung, kind: tissue, tissue: lung, in_screen_core: true}
+  - {name: left ventricle myocardium inferior, kind: tissue, tissue: heart, in_screen_core: true}
+  - {name: lower lobe of left lung, kind: tissue, tissue: lung, in_screen_core: true}
+  - {name: pancreas, kind: tissue, tissue: pancreas, organ: true, in_screen_core: true}
+  - {name: prostate gland, kind: tissue, tissue: prostate, organ: true, in_screen_core: true}
+  - {name: right atrium auricular region, kind: tissue, tissue: heart, aliases: [Heart - Atrial Appendage],
+     in_screen_core: true}
+  - {name: right lobe of liver, kind: tissue, tissue: liver, in_screen_core: true}
+  - {name: sigmoid colon, kind: tissue, tissue: colon, aliases: [Colon - Sigmoid], in_screen_core: true}
+  - {name: spleen, kind: tissue, tissue: spleen, organ: true, in_screen_core: true}
+  - {name: stomach, kind: tissue, tissue: stomach, organ: true, in_screen_core: true}
+  - {name: testis, kind: tissue, tissue: testis, organ: true, in_screen_core: true}
+  - {name: thoracic aorta, kind: tissue, tissue: artery, in_screen_core: true}
+  - {name: thyroid gland, kind: tissue, tissue: thyroid, organ: true, in_screen_core: true}
+  - {name: tibial artery, kind: tissue, tissue: artery, aliases: [Artery - Tibial], in_screen_core: true}
+  - {name: tibial nerve, kind: tissue, tissue: nerve, aliases: [Nerve - Tibial], in_screen_core: true}
+  - {name: transverse colon, kind: tissue, tissue: colon, aliases: [Colon - Transverse], in_screen_core: true}
+  - {name: upper lobe of left lung, kind: tissue, tissue: lung, in_screen_core: true}
+  - {name: uterus, kind: tissue, tissue: uterus, organ: true, in_screen_core: true}
+  - {name: vagina, kind: tissue, tissue: vagina, organ: true, in_screen_core: true}
+
+  # --- tissues outside the core collection (GTEx names as aliases) --------------------------------------------------
+  - {name: liver, kind: tissue, tissue: liver, organ: true, aliases: [liver tissue]}
+  - {name: lung, kind: tissue, tissue: lung, organ: true}
+  - {name: whole blood, kind: tissue, tissue: blood, organ: true}
+  - {name: skeletal muscle, kind: tissue, tissue: muscle, organ: true, aliases: [Muscle - Skeletal]}
+  - {name: subcutaneous adipose tissue, kind: tissue, tissue: adipose, aliases: [Adipose - Subcutaneous]}
+  - {name: visceral adipose tissue, kind: tissue, tissue: adipose, aliases: [Adipose - Visceral]}

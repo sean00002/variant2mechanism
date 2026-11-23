@@ -5,7 +5,10 @@ from .base import Case, ToolResult, failed, fmt_p
 
 GWAS = "https://www.ebi.ac.uk/gwas/rest/api/v2/associations"
 OT = "https://api.platform.opentargets.org/api/v4/graphql"
-GTEX = "https://gtexportal.org/api/v2/association/singleTissueEqtl"
+GTEX_API = "https://gtexportal.org/api/v2"
+GTEX = f"{GTEX_API}/association/singleTissueEqtl"
+GTEX_VARIANT = f"{GTEX_API}/dataset/variant"           # is the variant in GTEx, and common enough to be tested?
+GTEX_TISSUES = f"{GTEX_API}/dataset/tissueSiteDetail"
 
 
 def gwas_lookup(case: Case) -> ToolResult:
@@ -18,6 +21,11 @@ def gwas_lookup(case: Case) -> ToolResult:
         return failed("gwas_lookup", args, "GWAS Catalog v2", "genetic", r)
     assoc = (r.data.get("_embedded") or {}).get("associations", [])
     assoc.sort(key=lambda a: a.get("p_value") or 1)
+    if not assoc:
+        return ToolResult("gwas_lookup", args, f"0 GWAS Catalog associations for {case.rsid}. The Catalog lists "
+                          "reported associations only, often just the lead variant of each signal, so this is weak "
+                          "evidence against an association.", [], "GWAS Catalog REST v2", url, "genetic",
+                          retrieved_utc=r.retrieved_utc, status="tested_negative")
     lines = [f"{len(assoc)} GWAS Catalog associations for {case.rsid}, strongest first:"]
     seen = set()
     for a in assoc:
@@ -48,8 +56,9 @@ def finemap_lookup(case: Case) -> ToolResult:
         return failed("finemap_lookup", args, "Open Targets", "genetic", r)
     var = (r.data.get("data") or {}).get("variant")
     if not var:
-        return ToolResult("finemap_lookup", args, f"Open Targets has no record of {vid}.", r.data,
-                          "Open Targets Platform", OT, "genetic", retrieved_utc=r.retrieved_utc)
+        return ToolResult("finemap_lookup", args, f"Open Targets has no record of {vid}, so it says nothing about "
+                          "fine-mapping here.", r.data, "Open Targets Platform", OT, "genetic",
+                          retrieved_utc=r.retrieved_utc, status="not_tested")
     rows = var["credibleSets"]["rows"]
 
     def pip(x):
@@ -59,6 +68,8 @@ def finemap_lookup(case: Case) -> ToolResult:
     gwas = sorted([x for x in rows if x["study"]["studyType"] == "gwas"], key=pip, reverse=True)
     qtl = sorted([x for x in rows if x["study"]["studyType"] != "gwas"], key=pip, reverse=True)
     lines = [f"{var['credibleSets']['count']} credible sets contain {vid}: {len(gwas)} GWAS, {len(qtl)} molecular QTL."]
+    if not rows:
+        lines.append("Open Targets has the variant, but no credible set contains it.")
     for x in gwas[:6]:
         l2g = ", ".join(f"{p['target']['approvedSymbol']} {p['score']:.2f}" for p in x["l2GPredictions"]["rows"])
         lines.append(f"GWAS {x['study']['traitFromSource'][:60]}: PIP {pip(x):.2f}; L2G {l2g or 'none'}")
@@ -75,7 +86,7 @@ def finemap_lookup(case: Case) -> ToolResult:
         lines.append("Best L2G gene scores across these sets: " + ", ".join(f"{g} {s:.2f}" for g, s in best))
     return ToolResult("finemap_lookup", args, "\n".join(lines),
                       {"gwas": gwas, "qtl": qtl, "best_l2g": l2g_all}, "Open Targets Platform (credible sets, L2G)",
-                      OT, "genetic", retrieved_utc=r.retrieved_utc)
+                      OT, "genetic", retrieved_utc=r.retrieved_utc, status="found" if rows else "tested_negative")
 
 
 def eqtl_lookup(case: Case, tissue: str | None = None) -> ToolResult:
@@ -85,17 +96,42 @@ def eqtl_lookup(case: Case, tissue: str | None = None) -> ToolResult:
     if not r.ok:
         return failed("eqtl_lookup", args, "GTEx", "genetic", r)
     rows = r.data.get("data", [])
+    where = ""
     if tissue:
         t = tissue.lower().replace(" - ", "_").replace(" ", "_")
-        rows = [x for x in rows if t in x["tissueSiteDetailId"].lower()]
+        tr = case.http.get(f"{GTEX_TISSUES}?datasetId=gtex_v8&itemsPerPage=250")
+        if not tr.ok:
+            return failed("eqtl_lookup", args, "GTEx", "genetic", tr)
+        known = [x["tissueSiteDetailId"] for x in tr.data.get("data", [])]
+        matched = [k for k in known if t in k.lower()]
+        if not matched:
+            return failed("eqtl_lookup", args, "GTEx", "genetic",
+                          message=f"no GTEx v8 tissue matches '{tissue}'; tissues include {', '.join(known[:15])}")
+        rows = [x for x in rows if x["tissueSiteDetailId"] in matched]
+        where = f" in {', '.join(matched)}"
     rows.sort(key=lambda x: x["pValue"])
-    lines = [f"{len(rows)} significant GTEx v8 single-tissue eQTLs for {case.gtex}"
-             + (f" in tissues matching '{tissue}'" if tissue else "") + ". NES is the effect of the alt allele "
-             f"({case.variant.alt}) relative to ref ({case.variant.ref})."]
-    lines += [f"{x['geneSymbol']} in {x['tissueSiteDetailId']}: NES {x['nes']:+.2f}, p {fmt_p(x['pValue'])}"
-              for x in rows[:15]]
+    if rows:
+        status = "found"
+        lines = [f"{len(rows)} significant GTEx v8 single-tissue eQTLs for {case.gtex}{where}. NES is the effect of the "
+                 f"alt allele ({case.variant.alt}) relative to ref ({case.variant.ref})."]
+        lines += [f"{x['geneSymbol']} in {x['tissueSiteDetailId']}: NES {x['nes']:+.2f}, p {fmt_p(x['pValue'])}"
+                  for x in rows[:15]]
+    else:                                   # no eQTL listed: was the variant tested at all?
+        vr = case.http.get(f"{GTEX_VARIANT}?variantId={case.gtex}&datasetId=gtex_v8")
+        if not vr.ok:
+            return failed("eqtl_lookup", args, "GTEx", "genetic", vr)
+        info = (vr.data.get("data") or [None])[0]
+        if info is None:
+            status, text = "not_tested", f"GTEx v8 has no genotype for {case.gtex}, so it says nothing about eQTLs here."
+        elif not info.get("maf01"):
+            status, text = "not_tested", (f"{case.gtex} is below 1% minor-allele frequency in GTEx v8, which maps eQTLs "
+                                          "for common variants only, so GTEx says nothing about eQTLs here.")
+        else:
+            status, text = "tested_negative", (f"GTEx v8 tested {case.gtex}: no significant single-tissue eQTL"
+                                               f"{where or ' in any tissue'}.")
+        lines = [text]
     return ToolResult("eqtl_lookup", args, "\n".join(lines), rows, "GTEx Portal API v2 (gtex_v8)", url, "genetic",
-                      retrieved_utc=r.retrieved_utc)
+                      retrieved_utc=r.retrieved_utc, status=status)
 
 
 def gene_disease(case: Case, gene: str, ensembl_id: str | None = None) -> ToolResult:
@@ -121,11 +157,12 @@ def gene_disease(case: Case, gene: str, ensembl_id: str | None = None) -> ToolRe
         return failed("gene_disease", args, "Open Targets", "genetic", r)
     rows = r.data["data"]["target"]["associatedDiseases"]["rows"]
     if not rows:
-        summary = f"Open Targets: no association between {gene} and {dname} ({did})."
+        summary = (f"Open Targets: no association between {gene} and {dname} ({did}); no evidence there links "
+                   "them.")
     else:
         x = rows[0]
         kinds = ", ".join(f"{d['id']} {d['score']:.2f}" for d in sorted(x["datatypeScores"], key=lambda d: -d["score"]))
         summary = (f"Open Targets: {gene} and {x['disease']['name']} ({did}), overall score {x['score']:.2f}; "
                    f"by evidence type: {kinds}")
     return ToolResult("gene_disease", args, summary, {"disease_id": did, "rows": rows}, "Open Targets Platform", OT,
-                      "genetic", retrieved_utc=r.retrieved_utc)
+                      "genetic", retrieved_utc=r.retrieved_utc, status="found" if rows else "tested_negative")

@@ -1,0 +1,69 @@
+Task: plan the next round from the updated graph.
+
+- Large evidence sets are compact indices, not discarded candidates. Use computational evidence_inspect to read
+  original records by evidence_ids or query/offset before making claims requiring their detail. Repeated database
+  associations are not independent experimental confirmation and should not dominate investigation of a molecular gap.
+- Inspect verified variant_mapping observations before declaring a build/strand identity gap. A source-supported
+  paper-local alias and an NCBI placement can connect a paper's notation to the case; an rsID alone never excuses
+  the wrong alternate allele. Normalised evidence retains the paper record and the mapping provenance in data.
+- Adopt a supported reporter-scoped claim even when the endogenous mechanism remains unresolved. Add the narrower
+  claim to the hypothesis; do not replace an unresolved endogenous link with a reporter and call the chain complete.
+
+- Read the new evidence, the investigators' answers and every refused update with its reason.
+- Adopt observations before requesting more retrieval. For each observation in this plan's required review queue, either link it to
+  an appropriate claim, or give an evidence_decision: represented (claim_refs must name claims with accepted
+  non-context links in a hypothesis), defer (reason and revisit_trigger), or set_aside (a scientific scope reason).
+  Context-only for an existing claim is a relationship to THAT claim, not a judgement that the observation is weak.
+  A different measured TF, target, direction or context can motivate a new claim without refuting the old claim.
+  A mention, wrong variant, untested context or authors' speculation is not a reason to assert a supported mechanism.
+  The queue is bounded to six groups per plan. All others remain pending without a biological judgement; do not
+  invent hundreds of deferrals just to empty the store. Experimental observations are prioritised over bulk associations.
+- new_hypotheses: bounded discoveries, each with basis_evidence_ids and a sketch in the proposal format. Reuse
+  surviving claims; replaces must be null. These are allowed while old hypotheses are still viable; no rejection
+  or regeneration is needed. Defer a lower-priority hypothesis with a reason/trigger if an active slot is needed.
+  A supported molecular claim can anchor a partial mechanism with explicitly unresolved downstream links.
+- inferred_candidates: newly evidenced contexts or traits, with basis evidence ids; never treat them as supplied.
+- A newly observed factor does not need to pass a QBiC significance gate to be considered. Ask qbic_tf_detail when
+  that prediction would answer a useful question, not as permission to use experimental evidence.
+- Changing only a title or summary is not graph revision. Add the scoped claim and evidence link, and include it
+  in the hypothesis when it changes that mechanism. Do not copy TF-specific evidence to another TF.
+- If an observation is already linked to a claim but still awaits adoption, repair the claim's membership in the
+  appropriate scoped hypothesis (or explicitly defer it). Re-linking the same observation is an acknowledged no-op,
+  not progress. Keep different measured traits/populations as visible branches within their related family. Do not
+  repeatedly propose an identical branch; inspect the accepted hypothesis id and retained claims after a merge.
+- Before a further read/search, name the expected new observation and how it would change a claim or comparison.
+  Reuse passages already read. Changing focus wording alone is not progress; retry a refused extraction only for
+  a specific correctable problem, and stop/defer if the available source cannot fill the gap.
+- hypothesis_updates: revise; defer (with a revisit_trigger); activate (within the active limit); reject (only with a
+  contradicted required claim); supersede_claim (a materially different claim: another TF, direction, target or
+  context; no evidence is carried over, so link the evidence for the new claim); add_claim (an existing claim id or a
+  new claim); replace_required_claim (local repair: every other claim and its evidence stays). When an investigator
+  has superseded a required claim, swap the replacement in with replace_required_claim.
+- A hypothesis code reinstated (the contradiction that rejected it was withdrawn) is deferred like any other: activate
+  it, within the limit, only when a question could still test it; a reinstatement is not support.
+- assessments: set a claim's assessment only from its linked evidence, with the version shown as base_version.
+- questions: the next discriminating questions with their actions, or none.
+- stop: true, with a reason, when no affordable question could change a required claim or the comparison.
+- Return JSON matching the schema.
+- A new hypothesis must link at least one of its basis_evidence_ids to a new or reused scoped claim with a
+  non-context stance. The rest of the chain may remain unresolved; this requirement does not establish mediation.
+
+- Inspect the mechanistic resolution gaps. A variant overlapping an enhancer is not evidence of altered activity;
+  an allele-to-activity result does not by itself explain the molecular mediator. Preserve supported parts and ask
+  what experiment could distinguish the missing link, without forcing a TF explanation or a complete disease chain.
+- Before concluding primary evidence was not found, try a broad variant/locus query if all searches required assay,
+  TF or context terms. Follow a relevant review's returned reference identifiers to the cited paper itself. Ask for
+  a reference label/id if missing from the bounded list; do not repeat generic focus 'references'. A bibliography
+  pointer is discovery metadata, not support for a claim. If a cited paper has only a DOI/title, search that exact
+  identifier/title to obtain its PMID/PMCID. Record inaccessible text as a retrieval gap, not contrary evidence.
+- The persistent discovery-lead list contains papers found earlier but not yet read in full. Resolve a core
+  mechanistic gap using a relevant primary lead before expanding peripheral trait/population branches or rerunning
+  overlapping searches. Existing association evidence can be adopted without another literature extraction.
+- If searching for alternative assays, use OR between alternatives; do not require every possible assay (e.g. both
+  a reporter and a binding experiment) in the same paper. If a direction link is refused, read the recorded effect
+  allele and observation direction and repair the scoped claim, never weaken the evidence guard.
+
+Variant identity is three-state. A source-specific name with no verified mapping is unresolved, never evidence
+that it is a different variant. Preserve paper-scoped experiments and give the mapping a bounded investigation.
+Use verified catalogue aliases from the case header in literature queries. A rejected extraction is a processing
+gap; repair the original read/location before searching elsewhere. Repeated abstract text is not new information.

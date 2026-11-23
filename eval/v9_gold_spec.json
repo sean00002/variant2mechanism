@@ -1,0 +1,2341 @@
+{
+ "spec_version": "v9-gold-spec/2",
+ "status": "unreviewed",
+ "about": "Evaluator-only gold claim specification, built mechanically from the gold CSV by variant2mechanism.v9.evaluation.build_gold_spec. Review every needs_review item, then set status to 'reviewed'; until then every score against this spec is provisional. The CSV is never edited; the engine never reads this file.",
+ "source": {
+  "csv": "data/gold_set.csv",
+  "csv_sha256": "cf4fee641b275875468bb715c3737c4b5d8a7933241de08635147c3f74531ebc",
+  "groups_sha256": "892098bd42c1308ff966847fe53cbc04f683e2ee569bba7c8a3a8b6c51497fe7",
+  "hgnc_sha256": "12363916be36f8f6f91879b0faade4eeaac973722de7136ec61329b77f2c2f91",
+  "lambert_sha256": "5438940ddef71b6fb8017af609e7599338159f47e2e03ca0439dc0711a8d4cc9",
+  "biosamples_sha256": "ee66a81c117ad8a43dac225a75cb6a2ba3a796d2901d456432ccd3d05f1ec748"
+ },
+ "rules": {
+  "tf_member": "strict: the answer names the gold TF itself (HGNC symbol), as a TF or as a participant of a complex or binding event; naming its model-sharing group is not member credit",
+  "tf_group": "lenient: the answer names a QBiC-SELEX model-sharing group holding the gold TF (cache/groups.json), or any TF of such a group",
+  "tf_family": "lenient: the answer names any TF of the gold TF's Lambert 2018 DBD family; not applicable when the gold TF is not in QBiC-SELEX coverage (score_level not_in_coverage), because the right answer there is that it cannot be assessed, not a modelled relative",
+  "direction": "the binding change of the alt allele relative to ref, read from the direction text; compared with the answer's alters_binding claims about a TF matching at member, group or family level (member level only when the gold TF is not in QBiC-SELEX coverage)",
+  "target_gene": "the answer names one of the genes (HGNC symbols)",
+  "context": "an answer context matches a gold scope exactly or as a proxy (v9 context_match)",
+  "phenotype": "the answer's endpoint or a phenotype it names contains every word of a gold trait; not scored when the run was given the disease",
+  "answer": "the claims that stand of the leading or tied hypotheses the run's result names (a result decided without a final comparison names none, and the audit names none in its place): a claim the run assessed contradicted_in_scope, a superseded claim and a claim about another variant (by the graph's claim_frame, under which an rsID code recorded for the case variant, or its chrom:pos, names the case) earn nothing",
+  "outcome": "an explanation (leading_explanation, partial_mechanism, multiple_explanations), an abstention (no_supported_explanation) or a limitation (input_or_capability_limitation). A run stopped by engine_error or cache_miss, whatever outcome it recorded, or refused as input (input_invalid, unsupported_variant), assessed nothing: a case-level failure to report and rerun, scored as neither a miss nor an abstention nor a control's null. A limitation the run concluded itself is its answer",
+  "controls": "no component applies: the audit records the outcome and any supported causal claim of the answer (controls are evidence-sparse comparisons, not established biological nulls); a run that assessed nothing is not a null",
+  "denominators": "a component counts only where it applies, the run assessed the case (see outcome), the run was not given it as input and its gold value is defined",
+  "review": "every score is provisional until the spec's status is 'reviewed'; after that, a component still marked needs_review stays provisional",
+  "row": "each case keeps its CSV row as read: the isolation check derives the gold label strings from it, so it is never edited in the review (the CSV is the source)"
+ },
+ "cases": [
+  {
+   "case_id": "tert_c228t",
+   "label_class": "tf_mechanism_cancer",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:5:1295113:G:A",
+    "chrom": "5",
+    "pos": 1295113,
+    "ref": "G",
+    "alt": "A"
+   },
+   "origin": "somatic",
+   "qbic_coverage": "tf",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr5:1295113:G>A",
+     "origin": "somatic",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-9b6f5f51abae",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr5:1295113:G>A",
+     "origin": "somatic",
+     "disease": [
+      "Glioblastoma, melanoma, bladder"
+     ],
+     "context": [],
+     "request_id": "REQ-9464ac678e86",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "GABPA"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G003",
+       "label": "Ets, 18 models",
+       "dbd": "Ets",
+       "tfs": [
+        "EHF",
+        "ELF1",
+        "ELF2",
+        "ELF3",
+        "ELF4",
+        "ELF5",
+        "ELK1",
+        "ELK3",
+        "ELK4",
+        "ERF",
+        "ERG",
+        "ETS1",
+        "ETS2",
+        "ETV1",
+        "ETV2",
+        "ETV3",
+        "ETV3L",
+        "ETV4",
+        "ETV5",
+        "ETV6",
+        "ETV7",
+        "FEV",
+        "FLI1",
+        "GABPA",
+        "SPDEF"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "Ets"
+     ],
+     "csv_family": "ETS",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": true,
+     "text": "gain",
+     "alt_direction": null,
+     "binds_more": null,
+     "clauses": [],
+     "needs_review": true,
+     "review_reasons": [
+      "'gain' names no allele with a binding change: state which allele binds more"
+     ]
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "TERT"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": true,
+     "text": "Glioblastoma; melanoma",
+     "scopes": [
+      {
+       "label": "Glioblastoma",
+       "recognised": false,
+       "scope": {
+        "label": "Glioblastoma",
+        "biosample": "Glioblastoma",
+        "biosample_kind": "unknown",
+        "tissue": "brain",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "melanoma",
+       "recognised": false,
+       "scope": {
+        "label": "melanoma",
+        "biosample": "melanoma",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: Glioblastoma, melanoma",
+      "several contexts listed; recovery counts any of them"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Glioblastoma, melanoma, bladder",
+     "labels": [
+      "Glioblastoma",
+      "melanoma",
+      "bladder"
+     ],
+     "bracketed": [],
+     "needs_review": true,
+     "review_reasons": [
+      "several traits listed; recovery counts any of them"
+     ]
+    }
+   },
+   "alternatives": [],
+   "source": "25977370",
+   "notes": "TERT is on the minus strand: C228T is G>A on the plus strand. Creates an ETS motif that cooperates with native ETS sites to recruit the GABP heterotetramer. Whole ETS family will score; expression must narrow to GABPA.",
+   "needs_review": true,
+   "review_reasons": [
+    "direction: 'gain' names no allele with a binding change: state which allele binds more",
+    "context: not in the biosample table: Glioblastoma, melanoma",
+    "context: several contexts listed; recovery counts any of them",
+    "phenotype: several traits listed; recovery counts any of them"
+   ],
+   "row": {
+    "case_id": "tert_c228t",
+    "variant": "TERT promoter C228T",
+    "chrom": "chr5",
+    "pos_grch38": "1295113",
+    "ref": "G",
+    "alt": "A",
+    "origin": "somatic",
+    "disease_or_trait": "Glioblastoma, melanoma, bladder",
+    "causal_tf": "GABPA",
+    "tf_family": "ETS",
+    "direction": "gain",
+    "target_gene": "TERT",
+    "tissue_or_cell_type": "Glioblastoma; melanoma",
+    "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+    "qbic_model": "GABPA (own model; 17 other ETS models in its CIS-BP group)",
+    "score_level": "tf",
+    "label_class": "tf_mechanism_cancer",
+    "source_pmid_or_ref": "25977370",
+    "notes": "TERT is on the minus strand: C228T is G>A on the plus strand. Creates an ETS motif that cooperates with native ETS sites to recruit the GABP heterotetramer. Whole ETS family will score; expression must narrow to GABPA."
+   }
+  },
+  {
+   "case_id": "tert_c250t",
+   "label_class": "tf_mechanism_cancer",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:5:1295135:G:A",
+    "chrom": "5",
+    "pos": 1295135,
+    "ref": "G",
+    "alt": "A"
+   },
+   "origin": "somatic",
+   "qbic_coverage": "tf",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr5:1295135:G>A",
+     "origin": "somatic",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-9287615eba24",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr5:1295135:G>A",
+     "origin": "somatic",
+     "disease": [
+      "Glioblastoma, melanoma, bladder"
+     ],
+     "context": [],
+     "request_id": "REQ-af92c6fbb8ca",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "GABPA"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G003",
+       "label": "Ets, 18 models",
+       "dbd": "Ets",
+       "tfs": [
+        "EHF",
+        "ELF1",
+        "ELF2",
+        "ELF3",
+        "ELF4",
+        "ELF5",
+        "ELK1",
+        "ELK3",
+        "ELK4",
+        "ERF",
+        "ERG",
+        "ETS1",
+        "ETS2",
+        "ETV1",
+        "ETV2",
+        "ETV3",
+        "ETV3L",
+        "ETV4",
+        "ETV5",
+        "ETV6",
+        "ETV7",
+        "FEV",
+        "FLI1",
+        "GABPA",
+        "SPDEF"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "Ets"
+     ],
+     "csv_family": "ETS",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": true,
+     "text": "gain",
+     "alt_direction": null,
+     "binds_more": null,
+     "clauses": [],
+     "needs_review": true,
+     "review_reasons": [
+      "'gain' names no allele with a binding change: state which allele binds more"
+     ]
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "TERT"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": true,
+     "text": "Glioblastoma; melanoma",
+     "scopes": [
+      {
+       "label": "Glioblastoma",
+       "recognised": false,
+       "scope": {
+        "label": "Glioblastoma",
+        "biosample": "Glioblastoma",
+        "biosample_kind": "unknown",
+        "tissue": "brain",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "melanoma",
+       "recognised": false,
+       "scope": {
+        "label": "melanoma",
+        "biosample": "melanoma",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: Glioblastoma, melanoma",
+      "several contexts listed; recovery counts any of them"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Glioblastoma, melanoma, bladder",
+     "labels": [
+      "Glioblastoma",
+      "melanoma",
+      "bladder"
+     ],
+     "bracketed": [],
+     "needs_review": true,
+     "review_reasons": [
+      "several traits listed; recovery counts any of them"
+     ]
+    }
+   },
+   "alternatives": [],
+   "source": "25977370",
+   "notes": "Second hotspot, same mechanism as C228T. G>A on the plus strand.",
+   "needs_review": true,
+   "review_reasons": [
+    "direction: 'gain' names no allele with a binding change: state which allele binds more",
+    "context: not in the biosample table: Glioblastoma, melanoma",
+    "context: several contexts listed; recovery counts any of them",
+    "phenotype: several traits listed; recovery counts any of them"
+   ],
+   "row": {
+    "case_id": "tert_c250t",
+    "variant": "TERT promoter C250T",
+    "chrom": "chr5",
+    "pos_grch38": "1295135",
+    "ref": "G",
+    "alt": "A",
+    "origin": "somatic",
+    "disease_or_trait": "Glioblastoma, melanoma, bladder",
+    "causal_tf": "GABPA",
+    "tf_family": "ETS",
+    "direction": "gain",
+    "target_gene": "TERT",
+    "tissue_or_cell_type": "Glioblastoma; melanoma",
+    "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+    "qbic_model": "GABPA (own model; 17 other ETS models in its CIS-BP group)",
+    "score_level": "tf",
+    "label_class": "tf_mechanism_cancer",
+    "source_pmid_or_ref": "25977370",
+    "notes": "Second hotspot, same mechanism as C228T. G>A on the plus strand."
+   }
+  },
+  {
+   "case_id": "rs6983267",
+   "label_class": "tf_mechanism_cancer",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:8:127401060:G:T",
+    "chrom": "8",
+    "pos": 127401060,
+    "ref": "G",
+    "alt": "T"
+   },
+   "origin": "germline",
+   "qbic_coverage": "mapped",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr8:127401060:G>T",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-1c2bf76164ac",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr8:127401060:G>T",
+     "origin": "germline",
+     "disease": [
+      "Colorectal cancer"
+     ],
+     "context": [],
+     "request_id": "REQ-520b962fb5f2",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "TCF7L2"
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "the notes name POU5F1B: a possible alternative TF the CSV does not state as accepted; alternatives stay empty until reviewed"
+     ]
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G041",
+       "label": "HMG/Sox, 3 models",
+       "dbd": "HMG/Sox",
+       "tfs": [
+        "LEF1",
+        "TCF7",
+        "TCF7L1",
+        "TCF7L2"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "HMG/Sox"
+     ],
+     "csv_family": "TCF/LEF",
+     "needs_review": true,
+     "review_reasons": [
+      "the CSV family 'TCF/LEF' is not the Lambert DBD 'HMG/Sox'; family credit uses the Lambert DBD"
+     ]
+    },
+    "direction": {
+     "applicable": true,
+     "text": "risk G binds more strongly",
+     "alt_direction": "decreases",
+     "binds_more": "ref",
+     "clauses": [
+      {
+       "text": "risk G binds more strongly",
+       "allele": "G",
+       "side": "ref",
+       "alt_direction": "decreases"
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "MYC"
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "the notes name POU5F1B: a possible alternative target gene the CSV does not state as accepted; alternatives stay empty until reviewed"
+     ]
+    },
+    "context": {
+     "applicable": true,
+     "text": "Colorectal (HCT116/Colo205)",
+     "scopes": [
+      {
+       "label": "Colorectal",
+       "recognised": false,
+       "scope": {
+        "label": "Colorectal",
+        "biosample": "Colorectal",
+        "biosample_kind": "unknown",
+        "tissue": "colon",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "HCT116",
+       "recognised": true,
+       "scope": {
+        "label": "HCT116",
+        "biosample": "HCT116",
+        "biosample_kind": "cell_line",
+        "tissue": "colon",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "Colo205",
+       "recognised": false,
+       "scope": {
+        "label": "Colo205",
+        "biosample": "Colo205",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: Colorectal, Colo205"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Colorectal cancer",
+     "labels": [
+      "Colorectal cancer"
+     ],
+     "bracketed": [
+      "8q24"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "19561607",
+   "notes": "Risk allele is the reference G. No clear genotype-to-MYC-expression link, so label the target gene with caution. TCF7L2 is named through its mapped models. Open Targets L2G and GTEx eQTLs point to POU5F1B rather than MYC.",
+   "needs_review": true,
+   "review_reasons": [
+    "tf_member: the notes name POU5F1B: a possible alternative TF the CSV does not state as accepted; alternatives stay empty until reviewed",
+    "tf_family: the CSV family 'TCF/LEF' is not the Lambert DBD 'HMG/Sox'; family credit uses the Lambert DBD",
+    "target_gene: the notes name POU5F1B: a possible alternative target gene the CSV does not state as accepted; alternatives stay empty until reviewed",
+    "context: not in the biosample table: Colorectal, Colo205"
+   ],
+   "row": {
+    "case_id": "rs6983267",
+    "variant": "rs6983267",
+    "chrom": "chr8",
+    "pos_grch38": "127401060",
+    "ref": "G",
+    "alt": "T",
+    "origin": "germline",
+    "disease_or_trait": "Colorectal cancer (8q24)",
+    "causal_tf": "TCF7L2",
+    "tf_family": "TCF/LEF",
+    "direction": "risk G binds more strongly",
+    "target_gene": "MYC",
+    "tissue_or_cell_type": "Colorectal (HCT116/Colo205)",
+    "expression_context": "DepMap:ACH-000971 (HCT 116)",
+    "qbic_model": "none for TCF7L2; covered through CIS-BP-mapped LEF1, TCF7 and TCF7L1 models",
+    "score_level": "mapped",
+    "label_class": "tf_mechanism_cancer",
+    "source_pmid_or_ref": "19561607",
+    "notes": "Risk allele is the reference G. No clear genotype-to-MYC-expression link, so label the target gene with caution. TCF7L2 is named through its mapped models. Open Targets L2G and GTEx eQTLs point to POU5F1B rather than MYC."
+   }
+  },
+  {
+   "case_id": "rs4784227",
+   "label_class": "tf_mechanism_cancer",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:16:52565276:C:T",
+    "chrom": "16",
+    "pos": 52565276,
+    "ref": "C",
+    "alt": "T"
+   },
+   "origin": "germline",
+   "qbic_coverage": "tf",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr16:52565276:C>T",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-9a2766479625",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr16:52565276:C>T",
+     "origin": "germline",
+     "disease": [
+      "Breast cancer"
+     ],
+     "context": [],
+     "request_id": "REQ-12f158e4015c",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "FOXA1"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G022",
+       "label": "Forkhead, 4 models",
+       "dbd": "Forkhead",
+       "tfs": [
+        "FOXA1",
+        "FOXA2",
+        "FOXA3",
+        "FOXB1",
+        "FOXB2",
+        "FOXS1"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "Forkhead"
+     ],
+     "csv_family": "Forkhead",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": true,
+     "text": "risk T gains binding, enhancer weakens",
+     "alt_direction": "increases",
+     "binds_more": "alt",
+     "clauses": [
+      {
+       "text": "risk T gains binding",
+       "allele": "T",
+       "side": "alt",
+       "alt_direction": "increases"
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not read as a binding change: enhancer weakens"
+     ]
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "TOX3"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": true,
+     "text": "Breast (MCF7/T47D)",
+     "scopes": [
+      {
+       "label": "Breast",
+       "recognised": true,
+       "scope": {
+        "label": "Breast",
+        "biosample": null,
+        "biosample_kind": "tissue",
+        "tissue": "breast",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "MCF7",
+       "recognised": true,
+       "scope": {
+        "label": "MCF7",
+        "biosample": "MCF-7",
+        "biosample_kind": "cell_line",
+        "tissue": "breast",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "T47D",
+       "recognised": false,
+       "scope": {
+        "label": "T47D",
+        "biosample": "T47D",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: T47D"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Breast cancer",
+     "labels": [
+      "Breast cancer"
+     ],
+     "bracketed": [
+      "16q12"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "23001124",
+   "notes": "Binding gain but expression loss: FOXA1 recruits the TLE co-repressor, H3K9Ac drops, TOX3 falls about five-fold. Tests whether the agent assumes more binding means activation.",
+   "needs_review": true,
+   "review_reasons": [
+    "direction: not read as a binding change: enhancer weakens",
+    "context: not in the biosample table: T47D"
+   ],
+   "row": {
+    "case_id": "rs4784227",
+    "variant": "rs4784227",
+    "chrom": "chr16",
+    "pos_grch38": "52565276",
+    "ref": "C",
+    "alt": "T",
+    "origin": "germline",
+    "disease_or_trait": "Breast cancer (16q12)",
+    "causal_tf": "FOXA1",
+    "tf_family": "Forkhead",
+    "direction": "risk T gains binding, enhancer weakens",
+    "target_gene": "TOX3",
+    "tissue_or_cell_type": "Breast (MCF7/T47D)",
+    "expression_context": "DepMap:ACH-000019 (MCF7)",
+    "qbic_model": "FOXA1",
+    "score_level": "tf",
+    "label_class": "tf_mechanism_cancer",
+    "source_pmid_or_ref": "23001124",
+    "notes": "Binding gain but expression loss: FOXA1 recruits the TLE co-repressor, H3K9Ac drops, TOX3 falls about five-fold. Tests whether the agent assumes more binding means activation."
+   }
+  },
+  {
+   "case_id": "rs339331",
+   "label_class": "tf_mechanism_cancer",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:6:116888889:T:C",
+    "chrom": "6",
+    "pos": 116888889,
+    "ref": "T",
+    "alt": "C"
+   },
+   "origin": "germline",
+   "qbic_coverage": "tf",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr6:116888889:T>C",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-12f98a50d718",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr6:116888889:T>C",
+     "origin": "germline",
+     "disease": [
+      "Prostate cancer"
+     ],
+     "context": [],
+     "request_id": "REQ-eb32d2c2dd33",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "HOXB13"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G024",
+       "label": "Homeodomain, 4 models",
+       "dbd": "Homeodomain",
+       "tfs": [
+        "HOXA13",
+        "HOXB13",
+        "HOXC13",
+        "HOXD13"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "Homeodomain"
+     ],
+     "csv_family": "Homeodomain",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": true,
+     "text": "risk T gains binding",
+     "alt_direction": "decreases",
+     "binds_more": "ref",
+     "clauses": [
+      {
+       "text": "risk T gains binding",
+       "allele": "T",
+       "side": "ref",
+       "alt_direction": "decreases"
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "RFX6"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": true,
+     "text": "Prostate (LNCaP/VCaP)",
+     "scopes": [
+      {
+       "label": "Prostate",
+       "recognised": true,
+       "scope": {
+        "label": "Prostate",
+        "biosample": null,
+        "biosample_kind": "tissue",
+        "tissue": "prostate",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "LNCaP",
+       "recognised": true,
+       "scope": {
+        "label": "LNCaP",
+        "biosample": "LNCaP clone FGC",
+        "biosample_kind": "cell_line",
+        "tissue": "prostate",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "VCaP",
+       "recognised": false,
+       "scope": {
+        "label": "VCaP",
+        "biosample": "VCaP",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: VCaP"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Prostate cancer",
+     "labels": [
+      "Prostate cancer"
+     ],
+     "bracketed": [
+      "6q22"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "24390282",
+   "notes": "Risk allele is the reference T; the alt C is the non-risk allele, so ref/alt orientation is the reverse of the usual risk-is-alt pattern.",
+   "needs_review": true,
+   "review_reasons": [
+    "context: not in the biosample table: VCaP"
+   ],
+   "row": {
+    "case_id": "rs339331",
+    "variant": "rs339331",
+    "chrom": "chr6",
+    "pos_grch38": "116888889",
+    "ref": "T",
+    "alt": "C",
+    "origin": "germline",
+    "disease_or_trait": "Prostate cancer (6q22)",
+    "causal_tf": "HOXB13",
+    "tf_family": "Homeodomain",
+    "direction": "risk T gains binding",
+    "target_gene": "RFX6",
+    "tissue_or_cell_type": "Prostate (LNCaP/VCaP)",
+    "expression_context": "DepMap:ACH-000977 (LNCaP clone FGC)",
+    "qbic_model": "HOXB13",
+    "score_level": "tf",
+    "label_class": "tf_mechanism_cancer",
+    "source_pmid_or_ref": "24390282",
+    "notes": "Risk allele is the reference T; the alt C is the non-risk allele, so ref/alt orientation is the reverse of the usual risk-is-alt pattern."
+   }
+  },
+  {
+   "case_id": "rs2168101",
+   "label_class": "tf_mechanism_cancer",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:11:8233861:C:A",
+    "chrom": "11",
+    "pos": 8233861,
+    "ref": "C",
+    "alt": "A"
+   },
+   "origin": "germline",
+   "qbic_coverage": "tf",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr11:8233861:C>A",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-d88069fdc35c",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr11:8233861:C>A",
+     "origin": "germline",
+     "disease": [
+      "Neuroblastoma"
+     ],
+     "context": [],
+     "request_id": "REQ-4511c59dd978",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "GATA3"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G010",
+       "label": "GATA, 6 models",
+       "dbd": "GATA",
+       "tfs": [
+        "GATA1",
+        "GATA2",
+        "GATA3",
+        "GATA4",
+        "GATA5",
+        "GATA6"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "GATA"
+     ],
+     "csv_family": "GATA",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": true,
+     "text": "protective alt loses binding",
+     "alt_direction": "decreases",
+     "binds_more": "ref",
+     "clauses": [
+      {
+       "text": "protective alt loses binding",
+       "allele": "A",
+       "side": "alt",
+       "alt_direction": "decreases"
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "LMO1"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": true,
+     "text": "Neuroblastoma (SK-N-SH, SH-SY5Y)",
+     "scopes": [
+      {
+       "label": "Neuroblastoma",
+       "recognised": false,
+       "scope": {
+        "label": "Neuroblastoma",
+        "biosample": "Neuroblastoma",
+        "biosample_kind": "unknown",
+        "tissue": "peripheral nervous system",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "SK-N-SH",
+       "recognised": true,
+       "scope": {
+        "label": "SK-N-SH",
+        "biosample": "SK-N-SH",
+        "biosample_kind": "cell_line",
+        "tissue": "peripheral nervous system",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "SH-SY5Y",
+       "recognised": false,
+       "scope": {
+        "label": "SH-SY5Y",
+        "biosample": "SH-SY5Y",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: Neuroblastoma, SH-SY5Y"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Neuroblastoma",
+     "labels": [
+      "Neuroblastoma"
+     ],
+     "bracketed": [
+      "LMO1"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "26560027",
+   "notes": "Direction reversed: the ancestral risk allele preserves the GATA motif and the newly evolved protective allele ablates GATA3 binding. Paper reports the SNP as G>T on the minus strand; on the plus strand it is C>A.",
+   "needs_review": true,
+   "review_reasons": [
+    "context: not in the biosample table: Neuroblastoma, SH-SY5Y"
+   ],
+   "row": {
+    "case_id": "rs2168101",
+    "variant": "rs2168101",
+    "chrom": "chr11",
+    "pos_grch38": "8233861",
+    "ref": "C",
+    "alt": "A",
+    "origin": "germline",
+    "disease_or_trait": "Neuroblastoma (LMO1)",
+    "causal_tf": "GATA3",
+    "tf_family": "GATA",
+    "direction": "protective alt loses binding",
+    "target_gene": "LMO1",
+    "tissue_or_cell_type": "Neuroblastoma (SK-N-SH, SH-SY5Y)",
+    "expression_context": "DepMap:ACH-000149 (SK-N-SH)",
+    "qbic_model": "GATA3 (+GATA1,2,4,5,6)",
+    "score_level": "tf",
+    "label_class": "tf_mechanism_cancer",
+    "source_pmid_or_ref": "26560027",
+    "notes": "Direction reversed: the ancestral risk allele preserves the GATA motif and the newly evolved protective allele ablates GATA3 binding. Paper reports the SNP as G>T on the minus strand; on the plus strand it is C>A."
+   }
+  },
+  {
+   "case_id": "rs12740374",
+   "label_class": "tf_mechanism_other",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:1:109274968:G:T",
+    "chrom": "1",
+    "pos": 109274968,
+    "ref": "G",
+    "alt": "T"
+   },
+   "origin": "germline",
+   "qbic_coverage": "tf",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr1:109274968:G>T",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-281b030b14ff",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr1:109274968:G>T",
+     "origin": "germline",
+     "disease": [
+      "LDL cholesterol, myocardial infarction"
+     ],
+     "context": [],
+     "request_id": "REQ-99724c430601",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "CEBPA"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G035",
+       "label": "bZIP, 3 models",
+       "dbd": "bZIP",
+       "tfs": [
+        "CEBPA",
+        "CEBPB",
+        "CEBPE"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "bZIP"
+     ],
+     "csv_family": "C/EBP",
+     "needs_review": true,
+     "review_reasons": [
+      "the CSV family 'C/EBP' is not the Lambert DBD 'bZIP'; family credit uses the Lambert DBD"
+     ]
+    },
+    "direction": {
+     "applicable": true,
+     "text": "minor T creates the site; major G disrupts it",
+     "alt_direction": "increases",
+     "binds_more": "alt",
+     "clauses": [
+      {
+       "text": "minor T creates the site",
+       "allele": "T",
+       "side": "alt",
+       "alt_direction": "increases"
+      },
+      {
+       "text": "major G disrupts it",
+       "allele": "G",
+       "side": "ref",
+       "alt_direction": "increases"
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "SORT1"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": true,
+     "text": "Liver (Hep3B/SK-HEP-1)",
+     "scopes": [
+      {
+       "label": "Liver",
+       "recognised": true,
+       "scope": {
+        "label": "Liver",
+        "biosample": null,
+        "biosample_kind": "tissue",
+        "tissue": "liver",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "Hep3B",
+       "recognised": true,
+       "scope": {
+        "label": "Hep3B",
+        "biosample": "Hep 3B2.1-7",
+        "biosample_kind": "cell_line",
+        "tissue": "liver",
+        "species": "human",
+        "condition": null,
+        "genotype": "GG",
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "SK-HEP-1",
+       "recognised": true,
+       "scope": {
+        "label": "SK-HEP-1",
+        "biosample": "SK-HEP-1",
+        "biosample_kind": "cell_line",
+        "tissue": "liver",
+        "species": "human",
+        "condition": null,
+        "genotype": "GT",
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "LDL cholesterol, myocardial infarction",
+     "labels": [
+      "LDL cholesterol",
+      "myocardial infarction"
+     ],
+     "bracketed": [
+      "1p13"
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "several traits listed; recovery counts any of them"
+     ]
+    }
+   },
+   "alternatives": [],
+   "source": "20686566",
+   "notes": "The alt T allele creates the C/EBP site, raises SORT1 in liver and lowers LDL. Liver-specific: no effect in adipose. Protective direction.",
+   "needs_review": true,
+   "review_reasons": [
+    "tf_family: the CSV family 'C/EBP' is not the Lambert DBD 'bZIP'; family credit uses the Lambert DBD",
+    "phenotype: several traits listed; recovery counts any of them"
+   ],
+   "row": {
+    "case_id": "rs12740374",
+    "variant": "rs12740374",
+    "chrom": "chr1",
+    "pos_grch38": "109274968",
+    "ref": "G",
+    "alt": "T",
+    "origin": "germline",
+    "disease_or_trait": "LDL cholesterol, myocardial infarction (1p13)",
+    "causal_tf": "CEBPA",
+    "tf_family": "C/EBP",
+    "direction": "minor T creates the site; major G disrupts it",
+    "target_gene": "SORT1",
+    "tissue_or_cell_type": "Liver (Hep3B/SK-HEP-1)",
+    "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+    "qbic_model": "CEBPA (own model; CEBPB and CEBPE in its CIS-BP group)",
+    "score_level": "tf",
+    "label_class": "tf_mechanism_other",
+    "source_pmid_or_ref": "20686566",
+    "notes": "The alt T allele creates the C/EBP site, raises SORT1 in liver and lowers LDL. Liver-specific: no effect in adipose. Protective direction."
+   }
+  },
+  {
+   "case_id": "rs1421085",
+   "label_class": "tf_mechanism_other",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:16:53767042:T:C",
+    "chrom": "16",
+    "pos": 53767042,
+    "ref": "T",
+    "alt": "C"
+   },
+   "origin": "germline",
+   "qbic_coverage": "not_in_coverage",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr16:53767042:T>C",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-78ffee415395",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr16:53767042:T>C",
+     "origin": "germline",
+     "disease": [
+      "Obesity"
+     ],
+     "context": [],
+     "request_id": "REQ-3d7414715752",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "ARID5B"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": false,
+     "reason": "no QBiC-SELEX model or CIS-BP mapping covers ARID5B (cache/groups.json): a capability case",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": false,
+     "reason": "ARID5B is not in QBiC-SELEX coverage: the case tests that the run says so rather than naming another TF of its family, so family credit does not apply",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": true,
+     "text": "risk C disrupts repressor motif",
+     "alt_direction": "decreases",
+     "binds_more": "ref",
+     "clauses": [
+      {
+       "text": "risk C disrupts repressor motif",
+       "allele": "C",
+       "side": "alt",
+       "alt_direction": "decreases"
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "IRX3",
+      "IRX5"
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "several genes listed; recovery counts any of them"
+     ]
+    },
+    "context": {
+     "applicable": true,
+     "text": "Preadipocytes",
+     "scopes": [
+      {
+       "label": "Preadipocytes",
+       "recognised": false,
+       "scope": {
+        "label": "Preadipocytes",
+        "biosample": "Preadipocytes",
+        "biosample_kind": "unknown",
+        "tissue": "adipose",
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: Preadipocytes"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Obesity",
+     "labels": [
+      "Obesity"
+     ],
+     "bracketed": [
+      "FTO"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "26287746",
+   "notes": "Not-in-coverage case: the correct answer is that ARID5B is not in coverage, not a different TF. ARID5B is a repressor, so losing it derepresses the enhancer.",
+   "needs_review": true,
+   "review_reasons": [
+    "target_gene: several genes listed; recovery counts any of them",
+    "context: not in the biosample table: Preadipocytes"
+   ],
+   "row": {
+    "case_id": "rs1421085",
+    "variant": "rs1421085",
+    "chrom": "chr16",
+    "pos_grch38": "53767042",
+    "ref": "T",
+    "alt": "C",
+    "origin": "germline",
+    "disease_or_trait": "Obesity (FTO)",
+    "causal_tf": "ARID5B",
+    "tf_family": "ARID",
+    "direction": "risk C disrupts repressor motif",
+    "target_gene": "IRX3, IRX5",
+    "tissue_or_cell_type": "Preadipocytes",
+    "expression_context": "GTEx:Adipose - Subcutaneous (proxy for preadipocytes)",
+    "qbic_model": "not in coverage (no ARID5B model or CIS-BP mapping)",
+    "score_level": "not_in_coverage",
+    "label_class": "tf_mechanism_other",
+    "source_pmid_or_ref": "26287746",
+    "notes": "Not-in-coverage case: the correct answer is that ARID5B is not in coverage, not a different TF. ARID5B is a repressor, so losing it derepresses the enhancer."
+   }
+  },
+  {
+   "case_id": "rs642961",
+   "label_class": "tf_mechanism_other",
+   "control": false,
+   "variant": {
+    "key": "GRCh38:1:209815925:A:G",
+    "chrom": "1",
+    "pos": 209815925,
+    "ref": "A",
+    "alt": "G"
+   },
+   "origin": "germline",
+   "qbic_coverage": "tf",
+   "expected": "the published TF mechanism, by component",
+   "requests": {
+    "main": {
+     "variant": "chr1:209815925:A>G",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-45ce1e858e9c",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr1:209815925:A>G",
+     "origin": "germline",
+     "disease": [
+      "Cleft lip"
+     ],
+     "context": [],
+     "request_id": "REQ-bc853babdf6c",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": true,
+     "tfs": [
+      "TFAP2A"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": true,
+     "groups": [
+      {
+       "id": "G030",
+       "label": "AP-2, 4 models",
+       "dbd": "AP-2",
+       "tfs": [
+        "TFAP2A",
+        "TFAP2B",
+        "TFAP2C",
+        "TFAP2D",
+        "TFAP2E"
+       ]
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": true,
+     "dbd": [
+      "AP-2"
+     ],
+     "csv_family": "AP-2",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": true,
+     "text": "risk A disrupts the site",
+     "alt_direction": "increases",
+     "binds_more": "alt",
+     "clauses": [
+      {
+       "text": "risk A disrupts the site",
+       "allele": "A",
+       "side": "ref",
+       "alt_direction": "increases"
+      }
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": true,
+     "genes": [
+      "IRF6"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": true,
+     "text": "Craniofacial (embryonic)",
+     "scopes": [
+      {
+       "label": "Craniofacial",
+       "recognised": false,
+       "scope": {
+        "label": "Craniofacial",
+        "biosample": "Craniofacial",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      },
+      {
+       "label": "embryonic",
+       "recognised": false,
+       "scope": {
+        "label": "embryonic",
+        "biosample": "embryonic",
+        "biosample_kind": "unknown",
+        "tissue": null,
+        "species": "human",
+        "condition": null,
+        "genotype": null,
+        "source": "unspecified"
+       }
+      }
+     ],
+     "needs_review": true,
+     "review_reasons": [
+      "not in the biosample table: Craniofacial, embryonic"
+     ]
+    },
+    "phenotype": {
+     "applicable": true,
+     "text": "Cleft lip",
+     "labels": [
+      "Cleft lip"
+     ],
+     "bracketed": [
+      "IRF6"
+     ],
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "18836445",
+   "notes": "Paper reports rs642961 as G>A with A the risk allele; dbSNP lists A as reference on the plus strand, so the risk allele is the reference here. TFAP2A has its own model, filed under the old experiment label Tcfap2a; resolve it by HGNC symbol.",
+   "needs_review": true,
+   "review_reasons": [
+    "context: not in the biosample table: Craniofacial, embryonic"
+   ],
+   "row": {
+    "case_id": "rs642961",
+    "variant": "rs642961",
+    "chrom": "chr1",
+    "pos_grch38": "209815925",
+    "ref": "A",
+    "alt": "G",
+    "origin": "germline",
+    "disease_or_trait": "Cleft lip (IRF6)",
+    "causal_tf": "TFAP2A",
+    "tf_family": "AP-2",
+    "direction": "risk A disrupts the site",
+    "target_gene": "IRF6",
+    "tissue_or_cell_type": "Craniofacial (embryonic)",
+    "expression_context": "none (embryonic craniofacial tissue; no matching dataset)",
+    "qbic_model": "TFAP2A (own model, experiment label Tcfap2a); TFAP2B, TFAP2C and TFAP2E in its CIS-BP group",
+    "score_level": "tf",
+    "label_class": "tf_mechanism_other",
+    "source_pmid_or_ref": "18836445",
+    "notes": "Paper reports rs642961 as G>A with A the risk allele; dbSNP lists A as reference on the plus strand, so the risk allele is the reference here. TFAP2A has its own model, filed under the old experiment label Tcfap2a; resolve it by HGNC symbol."
+   }
+  },
+  {
+   "case_id": "rs13078086",
+   "label_class": "control_random",
+   "control": true,
+   "variant": {
+    "key": "GRCh38:3:191441666:T:G",
+    "chrom": "3",
+    "pos": 191441666,
+    "ref": "T",
+    "alt": "G"
+   },
+   "origin": "germline",
+   "qbic_coverage": "control",
+   "expected": "null: no TF mechanism expected (an evidence-sparse comparison, not an established biological null)",
+   "requests": {
+    "main": {
+     "variant": "chr3:191441666:T>G",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-3de2796567aa",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr3:191441666:T>G",
+     "origin": "germline",
+     "disease": [
+      "Colorectal cancer"
+     ],
+     "context": [],
+     "request_id": "REQ-0f80c11c4615",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "phenotype": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "Random control chosen on 25 Oct 2026: common SNV from a random genomic window; no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+   "notes": "gnomAD v4 genome AF 0.165; intronic; nearest protein-coding TSS PYDC2 at 19.5 kb. Null label: no TF mechanism expected.",
+   "needs_review": false,
+   "review_reasons": [],
+   "row": {
+    "case_id": "rs13078086",
+    "variant": "rs13078086",
+    "chrom": "chr3",
+    "pos_grch38": "191441666",
+    "ref": "T",
+    "alt": "G",
+    "origin": "germline",
+    "disease_or_trait": "Colorectal cancer",
+    "causal_tf": "none",
+    "tf_family": "none",
+    "direction": "none",
+    "target_gene": "none",
+    "tissue_or_cell_type": "Colorectal (HCT116)",
+    "expression_context": "DepMap:ACH-000971 (HCT 116)",
+    "qbic_model": "not applicable",
+    "score_level": "control",
+    "label_class": "control_random",
+    "source_pmid_or_ref": "Random control chosen on 25 Oct 2026: common SNV from a random genomic window; no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+    "notes": "gnomAD v4 genome AF 0.165; intronic; nearest protein-coding TSS PYDC2 at 19.5 kb. Null label: no TF mechanism expected."
+   }
+  },
+  {
+   "case_id": "rs11629191",
+   "label_class": "control_random",
+   "control": true,
+   "variant": {
+    "key": "GRCh38:14:55887040:C:T",
+    "chrom": "14",
+    "pos": 55887040,
+    "ref": "C",
+    "alt": "T"
+   },
+   "origin": "germline",
+   "qbic_coverage": "control",
+   "expected": "null: no TF mechanism expected (an evidence-sparse comparison, not an established biological null)",
+   "requests": {
+    "main": {
+     "variant": "chr14:55887040:C>T",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-a3f49e0953e0",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr14:55887040:C>T",
+     "origin": "germline",
+     "disease": [
+      "Breast cancer"
+     ],
+     "context": [],
+     "request_id": "REQ-b39b225a6cec",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "phenotype": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "Random control chosen on 25 Oct 2026: common SNV from a random genomic window; no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+   "notes": "gnomAD v4 genome AF 0.274; intronic; nearest protein-coding TSS PELI2 at 231 kb; one Open Targets eQTL credible set with PIP 0.03. Null label: no TF mechanism expected.",
+   "needs_review": false,
+   "review_reasons": [],
+   "row": {
+    "case_id": "rs11629191",
+    "variant": "rs11629191",
+    "chrom": "chr14",
+    "pos_grch38": "55887040",
+    "ref": "C",
+    "alt": "T",
+    "origin": "germline",
+    "disease_or_trait": "Breast cancer",
+    "causal_tf": "none",
+    "tf_family": "none",
+    "direction": "none",
+    "target_gene": "none",
+    "tissue_or_cell_type": "Breast (MCF7)",
+    "expression_context": "DepMap:ACH-000019 (MCF7)",
+    "qbic_model": "not applicable",
+    "score_level": "control",
+    "label_class": "control_random",
+    "source_pmid_or_ref": "Random control chosen on 25 Oct 2026: common SNV from a random genomic window; no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+    "notes": "gnomAD v4 genome AF 0.274; intronic; nearest protein-coding TSS PELI2 at 231 kb; one Open Targets eQTL credible set with PIP 0.03. Null label: no TF mechanism expected."
+   }
+  },
+  {
+   "case_id": "rs7001688",
+   "label_class": "control_random",
+   "control": true,
+   "variant": {
+    "key": "GRCh38:8:57573391:G:T",
+    "chrom": "8",
+    "pos": 57573391,
+    "ref": "G",
+    "alt": "T"
+   },
+   "origin": "germline",
+   "qbic_coverage": "control",
+   "expected": "null: no TF mechanism expected (an evidence-sparse comparison, not an established biological null)",
+   "requests": {
+    "main": {
+     "variant": "chr8:57573391:G>T",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-a70e50eef9fc",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr8:57573391:G>T",
+     "origin": "germline",
+     "disease": [
+      "LDL cholesterol"
+     ],
+     "context": [],
+     "request_id": "REQ-b2e0c6064f07",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "phenotype": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "Random control chosen on 25 Oct 2026: common SNV from a random genomic window; no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+   "notes": "gnomAD v4 genome AF 0.46; intronic; nearest protein-coding TSS FAM110B at 421 kb; not in Open Targets. Null label: no TF mechanism expected.",
+   "needs_review": false,
+   "review_reasons": [],
+   "row": {
+    "case_id": "rs7001688",
+    "variant": "rs7001688",
+    "chrom": "chr8",
+    "pos_grch38": "57573391",
+    "ref": "G",
+    "alt": "T",
+    "origin": "germline",
+    "disease_or_trait": "LDL cholesterol",
+    "causal_tf": "none",
+    "tf_family": "none",
+    "direction": "none",
+    "target_gene": "none",
+    "tissue_or_cell_type": "Liver (Hep3B)",
+    "expression_context": "DepMap:ACH-000625 (Hep 3B2.1-7)",
+    "qbic_model": "not applicable",
+    "score_level": "control",
+    "label_class": "control_random",
+    "source_pmid_or_ref": "Random control chosen on 25 Oct 2026: common SNV from a random genomic window; no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+    "notes": "gnomAD v4 genome AF 0.46; intronic; nearest protein-coding TSS FAM110B at 421 kb; not in Open Targets. Null label: no TF mechanism expected."
+   }
+  },
+  {
+   "case_id": "rs73706717",
+   "label_class": "control_near_miss",
+   "control": true,
+   "variant": {
+    "key": "GRCh38:8:127401265:T:C",
+    "chrom": "8",
+    "pos": 127401265,
+    "ref": "T",
+    "alt": "C"
+   },
+   "origin": "germline",
+   "qbic_coverage": "control",
+   "expected": "null: no TF mechanism expected (an evidence-sparse comparison, not an established biological null)",
+   "requests": {
+    "main": {
+     "variant": "chr8:127401265:T>C",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-84a7f2e7e3fd",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr8:127401265:T>C",
+     "origin": "germline",
+     "disease": [
+      "Colorectal cancer"
+     ],
+     "context": [],
+     "request_id": "REQ-0202444889db",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "phenotype": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "Near-miss control chosen on 26 Oct 2026: SNV in the same element as rs6983267 (within 500 bp); no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+   "notes": "205 bp from rs6983267, inside the same ENCODE ChIP peaks (149 peaks contain it); gnomAD v4 genome AF 0.024; no LD with rs6983267 reported in 1000 Genomes EUR. Null label: the element is the famous one, this base is not.",
+   "needs_review": false,
+   "review_reasons": [],
+   "row": {
+    "case_id": "rs73706717",
+    "variant": "rs73706717",
+    "chrom": "chr8",
+    "pos_grch38": "127401265",
+    "ref": "T",
+    "alt": "C",
+    "origin": "germline",
+    "disease_or_trait": "Colorectal cancer (8q24)",
+    "causal_tf": "none",
+    "tf_family": "none",
+    "direction": "none",
+    "target_gene": "none",
+    "tissue_or_cell_type": "Colorectal (HCT116/Colo205)",
+    "expression_context": "DepMap:ACH-000971 (HCT 116)",
+    "qbic_model": "not applicable",
+    "score_level": "control",
+    "label_class": "control_near_miss",
+    "source_pmid_or_ref": "Near-miss control chosen on 26 Oct 2026: SNV in the same element as rs6983267 (within 500 bp); no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+    "notes": "205 bp from rs6983267, inside the same ENCODE ChIP peaks (149 peaks contain it); gnomAD v4 genome AF 0.024; no LD with rs6983267 reported in 1000 Genomes EUR. Null label: the element is the famous one, this base is not."
+   }
+  },
+  {
+   "case_id": "rs34768248",
+   "label_class": "control_near_miss",
+   "control": true,
+   "variant": {
+    "key": "GRCh38:5:1295601:G:A",
+    "chrom": "5",
+    "pos": 1295601,
+    "ref": "G",
+    "alt": "A"
+   },
+   "origin": "germline",
+   "qbic_coverage": "control",
+   "expected": "null: no TF mechanism expected (an evidence-sparse comparison, not an established biological null)",
+   "requests": {
+    "main": {
+     "variant": "chr5:1295601:G>A",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-250b6f4391bd",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr5:1295601:G>A",
+     "origin": "germline",
+     "disease": [
+      "Glioblastoma, melanoma, bladder"
+     ],
+     "context": [],
+     "request_id": "REQ-8bf7f9f6c28d",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "phenotype": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "Near-miss control chosen on 26 Oct 2026: SNV in the same element as TERT C228T (within 500 bp); no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+   "notes": "488 bp from TERT C228T in the TERT promoter region (27 ENCODE ChIP peaks contain it); gnomAD v4 genome AF 0.027; rs2853669 is closer but has a known promoter effect, so it was skipped. Null label.",
+   "needs_review": false,
+   "review_reasons": [],
+   "row": {
+    "case_id": "rs34768248",
+    "variant": "rs34768248",
+    "chrom": "chr5",
+    "pos_grch38": "1295601",
+    "ref": "G",
+    "alt": "A",
+    "origin": "germline",
+    "disease_or_trait": "Glioblastoma, melanoma, bladder",
+    "causal_tf": "none",
+    "tf_family": "none",
+    "direction": "none",
+    "target_gene": "none",
+    "tissue_or_cell_type": "Glioblastoma; melanoma",
+    "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+    "qbic_model": "not applicable",
+    "score_level": "control",
+    "label_class": "control_near_miss",
+    "source_pmid_or_ref": "Near-miss control chosen on 26 Oct 2026: SNV in the same element as TERT C228T (within 500 bp); no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+    "notes": "488 bp from TERT C228T in the TERT promoter region (27 ENCODE ChIP peaks contain it); gnomAD v4 genome AF 0.027; rs2853669 is closer but has a known promoter effect, so it was skipped. Null label."
+   }
+  },
+  {
+   "case_id": "rs56007086",
+   "label_class": "control_near_miss",
+   "control": true,
+   "variant": {
+    "key": "GRCh38:16:52565398:G:A",
+    "chrom": "16",
+    "pos": 52565398,
+    "ref": "G",
+    "alt": "A"
+   },
+   "origin": "germline",
+   "qbic_coverage": "control",
+   "expected": "null: no TF mechanism expected (an evidence-sparse comparison, not an established biological null)",
+   "requests": {
+    "main": {
+     "variant": "chr16:52565398:G>A",
+     "origin": "germline",
+     "disease": [],
+     "context": [],
+     "request_id": "REQ-3924b8b61b10",
+     "provenance": {}
+    },
+    "supplied_disease": {
+     "variant": "chr16:52565398:G>A",
+     "origin": "germline",
+     "disease": [
+      "Breast cancer"
+     ],
+     "context": [],
+     "request_id": "REQ-be8d24763256",
+     "provenance": {}
+    }
+   },
+   "components": {
+    "tf_member": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_group": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "tf_family": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "direction": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "target_gene": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "context": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    },
+    "phenotype": {
+     "applicable": false,
+     "reason": "control: no TF mechanism is expected",
+     "needs_review": false,
+     "review_reasons": []
+    }
+   },
+   "alternatives": [],
+   "source": "Near-miss control chosen on 26 Oct 2026: SNV in the same element as rs4784227 (within 500 bp); no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+   "notes": "122 bp from rs4784227, inside the same ENCODE ChIP peaks (215 peaks contain it); gnomAD v4 genome AF 0.049; not in Open Targets. Replaces a 1p13 near-miss: every common SNP within 1.5 kb of rs12740374 is on the LDL haplotype or carries eQTLs. Null label.",
+   "needs_review": false,
+   "review_reasons": [],
+   "row": {
+    "case_id": "rs56007086",
+    "variant": "rs56007086",
+    "chrom": "chr16",
+    "pos_grch38": "52565398",
+    "ref": "G",
+    "alt": "A",
+    "origin": "germline",
+    "disease_or_trait": "Breast cancer (16q12)",
+    "causal_tf": "none",
+    "tf_family": "none",
+    "direction": "none",
+    "target_gene": "none",
+    "tissue_or_cell_type": "Breast (MCF7/T47D)",
+    "expression_context": "DepMap:ACH-000019 (MCF7)",
+    "qbic_model": "not applicable",
+    "score_level": "control",
+    "label_class": "control_near_miss",
+    "source_pmid_or_ref": "Near-miss control chosen on 26 Oct 2026: SNV in the same element as rs4784227 (within 500 bp); no GWAS Catalog association, no significant GTEx v8 eQTL, no Open Targets credible set with PIP above 0.1",
+    "notes": "122 bp from rs4784227, inside the same ENCODE ChIP peaks (215 peaks contain it); gnomAD v4 genome AF 0.049; not in Open Targets. Replaces a 1p13 near-miss: every common SNP within 1.5 kb of rs12740374 is on the LDL haplotype or carries eQTLs. Null label."
+   }
+  }
+ ]
+}

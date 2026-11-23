@@ -1,0 +1,1694 @@
+{
+ "case_id": "tert_c228t",
+ "variant": "TERT promoter C228T",
+ "variant_key": "chr5:1295113:G>A",
+ "disease": "Glioblastoma, melanoma, bladder",
+ "origin": "somatic",
+ "expression_context": "DepMap:subtype=Glioblastoma (median of 54 lines)",
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0304,
+ "seconds": 249.8,
+ "model_calls": 18,
+ "screen": {
+  "n_pass": 310,
+  "counts": {
+   "occupied": 20,
+   "unknown": 111,
+   "occupied_strong_site": 15,
+   "occupied_not_expressed": 1,
+   "unbound_assayed_here": 0,
+   "unbound_assayed_elsewhere": 552,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": false,
+  "occupied": [
+   {
+    "tf": "GABPA",
+    "z": 166.19,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "ZIC2",
+    "z": -20.85,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "CTCF",
+    "z": -14.7,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "ZBTB7A",
+    "z": -14.11,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "NR2C1",
+    "z": -10.53,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "E2F4",
+    "z": 5.78,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "E2F6",
+    "z": 5.78,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "E2F5",
+    "z": 5.78,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": true,
+    "strong_site": true
+   },
+   {
+    "tf": "EGR1",
+    "z": -3.42,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": true
+   },
+   {
+    "tf": "JUN",
+    "z": 3.26,
+    "occupancy": "bound_elsewhere",
+    "passes_gate": false,
+    "strong_site": true
+   }
+  ],
+  "unknown": [
+   {
+    "tf": "ETV2",
+    "z": 166.19
+   },
+   {
+    "tf": "ETV3",
+    "z": 166.19
+   },
+   {
+    "tf": "FLI1",
+    "z": 166.19
+   },
+   {
+    "tf": "TFAP2A",
+    "z": -36.84
+   },
+   {
+    "tf": "TFAP2C",
+    "z": -36.84
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H4",
+   "title": "No TF-mediated effect of this variant",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "There is no reproducible TF-mediated allelic effect of this variant in relevant cells; any disease association could reflect linkage, another causal change, or no causal effect.",
+    "The promoter-like annotation and in-vitro binding predictions do not translate into allele-dependent occupancy or target-gene regulation in relevant cells."
+   ],
+   "falsified_if": [
+    "Relevant-cell assays demonstrate allele-specific occupancy and isogenic editing shows a reproducible TF-dependent effect on TERT regulation."
+   ],
+   "probability": 0.45,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H2",
+   "title": "Reduced CTCF binding alters promoter regulation",
+   "is_null": false,
+   "tf": "CTCF",
+   "allele_binding_more": "ref",
+   "element": "ENCODE cCRE EH38E3622530, a promoter-like element containing the variant.",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma cell-line context; CTCF occupancy at the variant in this context is unestablished.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "CTCF's own QBiC-SELEX model predicts stronger binding to G than A. A variant-overlapping CTCF ChIP peak was found only in another biosample; there is no matching-context occupancy evidence. ReMap's lack of a peak is not evidence against binding.",
+     "evidence_ids": [
+      "E04",
+      "E13",
+      "E19",
+      "E33"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a promoter-like cCRE with active-chromatin marks, but the reported maxima are not specific to glioblastoma.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is at the variant's TSS and is a plausible target of this promoter-like element; functional regulation of TERT by this element is not demonstrated.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "CTCF is expressed in the glioblastoma expression context, but the available variant-overlapping ChIP peak is from another biosample. The calls provide no matching-context occupancy result.",
+     "evidence_ids": [
+      "E04",
+      "E13",
+      "E19",
+      "E33"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A CTCF-dependent TERT regulatory effect could be relevant to cancer, but the cited literature does not establish that this variant affects TERT or causes glioblastoma, melanoma, or bladder disease; the direction of any expression or phenotype effect is unknown.",
+     "evidence_ids": [
+      "E15a",
+      "E15e",
+      "E15h"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If CTCF occupies the site in relevant cells, allele-specific occupancy should favor G.",
+    "Isogenic G-to-A editing could reduce CTCF occupancy and affect TERT regulation, but the direction of any expression change is unknown."
+   ],
+   "falsified_if": [
+    "Sensitive assays in relevant cells find no CTCF occupancy at the variant and no allele-specific occupancy.",
+    "Isogenic editing produces no reproducible CTCF-dependent effect on TERT regulation."
+   ],
+   "probability": 0.22,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "CTCF"
+  },
+  {
+   "id": "H1",
+   "title": "A-allele-favored GABPA binding alters the TERT promoter",
+   "is_null": false,
+   "tf": "GABPA",
+   "allele_binding_more": "alt",
+   "element": "ENCODE cCRE EH38E3622530, a promoter-like element containing the variant.",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma cell-line context; GABPA occupancy at the variant in this context is unestablished.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "The A allele is predicted to bind more strongly in vitro. GABPA has variant-overlapping ChIP peaks only in other biosamples; its QBiC-SELEX prediction uses a CIS-BP-mapped ETV5 model, so it neither establishes occupancy in glioblastoma nor uniquely identifies GABPA rather than related ETS factors.",
+     "evidence_ids": [
+      "E04",
+      "E11",
+      "E17",
+      "E27",
+      "E28",
+      "E29",
+      "E32"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a promoter-like cCRE with active-chromatin marks, but the reported maxima are not specific to glioblastoma.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is at the variant's TSS and is a plausible target of this promoter-like element; functional regulation of TERT by this element is not demonstrated.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "GABPA is expressed in the glioblastoma expression context, but no matching-context ChIP evidence establishes occupancy. The available peaks are from other biosamples.",
+     "evidence_ids": [
+      "E04",
+      "E11",
+      "E17",
+      "E32"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A TERT regulatory effect could be relevant to cancer, but the cited literature does not establish that this variant affects TERT or causes glioblastoma, melanoma, or bladder disease; the direction of any expression or phenotype effect is unknown.",
+     "evidence_ids": [
+      "E15a",
+      "E15e",
+      "E15h"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If GABPA occupies the site in relevant cells, allele-specific occupancy should favor A; this attribution is uncertain because the binding model is mapped from ETV5 and related ETS factors have the same prediction.",
+    "Isogenic G-to-A editing could affect TERT regulation in a GABPA-dependent manner, but neither the existence nor direction of an expression change is established."
+   ],
+   "falsified_if": [
+    "Sensitive assays in relevant cells find no GABPA occupancy at the variant and no allele-specific GABPA occupancy.",
+    "Isogenic editing produces no reproducible GABPA-dependent effect on TERT regulation."
+   ],
+   "probability": 0.2,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "GABPA"
+  },
+  {
+   "id": "H3",
+   "title": "Reduced ZBTB7A binding alters promoter regulation",
+   "is_null": false,
+   "tf": "ZBTB7A",
+   "allele_binding_more": "ref",
+   "element": "ENCODE cCRE EH38E3622530, a promoter-like element containing the variant.",
+   "target_gene": "TERT",
+   "cell_type": "Glioblastoma cell-line context; ZBTB7A occupancy at the variant in this context is unestablished.",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "ZBTB7A's own QBiC-SELEX model predicts stronger binding to G than A. Its variant-overlapping ChIP peaks are from other biosamples, not glioblastoma; the in-vitro prediction does not establish occupancy in the relevant context.",
+     "evidence_ids": [
+      "E04",
+      "E20",
+      "E34"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant lies in a promoter-like cCRE with active-chromatin marks, but the reported maxima are not specific to glioblastoma.",
+     "evidence_ids": [
+      "E03"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "gene",
+     "claim": "TERT is at the variant's TSS and is a plausible target of this promoter-like element; functional regulation of TERT by this element is not demonstrated.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "ZBTB7A is expressed in the glioblastoma expression context, but no matching-context ChIP evidence establishes occupancy; the available peaks are from other biosamples.",
+     "evidence_ids": [
+      "E04",
+      "E20",
+      "E34"
+     ],
+     "status": "supported"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A ZBTB7A-dependent TERT regulatory effect could be relevant to cancer, but the cited literature does not establish that this variant affects TERT or causes glioblastoma, melanoma, or bladder disease; the direction of any expression or phenotype effect is unknown.",
+     "evidence_ids": [
+      "E15a",
+      "E15e",
+      "E15h"
+     ],
+     "status": "weak"
+    }
+   ],
+   "predictions": [
+    "If ZBTB7A occupies the site in relevant cells, allele-specific occupancy should favor G.",
+    "Isogenic G-to-A editing could reduce ZBTB7A occupancy and affect TERT regulation, but the direction of any expression change is unknown."
+   ],
+   "falsified_if": [
+    "Sensitive assays in relevant cells find no ZBTB7A occupancy at the variant and no allele-specific occupancy.",
+    "Isogenic editing produces no reproducible ZBTB7A-dependent effect on TERT regulation."
+   ],
+   "probability": 0.13,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ZBTB7A"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": "GABPA",
+   "is_null": false,
+   "probability": 0.34,
+   "allele_binding_more": "alt"
+  },
+  {
+   "id": "H2",
+   "tf": "CTCF",
+   "is_null": false,
+   "probability": 0.17,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "ZBTB7A",
+   "is_null": false,
+   "probability": 0.11,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H4",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.38,
+   "allele_binding_more": null
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E17 shows a strong QBiC-SELEX-predicted increase for A, but the model is CIS-BP-mapped from ETV5 rather than a direct GABPA model. GABPA ChIP overlaps the variant only in other biosamples, so occupancy in glioblastoma is unestablished."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the promoter-like cCRE and reports active-chromatin marks, while noting that the reported maxima are not glioblastoma-specific."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01\u2013E03 directly support TERT as a plausible target: the variant is at the TERT TSS/upstream, and the cCRE lists TERT nearby. They do not establish that the element functionally regulates TERT."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence supports GABPA expression in the glioblastoma expression context and explicitly reports no matching-biosample ChIP evidence. Thus the stated uncertainty about occupancy is accurate."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited literature supports general TERT-promoter relevance in melanoma and glioblastoma, but provides no evidence that this variant causes a disease phenotype; bladder relevance is not supported by these citations."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E19 shows a strong QBiC-SELEX-predicted decrease for A with CTCF's own model. The variant-overlapping CTCF ChIP peak is from DOHH2, not glioblastoma, so relevant-cell occupancy is unestablished."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the promoter-like cCRE and reports active-chromatin marks, while noting that the reported maxima are not glioblastoma-specific."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01\u2013E03 directly support TERT as a plausible target: the variant is at the TERT TSS/upstream, and the cCRE lists TERT nearby. They do not establish that the element functionally regulates TERT."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence supports CTCF expression in the glioblastoma context and explicitly states that the available variant-overlapping peak is from another biosample, not the matching context."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited literature supports general TERT-promoter relevance in melanoma and glioblastoma, but provides no evidence that this variant causes a disease phenotype; bladder relevance is not supported by these citations."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E20 shows a QBiC-SELEX-predicted decrease for A using ZBTB7A's own model. The variant-overlapping ChIP peak is from K562, not glioblastoma, so relevant-cell occupancy is unestablished."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the promoter-like cCRE and reports active-chromatin marks, while noting that the reported maxima are not glioblastoma-specific."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "supported",
+   "reason": "E01\u2013E03 directly support TERT as a plausible target: the variant is at the TERT TSS/upstream, and the cCRE lists TERT nearby. They do not establish that the element functionally regulates TERT."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence supports ZBTB7A expression in the glioblastoma context and explicitly states that its variant-overlapping peak is from another biosample, not the matching context."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited literature supports general TERT-promoter relevance in melanoma and glioblastoma, but provides no evidence that this variant causes a disease phenotype; bladder relevance is not supported by these citations."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H1",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E17 predicts stronger in-vitro binding to A, but its GABPA score uses a CIS-BP-mapped ETV5 model, and the reported GABPA ChIP peaks are only from other biosamples. This does not establish GABPA occupancy in the relevant context or distinguish GABPA from related ETS factors with the same prediction."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the stated promoter-like cCRE and reports active-chromatin marks, while also clarifying that the scores are maxima across biosamples rather than glioblastoma-specific measurements."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is at the variant's TSS and is listed among nearby genes for the cCRE, making it a plausible target. The evidence does not demonstrate that this element functionally regulates TERT."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence reports GABPA expression in the glioblastoma DepMap context and variant-overlapping peaks only in other biosamples, with no matching-context occupancy evidence. This supports the stated limitation, not GABPA occupancy in glioblastoma."
+  },
+  {
+   "hypothesis_id": "H1",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited literature supports general relevance of TERT promoter mutations to melanoma and glioblastoma, but does not establish an effect of this variant on TERT or any listed disease. It provides no specific support for bladder disease."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "CTCF's own QBiC-SELEX model predicts stronger binding to G, but the variant-overlapping CTCF peak is from another biosample. The ReMap absence is explicitly not evidence against binding; relevant-context occupancy is unestablished."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the stated promoter-like cCRE and reports active-chromatin marks, while clarifying that the scores are maxima across biosamples rather than glioblastoma-specific measurements."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is at the variant's TSS and is listed among nearby genes for the cCRE, making it a plausible target. Functional regulation of TERT by this element is not demonstrated."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence reports CTCF expression in the glioblastoma DepMap context and a variant-overlapping peak only in another biosample, with no matching-context occupancy result. This supports the stated limitation, not CTCF occupancy in glioblastoma."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited literature supports general relevance of TERT promoter mutations to melanoma and glioblastoma, but does not establish an effect of this variant on TERT or any listed disease. It provides no specific support for bladder disease."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "ZBTB7A's own QBiC-SELEX model predicts stronger binding to G, and variant-overlapping peaks are reported in other biosamples. Neither establishes occupancy in the relevant glioblastoma context."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "supported",
+   "reason": "E03 places the variant in the stated promoter-like cCRE and reports active-chromatin marks, while clarifying that the scores are maxima across biosamples rather than glioblastoma-specific measurements."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "TERT is at the variant's TSS and is listed among nearby genes for the cCRE, making it a plausible target. Functional regulation of TERT by this element is not demonstrated."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "supported",
+   "reason": "The evidence reports ZBTB7A expression in the glioblastoma DepMap context and variant-overlapping peaks only in other biosamples, with no matching-context occupancy evidence. This supports the stated limitation, not ZBTB7A occupancy in glioblastoma."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "weak",
+   "reason": "The cited literature supports general relevance of TERT promoter mutations to melanoma and glioblastoma, but does not establish an effect of this variant on TERT or any listed disease. It provides no specific support for bladder disease."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"GABPA\",\"biosample\":\"Glioblastoma\"}",
+   "resolves": "H1.binding",
+   "why": "Would test whether the variant-overlapping GABPA occupancy reported elsewhere is also present in the glioblastoma context."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"CTCF\",\"biosample\":\"Glioblastoma\"}",
+   "resolves": "H2.binding",
+   "why": "Would test the missing disease-context occupancy evidence needed to pair with the CTCF allelic binding prediction."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"ZBTB7A\",\"biosample\":\"Glioblastoma\"}",
+   "resolves": "H3.binding",
+   "why": "Would test whether ZBTB7A occupies the variant in the relevant context rather than only in K562."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "round": 1,
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "GABPA",
+    "biosample": "Glioblastoma"
+   },
+   "key": "chip_peaks({\"biosample\":\"Glioblastoma\",\"tf\":\"GABPA\"})",
+   "resolves": "H1.binding",
+   "expected": "If variant-overlapping GABPA ChIP peaks are found in a glioblastoma biosample, H1.binding gains relevant-context occupancy support and H1 rises; if none are found or the factor was not assayed, the binding link remains weak.",
+   "run": true,
+   "status": "not tested",
+   "evidence_id": "E32",
+   "new_information": false
+  },
+  {
+   "round": 1,
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "CTCF",
+    "biosample": "Glioblastoma"
+   },
+   "key": "chip_peaks({\"biosample\":\"Glioblastoma\",\"tf\":\"CTCF\"})",
+   "resolves": "H2.binding",
+   "expected": "If variant-overlapping CTCF ChIP peaks are found in a glioblastoma biosample, H2.binding gains relevant-context occupancy support alongside its own-model allelic prediction and H2 rises; if none are found or the factor was not assayed, the binding link remains weak.",
+   "run": true,
+   "status": "not tested",
+   "evidence_id": "E33",
+   "new_information": false
+  },
+  {
+   "round": 1,
+   "tool": "chip_peaks",
+   "args": {
+    "tf": "ZBTB7A",
+    "biosample": "Glioblastoma"
+   },
+   "key": "chip_peaks({\"biosample\":\"Glioblastoma\",\"tf\":\"ZBTB7A\"})",
+   "resolves": "H3.binding",
+   "expected": "If variant-overlapping ZBTB7A ChIP peaks are found in a glioblastoma biosample, H3.binding gains relevant-context occupancy support and H3 rises; if none are found or the factor was not assayed, the binding link remains weak.",
+   "run": true,
+   "status": "not tested",
+   "evidence_id": "E34",
+   "new_information": false
+  }
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "calls": [
+    {
+     "round": 1,
+     "tool": "chip_peaks",
+     "args": {
+      "tf": "GABPA",
+      "biosample": "Glioblastoma"
+     },
+     "key": "chip_peaks({\"biosample\":\"Glioblastoma\",\"tf\":\"GABPA\"})",
+     "resolves": "H1.binding",
+     "expected": "If variant-overlapping GABPA ChIP peaks are found in a glioblastoma biosample, H1.binding gains relevant-context occupancy support and H1 rises; if none are found or the factor was not assayed, the binding link remains weak.",
+     "run": true,
+     "status": "not tested",
+     "evidence_id": "E32",
+     "new_information": false
+    },
+    {
+     "round": 1,
+     "tool": "chip_peaks",
+     "args": {
+      "tf": "CTCF",
+      "biosample": "Glioblastoma"
+     },
+     "key": "chip_peaks({\"biosample\":\"Glioblastoma\",\"tf\":\"CTCF\"})",
+     "resolves": "H2.binding",
+     "expected": "If variant-overlapping CTCF ChIP peaks are found in a glioblastoma biosample, H2.binding gains relevant-context occupancy support alongside its own-model allelic prediction and H2 rises; if none are found or the factor was not assayed, the binding link remains weak.",
+     "run": true,
+     "status": "not tested",
+     "evidence_id": "E33",
+     "new_information": false
+    },
+    {
+     "round": 1,
+     "tool": "chip_peaks",
+     "args": {
+      "tf": "ZBTB7A",
+      "biosample": "Glioblastoma"
+     },
+     "key": "chip_peaks({\"biosample\":\"Glioblastoma\",\"tf\":\"ZBTB7A\"})",
+     "resolves": "H3.binding",
+     "expected": "If variant-overlapping ZBTB7A ChIP peaks are found in a glioblastoma biosample, H3.binding gains relevant-context occupancy support and H3 rises; if none are found or the factor was not assayed, the binding link remains weak.",
+     "run": true,
+     "status": "not tested",
+     "evidence_id": "E34",
+     "new_information": false
+    }
+   ],
+   "planner_note": "",
+   "check_results": [
+    {
+     "call": "chip_peaks(tf=GABPA, biosample=Glioblastoma)",
+     "observed": "E32 reports no ENCODE GABPA ChIP-seq experiment in a matching glioblastoma biosample; ReMap peaks over the variant are from Hep-G2 and SK-N-SH only. This is not tested in the relevant context, not a negative occupancy result.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "chip_peaks(tf=CTCF, biosample=Glioblastoma)",
+     "observed": "E33 reports no matching-context ENCODE CTCF ChIP-seq experiment. ReMap has no peak over the variant, but its peak list is not evidence against binding. Relevant-context occupancy remains untested.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "chip_peaks(tf=ZBTB7A, biosample=Glioblastoma)",
+     "observed": "E34 reports no matching-context ENCODE ZBTB7A ChIP-seq experiment; ReMap peaks over the variant are from K-562, Ishikawa, and Hep-G2 only. This is not tested in the relevant context, not a negative occupancy result.",
+     "as_expected": "yes"
+    }
+   ],
+   "chains": [
+    {
+     "id": "H1",
+     "tf": "GABPA",
+     "is_null": false,
+     "probability": 0.2
+    },
+    {
+     "id": "H2",
+     "tf": "CTCF",
+     "is_null": false,
+     "probability": 0.22
+    },
+    {
+     "id": "H3",
+     "tf": "ZBTB7A",
+     "is_null": false,
+     "probability": 0.13
+    },
+    {
+     "id": "H4",
+     "tf": null,
+     "is_null": true,
+     "probability": 0.45
+    }
+   ],
+   "grades": [
+    {
+     "hypothesis_id": "H1",
+     "step": "binding",
+     "status": "weak",
+     "reason": "E17 predicts stronger in-vitro binding to A, but its GABPA score uses a CIS-BP-mapped ETV5 model, and the reported GABPA ChIP peaks are only from other biosamples. This does not establish GABPA occupancy in the relevant context or distinguish GABPA from related ETS factors with the same prediction."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 places the variant in the stated promoter-like cCRE and reports active-chromatin marks, while also clarifying that the scores are maxima across biosamples rather than glioblastoma-specific measurements."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "gene",
+     "status": "weak",
+     "reason": "TERT is at the variant's TSS and is listed among nearby genes for the cCRE, making it a plausible target. The evidence does not demonstrate that this element functionally regulates TERT."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "The evidence reports GABPA expression in the glioblastoma DepMap context and variant-overlapping peaks only in other biosamples, with no matching-context occupancy evidence. This supports the stated limitation, not GABPA occupancy in glioblastoma."
+    },
+    {
+     "hypothesis_id": "H1",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The cited literature supports general relevance of TERT promoter mutations to melanoma and glioblastoma, but does not establish an effect of this variant on TERT or any listed disease. It provides no specific support for bladder disease."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "binding",
+     "status": "weak",
+     "reason": "CTCF's own QBiC-SELEX model predicts stronger binding to G, but the variant-overlapping CTCF peak is from another biosample. The ReMap absence is explicitly not evidence against binding; relevant-context occupancy is unestablished."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 places the variant in the stated promoter-like cCRE and reports active-chromatin marks, while clarifying that the scores are maxima across biosamples rather than glioblastoma-specific measurements."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "gene",
+     "status": "weak",
+     "reason": "TERT is at the variant's TSS and is listed among nearby genes for the cCRE, making it a plausible target. Functional regulation of TERT by this element is not demonstrated."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "The evidence reports CTCF expression in the glioblastoma DepMap context and a variant-overlapping peak only in another biosample, with no matching-context occupancy result. This supports the stated limitation, not CTCF occupancy in glioblastoma."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The cited literature supports general relevance of TERT promoter mutations to melanoma and glioblastoma, but does not establish an effect of this variant on TERT or any listed disease. It provides no specific support for bladder disease."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "binding",
+     "status": "weak",
+     "reason": "ZBTB7A's own QBiC-SELEX model predicts stronger binding to G, and variant-overlapping peaks are reported in other biosamples. Neither establishes occupancy in the relevant glioblastoma context."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "element",
+     "status": "supported",
+     "reason": "E03 places the variant in the stated promoter-like cCRE and reports active-chromatin marks, while clarifying that the scores are maxima across biosamples rather than glioblastoma-specific measurements."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "gene",
+     "status": "weak",
+     "reason": "TERT is at the variant's TSS and is listed among nearby genes for the cCRE, making it a plausible target. Functional regulation of TERT by this element is not demonstrated."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "cell_type",
+     "status": "supported",
+     "reason": "The evidence reports ZBTB7A expression in the glioblastoma DepMap context and variant-overlapping peaks only in other biosamples, with no matching-context occupancy evidence. This supports the stated limitation, not ZBTB7A occupancy in glioblastoma."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "phenotype",
+     "status": "weak",
+     "reason": "The cited literature supports general relevance of TERT promoter mutations to melanoma and glioblastoma, but does not establish an effect of this variant on TERT or any listed disease. It provides no specific support for bladder disease."
+    }
+   ],
+   "grades_changed": [
+    "H1.gene: supported \u2192 weak",
+    "H2.gene: supported \u2192 weak",
+    "H3.gene: supported \u2192 weak"
+   ],
+   "max_probability_change": 0.14,
+   "problems": [
+    "No cited evidence establishes variant-overlapping occupancy by GABPA, CTCF, or ZBTB7A in the glioblastoma context. The lack of a matching ENCODE assay is not a negative occupancy result.",
+    "GABPA is especially uncertain as the causal TF: its QBiC-SELEX prediction uses an ETV5-mapped model, and related ETS factors receive the same prediction. The evidence does not distinguish GABPA from those factors.",
+    "The cCRE is promoter-like and TERT is nearby at the variant's TSS, but none of the evidence demonstrates that this element regulates TERT or that any of these TFs mediates such regulation.",
+    "The literature establishes general TERT cancer relevance, not an effect of this variant or a causal link to glioblastoma, melanoma, or bladder disease. The cited literature does not specifically support the bladder claim.",
+    "The predicted binding directions are internally consistent with the revised claims: A is favored for the GABPA model, while G is favored for the CTCF and ZBTB7A models. No direction of TERT-expression or phenotype effect is established."
+   ],
+   "critic_checks": [
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"GABPA\",\"biosample\":\"U-87 MG\"}",
+     "resolves": "H1.binding",
+     "why": "Could test for variant-overlapping GABPA occupancy in a glioblastoma cell line; a relevant-context peak would strengthen the binding link."
+    },
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"CTCF\",\"biosample\":\"U-87 MG\"}",
+     "resolves": "H2.binding",
+     "why": "Could test for variant-overlapping CTCF occupancy in a glioblastoma cell line; a relevant-context peak would strengthen the binding link."
+    },
+    {
+     "tool": "chip_peaks",
+     "args_json": "{\"tf\":\"ZBTB7A\",\"biosample\":\"U-87 MG\"}",
+     "resolves": "H3.binding",
+     "why": "Could test for variant-overlapping ZBTB7A occupancy in a glioblastoma cell line; a relevant-context peak would strengthen the binding link."
+    }
+   ]
+  }
+ ],
+ "stop_reason": "round 1: its calls brought no new information",
+ "matrix": [
+  {
+   "test": "Allele-specific CUT&RUN or ChIP at the variant in a glioblastoma model, assaying CTCF and GABPA (with allele-aware reads).",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "GABPA occupies the site with greater occupancy on A than G."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "CTCF occupies the site with greater occupancy on G than A."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "Neither H1 nor H2's predicted factor-specific pattern is required; ZBTB7A should instead favor G if it occupies the site."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No reproducible variant-specific, allele-biased occupancy for these candidate TFs."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Isogenic G-to-A editing in a glioblastoma model, followed by TERT expression measurement and factor-specific perturbation of GABPA, CTCF, and ZBTB7A.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "A reproducible TERT effect depends on GABPA; the expression direction is not specified."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A reproducible TERT effect depends on CTCF; the expression direction is not specified."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "A reproducible TERT effect depends on ZBTB7A; the expression direction is not specified."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No reproducible variant-dependent, candidate-TF-dependent TERT effect."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "In a heterozygous glioblastoma model, perform allele-specific CUT&RUN or ChIP-qPCR at the variant for CTCF and GABPA. The top two chains predict opposing factor-specific occupancy patterns: CTCF favoring G for H2 versus GABPA favoring A for H1.",
+ "verdict": {
+  "verdict": "undetermined",
+  "reason": "the null leads, but nothing tested counts against CTCF, GABPA, ZBTB7A",
+  "pairwise_ok": null,
+  "association": {},
+  "facts": {
+   "H2": {
+    "tf": "CTCF",
+    "symbol": "CTCF",
+    "qbic": [
+     "for",
+     "QBiC-SELEX: CTCF_FL_TG40NCTGTGG_YWL_jolma2025_0_3_7mer passes the gate, the ref allele binds more"
+    ],
+    "occupancy": [
+     "unknown",
+     "bound only in other biosamples"
+    ],
+    "expression": [
+     "for",
+     "26.45 TPM"
+    ]
+   },
+   "H1": {
+    "tf": "GABPA",
+    "symbol": "GABPA",
+    "qbic": [
+     "for",
+     "QBiC-SELEX: ELF1_FL_TATGAC40NTCA_KW_yin2017_0_2_7mer passes the gate, the alt allele binds more"
+    ],
+    "occupancy": [
+     "unknown",
+     "bound only in other biosamples"
+    ],
+    "expression": [
+     "for",
+     "15.52 TPM"
+    ]
+   },
+   "H3": {
+    "tf": "ZBTB7A",
+    "symbol": "ZBTB7A",
+    "qbic": [
+     "for",
+     "QBiC-SELEX: ZBTB7A_eDBD_TTTGCT40NCGT_KR_yin2017_0_4_7mer passes the gate, the ref allele binds more"
+    ],
+    "occupancy": [
+     "unknown",
+     "bound only in other biosamples"
+    ],
+    "expression": [
+     "for",
+     "8.49 TPM"
+    ]
+   }
+  }
+ },
+ "rank_method": "llm",
+ "tournament": {
+  "matches": [
+   {
+    "pair": [
+     "H1",
+     "H2"
+    ],
+    "scores": [
+     0.0,
+     0.0
+    ],
+    "first": {
+     "winner": "B",
+     "reason": "Most links are equally graded for both chains. The binding evidence slightly favors B: CTCF has a variant-overlapping ChIP peak in another biosample and a QBiC-SELEX prediction from its own model favoring the reference allele (E13, E19). GABPA also has peaks only in other biosamples, but its predicted A-allele increase comes from a CIS-BP-mapped ETV5 model, shared by related ETS factors, so it does not uniquely support GABPA binding (E11, E17, E27\u2013E29). Neither chain establishes occupancy in glioblastoma or downstream regulation.",
+     "evidence_ids": [
+      "E11",
+      "E13",
+      "E17",
+      "E19",
+      "E27",
+      "E28",
+      "E29"
+     ]
+    },
+    "second": {
+     "winner": "A",
+     "reason": "The shared element, gene, cell-type limitation, and phenotype links do not distinguish the chains. Both binding links are weak because neither has occupancy evidence in the relevant context. However, CTCF has a variant-overlapping peak in another biosample and its own QBiC-SELEX model predicts stronger binding to G. GABPA also has peaks only elsewhere, but its predicted A-favored change comes from a CIS-BP-mapped ETV5 model, with the same prediction shared by related ETS factors, so attribution specifically to GABPA is less secure.",
+     "evidence_ids": [
+      "E13",
+      "E17",
+      "E19",
+      "E27",
+      "E28",
+      "E29"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H1",
+     "H3"
+    ],
+    "scores": [
+     0.0,
+     0.0
+    ],
+    "first": {
+     "winner": "B",
+     "reason": "Both chains have similarly indirect support for the element, TERT as target, cell context, and phenotype, and neither establishes TF occupancy in glioblastoma. B is better supported specifically at the binding link: ZBTB7A\u2019s own QBiC-SELEX model predicts stronger binding to the reference allele, whereas GABPA\u2019s prediction uses a CIS-BP-mapped ETV5 model shared by related ETS factors and does not uniquely support GABPA attribution. The peaks for both factors are only from other biosamples, so they do not establish relevant-context occupancy.",
+     "evidence_ids": [
+      "E04",
+      "E17",
+      "E20",
+      "E27",
+      "E28",
+      "E29",
+      "E32",
+      "E34"
+     ]
+    },
+    "second": {
+     "winner": "A",
+     "reason": "Both chains have weak binding support: QBiC-SELEX predicts the stated allelic direction, but the variant-overlapping ChIP peaks are from other biosamples, not glioblastoma, so neither establishes occupancy in the relevant context. A is better differentiated because ZBTB7A\u2019s prediction uses its own model, whereas GABPA\u2019s uses a CIS-BP-mapped ETV5 model shared by related ETS factors, making attribution to GABPA less specific. The element, gene, cell-context limitations, and phenotype links otherwise do not separate the chains.",
+     "evidence_ids": [
+      "E03",
+      "E11",
+      "E17",
+      "E20",
+      "E27",
+      "E28",
+      "E29",
+      "E32",
+      "E34"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H1",
+     "H4"
+    ],
+    "scores": [
+     1.0,
+     1.0
+    ],
+    "first": {
+     "winner": "A",
+     "reason": "A is better supported, though not strongly: E17 predicts stronger A-allele in-vitro binding using an ETV5-mapped model, and E11 reports GABPA peaks over the variant only in other biosamples. E03 directly places the variant in the promoter-like cCRE; E01\u2013E03 make TERT a plausible, not demonstrated, target. E32 says glioblastoma occupancy was not tested, which is not evidence against A. No tested evidence establishes the null claim in B, and the negative QBiC results concern other TFs.",
+     "evidence_ids": [
+      "E01",
+      "E03",
+      "E11",
+      "E17",
+      "E32"
+     ]
+    },
+    "second": {
+     "winner": "B",
+     "reason": "B is better supported, though only as a cautious, incomplete hypothesis. E03 directly places the variant in the specified promoter-like cCRE with active-chromatin marks; E01\u2013E02 make TERT a plausible target, not a demonstrated one. The GABPA binding link is only weak: E17 predicts stronger in-vitro binding to A using a mapped ETV5 model, while E11 and E32 show peaks only in other biosamples and no glioblastoma occupancy evidence. Those untested relevant-context assays do not count against B or establish the null in A. No evidence demonstrates allele-dependent TERT regulation or a disease effect.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E11",
+      "E17",
+      "E32"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H2",
+     "H3"
+    ],
+    "scores": [
+     0.5,
+     0.5
+    ],
+    "first": {
+     "winner": "neither",
+     "reason": "The evidence supports neither chain more strongly. Both have the same link grades: a weak binding link from an allele-specific QBiC-SELEX prediction without glioblastoma-context occupancy, the same promoter-element and plausible-TERT-target evidence, and no variant-specific functional or disease link. The additional ZBTB7A peaks are in other biosamples, while CTCF\u2019s ReMap absence is explicitly not evidence against binding; neither distinguishes the chains under the stated criteria.",
+     "evidence_ids": [
+      "E03",
+      "E13",
+      "E19",
+      "E20",
+      "E33",
+      "E34",
+      "E15a",
+      "E15e",
+      "E15h"
+     ]
+    },
+    "second": {
+     "winner": "neither",
+     "reason": "The chains are supported to the same extent: both have weak binding evidence (a QBiC-SELEX allele effect plus variant-overlapping occupancy only in other biosamples), supported element and cell-context limitation links, weak TERT-target links, and weak phenotype links. The extra ZBTB7A ReMap peaks and the CTCF ReMap absence do not establish a difference in relevant-context occupancy; the absence is explicitly not evidence against binding.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E13",
+      "E19",
+      "E20",
+      "E33",
+      "E34",
+      "E15a",
+      "E15e",
+      "E15h"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H2",
+     "H4"
+    ],
+    "scores": [
+     1.0,
+     1.0
+    ],
+    "first": {
+     "winner": "A",
+     "reason": "A is better supported, though its causal mechanism remains unproven. The variant is directly located in the promoter-like cCRE (E03), and TERT is at the variant\u2019s TSS and listed among nearby genes (E01, E02), supporting the element and plausible-target links. CTCF\u2019s own QBiC-SELEX model predicts stronger binding to G than A, and a variant-overlapping CTCF peak was observed in another biosample (E19, E13), so the binding link is weak rather than missing. The lack of matching-context occupancy leaves the glioblastoma mechanism unestablished; ReMap\u2019s lack of a peak is explicitly not evidence against binding (E33). There is no tested evidence here that counts against A, while the evidence also does not establish a CTCF-dependent TERT or disease effect. The null chain therefore is not better supported.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E13",
+      "E19",
+      "E33"
+     ]
+    },
+    "second": {
+     "winner": "B",
+     "reason": "B is better supported, though its full mechanism remains unproven. The variant is in the stated promoter-like cCRE (E03), and CTCF\u2019s own QBiC-SELEX model predicts stronger binding to ref G than alt A (E19), making the binding link weak rather than missing. The variant-overlapping CTCF peak is only from another biosample (E13), and the ReMap absence is explicitly not evidence against binding (E33). TERT is at the variant\u2019s TSS and is listed near the cCRE, but functional regulation is not demonstrated (E01, E02, E03). No tested evidence counts against B; the null chain is not supported merely by the absence of relevant-context occupancy or regulatory assays.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E13",
+      "E19",
+      "E33"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H3",
+     "H4"
+    ],
+    "scores": [
+     1.0,
+     1.0
+    ],
+    "first": {
+     "winner": "A",
+     "reason": "A is better supported only as a cautious, limited hypothesis: the variant lies in the stated promoter-like cCRE (E03), and ZBTB7A's own QBiC-SELEX model predicts stronger binding to the ref G allele, with variant-overlapping peaks reported in other biosamples (E20, E34). This makes the binding link weak, not established in glioblastoma. TERT is a plausible nearby target, but regulation is not demonstrated (E01\u2013E03); the cited literature does not establish this variant's effect on TERT or disease (E15a, E15e, E15h). The null chain is not supported by tested evidence against a TF effect: lack of matching-context ChIP is explicitly not tested, not negative (E04, E34).",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E15a",
+      "E15e",
+      "E15h",
+      "E20",
+      "E34"
+     ]
+    },
+    "second": {
+     "winner": "B",
+     "reason": "H3 is better supported, though not established: ZBTB7A\u2019s own QBiC-SELEX model predicts stronger binding to ref G, and variant-overlapping peaks occur in other biosamples, making the binding link weak rather than supported in glioblastoma (E20, E34). The variant lies in the stated promoter-like cCRE (E03), and TERT is a plausible\u2014but unconfirmed\u2014target (E01\u2013E03). No tested negative evidence counts against H3: the absence of matching-context ChIP is explicitly not tested, and the ReMap result is not evidence against binding (E04, E34). Thus the null chain is not better supported.",
+     "evidence_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E20",
+      "E34"
+     ]
+    }
+   }
+  ],
+  "strengths": {
+   "H1": 0.1218,
+   "H2": 0.4145,
+   "H3": 0.4145,
+   "H4": 0.0492
+  },
+  "ranking": [
+   "H2",
+   "H3",
+   "H1",
+   "H4"
+  ]
+ },
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/5:1295113-1295113:1/A?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "Variant chr5:1295113:G>A (GRCh38), allele string G/A\nKnown IDs: rs1242535815\nMost severe consequence: upstream_gene_variant\nRegulatory features: ENSR5_832QG promoter\nGERP conservation score at the site: -7.45\nTranscript consequences: TERT (upstream_gene_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/5:295113-2295113?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T11:57:33+00:00",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "23 protein-coding genes within 1000 kb of chr5:1295113:G>A, by distance to TSS:\nTERT: 0.0 kb from TSS (upstream, strand -1)\nCLPTM1L: 50.0 kb from TSS (downstream, strand -1)\nSLC6A18: 69.7 kb from TSS (downstream, strand +1)\nSLC6A19: 93.5 kb from TSS (downstream, strand +1)\nSLC12A7: 138.9 kb from TSS (upstream, strand -1)\nSLC6A3: 150.4 kb from TSS (downstream, strand -1)\nLPCAT1: 229.2 kb from TSS (downstream, strand -1)\nNKD2: 287.1 kb from TSS (downstream, strand +1)\nTRIP13: 402.3 kb from TSS (downstream, strand +1)\nBRD9: 402.3 kb from TSS (upstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T11:57:31+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "The variant lies in cCRE EH38E3622530 (PLS: promoter-like), chr5:1294945-1295294.\nSCREEN: 3 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E3622530 PLS (contains the variant): DNase z 4.8, H3K27ac z 4.2, H3K4me3 z 4.5, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622531 pELS: DNase z 3.9, H3K27ac z 4.3, H3K4me3 z 4.4, CTCF z 2.8; nearby genes TERT, MIR4457, CLPTM1L\nEH38E3622529 pELS: DNase z 3.7, H3K27ac z 4.1, H3K4me3 z 4.6, CTCF z 2.0; nearby genes TERT, MIR4457, CLPTM1L\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "ENCODE TF ChIP-seq at chr5:1295113:G>A: 121 peaks contain the variant, from 54 factors in 21 biosamples. No ENCODE biosample matches the expression context, so no peak counts as bound here. cCRE class at the variant: PLS. Bound factors outside the TF model collection (co-factors, Pol II, and TFs with no binding model; signs of an active element, not TF candidates): ARID4A, BCL3, DMAP1, EZH2, EZH2phosphoT487, GABPB1, HDAC1, HDAC2, HDAC6, HNRNPK, IKZF1, KDM4A (+21 more). Bound, expressed TFs with a binding model: 20; listed one per row: MAX, JUN, EGR1, BHLHE40, E2F4, E2F6, GABPA, ZNF687, CTCF, NR2C1; also bound: ZNF143, SP2, TGIF2, MNT, ZBTB7A, E2F5, ZBTB26, KLF12, ZNF48, ZIC2. Bound but below 1 TPM: ZFHX2. Assayed with no peak here: 0 TFs in the matching biosample, 552 only elsewhere; never assayed: 536."
+  },
+  {
+   "id": "E05",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "MAX: bound elsewhere. 13 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, HCT116, HepG2, Ishikawa, K562, MCF-7 (+2 more) (e.g. ENCSR000BLP). 58.6 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 48 of 1626 TFs."
+  },
+  {
+   "id": "E06",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "JUN: bound elsewhere. 11 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549 (e.g. ENCSR022WVP). 91.65 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 16 of 1626 TFs."
+  },
+  {
+   "id": "E07",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "EGR1: bound elsewhere. 3 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, Ishikawa, K562 (e.g. ENCSR000BNE). 28.32 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 151 of 1626 TFs."
+  },
+  {
+   "id": "E08",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "BHLHE40: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR000DZJ). 68.33 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 33 of 1626 TFs."
+  },
+  {
+   "id": "E09",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "E2F4: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878, HepG2 (e.g. ENCSR000DYY). 58.31 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 49 of 1626 TFs."
+  },
+  {
+   "id": "E10",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "E2F6: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: A549, K562 (e.g. ENCSR000BLI). 17.63 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 267 of 1626 TFs."
+  },
+  {
+   "id": "E11",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "GABPA: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2, SK-N-SH (e.g. ENCSR000BJK). 15.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 303 of 1626 TFs."
+  },
+  {
+   "id": "E12",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "ZNF687: bound elsewhere. 2 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: HepG2 (e.g. ENCSR647PSR). 10.74 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 436 of 1626 TFs."
+  },
+  {
+   "id": "E13",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "CTCF: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: DOHH2 (e.g. ENCSR084RDK). 26.45 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 163 of 1626 TFs."
+  },
+  {
+   "id": "E14",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "found",
+   "summary": "NR2C1: bound elsewhere. 1 ENCODE ChIP-seq peak(s) contain the variant, only in other biosamples: GM12878 (e.g. ENCSR784VIQ). 18.52 TPM in DepMap:subtype=Glioblastoma (median of 54 lines), rank 251 of 1626 TFs."
+  },
+  {
+   "id": "E15",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TERT%20AND%20%28%22glioblastoma%22%20OR%20%22melanoma%22%20OR%20%22bladder%22%29&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "Europe PMC: 23888 hits for 'TERT AND (\"glioblastoma\" OR \"melanoma\" OR \"bladder\")'; top 7 with PMIDs:\nPMID 41744838 (2026): Telomerase Activity in Melanoma: Impact on Cancer Cell Proliferation Kinetics, Tumor Progression, and Clinical Therapeutic Strategies-A Scoping Review.\nPMID 42577103 (2026): Familial melanoma: genetic, clinical, and dermoscopic insights and follow-up.\nPMID 42722679 (2026): Developing neoantigen cancer vaccines: where are we now?\nPMID 42741698 (2026): Melanoma of unknown primary with solitary lesions to the prostate and lung uncovered after simple prostatectomy.\nPMID 42804732 (2026): SNP rs[masked] potentially elevates the risk of glioblastoma development and leads to worse prognosis when in cis with mutant TERT promoter in a Japanese cohort.\nPMID 42807929 (2026): USP10 stabilizes FOXM1 through KAT5-mediated acetylation to suppress cell senescence and promote melanoma malignant progression.\nPMID 42859331 (2026): CDKN2A deletion associated with poor prognosis in patients with TERT promoter wild-type, IDH wild-type glioblastoma."
+  },
+  {
+   "id": "E15a",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41744838",
+   "url": "https://europepmc.org/article/MED/41744838",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "A major molecular feature of melanoma is abnormal telomerase activation; this is most often caused by telomerase reverse transcriptase (TERT) promoter mutations, which occur in 50-82% of cases and are the most common noncoding alteration in this cancer."
+  },
+  {
+   "id": "E15b",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 41744838",
+   "url": "https://europepmc.org/article/MED/41744838",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "Conclusions: Understanding both telomere-dependent and -independent TERT functions is essential for developing effective biomarkers and therapies that overcome resistance and slow melanoma progression."
+  },
+  {
+   "id": "E15c",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42577103",
+   "url": "https://europepmc.org/article/MED/42577103",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "The genetic landscape of familial melanoma is heterogeneous."
+  },
+  {
+   "id": "E15d",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42577103",
+   "url": "https://europepmc.org/article/MED/42577103",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "CDKN2A and CDK4 mutations act through UV-dependent and cell cycle disruption pathways, while BAP1, POT1, and TERT mutations are considered UV-independent."
+  },
+  {
+   "id": "E15e",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "Mutations in the telomerase reverse transcriptase (TERT) promoter region (TPM), particularly C228T and C250T, are common in IDH-wildtype glioblastoma (GBM)."
+  },
+  {
+   "id": "E15f",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42804732",
+   "url": "https://europepmc.org/article/MED/42804732",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "The rs[masked] C allele may increase GBM susceptibility and, when in cis with TPM, is associated with reduced TERT expression and poorer prognosis, underscoring its biological and clinical significance in TPM-mutant GBM."
+  },
+  {
+   "id": "E15g",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42807929",
+   "url": "https://europepmc.org/article/MED/42807929",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "Additionally, loss of either USP10 or FOXM1 suppresses the expression of the downstream target Telomerase reverse transcriptase (TERT), triggering cellular senescence."
+  },
+  {
+   "id": "E15h",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42859331",
+   "url": "https://europepmc.org/article/MED/42859331",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "TERT promoter (TERTp) mutations are among the most frequent molecular alterations in isocitrate dehydrogenase (IDH) wild-type glioblastoma (GBM), yet the molecular profiles and prognostic implications associated with TERTp status remain incompletely characterized."
+  },
+  {
+   "id": "E15i",
+   "tool": "literature_search",
+   "source": "Europe PMC abstract, PMID 42859331",
+   "url": "https://europepmc.org/article/MED/42859331",
+   "retrieved_utc": "2026-10-25T11:57:36+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "The prognostic relevance of CDKN2A deletion may vary according to TERTp status, particularly for OS."
+  },
+  {
+   "id": "E16",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "QBiC-SELEX screen of chr5:1295113:G>A, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap subtype median Glioblastoma), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 10 of 20 occupied (15 with a strong site), 5 of 111 with unknown occupancy. Left out: 0 TFs assayed in the matching biosample and 552 assayed only elsewhere, none with a peak here; 1 bound but below 1 TPM. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element."
+  },
+  {
+   "id": "E17",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "GABPA (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 166.19, effect 2.121: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 15.52 TPM, rank 303 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, SK-N-SH, e.g. ENCSR000BJK. Best model's site strength: ref 97.1th, alt 99.3th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E18",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "ZIC2 (C2H2 ZF, 4 models; QBiC-SELEX coverage: mapped models only): best model ZIC4_eDBD_TGCGTA40NTCA_KT_yin2017_1_3_7mer (a CIS-BP-mapped model of ZIC4), z -20.85, effect -0.916: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 3.7 TPM, rank 852 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HEK293, e.g. ENCSR728MWW. Best model's site strength: ref 99.8th, alt 97.4th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E19",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "CTCF (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model CTCF_FL_TG40NCTGTGG_YWL_jolma2025_0_3_7mer (its own model), z -14.7, effect -1.719: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 26.45 TPM, rank 163 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in DOHH2, e.g. ENCSR084RDK. Best model's site strength: ref 99.8th, alt 97.0th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E20",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "ZBTB7A (C2H2 ZF, 1 model; QBiC-SELEX coverage: own model): best model ZBTB7A_eDBD_TTTGCT40NCGT_KR_yin2017_0_4_7mer (its own model), z -14.11, effect -0.826: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 8.49 TPM, rank 531 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in K562, e.g. ENCSR000BME. Best model's site strength: ref 99.9th, alt 99.9th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E21",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "NR2C1 (Nuclear receptor, 29 models; QBiC-SELEX coverage: own model): best model FXR_NA_Lib1_NA_bhimsaria2023_0(3)_3_7mer (a CIS-BP-mapped model of NR1H4), z -10.53, effect -0.434: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 18.52 TPM, rank 251 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in GM12878, e.g. ENCSR784VIQ. Best model's site strength: ref 97.7th, alt 97.9th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E22",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "E2F4 (E2F, 4 models; QBiC-SELEX coverage: own model): best model E2F1_NA_CAATT14N_ESU_yang2017_0_4_7mer (a CIS-BP-mapped model of E2F1), z 5.78, effect 0.464: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 58.31 TPM, rank 49 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in GM12878, HepG2, e.g. ENCSR000DYY. Best model's site strength: ref 98.9th, alt 99.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E23",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "E2F6 (E2F, 4 models; QBiC-SELEX coverage: mapped models only): best model E2F1_NA_CAATT14N_ESU_yang2017_0_4_7mer (a CIS-BP-mapped model of E2F1), z 5.78, effect 0.464: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 17.63 TPM, rank 267 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in A549, K562, e.g. ENCSR000BLI. Best model's site strength: ref 98.9th, alt 99.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E24",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "E2F5 (E2F, 4 models; QBiC-SELEX coverage: mapped models only): best model E2F1_NA_CAATT14N_ESU_yang2017_0_4_7mer (a CIS-BP-mapped model of E2F1), z 5.78, effect 0.464: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 6.91 TPM, rank 605 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, e.g. ENCSR486JYI. Best model's site strength: ref 98.9th, alt 99.5th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E25",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "tested_negative",
+   "summary": "EGR1 (C2H2 ZF, 4 models; QBiC-SELEX coverage: own model): best model EGR4_NA_TGCGCC20NCGC_Y_jolma2013_1_4_7mer (a CIS-BP-mapped model of EGR4), z -3.42, effect -0.541: ref allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 28.32 TPM, rank 151 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in HepG2, Ishikawa, K562, e.g. ENCSR000BNE. Best model's site strength: ref 99.5th, alt 99.6th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E26",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "tested_negative",
+   "summary": "JUN (bZIP, 3 models; QBiC-SELEX coverage: own model): best model JUND_eDBD_TCTCTA40NCAC_KS_yin2017_0_4_7mer (a CIS-BP-mapped model of JUND), z 3.26, effect 0.185: alt allele binds slightly more; occupied, no clear allelic change (|z| below the gate). 91.65 TPM, rank 16 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: bound elsewhere: ENCODE ChIP-seq peak over the variant in A549, e.g. ENCSR022WVP. Best model's site strength: ref 98.5th, alt 94.9th percentile of its k-mer coefficients: a strong site (the better allele reaches the 97.5th)."
+  },
+  {
+   "id": "E27",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "ETV2 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 166.19, effect 2.121: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.4 TPM, rank 1063 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 97.1th, alt 99.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E28",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "ETV3 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 166.19, effect 2.121: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 8.69 TPM, rank 521 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 97.1th, alt 99.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E29",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "FLI1 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 166.19, effect 2.121: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 4.71 TPM, rank 767 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 97.1th, alt 99.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E30",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "TFAP2A (AP-2, 4 models; QBiC-SELEX coverage: own model): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (a CIS-BP-mapped model of TFAP2E), z -36.84, effect -1.289: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 9.65 TPM, rank 479 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.5th, alt 96.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E31",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "TFAP2C (AP-2, 4 models; QBiC-SELEX coverage: own model): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (a CIS-BP-mapped model of TFAP2E), z -36.84, effect -1.289: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 6.49 TPM, rank 631 of 1626 TFs in DepMap:subtype=Glioblastoma (median of 54 lines). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.5th, alt 96.5th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E32",
+   "tool": "chip_peaks",
+   "source": "ENCODE experiment search; ReMap 2022 (UCSC track ReMapTFs)",
+   "url": "https://www.encodeproject.org/search/?type=Experiment&assay_title=TF+ChIP-seq&status=released&assembly=GRCh38&format=json&limit=all&field=target.label&field=biosample_ontology.term_name&field=accession",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "not_tested",
+   "summary": "ENCODE has no GABPA ChIP-seq experiment in biosamples matching 'Glioblastoma', so ENCODE says nothing about it there, for or against. ENCODE assayed GABPA in: A549, GM12878, H1, HL-60, HeLa-S3, HepG2, K562, MCF-7, SK-N-SH, liver. ReMap 2022 (published ChIP-seq, reprocessed): 4 GABPA peaks contain the variant, in 2 biosamples: Hep-G2 (ENCSR000BJK, ENCSR269TNX, GSE72082); SK-N-SH (ENCSR000BTG). 0 of them in biosamples matching 'Glioblastoma'."
+  },
+  {
+   "id": "E33",
+   "tool": "chip_peaks",
+   "source": "ENCODE experiment search; ReMap 2022 (UCSC track ReMapTFs)",
+   "url": "https://www.encodeproject.org/search/?type=Experiment&assay_title=TF+ChIP-seq&status=released&assembly=GRCh38&format=json&limit=all&field=target.label&field=biosample_ontology.term_name&field=accession",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "not_tested",
+   "summary": "ENCODE has no CTCF ChIP-seq experiment in biosamples matching 'Glioblastoma', so ENCODE says nothing about it there, for or against. ENCODE assayed CTCF in: 22Rv1, A549, A673, AG04449, AG04450, AG09309, AG09319, AG10803, B cell, BE2C, BJ, C4-2B. ReMap 2022 has no CTCF peak over the variant (ReMap lists peaks only, so this is no evidence against binding)."
+  },
+  {
+   "id": "E34",
+   "tool": "chip_peaks",
+   "source": "ENCODE experiment search; ReMap 2022 (UCSC track ReMapTFs)",
+   "url": "https://www.encodeproject.org/search/?type=Experiment&assay_title=TF+ChIP-seq&status=released&assembly=GRCh38&format=json&limit=all&field=target.label&field=biosample_ontology.term_name&field=accession",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "not_tested",
+   "summary": "ENCODE has no ZBTB7A ChIP-seq experiment in biosamples matching 'Glioblastoma', so ENCODE says nothing about it there, for or against. ENCODE assayed ZBTB7A in: HEK293, HepG2, Ishikawa, K562. ReMap 2022 (published ChIP-seq, reprocessed): 4 ZBTB7A peaks contain the variant, in 3 biosamples: K-562 (ENCSR000BME, GSE103445); Ishikawa (ENCSR000BSZ); Hep-G2 (ENCSR000BQA). 0 of them in biosamples matching 'Glioblastoma'."
+  }
+ ]
+}

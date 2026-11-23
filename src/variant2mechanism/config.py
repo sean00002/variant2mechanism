@@ -51,6 +51,14 @@ def with_profile(cfg: Config, name: str | None) -> Config:
     return Config(_merge(cfg, profiles[name]))
 
 
+def profile_config(name: str | None = None, cfg: Config | None = None) -> Config:
+    """What a command runs with: the profile `name`, else config.yaml's `default_profile`; "none" means the settings
+    alone, with no profile."""
+    cfg = cfg or load_config()
+    name = name or cfg.get("default_profile")
+    return cfg if name in (None, "", "none") else with_profile(cfg, name)
+
+
 @lru_cache(maxsize=4)
 def load_config(path: str | None = None) -> Config:
     path = path or os.environ.get("V2M_CONFIG") or str(REPO / "config.yaml")

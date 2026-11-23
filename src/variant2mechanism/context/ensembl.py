@@ -81,4 +81,4 @@ def nearest_genes(case: Case, window: int = 1_000_000) -> ToolResult:
     lines += [f"{g['gene']}: {g['distance_to_tss'] / 1000:.1f} kb from TSS ({g['position']}, strand {g['strand']:+d})"
               for g in genes[:10]]
     return ToolResult("nearest_genes", args, "\n".join(lines), genes, "Ensembl overlap (protein_coding)", url,
-                      "computational", retrieved_utc=r.retrieved_utc)
+                      "computational", retrieved_utc=r.retrieved_utc, status="found" if genes else "tested_negative")

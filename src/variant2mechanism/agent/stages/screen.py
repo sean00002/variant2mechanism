@@ -86,9 +86,12 @@ def screen(state: RunState) -> None:
     args = {"variant": v.key(), "expression_context": state.spec.expression_context}
     state.ledger.add_evidence("screen", ToolResult("qbic_screen", args, summary_line(v.key(), out),
                                                    {k: val for k, val in out.items() if k not in ("occupied", "unknown")},
-                                                   SOURCE, "cache/qbic.sqlite", "computational", limit=3000))
+                                                   SOURCE, "cache/qbic.sqlite", "computational", limit=3000,
+                                                   status="found" if out["occupied"] or out["unknown"]
+                                                   else "tested_negative"))
     for r in out["occupied"] + out["unknown"]:
         state.ledger.add_evidence("screen", ToolResult("qbic_screen", {**args, "tf": r["tf"]},
                                                        tf_line(r, state.spec.expression_context or "this context",
                                                                out.get("strong_site_pct")), r,
-                                                       SOURCE, "cache/qbic.sqlite", "computational", limit=3000))
+                                                       SOURCE, "cache/qbic.sqlite", "computational", limit=3000,
+                                                       status="found" if r["passes_gate"] else "tested_negative"))

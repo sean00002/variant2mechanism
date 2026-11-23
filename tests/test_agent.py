@@ -133,6 +133,28 @@ def test_max_tokens_retries_with_double(agent_cfg):
     assert seen == [4000, 8000]
 
 
+def test_a_repeat_changes_only_the_cache_key_and_the_trace_names_it(agent_cfg, tmp_path):
+    import hashlib
+    calls = []
+    msgs = [{"role": "user", "content": "x"}]
+
+    def t(p):
+        calls.append(p)
+        return message(text({"quotes": []}))
+    LLMClient(agent_cfg, transport=t, trace_path=tmp_path / "a.jsonl", seed=0).call(
+        "summariser", "t", "s", msgs, trace={"evidence_sha256": "e1"})
+    LLMClient(agent_cfg, transport=t, trace_path=tmp_path / "b.jsonl", seed=1).call("summariser", "t", "s", msgs)
+    a, b = (json.loads((tmp_path / f"{n}.jsonl").read_text()) for n in "ab")
+    assert calls[0] == calls[1]                       # nothing about the repeat reaches the model
+    assert a["prompt_sha256"] == b["prompt_sha256"] and a["cache_key"] != b["cache_key"]
+    assert (a["repeat"], b["repeat"], a["evidence_sha256"]) == (0, 1, "e1") and "evidence_sha256" not in b
+    # the key formula of every saved run, unchanged: sha256 of the request plus the repeat number as "seed"
+    assert a["cache_key"] == hashlib.sha256(json.dumps({**calls[0], "seed": 0}, sort_keys=True,
+                                                       default=str).encode()).hexdigest()
+    LLMClient(agent_cfg, transport=t, seed=0).call("summariser", "t", "s", msgs)
+    assert len(calls) == 2                            # repeat 0 again: answered from the cache
+
+
 def test_refusal_fails_the_stage(agent_cfg):
     with pytest.raises(Refused):
         LLMClient(agent_cfg, transport=lambda p: message(None, "content_filter")).call(
@@ -228,7 +250,7 @@ def test_rounds_stop_when_the_answer_holds(agent_cfg, tmp_path):
 
 
 @pytest.mark.data
-def test_no_experiment_is_not_news(agent_cfg, tmp_path):
+def test_not_tested_is_not_news(agent_cfg, tmp_path):
     """ENCODE never assayed HOXB13 in LNCaP or TFAP2A at all: those answers do not use up a call, and a round of
     nothing else ends the loop."""
     none_here = ("chip_peaks", {"tf": "HOXB13", "biosample": "LNCaP clone FGC"}, "H1.binding", "a HOXB13 peak")
@@ -237,7 +259,7 @@ def test_no_experiment_is_not_news(agent_cfg, tmp_path):
     t = FakeTransport(plans=plans, revise_probs=[[0.2, 0.6, 0.2]])
     report, _ = run(agent_cfg, tmp_path, transport=t)
     assert [(c["round"], c["status"]) for c in report["investigate_calls"]] == [
-        (1, "no experiment"), (1, "run"), (1, "run"), (1, "run"), (2, "no experiment")]
+        (1, "not tested"), (1, "run"), (1, "run"), (1, "run"), (2, "not tested")]
     assert len(report["rounds"]) == 1 and report["stop_reason"] == "round 2: its calls brought no new information"
     ev = {e["id"]: e for e in report["evidence"]}
     assert "for or against" in ev[report["investigate_calls"][0]["evidence_id"]]["summary"]
@@ -264,6 +286,41 @@ def test_offline_no_qbic_run_and_report(agent_cfg, tmp_path):
     phen = report["chains"][0]["links"][-1]
     assert phen["evidence_ids"] == [] and phen["status"] == "missing"
     assert any(f["flag"] == "no_citation" for f in report["flags"])
+    v = report["verdict"]                       # no_qbic: QBiC-SELEX never decides; occupancy and expression may
+    assert v["verdict"] in ("mechanism", "no mechanism", "undetermined") and v["reason"]
+    assert all(f["qbic"][0] == "unknown" for f in v["facts"].values())
+    assert f"**Verdict: {v['verdict']}.**" in (run_dir / "report.md").read_text()
+
+
+@pytest.mark.data
+def test_tournament_ranks_the_chains_and_checks_the_null(agent_cfg, tmp_path):
+    """Every pair in both orders; the earlier chain wins by default, so H1 leads and beats the null both times."""
+    report, t = run(agent_cfg, tmp_path)
+    assert sum(1 for c in t.calls if schema_title(c) == "Comparison") == 6           # 3 pairs x 2 orders
+    tour = report["tournament"]
+    assert tour["ranking"] == ["H1", "H2", "H3"] and len(tour["matches"]) == 3
+    assert report["verdict"]["pairwise_ok"] is True and report["rank_method"] == "llm"
+    assert "Pairwise ranking (Bradley-Terry strengths): H1" in (tmp_path / "run" / "report.md").read_text()
+
+
+@pytest.mark.data
+def test_position_bias_ties_every_pair(agent_cfg, tmp_path):
+    """A critic that always prefers the first chain shown ties every pair, so the top chain cannot beat the null."""
+    report, _ = run(agent_cfg, tmp_path, transport=FakeTransport(compare=lambda a, b: "A"))
+    assert all(m["scores"] == [1.0, 0.0] for m in report["tournament"]["matches"])
+    assert report["verdict"]["pairwise_ok"] is False and report["verdict"]["verdict"] == "undetermined"
+    assert "does not beat the null" in report["verdict"]["reason"]
+
+
+@pytest.mark.data
+def test_pairwise_ranking_replaces_the_model_probabilities(agent_cfg, tmp_path):
+    agent_cfg["rank"] = {"method": "pairwise"}
+    prefer_h2 = {"H2": 0, "H1": 1, "H3": 2}
+    t = FakeTransport(compare=lambda a, b: "A" if prefer_h2[a] < prefer_h2[b] else "B")
+    report, _ = run(agent_cfg, tmp_path, transport=t)
+    top = report["chains"][0]
+    assert top["id"] == "H2" and top["probability"] == report["tournament"]["strengths"]["H2"]
+    assert top["probability_llm"] == pytest.approx(0.3) and report["rank_method"] == "pairwise"
 
 
 @pytest.mark.data

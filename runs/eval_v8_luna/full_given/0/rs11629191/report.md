@@ -1,0 +1,44 @@
+# rs11629191 and Breast cancer (v8, full, masked, seed 0)
+
+Context: DepMap:ACH-000019 (MCF7) (given: given with the case).
+
+**Verdict: no mechanism.** no chain meets the minimum; the top chain (XBP1) fails: ChIP-seq.
+
+- TF mechanism: no mechanism (no chain meets the minimum; the top chain (XBP1) fails: ChIP-seq)
+- Target gene: PELI2 (indirect: PELI2 is the nearest gene or overlaps the variant)
+- Disease link: no association (common variant (MAF 0.2736): neither the GWAS Catalog nor Open Targets lists an association with Breast cancer)
+
+Cost $0.012 over 7 model calls; 140 s.
+
+## Chains
+
+| Rank | Chain | TF | Gene | Binding | Cell type | Element | Gene link | Disease | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | H1 (F1) | XBP1 | PELI2 | indirect | supporting | indirect | indirect | contradicted | kept |
+| 2 | H2 (F2) | CREB3L4 | PELI2 | indirect | supporting | indirect | indirect | contradicted | kept |
+| 3 | H3 (F3) | SP140L | PELI2 | indirect | supporting | indirect | indirect | contradicted | kept |
+| 4 | H4 (F4) | ATF7 | PELI2 | indirect | supporting | indirect | indirect | contradicted | kept |
+| - | H5 (F5) | CXXC5 | PELI2 | indirect | supporting | contradicted | indirect | contradicted | eliminated: element: the variant is not in a cCRE and no TF is bound there in the context |
+
+## Family screen
+
+- F1 bZIP, 1 model: named XBP1 (z -91.69); ChIP tier here 3, anywhere 3
+- F2 bZIP, 4 models: named CREB3L4 (z -76.89); ChIP tier here 3, anywhere 3
+- F3 SAND, 2 models: named SP140L (z -57.31); ChIP tier here 3, anywhere 3
+- F4 bZIP, 3 models: named ATF7 (z -49.19); ChIP tier here 3, anywhere 3
+- F5 CxxC, 2 models: named CXXC5 (z -44.11); ChIP tier here 3, anywhere 3
+- F6 Homeodomain, 9 models: named TGIF1 (z -38.69); ChIP tier here 3, anywhere 3
+- F7 bZIP, 6 models: named MAFK (z -38.05); ChIP tier here 3, anywhere 3
+- F8 bHLH, 1 model: named USF3 (z -37.78); ChIP tier here 3, anywhere 3
+- F9 bZIP, 2 models: named CREB1 (z -37.47); ChIP tier here 3, anywhere 3
+- F10 C2H2 ZF, 4 models: named EGR3 (z -30.48); ChIP tier here 3, anywhere 3
+- F11 bHLH, 1 model: named MLX (z -28.65); ChIP tier here 3, anywhere 3
+- F12 SAND, 2 models: named GMEB2 (z -26.33); ChIP tier here 3, anywhere 3
+
+## Next experiment
+
+Test the variant directly in MCF7 with an allele-specific regulatory assay, such as a paired ref/alt MPRA, and follow any reproducible effect with targeted expression measurement of candidate genes. If probing occupancy, prioritize expressed candidates with appropriate assays; do not treat the negative ATF7 result as evidence against ATF2.
+
+## Flags
+
+- none

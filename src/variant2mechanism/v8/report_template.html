@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>v2m v8 mechanism map</title>
+<style>
+/* One run of v2m v8: verdict lines, the mechanism map (variant, chains, element, genes, disease), then the family
+   screen, the tier matrix, the critique and lookups, the literature and the evidence. Self-contained: no network. */
+:root {
+  --bg: #f4f6f8; --surface: #ffffff; --surface-2: #eef1f5; --ink: #18202b; --ink-2: #4b5666; --muted: #8b95a3;
+  --line: #d6dce4; --accent: #2f46c9; --accent-soft: #e4e8fb; --ok: #127a62; --ok-2: #6fb5a1; --warn: #b8730a;
+  --bad: #c03a33; --font: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; --cond: "IBM Plex Sans Condensed", "Arial Narrow", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0e1319; --surface: #151c24; --surface-2: #1c2530; --ink: #e5eaf0; --ink-2: #a7b2c0; --muted: #6f7b8a;
+    --line: #2a3542; --accent: #8e9dff; --accent-soft: #232c4d; --ok: #3dbf98; --ok-2: #2b7f68; --warn: #e3a440; --bad: #f06d64; color-scheme: dark; }
+}
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--font); }
+.wrap { max-width: 1340px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 18px; }
+h1, h2, h3 { font-family: var(--cond); font-weight: 600; margin: 0; }
+h1 { font-size: 28px; } h2 { font-size: 20px; } h3 { font-size: 16px; }
+.eyebrow { font: 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--ink-2); font-size: 14px; }
+.mono { font-family: var(--mono); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.lines { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 14px; font-size: 14.5px; }
+.pill { display: inline-block; padding: 1px 10px; border-radius: 999px; font: 500 13px var(--mono); border: 1px solid currentColor; }
+.v-mechanism { color: var(--ok); } .v-no { color: var(--bad); } .v-undetermined { color: var(--warn); }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; font-size: 14px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { font: 500 13px var(--font); padding: 6px 12px; border: 0; background: var(--surface); color: var(--ink-2); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.frame { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+svg.map { display: block; width: 100%; min-width: 1060px; height: auto; }
+.box { fill: var(--surface); stroke: var(--line); stroke-width: 1.2; }
+.node { cursor: pointer; } .node.sel .box { stroke: var(--accent); stroke-width: 2.4; } .node.off { opacity: .35; }
+.t-title { font: 600 16px var(--cond); fill: var(--ink); } .t-line { font: 12.5px var(--font); fill: var(--ink-2); }
+.t-mono { font: 12px var(--mono); fill: var(--ink-2); } .t-eye { font: 10.5px var(--mono); letter-spacing: .08em; fill: var(--muted); }
+.t-pip { font: 500 10.5px var(--mono); fill: var(--surface); pointer-events: none; } .t-pip.dark { fill: var(--ink-2); }
+.edge { fill: none; stroke-width: 2.6; stroke-linecap: round; } .edge.sel { stroke-width: 4.2; } .edge.dim { opacity: .18; }
+.tier3 { stroke: var(--ok); } .tier2 { stroke: var(--ok-2); } .tier1 { stroke: var(--warn); stroke-dasharray: 8 6; }
+.tier0 { stroke: var(--muted); stroke-dasharray: 2 6; } .tierm1 { stroke: var(--bad); }
+.pip.tier3 { fill: var(--ok); } .pip.tier2 { fill: var(--ok-2); } .pip.tier1 { fill: var(--warn); } .pip.tier0 { fill: var(--surface-2); stroke: var(--line); } .pip.tierm1 { fill: var(--bad); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--ink-2); align-items: center; }
+.legend svg { width: 34px; height: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 500; color: var(--ink-2); font-size: 12.5px; }
+.cell3 { background: color-mix(in srgb, var(--ok) 22%, transparent); } .cell2 { background: color-mix(in srgb, var(--ok-2) 22%, transparent); }
+.cell1 { background: color-mix(in srgb, var(--warn) 18%, transparent); } .cell0 { color: var(--muted); } .cellm1 { background: color-mix(in srgb, var(--bad) 20%, transparent); }
+.badge { font: 500 12px var(--mono); padding: 0 6px; border-radius: 5px; border: 1px solid currentColor; }
+.ev { font: 500 12px var(--mono); padding: 0 6px; border-radius: 5px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); cursor: pointer; }
+.ev-text { white-space: pre-wrap; font-size: 13px; background: var(--surface-2); border-radius: 8px; padding: 8px 10px; margin-top: 6px; overflow-wrap: anywhere; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; } @media (max-width: 900px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+details summary { cursor: pointer; color: var(--ink-2); }
+ul { margin: 0; padding-left: 18px; }
+.muted { color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:grid;gap:8px">
+    <div class="eyebrow">v2m v8 · mechanism map</div>
+    <h1 id="title"></h1>
+    <div class="meta" id="meta"></div>
+  </header>
+  <section class="panel"><div class="lines" id="verdict"></div></section>
+  <section class="panel">
+    <div class="controls">
+      <span>Critic's grades shown:</span><div class="seg" id="stage"></div>
+      <label><input type="checkbox" id="showElim" checked> show eliminated chains</label>
+    </div>
+    <div class="frame"><svg class="map" id="map" role="img" aria-label="Mechanism map"></svg></div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <section class="panel" id="details" aria-live="polite"></section>
+  <section class="panel"><h2>Link tiers (code)</h2><div class="frame" style="border:0"><table id="matrix"></table></div></section>
+  <section class="panel"><h2>Family screen</h2><p class="muted" id="screenhead"></p><div class="frame" style="border:0"><table id="families"></table></div></section>
+  <section class="panel"><h2>Critique and lookups</h2><div class="grid2" id="critique"></div></section>
+  <section class="panel"><h2>Literature</h2><div id="lit"></div></section>
+  <section class="panel"><details><summary>Every evidence row</summary><div id="evidence" style="margin-top:8px"></div></details></section>
+</div>
+<script type="application/json" id="data">/*DATA*/</script>
+<script>
+(function () {
+  "use strict";
+  const R = JSON.parse(document.getElementById("data").textContent);
+  const NS = "http://www.w3.org/2000/svg";
+  const STEPS = [["binding", "Binding", "B"], ["cell_type", "Cell type", "C"], ["element", "Element", "E"], ["gene", "Gene link", "G"], ["phenotype", "Disease", "D"]];
+  const TIERCLS = t => (t === -1 ? "tierm1" : "tier" + (t ?? 0));
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const EV = Object.fromEntries((R.evidence || []).map(e => [e.id, e]));
+  const fam = fid => (R.screen.families || []).find(f => f.fid === fid);
+  const hasRegrade = (R.chains || []).some(c => c.links.some(l => l.regrade));
+  const state = { stage: hasRegrade ? "regrade" : "critique", showElim: true, sel: (R.ranking || [])[0] || ((R.chains || [])[0] || {}).id, item: null };
+
+  function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+  function txt(p, x, y, s, c, a) { const t = el("text", { x, y, class: c || "t-line" }, p); if (a) t.setAttribute("text-anchor", a); t.textContent = s; return t; }
+  const curve = (x1, y1, x2, y2) => { const dx = (x2 - x1) / 2; return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`; };
+  const vclass = v => (v === "mechanism" ? "v-mechanism" : v === "undetermined" ? "v-undetermined" : "v-no");
+  const evChips = ids => (ids || []).filter(Boolean).map(i => `<button class="ev" data-ev="${esc(i)}">${esc(i)}</button>`).join(" ");
+
+  // header and verdict
+  document.getElementById("title").textContent = `${R.variant} · ${R.disease}`;
+  const ctx = R.context || {};
+  document.getElementById("meta").innerHTML = [
+    `<span class="mono">${esc(R.variant_key)}</span>`, `<span>${esc(R.arm)} · ${esc(R.mode)} · repeat ${esc(R.repeat ?? R.seed)}${R.code_only ? " · code only" : ""}</span>`,
+    `<span>context: ${esc(ctx.context || "none")} (${esc(ctx.route)})</span>`,
+    `<span>${R.models ? esc(R.models.generator) : "no model"} · $${(R.cost_usd || 0).toFixed(3)} · ${R.model_calls} calls · ${Math.round(R.seconds)} s</span>`,
+    R.literature_before ? `<span>literature before ${esc(R.literature_before)}</span>` : ""].join("");
+  const V = R.verdict || {};
+  document.getElementById("verdict").innerHTML = V.overall ? `
+    <div>Overall</div><div><span class="pill ${vclass(V.overall.verdict)}">${esc(V.overall.verdict)}</span> ${esc(V.overall.reason)}</div>
+    <div>TF mechanism</div><div><span class="pill ${vclass(V.tf.verdict)}">${esc(V.tf.verdict)}</span> ${esc(V.tf.reason)}</div>
+    <div>Target gene</div><div><b>${esc(V.gene.gene || "none")}</b> · ${esc(V.gene.name || "")}: ${esc(V.gene.reason)}</div>
+    <div>Disease link</div><div><b>${esc((V.disease.state || "").replace("_", " "))}</b>: ${esc(V.disease.reason)}</div>` : "<div>No verdict</div><div></div>";
+
+  // map
+  function chainsShown() { return (R.chains || []).filter(c => state.showElim || !c.eliminated); }
+  function grade(c, step) { const l = c.links.find(x => x.step === step) || {}; return state.stage === "regrade" ? (l.regrade || l.critique) : l.critique; }
+  function renderMap() {
+    const svg = document.getElementById("map"); svg.innerHTML = "";
+    const chains = chainsShown();
+    const genes = [...new Set(chains.map(c => c.target_gene).filter(Boolean))];
+    const rowH = 104, gap = 12, n = Math.max(chains.length, 1);
+    const H = Math.max(24 + n * (rowH + gap), 24 + Math.max(genes.length, 1) * 96, 300);
+    const W = 1290; svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const C = { v: { x: 14, w: 186 }, tf: { x: 256, w: 300 }, el: { x: 624, w: 214 }, g: { x: 902, w: 206 }, d: { x: 1158, w: 120 } };
+    const cy = H / 2, edges = el("g", {}, svg), nodes = el("g", {}, svg);
+    const ty = i => 18 + i * (rowH + gap), gy = i => 18 + i * ((H - 36) / Math.max(genes.length, 1));
+    const gH = Math.min(84, (H - 36) / Math.max(genes.length, 1) - 10);
+    function node(x, y, w, h, kind, id, sel, off) { const g = el("g", { class: `node${sel ? " sel" : ""}${off ? " off" : ""}`, "data-kind": kind, "data-id": id || "", tabindex: 0 }, nodes); el("rect", { x, y, width: w, height: h, rx: 9, class: "box" }, g); return g; }
+    chains.forEach((c, i) => {
+      const y = ty(i) + rowH / 2, t = c.tiers || {}, sel = c.id === state.sel, dim = state.sel && !sel;
+      const cls = s => `edge ${TIERCLS((t[s] || {}).tier)}${sel ? " sel" : ""}${dim ? " dim" : ""}${c.eliminated ? " dim" : ""}`;
+      el("path", { d: curve(C.v.x + C.v.w, cy, C.tf.x, y), class: cls("binding") }, edges);
+      el("path", { d: curve(C.tf.x + C.tf.w, y, C.el.x, cy - 60 + (i % 5) * 30), class: cls("cell_type") }, edges);
+      const gi = genes.indexOf(c.target_gene);
+      if (gi >= 0) {
+        const yg = gy(gi) + gH / 2;
+        el("path", { d: curve(C.el.x + C.el.w, cy - 40 + gi * 20, C.g.x, yg), class: cls("gene") }, edges);
+        el("path", { d: curve(C.g.x + C.g.w, yg, C.d.x, cy), class: cls("phenotype") }, edges);
+      }
+    });
+    // variant
+    { const g = node(C.v.x, cy - 90, C.v.w, 180, "variant", "", false, false), x = C.v.x + 12;
+      txt(g, x, cy - 68, "VARIANT", "t-eye"); txt(g, x, cy - 46, R.variant_key, "t-mono");
+      txt(g, x, cy - 20, R.mode === "masked" ? "rsID hidden from the model" : String(R.variant), "t-line");
+      const sc = R.screen.counts || {};
+      txt(g, x, cy + 6, R.screen.use_qbic ? `${sc.families_passing} families pass the gate` : "no QBiC-SELEX", "t-line");
+      txt(g, x, cy + 26, `${sc.candidates} candidates · ${sc.with_chip_here} bound here`, "t-line");
+      txt(g, x, cy + 46, `${(R.chains || []).length} chains · ${Object.keys(R.eliminated || {}).length} eliminated`, "t-line"); }
+    // chains
+    chains.forEach((c, i) => {
+      const y = ty(i), f = fam(c.family_id) || {}, m = (f.members || []).find(x => x.tf === c.tf) || {};
+      const g = node(C.tf.x, y, C.tf.w, rowH, "chain", c.id, c.id === state.sel, !!c.eliminated || (state.sel && c.id !== state.sel)), x = C.tf.x + 12, xr = C.tf.x + C.tf.w - 12;
+      txt(g, x, y + 22, `${c.rank ? "#" + c.rank : "✕"} ${c.tf}`, "t-title");
+      txt(g, xr, y + 22, `${c.id} · ${c.family_id} ${(f.label || "").split(",")[0]}`, "t-mono", "end");
+      const z = f.z != null ? `${f.binds_more} binds more · ${f.effect > 0 ? "+" : ""}${f.effect} · z ${f.z}` : "no QBiC-SELEX";
+      txt(g, x, y + 42, `${c.allele_binding_more === f.binds_more || f.z == null ? "" : "⚠ "}${z}`, "t-mono");
+      const tpm = m.tpm != null ? `${m.tpm.toFixed(1)} TPM` : "TPM ?";
+      const chip = m.grade_here === 1 ? `summit ${m.summit_here} bp here` : m.grade_here === 2 ? "peak here" : m.grade_any === 1 ? `summit ${m.summit_any} bp elsewhere` : m.grade_any === 2 ? "peak elsewhere" : "no ChIP at the variant";
+      txt(g, x, y + 61, `${tpm} · ${chip}` + (c.tf !== f.named ? ` · code named ${f.named}` : ""), "t-line");
+      const site = f.site && f.site.ref != null ? `site ${Math.round(f.site.ref)} → ${Math.round(f.site.alt)} pct` : "";
+      txt(g, x, y + 92, c.eliminated ? "eliminated" : site, "t-line");
+      STEPS.forEach(([s, name, letter], k) => {
+        const t = (c.tiers || {})[s] || {}, px = xr - (5 - k) * 20 + 4, py = y + 79;
+        const pg = el("g", {}, g); el("rect", { x: px, y: py, width: 16, height: 16, rx: 3, class: `pip ${TIERCLS(t.tier)}` }, pg);
+        const lt = txt(pg, px + 8, py + 12, letter, "t-pip" + (t.tier === 0 ? " dark" : ""), "middle");
+        el("title", {}, pg).textContent = `${name}: ${t.name || "?"} · ${t.reason || ""}`;
+      });
+    });
+    // element
+    { const e = R.element || {}, g = node(C.el.x, cy - 100, C.el.w, 200, "element", "", false, false), x = C.el.x + 12;
+      txt(g, x, cy - 78, "ELEMENT", "t-eye"); txt(g, x, cy - 56, e.accession || "no cCRE", "t-mono");
+      txt(g, x, cy - 36, `${e.class || ""}${e.in_ccre ? "" : " (nearest; not at the variant)"}`, "t-line");
+      txt(g, x, cy - 10, `in the context: ${e.status}`, "t-line");
+      const here = (e.here || []).slice(0, 3).map(h => `${h[0]}: ${h[1]}`); here.forEach((h, k) => txt(g, x, cy + 10 + k * 17, h, "t-line"));
+      txt(g, x, cy + 72, `active in ${(e.active_elsewhere || []).length} of ${e.n || 170} core samples`, "t-line"); }
+    // genes
+    genes.forEach((gname, i) => {
+      const y = gy(i), users = chains.filter(c => c.target_gene === gname), t = ((users[0] || {}).tiers || {}).gene || {};
+      const g = node(C.g.x, y, C.g.w, gH, "gene", gname, users.some(c => c.id === state.sel), false), x = C.g.x + 12;
+      txt(g, x, y + 22, gname, "t-title"); txt(g, x, y + 42, `${t.name || ""}`, "t-mono");
+      const words = (t.reason || "").split(" "); let line = "", ly = y + 60;
+      for (const w of words) { if ((line + w).length > 30) { txt(g, x, ly, line, "t-line"); ly += 15; line = ""; if (ly > y + gH - 4) break; } line += w + " "; }
+      if (ly <= y + gH - 4 && line) txt(g, x, ly, line, "t-line");
+    });
+    // disease
+    { const d = (V.disease || {}), g = node(C.d.x, cy - 90, C.d.w, 180, "disease", "", false, false), x = C.d.x + 10;
+      txt(g, x, cy - 68, "DISEASE", "t-eye");
+      String(R.disease).split(/[ ,]+/).slice(0, 3).forEach((w, k) => txt(g, x, cy - 46 + k * 18, w, "t-title"));
+      txt(g, x, cy + 20, (d.state || "").replace("_", " "), "t-mono"); }
+  }
+  function renderControls() {
+    document.getElementById("stage").innerHTML = ["critique", "regrade"].map(s => `<button data-stage="${s}" aria-pressed="${state.stage === s}" ${s === "regrade" && !hasRegrade ? "disabled" : ""}>${s === "critique" ? "Critique" : "After lookups"}</button>`).join("");
+    const sw = c => `<svg viewBox="0 0 34 12"><path d="M2,6 L32,6" class="edge ${c}"/></svg>`;
+    document.getElementById("legend").innerHTML = `<span>Code tiers:</span><span>${sw("tier3")} direct</span><span>${sw("tier2")} supporting</span><span>${sw("tier1")} indirect</span><span>${sw("tier0")} untested</span><span>${sw("tierm1")} contradicted</span><span class="mono">B C E G D</span><span>binding, cell type, element, gene link, disease</span>`;
+  }
+  function chainDetails(c) {
+    const f = fam(c.family_id) || {};
+    const rows = c.links.map(l => { const t = (c.tiers || {})[l.step] || {}, g = grade(c, l.step);
+      return `<tr><td><b>${esc((STEPS.find(s => s[0] === l.step) || [0, l.step])[1])}</b></td><td>${esc(l.claim)}<div>${evChips(l.evidence_ids)}</div><div class="ev-slot"></div></td><td class="cell${t.tier === -1 ? "m1" : t.tier}">${esc(t.name)}<div class="muted">${esc(t.reason)}</div></td><td>${g ? `<b>${esc(g.status)}</b><div class="muted">${esc(g.reason)}</div>` : ""}</td></tr>`; }).join("");
+    const mins = Object.entries(c.minimum || {}).map(([k, v]) => `${esc(k)}: <b>${esc(v)}</b>`).join(" · ");
+    const mem = (f.members || []).map(m => `<tr><td>${esc(m.tf)}${m.tf === f.named ? " (named)" : ""}</td><td>${m.tpm != null ? m.tpm.toFixed(1) : "?"}</td><td>${esc(m.state)}</td><td>${m.grade_here}${m.summit_here != null ? ` (${m.summit_here} bp)` : ""}</td><td>${m.grade_any}${m.summit_any != null ? ` (${m.summit_any} bp)` : ""}</td><td>${esc((m.cells_any || []).slice(0, 4).join(", "))}</td></tr>`).join("");
+    return `<div class="eyebrow">${esc(c.id)} · ${c.rank ? "rank " + c.rank : "eliminated"}</div><h2>${esc(c.title)}</h2>
+      <p>${esc(c.tf)} · ${esc(c.allele_binding_more)} allele binds more · gene ${esc(c.target_gene)} · ${esc(c.cell_type)}${c.member_reason ? ` · <i>member choice: ${esc(c.member_reason)}</i>` : ""}</p>
+      ${c.eliminated ? `<p><b>Eliminated:</b> ${esc(c.eliminated)}</p>` : ""}<p>Minimum for a mechanism: ${mins}</p>
+      <div class="frame" style="border:0"><table><thead><tr><th>Link</th><th>Claim and evidence</th><th>Code tier</th><th>Critic (${state.stage === "regrade" ? "after lookups" : "critique"})</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <h3>${esc(c.family_id)} ${esc(f.label || "")}</h3><div class="frame" style="border:0"><table><thead><tr><th>Member</th><th>TPM</th><th>Expression</th><th>ChIP here</th><th>ChIP anywhere</th><th>Cells</th></tr></thead><tbody>${mem}</tbody></table></div>
+      <details><summary>Predictions and falsification</summary><ul>${(c.predictions || []).map(p => `<li>${esc(p)}</li>`).join("")}${(c.falsified_if || []).map(p => `<li>Falsified if: ${esc(p)}</li>`).join("")}</ul></details>`;
+  }
+  function renderDetails() {
+    const box = document.getElementById("details"), it = state.item;
+    if (it && it.kind === "element") { const e = R.element || {}; box.innerHTML = `<h2>Element ${esc(e.accession || "")}</h2><p>${esc(e.status)} in the context; class ${esc(e.class)}</p><p>Matched biosamples: ${esc((e.here || []).map(h => h.join(": ")).join("; ") || "none")}</p><p>Active in: ${esc((e.active_elsewhere || []).join(", "))}</p>`; return; }
+    if (it && it.kind === "gene") { const links = ((R.gene_links || {})["3d"] || []).filter(x => x.gene === it.id); box.innerHTML = `<h2>${esc(it.id)}</h2><p>${links.length} SCREEN 3D links</p><div class="frame" style="border:0"><table><tr><th>Method</th><th>Biosample</th><th>Score</th></tr>${links.slice(0, 20).map(x => `<tr><td>${esc(x.method)}</td><td>${esc(x.biosample)}</td><td>${esc(x.score)}</td></tr>`).join("")}</table></div>`; return; }
+    if (it && (it.kind === "disease" || it.kind === "variant")) { const d = (R.intake || {}).disease_line || {}; box.innerHTML = `<h2>${esc(R.disease)}</h2><p>${esc(d.state)}: ${esc(d.reason)}</p><ul>${(d.matches || []).slice(0, 8).map(m => `<li>${esc(m.source)}: ${esc(m.trait)} ${m.p != null ? "p " + Number(m.p).toExponential(1) : ""}${m.pip != null ? " PIP " + Number(m.pip).toFixed(2) : ""}</li>`).join("")}</ul>`; return; }
+    const c = (R.chains || []).find(x => x.id === state.sel); box.innerHTML = c ? chainDetails(c) : "<p>No chains.</p>";
+  }
+  function renderTables() {
+    const hdr = `<thead><tr><th>Rank</th><th>Chain</th><th>TF</th><th>Gene</th>${STEPS.map(s => `<th>${s[1]}</th>`).join("")}<th>Status</th></tr></thead>`;
+    document.getElementById("matrix").innerHTML = hdr + "<tbody>" + (R.chains || []).map(c => `<tr><td>${c.rank || "–"}</td><td>${esc(c.id)} ${esc(c.family_id)}</td><td>${esc(c.tf)}</td><td>${esc(c.target_gene)}</td>${STEPS.map(([s]) => { const t = (c.tiers || {})[s] || {}; return `<td class="cell${t.tier === -1 ? "m1" : t.tier}" title="${esc(t.reason)}">${esc(t.name)}</td>`; }).join("")}<td>${c.eliminated ? "eliminated: " + esc(c.eliminated) : "kept"}</td></tr>`).join("") + "</tbody>";
+    const sc = R.screen || {}, cnt = sc.counts || {};
+    document.getElementById("screenhead").textContent = sc.use_qbic ? `${cnt.families_passing} families have a model past the gate (|z| > ${sc.z_thr}); ${cnt.candidates} have a member that is not known to be unexpressed; ${cnt.with_chip_here} have ChIP-seq in the matched biosamples (${cnt.with_summit_here} with a summit within 50 bp). Showing ${cnt.shown}.` : `Without QBiC-SELEX: ${cnt.candidates} families with a member bound at the variant; showing ${cnt.shown}.`;
+    document.getElementById("families").innerHTML = `<thead><tr><th>F</th><th>Family</th><th>Named</th><th>Paralogs</th><th>Best model</th><th>z</th><th>Binds more</th><th>Site ref/alt</th><th>ChIP tier here/any</th></tr></thead><tbody>` + (sc.families || []).map(f => `<tr><td>${esc(f.fid)}</td><td>${esc(f.label)}</td><td><b>${esc(f.named)}</b></td><td>${esc((f.paralogs || []).join(", "))}</td><td>${esc(f.model_tf || "")}</td><td>${f.z ?? ""}</td><td>${esc(f.binds_more || "")}</td><td>${f.site && f.site.ref != null ? `${f.site.ref} / ${f.site.alt}` : ""}</td><td>${f.tier_here} / ${f.tier_any}</td></tr>`).join("") + "</tbody>";
+    const cq = R.critique || {}, el_ = R.eliminated || {};
+    document.getElementById("critique").innerHTML = `<div><h3>Problems the critic named</h3><ul>${(cq.problems || []).map(p => `<li>${esc(p)}</li>`).join("") || "<li>none</li>"}</ul>
+      <h3 style="margin-top:10px">Eliminations</h3><ul>${Object.entries(el_).map(([k, v]) => `<li><b>${esc(k)}</b>: ${esc(v)}</li>`).join("") || "<li>none</li>"}${(R.rejected_eliminations || []).map(x => `<li>rejected for ${esc(x.hypothesis_id)}: ${esc(x.reason)} (${esc(x.why_rejected)})</li>`).join("")}</ul></div>
+      <div><h3>Lookups (one round)</h3><ul>${(R.lookups || []).map(l => `<li><span class="mono">${esc(l.tool)}(${esc(JSON.stringify(l.args))})</span> for ${esc(l.resolves)}: ${esc(l.status)} ${evChips([l.evidence_id])}<div class="ev-slot"></div></li>`).join("") || "<li>none</li>"}</ul>
+      <h3 style="margin-top:10px">Next experiment</h3><p>${esc(cq.next_experiment || "none")}</p></div>`;
+    const flags = R.literature_flags || [];
+    document.getElementById("lit").innerHTML = `<p class="muted">${(R.papers || []).length} papers retrieved${R.literature_before ? " (published before " + esc(R.literature_before) + ")" : ""}. Flags: a paper that names the variant and a chain's TF, or the variant, TF and gene together.</p>
+      <ul>${flags.map(f => `<li><b>${esc(f.chain)}</b> PMID ${esc(f.pmid)}: ${esc((f.flags || []).join(", "))}</li>`).join("") || "<li>no flagged paper</li>"}</ul>
+      <details><summary>Papers</summary><ul>${(R.papers || []).map(p => `<li>PMID ${esc(p.pmid)} (${esc(p.year)}): ${esc(p.title)}</li>`).join("")}</ul></details>`;
+    document.getElementById("evidence").innerHTML = (R.evidence || []).map(e => `<p><b>${esc(e.id)}</b> ${esc(e.tool)} · ${esc(e.status)} · ${esc(e.source)}<br><span class="muted" style="white-space:pre-wrap">${esc(e.summary)}</span></p>`).join("");
+  }
+  function render() { renderControls(); renderMap(); renderDetails(); }
+  document.addEventListener("click", e => {
+    const t = e.target.closest("[data-stage],[data-kind],[data-ev]"); if (!t) return;
+    if (t.dataset.stage) { state.stage = t.dataset.stage; render(); return; }
+    if (t.dataset.ev) { const slot = t.closest("td, li, .claim")?.querySelector(".ev-slot"); const ev = EV[t.dataset.ev]; if (slot) slot.innerHTML = slot.innerHTML ? "" : `<div class="ev-text"><b>${esc(t.dataset.ev)}</b> · ${esc(ev ? ev.tool : "")} · ${esc(ev ? ev.status : "")}\n${esc(ev ? ev.summary : "not in this run")}</div>`; return; }
+    if (t.dataset.kind === "chain") { state.sel = t.dataset.id; state.item = null; render(); return; }
+    state.item = { kind: t.dataset.kind, id: t.dataset.id }; renderDetails();
+  });
+  document.getElementById("showElim").addEventListener("change", e => { state.showElim = e.target.checked; render(); });
+  render(); renderTables();
+})();
+</script>
+</body>
+</html>

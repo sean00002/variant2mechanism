@@ -1,0 +1,554 @@
+{
+  "description": "Synthetic repair fixture (SPEC 11; the plan's synthetic contradiction scenario). Every entity and observation here is stipulated for software testing: it is not biological evidence and never enters biological results. Variant V overlaps element E (S0). A matched intervention that activates E increases gene X in context X (S1), which contradicts a proposed decrease. Gene Y has no perturbation record (an empty retrieval, which creates no evidence).",
+  "case": {
+    "case_id": "SYN-1",
+    "variant": {
+      "assembly": "GRCh38",
+      "chrom": "SYN",
+      "pos": 1,
+      "ref": "A",
+      "alt": "G",
+      "rsid": null,
+      "input_text": "synthetic variant V (fixture)",
+      "reference_check": "unavailable"
+    },
+    "origin": "unknown",
+    "supplied_disease": [],
+    "supplied_context": [],
+    "inferred_candidates": [],
+    "input_provenance": {
+      "case": "synthetic fixture: stipulated, not biological data",
+      "origin": "not supplied"
+    }
+  },
+  "retrieval_time": "2026-11-08T00:00:00+00:00",
+  "tools": {
+    "syn_element_overlap": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: which synthetic element the synthetic variant lies in.",
+        "params": {},
+        "result_semantics": "records_found: the variant lies in a stipulated element. Fixture data only.",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-1",
+        "rate_policy": "parallel",
+        "evidence_classes": ["synthetic"]
+      },
+      "responses": [
+        {
+          "params": {},
+          "retrieval_status": "records_found",
+          "observations": [{"element": "E", "variant": "V", "overlaps": true}],
+          "coverage": {
+            "requested_scope": "elements overlapping variant V",
+            "assessed_scope": "the stipulated element registry of the fixture",
+            "limitations": ["Stipulated fixture annotation, not retrieved from any biological database."]
+          },
+          "evidence": [
+            {
+              "evidence_class": "synthetic",
+              "source_ids": ["SYN-ANNOTATION-1"],
+              "observed_result": "Synthetic variant V lies inside synthetic element E.",
+              "data": {"fixture_observation": "S0"},
+              "direction": "unspecified",
+              "context": null,
+              "about_elements": ["E"],
+              "independence_group": "SYN-ANNOTATION-1",
+              "origin": "fixture",
+              "access": "not_applicable",
+              "limitations": ["Stipulated fixture observation; not biological evidence."]
+            }
+          ]
+        }
+      ]
+    },
+    "syn_element_perturbation": {
+      "spec": {
+        "route": "computational",
+        "description": "Synthetic fixture: matched interventions that activate element E, with the measured change in a gene's expression.",
+        "params": {
+          "gene": {"type": "str", "required": true, "normalise": "upper", "description": "the gene whose expression was measured"}
+        },
+        "result_semantics": "records_found: a stipulated intervention record for the gene; no_records_found: the fixture holds no record for the gene, which is not a negative result.",
+        "provider": "synthetic fixture",
+        "dataset_release": "SYN-1",
+        "rate_policy": "parallel",
+        "evidence_classes": ["synthetic"]
+      },
+      "responses": [
+        {
+          "params": {"gene": "X"},
+          "retrieval_status": "records_found",
+          "observations": [{"intervention": "activate element E", "gene": "X", "context": "context X", "change": "increase"}],
+          "coverage": {
+            "requested_scope": "element E activation, gene X expression",
+            "assessed_scope": "element E activation, gene X expression, context X",
+            "limitations": ["Stipulated fixture observation."]
+          },
+          "evidence": [
+            {
+              "evidence_class": "synthetic",
+              "source_ids": ["SYN-OBSERVATION-1"],
+              "observed_result": "In context X, a matched intervention that activates element E increases gene X expression.",
+              "data": {"fixture_observation": "S1", "intervention": "activate element E", "endpoint": "gene X expression"},
+              "direction": "increases",
+              "context": {"label": "context X", "biosample": "context X", "source": "evidence"},
+              "about_genes": ["X"],
+              "about_elements": ["E"],
+              "independence_group": "SYN-OBSERVATION-1",
+              "origin": "fixture",
+              "access": "not_applicable",
+              "limitations": ["Stipulated fixture observation; it is not evidence about any real variant or gene."]
+            }
+          ]
+        },
+        {
+          "params": {"gene": "Y"},
+          "retrieval_status": "no_records_found",
+          "observations": [],
+          "coverage": {
+            "requested_scope": "element E activation, gene Y expression",
+            "assessed_scope": "",
+            "limitations": ["The fixture holds no intervention record for gene Y; that is missing data, not a negative result."]
+          },
+          "message": "no records for gene Y",
+          "evidence": []
+        }
+      ]
+    }
+  },
+  "roles": {
+    "coordinator": [
+      {
+        "directions": [
+          "molecular-led: what element E does to the genes it may regulate",
+          "trait-led: whether a change in gene X explains phenotype P"
+        ],
+        "inferred_candidates": [],
+        "hypotheses": [
+          {
+            "key": "h_repress_x",
+            "title": "Element E represses gene X; less X explains phenotype P",
+            "summary": "V lies in element E. If activating E lowers gene X in context X, and less X explains P, the variant could act through E and X.",
+            "mechanism_class": "regulatory",
+            "endpoint": "phenotype P",
+            "context": {
+              "label": "context X",
+              "species": "human",
+              "condition": null
+            },
+            "activate": true,
+            "deferral_reason": null,
+            "revisit_trigger": null,
+            "reason_kind": "regulatory_annotation",
+            "reason_detail": "S0 places V inside element E, and the fixture names gene X as E's candidate target",
+            "member_alternatives": [],
+            "missing_links": [
+              "whether E's activity depends on the allele"
+            ],
+            "assumptions": [
+              "element E is active in context X"
+            ],
+            "replaces": null,
+            "claims": [
+              {
+                "key": "f0",
+                "subjects": [
+                  {
+                    "kind": "variant",
+                    "label": "V",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "overlaps",
+                "objects": [
+                  {
+                    "kind": "element",
+                    "label": "E",
+                    "canonical_id": "SYN:E",
+                    "members": []
+                  }
+                ],
+                "direction": "unspecified",
+                "effect_allele": null,
+                "context": null,
+                "assertion_text": "Variant V lies in element E",
+                "required": false,
+                "depends_on": [],
+                "initial_links": [
+                  {
+                    "evidence_id": "E1",
+                    "stance": "supports",
+                    "applicability": null,
+                    "rationale": "S0 places V inside element E",
+                    "suggested_assessment": "supported_in_scope"
+                  }
+                ]
+              },
+              {
+                "key": "f1",
+                "subjects": [
+                  {
+                    "kind": "element",
+                    "label": "E",
+                    "canonical_id": "SYN:E",
+                    "members": []
+                  }
+                ],
+                "relation": "regulates",
+                "objects": [
+                  {
+                    "kind": "gene",
+                    "label": "X",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "direction": "decreases",
+                "effect_allele": null,
+                "context": {
+                  "label": "context X",
+                  "species": "human",
+                  "condition": null
+                },
+                "assertion_text": "Activating element E decreases gene X expression in context X",
+                "required": true,
+                "depends_on": [],
+                "initial_links": []
+              },
+              {
+                "key": "f2",
+                "subjects": [
+                  {
+                    "kind": "gene",
+                    "label": "X",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "relation": "contributes_to_trait",
+                "objects": [
+                  {
+                    "kind": "phenotype",
+                    "label": "phenotype P",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "direction": "decreases",
+                "effect_allele": null,
+                "context": null,
+                "assertion_text": "The decrease in gene X explains phenotype P",
+                "required": true,
+                "depends_on": [
+                  "f1"
+                ],
+                "initial_links": []
+              }
+            ],
+            "reuse_claims": []
+          }
+        ],
+        "fourth_active_reason": null,
+        "reactivate": [],
+        "questions": [
+          {
+            "text": "Does a matched intervention that activates element E decrease gene X in context X?",
+            "route": "computational",
+            "target_claims": [
+              "f1"
+            ],
+            "hypotheses": [
+              "h_repress_x"
+            ],
+            "rubric": {
+              "consequence": "high",
+              "discrimination": "high",
+              "applicability": "high",
+              "cost": "low"
+            },
+            "possible_outcomes": [
+              "X decreases: F1 holds",
+              "X increases: F1 is contradicted",
+              "no record: F1 stays unresolved"
+            ],
+            "actions": [
+              {
+                "tool": "syn_element_perturbation",
+                "params_json": "{\"gene\": \"X\"}",
+                "purpose": "test F1 directly"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "directions": [
+          "a structurally different target of element E"
+        ],
+        "inferred_candidates": [],
+        "hypotheses": [
+          {
+            "key": "h_repress_x_again",
+            "title": "Element E represses gene X, which explains phenotype P (restated)",
+            "summary": "The earlier story in other words.",
+            "mechanism_class": "regulatory",
+            "endpoint": "phenotype P",
+            "context": {
+              "label": "context X",
+              "species": "human",
+              "condition": null
+            },
+            "activate": true,
+            "deferral_reason": null,
+            "revisit_trigger": null,
+            "reason_kind": "prior_knowledge",
+            "reason_detail": "a restatement of the rejected story, to show that its structure is refused",
+            "member_alternatives": [],
+            "missing_links": [],
+            "assumptions": [],
+            "replaces": "H1",
+            "claims": [],
+            "reuse_claims": [
+              {
+                "ref": "C2",
+                "required": true
+              },
+              {
+                "ref": "C3",
+                "required": true
+              },
+              {
+                "ref": "C1",
+                "required": false
+              }
+            ]
+          },
+          {
+            "key": "h_regulates_y",
+            "title": "Element E regulates gene Y",
+            "summary": "A different target of element E, which no observation has tested yet.",
+            "mechanism_class": "regulatory",
+            "endpoint": "phenotype P",
+            "context": {
+              "label": "context X",
+              "species": "human",
+              "condition": null
+            },
+            "activate": true,
+            "deferral_reason": null,
+            "revisit_trigger": null,
+            "reason_kind": "distinct_mechanism",
+            "reason_detail": "a structurally different target gene of element E, keeping the supported overlap F0",
+            "member_alternatives": [],
+            "missing_links": [
+              "whether a change in gene Y reaches phenotype P"
+            ],
+            "assumptions": [],
+            "replaces": "H1",
+            "claims": [
+              {
+                "key": "f3",
+                "subjects": [
+                  {
+                    "kind": "element",
+                    "label": "E",
+                    "canonical_id": "SYN:E",
+                    "members": []
+                  }
+                ],
+                "relation": "regulates",
+                "objects": [
+                  {
+                    "kind": "gene",
+                    "label": "Y",
+                    "canonical_id": null,
+                    "members": []
+                  }
+                ],
+                "direction": "unspecified",
+                "effect_allele": null,
+                "context": {
+                  "label": "context X",
+                  "species": "human",
+                  "condition": null
+                },
+                "assertion_text": "Element E regulates gene Y in context X",
+                "required": true,
+                "depends_on": [],
+                "initial_links": []
+              }
+            ],
+            "reuse_claims": [
+              {
+                "ref": "C1",
+                "required": false
+              }
+            ]
+          }
+        ],
+        "fourth_active_reason": null,
+        "reactivate": [],
+        "questions": [
+          {
+            "text": "Does a matched intervention on element E change gene Y in context X?",
+            "route": "computational",
+            "target_claims": [
+              "f3"
+            ],
+            "hypotheses": [
+              "h_regulates_y"
+            ],
+            "rubric": {
+              "consequence": "high",
+              "discrimination": "high",
+              "applicability": "high",
+              "cost": "low"
+            },
+            "possible_outcomes": [
+              "Y changes: F3 holds",
+              "no record: F3 stays unresolved"
+            ],
+            "actions": [
+              {
+                "tool": "syn_element_perturbation",
+                "params_json": "{\"gene\": \"Y\"}",
+                "purpose": "test F3"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "hypothesis_updates": [],
+        "assessments": [],
+        "questions": [],
+        "stop": {
+          "stop": true,
+          "reason": "No tool in this fixture can test whether element E regulates gene Y, so nothing affordable could change H2's required claim."
+        }
+      }
+    ],
+    "computational_investigator": [
+      {
+        "answers": [
+          {
+            "question_id": "Q1",
+            "status": "answered",
+            "answer_summary": "S1: in context X, a matched intervention that activates element E increases gene X, the opposite of the decrease F1 claims.",
+            "claim_ids": [
+              "C2"
+            ],
+            "tool_call_ids": [
+              "T2"
+            ],
+            "experiments": [],
+            "proposed_updates": [
+              {
+                "kind": "attach_evidence",
+                "claim_id": "C2",
+                "base_version": null,
+                "evidence_id": "E2",
+                "experiment_index": null,
+                "stance": "supports",
+                "applicability": null,
+                "rationale": "E2 read as support (a misreading: the direction is opposite)",
+                "limitations": [],
+                "suggested_assessment": null,
+                "new_claim": null
+              },
+              {
+                "kind": "attach_evidence",
+                "claim_id": "C2",
+                "base_version": 1,
+                "evidence_id": "E2",
+                "experiment_index": null,
+                "stance": "contradicts",
+                "applicability": "exact",
+                "rationale": "the matched intervention increases X in context X, opposite to the claimed decrease",
+                "limitations": [
+                  "stipulated fixture observation"
+                ],
+                "suggested_assessment": "contradicted_in_scope",
+                "new_claim": null
+              }
+            ],
+            "remaining_gap": "none for F1",
+            "next_question": "",
+            "follow_up_actions": []
+          }
+        ]
+      },
+      {
+        "answers": [
+          {
+            "question_id": "Q2",
+            "status": "unanswerable",
+            "answer_summary": "The fixture holds no intervention record for gene Y (T3 found no records): missing data, not a negative result.",
+            "claim_ids": [
+              "C4"
+            ],
+            "tool_call_ids": [
+              "T3"
+            ],
+            "experiments": [],
+            "proposed_updates": [
+              {
+                "kind": "assess",
+                "claim_id": "C4",
+                "base_version": 1,
+                "evidence_id": null,
+                "experiment_index": null,
+                "stance": null,
+                "applicability": null,
+                "rationale": "no record for gene Y: the claim stays unresolved, not contradicted",
+                "limitations": [],
+                "suggested_assessment": "unresolved",
+                "new_claim": null
+              }
+            ],
+            "remaining_gap": "whether element E changes gene Y is untested",
+            "next_question": "",
+            "follow_up_actions": []
+          }
+        ]
+      }
+    ],
+    "critic": [
+      {
+        "challenges": [],
+        "passage_checks": [],
+        "activation_flags": [],
+        "reportable_ids": [],
+        "consequential": false
+      },
+      {
+        "comparisons": [],
+        "outcome": {
+          "category": "no_supported_explanation",
+          "leading_ids": [],
+          "summary": "H1's required claim that activating E decreases X is contradicted in scope by S1, so H1 is rejected and its phenotype step is left unsupported. The regenerated H2 (E regulates Y) is untested: the fixture has no record for gene Y. No explanation is supported.",
+          "weakest_links": [
+            {
+              "hypothesis_id": "H2",
+              "claim_id": "C4",
+              "why": "no intervention record for gene Y"
+            }
+          ],
+          "next_experiments": [
+            {
+              "text": "Perturb element E and measure gene Y in context X.",
+              "distinguishes": [
+                "H2"
+              ],
+              "claim_ids": [
+                "C4"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -15,9 +15,12 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from ..context.base import STATUS_WORDS
+
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS evidence(id TEXT PRIMARY KEY, seq INTEGER, stage TEXT, tool TEXT, args TEXT, source TEXT,
-  url TEXT, retrieved_utc TEXT, kind TEXT, summary TEXT, full_path TEXT, quote TEXT, pmid TEXT, parent TEXT, ok INTEGER);
+  url TEXT, retrieved_utc TEXT, kind TEXT, summary TEXT, full_path TEXT, quote TEXT, pmid TEXT, parent TEXT, ok INTEGER,
+  status TEXT);
 CREATE TABLE IF NOT EXISTS chains(version INTEGER, hypothesis_id TEXT, rank INTEGER, data TEXT,
   PRIMARY KEY(version, hypothesis_id));
 CREATE TABLE IF NOT EXISTS grades(version INTEGER, grader TEXT, hypothesis_id TEXT, step TEXT, status TEXT,
@@ -45,13 +48,14 @@ class Evidence:
     pmid: str | None = None
     parent: str | None = None
     ok: bool = True
+    status: str = "found"                # found, tested_negative, not_tested or failed
     extra: dict = field(default_factory=dict)
 
     def prompt_line(self) -> str:
-        """How the model sees it: id, kind, source, summary. No times, run ids or paths."""
+        """How the model sees it: id, kind, status, source, summary. No times, run ids or paths."""
         if self.quote is not None:
             return f'{self.id} [literature quote] PMID {self.pmid}: "{self.quote}"'
-        return f"{self.id} [{self.kind}] {self.source}:\n{self.summary}"
+        return f"{self.id} [{self.kind}, {STATUS_WORDS.get(self.status, self.status)}] {self.source}:\n{self.summary}"
 
 
 class Ledger:
@@ -62,6 +66,8 @@ class Ledger:
         self.path = self.dir / "ledger.sqlite"
         self.con = sqlite3.connect(self.path, check_same_thread=False)
         self.con.executescript(SCHEMA)
+        if "status" not in {r[1] for r in self.con.execute("PRAGMA table_info(evidence)")}:   # ledgers before v7
+            self.con.execute("ALTER TABLE evidence ADD COLUMN status TEXT")
         self._n = self.con.execute("SELECT COALESCE(MAX(seq), 0) FROM evidence WHERE parent IS NULL").fetchone()[0]
 
     def _event(self, stage: str, action: str, detail: Any) -> None:
@@ -78,7 +84,8 @@ class Ledger:
         path = self.dir / "tool_outputs" / f"{eid}_{result.tool}.json"
         path.write_text(json.dumps(full if full is not None else result.full, indent=1, default=str))
         ev = Evidence(eid, stage, result.tool, result.args, result.source, result.url, result.retrieved_utc,
-                      result.kind, result.summary, str(path.relative_to(self.dir)), ok=result.ok)
+                      result.kind, result.summary, str(path.relative_to(self.dir)), ok=result.ok,
+                      status=result.status)
         with self.con:
             self._insert(ev, self._n)
             self._event(stage, "add_evidence", {"id": eid, "tool": ev.tool, "ok": ev.ok})
@@ -96,15 +103,15 @@ class Ledger:
         return ev
 
     def _insert(self, ev: Evidence, seq: int | None) -> None:
-        self.con.execute("INSERT INTO evidence VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [
+        self.con.execute("INSERT INTO evidence VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [
             ev.id, seq, ev.stage, ev.tool, json.dumps(ev.args, default=str), ev.source, ev.url, ev.retrieved_utc,
-            ev.kind, ev.summary, ev.full_path, ev.quote, ev.pmid, ev.parent, int(ev.ok)])
+            ev.kind, ev.summary, ev.full_path, ev.quote, ev.pmid, ev.parent, int(ev.ok), ev.status])
 
     def evidence(self) -> list[Evidence]:
         rows = self.con.execute("SELECT id, stage, tool, args, source, url, retrieved_utc, kind, summary, full_path, "
-                                "quote, pmid, parent, ok FROM evidence").fetchall()
+                                "quote, pmid, parent, ok, status FROM evidence").fetchall()
         evs = [Evidence(r[0], r[1], r[2], json.loads(r[3]), r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12],
-                        bool(r[13])) for r in rows]
+                        bool(r[13]), r[14] or ("found" if r[13] else "failed")) for r in rows]
         return sorted(evs, key=_evidence_order)
 
     def get(self, eid: str) -> Evidence | None:

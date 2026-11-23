@@ -97,9 +97,10 @@ def test_profile_merges_and_unknown_profile_fails():
         with_profile(base, "nope")
 
 
-def test_luna_profile_has_its_own_two_dollar_cap():
+def test_luna_profile_has_its_own_cap():
     lu = with_profile(load_config(), "luna")
     assert {lu["llm"][r] for r in ("generator", "critic", "summariser")} == {"openai/gpt-6-luna"}
-    assert "openai/gpt-6-luna" in lu["llm"]["prices_per_mtok"] and lu["eval"]["runs_dir"] == "runs/eval_v6_luna"
-    b = lu["budget_usd"]
-    assert b["state_file"] == "state/budget_luna.json" and b["dev"] + b["eval"] + b["spare"] == pytest.approx(2.0)
+    assert "openai/gpt-6-luna" in lu["llm"]["prices_per_mtok"] and lu["eval"]["runs_dir"] == "runs/eval_v7_luna"
+    b, base = lu["budget_usd"], load_config()["budget_usd"]
+    assert b["state_file"] == "state/budget_v7_luna.json" != base["state_file"]
+    assert b["dev"] + b["eval"] + b["spare"] == pytest.approx(0.5)            # the v7 pilot: $1.50 across two models

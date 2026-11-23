@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>@@V2M_TITLE@@</title>
+<style>
+/* v2m v9 run report. Self-contained: no network, no external fonts or scripts. Data arrive as JSON in #v2m-data and
+   are drawn with DOM calls only (textContent), so no retrieved or model-written text is ever parsed as markup.
+   Visual design follows the implementation plan's report prototype. The dark tokens apply on screen only, so a
+   printout or PDF is always light, whichever theme the reader chose. */
+:root{--bg:#f4f4ef;--paper:#fff;--side:#ecefe8;--ink:#172e35;--muted:#53676d;--line:#d7dfdc;--th:#e9efea;--code:#e8eeeb;
+  --teal:#00685e;--teal-bg:#e5f1eb;--blue:#285c98;--blue-bg:#eaf0fa;--amber:#885b0c;--amber-bg:#fff3d9;--red:#a23838;
+  --red-bg:#fcebea;--slate:#5d6c75;--slate-bg:#eef1f2;--node:#f8faf7;--node-line:#b0c3ba;--chip:#fff;--chip-line:#c9d6cf;
+  --focus:#285c98;--radius:12px;color-scheme:light}
+@media screen{:root[data-theme="dark"]{--bg:#0f1719;--paper:#162124;--side:#121c1e;--ink:#e3ece9;--muted:#9fb1ad;
+  --line:#2b3b3e;--th:#1d2b2e;--code:#1f2e31;--teal:#4cc3b0;--teal-bg:#123630;--blue:#8bb4ec;--blue-bg:#1a2a40;
+  --amber:#e3b25a;--amber-bg:#3a2c10;--red:#f08a84;--red-bg:#3d1a1a;--slate:#a3b1b8;--slate-bg:#1f2a2e;--node:#1b2a2d;
+  --node-line:#3d5357;--chip:#162124;--chip-line:#3d5357;--focus:#8bb4ec;color-scheme:dark}}
+@media screen and (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1719;--paper:#162124;
+  --side:#121c1e;--ink:#e3ece9;--muted:#9fb1ad;--line:#2b3b3e;--th:#1d2b2e;--code:#1f2e31;--teal:#4cc3b0;
+  --teal-bg:#123630;--blue:#8bb4ec;--blue-bg:#1a2a40;--amber:#e3b25a;--amber-bg:#3a2c10;--red:#f08a84;--red-bg:#3d1a1a;
+  --slate:#a3b1b8;--slate-bg:#1f2a2e;--node:#1b2a2d;--node-line:#3d5357;--chip:#162124;--chip-line:#3d5357;
+  --focus:#8bb4ec;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--teal);text-underline-offset:3px}
+button,select,input{font:inherit;color:inherit}
+button,select{padding:7px 11px;border:1px solid var(--node-line);border-radius:7px;background:var(--paper)}
+button{cursor:pointer}button:hover{background:var(--teal-bg)}
+button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+input[type="search"]{padding:7px 10px;border:1px solid var(--node-line);border-radius:7px;background:var(--paper);min-width:0;max-width:100%}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.no-js .needs-js{display:none!important}
+.skip{position:absolute;left:-9999px}.skip:focus{left:10px;top:10px;z-index:20;background:var(--paper);padding:10px}
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);max-width:1600px;margin:auto}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;border-right:1px solid var(--line);padding:26px 20px;background:var(--side)}
+.brand{font-size:30px;font-weight:750;letter-spacing:-1.2px}.brand .dot{color:var(--teal)}
+.side-meta{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+nav{display:grid;gap:2px;margin:20px 0}
+nav a{padding:6px 9px;font-size:13px;text-decoration:none;border-radius:5px;color:var(--ink)}
+nav a:hover,nav a.active{background:var(--teal-bg);color:var(--teal)}
+.side-tools{display:grid;gap:8px;padding-top:14px;border-top:1px solid var(--line)}
+.side-tools button{font-size:13px}
+main{min-width:0;padding:36px 44px 72px;overflow-wrap:anywhere}
+.eyebrow{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;color:var(--teal)}
+h1{font-size:clamp(28px,4vw,48px);line-height:1.1;letter-spacing:-1.4px;margin:12px 0 18px;overflow-wrap:anywhere}
+h2{font-size:27px;line-height:1.2;letter-spacing:-.6px;margin:0 0 18px}
+h3{font-size:19px;line-height:1.4;margin:24px 0 10px}h4{font-size:15px;margin:16px 0 6px}
+p{margin:0 0 14px}.lead{font-size:19px;line-height:1.55;max-width:900px}
+.muted,.small{color:var(--muted)}.small{font-size:13px}
+.hero{padding-bottom:28px}
+section{padding:36px 0;border-top:1px solid var(--line)}
+.section-no{font-size:12px;color:var(--teal);font-weight:750;letter-spacing:1.5px;display:block;margin-bottom:8px}
+.tags,.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tags{margin:16px 0}
+.tag{display:inline-block;border-radius:5px;padding:2px 8px;font-size:12px;font-weight:650;background:var(--slate-bg);color:var(--ink);line-height:1.6}
+.tag.mode{background:var(--blue-bg);color:var(--blue)}.tag.outcome{background:var(--teal-bg);color:var(--teal)}
+.s-supported{background:var(--teal-bg);color:var(--teal)}.s-predicted,.s-associated{background:var(--blue-bg);color:var(--blue)}
+.s-unresolved{background:var(--slate-bg);color:var(--slate)}.s-contested{background:var(--amber-bg);color:var(--amber)}
+.s-contradicted,.tag.rejected{background:var(--red-bg);color:var(--red)}
+.tag.premise,.tag.deferred{background:var(--amber-bg);color:var(--amber)}.tag.suggested{background:var(--blue-bg);color:var(--blue)}
+.banner{padding:16px 20px;border-left:5px solid var(--teal);background:var(--teal-bg);margin:0 0 14px;border-radius:0 9px 9px 0}
+.banner.synthetic{border-color:var(--red);background:var(--red-bg);color:var(--ink);font-size:17px}
+.banner.synthetic strong{color:var(--red);font-size:19px}
+.banner.warn{border-color:var(--amber);background:var(--amber-bg)}
+.callout{padding:14px 18px;border-left:4px solid var(--teal);background:var(--teal-bg);margin:16px 0;border-radius:0 9px 9px 0}
+.callout.warn{border-color:var(--amber);background:var(--amber-bg)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px;min-width:0}
+.card h3{margin-top:0}
+dl.facts{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 18px;margin:0}
+dl.facts dt{font-weight:650;font-size:14px;color:var(--muted)}dl.facts dd{margin:0;overflow-wrap:anywhere}
+ul.gaps li{overflow-wrap:anywhere}
+ul.quotes{padding-left:20px;font-size:14px;line-height:1.55}ul.quotes>li{margin:10px 0}ul.quotes ul{padding-left:18px;margin:4px 0}
+ul.quotes q{font-style:italic}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:9px;margin:14px 0;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.5}
+th,td{text-align:left;padding:9px 12px;vertical-align:top;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+th{background:var(--th);font-size:12px;letter-spacing:.2px}
+tr:last-child td{border-bottom:0}
+caption{text-align:left;font-size:13px;color:var(--muted);padding:10px 12px}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.highlight td{background:var(--teal-bg)}
+table.chain th:first-child,table.chain td:first-child{min-width:150px}table.chain .tag{white-space:nowrap}
+table.chain td:nth-child(3){min-width:300px}table.chain td:nth-child(4){min-width:170px}
+table.chain-hypotheses th:nth-child(2),table.chain-hypotheses td:nth-child(2){white-space:nowrap}
+table.chain-hypotheses td:first-child{min-width:170px}table.chain-hypotheses td:nth-child(n+3){min-width:110px}
+ol.route{list-style:none;display:flex;flex-wrap:wrap;gap:12px 26px;padding:0;margin:18px 0 16px}
+.route-step{position:relative;flex:1 1 150px;min-width:140px;max-width:320px;display:flex;flex-direction:column;gap:5px;
+  align-items:flex-start;margin:0;padding:12px 14px;border:1px solid var(--node-line);border-radius:9px;background:var(--node)}
+.route-step.aside{border-style:dashed;background:transparent}
+.route-step:not(.aside):not(:nth-last-child(2))::after{content:"\2192";position:absolute;right:-21px;top:50%;
+  transform:translateY(-50%);color:var(--muted);font-size:17px}
+.route-label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.route-name{font-weight:650;line-height:1.35;overflow-wrap:anywhere}
+table.ranked th,table.ranked td{overflow-wrap:break-word}
+table.factors th,table.factors td{overflow-wrap:break-word;min-width:150px}table.factors td:first-child{white-space:nowrap;min-width:0}
+table.ranked th:first-child,table.ranked td:first-child{white-space:nowrap;min-width:0;width:1%}
+table.ranked td:nth-child(2){min-width:190px}table.ranked td:nth-child(3){min-width:230px}
+table.ranked th:nth-child(n+4),table.ranked td:nth-child(n+4){min-width:140px}
+table.cells th,table.cells td{overflow-wrap:break-word}
+table.cells th:nth-child(-n+2),table.cells td:nth-child(-n+2){white-space:nowrap;min-width:0;width:1%}
+table.cells td:nth-child(3){min-width:190px}table.cells th:nth-child(n+4),table.cells td:nth-child(n+4){min-width:150px}
+@media (max-width:760px){ol.route{flex-direction:column;gap:22px}.route-step{max-width:none;flex-basis:auto}
+  .route-step:not(.aside):not(:nth-last-child(2))::after{content:"\2193";right:auto;left:18px;top:auto;bottom:-22px;
+  transform:none}}
+code,.mono{font:.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+code{background:var(--code);padding:1px 4px;border-radius:3px}
+details{border-top:1px solid var(--line);padding:14px 0}summary{font-weight:650;cursor:pointer}
+details>div{padding-top:12px}
+ul,ol{padding-left:22px;margin:10px 0 16px}li{margin:5px 0}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;margin:12px 0}
+.legend span{display:flex;align-items:center;gap:6px}
+.swatch{display:inline-block;width:26px;border-top:3px solid var(--teal)}
+.swatch.predicted{border-color:var(--blue);border-top-style:dashed}.swatch.associated{border-color:var(--blue);border-top-style:dotted}
+.swatch.unresolved{border-color:var(--slate);border-top-style:dashed}.swatch.contested{border-color:var(--amber);border-top-style:dashed}
+.swatch.contradicted{border-color:var(--red);border-top-style:double;border-top-width:4px}
+.swatch.superseded{border-color:var(--slate);border-top-style:dotted;opacity:.6}
+.stepper{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.stepper input[type="range"]{flex:1 1 220px;min-width:0;accent-color:var(--teal)}
+.stepper output{font-size:14px;flex-basis:100%;min-height:24px;overflow-wrap:anywhere}
+.graph-scroll{overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px;max-height:78vh}
+.mechanism{display:block;max-width:none}
+.mechanism text{font-family:inherit}
+.mechanism .col-head{font-size:12px;font-weight:700;letter-spacing:1.2px;fill:var(--muted);text-transform:uppercase}
+.mechanism .node{fill:var(--node);stroke:var(--node-line);stroke-width:1.3}
+.mechanism .node-title{font-size:15px;font-weight:650;fill:var(--ink)}
+.mechanism .node-sub{font-size:11.5px;fill:var(--muted)}
+.mechanism .edge-line{fill:none;stroke-width:2.5}
+.mechanism .edge-hit{fill:none;stroke:transparent;stroke-width:18;cursor:pointer}
+.mechanism .chip{cursor:pointer}
+.mechanism .edge-chip{fill:var(--chip);stroke:var(--chip-line);stroke-width:1}
+.mechanism .chip-1{font-size:12.5px;font-weight:600;fill:var(--ink)}
+.mechanism .chip-2{font-size:10px;font-weight:700;letter-spacing:.3px}
+.mechanism .chip:focus{outline:none}
+.mechanism .chip:focus-visible .edge-chip,.mechanism .selected .edge-chip{stroke:var(--focus);stroke-width:2.6}
+.mechanism .selected .edge-line{stroke-width:4}
+.mechanism .dim{opacity:.16}
+.mechanism .decisive .edge-chip{stroke:var(--teal);stroke-width:2.6;stroke-dasharray:4 2}
+.st-supported .edge-line{stroke:var(--teal)}.st-supported .chip-2{fill:var(--teal)}
+.st-predicted .edge-line{stroke:var(--blue);stroke-dasharray:8 5}.st-predicted .chip-2{fill:var(--blue)}
+.st-associated .edge-line{stroke:var(--blue);stroke-dasharray:2 5;stroke-linecap:round}.st-associated .chip-2{fill:var(--blue)}
+.st-unresolved .edge-line{stroke:var(--slate);stroke-dasharray:5 5}.st-unresolved .chip-2{fill:var(--slate)}
+.st-contested .edge-line{stroke:var(--amber);stroke-dasharray:10 4 2 4}.st-contested .chip-2{fill:var(--amber)}
+.st-contradicted .edge-line{stroke:var(--red);stroke-width:3;stroke-dasharray:12 5}.st-contradicted .chip-2{fill:var(--red)}
+.mechanism .superseded .edge-line{stroke:var(--slate);stroke-dasharray:1 6;opacity:.65}.mechanism .superseded .chip-2{fill:var(--slate)}
+.mk-supported{fill:var(--teal)}.mk-predicted,.mk-associated{fill:var(--blue)}.mk-unresolved,.mk-superseded{fill:var(--slate)}
+.mk-contested{fill:var(--amber)}.mk-contradicted{fill:var(--red)}
+.claim-buttons{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
+.claim-buttons button{font-size:13px;padding:5px 9px}
+.inspector{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.evidence-item{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.evidence-item:first-of-type{border-top:0;padding-top:0;margin-top:0}
+.evidence-item p,.evidence-item dd{font-size:14px}
+.evidence-item dl.facts{font-size:14px;margin-top:6px}
+blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--blue);background:var(--blue-bg);font-size:14px;overflow-wrap:anywhere}
+.stance-head{font-size:13px;font-weight:750;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.timeline{margin:16px 0;border-left:2px solid var(--node-line);padding-left:18px;max-height:560px;overflow-y:auto}
+.timeline li{list-style:none;position:relative;margin:0 0 12px;font-size:14px;overflow-wrap:anywhere}
+.timeline li:before{content:"";position:absolute;width:9px;height:9px;background:var(--node-line);border-radius:50%;left:-24.5px;top:8px}
+.timeline li.mutation:before{background:var(--teal)}.timeline li.refusals:before{background:var(--amber)}
+.timeline li.current{background:var(--teal-bg);border-radius:6px;padding:2px 6px}
+.timeline ol{padding:0;margin:0}
+.timeline button{font-size:12px;padding:2px 7px;margin-left:6px}
+.archive-item{padding:14px 16px;margin:10px 0;background:var(--slate-bg);border-left:3px solid var(--slate);border-radius:0 8px 8px 0}
+.archive-item.rejected{background:var(--red-bg);border-color:var(--red)}
+.archive-item.deferred{background:var(--amber-bg);border-color:var(--amber)}
+.archive-item p{font-size:14px;margin:6px 0 0;overflow-wrap:anywhere}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.linkish{background:none;border:0;padding:0;color:var(--teal);text-decoration:underline;text-underline-offset:3px;font:inherit;cursor:pointer}
+.linkish:hover{background:none}
+.tree dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 14px;margin:4px 0 8px;font-size:13.5px}
+.tree dt{color:var(--muted);font-weight:600}.tree dd{margin:0;overflow-wrap:anywhere}
+.status-line{font-size:13px;color:var(--muted);min-height:20px}
+.static h2{margin-top:20px}
+.footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:22px;margin-top:30px}
+.print-only{display:none}
+.print-claim{margin:14px 0}
+[hidden]{display:none!important}
+@media (max-width:1150px){.shell{grid-template-columns:200px minmax(0,1fr)}main{padding:30px 26px}.inspector{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:780px){.shell{display:block}.sidebar{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:16px}
+  .sidebar nav{display:flex;gap:4px;overflow-x:auto;margin:10px 0 0;padding-bottom:6px}.sidebar nav a{white-space:nowrap}
+  .side-tools{display:flex;flex-wrap:wrap;border-top:0;padding-top:6px}.side-meta{margin:4px 0}
+  main{padding:22px 16px}h2{font-size:24px}dl.facts{grid-template-columns:minmax(0,1fr)}dl.facts dt{margin-top:6px}
+  .tree dl{grid-template-columns:minmax(0,1fr)}.tree dd{padding-left:12px}
+  th,td{min-width:120px}.lead{font-size:17px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* Print: the interactive inspector shows one claim, so the script fills #print-claims with every claim and its
+   evidence before printing (and empties it after); the theme is always light (see the tokens above). */
+@media print{body{background:#fff;color:#000;font-size:11px}.shell{display:block}.sidebar,.no-print,.controls,.claim-buttons,.stepper,.inspector{display:none!important}
+  .print-only{display:block}main{padding:0}section{padding:18px 0;break-inside:auto}.card,.archive-item,.banner{break-inside:avoid}
+  .table-wrap,.graph-scroll{overflow:visible;max-height:none;border:0}.timeline{max-height:none;overflow:visible}
+  .mechanism{width:100%;height:auto}table{font-size:9.5px}a{color:#174f45}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the report</a>
+<div class="shell">
+<aside class="sidebar" aria-label="Report navigation">
+  <div class="brand">v2m<span class="dot">.</span></div>
+  <p class="side-meta">@@V2M_SIDEMETA@@</p>
+  <nav aria-label="Report sections">
+    <a href="#answer">Answer</a>
+    <a href="#table">Chain table</a>
+    <a href="#summary">Run summary</a>
+    <a class="needs-js" href="#hypotheses">Hypotheses</a>
+    <a class="needs-js" href="#graph">Mechanism graph</a>
+    <a class="needs-js" href="#archive">Archive</a>
+    <a class="needs-js" href="#timeline">Revision timeline</a>
+    <a class="needs-js" href="#next">Next evidence</a>
+    <a class="needs-js" href="#evidence">Other evidence</a>
+    <a class="needs-js" href="#inventory">QBiC-SELEX inventory</a>
+    <a class="needs-js" href="#provenance">Provenance</a>
+  </nav>
+  <div class="side-tools needs-js no-print">
+    <button type="button" id="theme-toggle">Theme: automatic</button>
+    <button type="button" id="print-report">Print or save as PDF</button>
+  </div>
+</aside>
+<main id="main">
+@@V2M_HEADER@@
+@@V2M_SCOPES@@
+<noscript>@@V2M_STATIC@@</noscript>
+<section id="hypotheses" class="needs-js" aria-labelledby="hypotheses-h">
+  <span class="section-no">02 / HYPOTHESES</span><h2 id="hypotheses-h">Hypothesis comparison</h2>
+  <p class="small">Each row is one hypothesis version. “Best-supported component” and “weakest link” name claims; they
+    are not scores. Select up to two hypotheses to highlight their claims in the graph.</p>
+  <div id="hypothesis-table"></div>
+  <div id="comparison-list"></div>
+</section>
+<section id="graph" class="needs-js" aria-labelledby="graph-h">
+  <span class="section-no">03 / MECHANISM GRAPH</span><h2 id="graph-h">Claims and their evidence</h2>
+  <p class="small">Nodes are entities in columns by kind; each edge is one scoped claim. A connected path is not a
+    proven causal chain. Status is shown by line style and a text badge as well as colour.</p>
+  <div class="legend" aria-label="Edge legend">
+    <span><i class="swatch"></i>Supported in scope</span><span><i class="swatch predicted"></i>Predicted</span>
+    <span><i class="swatch associated"></i>Associated</span><span><i class="swatch unresolved"></i>Unresolved</span>
+    <span><i class="swatch contested"></i>Contested</span><span><i class="swatch contradicted"></i>Contradicted in scope</span>
+    <span><i class="swatch superseded"></i>Superseded claim</span>
+  </div>
+  <div class="stepper controls" role="group" aria-label="Graph version">
+    <button type="button" id="step-back">Previous version</button>
+    <input type="range" id="version" min="0" max="0" step="1" value="0" aria-label="Graph version">
+    <button type="button" id="step-next">Next version</button>
+    <button type="button" id="step-latest">Latest</button>
+    <label><input type="checkbox" id="show-archived" checked> Show superseded claims</label>
+    <output id="version-label" for="version" aria-live="polite"></output>
+  </div>
+  <div id="graph-empty" class="callout" hidden></div>
+  <div class="graph-scroll" id="graph-scroll" tabindex="0" role="region" aria-label="Mechanism graph; scrolls on narrow screens">
+    <svg id="mechanism-graph" class="mechanism" role="group" aria-label="Mechanism graph: select a claim label, or use the claim buttons below"></svg>
+  </div>
+  <div id="claim-buttons" class="claim-buttons" role="group" aria-label="Claims"></div>
+  <div class="inspector">
+    <div class="card" id="claim-inspector" aria-live="polite"></div>
+    <div class="card"><h3>Evidence linked to this claim</h3><div id="evidence-inspector"></div></div>
+  </div>
+  <div id="print-claims" class="print-only"></div>
+</section>
+<section id="archive" class="needs-js" aria-labelledby="archive-h">
+  <span class="section-no">04 / ARCHIVE</span><h2 id="archive-h">Rejected, deferred and superseded</h2>
+  <p class="small">Rejection applies to one hypothesis version, after a required claim was contradicted in its scope.
+    Deferral is a budget or evidence decision, not a refutation. Claims a rejected hypothesis shared stay available.
+    When the contradiction behind a rejection is later withdrawn, code reinstates the hypothesis as deferred, once; a
+    second rejection is final, and is then shown as a rejection that no longer stands.</p>
+  <div class="controls"><label for="archive-filter">Show</label>
+    <select id="archive-filter"><option value="all">everything archived</option><option value="rejected">rejected hypotheses</option>
+      <option value="deferred">deferred hypotheses</option><option value="superseded">superseded hypotheses</option>
+      <option value="claims">superseded claims</option></select></div>
+  <div id="archive-list"></div>
+</section>
+<section id="timeline" class="needs-js" aria-labelledby="timeline-h">
+  <span class="section-no">05 / REVISION TIMELINE</span><h2 id="timeline-h">Decisions, in order</h2>
+  <p class="small">Every event of the append-only record. A green dot changed the graph (its version is shown); grey
+    dots only recorded. “Show version” moves the graph’s version stepper there.</p>
+  <div class="controls"><label for="event-filter">Show</label>
+    <select id="event-filter"><option value="all">all events</option><option value="decisions">decisions</option>
+      <option value="evidence">evidence links</option><option value="tools">tool calls</option>
+      <option value="refusals">refused updates</option><option value="log">records</option></select>
+    <span id="event-count" class="status-line" aria-live="polite"></span></div>
+  <div class="timeline"><ol id="event-list"></ol></div>
+</section>
+<section id="next" class="needs-js" aria-labelledby="next-h">
+  <span class="section-no">06 / NEXT</span><h2 id="next-h">Next discriminating evidence</h2>
+  <p class="small">Suggested, not performed. These are what the run would check next, not results.</p>
+  <div id="next-list"></div>
+</section>
+<section id="evidence" class="needs-js" aria-labelledby="evidence-h">
+  <span class="section-no">07 / OTHER EVIDENCE</span><h2 id="evidence-h">Evidence no claim links</h2>
+  <p class="small">Retrieved observations that no claim cites (the QBiC-SELEX groups are in the inventory below).
+    Evidence is shown as observed; it supports or contradicts nothing until a claim links it.</p>
+  <div id="evidence-table"></div>
+</section>
+<section id="inventory" class="needs-js" aria-labelledby="inventory-h">
+  <span class="section-no">08 / INVENTORY</span><h2 id="inventory-h">QBiC-SELEX inventory</h2>
+  <p class="small">One row per model-sharing group with cached scores, in a neutral order (DBD label, then group id):
+    never ordered by z, expression or ChIP. A CIS-BP-mapped model counts as the TF’s own; the tag is provenance.
+    The gate is a display-size control, not eligibility: any TF stays queryable.</p>
+  <div id="inventory-body"></div>
+</section>
+<section id="provenance" class="needs-js" aria-labelledby="provenance-h">
+  <span class="section-no">09 / PROVENANCE</span><h2 id="provenance-h">How this run was made</h2>
+  <details id="provenance-details"><summary>Code, settings, models, tool calls and costs</summary><div id="provenance-body"></div></details>
+</section>
+<footer class="footer"><p>Rendered from the saved run folder only: no tool, model or network call is made by this page.
+  Suggested experiments were not performed.</p><p class="no-print"><a href="#summary">Back to the summary</a></p></footer>
+</main>
+</div>
+<script type="application/json" id="v2m-data">@@V2M_DATA@@</script>
+<script>
+(() => {
+  'use strict';
+  document.documentElement.classList.replace('no-js', 'js');
+  const D = JSON.parse(document.getElementById('v2m-data').textContent);
+  const $ = id => document.getElementById(id);
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const STATUS = {
+    supported: ['Supported in scope', 'SUPPORTED'], predicted: ['Predicted', 'PREDICTED'],
+    associated: ['Associated', 'ASSOCIATED'], unresolved: ['Unresolved', 'UNRESOLVED'],
+    contested: ['Contested', 'CONTESTED'], contradicted: ['Contradicted in scope', 'CONTRADICTED']
+  };
+  const DISPOSITION = {active: 'Active', deferred: 'Deferred', leading: 'Leading', tied: 'Tied', rejected: 'Rejected',
+    superseded: 'Superseded'};
+  const ARROW = {increases: '↑ increases', decreases: '↓ decreases', creates: 'creates', abolishes: 'abolishes',
+    no_change: 'no change', unspecified: 'direction not stated'};
+  const RAW = /^raw\/[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+  const FRAME = {case: 'the case variant', other: 'another variant'};
+  const has = (table, key) => Object.prototype.hasOwnProperty.call(table, key);
+  const status = s => (has(STATUS, s) ? s : 'unresolved');
+  const words = value => String(value).replace(/_/g, ' ');
+  const arrow = d => (has(ARROW, d) ? ARROW[d] : words(d));
+  // The variants an evidence item is about, each as the graph's variant rule reads it (report.py adds the frame).
+  const variantNames = e => (e.variants || []).map(x => x.text + (has(FRAME, x.frame) ? ' (' + FRAME[x.frame] + ')' : ''));
+  const ABOUT = ['tfs', 'genes', 'elements', 'traits'];
+  const claimIds = Object.keys(D.claims);
+
+  // --- building blocks: every text goes through textContent, every attribute name is fixed here ------------------
+  function add(node, kids) {
+    for (const kid of kids.flat(Infinity)) {
+      if (kid === null || kid === undefined || kid === false) continue;
+      node.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    }
+    return node;
+  }
+  function attrs(node, a) {
+    for (const [k, v] of Object.entries(a || {})) {
+      if (v === null || v === undefined || v === false) continue;
+      if (k === 'text') node.textContent = String(v);
+      else node.setAttribute(k, v === true ? '' : String(v));
+    }
+    return node;
+  }
+  const h = (tag, a, ...kids) => add(attrs(document.createElement(tag), a), kids);
+  const s = (tag, a, ...kids) => add(attrs(document.createElementNS(SVGNS, tag), a), kids);
+  const fill = (node, ...kids) => { node.replaceChildren(); return add(node, kids); };
+  const tag = (text, cls) => h('span', {class: 'tag' + (cls ? ' ' + cls : ''), text});
+  const statusTag = (st, extra) => tag(STATUS[status(st)][0] + (extra ? ' · ' + extra : ''), 's-' + status(st));
+  function httpsLink(url, text) {
+    if (typeof url !== 'string' || !/^https:\/\/[^\s"'<>]+$/.test(url)) return document.createTextNode(String(text));
+    return h('a', {href: url, rel: 'noopener noreferrer', target: '_blank', text});
+  }
+  function rawLink(path, text) {
+    if (typeof path !== 'string' || !RAW.test(path)) return null;
+    const base = typeof D.raw_base === 'string' && !/^[a-z][a-z0-9+.-]*:/i.test(D.raw_base) ? D.raw_base : '';
+    return h('a', {href: base + path, text: text || path});
+  }
+  function facts(rows) {
+    const dl = h('dl', {class: 'facts'});
+    for (const [k, v] of rows) {
+      if (v === null || v === undefined || v === '' || (Array.isArray(v) && !v.length)) continue;
+      add(dl, [h('dt', {text: k}), add(h('dd'), [v])]);
+    }
+    return dl;
+  }
+  function table(caption, headers, rows, cls) {
+    const t = h('table', {class: cls || null}, h('caption', {text: caption}),
+      h('thead', null, h('tr', null, headers.map(x => h('th', {scope: 'col', text: x})))));
+    const body = h('tbody');
+    for (const r of rows) body.append(r instanceof Node ? r : h('tr', null, r.map(c => add(h('td'), [c]))));
+    t.append(body);
+    return h('div', {class: 'table-wrap'}, t);
+  }
+  const claimButton = (id, label) => h('button', {type: 'button', class: 'linkish', 'data-select': id, text: label || id});
+  const join = (items, sep) => items.flatMap((x, i) => (i ? [sep || ', ', x] : [x]));
+  const entityName = id => (D.entities[id] ? D.entities[id].label : id);
+  function guard(name, fn) {
+    try { fn(); } catch (err) {
+      console.error(err);
+      const box = $(name);
+      if (box) fill(box, h('p', {class: 'callout warn', text: 'This part could not be drawn: ' + err.message}));
+    }
+  }
+
+  // --- versions: past states rebuilt by code (report.py) from the append-only record ------------------------------
+  let version = D.final_version;
+  let selected = null;
+  let highlight = [];
+  const mutation = new Map(D.events.filter(e => e.v !== e.before).map(e => [e.v, e]));
+  function stateAt(c, v) {
+    let found = null;
+    for (const x of c.states) { if (x.v <= v) found = x; else break; }
+    return found;
+  }
+  function linksAt(c, v) {
+    const active = new Map();
+    for (const x of c.links) if (x.v <= v) active.set(x.evidence, x);
+    return [...active.values()];
+  }
+  function dispositionAt(hy, v) {
+    let found = null;
+    for (const x of hy.states) { if (x.v <= v) found = x.disposition; }
+    return found;
+  }
+  const latest = () => version === D.final_version;
+
+  // --- hypotheses -------------------------------------------------------------------------------------------------
+  function renderHypotheses() {
+    const box = $('hypothesis-table');
+    if (!D.hypotheses.length) {
+      fill(box, h('p', {class: 'callout', text: 'No hypotheses in this run. ' + (D.meta.hypotheses_note || '')}));
+      $('comparison-list').replaceChildren();
+      return;
+    }
+    const leading = new Set((D.result && D.result.leading_ids) || []);
+    const rows = D.hypotheses.map(hy => {
+      const pressed = highlight.includes(hy.id);
+      const required = hy.required.map(cid => {
+        const c = D.claims[cid];
+        return h('span', null, claimButton(cid), ' ', statusTag(c.status, c.flag !== 'none' ? 'premise failed' : ''));
+      });
+      const cell = x => (x ? [claimButton(x.claim), ': ' + x.why] : [h('span', {class: 'muted', text: 'none'})]);
+      return h('tr', {class: leading.has(hy.id) ? 'highlight' : null},
+        add(h('td'), [h('strong', {text: hy.id + ' · v' + hy.version}), ' ', hy.title,
+          hy.origin === 'regenerated' ? [' ', tag('regenerated')] : null,
+          hy.summary ? h('div', {class: 'small', text: hy.summary}) : null]),
+        add(h('td'), [tag(hy.disposition_label, hy.disposition === 'rejected' ? 'rejected' :
+          hy.disposition === 'deferred' ? 'deferred' : hy.disposition === 'leading' ? 's-supported' : null),
+          hy.reinstated.length ? [' ', tag('reinstated', 'deferred')] : null,
+          hy.stale_rejection ? [' ', tag('rejection no longer stands', 's-contested')] : null,
+          hy.reason ? h('div', {class: 'small', text: hy.reason}) : null,
+          hy.reinstated_notes.map(text => h('div', {class: 'small', text})),
+          hy.stale_note ? h('div', {class: 'small', text: hy.stale_note}) : null]),
+        add(h('td'), cell(hy.best)), add(h('td'), cell(hy.weakest)),
+        add(h('td'), [h('div', {class: 'chips'}, required)]),
+        add(h('td'), [hy.decisive.length ? join(hy.decisive.map(x => claimButton(x))) : h('span', {class: 'muted', text: '–'})]),
+        add(h('td'), [h('button', {type: 'button', 'data-highlight': hy.id, 'aria-pressed': String(pressed),
+          text: pressed ? 'Highlighted' : 'Highlight'})]));
+    });
+    fill(box, table('Hypotheses, with their dispositions and the claims that decide them',
+      ['Hypothesis', 'Disposition', 'Best-supported component', 'Weakest consequential link', 'Required claims',
+        'Decisive in comparisons', 'Graph'], rows));
+    const list = $('comparison-list');
+    list.replaceChildren();
+    if (D.comparisons.length) {
+      list.append(h('h3', {text: 'Pairwise comparisons'}));
+      list.append(h('ul', null, D.comparisons.map(p => h('li', null,
+        h('strong', {text: p.a + ' vs ' + p.b + ': ' + p.outcome_label}),
+        p.accepted ? null : [' ', tag('refused', 'rejected'), ' ', p.refusal_reason],
+        p.decisive.length ? [' · decisive ', join(p.decisive.map(x => claimButton(x)))] : null,
+        p.gaps.length ? [' · gaps: ', p.gaps.join('; ')] : null,
+        p.reason ? h('div', {class: 'small', text: p.reason}) : null))));
+    }
+  }
+
+  // --- the mechanism graph ----------------------------------------------------------------------------------------
+  function chipLine2(c, st) {
+    if (st.superseded_by) return 'SUPERSEDED → ' + st.superseded_by;
+    return STATUS[status(st.status)][1] + (st.flag !== 'none' ? ' · PREMISE FAILED' : '');
+  }
+  function edgeLabel(c, st) {
+    return c.id + ', ' + c.relation_label + ', ' + STATUS[status(st.status)][0] +
+      (st.basis ? ', basis ' + st.basis : '') + (st.flag !== 'none' ? ', premise failed' : '') +
+      (st.superseded_by ? ', superseded by ' + st.superseded_by : '');
+  }
+  function highlighted() {
+    if (!highlight.length) return null;
+    const set = new Set();
+    for (const hid of highlight) {
+      const hy = D.hypotheses.find(x => x.id === hid);
+      if (hy) hy.claims.forEach(x => set.add(x));
+    }
+    return set;
+  }
+  function decisiveSet() {
+    if (highlight.length !== 2) return new Set();
+    const [a, b] = highlight;
+    return new Set(D.comparisons.filter(p => p.accepted && ((p.a === a && p.b === b) || (p.a === b && p.b === a)))
+      .flatMap(p => p.decisive));
+  }
+  function renderGraph() {
+    const L = D.layout;
+    const svg = $('mechanism-graph');
+    const empty = $('graph-empty');
+    if (!L.nodes.length) {
+      svg.replaceChildren();
+      $('graph-scroll').hidden = true;
+      empty.hidden = false;
+      empty.textContent = D.meta.evidence_only ? 'No claims: this bundle holds evidence only. The evidence and the ' +
+        'inventory are listed below.' : 'No claims were proposed in this run.';
+      return;
+    }
+    const [x0, y0, w, hgt] = L.view_box;
+    attrs(svg, {viewBox: [x0, y0, w, hgt].join(' '), width: w, height: hgt});
+    const markers = s('defs', null, Object.keys(STATUS).concat('superseded').map(st =>
+      s('marker', {id: 'tip-' + st, markerWidth: 8, markerHeight: 8, refX: 7, refY: 4, orient: 'auto'},
+        s('path', {d: 'M0 0 L8 4 L0 8 Z', class: 'mk-' + st}))));
+    const focus = highlighted();
+    const decisive = decisiveSet();
+    const showArchived = $('show-archived').checked;
+    const lines = s('g', {class: 'lines'});
+    const chips = s('g', {class: 'chip-layer'});
+    for (const e of L.edges) {
+      const c = D.claims[e.claim];
+      const st = stateAt(c, version);
+      if (!st || (st.superseded_by && !showArchived)) continue;
+      const cls = (st.superseded_by ? 'superseded' : 'st-' + status(st.status)) +
+        (selected === c.id ? ' selected' : '') + (focus && !focus.has(c.id) ? ' dim' : '') +
+        (decisive.has(c.id) ? ' decisive' : '');
+      const tip = st.superseded_by ? 'superseded' : status(st.status);
+      lines.append(s('g', {class: 'edge ' + cls, 'data-claim': c.id}, e.paths.map(d => [
+        s('path', {class: 'edge-line', d, 'marker-end': 'url(#tip-' + tip + ')'}),
+        s('path', {class: 'edge-hit', d})])));
+      const k = e.chip;
+      chips.append(s('g', {class: 'chip ' + cls, 'data-claim': c.id, tabindex: 0, role: 'button',
+        'aria-pressed': String(selected === c.id), 'aria-label': edgeLabel(c, st)},
+        s('title', {text: c.assertion}),
+        s('rect', {class: 'edge-chip', x: k.x, y: k.y, width: k.w, height: k.h, rx: 6}),
+        s('text', {class: 'chip-1', x: k.cx, y: k.cy - 3, 'text-anchor': 'middle', 'data-fit': k.w - 12, text: c.chip}),
+        s('text', {class: 'chip-2', x: k.cx, y: k.cy + 12, 'text-anchor': 'middle', 'data-fit': k.w - 12,
+          text: chipLine2(c, st)})));
+    }
+    const heads = s('g', null, L.heads.map(x => s('text', {class: 'col-head', x: x.x, y: x.y, 'text-anchor': 'middle',
+      text: x.text})));
+    const nodes = s('g', null, L.nodes.map(n => s('g', {class: 'node-group'},
+      s('title', {text: n.title}),
+      s('rect', {class: 'node', x: n.x, y: n.y, width: n.w, height: n.h, rx: 9}),
+      s('text', {class: 'node-title', x: n.x + n.w / 2, y: n.y + 24, 'text-anchor': 'middle', 'data-fit': n.w - 14,
+        text: n.label}),
+      s('text', {class: 'node-sub', x: n.x + n.w / 2, y: n.y + 43, 'text-anchor': 'middle', 'data-fit': n.w - 14,
+        text: n.sub}))));
+    fill(svg, s('title', {text: 'Mechanism graph at version ' + version}), markers, heads, lines, nodes, chips);
+    for (const t of svg.querySelectorAll('text[data-fit]')) {     // squeeze a label that is wider than its box
+      const room = Number(t.getAttribute('data-fit'));
+      try {
+        if (t.getComputedTextLength() > room) attrs(t, {textLength: room, lengthAdjust: 'spacingAndGlyphs'});
+      } catch (err) { /* not laid out (hidden or printing): keep the text as it is */ }
+    }
+  }
+  function renderClaimButtons() {
+    const box = $('claim-buttons');
+    fill(box, ...claimIds.filter(id => stateAt(D.claims[id], version)).map(id => {
+      const c = D.claims[id];
+      const st = stateAt(c, version);
+      return h('button', {type: 'button', 'data-claim': id, 'aria-pressed': String(selected === id),
+        text: c.chip + ' · ' + (st.superseded_by ? 'superseded' : STATUS[status(st.status)][0]) +
+          (st.flag !== 'none' ? ' · premise failed' : '')});
+    }));
+  }
+  function evidenceCard(link) {
+    const e = D.evidence[link.evidence];
+    if (!e) return h('p', {text: link.evidence + ' (not in this bundle)'});
+    const x = e.experiment;
+    const app = link.applicability + (link.code_applicability && link.code_applicability !== link.applicability ?
+      ' (code computed ' + link.code_applicability + ')' : '') + (link.corrected ? '; the proposed value was stronger and was corrected by code' : '');
+    const named = variantNames(e);
+    const about = [named.length ? 'variants: ' + named.join(', ') : '']
+      .concat(ABOUT.map(k => (e.about[k] && e.about[k].length ? k + ': ' + e.about[k].join(', ') : ''))).filter(Boolean);
+    const data = Object.entries(e.data || {}).map(([k, v]) => k + ' = ' + (typeof v === 'object' ? JSON.stringify(v) : String(v)));
+    const raw = rawLink(e.raw, 'raw result');
+    return h('article', {class: 'evidence-item'},
+      h('div', {class: 'tags'}, tag(e.id + ' · ' + e.class.replace(/_/g, ' ')),
+        e.result_kind !== 'effect' ? tag('measured null', 's-contested') : null,
+        tag(e.origin), e.access === 'abstract_only' ? tag('abstract only', 'deferred') : null,
+        link.strength === 'indirect' ? tag('indirect: basis only', 's-predicted') : null,
+        link.downgraded_from ? tag('stored as context only (' + link.downgraded_from + ' proposed)', 'deferred') : null,
+        e.group_size > 1 ? tag('shares its source group with ' + (e.group_size - 1) + ' other item(s)') : null),
+      h('p', null, h('strong', {text: e.observed})),
+      x ? h('blockquote', null, h('div', {text: '“' + x.passage + '”'}),
+        h('div', {class: 'small', text: [x.source_id, x.location, x.access === 'abstract_only' ? 'abstract only' : '',
+          x.authors_hypothesis_vs_result !== 'result' ? 'states the authors’ ' + x.authors_hypothesis_vs_result : '']
+          .filter(Boolean).join(' · ')})) : null,
+      facts([
+        ['Link', link.stance.replace('_', ' ') + ' · ' + link.strength + (link.role ? ' · proposed by ' + link.role.replace(/_/g, ' ') : '')],
+        ['Rationale', link.rationale],
+        ['Applicability', app],
+        ['Context', e.context ? e.context.text : 'no context recorded'],
+        ['Allele, direction', e.allele || e.direction !== 'unspecified' ? (e.allele ? e.allele + ': ' : '') + arrow(e.direction) : ''],
+        ['System', x ? [x.system.organism, x.system.tissue_or_cell, x.system.treatment,
+          x.system.genotype_or_allele ? 'genotype ' + x.system.genotype_or_allele : ''].filter(Boolean).join('; ') : ''],
+        ['Intervention', x ? [x.intervention, x.endpoint ? 'endpoint: ' + x.endpoint : '', x.comparator ? 'compared with: ' + x.comparator : ''].filter(Boolean).join('; ') : ''],
+        ['What it changed', x && x.manipulated && x.manipulated !== 'none' ? words(x.manipulated) +
+          (x.compared_allele ? '; the direction is for allele ' + x.compared_allele : '') : ''],
+        ['Result', x ? x.result : ''],
+        ['Scope tested', x ? x.scope_supports : ''], ['Not tested', x ? x.scope_does_not_test : ''],
+        ['About', about.join('; ')],
+        ['Values', data.join('; ')],
+        ['Sources', e.sources.length ? join(e.sources.map(src => httpsLink(src.url, src.text))) : ''],
+        ['Independence group', e.group],
+        ['Retrieved by', e.tool_call ? [e.tool_call + (e.tool ? ' · ' + e.tool : ''), raw ? [' · ', raw] : null] : ''],
+        ['Limitations', link.limitations.concat(e.limitations).join(' ')]]));
+  }
+  // One claim as it stood at the shown version: the inspector draws the selected claim with these, and a printout
+  // draws every claim with them (printClaims), so paper shows all the evidence the page can show.
+  function claimDetails(c, st) {
+    const names = ids => ids.map(entityName).join(', ');
+    const deps = c.dependencies.map(d => {
+      const ds = stateAt(D.claims[d], version);
+      return h('li', null, claimButton(d), ' ', ds ? statusTag(ds.status) : tag('not yet proposed'));
+    });
+    const comparisons = D.comparisons.filter(p => p.decisive.includes(c.id)).map(p => p.id + ' (' + p.a + ' vs ' + p.b + ')');
+    return [
+      h('div', {class: 'tags'}, statusTag(st.status, st.basis ? 'basis: ' + st.basis : ''),
+        st.flag !== 'none' ? tag('premise failed: unsupported due to a dependency', 'premise') : null,
+        st.superseded_by ? tag('superseded by ' + st.superseded_by) : null,
+        latest() ? null : tag('as at version ' + version)),
+      h('h3', {text: c.chip}),
+      h('p', null, h('strong', {text: c.assertion})),
+      facts([
+        ['Claim', names(c.subjects) + ' ' + c.relation_label + ' ' + names(c.objects)],
+        ['Direction', arrow(c.direction) + (c.effect_allele && c.direction !== 'unspecified' ?
+          ' (effect allele ' + c.effect_allele + ')' : '')],
+        ['Allele scope', c.allele_scope], ['Context', c.context ? c.context.text : 'not scoped to a context'],
+        ['Mechanism class', words(c.mechanism_class)],
+        ['Assessment', words(st.assessment) + (latest() && c.rationale ? ': ' + c.rationale : '')],
+        ['Proposed by', words(c.proposed_by)],
+        ['Supersedes', c.supersedes ? claimButton(c.supersedes) : ''],
+        ['Superseded by', st.superseded_by ? claimButton(st.superseded_by) : ''],
+        ['Decisive in', comparisons.join('; ')],
+        ['Limitations', c.limitations.join(' ')]]),
+      c.dependencies.length ? [h('h4', {text: 'Rests on'}), h('ul', null, deps)] : null,
+      h('h4', {text: 'Hypotheses using this claim'}),
+      c.hypotheses.length ? h('ul', null, c.hypotheses.map(x => {
+        const hy = D.hypotheses.find(y => y.id === x.id);
+        const then = hy ? dispositionAt(hy, version) : x.disposition;
+        return h('li', null, h('strong', {text: x.id}), x.required ? ' (required)' : ' (optional)', ' · ',
+          then ? DISPOSITION[then] || words(then) : 'not yet proposed at this version');
+      })) : h('p', {class: 'muted', text: 'No hypothesis uses it.'})];
+  }
+  function claimEvidence(c) {
+    const links = linksAt(c, version);
+    const groups = [['supports', 'Supports'], ['contradicts', 'Contradicts'], ['context_only', 'Context only'],
+      ['unresolved', 'Stance unresolved']];
+    const parts = groups.map(([key, title]) => {
+      const items = links.filter(x => x.stance === key);
+      return items.length ? [h('div', {class: 'stance-head', text: title + ' (' + items.length + ')'}), items.map(evidenceCard)] : null;
+    });
+    return links.length ? parts : [h('p', {text: 'No evidence is linked at this version.'}),
+      h('p', {class: 'small', text: 'An unresolved claim is untested here, not a tested negative.'})];
+  }
+  function renderInspector() {
+    const card = $('claim-inspector');
+    const ev = $('evidence-inspector');
+    const c = selected ? D.claims[selected] : null;
+    const st = c ? stateAt(c, version) : null;
+    if (!c || !st) {
+      fill(card, h('p', {class: 'muted', text: claimIds.length ? 'Select a claim to inspect it.' : 'No claims in this run.'}));
+      ev.replaceChildren();
+      return;
+    }
+    fill(card, claimDetails(c, st));
+    fill(ev, claimEvidence(c));
+  }
+  function printClaims() {
+    const showArchived = $('show-archived').checked;
+    const shown = claimIds.map(id => [D.claims[id], stateAt(D.claims[id], version)])
+      .filter(([, st]) => st && (showArchived || !st.superseded_by));
+    fill($('print-claims'), shown.length ? h('h3', {text: 'Every claim and its evidence' +
+      (latest() ? '' : ' (as at graph version ' + version + ')')}) : null,
+    shown.map(([c, st]) => h('article', {class: 'card print-claim'}, claimDetails(c, st),
+      h('h4', {text: 'Evidence linked to this claim'}), claimEvidence(c))));
+  }
+  function renderVersionLabel() {
+    const range = $('version');
+    range.max = String(D.final_version);
+    range.value = String(version);
+    const e = mutation.get(version);
+    const text = 'Graph version ' + version + ' of ' + D.final_version +
+      (e ? ' · ' + e.id + ' · ' + e.role.replace(/_/g, ' ') + ' · ' + e.action.replace(/_/g, ' ') + ': ' + e.reason :
+        version === 0 ? ' · before any change' : '');
+    $('version-label').textContent = text;
+    range.setAttribute('aria-valuetext', text);
+    $('step-back').disabled = version <= 0;
+    $('step-next').disabled = version >= D.final_version;
+    $('step-latest').disabled = latest();
+  }
+  function renderAll() {
+    guard('graph-scroll', renderGraph);
+    guard('claim-buttons', renderClaimButtons);
+    guard('claim-inspector', renderInspector);
+    guard('version-label', renderVersionLabel);
+    for (const li of document.querySelectorAll('#event-list li')) li.classList.toggle('current', Number(li.dataset.v) === version && li.classList.contains('mutation'));
+  }
+  function select(id) {
+    if (!D.claims[id]) return;
+    selected = id;
+    if (!stateAt(D.claims[id], version)) version = D.final_version;
+    renderAll();
+  }
+  function setVersion(v) {
+    version = Math.max(0, Math.min(D.final_version, v));
+    renderAll();
+  }
+
+  // --- archive ----------------------------------------------------------------------------------------------------
+  function renderArchive() {
+    const filter = $('archive-filter').value;
+    const items = [];
+    for (const hy of D.hypotheses) {
+      if (!['rejected', 'deferred', 'superseded'].includes(hy.disposition)) continue;
+      if (filter !== 'all' && filter !== hy.disposition) continue;
+      const shared = hy.retained.concat(hy.premise_failed).filter(cid => (hy.shared[cid] || []).length);
+      const statusOf = cid => STATUS[status(D.claims[cid].status)][0].toLowerCase();
+      items.push(h('div', {class: 'archive-item ' + hy.disposition},
+        h('div', {class: 'tags'}, tag(hy.disposition_label + ' hypothesis version · ' + hy.id + ' v' + hy.version,
+          hy.disposition === 'rejected' ? 'rejected' : hy.disposition === 'deferred' ? 'deferred' : null)),
+        h('p', null, h('strong', {text: hy.title})),
+        h('p', null, h('strong', {text: 'Reason: '}), hy.reason || 'not recorded'),
+        hy.revisit_trigger ? h('p', null, h('strong', {text: 'Revisit when: '}), hy.revisit_trigger) : null,
+        hy.replaced_by.length ? h('p', null, h('strong', {text: 'Replaced by: '}), hy.replaced_by.join(', ')) : null,
+        hy.reinstated_notes.map(text => h('p', null, tag('reinstated', 'deferred'), ' ', text)),
+        hy.stale_note ? h('p', null, tag('rejection no longer stands', 's-contested'), ' ', hy.stale_note) : null,
+        hy.reject_evidence.length ? h('p', null, h('strong', {text: hy.disposition === 'rejected' ?
+          'Decisive evidence: ' : 'Evidence the withdrawn rejection cited: '}), hy.reject_evidence.join(', ')) : null,
+        h('p', null, h('strong', {text: 'Retained claims: '}),
+          hy.retained.length ? join(hy.retained.map(cid => [claimButton(cid), ' (' + statusOf(cid) + ')'])) : 'none'),
+        hy.premise_failed.length ? h('p', null, h('strong', {text: 'Not retained, a premise failed: '}),
+          join(hy.premise_failed.map(cid => [claimButton(cid), ' (' + statusOf(cid) + '; rests on ',
+            join(D.claims[cid].dependencies.map(d => [claimButton(d), ', ' + statusOf(d)]), '; '), ')', ' ',
+            tag('premise failed', 'premise')]))) : null,
+        shared.length ? h('p', {class: 'small', text: 'Still used by open hypotheses: ' +
+          shared.map(cid => cid + ' in ' + hy.shared[cid].join(', ')).join('; ')}) : null));
+    }
+    if (filter === 'all' || filter === 'claims') {
+      for (const id of claimIds) {
+        const c = D.claims[id];
+        if (!c.superseded_by) continue;
+        const ev = D.events.find(e => e.action === 'supersede_claim' && e.targets[0] === id);
+        items.push(h('div', {class: 'archive-item'},
+          h('div', {class: 'tags'}, tag('Superseded claim · ' + id)),
+          h('p', null, h('strong', {text: c.assertion})),
+          h('p', null, 'Replaced by ', claimButton(c.superseded_by), ev ? ': ' + ev.reason : ''),
+          h('p', {class: 'small', text: 'Its evidence links stay with it; each must be re-linked to the replacement and checked again.'})));
+      }
+    }
+    fill($('archive-list'), ...(items.length ? items : [h('p', {class: 'muted', text: 'Nothing archived of this kind.'})]));
+  }
+
+  // --- timeline ---------------------------------------------------------------------------------------------------
+  function renderTimeline() {
+    const filter = $('event-filter').value;
+    const shown = D.events.filter(e => filter === 'all' || e.group === filter);
+    $('event-count').textContent = shown.length + ' of ' + D.events.length + ' events';
+    fill($('event-list'), ...shown.map(e => {
+      const changed = e.v !== e.before;
+      return h('li', {class: e.group + (changed ? ' mutation' : '') + (changed && e.v === version ? ' current' : ''), 'data-v': e.v},
+        h('strong', {text: e.id}), ' · ', e.role.replace(/_/g, ' '), ' · ', h('code', {text: e.action}),
+        e.targets.length ? ' · ' + e.targets.join(', ') : '', e.evidence.length ? ' · evidence ' + e.evidence.join(', ') : '',
+        changed ? h('button', {type: 'button', 'data-version': e.v, text: 'Show version ' + e.v}) : null,
+        e.reason ? h('div', {class: 'small', text: e.reason}) : null);
+    }));
+  }
+
+  // --- next discriminating evidence -------------------------------------------------------------------------------
+  function renderNext() {
+    const box = $('next-list');
+    const nexts = (D.result && D.result.next_experiments) || [];
+    const open = D.questions.filter(q => q.status === 'open' || q.status === 'deferred');
+    const unasked = (D.result && D.result.uninvestigated_questions) || [];
+    const parts = [];
+    parts.push(h('h3', {text: 'Suggested experiments'}));
+    parts.push(nexts.length ? h('ul', null, nexts.map(n => h('li', null, tag('suggested · not performed', 'suggested'), ' ',
+      n.text, n.distinguishes.length ? ' (distinguishes ' + n.distinguishes.join(', ') + ')' : '',
+      n.claim_ids.length ? [' · claims ', join(n.claim_ids.map(x => claimButton(x)))] : null))) :
+      h('p', {class: 'muted', text: 'None suggested.'}));
+    if (open.length) {
+      parts.push(h('h3', {text: 'Open questions'}));
+      parts.push(h('ul', null, open.map(q => h('li', null, h('strong', {text: q.id}), ' ', q.text, ' ',
+        tag(q.route), ' ', tag(q.status), q.gap ? h('div', {class: 'small', text: 'Remaining gap: ' + q.gap}) : null))));
+    }
+    if (unasked.length) {
+      parts.push(h('h3', {text: 'Not investigated'}));
+      parts.push(h('ul', null, unasked.map(q => h('li', {text: q}))));
+    }
+    // Questions code closed without a model call: a repeat of one already answered, with nothing changed since.
+    const refused = D.questions.filter(q => q.status === 'refused');
+    if (refused.length) {
+      parts.push(h('h3', {text: 'Questions closed without being asked'}));
+      parts.push(h('ul', null, refused.map(q => h('li', null, h('strong', {text: q.id}), ' ', q.text, ' ', tag(q.route),
+        ' ', tag('refused', 'deferred'), h('div', {class: 'small', text: q.answer || 'Closed as refused.'})))));
+    }
+    fill(box, ...parts);
+  }
+
+  // --- other evidence ---------------------------------------------------------------------------------------------
+  function renderEvidence() {
+    const items = Object.values(D.evidence).filter(e => !e.claims.length && !e.inventory);
+    if (!items.length) {
+      fill($('evidence-table'), h('p', {class: 'muted', text: 'Every evidence item is linked to a claim or listed in the inventory.'}));
+      return;
+    }
+    fill($('evidence-table'), table(items.length + ' evidence items that no claim links',
+      ['Evidence', 'Class', 'Observation', 'About', 'Context', 'Sources', 'From'], items.map(e => [
+        e.id, e.class.replace(/_/g, ' ') + (e.result_kind !== 'effect' ? ' (measured null)' : ''), e.observed,
+        variantNames(e).concat(ABOUT.flatMap(k => e.about[k] || [])).join(', '),
+        e.context ? e.context.text : '–',
+        e.sources.length ? join(e.sources.map(src => httpsLink(src.url, src.text))) : '–',
+        e.tool_call ? [e.tool_call + (e.tool ? ' · ' + e.tool : ''), e.raw ? [' · ', rawLink(e.raw, 'raw')] : null] : '–'])));
+  }
+
+  // --- inventory: one compact collapsible table, never re-ordered --------------------------------------------------
+  function renderInventory() {
+    const inv = D.inventory;
+    const box = $('inventory-body');
+    if (!inv.rows.length) {
+      fill(box, h('p', {class: 'muted', text: 'No QBiC-SELEX inventory in this run.'}));
+      return;
+    }
+    const search = h('input', {type: 'search', id: 'inventory-search', 'aria-label': 'Filter by group, TF or DBD', placeholder: 'Filter by group, TF or DBD'});
+    const all = h('input', {type: 'checkbox', id: 'inventory-all'});
+    const count = h('span', {class: 'status-line', 'aria-live': 'polite'});
+    const rows = inv.rows.map(r => {
+      const members = join(r.members.map(m => [m.tf, m.mapping === 'cisbp' ? [' ', tag('CIS-BP-mapped')] : null]));
+      const tr = h('tr', {'data-passes': String(r.passes)},
+        add(h('td'), [h('strong', {text: r.group}), r.label ? h('div', {class: 'small', text: r.label}) : null]),
+        add(h('td'), [r.dbd || '–']), add(h('td'), [members.length ? members : '–']), add(h('td'), [r.stem || '–']),
+        add(h('td'), [h('span', {class: 'mono', text: r.best_model || '–'})]),
+        add(h('td'), [r.allele ? r.allele + ' (' + r.binds_more + ')' : (r.binds_more || '–')]),
+        h('td', {class: 'num', text: r.z === null || r.z === undefined ? '–' : String(r.z)}),
+        h('td', {class: 'num', text: r.effect === null || r.effect === undefined ? '–' : String(r.effect)}),
+        h('td', {class: 'num', text: r.n_pass + ' / ' + r.n_models}),
+        add(h('td'), [r.passes ? 'passes' : 'does not pass']),
+        // a group whose gate-passing models disagree about the allele has one item per allele: both are shown
+        add(h('td'), [r.discordant ? [join(r.items.map(x => x.id + ': ' + (x.allele || '?') + ' binds more (models of ' +
+          (x.tfs.join(', ') || 'no TF') + ')'), '; '), ' ', tag('models disagree', 's-contested')] : (r.evidence || '–'),
+        r.claims.length ? [' · linked: ', join(r.claims.map(x => claimButton(x)))] : null]));
+      tr.dataset.search = [r.group, r.label, r.dbd, r.stem, r.best_model].concat(r.members.map(m => m.tf)).join(' ').toLowerCase();
+      return tr;
+    });
+    const tbl = table('One row per model-sharing group, in DBD then group order', ['Group', 'DBD', 'Members',
+      'Paralog stem', 'Best model', 'Binds more', 'z', 'Effect', 'Models past gate', 'Gate', 'Evidence'], rows, 'inventory');
+    function apply() {
+      const q = search.value.trim().toLowerCase();
+      let n = 0;
+      for (const tr of rows) {
+        const show = (all.checked || tr.dataset.passes === 'true') && (!q || tr.dataset.search.includes(q));
+        tr.hidden = !show;
+        if (show) n += 1;
+      }
+      count.textContent = n + ' of ' + inv.rows.length + ' groups shown';
+    }
+    search.addEventListener('input', apply);
+    all.addEventListener('change', apply);
+    fill(box, h('details', {id: 'inventory-details'},
+      h('summary', {text: inv.gate_passing + ' of ' + inv.groups + ' model-sharing groups pass the gate · ' + inv.linked +
+        ' linked to claims' + (inv.call ? ' · from ' + inv.call : '')}),
+      h('div', null, h('div', {class: 'controls'}, search, h('label', null, all, ' include groups that do not pass the gate'), count), tbl)));
+    apply();
+  }
+
+  // --- provenance -------------------------------------------------------------------------------------------------
+  function tree(value, depth) {
+    if (value === null || value === undefined || value === '') return h('span', {class: 'muted', text: '–'});
+    if (typeof value !== 'object') return document.createTextNode(String(value));
+    if (Array.isArray(value)) {
+      if (value.every(v => v === null || typeof v !== 'object')) return document.createTextNode(value.join(', ') || '–');
+      if (depth > 4) return document.createTextNode(value.length + ' items');
+      return h('ol', null, value.slice(0, 60).map(v => h('li', null, tree(v, depth + 1))),
+        value.length > 60 ? h('li', {text: '… ' + (value.length - 60) + ' more'}) : null);
+    }
+    if (depth > 4) return document.createTextNode(Object.keys(value).length + ' fields');
+    return h('dl', null, Object.entries(value).map(([k, v]) => [h('dt', {text: k.replace(/_/g, ' ')}), add(h('dd'), [tree(v, depth + 1)])]));
+  }
+  function renderProvenance() {
+    const m = D.provenance.manifest;
+    const metrics = D.provenance.metrics;
+    const parts = [];
+    if (!Object.keys(m).length) parts.push(h('p', {class: 'callout warn', text: 'No manifest.json in this run folder.'}));
+    const git = (m.code && m.code.git) || {};
+    parts.push(h('h3', {text: 'Run'}), facts([
+      ['Engine', D.meta.engine_version], ['Created', m.created], ['Mode', D.meta.mode_label], ['Profile', m.profile],
+      ['Git HEAD', git.head], ['Uncommitted changes', git.dirty === undefined || git.dirty === null ? '' : git.dirty ? 'yes' : 'no'],
+      ['git diff sha256', git.diff_sha256],
+      ['Untracked files under src/', git.untracked ? Object.keys(git.untracked).length + ' (sha256 ' + git.untracked_sha256 + ')' : ''],
+      ['v9 sources sha256', m.code ? m.code.v9_sources_sha256 : '']]));
+    if (m.code && m.code.prompts && Object.keys(m.code.prompts).length) {
+      parts.push(table('Prompt files (sha256)', ['Prompt', 'sha256'], Object.entries(m.code.prompts).map(([k, v]) => [k, h('span', {class: 'mono', text: v})])));
+    }
+    for (const [key, title] of [['engine', 'Engine: prompts, models, limits, stop, replayability'], ['config', 'Settings'],
+      ['cache_policy', 'Cache policy'], ['replay_of', 'Replay of a saved run'], ['public_export', 'Public export']]) {
+      if (m[key]) parts.push(h('h3', {text: title}), h('div', {class: 'tree'}, tree(m[key], 0)));
+    }
+    if (m.dataset_releases && m.dataset_releases.length) {
+      parts.push(table('Dataset releases of the tools that ran', ['Tool', 'Provider', 'Release', 'Adapter version'],
+        m.dataset_releases.map(r => [r.tool, r.provider || '–', r.dataset_release || '–', r.tool_version || '–'])));
+    }
+    if (Object.keys(metrics || {}).length) parts.push(h('h3', {text: 'Metrics'}), h('div', {class: 'tree'}, tree(metrics, 0)));
+    parts.push(table('Tool calls (' + D.tool_calls.length + ')', ['Call', 'Tool', 'Requested by', 'Status', 'Charged', 'Cached', 'Release', 'Message'],
+      D.tool_calls.map(t => [[t.id, t.raw ? [' · ', rawLink(t.raw, 'raw')] : null], t.tool, t.requested_by.replace(/_/g, ' '),
+        t.status + ' / ' + t.retrieval.replace(/_/g, ' '), t.charged_to, t.cached ? 'yes' : 'no', t.release || '–', t.message || '–'])));
+    fill($('provenance-body'), ...parts);
+  }
+
+  // --- wiring -----------------------------------------------------------------------------------------------------
+  // Selecting a claim or highlighting a hypothesis redraws the control that was used, so focus moves to its redrawn
+  // twin; a control that jumps to the graph moves focus there. A keyboard user never lands back at the top.
+  function focusOn(selector) {
+    const el = document.querySelector(selector);
+    if (el) el.focus({preventScroll: true});
+  }
+  const byId = (attr, id) => '[' + attr + '="' + CSS.escape(id) + '"]';
+  document.addEventListener('click', ev => {
+    const target = ev.target instanceof Element ? ev.target : null;
+    if (!target) return;
+    const pick = target.closest('[data-claim],[data-select]');
+    if (pick) {
+      const id = pick.getAttribute('data-claim') || pick.getAttribute('data-select');
+      const focused = pick.contains(document.activeElement);
+      const inGraph = Boolean(pick.closest('#mechanism-graph'));
+      select(id);
+      if (pick.hasAttribute('data-select')) {
+        $('graph').scrollIntoView({block: 'start'});
+        focusOn('#claim-buttons button' + byId('data-claim', id));
+      } else if (focused && !pick.isConnected) {
+        focusOn((inGraph ? '#mechanism-graph .chip' : '#claim-buttons button') + byId('data-claim', id));
+      }
+      return;
+    }
+    const hl = target.closest('[data-highlight]');
+    if (hl) {
+      const id = hl.getAttribute('data-highlight');
+      const focused = hl.contains(document.activeElement);
+      highlight = highlight.includes(id) ? highlight.filter(x => x !== id) : highlight.concat(id).slice(-2);
+      guard('hypothesis-table', renderHypotheses);
+      renderAll();
+      if (focused && !hl.isConnected) focusOn('#hypothesis-table button' + byId('data-highlight', id));
+      return;
+    }
+    const goto = target.closest('[data-version]');
+    if (goto) {
+      setVersion(Number(goto.getAttribute('data-version')));
+      $('graph').scrollIntoView({block: 'start'});
+      focusOn('#version');
+    }
+  });
+  $('mechanism-graph').addEventListener('keydown', ev => {
+    if (ev.key !== 'Enter' && ev.key !== ' ') return;
+    const chip = ev.target instanceof Element ? ev.target.closest('.chip[data-claim]') : null;
+    if (!chip) return;
+    ev.preventDefault();
+    const id = chip.getAttribute('data-claim');
+    select(id);
+    const again = $('mechanism-graph').querySelector('.chip[data-claim="' + CSS.escape(id) + '"]');
+    if (again) again.focus();
+  });
+  $('version').addEventListener('input', ev => setVersion(Number(ev.target.value)));
+  $('step-back').addEventListener('click', () => setVersion(version - 1));
+  $('step-next').addEventListener('click', () => setVersion(version + 1));
+  $('step-latest').addEventListener('click', () => setVersion(D.final_version));
+  $('show-archived').addEventListener('change', renderAll);
+  $('archive-filter').addEventListener('change', () => guard('archive-list', renderArchive));
+  $('event-filter').addEventListener('change', () => guard('event-list', renderTimeline));
+  const themes = ['automatic', 'light', 'dark'];
+  $('theme-toggle').addEventListener('click', ev => {
+    const now = themes[(themes.indexOf(document.documentElement.dataset.theme || 'automatic') + 1) % themes.length];
+    if (now === 'automatic') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = now;
+    ev.currentTarget.textContent = 'Theme: ' + now;
+  });
+  $('print-report').addEventListener('click', () => window.print());
+  let opened = [];
+  window.addEventListener('beforeprint', () => {
+    const all = [...document.querySelectorAll('details')];
+    opened = all.map(d => d.open);
+    all.forEach(d => { d.open = true; });
+    guard('print-claims', printClaims);
+  });
+  window.addEventListener('afterprint', () => {
+    [...document.querySelectorAll('details')].forEach((d, i) => { d.open = Boolean(opened[i]); });
+    $('print-claims').replaceChildren();
+  });
+  if ('IntersectionObserver' in window) {
+    const nav = [...document.querySelectorAll('nav a')];
+    const watch = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) nav.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+      }
+    }, {rootMargin: '-5% 0px -70% 0px'});
+    document.querySelectorAll('main > section').forEach(sec => watch.observe(sec));
+  }
+
+  const first = D.hypotheses.find(x => (D.result && D.result.leading_ids || []).includes(x.id));
+  selected = (first && first.weakest && first.weakest.claim) || claimIds[0] || null;
+  guard('hypothesis-table', renderHypotheses);
+  guard('archive-list', renderArchive);
+  guard('event-list', renderTimeline);
+  guard('next-list', renderNext);
+  guard('evidence-table', renderEvidence);
+  guard('inventory-body', renderInventory);
+  guard('provenance-body', renderProvenance);
+  renderAll();
+})();
+</script>
+</body>
+</html>

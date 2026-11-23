@@ -1,0 +1,1292 @@
+{
+ "case_id": "rs13078086",
+ "variant": "rs13078086",
+ "variant_key": "chr3:191441666:T>G",
+ "disease": "Colorectal cancer",
+ "origin": "germline",
+ "expression_context": "DepMap:ACH-000971 (HCT 116)",
+ "config": "full",
+ "mode": "masked",
+ "seed": 0,
+ "models": {
+  "generator": "openai/gpt-6-luna",
+  "critic": "openai/gpt-6-luna",
+  "summariser": "openai/gpt-6-luna"
+ },
+ "cost_usd": 0.0227,
+ "seconds": 278.2,
+ "model_calls": 18,
+ "screen": {
+  "n_pass": 209,
+  "counts": {
+   "occupied": 0,
+   "unknown": 85,
+   "occupied_strong_site": 0,
+   "occupied_not_expressed": 0,
+   "unbound_assayed_here": 16,
+   "unbound_assayed_elsewhere": 557,
+   "tfs_scored": 1109
+  },
+  "nothing_occupied": true,
+  "occupied": [],
+  "unknown": [
+   {
+    "tf": "EBF4",
+    "z": -60.28
+   },
+   {
+    "tf": "TFAP2A",
+    "z": -18.37
+   },
+   {
+    "tf": "TFAP2C",
+    "z": -18.37
+   },
+   {
+    "tf": "TFAP2E",
+    "z": -18.37
+   },
+   {
+    "tf": "ETV3",
+    "z": 13.11
+   }
+  ]
+ },
+ "chains": [
+  {
+   "id": "H1",
+   "title": "No demonstrated TF-mediated effect",
+   "is_null": true,
+   "tf": null,
+   "allele_binding_more": null,
+   "element": null,
+   "target_gene": null,
+   "cell_type": null,
+   "links": [],
+   "predictions": [
+    "The variant will not show a reproducible allele-dependent TF effect in its relevant chromatin context; it may be noncausal or linked to another causal factor.",
+    "Editing the variant will not reproducibly change nearby-gene expression or a colorectal-cancer-related phenotype."
+   ],
+   "falsified_if": [
+    "A relevant-cell assay shows allele-specific TF occupancy at the variant, and variant editing reproducibly changes a linked gene's expression and a disease-relevant phenotype."
+   ],
+   "probability": 0.9,
+   "rank": 1,
+   "coverage_status": null,
+   "resolved_symbol": null
+  },
+  {
+   "id": "H3",
+   "title": "TFAP2-family binding is reduced on the alternate allele",
+   "is_null": false,
+   "tf": "TFAP2E",
+   "allele_binding_more": "ref",
+   "element": "The variant is near, but does not overlap, a dELS cCRE; whether either site participates in the same regulatory element is unknown.",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts stronger binding to ref than alt using a TFAP2E model. TFAP2A, TFAP2C, and TFAP2E share the mapped-model result, so it does not identify which family member, if any, binds in cells. TFAP2E is the nominated candidate because it has its own model and the highest reported HCT116 expression of the three; occupancy remains unknown.",
+     "evidence_ids": [
+      "E09",
+      "E11",
+      "E12",
+      "E13"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic in PYDC2-AS1 and 42 bp from a dELS cCRE, but does not overlap it; a functional connection to that cCRE is unshown.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is a nearby candidate target, but proximity and nearby-gene annotation do not establish regulation by this variant; GTEx found no significant single-tissue eQTL.",
+     "evidence_ids": [
+      "E02",
+      "E03",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is a candidate context because TFAP2E is expressed there, but ENCODE provides no TFAP2E occupancy evidence at the variant in this cell line.",
+     "evidence_ids": [
+      "E04",
+      "E13"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A colorectal-cancer effect through TFAP2E and PYDC2 is speculative: the supplied results show no PYDC2\u2013colorectal cancer association in Open Targets, and the literature hits do not establish this connection.",
+     "evidence_ids": [
+      "E05",
+      "E08",
+      "E15"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "If a TFAP2-family member occupies the variant, its occupancy should favor ref over alt; direct assays would be needed to identify the family member.",
+    "Editing T to G could change local regulatory activity and PYDC2 expression in a TFAP2-dependent manner, but the direction of any expression change is not established."
+   ],
+   "falsified_if": [
+    "Relevant-cell assays show no TFAP2-family occupancy at the site or no ref-over-alt occupancy difference.",
+    "Variant editing produces no TFAP2-dependent effect on local regulatory activity or PYDC2 expression."
+   ],
+   "probability": 0.05,
+   "rank": 2,
+   "coverage_status": "own_model",
+   "resolved_symbol": "TFAP2E"
+  },
+  {
+   "id": "H2",
+   "title": "EBF4 binding is reduced on the alternate allele",
+   "is_null": false,
+   "tf": "EBF4",
+   "allele_binding_more": "ref",
+   "element": "The variant is near, but does not overlap, a dELS cCRE; whether either site participates in the same regulatory element is unknown.",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts substantially stronger EBF4 binding to ref than alt in vitro. EBF4 is expressed at low level in HCT116, but it was never assayed by ENCODE, so occupancy at the variant is unknown; the prediction does not establish cellular binding.",
+     "evidence_ids": [
+      "E09",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic in PYDC2-AS1 and 42 bp from a dELS cCRE, but does not overlap it; a functional connection to that cCRE is unshown.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is a nearby candidate target, but proximity and nearby-gene annotation do not establish regulation by this variant; GTEx found no significant single-tissue eQTL.",
+     "evidence_ids": [
+      "E02",
+      "E03",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is a candidate context because EBF4 is expressed there, but there is no EBF4 occupancy evidence at the variant in this cell line.",
+     "evidence_ids": [
+      "E04",
+      "E10"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A colorectal-cancer effect through EBF4 and PYDC2 is speculative: the supplied results show no PYDC2\u2013colorectal cancer association in Open Targets, and the literature hits do not establish this connection.",
+     "evidence_ids": [
+      "E05",
+      "E08",
+      "E15"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "If EBF4 occupies the variant, its occupancy should favor ref over alt.",
+    "Editing T to G could change local regulatory activity and PYDC2 expression, but the direction of any expression change is not established."
+   ],
+   "falsified_if": [
+    "Sensitive assays in relevant cells show no EBF4 occupancy at the site or show no ref-over-alt occupancy difference.",
+    "Variant editing has no EBF4-dependent effect on local regulatory activity or PYDC2 expression under conditions where EBF4 is present."
+   ],
+   "probability": 0.035,
+   "rank": 3,
+   "coverage_status": "own_model",
+   "resolved_symbol": "EBF4"
+  },
+  {
+   "id": "H4",
+   "title": "ETV3 binding is modestly increased on the alternate allele",
+   "is_null": false,
+   "tf": "ETV3",
+   "allele_binding_more": "alt",
+   "element": "The variant is near, but does not overlap, a dELS cCRE; whether either site participates in the same regulatory element is unknown.",
+   "target_gene": "PYDC2",
+   "cell_type": "HCT116",
+   "links": [
+    {
+     "step": "binding",
+     "claim": "QBiC-SELEX predicts a modest alt-over-ref binding increase using an ETV5-mapped ETS model, not an ETV3-specific model; this does not establish ETV3 binding in cells. ETV3 is expressed in HCT116, but occupancy at the variant is unknown.",
+     "evidence_ids": [
+      "E09",
+      "E14"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "element",
+     "claim": "The variant is intronic in PYDC2-AS1 and 42 bp from a dELS cCRE, but does not overlap it; a functional connection to that cCRE is unshown.",
+     "evidence_ids": [
+      "E01",
+      "E03"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "gene",
+     "claim": "PYDC2 is a nearby candidate target, but proximity and nearby-gene annotation do not establish regulation by this variant; GTEx found no significant single-tissue eQTL.",
+     "evidence_ids": [
+      "E02",
+      "E03",
+      "E07"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "cell_type",
+     "claim": "HCT116 is a candidate context because ETV3 is expressed there, but there is no ETV3 occupancy evidence at the variant in this cell line.",
+     "evidence_ids": [
+      "E04",
+      "E14"
+     ],
+     "status": "weak"
+    },
+    {
+     "step": "phenotype",
+     "claim": "A colorectal-cancer effect through ETV3 and PYDC2 is speculative: the supplied results show no PYDC2\u2013colorectal cancer association in Open Targets, and the literature hits do not establish this connection.",
+     "evidence_ids": [
+      "E05",
+      "E08",
+      "E15"
+     ],
+     "status": "missing"
+    }
+   ],
+   "predictions": [
+    "If ETV3 occupies the variant, occupancy should favor alt over ref, but the in-vitro prediction comes from an ETV5-mapped model.",
+    "Editing T to G could change local regulatory activity and PYDC2 expression in an ETS-factor-dependent manner, but the direction of any expression change is not established."
+   ],
+   "falsified_if": [
+    "Relevant-cell assays show no ETV3 occupancy at the site or show occupancy that favors ref rather than alt.",
+    "Variant editing produces no ETV3-dependent effect on local regulatory activity or PYDC2 expression."
+   ],
+   "probability": 0.015,
+   "rank": 4,
+   "coverage_status": "own_model",
+   "resolved_symbol": "ETV3"
+  }
+ ],
+ "chains_v0": [
+  {
+   "id": "H1",
+   "tf": null,
+   "is_null": true,
+   "probability": 0.8,
+   "allele_binding_more": null
+  },
+  {
+   "id": "H2",
+   "tf": "EBF4",
+   "is_null": false,
+   "probability": 0.08,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H3",
+   "tf": "TFAP2E",
+   "is_null": false,
+   "probability": 0.07,
+   "allele_binding_more": "ref"
+  },
+  {
+   "id": "H4",
+   "tf": "ETV3",
+   "is_null": false,
+   "probability": 0.05,
+   "allele_binding_more": "alt"
+  }
+ ],
+ "grades_v0": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E10 provides a strong QBiC-SELEX prediction favoring ref, but no EBF4 occupancy evidence is provided. EBF4 was never assayed by ENCODE, which is not evidence against occupancy."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 and E03 support the intronic location and 42 bp distance from a dELS cCRE, but the variant does not overlap the cCRE and no functional connection is shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 and E03 make PYDC2 a plausible nearby candidate, but proximity and cCRE-nearby gene annotation do not establish a variant-to-gene link."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E10 shows low EBF4 expression in HCT116, making the context plausible, but does not show occupancy there. E04 reports EBF4 was never assayed, which is not negative occupancy evidence."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects the variant, EBF4 binding, or PYDC2 regulation to colorectal cancer."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E11\u2013E13 show a QBiC-SELEX ref-favoring prediction from the TFAP2E model, but there is no occupancy evidence. The shared mapped-model result does not establish which TFAP2-family member, if any, binds in cells."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 and E03 support the intronic location and proximity to a dELS cCRE, but the variant does not overlap it and no functional connection is shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 and E03 make PYDC2 a plausible nearby candidate, but do not establish that the variant or nearby cCRE regulates PYDC2."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E13 shows TFAP2E expression in HCT116, but not occupancy. E04 does not establish TFAP2E occupancy in HCT116."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence links this variant or the proposed TFAP2E\u2013PYDC2 regulatory effect to colorectal cancer."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "E14 gives a QBiC-SELEX prediction favoring alt, but there is no occupancy evidence. The prediction uses an ETV5-mapped ETS model and therefore does not establish ETV3-specific binding."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "E01 and E03 support the intronic location and proximity to a dELS cCRE, but the variant does not overlap it and no functional connection is shown."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "E02 and E03 make PYDC2 a plausible nearby candidate, but do not establish an enhancer-to-gene or variant-to-gene link."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "E14 shows ETV3 expression in HCT116, but not occupancy. E04 provides no ETV3 occupancy evidence in this context."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No cited evidence connects the variant, ETV3 binding, or PYDC2 regulation to colorectal cancer."
+  }
+ ],
+ "grades_final": [
+  {
+   "hypothesis_id": "H2",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX directly predicts stronger EBF4-model binding to ref than alt, but EBF4 occupancy is unknown because it was never assayed. The binding prediction alone is at best weak support."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "element",
+   "status": "weak",
+   "reason": "The variant is 42 bp from a dELS cCRE but does not overlap it. Proximity is consistent with a connection, but neither shared-element function nor variant activity at the cCRE is shown."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "gene",
+   "status": "weak",
+   "reason": "PYDC2 is nearby and annotated near the cCRE, making it a candidate, but no evidence links this variant to PYDC2 regulation. The lack of a significant GTEx eQTL does not establish or rule out context-specific regulation."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "EBF4 expression in HCT116 supports considering the cell line, but expression does not show variant-specific binding or activity there. EBF4 was not assayed by ENCODE."
+  },
+  {
+   "hypothesis_id": "H2",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No supplied evidence connects this variant, EBF4, or PYDC2 to colorectal cancer. The reported lack of a PYDC2\u2013disease association and the unrelated literature hits provide no positive support for the proposed link."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts stronger ref binding using a TFAP2E model, but occupancy is unknown. The identical mapped-model result for TFAP2A, TFAP2C, and TFAP2E does not identify which family member, if any, binds in cells."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "element",
+   "status": "weak",
+   "reason": "The variant is 42 bp from a dELS cCRE but does not overlap it. Proximity is consistent with a connection, but neither shared-element function nor variant activity at the cCRE is shown."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "gene",
+   "status": "weak",
+   "reason": "PYDC2 is nearby and annotated near the cCRE, making it a candidate, but no evidence links this variant to PYDC2 regulation. The lack of a significant GTEx eQTL does not establish or rule out context-specific regulation."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "TFAP2E expression in HCT116 supports considering the cell line, but expression does not show variant-specific binding or activity there. ENCODE provides no TFAP2E occupancy evidence at this site."
+  },
+  {
+   "hypothesis_id": "H3",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No supplied evidence connects this variant, TFAP2E, or PYDC2 to colorectal cancer. The reported lack of a PYDC2\u2013disease association and the unrelated literature hits provide no positive support for the proposed link."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "binding",
+   "status": "weak",
+   "reason": "QBiC-SELEX predicts stronger alt binding, but the best result uses an ETV5-mapped ETS model rather than an ETV3-specific model, and ETV3 occupancy is unknown. The prediction alone is weak support for an ETV3 binding link."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "element",
+   "status": "weak",
+   "reason": "The variant is 42 bp from a dELS cCRE but does not overlap it. Proximity is consistent with a connection, but neither shared-element function nor variant activity at the cCRE is shown."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "gene",
+   "status": "weak",
+   "reason": "PYDC2 is nearby and annotated near the cCRE, making it a candidate, but no evidence links this variant to PYDC2 regulation. The lack of a significant GTEx eQTL does not establish or rule out context-specific regulation."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "cell_type",
+   "status": "weak",
+   "reason": "ETV3 expression in HCT116 supports considering the cell line, but expression does not show variant-specific binding or activity there. ENCODE provides no ETV3 occupancy evidence at this site."
+  },
+  {
+   "hypothesis_id": "H4",
+   "step": "phenotype",
+   "status": "missing",
+   "reason": "No supplied evidence connects this variant, ETV3, or PYDC2 to colorectal cancer. The reported lack of a PYDC2\u2013disease association and the unrelated literature hits provide no positive support for the proposed link."
+  }
+ ],
+ "checks": [
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"EBF4\",\"biosample\":\"HCT116\"}",
+   "resolves": "H2.binding",
+   "why": "Direct occupancy evidence in the proposed cell context would materially change the binding assessment."
+  },
+  {
+   "tool": "chip_peaks",
+   "args_json": "{\"tf\":\"TFAP2E\",\"biosample\":\"HCT116\"}",
+   "resolves": "H3.binding",
+   "why": "Could establish whether TFAP2E has occupancy evidence at the variant in HCT116, beyond the mapped-model prediction."
+  },
+  {
+   "tool": "gene_disease",
+   "args_json": "{\"gene\":\"PYDC2\"}",
+   "resolves": "H4.phenotype",
+   "why": "Could provide disease-association evidence for the proposed target gene, though it would not by itself establish a variant-mediated effect."
+  }
+ ],
+ "investigate_calls": [
+  {
+   "round": 1,
+   "tool": "gene_disease",
+   "args": {
+    "gene": "PYDC2"
+   },
+   "key": "gene_disease({\"gene\":\"PYDC2\"})",
+   "resolves": "H2.phenotype",
+   "expected": "If Open Targets reports colorectal-cancer association evidence for PYDC2, this would support a disease connection for the proposed target gene and raise H2 modestly, without proving that this variant regulates PYDC2. If no association is reported, it adds no support.",
+   "run": true,
+   "status": "run",
+   "evidence_id": "E15",
+   "new_information": true
+  },
+  {
+   "round": 1,
+   "tool": "gene_dependency",
+   "args": {
+    "gene": "PYDC2"
+   },
+   "key": "gene_dependency({\"gene\":\"PYDC2\"})",
+   "resolves": "H2.phenotype",
+   "expected": "If PYDC2 shows a colorectal-lineage CRISPR dependency, that would support a possible cancer-relevant role for the gene and modestly strengthen the proposed phenotype link; if it is not a dependency, this would not rule out a regulatory or disease effect.",
+   "run": true,
+   "status": "not tested",
+   "evidence_id": "E16",
+   "new_information": false
+  }
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "calls": [
+    {
+     "round": 1,
+     "tool": "gene_disease",
+     "args": {
+      "gene": "PYDC2"
+     },
+     "key": "gene_disease({\"gene\":\"PYDC2\"})",
+     "resolves": "H2.phenotype",
+     "expected": "If Open Targets reports colorectal-cancer association evidence for PYDC2, this would support a disease connection for the proposed target gene and raise H2 modestly, without proving that this variant regulates PYDC2. If no association is reported, it adds no support.",
+     "run": true,
+     "status": "run",
+     "evidence_id": "E15",
+     "new_information": true
+    },
+    {
+     "round": 1,
+     "tool": "gene_dependency",
+     "args": {
+      "gene": "PYDC2"
+     },
+     "key": "gene_dependency({\"gene\":\"PYDC2\"})",
+     "resolves": "H2.phenotype",
+     "expected": "If PYDC2 shows a colorectal-lineage CRISPR dependency, that would support a possible cancer-relevant role for the gene and modestly strengthen the proposed phenotype link; if it is not a dependency, this would not rule out a regulatory or disease effect.",
+     "run": true,
+     "status": "not tested",
+     "evidence_id": "E16",
+     "new_information": false
+    }
+   ],
+   "planner_note": "",
+   "check_results": [
+    {
+     "call": "gene_disease({\"gene\":\"PYDC2\"})",
+     "observed": "E15: Open Targets reports no association between PYDC2 and colorectal cancer. This adds no support for the proposed disease link.",
+     "as_expected": "yes"
+    },
+    {
+     "call": "gene_dependency({\"gene\":\"PYDC2\"})",
+     "observed": "E16: DepMap CRISPRGeneEffect has no data for PYDC2, so dependency was not tested and the result is uninformative.",
+     "as_expected": "unclear"
+    }
+   ],
+   "chains": [
+    {
+     "id": "H1",
+     "tf": null,
+     "is_null": true,
+     "probability": 0.9
+    },
+    {
+     "id": "H2",
+     "tf": "EBF4",
+     "is_null": false,
+     "probability": 0.035
+    },
+    {
+     "id": "H3",
+     "tf": "TFAP2E",
+     "is_null": false,
+     "probability": 0.05
+    },
+    {
+     "id": "H4",
+     "tf": "ETV3",
+     "is_null": false,
+     "probability": 0.015
+    }
+   ],
+   "grades": [
+    {
+     "hypothesis_id": "H2",
+     "step": "binding",
+     "status": "weak",
+     "reason": "QBiC-SELEX directly predicts stronger EBF4-model binding to ref than alt, but EBF4 occupancy is unknown because it was never assayed. The binding prediction alone is at best weak support."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "element",
+     "status": "weak",
+     "reason": "The variant is 42 bp from a dELS cCRE but does not overlap it. Proximity is consistent with a connection, but neither shared-element function nor variant activity at the cCRE is shown."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "gene",
+     "status": "weak",
+     "reason": "PYDC2 is nearby and annotated near the cCRE, making it a candidate, but no evidence links this variant to PYDC2 regulation. The lack of a significant GTEx eQTL does not establish or rule out context-specific regulation."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "EBF4 expression in HCT116 supports considering the cell line, but expression does not show variant-specific binding or activity there. EBF4 was not assayed by ENCODE."
+    },
+    {
+     "hypothesis_id": "H2",
+     "step": "phenotype",
+     "status": "missing",
+     "reason": "No supplied evidence connects this variant, EBF4, or PYDC2 to colorectal cancer. The reported lack of a PYDC2\u2013disease association and the unrelated literature hits provide no positive support for the proposed link."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "binding",
+     "status": "weak",
+     "reason": "QBiC-SELEX predicts stronger ref binding using a TFAP2E model, but occupancy is unknown. The identical mapped-model result for TFAP2A, TFAP2C, and TFAP2E does not identify which family member, if any, binds in cells."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "element",
+     "status": "weak",
+     "reason": "The variant is 42 bp from a dELS cCRE but does not overlap it. Proximity is consistent with a connection, but neither shared-element function nor variant activity at the cCRE is shown."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "gene",
+     "status": "weak",
+     "reason": "PYDC2 is nearby and annotated near the cCRE, making it a candidate, but no evidence links this variant to PYDC2 regulation. The lack of a significant GTEx eQTL does not establish or rule out context-specific regulation."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "TFAP2E expression in HCT116 supports considering the cell line, but expression does not show variant-specific binding or activity there. ENCODE provides no TFAP2E occupancy evidence at this site."
+    },
+    {
+     "hypothesis_id": "H3",
+     "step": "phenotype",
+     "status": "missing",
+     "reason": "No supplied evidence connects this variant, TFAP2E, or PYDC2 to colorectal cancer. The reported lack of a PYDC2\u2013disease association and the unrelated literature hits provide no positive support for the proposed link."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "binding",
+     "status": "weak",
+     "reason": "QBiC-SELEX predicts stronger alt binding, but the best result uses an ETV5-mapped ETS model rather than an ETV3-specific model, and ETV3 occupancy is unknown. The prediction alone is weak support for an ETV3 binding link."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "element",
+     "status": "weak",
+     "reason": "The variant is 42 bp from a dELS cCRE but does not overlap it. Proximity is consistent with a connection, but neither shared-element function nor variant activity at the cCRE is shown."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "gene",
+     "status": "weak",
+     "reason": "PYDC2 is nearby and annotated near the cCRE, making it a candidate, but no evidence links this variant to PYDC2 regulation. The lack of a significant GTEx eQTL does not establish or rule out context-specific regulation."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "cell_type",
+     "status": "weak",
+     "reason": "ETV3 expression in HCT116 supports considering the cell line, but expression does not show variant-specific binding or activity there. ENCODE provides no ETV3 occupancy evidence at this site."
+    },
+    {
+     "hypothesis_id": "H4",
+     "step": "phenotype",
+     "status": "missing",
+     "reason": "No supplied evidence connects this variant, ETV3, or PYDC2 to colorectal cancer. The reported lack of a PYDC2\u2013disease association and the unrelated literature hits provide no positive support for the proposed link."
+    }
+   ],
+   "grades_changed": [],
+   "max_probability_change": 0.1,
+   "problems": [
+    "The element, target-gene, and cell-type links remain indirect: proximity to a cCRE, proximity to PYDC2, and TF expression in HCT116 do not establish a functional variant-to-element-to-gene path.",
+    "All three binding links rely on in-vitro QBiC-SELEX predictions without occupancy evidence. The absence of ENCODE peaks is not evidence against binding for these candidates because they were not assayed.",
+    "The TFAP2 results share the same TFAP2E-mapped model and do not establish which family member, if any, binds in cells. TFAP2E is a reasonable nominated candidate based on its own model and relative expression, but that does not resolve factor identity.",
+    "The ETV3 prediction comes from an ETV5-mapped ETS model, so it is not ETV3-specific. Its alt-over-ref direction is consistent with the stated binding direction, but no downstream expression direction or phenotype effect is established.",
+    "No positive evidence links PYDC2 or this variant to colorectal cancer. The supplied negative association and eQTL results do not establish absence of a context-specific effect, but they do not support the proposed phenotype chain either."
+   ],
+   "critic_checks": [
+    {
+     "tool": "qbic_tf_detail",
+     "args_json": "{\"tf\":\"ETV3\"}",
+     "resolves": "H4.binding",
+     "why": "Clarify ETV3's model coverage and whether any ETV3-specific QBiC-SELEX result changes the interpretation or ranking of the ETS-factor prediction."
+    },
+    {
+     "tool": "literature_search",
+     "args_json": "{\"query\":\"PYDC2 colorectal cancer variant chr3:191441666\"}",
+     "resolves": "H2.phenotype",
+     "why": "Search for direct literature evidence connecting PYDC2 or this locus to colorectal cancer; the supplied search hits do not establish that connection."
+    },
+    {
+     "tool": "gene_dependency",
+     "args_json": "{\"gene\":\"PYDC2\"}",
+     "resolves": "H2.phenotype",
+     "why": "Determine whether PYDC2 has a DepMap dependency signal in the relevant cancer lineage, which could change its cancer-relevance ranking but would not by itself establish a variant-mediated effect."
+    }
+   ]
+  }
+ ],
+ "stop_reason": "round 1 left the top chain and the grades of its links unchanged",
+ "matrix": [
+  {
+   "test": "Measure allele-specific TFAP2E occupancy at the variant in HCT116 with targeted CUT&RUN or CUT&Tag.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible TFAP2E occupancy or allele-specific difference is expected."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "No specific TFAP2E occupancy is predicted; this chain instead predicts ref-favored EBF4 binding if EBF4 occupies the site."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "TFAP2E occupancy favoring ref over alt is predicted."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "No specific TFAP2E occupancy is predicted; this chain instead predicts alt-favored ETV3 binding if ETV3 occupies the site."
+    }
+   ],
+   "separates_top_two": true
+  },
+  {
+   "test": "Edit the variant in isogenic HCT116 cells and measure PYDC2 expression, with and without perturbing the candidate TF.",
+   "cost": "high",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible variant-dependent PYDC2 expression effect is expected."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "A variant-dependent PYDC2 expression effect that depends on EBF4 is possible, but its direction is not established."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "A variant-dependent PYDC2 expression effect that depends on TFAP2E is possible, but its direction is not established."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "A variant-dependent PYDC2 expression effect that depends on ETV3 is possible, but its direction is not established."
+    }
+   ],
+   "separates_top_two": false
+  },
+  {
+   "test": "Test allele-specific regulatory activity of the local sequence in a reporter assay, with candidate-TF perturbation.",
+   "cost": "medium",
+   "outcomes": [
+    {
+     "hypothesis_id": "H1",
+     "outcome": "No reproducible allele-dependent, TF-dependent reporter effect is expected."
+    },
+    {
+     "hypothesis_id": "H2",
+     "outcome": "If EBF4 acts through the sequence, the alleles may differ in an EBF4-dependent manner; activity direction is unknown."
+    },
+    {
+     "hypothesis_id": "H3",
+     "outcome": "If TFAP2E acts through the sequence, the alleles may differ in a TFAP2E-dependent manner; activity direction is unknown."
+    },
+    {
+     "hypothesis_id": "H4",
+     "outcome": "If ETV3 acts through the sequence, the alleles may differ in an ETV3-dependent manner; activity direction is unknown."
+    }
+   ],
+   "separates_top_two": true
+  }
+ ],
+ "next_experiment": "Perform targeted TFAP2E CUT&RUN or CUT&Tag in HCT116 and quantify occupancy at the variant, ideally comparing ref and alt alleles. This is the cheapest proposed cellular test that directly distinguishes the top-ranked null hypothesis from H3; a positive ref-favored signal would support, but not by itself prove, the full regulatory chain.",
+ "verdict": {
+  "verdict": "undetermined",
+  "reason": "the null leads, but nothing tested counts against TFAP2E, EBF4",
+  "pairwise_ok": null,
+  "association": {
+   "gwas_lookup": "tested_negative",
+   "finemap_lookup": "not_tested"
+  },
+  "facts": {
+   "H3": {
+    "tf": "TFAP2E",
+    "symbol": "TFAP2E",
+    "qbic": [
+     "for",
+     "QBiC-SELEX: TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer passes the gate, the ref allele binds more"
+    ],
+    "occupancy": [
+     "unknown",
+     "never assayed by ENCODE"
+    ],
+    "expression": [
+     "for",
+     "8.5 TPM"
+    ]
+   },
+   "H2": {
+    "tf": "EBF4",
+    "symbol": "EBF4",
+    "qbic": [
+     "for",
+     "QBiC-SELEX: EBF4_FL_TCGATT40NTTG_KK_nitta2015_1_3_7mer passes the gate, the ref allele binds more"
+    ],
+    "occupancy": [
+     "unknown",
+     "never assayed by ENCODE"
+    ],
+    "expression": [
+     "for",
+     "1.22 TPM"
+    ]
+   },
+   "H4": {
+    "tf": "ETV3",
+    "symbol": "ETV3",
+    "qbic": [
+     "against",
+     "QBiC-SELEX: ELF1_FL_TATGAC40NTCA_KW_yin2017_0_2_7mer passes the gate, but the ref allele binds more"
+    ],
+    "occupancy": [
+     "unknown",
+     "never assayed by ENCODE"
+    ],
+    "expression": [
+     "for",
+     "16.34 TPM"
+    ]
+   }
+  }
+ },
+ "rank_method": "llm",
+ "tournament": {
+  "matches": [
+   {
+    "pair": [
+     "H1",
+     "H2"
+    ],
+    "scores": [
+     0.5,
+     0.5
+    ],
+    "first": {
+     "winner": "neither",
+     "reason": "E10 and E09 give H2 a QBiC-SELEX prediction of stronger EBF4 binding to ref, but occupancy is unknown, so the binding link is only weak. E03 shows the variant does not overlap a cCRE, and E07 reports no significant GTEx eQTL, but neither establishes that the variant has no context-specific effect. E04 does not count against EBF4 occupancy because EBF4 was never assayed. H2 has no supplied evidence connecting the proposed chain to colorectal cancer (E15); the evidence also does not establish H1\u2019s prediction that no reproducible effect will occur.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E07",
+      "E09",
+      "E10",
+      "E15"
+     ]
+    },
+    "second": {
+     "winner": "neither",
+     "reason": "E10/E09 provide only a QBiC-SELEX prediction that EBF4 binds the ref allele more strongly in vitro; EBF4 occupancy is unknown. H2's element, gene, and cell-type links are only weak, and its phenotype link is missing. But E04 does not count against EBF4 occupancy because EBF4 was never assayed, and the negative eQTL and association results do not directly test this variant's proposed mechanism. Thus the evidence supports neither chain, and does not provide tested evidence that would favor the null over H2.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E07",
+      "E09",
+      "E10",
+      "E15"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H1",
+     "H3"
+    ],
+    "scores": [
+     0.5,
+     0.5
+    ],
+    "first": {
+     "winner": "neither",
+     "reason": "H3 has only weak support: QBiC-SELEX predicts ref-over-alt binding for TFAP2-family models, but there is no occupancy evidence, and the shared mapped-model result does not identify a bound family member. The relevant TFs were not assayed, so that absence is not evidence against H3. The nearby cCRE, candidate gene, and expression context do not establish variant-to-gene or disease effects. Conversely, the tested negatives do not establish the null chain: they do not test TFAP2E occupancy specifically, and no editing or relevant-context assay shows that the variant has no effect.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E07",
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13"
+     ]
+    },
+    "second": {
+     "winner": "neither",
+     "reason": "H3 has only weak, in-vitro QBiC-SELEX support for reduced ref-to-alt binding; the shared TFAP2-family model result does not establish which factor binds, and occupancy is unknown (E09\u2013E13). The nearby cCRE, candidate gene, cell context, and colorectal-cancer connection are not demonstrated for this variant (E03, E07, E15). But the tested negatives do not directly refute H3\u2019s qualified claims: TFAP2E was not assayed, and the lack of an eQTL or association does not establish absence of a context-specific effect. Thus the evidence supports neither the proposed mechanism nor the null prediction of no reproducible TF-mediated effect.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E07",
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E15"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H1",
+     "H4"
+    ],
+    "scores": [
+     1.0,
+     1.0
+    ],
+    "first": {
+     "winner": "A",
+     "reason": "The evidence favors the null chain modestly: tested results show no cCRE overlap, no ENCODE ChIP peak at the variant, and no significant GTEx eQTL (E03, E04, E07). These do not prove that no effect exists, and ETV3 itself was never assayed, but they count against the proposed regulatory chain. B has only a weak in-vitro binding prediction based on an ETV5-mapped model, with no occupancy or demonstrated element, gene, or phenotype link (E09, E14).",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E07",
+      "E09",
+      "E14"
+     ]
+    },
+    "second": {
+     "winner": "B",
+     "reason": "A has only weak support: QBiC-SELEX predicts an alt-favoring change using an ETV5-mapped model, not an ETV3-specific model, and provides no occupancy evidence (E09, E14). Tested results also weigh against the proposed regulatory chain: the variant overlaps no cCRE and no ENCODE TF peak, including in HCT116 (E03, E04), and GTEx found no significant eQTL (E07). These do not prove the variant has no effect, but support B\u2019s narrower claim that no TF-mediated effect is demonstrated. ETV3 was never assayed, so that absence is not itself evidence against ETV3 occupancy.",
+     "evidence_ids": [
+      "E03",
+      "E04",
+      "E07",
+      "E09",
+      "E14"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H2",
+     "H3"
+    ],
+    "scores": [
+     1.0,
+     1.0
+    ],
+    "first": {
+     "winner": "A",
+     "reason": "Both chains have only weak binding support: QBiC-SELEX predicts the stated ref-over-alt direction, but neither TF has occupancy evidence at the variant. A has the stronger, EBF4-specific prediction (z = -60.28; effect = -1.954) from EBF4\u2019s own model. B\u2019s TFAP2E-model change is smaller (z = -18.37; effect = -0.765) and the same mapped-model result appears for TFAP2A and TFAP2C, so it does not distinguish the family member. TFAP2E\u2019s higher HCT116 expression is contextual support, not evidence of binding. The element, gene, and phenotype links do not separate the chains.",
+     "evidence_ids": [
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E04"
+     ]
+    },
+    "second": {
+     "winner": "B",
+     "reason": "Both chains have only weak support for binding because QBiC-SELEX is in vitro and neither TF has occupancy evidence at the variant (E04, E09). The EBF4 prediction is stronger and uses EBF4\u2019s own model, with a larger detected change and a stronger best-allele site than the TFAP2-family result (E10 vs. E11\u2013E13). The TFAP2 result is also shared across related family members and does not identify which one, if any, binds in cells. The element, gene, cell-type, and phenotype links do not otherwise distinguish the chains (E01\u2013E08, E15).",
+     "evidence_ids": [
+      "E04",
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E01",
+      "E03",
+      "E02",
+      "E07",
+      "E08",
+      "E15"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H2",
+     "H4"
+    ],
+    "scores": [
+     1.0,
+     1.0
+    ],
+    "first": {
+     "winner": "A",
+     "reason": "Both chains have only weak binding support because occupancy is unknown, and their element, gene, cell-type, and phenotype links are similarly unsupported. A is better supported because the EBF4 prediction uses EBF4\u2019s own QBiC-SELEX model and predicts a strong ref-over-alt change, whereas B\u2019s modest alt-over-ref prediction uses an ETV5-mapped model, not an ETV3-specific model. ENCODE never assayed either TF, so the absence of occupancy evidence does not count against either chain.",
+     "evidence_ids": [
+      "E04",
+      "E09",
+      "E10",
+      "E14"
+     ]
+    },
+    "second": {
+     "winner": "B",
+     "reason": "The non-binding links are equally weak or missing for both chains. Both binding claims have only QBiC-SELEX support and unknown occupancy, so neither is established in cells. However, EBF4 has a much stronger predicted ref-over-alt change (effect -1.954, z -60.28) using its own model, whereas the modest ETV3 alt-over-ref prediction uses an ETV5-mapped model. Thus B has the stronger, more TF-specific binding evidence, though it remains weak overall.",
+     "evidence_ids": [
+      "E09",
+      "E10",
+      "E14",
+      "E04"
+     ]
+    }
+   },
+   {
+    "pair": [
+     "H3",
+     "H4"
+    ],
+    "scores": [
+     1.0,
+     1.0
+    ],
+    "first": {
+     "winner": "A",
+     "reason": "Both chains have only weak binding support and share the same weak element, gene, and cell-type links and missing phenotype link. A is better supported because the ref-over-alt prediction includes a TFAP2E result from TFAP2E\u2019s own QBiC-SELEX model, while B\u2019s alt-over-ref prediction for ETV3 comes only from an ETV5-mapped ETS model. Neither has occupancy evidence; the shared-model results also do not establish which TFAP2-family member binds in cells.",
+     "evidence_ids": [
+      "E09",
+      "E11",
+      "E12",
+      "E13",
+      "E14",
+      "E04"
+     ]
+    },
+    "second": {
+     "winner": "B",
+     "reason": "Both chains are weak overall: neither has occupancy evidence, and their element, gene, cell-context, and phenotype links are similarly indirect or missing. B is better supported only at the binding link: the ref-over-alt prediction uses a TFAP2E model, including TFAP2E\u2019s own model, whereas A\u2019s alt-over-ref prediction uses an ETV5-mapped model rather than an ETV3-specific model. The shared TFAP2 result does not establish which family member binds, and expression or untested occupancy does not resolve that uncertainty.",
+     "evidence_ids": [
+      "E04",
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E14"
+     ]
+    }
+   }
+  ],
+  "strengths": {
+   "H1": 0.2973,
+   "H2": 0.4416,
+   "H3": 0.2033,
+   "H4": 0.0578
+  },
+  "ranking": [
+   "H2",
+   "H1",
+   "H3",
+   "H4"
+  ]
+ },
+ "citation_support": 1.0,
+ "flags": [],
+ "evidence": [
+  {
+   "id": "E01",
+   "tool": "variant_annotation",
+   "source": "Ensembl VEP (GRCh38)",
+   "url": "https://rest.ensembl.org/vep/human/region/3:191441666-191441666:1/G?content-type=application/json&Conservation=1",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "Variant chr3:191441666:T>G (GRCh38), allele string T/G\nKnown IDs: rs13078086\nMost severe consequence: intron_variant\nRegulatory features: none\nGERP conservation score at the site: -1.82\nTranscript consequences: PYDC2-AS1 (intron_variant, non_coding_transcript_variant)"
+  },
+  {
+   "id": "E02",
+   "tool": "nearest_genes",
+   "source": "Ensembl overlap (protein_coding)",
+   "url": "https://rest.ensembl.org/overlap/region/human/3:190441666-192441666?feature=gene;biotype=protein_coding;content-type=application/json",
+   "retrieved_utc": "2026-10-25T17:32:06+00:00",
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "8 protein-coding genes within 1000 kb of chr3:191441666:T>G, by distance to TSS:\nPYDC2: 19.5 kb from TSS (upstream, strand +1)\nUTS2B: 111.1 kb from TSS (upstream, strand -1)\nCCDC50: 112.6 kb from TSS (downstream, strand +1)\nOSTN: 242.4 kb from TSS (downstream, strand +1)\nGMNC: 549.2 kb from TSS (upstream, strand -1)\nIL1RAP: 954.2 kb from TSS (downstream, strand +1)\nTMEM207: 991.8 kb from TSS (upstream, strand -1)\nFGF12: 1326.1 kb from TSS (downstream, strand -1)"
+  },
+  {
+   "id": "E03",
+   "tool": "ccre_lookup",
+   "source": "ENCODE v4 cCRE registry (ENCFF420VPZ) and SCREEN",
+   "url": "https://screen-beta-api.wenglab.org/dataws/cre_table",
+   "retrieved_utc": "2026-10-25T17:32:05+00:00",
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "tested_negative",
+   "summary": "No cCRE overlaps the variant; nearest is EH38E2269392 (dELS) 42 bp away.\nSCREEN: 1 cCREs within 500 bp (max z-score across ENCODE biosamples):\nEH38E2269392 dELS: DNase z 3.5, H3K27ac z 1.8, H3K4me3 z 1.5, CTCF z 1.5; nearby genes AC073365.1, PYDC2, CCDC50\nBiosample-specific z-scores are not in this call; the values above are maxima over biosamples."
+  },
+  {
+   "id": "E04",
+   "tool": "occupancy",
+   "source": "ENCODE TF ChIP-seq (Factorbook peaks; ENCODE experiment search)",
+   "url": "https://factorbook.api.wenglab.org/graphql",
+   "retrieved_utc": null,
+   "kind": "epigenomic",
+   "ok": true,
+   "status": "tested_negative",
+   "summary": "No ENCODE TF ChIP-seq peak contains chr3:191441666:T>G in any biosample. In the matching biosample HCT116: 0 peaks from 0 factors. No cCRE contains the variant. Of the TFs with a binding model, 16 were assayed in the matching biosample and 557 only elsewhere, all without a peak here; 536 were never assayed."
+  },
+  {
+   "id": "E05",
+   "tool": "gwas_lookup",
+   "source": "GWAS Catalog REST v2",
+   "url": "https://www.ebi.ac.uk/gwas/rest/api/v2/associations?rs_id=rs13078086&size=100",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "summary": "0 GWAS Catalog associations for rs13078086. The Catalog lists reported associations only, often just the lead variant of each signal, so this is weak evidence against an association."
+  },
+  {
+   "id": "E06",
+   "tool": "finemap_lookup",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-25T17:32:09+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "status": "not_tested",
+   "summary": "Open Targets has no record of 3_191441666_T_G, so it says nothing about fine-mapping here."
+  },
+  {
+   "id": "E07",
+   "tool": "eqtl_lookup",
+   "source": "GTEx Portal API v2 (gtex_v8)",
+   "url": "https://gtexportal.org/api/v2/association/singleTissueEqtl?variantId=chr3_191441666_T_G_b38&datasetId=gtex_v8",
+   "retrieved_utc": "2026-10-25T17:34:00+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "summary": "GTEx v8 tested chr3_191441666_T_G_b38: no significant single-tissue eQTL in any tissue."
+  },
+  {
+   "id": "E08",
+   "tool": "literature_search",
+   "source": "Europe PMC REST",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PYDC2%20AND%20%22colorectal%20cancer%22&format=json&pageSize=8&resultType=core",
+   "retrieved_utc": "2026-10-25T17:32:10+00:00",
+   "kind": "literature",
+   "ok": true,
+   "status": "found",
+   "summary": "Europe PMC: 16 hits for 'PYDC2 AND \"colorectal cancer\"'; top 8 with PMIDs:\nPMID 40026444 (2025): Correlation Analysis of Pyroptosis-Related Genes CASP1, NLRP3, AIM2, and NLRP1 With Lung Adenocarcinoma.\nPMID 41154652 (2025): Oncogenic Role of SAMD4B in Breast Cancer Progression by Activating Wnt/\u03b2-Catenin Pathway.\nPMID 36319832 (2022): A novel refined pyroptosis and inflammasome-related genes signature for predicting prognosis and immune microenvironment in pancreatic ductal adenocarcinoma.\nPMID 36341349 (2022): The strategies of NLRP3 inflammasome to combat <i>Toxoplasma gondii</i>.\nPMID 36732864 (2023): RNA binding protein SAMD4: current knowledge and future perspectives.\nPMID 39561929 (2024): Optimizing iNKT-driven immune responses against cancer by modulating CD1d in tumor and antigen presenting cells.\nPMID 35159382 (2022): Metabolomics of Acute vs. Chronic Spinach Intake in an Apc-Mutant Genetic Background: Linoleate and Butanoate Metabolites Targeting HDAC Activity and IFN-\u03b3 Signaling.\nPMID 35338151 (2022): PUMILIO proteins promote colorectal cancer growth via suppressing p21."
+  },
+  {
+   "id": "E09",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "QBiC-SELEX screen of chr3:191441666:T>G, one line per TF, each with the TF's own or CIS-BP-mapped model of largest |z|. Candidates are TFs whose ENCODE ChIP-seq peaks contain the variant and that are expressed (DepMap line ACH-000971), bound here before bound elsewhere, then a strong site before a weak one, then by |z|; then expressed TFs ENCODE never assayed whose best model passes the gate (occupancy unknown). Shown: 0 of 0 occupied (0 with a strong site), 5 of 85 with unknown occupancy. Left out: 16 TFs assayed in the matching biosample and 557 assayed only elsewhere, none with a peak here. The gate (|z| > 4.05, Bonferroni over 997 models) marks a change QBiC-SELEX detects; it says nothing about occupancy. Effect > 0 means the alternate allele binds more strongly. In vitro binding only. Site strength is the better allele's best k-mer over the variant, as a percentile of the best model's k-mers; a strong site reaches the 97.5th. At a weak site the ChIP peak more likely reflects another site in the element. No ENCODE TF ChIP-seq peak contains this variant in any biosample; QBiC-SELEX changes below have no occupancy support."
+  },
+  {
+   "id": "E10",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "EBF4 (EBF1, 2 models; QBiC-SELEX coverage: own model): best model EBF4_FL_TCGATT40NTTG_KK_nitta2015_1_3_7mer (its own model), z -60.28, effect -1.954: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 1.22 TPM, rank 988 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 100.0th, alt 99.7th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E11",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "TFAP2A (AP-2, 4 models; QBiC-SELEX coverage: own model): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (a CIS-BP-mapped model of TFAP2E), z -18.37, effect -0.765: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 6.18 TPM, rank 657 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.7th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E12",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "TFAP2C (AP-2, 4 models; QBiC-SELEX coverage: own model): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (a CIS-BP-mapped model of TFAP2E), z -18.37, effect -0.765: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 2.59 TPM, rank 883 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.7th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E13",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "TFAP2E (AP-2, 4 models; QBiC-SELEX coverage: own model): best model TFAP2E_FL_TCAAAC40NAAC_KW_yin2017_1_3_7mer (its own model), z -18.37, effect -0.765: ref allele binds more; QBiC-SELEX detects a change (|z| above the gate). 8.5 TPM, rank 553 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 99.7th, alt 99.6th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E14",
+   "tool": "qbic_screen",
+   "source": "QBiC-SELEX 1.0.0 primary collection (997 models)",
+   "url": "cache/qbic.sqlite",
+   "retrieved_utc": null,
+   "kind": "computational",
+   "ok": true,
+   "status": "found",
+   "summary": "ETV3 (Ets, 18 models; QBiC-SELEX coverage: own model): best model ETV5_NA_TGCACT20NGA_ESAF_yang2017_1_3_6mer (a CIS-BP-mapped model of ETV5), z 13.11, effect 0.251: alt allele binds more; QBiC-SELEX detects a change (|z| above the gate). 16.34 TPM, rank 334 of 1626 TFs in DepMap:ACH-000971 (HCT 116). Occupancy: unknown (ENCODE never assayed this TF). Best model's site strength: ref 94.6th, alt 95.3th percentile of its k-mer coefficients."
+  },
+  {
+   "id": "E15",
+   "tool": "gene_disease",
+   "source": "Open Targets Platform",
+   "url": "https://api.platform.opentargets.org/api/v4/graphql",
+   "retrieved_utc": "2026-10-26T01:40:48+00:00",
+   "kind": "genetic",
+   "ok": true,
+   "status": "tested_negative",
+   "summary": "Open Targets: no association between PYDC2 and colorectal cancer (MONDO_0005575); no evidence there links them."
+  },
+  {
+   "id": "E16",
+   "tool": "gene_dependency",
+   "source": "DepMap CRISPRGeneEffect",
+   "url": "local files",
+   "retrieved_utc": null,
+   "kind": "expression",
+   "ok": true,
+   "status": "not_tested",
+   "summary": "DepMap's CRISPR screen has no data for PYDC2, so it says nothing about dependency here."
+  }
+ ]
+}
