@@ -8,17 +8,16 @@ steps in between to the trait. It backs each claim with three kinds of evidence:
 predictions, and experiments read from the literature.
 
 - **Give it a variant alone,** and it looks for the chains that lead from that variant to any trait.
-- **Give it a variant and a trait or disease,** and it works on the steps between the two.
+- **Give it a variant and a trait or disease,** and it works on the intermediate molecular steps between the two.
 
 Code gathers the evidence and ranks the chains. Language models read the papers and check the records, and none of
 them can add a fact that code cannot find in a source.
 
 > [!NOTE]
-> **This is a prototype (version 9).** It is built around one model,
+> **This is a prototype (version 9).** It is built around on our previously released predictive models,
 > [QBiC-SELEX](https://github.com/sean00002/QBiC-SELEX), which predicts how a variant changes transcription factor
 > (TF) binding. So today every chain runs through TF binding. Later versions will add predictions from other
-> deep-learning models, such as AlphaGenome and ChromBPNet-style models, and statistical-genetics models, and with
-> them other routes from a variant to a trait.
+> models, such as AlphaGenome-2 and ChromBPNet and with other routes and supportive evidences from a variant to a trait.
 
 [The aim and the prototype](#the-aim-and-the-prototype) · [What comes out](#what-comes-out) ·
 [How it works](#how-it-works) · [Results](#results) · [Try it](#try-it) · [Full report](docs/report.md)
