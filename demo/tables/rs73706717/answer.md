@@ -67,6 +67,31 @@ Second reading: no experiment from an article was up for counting, so the critic
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 1 | group G051 (bHLH); more binding to T; \|z\| 22.5; p 2.2e-112; 2 of 3 models past the gate; in the top 10% for this group |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 1 | a peak over the variant in 1 experiment; TFs: TCF4; cell types: LS180; summits 195 bp from the variant |
+| Regulatory activity: the parts are in place | Database | Ensembl annotation | 1 | regulatory region variant |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E3858447; proximal enhancer-like (pELS) |
+| Trait: the alleles differ | Database | Open Targets credible sets | 2 | fine-mapping probability 0.035 to 0.036; in the 95% credible set in 2 of 2; SuSiE-inf |
+| Trait: the parts are in place | Model prediction | Open Targets locus-to-gene score | 2 | score 0.78 to 0.83 |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (6 chains). Experiment: The tied chains differ in the transcription factor: G051 (TCF12, TCF3, TCF4), G161 (CTCF), G468 (ZNF263) and 3 more. They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: a measurement of the alleles' binding where there is only a prediction.
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in the genome with accessibility or enhancer marks read out.
+- **Regulatory activity: the alleles differ** (nothing supports it). Model run: No model in this version predicts the alleles' regulatory activity. A sequence-to-activity model would give this cell a prediction.
+- **Target gene: the alleles differ** (nothing supports it). Experiment: Edit the allele in the genome and read out the RNA of POU5F1B. An association cannot separate this variant from the variants inherited with it.
+- **Target gene: the parts are in place** (nothing supports it). Experiment: Silence or delete the element (ENSR8\_CGMBX, EH38E3858447) and read out the RNA of POU5F1B.
+- **TF binding: the alleles differ** (predicted only). Experiment: Compare the binding of each of the tied transcription factors to the T and C alleles directly: a binding assay with both alleles, or ChIP reads counted by allele in cells that carry both.
+- **Trait: the parts are in place** (predicted only). Experiment: Perturb POU5F1B and read out the trait, or the cell behaviour behind it. Genetic evidence that ties the gene itself to the trait would be an association for the same claim.
+
 ## Outcome
 
 **Partial mechanism**; stopped because converged.

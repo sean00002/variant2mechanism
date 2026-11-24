@@ -65,6 +65,34 @@ Second reading: a second model, from another provider, read 1 of the 1 experimen
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Database | ADASTRA, ChIP-seq reads counted by allele | 1 | HOXB13: reads favour T; FDR 0.00037; effect size 2.55; 28 experiments |
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 1 | group G024 (Homeodomain); more binding to T; \|z\| 103.5; p below 1e-300; 4 of 4 models past the gate; in the top 10% for this group |
+| TF binding: the alleles differ | Literature | Articles read by the model | 4 | 4 experiments in 2 articles (PMID:26398868, PMID:37550764); the report quotes the sentences |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 33 | a peak over the variant in 33 experiments; TFs: HOXB13; cell types: LNCaP, prostate-cancer, prostate, 22Rv1; summits 0 to 92 bp from the variant |
+| TF binding: the parts are in place | Literature | Articles read by the model | 8 | 8 experiments in 3 articles (PMID:26398868, PMID:37550764, PMID:25122612); the report quotes the sentences |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E2496909; distal enhancer-like (dELS) |
+| Target gene: the alleles differ | Database | Open Targets colocalisations | 6 | probability of one shared causal variant (H4) 0.02 to 0.50; COLOC\_PIP\_ECAVIAR |
+| Target gene: the alleles differ | Literature | Articles read by the model | 3 | 3 experiments in 1 article (PMID:26398868); the report quotes the sentences |
+| Target gene: the parts are in place | Literature | Articles read by the model | 4 | 4 experiments in 1 article (PMID:26398868); the report quotes the sentences |
+| Trait: the alleles differ | Database | Open Targets credible sets | 75 | fine-mapping probability 7.7e-05 to 0.23; in the 95% credible set in 75 of 75; PICS, SuSiE-inf, SuSie |
+| Trait: the alleles differ | Database | GWAS Catalog | 13 | p 5.0e-20 to 1.0e-06 |
+| Trait: the parts are in place | Database | Open Targets colocalisations | 6 | probability of one shared causal variant (H4) 0.02 to 0.50; COLOC\_PIP\_ECAVIAR |
+| Trait: the parts are in place | Database | Open Targets gene and disease records | 2 | source score 0.55 to 0.61; sources: eva, gene burden |
+| Trait: the parts are in place | Model prediction | Open Targets locus-to-gene score | 74 | score 0.05 to 0.87 |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in the genome with accessibility or enhancer marks read out, for example in LNCaP.
+- **Regulatory activity: the alleles differ** (nothing supports it). Model run: No model in this version predicts the alleles' regulatory activity. A sequence-to-activity model would give this cell a prediction.
+
 ## Outcome
 
 **Partial mechanism**; stopped because converged.

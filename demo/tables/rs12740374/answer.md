@@ -67,6 +67,36 @@ Second reading: a second model, from another provider, read 5 of the 5 experimen
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 1 | group G030 (AP-2); more binding to G; \|z\| 21.2; p 7.6e-100; 4 of 4 models past the gate; in the top 10% for this group |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 7 | a peak over the variant in 7 experiments; TFs: TFAP2A, TFAP2C; cell types: WA09, MCF-7, HCC1954; summits 17 to 73 bp from the variant |
+| Regulatory activity: the alleles differ | Database | ADASTRA, ChIP-seq reads counted by allele | 1 | BRD4: reads favour T; FDR 0.047; effect size 1.57; 290 experiments |
+| Regulatory activity: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:20686566); the report quotes the sentences |
+| Regulatory activity: the parts are in place | Database | Ensembl annotation | 1 | regulatory region variant |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E1374646; distal enhancer-like (dELS) |
+| Target gene: the alleles differ | Database | SCREEN eQTL links | 4 | effect size +0.12 to +1.27 for T; p 5.3e-48 to 1.0e-02; tissues: Esophagus Mucosa, Liver, Minor Salivary Gland, Skin Sun Exposed Lower leg |
+| Target gene: the alleles differ | Database | GTEx eQTL | 4 | effect size +0.12 to +1.27 for T; p 3.1e-54 to 9.2e-06; tissues: Esophagus Mucosa, Liver, Minor Salivary Gland, Skin Sun Exposed Lower leg |
+| Target gene: the alleles differ | Database | Open Targets colocalisations | 21 | probability of one shared causal variant (H4) 0.86 to 1.00; COLOC\_PIP\_ECAVIAR |
+| Trait: the alleles differ | Database | Open Targets credible sets | 75 | fine-mapping probability 0.023 to 1; in the 95% credible set in 75 of 75; PICS, SuSiE-inf |
+| Trait: the alleles differ | Database | GWAS Catalog | 698 | p below 1e-300 to 6.0e-06 |
+| Trait: the parts are in place | Database | Open Targets colocalisations | 22 | probability of one shared causal variant (H4) 0.86 to 1.00; COLOC\_PIP\_ECAVIAR |
+| Trait: the parts are in place | Model prediction | Open Targets locus-to-gene score | 75 | score 0.88 to 0.99 |
+| Trait: the parts are in place | Literature | Articles read by the model | 4 | 4 experiments in 1 article (PMID:20686566); the report quotes the sentences |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (12 chains). Experiment: The tied chains differ in the transcription factor: G030 (TFAP2A, TFAP2B, TFAP2C and 2 more), G122 (ARNT, ARNT2), G012 (MAF, MAFA, MAFB and 3 more) and 9 more. They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: a measurement of the alleles' binding where there is only a prediction.
+- **Target gene: the parts are in place** (nothing supports it). Experiment: Silence or delete the element (ENSR1\_CDSQQ, EH38E1374646) and read out the RNA of SORT1.
+- **TF binding: the alleles differ** (predicted only). Experiment: Compare the binding of each of the tied transcription factors to the G and T alleles directly: a binding assay with both alleles, or ChIP reads counted by allele in cells that carry both.
+- **Target gene: the alleles differ** (associated only). Experiment: Edit the allele in the genome and read out the RNA of SORT1. An association cannot separate this variant from the variants inherited with it.
+
 ## Outcome
 
 **Multiple explanations**; stopped because converged.

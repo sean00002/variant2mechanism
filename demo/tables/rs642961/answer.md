@@ -67,6 +67,34 @@ Second reading: a second model, from another provider, read 2 of the 2 experimen
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:18836445); the report quotes the sentences |
+| TF binding: the parts are in place | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:18836445); the report quotes the sentences |
+| Regulatory activity: the parts are in place | Database | Ensembl annotation | 1 | regulatory region variant |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E2863563; distal enhancer-like (dELS) |
+| Target gene: the alleles differ | Database | SCREEN eQTL links | 8 | effect size -0.23 to +0.35 for G; p 3.5e-31 to 6.6e-06; tissues: Adipose Subcutaneous, Adipose Visceral Omentum, Artery Tibial, Brain Cortex and 4 more |
+| Target gene: the alleles differ | Database | GTEx eQTL | 8 | effect size -0.23 to +0.35 for G; p 1.9e-14 to 2.5e-05; tissues: Adipose Subcutaneous, Adipose Visceral Omentum, Artery Tibial, Brain Cortex and 4 more |
+| Target gene: the alleles differ | Database | Open Targets colocalisations | 28 | probability of one shared causal variant (H4) 0.20 to 0.97; COLOC\_PIP\_ECAVIAR |
+| Trait: the alleles differ | Database | Open Targets credible sets | 14 | fine-mapping probability 0.0089 to 0.1; in the 95% credible set in 14 of 14; SuSiE-inf, PICS |
+| Trait: the alleles differ | Database | GWAS Catalog | 8 | p 6.0e-12 to 2.0e-06 |
+| Trait: the parts are in place | Database | Open Targets colocalisations | 28 | probability of one shared causal variant (H4) 0.20 to 0.97; COLOC\_PIP\_ECAVIAR |
+| Trait: the parts are in place | Model prediction | Open Targets locus-to-gene score | 14 | score 0.07 to 0.75 |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (4 chains). Experiment: The tied chains differ in the target gene: UTP25, IRF6, SYT14 and 1 more. They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: the allele edited in the genome, with the RNA of each gene read out.
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in the genome with accessibility or enhancer marks read out.
+- **Regulatory activity: the alleles differ** (nothing supports it). Model run: No model in this version predicts the alleles' regulatory activity. A sequence-to-activity model would give this cell a prediction.
+- **Target gene: the parts are in place** (nothing supports it). Experiment: Silence or delete the element (ENSR1\_B3JM9C, EH38E2863563) and read out the RNA of UTP25, IRF6, SYT14, TRAF3IP3.
+- **Target gene: the alleles differ** (associated only). Experiment: Edit the allele in the genome and read out the RNA of UTP25, IRF6, SYT14, TRAF3IP3. An association cannot separate this variant from the variants inherited with it.
+
 ## Outcome
 
 **Partial mechanism**; stopped because converged.

@@ -89,6 +89,10 @@ share a QBiC-SELEX model are one candidate. Chains are compared weakest link fir
 yes-or-no facts break ties: a strong QBiC-SELEX prediction with a ChIP-seq peak over the variant, and records that
 show the TF in place. A chain never ranks above one that is at least as strong on every link.
 
+**Numbers and gaps.** Under the table the report lists what each source returned for each cell, copied by code
+from the saved records and never ranked on. For each claim that no measurement supports it names the experiment or
+the model run that would fill it. Both were added after the scoring and are display only.
+
 **Models and cost.** The reader runs on GPT-6 Luna and the critic and judge on Claude Sonnet 5.5, a model from
 another provider. The 15 test variants took 126 model calls: 98 by the reader, 20 by the critic and 8 by the judge.
 At list prices that is about 43 cents, or 3 cents a variant.

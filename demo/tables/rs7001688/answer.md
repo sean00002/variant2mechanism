@@ -67,6 +67,28 @@ Second reading: no experiment from an article was up for counting, so the critic
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 1 | group G121 (ARID/BRIGHT); more binding to G; \|z\| 6.4; p 2.0e-10; 1 of 1 models past the gate; not in the top 10% for this group |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (316 chains). Experiment: The tied chains differ in the transcription factor: G121 (ARID3A, ARID3B, ARID3C), G077 (ASH1L, HMGA1, HMGA2 and 2 more), G112 (AHCTF1) and 313 more. They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: a measurement of the alleles' binding where there is only a prediction.
+- **TF binding: the parts are in place** (nothing supports it). Experiment: Show each of the tied transcription factors at the site: ChIP in a cell type where the element is active.
+- **TF binding: the parts are in place** (nothing supports it). Lookup: Give the run a cell context, and the expression of the transcription factor there is looked up.
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in the genome with accessibility or enhancer marks read out.
+- **Regulatory activity: the alleles differ** (nothing supports it). Model run: No model in this version predicts the alleles' regulatory activity. A sequence-to-activity model would give this cell a prediction.
+- **Regulatory activity: the parts are in place** (nothing supports it). Experiment: The variant lies in no registered regulatory element. An accessibility or histone-mark assay at the site, in a cell type that matters for the trait, would show whether it is one.
+- **Target gene: the alleles differ** (nothing supports it). Experiment: No source names a gene whose RNA differs between the alleles. An eQTL of this variant, or the allele edited in the genome with the RNA of nearby genes read out, would name one.
+- **Trait: the alleles differ** (nothing supports it). Source: No association of this variant with a trait is on file in the sources this run reads.
+- **TF binding: the alleles differ** (predicted only). Experiment: Compare the binding of each of the tied transcription factors to the G and T alleles directly: a binding assay with both alleles, or ChIP reads counted by allele in cells that carry both.
+
 ## Outcome
 
 **Partial mechanism**; stopped because converged.

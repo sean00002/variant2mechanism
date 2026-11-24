@@ -103,6 +103,8 @@ table.ranked th:nth-child(n+4),table.ranked td:nth-child(n+4){min-width:140px}
 table.cells th,table.cells td{overflow-wrap:break-word}
 table.cells th:nth-child(-n+2),table.cells td:nth-child(-n+2){white-space:nowrap;min-width:0;width:1%}
 table.cells td:nth-child(3){min-width:190px}table.cells th:nth-child(n+4),table.cells td:nth-child(n+4){min-width:150px}
+table.numbers th,table.numbers td{overflow-wrap:break-word}table.numbers td:nth-child(4){white-space:nowrap;width:1%}
+table.numbers td:nth-child(1){min-width:170px}table.numbers td:nth-child(3){min-width:150px}table.numbers td:nth-child(5){min-width:340px}
 @media (max-width:760px){ol.route{flex-direction:column;gap:22px}.route-step{max-width:none;flex-basis:auto}
   .route-step:not(.aside):not(:nth-last-child(2))::after{content:"\2193";right:auto;left:18px;top:auto;bottom:-22px;
   transform:none}}
@@ -773,7 +775,8 @@ blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--blue);backg
     parts.push(nexts.length ? h('ul', null, nexts.map(n => h('li', null, tag('suggested · not performed', 'suggested'), ' ',
       n.text, n.distinguishes.length ? ' (distinguishes ' + n.distinguishes.join(', ') + ')' : '',
       n.claim_ids.length ? [' · claims ', join(n.claim_ids.map(x => claimButton(x)))] : null))) :
-      h('p', {class: 'muted', text: 'None suggested.'}));
+      h('p', {class: 'muted', text: (D.table && D.table.fills && D.table.fills.length)
+        ? 'See "What would fill the gaps" under the chain table.' : 'None suggested.'}));
     if (open.length) {
       parts.push(h('h3', {text: 'Open questions'}));
       parts.push(h('ul', null, open.map(q => h('li', null, h('strong', {text: q.id}), ' ', q.text, ' ',

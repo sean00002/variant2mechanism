@@ -10,9 +10,9 @@ passages bounded, article text removed, local paths cut) and keeps four files of
     answer.md       the top of the run's report: the ranked chains, the first chain's table and the outcome
     manifest.json   what ran (models, formats, sources) and what the export cut
 
-answer.md leaves out the report's subsections that quote the articles. The quotations are in the graph and the
-rendered report shows them: unpack graph.json.gz into an empty folder as graph.json and run
-`v2m v9 report --run <that folder>`.
+answer.md leaves out the report's two subsections that quote the articles (the reading of a tie and the
+quotations). The quotations are in the graph and the rendered report shows them: unpack graph.json.gz into an empty
+folder as graph.json and run `v2m v9 report --run <that folder>`.
 
 scripts/v9_chain_table.py and scripts/v9_table_score.py read a folder made here as they read a folder of runs
 (`saved_graph`). Nothing is written into an existing --out folder, and the runs are not changed.
@@ -34,6 +34,7 @@ from variant2mechanism.v9.graph import ClaimGraph  # noqa: E402
 
 GRAPH, PACKED = "graph.json", "graph.json.gz"
 KEPT_SECTIONS = ("Answer", "Chain table", "Outcome")      # second-level sections of a report that answer.md keeps
+QUOTING = ("Reading the tie", "What the articles say")    # their subsections that quote articles: left out
 FOOTER = ("\n---\n\nThis page is the top of the run's report. The whole report, with the sentences quoted from the "
           "articles, can be rendered from `graph.json.gz` in this folder (see the folder's README).\n")
 
@@ -55,14 +56,14 @@ def saved_graph(folder: Path) -> ClaimGraph | None:
 
 def answer_part(report: str) -> str:
     """A report down to its outcome, without the subsections that quote articles: the title and the request, the
-    answer, the first chain's table and the outcome."""
-    kept, keep, inside_subsection = [], True, False
+    answer, the first chain's table with its numbers and what would fill its gaps, and the outcome."""
+    kept, keep, quoting = [], True, False
     for line in report.splitlines():
         if line.startswith("## "):
-            keep, inside_subsection = line[3:].startswith(KEPT_SECTIONS), False
+            keep, quoting = line[3:].startswith(KEPT_SECTIONS), False
         elif line.startswith("### "):
-            inside_subsection = True
-        if keep and not inside_subsection:
+            quoting = line[4:].startswith(QUOTING)
+        if keep and not quoting:
             kept.append(line)
     return "\n".join(kept).rstrip() + "\n"
 

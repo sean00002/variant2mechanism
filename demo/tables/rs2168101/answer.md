@@ -65,6 +65,34 @@ Second reading: a second model, from another provider, read 2 of the 2 experimen
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 1 | group G010 (GATA); more binding to C; \|z\| 56.1; p below 1e-300; 6 of 6 models past the gate; in the top 10% for this group |
+| TF binding: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:26560027); the report quotes the sentences |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 24 | a peak over the variant in 24 experiments; TFs: GATA2, GATA3, GATA6; cell types: SH-SY5Y, SK-N-SH, ESF, primary-endometrial-stromal-cell and 11 more; summits 1 to 134 bp from the variant |
+| TF binding: the parts are in place | Literature | Articles read by the model | 3 | 3 experiments in 2 articles (PMID:26560027, PMID:38653778); the report quotes the sentences |
+| Regulatory activity: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:26560027); the report quotes the sentences |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E1518342; distal enhancer-like (dELS) |
+| Target gene: the alleles differ | Database | SCREEN eQTL links | 1 | effect size -0.13 for A; p 1.7e-26; tissues: Muscle Skeletal |
+| Target gene: the alleles differ | Database | GTEx eQTL | 1 | effect size -0.13 for A; p 1.6e-09; tissues: Muscle Skeletal |
+| Target gene: the alleles differ | Database | Open Targets colocalisations | 13 | probability of one shared causal variant (H4) 0.83 to 1.00; COLOC\_PIP\_ECAVIAR |
+| Target gene: the alleles differ | Literature | Articles read by the model | 2 | 2 experiments in 1 article (PMID:26560027); the report quotes the sentences |
+| Trait: the alleles differ | Database | Open Targets credible sets | 75 | fine-mapping probability 0.019 to 1; in the 95% credible set in 75 of 75; SuSiE-inf, PICS |
+| Trait: the alleles differ | Database | GWAS Catalog | 71 | p 2.0e-208 to 3.0e-08 |
+| Trait: the parts are in place | Database | Open Targets colocalisations | 13 | probability of one shared causal variant (H4) 0.83 to 1.00; COLOC\_PIP\_ECAVIAR |
+| Trait: the parts are in place | Model prediction | Open Targets locus-to-gene score | 75 | score 0.70 to 0.92 |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **Target gene: the parts are in place** (nothing supports it). Experiment: Silence or delete the element (EH38E1518342) and read out the RNA of LMO1.
+- **Target gene: the alleles differ** (associated only). Experiment: Edit the allele in the genome and read out the RNA of LMO1. An association cannot separate this variant from the variants inherited with it.
+
 ## Outcome
 
 **Leading explanation**; stopped because converged.

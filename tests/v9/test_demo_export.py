@@ -35,6 +35,16 @@ Case and request.
 
 The table passes every rule.
 
+### The numbers behind the cells
+
+| Claim | What it returned |
+|---|---|
+| TF binding: the alleles differ | FDR 0.00037 |
+
+### What would fill the gaps
+
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: a reporter assay.
+
 ### Reading the tie
 
 - PMID:1: "a sentence copied from an article"
@@ -60,7 +70,8 @@ Everything from here on is the full report.
 def test_the_answer_keeps_the_request_the_answer_the_table_and_the_outcome(export):
     answer = export.answer_part(REPORT)
     for kept in ("# v2m run report", "Case and request.", "**Leading chain", "| TF binding | The alleles differ |",
-                 "The table passes every rule.", "## Outcome", "**Partial mechanism**"):
+                 "The table passes every rule.", "### The numbers behind the cells", "FDR 0.00037",
+                 "### What would fill the gaps", "a reporter assay", "## Outcome", "**Partial mechanism**"):
         assert kept in answer
     assert answer.endswith("stopped because converged.\n")
 

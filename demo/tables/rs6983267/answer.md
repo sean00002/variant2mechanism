@@ -67,6 +67,32 @@ Second reading: a second model, from another provider, read 4 of the 4 experimen
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Database | ADASTRA, ChIP-seq reads counted by allele | 1 | FOXA1: reads favour G; FDR 0.03; effect size 1.48; 262 experiments |
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 3 | group G007 (Forkhead); more binding to G; \|z\| 5.0; p 6.2e-07; 1 of 10 models past the gate; not in the top 10% for this group / group G022 (Forkhead); more binding to G; \|z\| 6.8; p 1.3e-11; 1 of 4 models past the gate; not in the top 10% for this group / and 1 more record |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 58 | a peak over the variant in 58 experiments; TFs: FOXA1, FOXA2; cell types: HepG2, ZR751, breast, MCF-7 and 13 more; summits 1 to 344 bp from the variant |
+| Regulatory activity: the alleles differ | Database | ADASTRA, ChIP-seq reads counted by allele | 1 | CTNNB1: reads favour G; FDR 0.038; effect size 2.13; 19 experiments |
+| Regulatory activity: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:19561607); the report quotes the sentences |
+| Regulatory activity: the parts are in place | Database | Ensembl annotation | 1 | regulatory region variant |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E3858447; proximal enhancer-like (pELS) |
+| Target gene: the alleles differ | Literature | Articles read by the model | 2 | 2 experiments in 1 article (PMID:23796952); the report quotes the sentences |
+| Trait: the alleles differ | Database | Open Targets credible sets | 75 | fine-mapping probability 0.025 to 1; in the 95% credible set in 75 of 75; PICS, SuSiE-inf, SuSie |
+| Trait: the alleles differ | Database | GWAS Catalog | 69 | p below 1e-300 to 9.0e-06 |
+| Trait: the parts are in place | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:23796952); the report quotes the sentences |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (2 chains). Experiment: The tied chains differ in the transcription factor: G022 (FOXA1, FOXA2, FOXA3 and 3 more), G041 (LEF1, TCF7, TCF7L1 and 1 more). They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: a measurement of the alleles' binding where there is only a prediction.
+- **Target gene: the parts are in place** (nothing supports it). Experiment: Silence or delete the element (ENSR8\_CGMBX, EH38E3858447) and read out the RNA of CCAT2.
+- **Target gene: the alleles differ** (associated only). Experiment: Edit the allele in the genome and read out the RNA of CCAT2. An association cannot separate this variant from the variants inherited with it.
+
 ## Outcome
 
 **Multiple explanations**; stopped because converged.

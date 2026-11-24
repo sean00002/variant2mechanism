@@ -67,6 +67,37 @@ Second reading: a second model, from another provider, read 4 of the 4 experimen
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Database | ADASTRA, ChIP-seq reads counted by allele | 1 | FOXA1: reads favour T; FDR 0.044; effect size 0.92; 262 experiments |
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 3 | group G007 (Forkhead); more binding to T; \|z\| 17.1; p 6.8e-66; 6 of 10 models past the gate; not in the top 10% for this group / group G022 (Forkhead); more binding to T; \|z\| 15.4; p 1.6e-53; 2 of 4 models past the gate; not in the top 10% for this group / and 1 more record |
+| TF binding: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:23001124); the report quotes the sentences |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 139 | a peak over the variant in 139 experiments; TFs: FOXA1, FOXA2, FOXA3; cell types: HepG2, A-549, A549, MCF-7 and 19 more; summits 1 to 271 bp from the variant |
+| TF binding: the parts are in place | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:23001124); the report quotes the sentences |
+| Regulatory activity: the parts are in place | Database | Ensembl annotation | 1 | regulatory region variant |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E3180851; distal enhancer-like (dELS) |
+| Target gene: the alleles differ | Database | Open Targets colocalisations | 28 | probability of one shared causal variant (H4) 0.94 to 0.99; COLOC\_PIP\_ECAVIAR |
+| Target gene: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:23001124); the report quotes the sentences |
+| Trait: the alleles differ | Database | Open Targets credible sets | 74 | fine-mapping probability 0.00031 to 1; in the 95% credible set in 74 of 74; SuSiE-inf, SuSie, PICS |
+| Trait: the alleles differ | Database | GWAS Catalog | 34 | p 2.0e-240 to 7.0e-06 |
+| Trait: the parts are in place | Database | Open Targets colocalisations | 28 | probability of one shared causal variant (H4) 0.94 to 0.99; COLOC\_PIP\_ECAVIAR |
+| Trait: the parts are in place | Model prediction | Open Targets locus-to-gene score | 74 | score 0.77 to 0.96 |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (6 chains). Experiment: The tied chains differ in the transcription factor: G022 (FOXA1, FOXA2, FOXA3 and 3 more), G002 (ESR1, ESR2, ESRRA and 35 more). They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: a measurement of the alleles' binding where there is only a prediction.
+- **The tie for first** (6 chains). Experiment: The tied chains differ in the target gene: TOX3, ENSG00000285800, RBL2. They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: the allele edited in the genome, with the RNA of each gene read out.
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in the genome with accessibility or enhancer marks read out.
+- **Regulatory activity: the alleles differ** (nothing supports it). Model run: No model in this version predicts the alleles' regulatory activity. A sequence-to-activity model would give this cell a prediction.
+- **Target gene: the parts are in place** (nothing supports it). Experiment: Silence or delete the element (ENSR16\_9QTBS, EH38E3180851) and read out the RNA of TOX3, ENSG00000285800, RBL2.
+- **Target gene: the alleles differ** (associated only). Experiment: Edit the allele in the genome and read out the RNA of TOX3, ENSG00000285800, RBL2. An association cannot separate this variant from the variants inherited with it.
+
 ## Outcome
 
 **Partial mechanism**; stopped because converged.

@@ -5,7 +5,7 @@ run started from the variant alone: no disease and no cell context were given.
 
 | File | What it is |
 |---|---|
-| `answer.md` | The top of the run's report: the ranked chains, the first chain's table and the outcome |
+| `answer.md` | The top of the run's report: the ranked chains, the first chain's table, the numbers each source returned, what would fill the gaps, and the outcome |
 | `table.md` | The first chain's eight claims and their cells |
 | `graph.json.gz` | The run's claim graph: every claim, record and link. The tables, the reports and the scores are built from it |
 | `manifest.json` | What ran (models, formats, sources) and what the public copy cut |
@@ -33,8 +33,8 @@ run started from the variant alone: no disease and no cell context were given.
 ## What a public copy leaves out
 
 `scripts/v9_demo_export.py` made these folders from the saved runs. A public copy bounds every quoted passage to 600
-characters, removes the articles' text and cuts local paths. `answer.md` also leaves out the report's subsections
-that quote the articles. The quotations are in the graph, and a rendered report shows them.
+characters, removes the articles' text and cuts local paths. `answer.md` also leaves out the report's two
+subsections that quote the articles. The quotations are in the graph, and a rendered report shows them.
 
 ## Using them
 

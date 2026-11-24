@@ -39,6 +39,10 @@ How the report stays faithful to the graph:
   their weakest link, on the kind of evidence only): the leading chain link by link, then every chain; a predicted
   link is labelled as predicted and ties are shown as ties, never broken by z, ChIP signal or expression;
 - suggested experiments are marked suggested, never performed;
+- under the chain table, the numbers each source returned for the leading chain's claims are copied by code from
+  the saved records, never typed by a model, and are shown, never ranked on; and each claim of that chain that no
+  measurement supports is given the kind of record that would fill it, written by code from the table's own rule
+  for which record counts for which claim (suggested, not performed);
 - a value a label table does not know (a stop reason, outcome or relation added to the schemas later) is shown as its
   words, so no saved run is ever unreadable.
 
@@ -53,11 +57,12 @@ import json
 import os
 import re
 from collections import Counter
-from collections.abc import Mapping
+from collections.abc import Callable, Iterable, Mapping
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
+from ..qbic.background import in_top_share
 from . import adoption, chain
 from . import table as chain_table
 from .bundle import Bundle, inventory_call, inventory_items, inventory_table, load_bundle, safe_raw_path, write_new
@@ -641,7 +646,7 @@ def report_data(bundle: Bundle, *, render_only: bool = False, raw_base: str = ""
             "downgraded_label": _label(OUTCOME_LABELS, result.downgraded_from) if result.downgraded_from else None},
         "gaps": _gaps(g, claims),
         "chain": chain.for_report(chain.chain_view(g)),
-        "table": chain_table.report_view(g),
+        "table": {**chain_table.report_view(g), **table_extras(g)},
         "entities": {eid: {"id": eid, "kind": e.kind, "label": e.label, "canonical_id": e.canonical_id,
                            "members": [g.entities[p].label for p in e.participants]} for eid, e in g.entities.items()},
         "claims": claims,
@@ -1067,6 +1072,327 @@ def _table_notes(t: Mapping[str, Any]) -> list[str]:
     return [x for x in (t.get("reading"), t.get("critique"), t["rules"]) if x]
 
 
+# --- under the table: the numbers each source returned, and what would fill the gaps ---------------------------------
+
+NUMBERS_TITLE = "The numbers behind the cells"
+NUMBERS_LEAD = ("What each source returned for the claims of the leading chain. Code copied every number from the saved "
+                "record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on "
+                "the kind of evidence under each claim, not on its size.")
+NUMBERS_HEADERS = ["Claim", "Kind of record", "Source", "Records", "What it returned"]
+FILLS_TITLE = "What would fill the gaps"
+FILLS_LEAD = ("Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of "
+              "record that would. Code wrote these from the table's rule for which record counts for which claim, with "
+              "the names on file. No model wrote them.")
+FILLS_NONE = "Every claim of this chain rests on a measurement, or on the kind of record it can have."
+FILLS_POINTER = f'See "{FILLS_TITLE}" under the chain table.'
+SOURCE_LABELS: dict[tuple[str, str], str] = {
+    ("qbic_inventory", "prediction"): "QBiC-SELEX",
+    ("adastra_asb", "occupancy"): "ADASTRA, ChIP-seq reads counted by allele",
+    ("tf_occupancy_set", "occupancy"): "ReMap ChIP-seq peaks",
+    ("gtex_eqtl", "association"): "GTEx eQTL",
+    ("ccre_overlap", "association"): "SCREEN eQTL links",
+    ("ccre_overlap", "annotation"): "ENCODE registry of regulatory elements",
+    ("credible_sets_all", "statistical_inference"): "Open Targets credible sets",
+    ("credible_sets_l2g", "statistical_inference"): "Open Targets credible sets",
+    ("credible_sets_all", "precomputed_prediction"): "Open Targets locus-to-gene score",
+    ("credible_sets_l2g", "precomputed_prediction"): "Open Targets locus-to-gene score",
+    ("gwas_associations", "association"): "GWAS Catalog",
+}
+TOOL_LABELS: dict[str, str] = {
+    "gene_disease": "Open Targets gene and disease records", "literature_read": "Articles read by the model",
+    "variant_annotation": "Ensembl annotation", "chip_occupancy": "ChIP-seq peaks"}
+ELEMENT_CLASSES: dict[str, str] = {"PLS": "promoter-like", "pELS": "proximal enhancer-like",
+                                   "dELS": "distal enhancer-like", "CA-CTCF": "accessible, with CTCF",
+                                   "CA-H3K4me3": "accessible, with H3K4me3", "CA-TF": "accessible, with a TF",
+                                   "CA": "accessible", "TF": "bound by a TF"}
+NAMES_SHOWN = 4                                           # names a line lists before it counts the rest
+NEEDS: dict[str, str] = {"none": "nothing supports it", "prediction": "predicted only",
+                         "association": "associated only"}   # in this order: the weakest claim first
+
+
+def _floats(evs: Iterable[Evidence], key: str) -> list[float]:
+    """The values of one field over a group of records, for those that hold a number there."""
+    out = []
+    for e in evs:
+        try:
+            out.append(float((e.data or {}).get(key)))
+        except (TypeError, ValueError):
+            continue
+    return out
+
+
+def _span(values: list[float], fmt: Callable[[float], str]) -> str:
+    """One value in words, or the lowest and the highest of several."""
+    if not values:
+        return ""
+    low, high = fmt(min(values)), fmt(max(values))
+    return low if low == high else f"{low} to {high}"
+
+
+def _p_text(p: float) -> str:
+    return "below 1e-300" if p <= 0 else f"{p:.1e}"
+
+
+def _some(values: Iterable[Any], limit: int = NAMES_SHOWN) -> str:
+    """The first few distinct names, then how many more."""
+    names = list(dict.fromkeys(str(v) for v in values if v))
+    return ", ".join(names[:limit]) + (f" and {len(names) - limit} more" if len(names) > limit else "")
+
+
+def _joined(*parts: str) -> str:
+    return "; ".join(x for x in parts if x)
+
+
+def _source(tool: str, ev: Evidence) -> str:
+    """The name a record's source goes by in the numbers table. A colocalisation and a credible set come from one
+    tool and say different things, so they are two sources."""
+    if tool.startswith("credible_sets") and "h4" in (ev.data or {}):
+        return "Open Targets colocalisations"
+    return (SOURCE_LABELS.get((tool, ev.evidence_class)) or TOOL_LABELS.get(tool) or tool.replace("_", " ")
+            or "a record")
+
+
+def _returned(tool: str, cls: str, evs: list[Evidence]) -> str:
+    """What the records of one source returned for a claim, in the numbers the source gave. Several records give the
+    lowest and the highest value: a range says what is on file without picking a best one."""
+    n, data = len(evs), [e.data or {} for e in evs]
+    alleles = {e.allele for e in evs if e.allele}
+    allele = next(iter(alleles)) if len(alleles) == 1 else None
+    if tool == "qbic_inventory":
+        lines = []
+        for e, d in zip(evs, data, strict=True):
+            z = _floats([e], "z")
+            top = in_top_share(d.get("group_id"), z[0]) if z else None
+            lines.append(_joined(
+                f"group {d.get('group_id')}" + (f" ({d['dbd']})" if d.get("dbd") else ""),
+                f"more binding to {e.allele}" if e.allele else "",
+                f"|z| {abs(z[0]):.1f}" if z else "", _span(_floats([e], "p"), lambda x: f"p {_p_text(x)}"),
+                f"{d['n_pass']} of {d['n_models']} models past the gate" if d.get("n_models") else "",
+                "" if top is None else f"{'in' if top else 'not in'} the top 10% for this group"))
+        return " / ".join(lines[:2]) + (f" / and {_count(n - 2, 'more record')}" if n > 2 else "")
+    if tool == "adastra_asb":
+        lines = []
+        for e, d in zip(evs, data, strict=True):
+            fdr = _floats([e], "fdr_ref") + _floats([e], "fdr_alt")
+            size = _floats([e], "effect_size_ref") + _floats([e], "effect_size_alt")
+            lines.append(_joined(
+                (_some(e.about_tfs) or "the protein") + (f": reads favour {e.allele}" if e.allele else ""),
+                f"FDR {min(fdr):.2g}" if fdr else "", f"effect size {max(size):.2f}" if size else "",
+                f"{d['tf_experiments']} experiments" if d.get("tf_experiments") else ""))
+        return " / ".join(lines)
+    if tool == "literature_read":
+        articles = list(dict.fromkeys(x for e in evs for x in e.source_ids if x.startswith("PMID:")))
+        return (f"{_count(n, 'experiment')} in {_count(len(articles), 'article')}"
+                + (f" ({_some(articles, 3)})" if articles else "") + "; the report quotes the sentences")
+    if cls == "occupancy":
+        distance = _span(_floats(evs, "summit_distance"), lambda x: f"{x:.0f}")
+        cells = _some(d.get("biosample_label") or (e.context.label if e.context else "")
+                      for e, d in zip(evs, data, strict=True))
+        tfs = _some(x for e in evs for x in e.about_tfs)
+        return _joined(f"a peak over the variant in {_count(n, 'experiment')}", f"TFs: {tfs}" if tfs else "",
+                       f"cell types: {cells}" if cells else "",
+                       f"summits {distance} bp from the variant" if distance else "")
+    if tool == "gtex_eqtl" or (tool == "ccre_overlap" and cls == "association"):
+        size = _span(_floats(evs, "nes") + _floats(evs, "slope"), lambda x: f"{x:+.2f}")
+        tissues = _some(str(d.get("tissue") or "").replace("_", " ") for d in data)
+        return _joined(f"effect size {size}" + (f" for {allele}" if allele else "") if size else "",
+                       _span(_floats(evs, "p"), lambda x: f"p {_p_text(x)}").replace(" to p ", " to "),
+                       f"tissues: {tissues}" if tissues else "")
+    if tool.startswith("credible_sets") and all("h4" in d for d in data):
+        shared = _span(_floats(evs, "h4"), lambda x: f"{x:.2f}")
+        return _joined(f"probability of one shared causal variant (H4) {shared}" if shared else "",
+                       _some((d.get("method") for d in data), 3))
+    if cls == "statistical_inference" and tool.startswith("credible_sets"):
+        inside = sum(1 for d in data if d.get("in_95_set"))
+        chance = _span(_floats(evs, "pip"), lambda x: f"{x:.2g}")
+        return _joined(f"fine-mapping probability {chance}" if chance else "",
+                       f"in the 95% credible set in {inside} of {n}",
+                       _some((d.get("finemapping_method") for d in data), 3))
+    if cls == "precomputed_prediction":
+        score = _span(_floats(evs, "score"), lambda x: f"{x:.2f}")
+        return f"score {score}" if score else ""
+    if tool == "gwas_associations":
+        effect = str(data[0].get("effect_text") or "") if n == 1 else ""
+        return _joined(_span(_floats(evs, "p"), lambda x: f"p {_p_text(x)}").replace(" to p ", " to "),
+                       effect + (f" for {allele}" if effect and allele else ""))
+    if tool == "gene_disease":
+        score = _span(_floats(evs, "score"), lambda x: f"{x:.2f}")
+        return _joined(f"source score {score}" if score else "",
+                       "sources: " + _some(str(d.get("datasource") or "").replace("_", " ") for d in data))
+    if tool == "ccre_overlap":
+        return _joined(_some(x for e in evs for x in e.about_elements),
+                       _some(f"{ELEMENT_CLASSES.get(str(d.get('class')), 'class')} ({d.get('class')})"
+                             for d in data if d.get("class")))
+    if tool == "variant_annotation":
+        return _some(str(c).replace("_", " ") for d in data for c in d.get("consequences") or [])
+    return ""
+
+
+def _claim_title(claim: Any) -> str:
+    return f"{dict(chain_table.STEPS)[claim.step]}: {dict(chain_table.PARTS)[claim.part].lower()}"
+
+
+def _number_rows(g: ClaimGraph, table: Any) -> list[list[str]]:
+    """One row per source behind each cell of the first chain (NUMBERS_HEADERS): the records counted for the claim,
+    or against it, and what they returned. A record listed beside a claim counts for nothing and is not shown."""
+    first, rows = table.chains[0], []
+    for key in chain_table.SLOT_KEYS:
+        claim = table.claims[str(first.claims[key])]
+        for lane, lane_label in chain_table.LANES:
+            groups: dict[tuple[str, str, str], list[Evidence]] = {}
+            for r in claim.cells[lane].records:
+                if r.stance != "beside" and r.id in g.evidence:
+                    ev = g.evidence[r.id]
+                    groups.setdefault((_source(r.tool or "", ev), r.tool or "", r.stance), []).append(ev)
+            for (source, tool, stance), evs in groups.items():
+                rows.append([_claim_title(claim), lane_label,
+                             source + (" (counted against)" if stance == "disagrees" else ""), str(len(evs)),
+                             _returned(tool, evs[0].evidence_class, evs) or "no number in the record"])
+    return rows
+
+
+def _fill_rows(g: ClaimGraph, table: Any) -> list[dict[str, str]]:
+    """What would fill each claim of the first chain that no measurement supports, weakest claim first: the kind of
+    record the table counts for that claim (docs/chain-table.md), with the names the run has on file. A tie for
+    first comes before them, with what would separate it."""
+    first = table.chains[0]
+    claims = {key: table.claims[str(first.claims[key])] for key in chain_table.SLOT_KEYS}
+
+    def counted(key: str, lane: str) -> list[Evidence]:
+        return [g.evidence[r.id] for r in claims[key].cells[lane].records
+                if r.stance == "supports" and r.id in g.evidence]
+
+    def tied(key: str) -> list[Any]:
+        """The distinct claims the chains tied for first hold in a slot, by what they name."""
+        return list({c.label: c for c in (table.claims[str(x.claims[key])] for x in leaders)}.values())
+
+    v = g.case.variant
+    somatic = g.case.origin == "somatic"
+    leaders = [c for c in table.chains if c.rank == 1]
+    factors, targets = tied("binding.allele"), tied("gene.allele")
+    tf = _some(claims["binding.allele"].names.get("tfs") or []) or "the transcription factor"
+    gene = _some((x for c in targets for x in c.names.get("genes") or []), NAMES_SHOWN)
+    element = _some(claims["activity.premise"].names.get("elements") or [], 2) or "the variant's site"
+    cells = _some(((e.data or {}).get("biosample_label") for e in counted("binding.premise", "database")
+                   if e.context is not None and e.context.biosample_kind == "cell_line"), 3)
+    favoured = {e.allele for e in counted("binding.allele", "model") if e.allele}
+    if len(factors) > 1:                          # the first chain's TF is one of several: name none of them here
+        tf, cells, favoured = "each of the tied transcription factors", "", set()
+    order = list(NEEDS)
+    found: list[tuple[tuple[int, int], dict[str, str]]] = []
+
+    def add(key: str, kind: str, text: str) -> None:
+        claim = claims[key]
+        found.append(((order.index(claim.strongest), chain_table.SLOT_KEYS.index(key)),
+                      {"claim": _claim_title(claim), "state": NEEDS[claim.strongest], "kind": kind, "text": text}))
+
+    def needs(key: str, *kinds: str) -> bool:
+        return claims[key].strongest in (kinds or tuple(NEEDS))
+
+    if needs("binding.allele"):
+        add("binding.allele", "Experiment",
+            f"Compare the binding of {tf} to the {v.ref} and {v.alt} alleles directly: a binding assay with both "
+            "alleles, or ChIP reads counted by allele in cells that carry both."
+            + (f" ReMap has a peak over the variant in {cells}." if cells else "")
+            + (f" QBiC-SELEX predicts more binding to {next(iter(favoured))}, which is the result to expect."
+               if len(favoured) == 1 and claims["binding.allele"].strongest == "prediction" else ""))
+    if needs("binding.premise", "none"):
+        subject = tf if len(factors) > 1 else f"the transcription factor ({tf})"
+        add("binding.premise", "Experiment", f"Show {subject} at the site: ChIP in a cell type where the element is "
+            "active.")
+        if not g.case.supplied_context:
+            add("binding.premise", "Lookup", "Give the run a cell context, and the expression of the transcription "
+                "factor there is looked up.")
+    if needs("activity.allele"):
+        add("activity.allele", "Experiment",
+            "Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in "
+            "the genome with accessibility or enhancer marks read out" + (f", for example in {cells}" if cells else "")
+            + ".")
+        add("activity.allele", "Model run", "No model in this version predicts the alleles' regulatory activity. A "
+            "sequence-to-activity model would give this cell a prediction.")
+    if needs("activity.premise", "none"):
+        add("activity.premise", "Experiment", "The variant lies in no registered regulatory element. An accessibility "
+            "or histone-mark assay at the site, in a cell type that matters for the trait, would show whether it is "
+            "one.")
+    if needs("gene.allele", "none") and not gene:
+        add("gene.allele", "Experiment",
+            "No source names a gene whose RNA differs between the alleles. "
+            + ("An eQTL cannot exist for a somatic mutation. The allele edited in the genome, or tumours with and "
+               "without the mutation compared, with the RNA of nearby genes read out, would name one." if somatic else
+               "An eQTL of this variant, or the allele edited in the genome with the RNA of nearby genes read out, "
+               "would name one."))
+    elif needs("gene.allele"):
+        add("gene.allele", "Experiment", f"Edit the allele in the genome and read out the RNA of {gene}. An "
+            "association cannot separate this variant from the variants inherited with it.")
+    if gene and needs("gene.premise", "none"):
+        add("gene.premise", "Experiment", f"Silence or delete the element ({element}) and read out the RNA of {gene}.")
+    if needs("trait.allele", "none"):
+        add("trait.allele", "Source",
+            "The sources this run reads hold inherited variants, not somatic mutations. How often the mutation recurs "
+            "in tumours, by cancer type, would be the matching record, and no such source is connected yet."
+            if somatic else "No association of this variant with a trait is on file in the sources this run reads.")
+    if gene and needs("trait.premise", "none", "prediction"):
+        add("trait.premise", "Experiment", f"Perturb {gene} and read out the trait, or the cell behaviour behind it. "
+            "Genetic evidence that ties the gene itself to the trait would be an association for the same claim.")
+    fills = [row for _, row in sorted(found, key=lambda x: x[0])]
+    for group, word, how in ((targets, "target gene", "the allele edited in the genome, with the RNA of each gene "
+                              "read out"),
+                             (factors, "transcription factor", "a measurement of the alleles' binding where there "
+                              "is only a prediction")):
+        if len(group) > 1:
+            fills.insert(0, {"claim": "The tie for first", "state": f"{len(leaders)} chains", "kind": "Experiment",
+                             "text": f"The tied chains differ in the {word}: {_some((c.label for c in group), 3)}. "
+                                     "They hold the same kinds of evidence, so a stronger kind of record for one of "
+                                     f"them would separate them: {how}."})
+    return fills
+
+
+def table_extras(g: ClaimGraph) -> dict[str, Any]:
+    """What the table section shows beyond table.report_view: the numbers behind the first chain's cells and what
+    would fill its gaps. Empty for a run with no chain."""
+    table = chain_table.from_graph(g)
+    if not table.chains:
+        return {"numbers": [], "fills": []}
+    return {"numbers": _number_rows(g, table), "fills": _fill_rows(g, table)}
+
+
+def _numbers_html(t: Mapping[str, Any]) -> str:
+    if not t.get("numbers"):
+        return ""
+    return (f'<h3 id="numbers-h">{_h(NUMBERS_TITLE)}</h3><p class="small">{_h(NUMBERS_LEAD)}</p>'
+            + _table_html(NUMBERS_TITLE, NUMBERS_HEADERS, [[_h(cell) for cell in row] for row in t["numbers"]],
+                          "numbers"))
+
+
+def _fills_html(t: Mapping[str, Any]) -> str:
+    if "fills" not in t or not t.get("rows"):
+        return ""
+    items = "".join(f'<li><strong>{_h(f["claim"])}</strong> ({_h(f["state"])}). {_h(f["kind"])}: {_h(f["text"])}</li>'
+                    for f in t["fills"]) or f"<li>{_h(FILLS_NONE)}</li>"
+    return (f'<h3 id="fills-h">{_h(FILLS_TITLE)}</h3><p class="small">{_h(FILLS_LEAD)}</p>'
+            f'<ul class="gaps">{items}</ul>')
+
+
+def _numbers_markdown(t: Mapping[str, Any]) -> list[str]:
+    if not t.get("numbers"):
+        return []
+    return [f"### {NUMBERS_TITLE}", "", _md(NUMBERS_LEAD), "",
+            *_md_table(NUMBERS_HEADERS, [[_md(cell) for cell in row] for row in t["numbers"]])]
+
+
+def _fills_markdown(t: Mapping[str, Any]) -> list[str]:
+    if "fills" not in t or not t.get("rows"):
+        return []
+    return [f"### {FILLS_TITLE}", "", _md(FILLS_LEAD), "",
+            *([f"- **{_md(f['claim'])}** ({_md(f['state'])}). {_md(f['kind'])}: {_md(f['text'])}" for f in t["fills"]]
+              or [f"- {_md(FILLS_NONE)}"]), ""]
+
+
+def _no_next(d: Mapping[str, Any]) -> str:
+    """What the suggestions section says when the run's result names no next experiment."""
+    return FILLS_POINTER if (d.get("table") or {}).get("fills") else "None suggested."
+
+
 QUOTES_TITLE = "What the articles say"
 QUOTES_LEAD = ("The sentences the literature cells of this chain were read from. Code copied each one from the "
                "article, so it is the article's own text; a quotation counts for a claim only where the table says so.")
@@ -1159,7 +1485,8 @@ def _table_section_html(d: Mapping[str, Any]) -> str:
     return ('<section id="table" aria-labelledby="table-h"><span class="section-no">TABLE</span>'
             f'<h2 id="table-h">{_h(TABLE_TITLE)}</h2><p>{_h(TABLE_LEAD)}</p>'
             + _table_html(_table_caption(t), t["headers"], rows, "cells")
-            + "".join(f'<p class="small">{_h(x)}</p>' for x in _table_notes(t)) + _tie_html(t) + _quotes_html(t)
+            + "".join(f'<p class="small">{_h(x)}</p>' for x in _table_notes(t)) + _numbers_html(t)
+            + _fills_html(t) + _tie_html(t) + _quotes_html(t)
             + "</section>")
 
 
@@ -1180,7 +1507,8 @@ def _table_markdown(d: Mapping[str, Any]) -> list[str]:
     t = d["table"]
     return [f"## {TABLE_TITLE}", "", _md(TABLE_LEAD), "", _md(_table_caption(t)), "",
             *_md_table(t["headers"], [[_md(cell) for cell in row] for row in t["rows"]]),
-            *(line for x in _table_notes(t) for line in (_md(x), "")), *_tie_markdown(t), *_quotes_markdown(t)]
+            *(line for x in _table_notes(t) for line in (_md(x), "")), *_numbers_markdown(t),
+            *_fills_markdown(t), *_tie_markdown(t), *_quotes_markdown(t)]
 
 
 def _banner(cls: str, title: str, text: str) -> str:
@@ -1293,7 +1621,8 @@ def _static_html(d: Mapping[str, Any]) -> str:
          _h(e["context"]["text"]) if e["context"] else "–"] for e in shown]))
     nexts = (d["result"] or {}).get("next_experiments") or []
     parts.append("<h3>Next discriminating evidence (suggested, not performed)</h3><ul>"
-                 + ("".join(f"<li>{_h(n['text'])}</li>" for n in nexts) or "<li>None suggested.</li>") + "</ul>")
+                 + ("".join(f"<li>{_h(n['text'])}</li>" for n in nexts) or f"<li>{_h(_no_next(d))}</li>")
+                 + "</ul>")
     if refused := _refused_questions(d):
         parts.append("<h3>Questions closed without being asked (refused)</h3><ul>"
                      + "".join(f"<li>{_h(text)}</li>" for text in refused) + "</ul>")
@@ -1466,7 +1795,7 @@ def render_markdown(bundle: Bundle, *, render_only: bool = False) -> str:
     nexts = (result or {}).get("next_experiments") or []
     out += ["## Next discriminating evidence (suggested, not performed)", ""]
     out += [f"- {_md(n['text'])}" + (f" (distinguishes {_md(', '.join(n['distinguishes']))})"
-                                      if n["distinguishes"] else "") for n in nexts] or ["- None suggested."]
+                                      if n["distinguishes"] else "") for n in nexts] or [f"- {_md(_no_next(d))}"]
     out.append("")
     if refused := _refused_questions(d):
         out += ["## Questions closed without being asked (refused)", ""] + [f"- {_md(t)}" for t in refused] + [""]

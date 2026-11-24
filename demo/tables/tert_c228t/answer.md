@@ -67,6 +67,28 @@ Second reading: no experiment from an article was up for counting, so the critic
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 1 | group G032 (C2H2 ZF); more binding to G; \|z\| 20.8; p 1.6e-96; 3 of 4 models past the gate; in the top 10% for this group |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 1 | a peak over the variant in 1 experiment; TFs: ZIC2; cell types: HEK293 |
+| Regulatory activity: the parts are in place | Database | Ensembl annotation | 1 | regulatory region variant |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E3622530; promoter-like (PLS) |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (8 chains). Experiment: The tied chains differ in the transcription factor: G032 (ZIC1, ZIC2, ZIC3 and 2 more), G161 (CTCF), G410 (ZBTB7A) and 5 more. They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: a measurement of the alleles' binding where there is only a prediction.
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in the genome with accessibility or enhancer marks read out.
+- **Regulatory activity: the alleles differ** (nothing supports it). Model run: No model in this version predicts the alleles' regulatory activity. A sequence-to-activity model would give this cell a prediction.
+- **Target gene: the alleles differ** (nothing supports it). Experiment: No source names a gene whose RNA differs between the alleles. An eQTL cannot exist for a somatic mutation. The allele edited in the genome, or tumours with and without the mutation compared, with the RNA of nearby genes read out, would name one.
+- **Trait: the alleles differ** (nothing supports it). Source: The sources this run reads hold inherited variants, not somatic mutations. How often the mutation recurs in tumours, by cancer type, would be the matching record, and no such source is connected yet.
+- **TF binding: the alleles differ** (predicted only). Experiment: Compare the binding of each of the tied transcription factors to the G and A alleles directly: a binding assay with both alleles, or ChIP reads counted by allele in cells that carry both.
+
 ## Outcome
 
 **Partial mechanism**; stopped because converged.

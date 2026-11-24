@@ -393,6 +393,42 @@ comparison is described in the paragraph before can look undecided (PHACTR1: one
 other "against"). A gene named by an isoform is not matched to its gene (the PPARG2 experiments are not PPARG's
 records). Both errors lose an answer; neither puts a wrong one under a tie.
 
+## Under the table: the numbers and the gaps
+
+The report shows two more things under the first chain's table (`v9/report.py`). Both are display only: they were
+added after the scoring, and they change no cell, no rank and no saved run.
+
+**The numbers behind the cells.** One row for each source behind each cell, with what it returned: the FDR and the
+number of experiments of an allele-specific binding call, the z and p of a QBiC-SELEX prediction and whether it is
+in the top 10% for its TF group, the effect size and p of an eQTL, the fine-mapping probability of a credible set,
+the probability of a shared causal variant of a colocalisation, a locus-to-gene score.
+
+- Code copies every number from the saved record. No model types one.
+- Several records of one source give the lowest and the highest value. A range says what is on file without picking
+  a best record.
+- The numbers are shown and never ranked on. A chain's place rests on the kind of evidence under each claim.
+- A literature row gives the number of experiments and articles. The sentences stay in the quotations.
+
+**What would fill the gaps.** For each claim of the first chain that no measurement supports, the kind of record
+that would, taken from the table's own rule for which record counts for which claim.
+
+| Claim | Suggested when | What is suggested |
+|---|---|---|
+| TF binding: alleles differ | no measurement | a binding assay with both alleles, or ChIP reads counted by allele |
+| TF binding: in place | nothing | ChIP for the TF; a cell context for the run, so that expression is looked up |
+| Regulatory activity: alleles differ | no measurement | a reporter assay with both alleles, or an allele edit read out as activity; a model run, once a model predicts activity |
+| Regulatory activity: in place | nothing | an accessibility or histone-mark assay at the site |
+| Target gene: alleles differ | no measurement | an allele edit read out as RNA |
+| Target gene: in place | nothing | the element silenced or deleted, the gene's RNA read out |
+| Trait: alleles differ | nothing | an association; for a somatic mutation, a source of recurrence in tumours, which is not connected yet |
+| Trait: in place | nothing or a prediction | the gene perturbed, the trait or a cell behaviour read out |
+
+- Code writes each suggestion, with the names the run has on file: the TF, the alleles, the element, the gene, and
+  the cell lines where a ChIP-seq peak lies over the variant. No model writes one, and nothing suggested is run.
+- A tie for first comes first, with what would separate it. Then the weakest claims: those with nothing, then those
+  with a prediction, then those with an association.
+- When chains tie, a suggestion names every tied TF or gene, never the first chain's alone.
+
 ## Scored once against the gold cases
 
 The pipeline was frozen on 23 November 2026 and its 15 tables were scored once. The freeze is the hash of every

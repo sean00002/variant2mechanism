@@ -67,6 +67,32 @@ Second reading: a second model, from another provider, read 2 of the 2 experimen
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 1 | group G121 (ARID/BRIGHT); more binding to T; \|z\| 16.0; p 2.3e-57; 1 of 1 models past the gate; in the top 10% for this group |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 1 | a peak over the variant in 1 experiment; TFs: ARID3A; cell types: Hep-G2; summits 81 bp from the variant |
+| Regulatory activity: the alleles differ | Literature | Articles read by the model | 1 | 1 experiment in 1 article (PMID:26287746); the report quotes the sentences |
+| Regulatory activity: the parts are in place | Database | ENCODE registry of regulatory elements | 1 | EH38E3181208; distal enhancer-like (dELS) |
+| Target gene: the alleles differ | Database | SCREEN eQTL links | 1 | effect size +0.37 for C; p 2.7e-06; tissues: Pancreas |
+| Target gene: the alleles differ | Database | GTEx eQTL | 1 | effect size +0.37 for C; p 8.3e-06; tissues: Pancreas |
+| Target gene: the alleles differ | Literature | Articles read by the model | 5 | 5 experiments in 2 articles (PMID:40835181, PMID:26287746); the report quotes the sentences |
+| Trait: the alleles differ | Database | Open Targets credible sets | 75 | fine-mapping probability 0.0039 to 0.85; in the 95% credible set in 75 of 75; PICS, SuSiE-inf, SuSie |
+| Trait: the alleles differ | Database | GWAS Catalog | 221 | p below 1e-300 to 5.0e-08 |
+| Trait: the parts are in place | Database | Open Targets gene and disease records | 2 | source score 0.38 to 0.54; sources: impc |
+| Trait: the parts are in place | Model prediction | Open Targets locus-to-gene score | 4 | score 0.05 to 0.08 |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **The tie for first** (12 chains). Experiment: The tied chains differ in the transcription factor: G121 (ARID3A, ARID3B, ARID3C), G103 (USF1, USF2), G021 (FOS, FOSB, FOSL1 and 1 more) and 9 more. They hold the same kinds of evidence, so a stronger kind of record for one of them would separate them: a measurement of the alleles' binding where there is only a prediction.
+- **Target gene: the parts are in place** (nothing supports it). Experiment: Silence or delete the element (EH38E3181208) and read out the RNA of IRX3.
+- **TF binding: the alleles differ** (predicted only). Experiment: Compare the binding of each of the tied transcription factors to the T and C alleles directly: a binding assay with both alleles, or ChIP reads counted by allele in cells that carry both.
+
 ## Outcome
 
 **Multiple explanations**; stopped because converged.

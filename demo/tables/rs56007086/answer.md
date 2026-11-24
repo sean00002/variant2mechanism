@@ -65,6 +65,26 @@ Second reading: no experiment from an article was up for counting, so the critic
 
 The table passes every rule of docs/chain-table.md.
 
+### The numbers behind the cells
+
+What each source returned for the claims of the leading chain. Code copied every number from the saved record, and no model typed one. The numbers are shown and never ranked on: a chain's place rests on the kind of evidence under each claim, not on its size.
+
+| Claim | Kind of record | Source | Records | What it returned |
+|---|---|---|---|---|
+| TF binding: the alleles differ | Database | ADASTRA, ChIP-seq reads counted by allele | 1 | ESR1: reads favour G; FDR 0.00063; effect size 3.07; 483 experiments |
+| TF binding: the alleles differ | Model prediction | QBiC-SELEX | 3 | group G002 (Nuclear receptor); more binding to G; \|z\| 9.4; p 6.4e-21; 13 of 29 models past the gate; not in the top 10% for this group / group G002 (Nuclear receptor); more binding to A; \|z\| 10.9; p 1.2e-27; 13 of 29 models past the gate; not in the top 10% for this group / and 1 more record |
+| TF binding: the parts are in place | Database | ReMap ChIP-seq peaks | 188 | a peak over the variant in 188 experiments; TFs: ESR1; cell types: MCF-7, ZR751, SUM44PE, breast and 9 more; summits 1 to 345 bp from the variant |
+| Regulatory activity: the parts are in place | Database | Ensembl annotation | 1 | regulatory region variant |
+
+### What would fill the gaps
+
+Suggested, not performed. For each claim of the leading chain that no measurement supports, the kind of record that would. Code wrote these from the table's rule for which record counts for which claim, with the names on file. No model wrote them.
+
+- **Regulatory activity: the alleles differ** (nothing supports it). Experiment: Compare the regulatory activity of the two alleles: a reporter assay with both, or the allele edited in the genome with accessibility or enhancer marks read out, for example in MCF-7.
+- **Regulatory activity: the alleles differ** (nothing supports it). Model run: No model in this version predicts the alleles' regulatory activity. A sequence-to-activity model would give this cell a prediction.
+- **Target gene: the alleles differ** (nothing supports it). Experiment: No source names a gene whose RNA differs between the alleles. An eQTL of this variant, or the allele edited in the genome with the RNA of nearby genes read out, would name one.
+- **Trait: the alleles differ** (nothing supports it). Source: No association of this variant with a trait is on file in the sources this run reads.
+
 ## Outcome
 
 **Partial mechanism**; stopped because converged.

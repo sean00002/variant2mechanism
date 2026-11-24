@@ -66,8 +66,13 @@ for that claim.
 - **Every mark is a record that can be checked.** The database record under the first claim is an allele-specific
   binding call: ChIP-seq reads of HOXB13 favour the T allele (ADASTRA, FDR 0.0004). One of the literature records
   quotes its article, which found "greater binding to the T variant than the C allele" (PMID 26398868).
-- **Gaps stay visible.** No source the workflow reads has compared the two alleles' regulatory activity at this
-  variant. That claim says "nothing found", and the chain is reported as a partial mechanism
+- **The numbers are shown.** Under the table the report lists what each source returned: here an FDR of 0.0004 over
+  28 ChIP-seq experiments, and a QBiC-SELEX |z| of 103.5, in the top 10% for that TF group. Code copies each number
+  from the saved record, and none is used to rank.
+- **Gaps stay visible, each with what would fill it.** No source the workflow reads has compared the two alleles'
+  regulatory activity at this variant. That claim says "nothing found", the chain is reported as a partial
+  mechanism, and the report suggests the experiment: a reporter assay with both alleles, or the allele edited in the
+  genome, in a cell line where the TF is bound. Suggestions are written by code and marked as not performed
   ([saved run](demo/tables/rs339331/answer.md)).
 
 ## How it is designed
