@@ -57,7 +57,7 @@ import json
 import re
 import unicodedata
 import xml.etree.ElementTree as ET
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass, field, replace
 from html.entities import name2codepoint
 from pathlib import Path
@@ -85,6 +85,7 @@ from .schemas import (
     V9Model,
 )
 from .tools import AdapterResult, ParamSpec, ToolContext, ToolSpec, register_tool
+from .variant_identity import name_change
 
 EPMC_REST = "https://www.ebi.ac.uk/europepmc/webservices/rest"
 EFETCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
@@ -1772,10 +1773,40 @@ _SITE_PAIR = re.compile(r"\s?[(\[]?\s?(?:[:_]\s?)?([ACGT]+|-)\s?(?:->|>|/|:|\u21
 _TOGETHER = re.compile(r"[^0-9A-Za-z]{0,4}(?:(?:hg|grch)\s?\d{2}[^0-9A-Za-z]{0,4})?", re.I)
 
 
+# An article's own name for a mutation ("-124C>T", "c.-124C > T"): its letters, digits and signs, in that order.
+_NAME_TOKEN = re.compile(r"\d+|[A-Za-z]+|\S")
+_NAME_EDGE = " ,;:()[]{}\"'"
+
+
+def _name_text(name: str) -> str:
+    """A name in matching form without what text mining may mark around it: brackets, quotes, punctuation, and a
+    plus sign that stands before it as a word ("+ -124C>T", from "-146C>T + -124C>T")."""
+    return re.sub(r"^\+\s+", "", normalise_for_match(name).strip(_NAME_EDGE))
+
+
+def name_key(name: str) -> str:
+    """One form for one name however it is spaced or cased: "c.-124c > T" and "c.-124C>T" are "C.-124C>T"."""
+    return re.sub(r"\s+", "", _name_text(name)).upper()
+
+
+def name_pattern(name: str) -> re.Pattern[str] | None:
+    """Where a text in matching form writes a mutation's name: its tokens in order with any spacing between them,
+    in either case, and nothing joined on at either end. A name that begins with a number is not read out of a
+    longer or signed number ("124C>T" is not in "-124C>T" or "1,124C>T"). None for a name with no number in it."""
+    tokens = _NAME_TOKEN.findall(_name_text(name))
+    if not any(t.isdigit() for t in tokens):
+        return None
+    before = r"(?<![0-9A-Za-z+\-.,])" if tokens[0].isdigit() else r"(?<![0-9A-Za-z])"
+    return re.compile(before + r"\s*".join(re.escape(t) for t in tokens) + r"(?![0-9A-Za-z])", re.I)
+
+
 @dataclass(frozen=True)
 class _Mention:
     """A variant a text names: an rsID (node ("rs", "rs1427407")) or a chromosome position (node ("site", "2",
-    "60490908")) with the allele pair written right after it, at start:end of the text's matching form."""
+    "60490908")) with the allele pair written right after it, at start:end of the text's matching form. Also a
+    name of the article's own, kept in that article's scope: a shorthand it uses (node ("paper", article, "C228T"))
+    or a spelling text mining ties to the variant asked about (node ("mined", article, "-124C>T")), each with the
+    base change the name writes."""
     node: tuple[str, ...]
     pair: tuple[str, str] | None
     start: int
@@ -1786,7 +1817,7 @@ class _Mention:
         when an allele pair is known (alleles after an rsID are never read: papers write them on either strand)."""
         if self.node[0] == "rs":
             return self.node[1]
-        if self.node[0] == "paper":
+        if self.node[0] in ("paper", "mined"):
             return f"paper:{self.node[1]}:{self.node[2]}"
         return f"chr{self.node[1]}:{self.node[2]}" + (f" {self.pair[0]}>{self.pair[1]}" if self.pair else "")
 
@@ -1837,17 +1868,30 @@ def _together(folded: str, found: list[_Mention], i: int) -> bool:
 
 class _VariantIndex:
     """The variants an article names (title, headings and text): which rsID and position the paper writes as one
-    variant, and the allele pairs it writes at each position."""
+    variant, and the allele pairs it writes at each position.
 
-    def __init__(self, article: Article):
+    `mined`: the spellings text mining ties to the variant asked about in this article (the reader passes them for
+    an article it found through LitVar; nobody else passes any). A spelling is kept as a name of this article when
+    it writes exactly one base change (variant_identity.name_change), the article as retrieved writes it, and it is
+    not an rsID, a position or a shorthand the article defines by a position, which have rules of their own. Such a
+    name stays in the article's scope: whether it is the variant asked about is decided afterwards
+    (variant_identity._text_mined_map). All of one article's names are one variant, since the same lookup ties
+    each to it. A name is never "the only variant the article names" (only): text mining marks the names of the
+    variant asked about, so another mutation the article writes the same way ("-146C>T") is invisible here, and a
+    passage that names no variant cannot be assumed to be about this one."""
+
+    def __init__(self, article: Article, mined: Sequence[str] = ()):
         self._parent: dict[tuple[str, ...], tuple[str, ...]] = {}
         self.pairs: dict[tuple[str, ...], dict[frozenset[str], tuple[str, str]]] = {}
         self.mentions: list[_Mention] = []
         self.aliases: dict[str, dict[str, tuple[_Mention, str]]] = {}
         self.paper_names: dict[str, _Mention] = {}
+        self.mined: dict[str, tuple[re.Pattern[str], _Mention, str]] = {}
+        texts: list[str] = []
         for text in [article.title, *dict.fromkeys(s.heading for s in article.sections),
                      *(s.text for s in article.sections)]:
             folded, found = _mentions(text)
+            texts.append(folded)
             self.mentions += found
             for m in found:
                 self._parent.setdefault(m.node, m.node)
@@ -1863,6 +1907,12 @@ class _VariantIndex:
                 alias = (right or left)
                 if alias and m.pair and (alias[1][0].upper(), alias[1][-1].upper()) == m.pair:
                     self.aliases.setdefault(alias[1].upper(), {})[m.written()] = (m, text)
+        for spelling in mined:
+            key, pair, pattern = name_key(spelling), name_change(spelling), name_pattern(spelling)
+            if (pair is None or pattern is None or key in self.mined or len(self.aliases.get(key, {})) == 1
+                    or _mentions(spelling, entry=True)[1] or not any(pattern.search(t) for t in texts)):
+                continue
+            self.mined[key] = (pattern, _Mention(("mined", article.key, key), pair, 0, 0), str(spelling))
         # A shorthand can identify a paper's experimental object without identifying a genomic case. It is
         # namespaced to this paper, never guessed from a numeric suffix or silently read as a chromosome position.
         for section in article.sections:
@@ -1870,7 +1920,7 @@ class _VariantIndex:
                 continue
             for match in re.finditer(r"(?<![A-Za-z0-9])([ACGT]\d+[ACGT])(?![A-Za-z0-9])", section.text, re.I):
                 alias = match[1].upper()
-                if len(self.aliases.get(alias, {})) == 1:
+                if len(self.aliases.get(alias, {})) == 1 or alias in self.mined:
                     continue
                 m = _Mention(("paper", article.key, alias), (alias[0], alias[-1]), match.start(), match.end())
                 self.paper_names[alias] = m
@@ -1887,10 +1937,20 @@ class _VariantIndex:
         for alias, mention in self.paper_names.items():
             if re.search(r"(?<![A-Za-z0-9])" + re.escape(alias) + r"(?![A-Za-z0-9])", text, re.I):
                 found.append(mention)
+        if self.mined:
+            folded = normalise_for_match(text)
+            spans = [(m.start(), m.end(), mention) for pattern, mention, _ in self.mined.values()
+                     for m in pattern.finditer(folded)]
+            # a name written inside a longer one ("-124C>T" in "c.-124C>T") is the longer one, not both
+            found += {mention.node: mention for a, b, mention in spans
+                      if not any(c <= a and b <= d and (c, d) != (a, b) for c, d, _ in spans)}.values()
         return found
 
     def group(self, node: tuple[str, ...]) -> tuple[str, ...]:
-        """The one variant a node belongs to (itself when the paper writes it with no other form)."""
+        """The one variant a node belongs to (itself when the paper writes it with no other form). Every name text
+        mining ties to the variant asked about is one variant."""
+        if node[0] == "mined":
+            return ("mined", node[1])
         parent = self._parent
         while parent.get(node, node) != node:
             parent[node] = parent[parent[node]]                 # path halving keeps the chains short
@@ -1951,7 +2011,10 @@ def _variants(record: ExperimentRecord, passage: str, scope: _Scope, index: _Var
                 why = (f"the passage names {', '.join(dict.fromkeys(m.written() for m in in_passage))}, and an "
                        "experiment is about the variant its passage names")
             elif not in_passage and not index.names(e, in_scope):
-                if not index.names(e, index.mentions):
+                if e.node[0] == "mined":
+                    why = (f"a name of the article's own counts only where it is written, and neither the passage "
+                           f"nor its place ({scope.location}, its heading or caption) writes it")
+                elif not index.names(e, index.mentions):
                     why = "the article does not name them"
                 elif not index.only(e.node):
                     why = (f"they are not named where the passage is ({scope.location}, its heading or caption), and "
@@ -2198,7 +2261,8 @@ def labelled_class(intervention: str, label: EvidenceClass | None) -> tuple[Evid
 
 def evidence_from_experiment(record: ExperimentRecord, call: ToolCall, article: Article, *,
                              resolver: SymbolResolver | None = None,
-                             label: EvidenceClass | None = None, own_figures: bool = False) -> Evidence:
+                             label: EvidenceClass | None = None, own_figures: bool = False,
+                             mined: Sequence[str] = ()) -> Evidence:
     """An extracted experiment as Evidence ready for graph.add_evidence (evidence_id "", origin literature,
     retrieval_ref = the read). Refused (ExtractionRefused) when the call is not a successful read of this article,
     the record cites another article, the passage is not found verbatim, the record gives no result, the
@@ -2209,7 +2273,10 @@ def evidence_from_experiment(record: ExperimentRecord, call: ToolCall, article: 
     previous symbol. `label` is the assay family the reader named for the experiment (reader.py); it is used only
     where code's reading of the intervention names none (labelled_class), and a record made without one is unchanged.
     `own_figures` (the reader sets it) keeps a passage that points to the article's own figure or table from being
-    filed as a retelling for its wording alone (_retold).
+    filed as a retelling for its wording alone (_retold). `mined` (the reader passes it for an article found through
+    LitVar) is how text mining says this article writes the variant asked about: a record may then name the variant
+    by such a name where the passage, its heading or its caption writes it (_VariantIndex). It is filed with its
+    identity unresolved and data.text_mined_names; variant_identity decides whether the name is the variant.
 
     The record's direction is the change the passage reports, for its compared allele when it compares alleles; the
     Evidence direction is the effect of what the experiment changed (_effect_frame). Names, variants, the allele and
@@ -2258,7 +2325,7 @@ def evidence_from_experiment(record: ExperimentRecord, call: ToolCall, article: 
                      "the passage mixes a result with the authors' interpretation")
     scope = _Scope.of(article, section, resolver)
     about = _about(record, cls, passage, scope, notes)
-    index = _VariantIndex(article)
+    index = _VariantIndex(article, mined)
     variants, named, unnamed = _variants(record, passage, scope, index, notes)
     aliases = {alias: next(iter(defs.values())) for alias, defs in index.aliases.items() if len(defs) == 1 and
                re.search(r"(?<![A-Za-z0-9])" + re.escape(alias) + r"(?![A-Za-z0-9])", scope.text, re.I) and
@@ -2268,7 +2335,7 @@ def evidence_from_experiment(record: ExperimentRecord, call: ToolCall, article: 
         re.search(r"wild[- ]?type|reference", scope.text, re.I) and
         re.search(r"mutant|mutation", scope.text, re.I)) else set()
     if re.search(r"wild[- ]?type|reference", scope.text, re.I) and re.search(r"mutant|mutation", scope.text, re.I):
-        alias_alts |= {m.pair[1] for m in named if m.node[0] == "paper" and m.pair}
+        alias_alts |= {m.pair[1] for m in named if m.node[0] in ("paper", "mined") and m.pair}
     allele, design = _compared(record, cls, passage, scope, notes, alias_alts)
     if cls != "review" and design and (record.manipulated == "allele" or clean_text(record.compared_allele)):
         if not variants:
@@ -2303,6 +2370,13 @@ def evidence_from_experiment(record: ExperimentRecord, call: ToolCall, article: 
     if paper_names:
         flags.update(paper_variant_names=paper_names, variant_identity_status="unresolved")
         notes.append("Mutation shorthand retained in this paper's scope; case identity is unresolved, not different.")
+    if mined_names := [m for m in named if m.node[0] == "mined"]:
+        quoted_names = index.local_mentions(passage)
+        flags.update(variant_identity_status="unresolved", text_mined_names=[
+            {"name": m.node[2], "spelling": index.mined[m.node[2]][2], "change": list(m.pair or ()),
+             "written_in": "passage" if index.names(m, quoted_names) else "section"} for m in mined_names])
+        notes.append("Filed under the article's own name for the mutation; whether it is the variant asked about "
+                     "is unresolved until the identity check decides.")
     if cls == "reporter_assay" and record.manipulated == "allele" and allele in alias_alts:
         flags["allele_targeted"] = True
     if aliases:

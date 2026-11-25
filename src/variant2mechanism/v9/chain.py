@@ -697,6 +697,33 @@ def _unclaimed(inventory: _Inventory, candidates: list[dict[str, Any]]) -> dict[
     return {"count": len(groups), "passing": len(inventory.by_group), "total": len(inventory.rows), "groups": groups}
 
 
+JOIN_FLAG = "tf_gene_join"         # data flag of an experiment that changed a TF and read out another gene's RNA
+JOIN_RULE = (" Last, a chain pairs a TF with a gene, and nothing above says the two belong together. Where an "
+             "experiment read from an article changed the chain's TF and saw its gene's RNA or protein change, the "
+             "chain comes before an otherwise equal one with no such record. That record shows the TF acting on "
+             "the gene, not that it does so through this variant, so it only ever breaks a tie.")
+
+
+def _symbol(graph: ClaimGraph, name: Any) -> str:
+    """A TF or gene name in one form for comparing. Names are resolved to approved symbols when a record is filed
+    and when a claim is stated, never here: a saved graph is read without the symbol table, and it must give the
+    order the run gave."""
+    return str(name).upper()
+
+
+def tf_gene_joins(graph: ClaimGraph) -> list[tuple[frozenset[str], frozenset[str], str]]:
+    """The experiments on file that show a TF acting on a gene, as (TFs, genes, record): the records the fill's
+    reader flagged when it filed them (reader.reader_flags). A run of the engine, and a fill read before the flag
+    existed, has none, and its chains are ordered exactly as before."""
+    out = []
+    for ev in graph.evidence.values():
+        flag = ev.data.get(JOIN_FLAG)
+        if ev.origin == "literature" and isinstance(flag, Mapping) and ev.data.get("unclear_result") is not True:
+            out.append((frozenset(_symbol(graph, t) for t in flag.get("tfs") or ()),
+                        frozenset(_symbol(graph, g) for g in flag.get("genes") or ()), ev.evidence_id))
+    return out
+
+
 def _whole_chains(graph: ClaimGraph, links: list[dict[str, Any]], inventory: _Inventory) -> dict[str, Any]:
     """Whole chains, ranked (see the module docstring): every pair of a binding candidate and a target gene, with
     the shared links and the gene to trait claims that name the gene, ordered by their weakest link (leximin over
@@ -744,13 +771,20 @@ def _whole_chains(graph: ClaimGraph, links: list[dict[str, Any]], inventory: _In
                            _cell("gene", [gene] if gene else [], claimed["gene"] and not loose_name, loose_name),
                            _cell("mediation", top([c for c in standing["mediation"] if names_gene(c, gene_ids)]),
                                  onward_claimed)))
+    joins = tf_gene_joins(graph)
     chains = []
-    for binding in factor_cells:
+    for factor, binding in zip(factors, factor_cells, strict=True):
+        named_tfs = ({_symbol(graph, m) for m in (factor.get("members") or [factor["label"]])}
+                     if factor and joins else set())
         for gene_ids, target, onward in gene_cells:
             cells = {"binding": binding, "activity": shared["activity"], "gene": target, "mediation": onward,
                      "trait": shared["trait"]}
             levels = [cells[k]["step"] for k in LINK_KEYS]
+            named_genes = ({_symbol(graph, graph.entities[e].label) for e in gene_ids if e in graph.entities}
+                           if joins else set())
             chains.append({
+                **({"joined": sorted((eid for tfs, genes, eid in joins if tfs & named_tfs and genes & named_genes),
+                                     key=_num)} if joins else {}),
                 "title": " → ".join((cells[k]["names"] or [EMPTY_NAME[k]])[0] for k in CHOICE_LINKS),
                 "cells": cells, "levels": levels, "strength": sorted(levels), "in_place": binding["in_place"],
                 "strong": binding["strong"],
@@ -763,10 +797,12 @@ def _whole_chains(graph: ClaimGraph, links: list[dict[str, Any]], inventory: _In
         many kinds of record show its factor in place."""
         return ([-x for x in row["strength"]], not row["strong"], -len(row["in_place"]))
 
-    chains.sort(key=lambda r: (*standing_of(r), -sum(c["settled"] for c in r["cells"].values()), r["order"]))
+    chains.sort(key=lambda r: (*standing_of(r), not r.get("joined"),
+                               -sum(c["settled"] for c in r["cells"].values()), r["order"]))
     same: dict[tuple, list[int]] = {}
     for i, row in enumerate(chains):
-        same.setdefault((tuple(row["strength"]), row["strong"], len(row["in_place"])), []).append(i)
+        same.setdefault((tuple(row["strength"]), row["strong"], len(row["in_place"]), bool(row.get("joined"))),
+                        []).append(i)
     for tied in same.values():
         for i in tied:
             chains[i]["rank"], chains[i]["ties"] = tied[0] + 1, len(tied)
@@ -787,11 +823,22 @@ def _whole_chains(graph: ClaimGraph, links: list[dict[str, Any]], inventory: _In
             where = " and the ".join(DIFFER_WORDS.get(k, LINK_LOWER[k]) for k in differ)
             headline += f" They differ {'only ' if len(differ) == 1 else ''}in the {where}."
     same_kinds = len({tuple(r["cells"][k]["kind"] for k in LINK_KEYS) for r in leaders}) == 1
-    return {
-        "rule": RANK_RULE, "chains": chains, "total": len(chains), "leaders": len(leaders), "headline": headline,
+    out = {
+        "rule": RANK_RULE + (JOIN_RULE if joins else ""), "chains": chains, "total": len(chains),
+        "leaders": len(leaders), "headline": headline,
         "differ": differ, "strip": [_merged([r["cells"][k] for r in leaders]) for k in LINK_KEYS],
         "support": leaders[0]["support"] if same_kinds else None, "left_out": left_out, "unclaimed": unclaimed,
     }
+    joined = leaders[0].get("joined") or []
+    if joined:
+        # whether the record decided the first place: are there chains equal to it in everything else?
+        first = leaders[0]
+        beat = sum(1 for r in chains if not r.get("joined") and standing_of(r) == standing_of(first))
+        sources = sorted({s for e in joined for s in graph.evidence[e].source_ids[:1]})
+        out["join"] = (f"{len(joined)} experiment(s) read from articles changed this chain's TF and saw its gene "
+                       f"change ({', '.join(sources)})"
+                       + (f", which puts it before {beat} chain(s) that are otherwise its equal." if beat else "."))
+    return out
 
 
 FACTOR_CAP = 12                                           # TFs looked up and listed per run

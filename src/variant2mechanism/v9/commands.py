@@ -170,6 +170,7 @@ class Wiring:
     critic_settings: dict[str, Any] | None = None
     judge: R.RoleCaller | None = None            # the fill's judge, on another client of the same model (judge.py)
     judge_settings: dict[str, Any] | None = None
+    loop: Any = None                             # the fill's loop, once a run has built it (loop.Loop)
 
     def engine(self) -> Engine:
         """A new Engine for one run (one RoleCaller and one Engine per run)."""
@@ -191,7 +192,8 @@ class Wiring:
 def wire(cfg: Config, mode: RunMode, run_dir: Path, *, http: Http9 | None = None, models: bool = True,
          fixture: Fixture | None = None, recorded: Path | None = None, limits: EngineLimits | None = None,
          tool_limits: ToolLimits | None = None, code_tools: bool = False,
-         critic: Mapping[str, Any] | bool = False, judge: Mapping[str, Any] | bool = False) -> Wiring:
+         critic: Mapping[str, Any] | bool = False, judge: Mapping[str, Any] | bool = False,
+         models_offline: bool = False) -> Wiring:
     """Build one run's parts on `run_dir` (an existing, new folder: the runner writes raw/ there).
 
     - With `fixture`: the fixture's tools (or, with `recorded`, a saved fixture bundle's answers) and its scripted
@@ -207,7 +209,9 @@ def wire(cfg: Config, mode: RunMode, run_dir: Path, *, http: Http9 | None = None
     `critic` adds the fill's critic (critic.py): a second model client with the critic's provider and model (the
     config's, or the settings given: a saved run's, for its replay), live or cache-only as the first one is, on the
     same trace and budget. `judge` adds the fill's judge (judge.py) the same way: the second model's settings on a
-    client of its own."""
+    client of its own. `models_offline`: in live mode, the tools use the network and no model is ever sent a
+    request (replies come from the response cache or the call fails): what a dry run of the loop needs, so that
+    looking at what it would read costs nothing."""
     limits = limits or EngineLimits.from_config(cfg)
     tool_limits = tool_limits or limits.tool_limits()
     trace = run_dir / "trace.jsonl"
@@ -235,10 +239,11 @@ def wire(cfg: Config, mode: RunMode, run_dir: Path, *, http: Http9 | None = None
             runner = ToolRunner(cfg, mode, http, run_dir, limits=tool_limits, registry=registry,
                                 allowed_tools=allowed)
         client = None
-        if models and mode == "live" and recorded is None:
+        if models and mode == "live" and recorded is None and not models_offline:
             client = LLMClient(cfg, phase="dev", trace_path=trace)
         elif models:
-            what = "this replay" if recorded is not None else "a cache-only run"
+            what = ("this replay" if recorded is not None else
+                    "a dry run" if models_offline and mode == "live" else "a cache-only run")
             client = LLMClient(cfg, transport=refusing(what), phase="dev", trace_path=trace,
                                budget=Budget(run_dir / "budget.json", {"dev": OFFLINE_BUDGET_USD}))
         wiring = Wiring(cfg, mode, run_dir, limits, runner, adapters.collect_facts, default_resolver(cfg),
@@ -248,7 +253,7 @@ def wire(cfg: Config, mode: RunMode, run_dir: Path, *, http: Http9 | None = None
     def second_model(given: Mapping[str, Any] | bool) -> tuple[R.RoleCaller, dict[str, Any]]:
         """A role caller on a client of the second model (critic.critic_config), with the settings it runs with."""
         from . import critic as K
-        live = mode == "live" and recorded is None
+        live = mode == "live" and recorded is None and not models_offline
         chosen = {**K.settings(cfg), **(given if isinstance(given, Mapping) else {})}
         second = K.critic_config(cfg, chosen, offline=not live)
         client = (LLMClient(second, phase="dev", trace_path=trace) if live else
@@ -427,7 +432,8 @@ def reader_limits(cfg: Mapping[str, Any], articles: int) -> ToolLimits:
 
 
 def _start(args: Any, *, models: bool, code_tools: bool = False, articles: int | None = None,
-           critic: bool = False, judge: bool = False) -> tuple[Wiring, Request, Case, str | None]:
+           critic: bool = False, judge: bool = False, models_offline: bool = False
+           ) -> tuple[Wiring, Request, Case, str | None]:
     """Config, intake and a new run folder for `run`, `evidence` and `fill`. Raises IntakeError, ConfigError,
     FileExistsError or ValueError (a refused request or setting). `articles`: the reader's cap, for `fill --read`;
     `critic`: whether the fill has its second reading (`fill --read --critic`); `judge`: whether it has a tie read
@@ -445,7 +451,8 @@ def _start(args: Any, *, models: bool, code_tools: bool = False, articles: int |
     run_dir = new_run_dir(out or cfg.path("v9", "runs_dir") / case.case_id)
     tool_limits = reader_limits(cfg, articles) if articles else None
     return (wire(cfg, mode, run_dir, http=http, models=models, code_tools=code_tools, tool_limits=tool_limits,
-                 critic=critic, judge=judge), request, case, _profile_name(args.profile))
+                 critic=critic, judge=judge, models_offline=models_offline), request, case,
+            _profile_name(args.profile))
 
 
 # --- the commands ------------------------------------------------------------------------------------------------------
@@ -483,25 +490,62 @@ def evidence_command(args: Any) -> int:
     return exit_code(graph, reported)
 
 
-def fill_graph(w: Wiring, case: Case, *, articles: int | None = None) -> tuple[ClaimGraph, dict[str, Any]]:
+def fill_graph(w: Wiring, case: Case, *, articles: int | None = None,
+               loop: Mapping[str, Any] | None = None, skip_unread: bool = False
+               ) -> tuple[ClaimGraph, dict[str, Any]]:
     """The fill of one case on a wiring built with code_tools: the evidence bundle, then fill.run, with the reader
     when `articles` (its cap) is given and the wiring has a model client, and with the critic and the judge when the
-    wiring has them. Returns the graph and the fill's counts (empty when the input could not be assessed). A replay
-    runs exactly this again."""
+    wiring has them. `loop` (its settings: planner, rounds, articles, dry) adds the loop that goes back for articles
+    after the first reading (loop.py); it needs the reader. `skip_unread`: an article whose reading the response
+    cache does not hold is listed as not read and the run goes on, where a cache-only run otherwise stops at it.
+    Returns the graph and the fill's counts (empty when the input could not be assessed). A replay runs exactly
+    this again."""
     from . import fill
     graph = w.graph(case)
     collect_evidence(graph, w.runner)
-    reader = critic = judge = None
+    reader = critic = judge = again = None
     if articles and w.roles is not None:
         from .reader import Reader
         reader = Reader(w.roles, w.runner, max_articles=articles)
+        reader.keep_going = skip_unread or bool(loop and loop.get("dry"))
         if w.critic is not None:
             from .critic import Critic
             critic = Critic(w.critic, w.runner.run_dir)
         if w.judge is not None:
             from .judge import Judge
             judge = Judge(w.judge, w.runner.run_dir)
-    return graph, (fill.run(graph, w.runner, reader, critic, judge) if graph.result is None else {})
+        if loop is not None:
+            from .loop import Loop
+            again = Loop(w.roles if loop.get("planner") == "model" else None, max_rounds=int(loop["rounds"]),
+                         round_articles=int(loop["articles"]), dry=bool(loop.get("dry")))
+            w.loop = again
+    return graph, (fill.run(graph, w.runner, reader, critic, judge, again) if graph.result is None else {})
+
+
+def loop_settings(args: Any, read: bool) -> dict[str, Any] | None:
+    """The loop's settings from the command line (`fill --read --loop ...`), or None without --loop. A dry run
+    plans by code: no model is sent anything in one."""
+    from . import loop as LP
+    who = getattr(args, "loop", None)
+    dry = bool(getattr(args, "loop_dry", False))
+    rounds, per_round = getattr(args, "loop_rounds", None), getattr(args, "loop_articles", None)
+    if who is None:
+        if dry or rounds is not None or per_round is not None:
+            raise ValueError("--loop-rounds, --loop-articles and --loop-dry need --loop")
+        return None
+    if not read:
+        raise ValueError("--loop goes back for articles after the first reading, so it needs --read")
+    rounds = LP.MAX_ROUNDS if rounds is None else rounds
+    per_round = LP.ROUND_ARTICLES if per_round is None else per_round
+    if rounds < 1 or per_round < 1:
+        raise ValueError("--loop-rounds and --loop-articles must be at least 1")
+    return {"planner": "code" if dry else who, "rounds": rounds, "articles": per_round, "dry": dry}
+
+
+def loop_room(settings: Mapping[str, Any]) -> int:
+    """The articles a loop may fetch beyond the first reading's: what its rounds read, and the reviews they open."""
+    from . import loop as LP
+    return int(settings["rounds"]) * (int(settings["articles"]) + LP.FOLLOW_REVIEWS)
 
 
 def fill_manifest(w: Wiring, counts: Mapping[str, Any], articles: int | None) -> dict[str, Any]:
@@ -520,8 +564,12 @@ def fill_manifest(w: Wiring, counts: Mapping[str, Any], articles: int | None) ->
     if w.judge is not None:
         from . import judge
         third = judge.manifest_parts(w.judge, w.judge_settings or {})
+    again = None
+    if w.loop is not None:
+        from . import loop
+        again = loop.manifest_parts(w.loop.planner, w.loop)
     return fill.manifest_parts(counts, reader.manifest_parts(w.roles, articles),
-                               w.runner.limits.model_dump(mode="json"), second, third)
+                               w.runner.limits.model_dump(mode="json"), second, third, again)
 
 
 def model_metrics(w: Wiring) -> dict[str, Any]:
@@ -570,11 +618,14 @@ def fill_command(args: Any) -> int:
             raise ValueError("--critic checks what the reader files, so it needs --read")
         if third and not read:
             raise ValueError("--judge reads the experiments the reader files, so it needs --read")
-        w, request, case, profile = _start(args, models=read, code_tools=True, articles=articles, critic=second,
-                                           judge=third)
+        again = loop_settings(args, read)
+        room = articles + loop_room(again) if articles and again else articles
+        w, request, case, profile = _start(args, models=read, code_tools=True, articles=room, critic=second,
+                                           judge=third, models_offline=bool(again and again["dry"]))
     except (IntakeError, ConfigError, FileExistsError, ValueError) as e:
         return _refused("fill", e)
-    graph, counts = fill_graph(w, case, articles=articles)
+    graph, counts = fill_graph(w, case, articles=articles, loop=again,
+                               skip_unread=bool(getattr(args, "skip_unread", False)))
     metrics = {"wall_seconds": round(time.monotonic() - started, 3), "fill": counts, **model_metrics(w),
                **({"http": w.http_counts()} if w.http is not None else {})}
     reported = save(w, graph, metrics, fill_manifest(w, counts, articles),

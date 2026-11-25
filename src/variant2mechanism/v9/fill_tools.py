@@ -13,6 +13,9 @@ with them every saved prompt, stay as they are.
     gene_disease        Open Targets' direct evidence that a gene bears on a disease or trait
     adastra_asb         ADASTRA's allele-specific ChIP-seq binding calls at the variant, one record per TF
 
+The sources added in the second version of the fill (UDACHA, MaveDB, protein QTLs, cBioPortal, LitVar) are in
+fill_sources.py and are registered here with the rest.
+
 The three bulk tools add no rule of their own: they run the adapter's own code and return its Evidence unchanged, so
 an item one of them returns and the item its single-question tool returns are one record in the graph.
 
@@ -63,7 +66,7 @@ from functools import lru_cache
 from typing import Any
 
 from ..context import genetics
-from . import adapters, http9, literature, proteins  # noqa: F401  (literature registers its tools in the registry)
+from . import adapters, fill_sources, http9, literature, proteins  # noqa: F401  (literature registers its tools)
 from .qbic_reader import reader_for
 from .schemas import ContextScope, Coverage, Evidence
 from .tools import REGISTRY, AdapterResult, ParamSpec, ToolContext, ToolRegistry, ToolSpec
@@ -547,7 +550,8 @@ def adastra_asb(params: dict, ctx: ToolContext) -> AdapterResult:
 
 CODE_TOOLS: tuple[tuple[ToolSpec, Any], ...] = (
     (TF_OCCUPANCY_SET, tf_occupancy_set), (TF_EXPRESSION_SET, tf_expression_set),
-    (CREDIBLE_SETS_ALL, credible_sets_all), (GENE_DISEASE, gene_disease), (ADASTRA_ASB, adastra_asb))
+    (CREDIBLE_SETS_ALL, credible_sets_all), (GENE_DISEASE, gene_disease), (ADASTRA_ASB, adastra_asb),
+    *fill_sources.SOURCE_TOOLS)
 CODE_TOOL_NAMES: tuple[str, ...] = tuple(spec.name for spec, _ in CODE_TOOLS)
 
 

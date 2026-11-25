@@ -85,6 +85,8 @@ llm:
     anthropic/claude-haiku-5.5: {input: 0.10, output: 0.50}
     openai/gpt-6-luna: {input: 0.10, output: 0.50}           # prompts over 272k tokens: $0.20/$0.75
     claude-opus-5: {input: 5.0, output: 25.0}                # Anthropic API list price, 3 Nov 2026
+    claude-haiku-5-5: {input: 0.10, output: 0.50}            # Anthropic API list price, 25 Nov 2026 (prompts of
+                                  # 100k tokens or fewer)
     claude-sonnet-5-5: {input: 2.0, output: 10.0,            # Anthropic API list price, 3 Nov 2026
                         cache_read: 0.10, cache_write: 2.50} # prompt cache: a read, and a 5-minute write (22 Nov 2026)
   openrouter:
@@ -205,6 +207,17 @@ profiles:                         # `--profile NAME` merges one of these over th
       eval: 0.0                   # an evaluation grid needs its own budget, set before it runs
       spare: 0.0
       state_file: state/budget_release.json
+  haiku:                          # the fill's reader, planner and joiner on Claude Haiku 5.5 through the Anthropic
+                                  # API, key V2M_ANTHROPIC_API_KEY (added 25 Nov 2026 for the runs of the loop and
+                                  # the joiner; no run has used it yet). It lists at GPT-6 Luna's price. The
+                                  # critic and the judge stay on Claude Sonnet 5.5 (v9.critic)
+    llm: {api: anthropic, generator: claude-haiku-5-5, critic: claude-haiku-5-5, summariser: claude-haiku-5-5}
+    v9: {runs_dir: runs/dev_v9_haiku}
+    budget_usd:
+      dev: 5.00                   # the whole budget for these runs, set 25 Nov 2026
+      eval: 0.0
+      spare: 0.0
+      state_file: state/budget_haiku.json
   claude:                         # the default until 26 Oct 2026. The first grids (runs/eval) called the Anthropic
                                   # API directly with claude-opus-5, claude-sonnet-5-5 and claude-haiku-5-5; the
                                   # same models now go through OpenRouter

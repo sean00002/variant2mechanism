@@ -1762,6 +1762,16 @@ class RoleCaller:
         model's client: counted under the role "judge", with that client's critic settings."""
         return self._call("judge", "tie", system, packet, model, check, key_role="critic")
 
+    def join(self, system: str, packet: str, model: type[Strict], check: Callable) -> Any:
+        """One article read for one TF and gene by the fill's joiner (joiner.py, which owns the prompt and the
+        output model): counted under the role "joiner", with the model settings of the literature investigator."""
+        return self._call("joiner", "join", system, packet, model, check, key_role="literature_investigator")
+
+    def plan_round(self, system: str, packet: str, model: type[Strict], check: Callable) -> Any:
+        """One round of the fill's loop planned (loop.py, which owns the prompt and the output model): counted under
+        the role "planner", with the model settings of the coordinator."""
+        return self._call("planner", "loop_plan", system, packet, model, check, key_role="coordinator")
+
     def _fail(self, role: str, stage: str, kind: str, message: str) -> None:
         self.last_error = f"{kind}: {message}"[:600]
         self.failures.append({"role": role, "stage": stage, "kind": kind, "message": message[:600]})

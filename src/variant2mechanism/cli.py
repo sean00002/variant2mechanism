@@ -114,8 +114,8 @@ def add_v9_parser(sub) -> None:
                                 "a model reads each one once (one call per article), returning the experiments it "
                                 "reports; code checks, files and links them")
             c.add_argument("--max-articles", type=int, default=None,
-                           help="with --read: the most articles sent to the model in one run (default 20: every "
-                                "article the two searches can list)")
+                           help="with --read: the most articles sent to the model in one run (default 30: every "
+                                "article the three searches can list)")
             c.add_argument("--critic", action="store_true",
                            help="with --read: a second model, from another provider (v9.critic in config.yaml), "
                                 "reads each experiment that is the only record behind a cell against the claims it "
@@ -125,6 +125,21 @@ def add_v9_parser(sub) -> None:
                            help="with --read: when chains tie for first, the second model reads the experiments no "
                                 "cell counts for the tied TFs and genes and says which of them an experiment ties to "
                                 "the variant's site; the answer is written under the tie and changes no cell")
+            c.add_argument("--skip-unread", action="store_true",
+                           help="with --read in cache-only mode: an article whose reading is not saved is listed "
+                                "as not read and the run goes on (without this a cache-only run stops at it); for "
+                                "filing saved readings again under changed code, at no cost")
+            c.add_argument("--loop", choices=["model", "code"], default=None,
+                           help="with --read: after the first reading, go back for articles where the leading "
+                                "chains tie or are weakest, for a few rounds. model: a planner model picks from "
+                                "the menu code lists; code: the menu is taken in its own order (the baseline)")
+            c.add_argument("--loop-rounds", type=int, default=None, help="with --loop: the most rounds (default 3)")
+            c.add_argument("--loop-articles", type=int, default=None,
+                           help="with --loop: the most new articles one round sends to the reader (default 10)")
+            c.add_argument("--loop-dry", action="store_true",
+                           help="with --loop: plan the first round and run its searches, read nothing new and send "
+                                "no model any request (replies come from the response cache); for seeing what a "
+                                "round would read before paying for it")
     rep = v9sub.add_parser("report", help="render report.html and report.md from a saved v9 run folder")
     rep.add_argument("--run", required=True, help="a v9 run folder")
     rep.add_argument("--out", help="a new folder for a render-only report (default: the run folder, where existing "

@@ -1,12 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" width="960" height="340" role="img"
      aria-labelledby="pipe-title pipe-desc" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
-  <title id="pipe-title">The pipeline: code fills and ranks, three model roles read and check</title>
-  <desc id="pipe-desc">Five steps from a variant to a chain table. 1, code fills the table from databases and
-    QBiC-SELEX. 2, a first model reads each paper once. 3, a second model re-reads the records a cell depends on
-    alone. 4, code orders the chains by their weakest link. 5, the second model reads ties for first.</desc>
+  <title id="pipe-title">The pipeline: code fills and ranks, five model roles read, plan and check</title>
+  <desc id="pipe-desc">Six steps from a variant to a chain table. 1, code fills the table from databases and
+    QBiC-SELEX. 2, the reader model reads each paper once. 3, a planner model picks where to search again, and the
+    reader and a joiner model read what is found, for up to three rounds. 4, a critic model from another provider
+    re-reads the records a cell depends on alone. 5, code orders the chains by their weakest link, and a record that
+    joins a TF to a gene breaks ties. 6, a judge model reads ties for first.</desc>
   <defs>
     <marker id="pipe-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#90b4ce"/>
+    </marker>
+    <marker id="pipe-back" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#094067"/>
     </marker>
   </defs>
 
@@ -23,84 +28,99 @@
   <text x="47" y="70" font-size="10.5" font-weight="700" fill="#fffffe" text-anchor="middle" letter-spacing="0.8">IN</text>
   <text x="74" y="70.5" font-size="12.5" fill="#5f6c7b">a variant, with an optional trait or disease and an optional cell context</text>
 
-  <!-- 1 Fill: code -->
+  <!-- 1 Fill -->
   <g transform="translate(30 88)">
-    <rect width="164" height="176" rx="12" fill="#fffffe" stroke="#3da9fc" stroke-width="1.8"/>
-    <circle cx="27" cy="30" r="14" fill="#3da9fc"/>
-    <text x="27" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">1</text>
-    <text x="50" y="35.5" font-size="15.5" font-weight="700" fill="#094067">Fill</text>
-    <text x="16" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">CODE</text>
-    <g font-size="12.5" fill="#094067">
-      <text x="16" y="90">Asks the databases</text>
-      <text x="16" y="109">and QBiC-SELEX, and</text>
-      <text x="16" y="128">states every claim a</text>
-      <text x="16" y="147">record can support.</text>
+    <rect width="140" height="176" rx="12" fill="#fffffe" stroke="#3da9fc" stroke-width="1.8"/>
+    <circle cx="25" cy="30" r="14" fill="#3da9fc"/>
+    <text x="25" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">1</text>
+    <text x="46" y="35.5" font-size="15" font-weight="700" fill="#094067">Fill</text>
+    <text x="14" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">CODE</text>
+    <g font-size="12" fill="#094067">
+      <text x="14" y="90">Asks the databases</text>
+      <text x="14" y="109">and QBiC-SELEX,</text>
+      <text x="14" y="128">then states every</text>
+      <text x="14" y="147">claim with a record.</text>
     </g>
   </g>
-  <line x1="197" y1="176" x2="210" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
+  <line x1="171" y1="176" x2="178" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
+  <!-- 2 Read -->
+  <g transform="translate(182 88)">
+    <rect width="140" height="176" rx="12" fill="#fffffe" stroke="#ef4565" stroke-width="1.8"/>
+    <circle cx="25" cy="30" r="14" fill="#ef4565"/>
+    <text x="25" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">2</text>
+    <text x="46" y="35.5" font-size="15" font-weight="700" fill="#094067">Read</text>
+    <text x="14" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">READER</text>
+    <g font-size="12" fill="#094067">
+      <text x="14" y="90">Reads each paper</text>
+      <text x="14" y="109">once. Code copies</text>
+      <text x="14" y="128">its sentences and</text>
+      <text x="14" y="147">checks every field.</text>
+    </g>
+  </g>
+  <line x1="323" y1="176" x2="330" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
+  <!-- 3 Go back -->
+  <g transform="translate(334 88)">
+    <rect width="140" height="176" rx="12" fill="#fffffe" stroke="#ef4565" stroke-width="1.8"/>
+    <circle cx="25" cy="30" r="14" fill="#ef4565"/>
+    <text x="25" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">3</text>
+    <text x="46" y="35.5" font-size="15" font-weight="700" fill="#094067">Go back</text>
+    <text x="14" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">PLANNER, JOINER</text>
+    <g font-size="12" fill="#094067">
+      <text x="14" y="90">Searches again</text>
+      <text x="14" y="109">where chains tie</text>
+      <text x="14" y="128">or are weak, for</text>
+      <text x="14" y="147">up to 3 rounds.</text>
+    </g>
+  </g>
+  <line x1="475" y1="176" x2="482" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
+  <!-- 4 Check -->
+  <g transform="translate(486 88)">
+    <rect width="140" height="176" rx="12" fill="#fffffe" stroke="#ef4565" stroke-width="1.8"/>
+    <circle cx="25" cy="30" r="14" fill="#ef4565"/>
+    <text x="25" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">4</text>
+    <text x="46" y="35.5" font-size="15" font-weight="700" fill="#094067">Check</text>
+    <text x="14" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">CRITIC</text>
+    <g font-size="12" fill="#094067">
+      <text x="14" y="90">Re-reads a record</text>
+      <text x="14" y="109">that a cell depends</text>
+      <text x="14" y="128">on alone. It can</text>
+      <text x="14" y="147">remove, never add.</text>
+    </g>
+  </g>
+  <line x1="627" y1="176" x2="634" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
+  <!-- 5 Order -->
+  <g transform="translate(638 88)">
+    <rect width="140" height="176" rx="12" fill="#fffffe" stroke="#3da9fc" stroke-width="1.8"/>
+    <circle cx="25" cy="30" r="14" fill="#3da9fc"/>
+    <text x="25" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">5</text>
+    <text x="46" y="35.5" font-size="15" font-weight="700" fill="#094067">Order</text>
+    <text x="14" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">CODE</text>
+    <g font-size="12" fill="#094067">
+      <text x="14" y="90">A chain for every</text>
+      <text x="14" y="109">TF and gene.</text>
+      <text x="14" y="128">Weakest link first.</text>
+      <text x="14" y="147">A join breaks ties.</text>
+    </g>
+  </g>
+  <line x1="779" y1="176" x2="786" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
+  <!-- 6 Read a tie -->
+  <g transform="translate(790 88)">
+    <rect width="140" height="176" rx="12" fill="#fffffe" stroke="#ef4565" stroke-width="1.8"/>
+    <circle cx="25" cy="30" r="14" fill="#ef4565"/>
+    <text x="25" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">6</text>
+    <text x="46" y="35.5" font-size="15" font-weight="700" fill="#094067">Read a tie</text>
+    <text x="14" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">JUDGE</text>
+    <g font-size="12" fill="#094067">
+      <text x="14" y="90">Reads what no cell</text>
+      <text x="14" y="109">counts, in both</text>
+      <text x="14" y="128">orders, beside a</text>
+      <text x="14" y="147">made-up candidate.</text>
+    </g>
+  </g>
 
-  <!-- 2 Read: first model -->
-  <g transform="translate(214 88)">
-    <rect width="164" height="176" rx="12" fill="#fffffe" stroke="#ef4565" stroke-width="1.8"/>
-    <circle cx="27" cy="30" r="14" fill="#ef4565"/>
-    <text x="27" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">2</text>
-    <text x="50" y="35.5" font-size="15.5" font-weight="700" fill="#094067">Read</text>
-    <text x="16" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">FIRST MODEL</text>
-    <g font-size="12.5" fill="#094067">
-      <text x="16" y="90">Reads each paper once.</text>
-      <text x="16" y="109">Code copies the</text>
-      <text x="16" y="128">sentences it points to</text>
-      <text x="16" y="147">and checks every field.</text>
-    </g>
-  </g>
-  <line x1="381" y1="176" x2="394" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
-
-  <!-- 3 Check: second model -->
-  <g transform="translate(398 88)">
-    <rect width="164" height="176" rx="12" fill="#fffffe" stroke="#ef4565" stroke-width="1.8"/>
-    <circle cx="27" cy="30" r="14" fill="#ef4565"/>
-    <text x="27" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">3</text>
-    <text x="50" y="35.5" font-size="15.5" font-weight="700" fill="#094067">Check</text>
-    <text x="16" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">SECOND MODEL</text>
-    <g font-size="12.5" fill="#094067">
-      <text x="16" y="90">Re-reads each record</text>
-      <text x="16" y="109">a cell depends on alone.</text>
-      <text x="16" y="128">It can remove or</text>
-      <text x="16" y="147">repair, never add.</text>
-    </g>
-  </g>
-  <line x1="565" y1="176" x2="578" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
-
-  <!-- 4 Order: code -->
-  <g transform="translate(582 88)">
-    <rect width="164" height="176" rx="12" fill="#fffffe" stroke="#3da9fc" stroke-width="1.8"/>
-    <circle cx="27" cy="30" r="14" fill="#3da9fc"/>
-    <text x="27" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">4</text>
-    <text x="50" y="35.5" font-size="15.5" font-weight="700" fill="#094067">Order</text>
-    <text x="16" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">CODE</text>
-    <g font-size="12.5" fill="#094067">
-      <text x="16" y="90">Builds a chain for</text>
-      <text x="16" y="109">every TF and gene.</text>
-      <text x="16" y="128">Weakest link first.</text>
-      <text x="16" y="147">Equal chains tie.</text>
-    </g>
-  </g>
-  <line x1="749" y1="176" x2="762" y2="176" stroke="#90b4ce" stroke-width="2" marker-end="url(#pipe-arrow)"/>
-
-  <!-- 5 Read a tie: second model -->
-  <g transform="translate(766 88)">
-    <rect width="164" height="176" rx="12" fill="#fffffe" stroke="#ef4565" stroke-width="1.8"/>
-    <circle cx="27" cy="30" r="14" fill="#ef4565"/>
-    <text x="27" y="35" font-size="14.5" font-weight="700" fill="#fffffe" text-anchor="middle">5</text>
-    <text x="50" y="35.5" font-size="15.5" font-weight="700" fill="#094067">Read a tie</text>
-    <text x="16" y="64" font-size="10.5" font-weight="700" fill="#5f6c7b" letter-spacing="0.9">SECOND MODEL</text>
-    <g font-size="12.5" fill="#094067">
-      <text x="16" y="90">Reads what no cell</text>
-      <text x="16" y="109">counts, in both orders,</text>
-      <text x="16" y="128">beside a made-up</text>
-      <text x="16" y="147">candidate.</text>
-    </g>
-  </g>
+  <!-- step 3 goes back to step 2 -->
+  <path d="M 404 86 V 80 H 252 V 85" fill="none" stroke="#094067" stroke-width="1.8"
+        stroke-dasharray="5 4" marker-end="url(#pipe-back)"/>
 
   <rect x="30" y="280" width="42" height="20" rx="10" fill="#094067"/>
   <text x="51" y="294" font-size="10.5" font-weight="700" fill="#fffffe" text-anchor="middle" letter-spacing="0.8">OUT</text>

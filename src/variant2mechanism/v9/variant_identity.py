@@ -91,6 +91,17 @@ def catalogue_identity(hit, detail, graph):
             "placement_call": matched[0][0] if len(matched) == 1 else None}
 
 
+def verified_aliases(graph):
+    """The names a catalogue lists for the case variant in a record it verified by position (catalogue_identity),
+    each once. An article that uses one may be about the variant; _catalogue_map decides that when a record is
+    filed. They are names to search and to choose passages by, never proof on their own."""
+    v = graph.case.variant
+    found = [str(a) for t in graph.tool_calls.values() if t.execution_status == "success" for o in t.observations
+             if o.get("record") == "variant_alias_identity" and o.get("status") == "verified_same"
+             and o.get("case_key") == v.key for a in o.get("aliases") or [] if str(a).strip()]
+    return list(dict.fromkeys(found))
+
+
 def identity_lines(graph):
     """Identity observations stay separate from biological Evidence and are visible to every investigator."""
     import json
@@ -142,6 +153,107 @@ def _catalogue_map(evidence, graph, article):
                         "verified substitution/build; the original experiment notation is retained."]})
 
 
+# --- an article's own name for a mutation ----------------------------------------------------------------------------
+
+MINED_TOOL = "litvar_mentions"       # the lookup that lists how one article writes the case variant (fill_sources)
+MINED_STATUS = "text_mined"          # variant_identity_status of a record identified by an article's own name
+# The base change a mutation's name writes: an arrow between two single bases ("-124C>T", "c.-124C > T", "C→T"), or
+# the shorthand of a base, a number and a base ("C228T"). A protein change ("p.C228T") writes none.
+_CHANGE_ARROW = re.compile(r"(?<![A-Za-z])([ACGT])\s?(?:>|->|→)\s?([ACGT])(?![A-Za-z])", re.I)
+_CHANGE_SHORT = re.compile(r"(?<![A-Za-z0-9.])([ACGT])-?\d+([ACGT])(?![A-Za-z0-9])", re.I)
+_PROTEIN_NAME = re.compile(r"(?<![A-Za-z])p\.", re.I)
+
+
+def name_change(name):
+    """The one base change a mutation's name writes, as (from, to), or None when it writes none ("-124 C",
+    "cytosine located -124"), more than one ("C250T/C228T" names two mutations), or a protein change."""
+    text = str(name or "")
+    if _PROTEIN_NAME.search(text):
+        return None
+    found = [(m[1].upper(), m[2].upper()) for pattern in (_CHANGE_ARROW, _CHANGE_SHORT)
+             for m in pattern.finditer(text)]
+    return found[0] if len(found) == 1 and found[0][0] != found[0][1] else None
+
+
+def _text_mined_map(evidence, graph, article):
+    """An article's own name for a mutation ("-124C>T"), taken as the case variant when two checks pass.
+
+    Articles on a somatic mutation seldom write an rsID or a position, so the rules above refuse their experiments
+    one after another: for TERT C228T, 16 reporter, pull-down and base-editing results were found, read and then
+    lost for that reason alone. The literature route keeps such a record under the article's own name, with its
+    identity unresolved (data.text_mined_names), and this rule resolves it:
+
+    1. the tie is on file. A successful lookup of this very article (MINED_TOOL: NCBI's text mining, PubTator)
+       lists that spelling among the ones it normalises to one of the case variant's rsIDs. The spelling was also
+       found in the article as retrieved, in the quotation or in its paragraph, heading or caption (literature);
+    2. the base change the name writes is the case variant's, reference to alternate, on one strand or the other.
+       "-124C>T" is G>A on the forward strand. The reverse order (alternate to reference) is not taken.
+
+    Not taken, and the record stays unresolved with the reason as a limitation: a variant whose two alleles are each
+    other's complements (A/T, C/G: the change reads the same on both strands, so it cannot say which strand a name
+    is on); a record that also names another variant or a shorthand no text mining ties; and a record whose allele
+    is a base the name does not write (it could be a third allele at the position).
+
+    Text mining can tie a name to the wrong variant, and the second check catches only some of those: one wrong
+    single-base change in six would pass it. So every record identified this way says so (data.variant_identity,
+    basis "text_mined_name"; variant_identity_status MINED_STATUS, never "verified_same") and the table prints it
+    with the record. The experiment record keeps the article's notation."""
+    named = evidence.data.get("text_mined_names") or []
+    v = graph.case.variant
+    if (not named or article is None or evidence.data.get("variant_identity") or v.variant_type != "SNV"
+            or evidence.data.get("variant_identity_status") != "unresolved"):
+        return evidence
+
+    def unresolved(why):
+        return evidence.model_copy(update={"limitations": [*evidence.limitations, why]})
+
+    written = ", ".join(f"\"{n['spelling']}\"" for n in named)
+    labels = {f"paper:{article.key}:{n['name']}" for n in named}
+    if set(evidence.about_variants) != labels or evidence.data.get("paper_variant_names"):
+        return unresolved(f"The article's name {written} is not taken as the variant asked about: the record also "
+                          "names another variant.")
+    pmid = str(getattr(article, "pmid", None) or "")
+    listed = {str(o.get("text")): t.tool_call_id for t in graph.tool_calls.values()
+              if t.tool_name == MINED_TOOL and t.execution_status == "success"
+              and str(t.query_parameters.get("pmid") or "") == pmid
+              for o in t.observations if o.get("record") == "spelling"}
+    if not pmid or any(n["spelling"] not in listed for n in named):
+        return unresolved(f"The article's name {written} is not taken as the variant asked about: no text-mining "
+                          "lookup of this article on file ties it to the variant.")
+    case, other = (v.ref, v.alt), (complement(v.ref), complement(v.alt))
+    if set(case) == set(other):
+        return unresolved(f"The article's name {written} is not taken as the variant asked about: {v.ref}>{v.alt} "
+                          "reads the same on both strands, so a base change cannot say which strand the name is on.")
+    changes = {name_change(n["spelling"]) for n in named}
+    if len(changes) != 1 or (pair := next(iter(changes))) not in (case, other):
+        wrote = ", ".join(sorted(f"{p[0]}>{p[1]}" if p else "none" for p in changes))
+        return unresolved(f"The article's name {written} is not taken as the variant asked about: the base change "
+                          f"it writes ({wrote}) is not {v.ref}>{v.alt} on either strand.")
+    flip = pair != case
+    allele = (evidence.allele or "").upper()
+    placed = evidence.allele
+    if allele in BASES:
+        if allele not in pair:                  # a base the name does not write could be a third allele
+            return unresolved(f"The article's name {written} is not taken as the variant asked about: the record's "
+                              f"allele {allele} is not a base of that name ({pair[0]}>{pair[1]}).")
+        placed = complement(allele) if flip else allele
+    rsids = [r for r in [v.rsid, *sorted(graph.variant_aliases)] if r]
+    proof = {"basis": "text_mined_name", "paper_variants": [n["spelling"] for n in named],
+             "written_in": sorted({n.get("written_in", "") for n in named}),
+             "rsids": rsids, "source": f"PubTator annotations of PMID:{pmid}",
+             "tool_call": listed[named[0]["spelling"]], "paper_change": list(pair), "case_alleles": list(case),
+             "case_key": v.key, "paper_to_case_strand_flip": flip, "paper_allele": evidence.allele,
+             "case_allele": placed}
+    note = (f"The article names the mutation {written}. NCBI's text mining (PubTator) ties that name to "
+            f"{' / '.join(rsids) or 'the variant'} in this article, and the base change it writes "
+            f"({pair[0]}>{pair[1]}) is {v.ref}>{v.alt} on the {'other' if flip else 'same'} strand: taken as this "
+            "variant on those two checks. Text mining can be wrong. The experiment record keeps the article's "
+            "notation.")
+    return evidence.model_copy(update={"about_variants": [v.key], "allele": placed,
+        "data": {**evidence.data, "variant_identity": proof, "variant_identity_status": MINED_STATUS},
+        "limitations": [*evidence.limitations, note]})
+
+
 def named_alleles(text):
     """The single-base alleles a passage names as alleles (ALLELE_NAMED), never a base in a sequence or a word."""
     return {base for hit in ALLELE_NAMED.finditer(text or "") for base in hit.groups() if base}
@@ -189,9 +301,12 @@ def normalise_evidence(evidence, graph, *, article=None):
 
     No free rsID equivalence, naked position matching, or inferred build. If the article omits the build, accept
     only a single matching primary-assembly placement. Opposite-strand SNVs require an unambiguous ordered pair. A
-    record that names the case variant by rsID and its alleles on the other strand is placed by _other_strand.
+    record that names the case variant by rsID and its alleles on the other strand is placed by _other_strand. A
+    record filed under an article's own name for a mutation is resolved by _text_mined_map; only the reader files
+    such records, so nothing changes for any other caller.
     """
-    return _other_strand(_coordinate_map(_catalogue_map(evidence, graph, article), graph), graph)
+    mapped = _text_mined_map(_catalogue_map(evidence, graph, article), graph, article)
+    return _other_strand(_coordinate_map(mapped, graph), graph)
 
 
 def _coordinate_map(evidence, graph):

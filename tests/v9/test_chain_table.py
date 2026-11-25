@@ -127,7 +127,12 @@ def test_eighteen_cells_have_a_source_and_six_have_none():
                        "gene.allele/model", "gene.premise/model", "trait.allele/model"]
     # one tool, two cells: its records are told apart by whether the protein binds DNA itself
     assert [s.tool for s in T.sources_for("binding.allele", "database")] == ["adastra_asb"]
-    assert [s.tool for s in T.sources_for("activity.allele", "database")] == ["adastra_asb"]
+    # the site's activity has three database sources since the second version: reads of a co-factor, reads of open
+    # chromatin, and a reporter assay that measured the substitution
+    assert [s.tool for s in T.sources_for("activity.allele", "database")] == ["adastra_asb", "udacha_asa",
+                                                                             "mavedb_reporter"]
+    assert "protein_qtl_sets" in [s.tool for s in T.sources_for("gene.allele", "database")]
+    assert "tumour_recurrence" in [s.tool for s in T.sources_for("trait.allele", "database")]
 
 
 def test_a_record_counts_once_per_fact_it_states():

@@ -245,6 +245,28 @@ def _replay(res: Replay9, base: Config | None) -> None:
             res.message = "the saved run's judge read under earlier instructions than this code has"
             res.reasons = [f"{key}: the run has {third.get(key)}, this code {now[key]}" for key in changed]
             return
+    again = parts.get("loop") if res.kind == "fill" else None
+    loop_set = None
+    if again:
+        # The loop's menu and, with a planner model, its instructions decide which articles a run reads
+        from . import loop as LP
+        now = {"loop_format": LP.LOOP_FORMAT}
+        changed = [key for key in now if again.get(key) != now[key]]
+        if again.get("planner") == "model":
+            import hashlib
+            if again.get("prompt_sha256") != hashlib.sha256(LP.system_prompt().encode()).hexdigest():
+                changed.append("prompt_sha256")
+        from . import joiner as JN
+        saved_joiner, now_joiner = again.get("joiner") or {}, JN.manifest_parts()
+        changed += [f"joiner.{key}" for key in ("joiner_format", "prompt_sha256", "schema_sha256")
+                    if saved_joiner.get(key) != now_joiner[key]]
+        if changed:
+            res.status = "not_replayable"
+            res.message = "the saved run's loop ran under an earlier version than this code has"
+            res.reasons = [f"{key}: the run has {again.get(key)}" for key in changed]
+            return
+        loop_set = {"planner": again.get("planner"), "rounds": again.get("max_rounds"),
+                    "articles": again.get("round_articles"), "dry": again.get("dry")}
     case = Case.model_validate(manifest["case"])
     if _identity(case) != _identity(bundle.graph.case):
         res.status, res.message = "failed", "the manifest's case is not the one graph.json records"
@@ -285,7 +307,7 @@ def _replay(res: Replay9, base: Config | None) -> None:
         manifest_parts: Mapping[str, Any] = {}
         metrics: Mapping[str, Any] = {}
     elif res.kind == "fill":
-        graph, counts = fill_graph(w, case, articles=articles)
+        graph, counts = fill_graph(w, case, articles=articles, loop=loop_set)
         manifest_parts = fill_manifest(w, counts, articles)
         metrics = {"fill": counts}
     else:

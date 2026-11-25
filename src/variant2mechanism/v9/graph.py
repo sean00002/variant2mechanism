@@ -310,13 +310,38 @@ class GraphState(V9Model):
     hypothesis_families: list[dict[str, Any]] = Field(default_factory=list)
 
 
+GREEK_LETTERS: dict[str, str] = {
+    "α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta", "ε": "epsilon", "ζ": "zeta", "η": "eta", "θ": "theta",
+    "ι": "iota", "κ": "kappa", "λ": "lambda", "μ": "mu", "µ": "mu", "σ": "sigma", "τ": "tau", "ω": "omega"}
+# Spelt-out letters long enough not to be part of another word ("eta" is inside "beta", "mu" inside "immune").
+_GREEK_WORD = re.compile("alpha|beta|gamma|delta|epsilon|kappa|lambda|sigma|omega")
+
+
+def greek_key(name: str) -> str | None:
+    """A protein name that carries a Greek letter, in one spelling: lower case, the letter spelt out, and nothing but
+    letters and digits ("AP-2α", "AP-2alpha" and "AP2-alpha" are all "ap2alpha"). None for a name with no Greek
+    letter, written or spelt out: such a name is not looked up among aliases at all."""
+    text = "".join(GREEK_LETTERS.get(ch, ch) for ch in " ".join(name.split()).casefold())
+    key = re.sub(r"[^a-z0-9]", "", text)
+    return key if key and _GREEK_WORD.search(key) else None
+
+
 class SymbolResolver:
     """HGNC symbol normalisation: approved symbols, plus previous symbols that point to one approved gene. Alias
-    symbols are left out on purpose: many are shared between genes, and a wrong merge would move evidence."""
+    symbols are left out on purpose: many are shared between genes, and a wrong merge would move evidence.
 
-    def __init__(self, symbols: dict[str, tuple[str, str]], formerly: Mapping[str, Sequence[str]] | None = None):
+    One kind of alias is read, since the second version of the fill: a protein name with a Greek letter (AP-2α,
+    C/EBPβ, PPARγ). Articles name a protein that way and never a gene, so such a name was no approved symbol, the
+    record stayed under a TF nobody else names, and it never met the candidate it was about. The letter says which
+    paralogue is meant, which is what makes the name safe to resolve where a bare family name (AP-2) is not. It
+    resolves only when exactly one approved gene lists it among its aliases (greek_key: hyphens, slashes and spaces
+    aside) and no other gene's symbol reads the same."""
+
+    def __init__(self, symbols: dict[str, tuple[str, str]], formerly: Mapping[str, Sequence[str]] | None = None,
+                 greek: Mapping[str, tuple[str, str]] | None = None):
         self._symbols = symbols                  # upper-case symbol -> (approved symbol, HGNC id)
         self._formerly = {k.upper(): tuple(v) for k, v in (formerly or {}).items()}
+        self._greek = dict(greek or {})          # greek_key of an alias -> (approved symbol, HGNC id)
 
     @classmethod
     def from_hgnc(cls, path: str | Path) -> "SymbolResolver":
@@ -324,6 +349,7 @@ class SymbolResolver:
         approved: dict[str, tuple[str, str]] = {}
         previous: dict[str, set[tuple[str, str]]] = {}
         genes: dict[str, set[str]] = {}          # a previous symbol -> the genes (not pseudogenes) that had it
+        aliases: dict[str, set[tuple[str, str]]] = {}     # greek_key of an alias -> the genes that list it
         with open(path, newline="") as f:
             for row in csv.DictReader(f, delimiter="\t"):
                 if row.get("status") != "Approved":
@@ -335,13 +361,23 @@ class SymbolResolver:
                         previous.setdefault(prev.strip().upper(), set()).add(hit)
                         if (row.get("locus_group") or "").strip() != "pseudogene":
                             genes.setdefault(prev.strip().upper(), set()).add(hit[0])
+                for alias in (row.get("alias_symbol") or "").split("|"):
+                    if key := greek_key(alias):
+                        aliases.setdefault(key, set()).add(hit)
         table = {k: next(iter(v)) for k, v in previous.items() if len(v) == 1 and k not in approved}
         table.update(approved)
         formerly = {k: sorted(v - {approved[k][0]}) for k, v in genes.items() if k in approved}
-        return cls(table, {k: v for k, v in formerly.items() if v})
+        # a Greek-letter alias of exactly one gene, unless another gene's own symbol reads the same
+        spelt = {re.sub(r"[^a-z0-9]", "", k.casefold()): v[0] for k, v in table.items()}
+        greek = {k: next(iter(v)) for k, v in aliases.items()
+                 if len(v) == 1 and spelt.get(k, next(iter(v))[0]) == next(iter(v))[0]}
+        return cls(table, {k: v for k, v in formerly.items() if v}, greek)
 
     def __call__(self, symbol: str) -> tuple[str, str] | None:
-        return self._symbols.get(" ".join(symbol.split()).upper())
+        found = self._symbols.get(" ".join(symbol.split()).upper())
+        if found is None and self._greek and (key := greek_key(symbol)):
+            found = self._greek.get(key)
+        return found
 
     def formerly(self, symbol: str) -> tuple[str, ...]:
         """The other genes (pseudogenes aside) that once had this approved symbol: TCF4 was the symbol of TCF7L2 and
@@ -614,6 +650,20 @@ class ClaimGraph:
             raise
         finally:
             self._depth -= 1
+
+    @contextmanager
+    def scratch(self) -> Iterator[None]:
+        """Mutations that are never kept: the graph is put back as it was when the block ends, however it ends.
+        Unlike batch, each mutation inside is as atomic as outside one, so code that states a claim and links a
+        record in one step behaves exactly as it will when it runs for good. For code that needs to see what a step
+        would give before deciding what to do next (the fill's loop looks at the table between its rounds)."""
+        if self._depth:
+            raise RuntimeError("scratch() cannot run inside a batch: its mutations would not be atomic")
+        snapshot = self._snapshot()
+        try:
+            yield
+        finally:
+            self._restore(snapshot)
 
     def fulltext_articles(self) -> list[frozenset[str]]:
         """The unique articles read in full, each as the set of its identifiers (article_key form). Two counted reads

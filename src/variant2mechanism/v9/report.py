@@ -1048,6 +1048,7 @@ def _ranked_html(d: Mapping[str, Any]) -> str:
     return (head + f'<p class="lead">{_h(ranked["headline"])}</p>' + (f"<p>{_h(tie)}</p>" if tie else "")
             + '<ol class="route" aria-label="The leading chain, link by link">' + "".join(steps) + "</ol>"
             + (f'<p>{_h(ranked["support"])}</p>' if ranked["support"] else "")
+            + (f'<p><strong>Joined.</strong> {_h(ranked["join"])}</p>' if ranked.get("join") else "")
             + _table_html(f"All {ranked['total']} chains in rank order (= marks a tie)" if ranked["total"] > 1
                           else "The only chain the claims give", chain.RANKED_HEADERS, rows, "ranked")
             + f'<p class="small">{notes}</p>' + factor_block
@@ -1097,6 +1098,10 @@ SOURCE_LABELS: dict[tuple[str, str], str] = {
     ("credible_sets_all", "precomputed_prediction"): "Open Targets locus-to-gene score",
     ("credible_sets_l2g", "precomputed_prediction"): "Open Targets locus-to-gene score",
     ("gwas_associations", "association"): "GWAS Catalog",
+    ("udacha_asa", "occupancy"): "UDACHA, open-chromatin reads counted by allele",
+    ("mavedb_reporter", "reporter_assay"): "MaveDB, saturation-mutagenesis reporter assays",
+    ("protein_qtl_sets", "statistical_inference"): "Open Targets protein QTL credible sets",
+    ("tumour_recurrence", "association"): "cBioPortal, tumours of the MSK-IMPACT 2017 cohort",
 }
 TOOL_LABELS: dict[str, str] = {
     "gene_disease": "Open Targets gene and disease records", "literature_read": "Articles read by the model",
@@ -1180,6 +1185,36 @@ def _returned(tool: str, cls: str, evs: list[Evidence]) -> str:
                 f"FDR {min(fdr):.2g}" if fdr else "", f"effect size {max(size):.2f}" if size else "",
                 f"{d['tf_experiments']} experiments" if d.get("tf_experiments") else ""))
         return " / ".join(lines)
+    if tool == "udacha_asa":
+        favoured = Counter(e.allele for e in evs if e.allele)
+        sides = " and ".join(f"{base} in {_count(k, 'cell type')}" for base, k in favoured.most_common())
+        fdr = [min(x) for e in evs if (x := _floats([e], "fdr_ref") + _floats([e], "fdr_alt"))]
+        assays = _some(dict.fromkeys(str(d.get("assay") or "") for d in data))
+        return _joined(f"{assays} reads favour {sides}" if sides else f"{assays} reads favour each allele somewhere",
+                       _span(fdr, lambda x: f"FDR {x:.2g}").replace(" to FDR ", " to "),
+                       "cell types: " + _some(str(d.get("cell_type") or "") for d in data))
+    if tool == "mavedb_reporter":
+        effect = _span(_floats(evs, "score"), lambda x: f"{x:+.2f}")
+        tags = _span(_floats(evs, "unique_tags"), lambda x: f"{x:.0f}")
+        cells = _some(dict.fromkeys(str(d.get("cells") or "") for d in data))
+        named = "cells: " if all(d.get("cells") for d in data) else "cells, where a set names them: "
+        return _joined(f"log2 effect on reporter activity {effect}, as each set records it" if effect else "",
+                       _span(_floats(evs, "p_value"), lambda x: f"p {_p_text(x)}").replace(" to p ", " to "),
+                       f"{tags} barcodes" if tags else "", named + cells if cells else "",
+                       f"{_count(n, 'score set')}: " + _some(str(d.get("score_set") or "").rsplit(":", 1)[-1]
+                                                              for d in data))
+    if tool == "protein_qtl_sets":
+        inside = sum(1 for d in data if d.get("in_95_set"))
+        chance = _span(_floats(evs, "pip"), lambda x: f"{x:.2g}")
+        where = _some(dict.fromkeys(str(d.get("biosample") or "") for d in data))
+        return _joined(f"fine-mapping probability {chance}" if chance else "",
+                       f"in the 95% credible set in {inside} of {n}", f"protein measured in {where}" if where else "",
+                       _some(dict.fromkeys(str(d.get("project") or "") for d in data), 3))
+    if tool == "tumour_recurrence":
+        rows = sorted(data, key=lambda d: -int(d.get("patients_with_mutation") or 0))
+        return "called in the tumours of " + _some(
+            f"{d.get('patients_with_mutation')} of {d.get('patients_sequenced')} patients with {d.get('cancer_type')}"
+            for d in rows)
     if tool == "literature_read":
         articles = list(dict.fromkeys(x for e in evs for x in e.source_ids if x.startswith("PMID:")))
         return (f"{_count(n, 'experiment')} in {_count(len(articles), 'article')}"
@@ -1350,10 +1385,12 @@ def _fill_rows(g: ClaimGraph, table: Any) -> list[dict[str, str]]:
 def table_extras(g: ClaimGraph) -> dict[str, Any]:
     """What the table section shows beyond table.report_view: the numbers behind the first chain's cells and what
     would fill its gaps. Empty for a run with no chain."""
+    from . import loop
+    again = loop.report_view(g)                  # only a run with the loop has the key: other reports are unchanged
     table = chain_table.from_graph(g)
     if not table.chains:
-        return {"numbers": [], "fills": []}
-    return {"numbers": _number_rows(g, table), "fills": _fill_rows(g, table)}
+        return {"numbers": [], "fills": [], **({"loop": again} if again else {})}
+    return {"numbers": _number_rows(g, table), "fills": _fill_rows(g, table), **({"loop": again} if again else {})}
 
 
 def _numbers_html(t: Mapping[str, Any]) -> str:
@@ -1371,6 +1408,34 @@ def _fills_html(t: Mapping[str, Any]) -> str:
                     for f in t["fills"]) or f"<li>{_h(FILLS_NONE)}</li>"
     return (f'<h3 id="fills-h">{_h(FILLS_TITLE)}</h3><p class="small">{_h(FILLS_LEAD)}</p>'
             f'<ul class="gaps">{items}</ul>')
+
+
+LOOP_TITLE = "Going back for evidence"
+
+
+def _loop_html(t: Mapping[str, Any]) -> str:
+    """What the loop did after the first reading: its rounds, and for each search what it found and what came of
+    it. The effort is shown so that a chain which leads because more was searched for it can be seen."""
+    again = t.get("loop")
+    if not again:
+        return ""
+    rounds = "".join(f"<li>{_h(x)}</li>" for x in again["rounds"])
+    table = (_table_html(LOOP_TITLE, again["headers"], [[_h(c) for c in row] for row in again["effort"]], "numbers")
+             if again["effort"] else "")
+    notes = "".join(f'<p class="small">{_h(x)}</p>' for x in (again["memory"], again["not_built"]) if x)
+    return (f'<h3 id="loop-h">{_h(LOOP_TITLE)}</h3><p>{_h(again["lead"])} {_h(again["moved"])}</p>'
+            f'<ul class="gaps">{rounds}</ul>{table}{notes}')
+
+
+def _loop_markdown(t: Mapping[str, Any]) -> list[str]:
+    again = t.get("loop")
+    if not again:
+        return []
+    return [f"### {LOOP_TITLE}", "", _md(f"{again['lead']} {again['moved']}"), "",
+            *[f"- {_md(x)}" for x in again["rounds"]], "",
+            *(_md_table(again["headers"], [[_md(c) for c in row] for row in again["effort"]])
+              if again["effort"] else []),
+            *(line for x in (again["memory"], again["not_built"]) if x for line in (_md(x), ""))]
 
 
 def _numbers_markdown(t: Mapping[str, Any]) -> list[str]:
@@ -1486,7 +1551,7 @@ def _table_section_html(d: Mapping[str, Any]) -> str:
             f'<h2 id="table-h">{_h(TABLE_TITLE)}</h2><p>{_h(TABLE_LEAD)}</p>'
             + _table_html(_table_caption(t), t["headers"], rows, "cells")
             + "".join(f'<p class="small">{_h(x)}</p>' for x in _table_notes(t)) + _numbers_html(t)
-            + _fills_html(t) + _tie_html(t) + _quotes_html(t)
+            + _fills_html(t) + _loop_html(t) + _tie_html(t) + _quotes_html(t)
             + "</section>")
 
 
@@ -1508,7 +1573,7 @@ def _table_markdown(d: Mapping[str, Any]) -> list[str]:
     return [f"## {TABLE_TITLE}", "", _md(TABLE_LEAD), "", _md(_table_caption(t)), "",
             *_md_table(t["headers"], [[_md(cell) for cell in row] for row in t["rows"]]),
             *(line for x in _table_notes(t) for line in (_md(x), "")), *_numbers_markdown(t),
-            *_fills_markdown(t), *_tie_markdown(t), *_quotes_markdown(t)]
+            *_fills_markdown(t), *_loop_markdown(t), *_tie_markdown(t), *_quotes_markdown(t)]
 
 
 def _banner(cls: str, title: str, text: str) -> str:
@@ -1719,6 +1784,8 @@ def _ranked_markdown(d: Mapping[str, Any]) -> list[str]:
         out += [_md(tie), ""]
     if ranked["support"]:
         out += [_md(ranked["support"]), ""]
+    if ranked.get("join"):                       # only a run whose first chain a record joins has the line
+        out += [f"**Joined.** {_md(ranked['join'])}", ""]
     out += _md_table(chain.STRIP_HEADERS, [[_md(step["label"]), _md(step["names"]), _md(step["evidence"])]
                                            for step in chain.strip_rows(view, alt)])
     out += _md_table(chain.RANKED_HEADERS, [[_md(cell) for cell in row] for row in chain.ranked_rows(view, alt)])

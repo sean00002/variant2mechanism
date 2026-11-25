@@ -19,9 +19,10 @@ that turns a saved claim-graph run into a table (from_graph) and the checker (ch
 - SOURCES says which tool fills which cell. A cell with no row is "no source"; a new source is an adapter and one
   row here. A test holds every row inside the class matrix (schemas.DIRECT, INDIRECT), so the map cannot promise a
   record the graph's gates would refuse. The map is narrower than the matrix where the matrix would count one fact
-  twice: the variant's own eQTL fills "the alleles differ in the gene's RNA" and not also "the element regulates the
-  gene", which that claim already implies; a locus-to-gene score fills "the gene bears on the trait" only. A record
-  that states two facts (a colocalisation: the gene has a QTL here, and it is the trait's signal) has two rows.
+  twice: the variant's own eQTL fills "the alleles differ in the gene's RNA or protein" and not also "the element
+  regulates the gene", which that claim already implies; a locus-to-gene score fills "the gene bears on the trait"
+  only. A record that states two facts (a colocalisation: the gene has a QTL here, and it is the trait's signal) has
+  two rows.
 - A record's kind is how the workflow got it, which is how it can be checked: a database row (the saved response),
   a model's output (the saved output) or an experiment read from an article (the quoted passage). What a language
   model remembers is never a record.
@@ -57,7 +58,7 @@ from .chain import (
     link_rung,
 )
 from .graph import ClaimGraph
-from .proteins import COFACTOR_FLAG
+from .proteins import ACCESSIBILITY_FLAG, COFACTOR_FLAG
 from .schemas import (
     DIRECT,
     INDIRECT,
@@ -70,7 +71,9 @@ from .schemas import (
 )
 from .traits import trait_key
 
-FORMAT = 1
+# 2: the gene step's first claim is about the gene's RNA or protein (a cis protein QTL fills it), and four sources
+# were added to the map (UDACHA, MaveDB, protein QTLs, cBioPortal)
+FORMAT = 2
 STEPS: tuple[tuple[str, str], ...] = (
     ("binding", "TF binding"), ("activity", "Regulatory activity"), ("gene", "Target gene"), ("trait", "Trait"))
 PARTS: tuple[tuple[str, str], ...] = (("allele", "The alleles differ"), ("premise", "The parts are in place"))
@@ -119,7 +122,7 @@ SLOTS: dict[str, Slot] = {s.key: s for s in (
          frozenset({"alters_regulatory_activity"}), ("elements",)),
     Slot("activity", "premise", "The variant lies in a regulatory element.",
          frozenset({"overlaps"}), ("elements",), site_only=True),
-    Slot("gene", "allele", "The two alleles differ in the gene's RNA.",
+    Slot("gene", "allele", "The two alleles differ in the gene's RNA or protein.",
          frozenset({"associated_with_expression", "alters_rna"}), ("genes",)),
     Slot("gene", "premise", "The element regulates the gene.",
          frozenset({"regulates"}), ("genes",)),
@@ -213,6 +216,12 @@ SOURCES: tuple[Source, ...] = (
     _row("adastra_asb", "database", "activity.allele", {"occupancy"},
          "ADASTRA: allele-specific ChIP-seq reads, called at the variant, of a protein that does not bind DNA itself",
          ("tfs",), where=((COFACTOR_FLAG, ("True",)),)),
+    # reads of open chromatin name no protein: the record carries its own flag and names no TF
+    _row("udacha_asa", "database", "activity.allele", {"occupancy"},
+         "UDACHA: allele-specific chromatin accessibility called at the variant, per cell type",
+         lacks=("tfs",), where=((ACCESSIBILITY_FLAG, ("True",)),)),
+    _row("mavedb_reporter", "database", "activity.allele", {"reporter_assay"},
+         "MaveDB: a saturation-mutagenesis reporter assay that measured this exact substitution"),
     _row("chip_occupancy", "database", "binding.premise", {"occupancy"},
          "ENCODE and ReMap ChIP-seq peaks over the variant", ("tfs",)),
     _row("tf_occupancy_set", "database", "binding.premise", {"occupancy"},
@@ -237,8 +246,16 @@ SOURCES: tuple[Source, ...] = (
          "Ensembl regulatory features at the variant", ("elements",), SITE_ONLY),
     _row("gtex_eqtl", "database", "gene.allele", {"association"}, "GTEx single-tissue eQTLs of the variant",
          ("genes",)),
+    # a protein QTL counts for the gene whose own protein was measured (cis, by Open Targets' own call) and for no
+    # other: a trans set says the locus matters to a protein encoded elsewhere
+    _row("protein_qtl_sets", "database", "gene.allele", {"statistical_inference"},
+         "Open Targets: a credible set of a protein QTL for the gene's own protein, holding the variant", ("genes",),
+         ("traits",), (("qtl_type", ("pqtl",)), ("cis", ("True",)))),
     _row("gwas_associations", "database", "trait.allele", {"association"},
          "GWAS Catalog associations of the variant", ("traits",)),
+    _row("tumour_recurrence", "database", "trait.allele", {"association"},
+         "cBioPortal: the tumours of a sequenced cohort that carry this exact mutation, by cancer type", ("traits",),
+         ("genes",)),
     _row("civic_lookup", "database", "trait.allele", {"clinical_assertion"},
          "CIViC clinical evidence for a somatic variant", ("traits",)),
     *_credible_sets("credible_sets_l2g"),
@@ -348,6 +365,7 @@ class TableChain(V9Model):
     ties: int
     title: str
     claims: dict[str, str | None]                # slot key -> claim id (every chain has all eight)
+    joined: list[str] = Field(default_factory=list)   # experiments that show this chain's TF acting on its gene
 
 
 class Table(V9Model):
@@ -571,11 +589,27 @@ def _beside_note(link: EvidenceLink) -> str:
     return "linked as context only"
 
 
+def identity_note(evidence: Evidence) -> str:
+    """How a record was taken as about the variant when its article writes neither an rsID nor a position: by the
+    article's own name for the mutation, under the two checks of variant_identity._text_mined_map. "" for every
+    other record. Printed with the record, because text mining can tie a name to the wrong variant."""
+    proof = evidence.data.get("variant_identity") or {}
+    if not isinstance(proof, dict) or proof.get("basis") != "text_mined_name":
+        return ""
+    names = " and ".join(f'"{n}"' for n in proof.get("paper_variants") or [])
+    where = ("in the quotation" if proof.get("written_in") == ["passage"] else
+             "in the quotation's paragraph, heading or caption, not in the quotation itself")
+    return (f"named {names} {where}: NCBI's text mining ties that name to this variant, and its base change "
+            "agrees")
+
+
 def _record(graph: ClaimGraph, evidence: Evidence, stance: Stance, kind: str | None, claim: str | None,
             note: str = "", passage: str | None = None) -> Record:
     """A record as a cell lists it. `passage` replaces the record's own quotation for this claim: the sentences code
-    copied where the critic pointed (critic.pointed), which hold the record's quotation or the result it left out."""
+    copied where the critic pointed (critic.pointed), which hold the record's quotation or the result it left out.
+    A record identified by its article's own name for the mutation says so in its note (identity_note)."""
     passage = passage or (evidence.experiment.passage if evidence.experiment is not None else None)
+    note = "; ".join(x for x in (note, identity_note(evidence)) if x)
     return Record(id=evidence.evidence_id, stance=stance, evidence_class=evidence.evidence_class, kind=kind,
                   tool=_tool(graph, evidence), sources=list(evidence.source_ids), text=evidence.observed_result,
                   passage=passage, claim=claim, note=note)
@@ -873,7 +907,8 @@ def from_graph(graph: ClaimGraph) -> Table:
                                                  stated=bool(asked.claim_ids), cells=cells,
                                                  strongest=_strongest(cells))
             claims[key] = ident
-        table.chains.append(TableChain(rank=row["rank"], ties=row["ties"], title=row["title"], claims=claims))
+        table.chains.append(TableChain(rank=row["rank"], ties=row["ties"], title=row["title"], claims=claims,
+                                       joined=list(row.get("joined") or [])))
     return table
 
 
@@ -1195,8 +1230,11 @@ def to_markdown(table: Table, problems: Iterable[Problem] = ()) -> str:
     else:
         first = table.chains[0]
         tied = f", tied with {first.ties - 1} other(s)" if first.ties > 1 else ""
-        lines += [f"Chain 1 of {len(table.chains)}{tied}: {esc(first.title)}", "",
-                  "| Step | Claim | Names | Database | Model prediction | Literature |", "|---|---|---|---|---|---|"]
+        lines += [f"Chain 1 of {len(table.chains)}{tied}: {esc(first.title)}", ""]
+        if first.joined:
+            lines += [f"The TF and the gene belong together: {len(first.joined)} experiment(s) on file changed the "
+                      f"TF and saw the gene change ({', '.join(first.joined)}). This breaks ties only.", ""]
+        lines += ["| Step | Claim | Names | Database | Model prediction | Literature |", "|---|---|---|---|---|---|"]
         step_names, part_names = dict(STEPS), dict(PARTS)
         for key in SLOT_KEYS:
             step, part = key.split(".")

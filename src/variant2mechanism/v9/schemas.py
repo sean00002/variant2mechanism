@@ -143,9 +143,11 @@ QUALIFIED_DIRECT: dict[tuple[str, str], str] = {
 # changed prompt would stop the saved engine runs from replaying; only the fill sets this flag (v9/proteins.py).
 # Allele-specific ChIP-seq reads of a protein that does not bind DNA itself (a co-factor, a chromatin reader) show
 # that the state of the site differs between the alleles. They do not show that a TF reads the variant, so the flag
-# is a different one from allele_specific and no such record counts for alters_binding through it.
-QUALIFIED_DIRECT_FILL: dict[tuple[str, str], str] = {
-    ("alters_regulatory_activity", "occupancy"): "allele_specific_cofactor",
+# is a different one from allele_specific and no such record counts for alters_binding through it. Allele-specific
+# reads of open chromatin (DNase-seq, ATAC-seq: fill_sources.py) show the same thing and name no protein at all; they
+# carry a flag of their own. Any one of an entry's flags is enough.
+QUALIFIED_DIRECT_FILL: dict[tuple[str, str], tuple[str, ...]] = {
+    ("alters_regulatory_activity", "occupancy"): ("allele_specific_cofactor", "allele_specific_accessibility"),
 }
 CONTEXT_ONLY_CLASSES: frozenset[str] = frozenset({"review", "metadata_audit"})
 # Classes whose result does not depend on a cell or tissue context: coordinates, sequence-level predictions, population
@@ -416,10 +418,11 @@ def evidence_strength(relation: str, evidence: Evidence) -> LinkStrength:
         return "context"
     if relation == "other":
         return "indirect"
-    for table in (QUALIFIED_DIRECT, QUALIFIED_DIRECT_FILL):
-        qualifier = table.get((relation, cls))
-        if qualifier is not None and evidence.data.get(qualifier) is True:
-            return "direct"
+    qualifier = QUALIFIED_DIRECT.get((relation, cls))
+    if qualifier is not None and evidence.data.get(qualifier) is True:
+        return "direct"
+    if any(evidence.data.get(flag) is True for flag in QUALIFIED_DIRECT_FILL.get((relation, cls), ())):
+        return "direct"
     if cls in DIRECT.get(relation, ()):
         return "direct"
     if cls in INDIRECT.get(relation, ()):

@@ -426,7 +426,7 @@ def test_what_the_reader_says_becomes_a_flag_and_chip_reads_need_the_allele_name
     peak = reader.ReadExperiment(**experiment("sec1/p1", assay="chip", manipulated="none"))
     assert reader.reader_flags(peak, chip) == {}                         # the reader saw no comparison of alleles
     # the fill: allele-specific expression may count although it compares haplotypes; an assay may not
-    assert reader.READER_FORMAT == 3
+    assert reader.READER_FORMAT == 6
 
 
 def test_chip_of_a_protein_that_does_not_bind_dna_is_flagged_and_an_unknown_name_is_not():
@@ -448,7 +448,7 @@ def test_chip_of_a_protein_that_does_not_bind_dna_is_flagged_and_an_unknown_name
     assert flags(peak, ["BRD4"]) == {"not_tf": ["BRD4"]}                    # a peak compares no alleles
     assert flags(reads, ["AP-2Α"]) == {"allele_specific": True}             # not an approved symbol: unknown
     assert flags(reads, ["BRD4"], tfs=None) == {"allele_specific": True}    # no list: linked as before
-    assert proteins.COFACTOR_FLAG in set(QUALIFIED_DIRECT_FILL.values())    # the flag the class matrix reads
+    assert any(proteins.COFACTOR_FLAG in flags for flags in QUALIFIED_DIRECT_FILL.values())   # the flag the matrix reads
 
 
 def test_allele_specific_chip_of_a_co_factor_counts_for_the_sites_activity_not_for_a_tfs_binding(v9_cfg, tmp_path):
@@ -713,9 +713,18 @@ def seed(cfg, found: dict[int, list[str]] | None) -> None:
     have saved these very searches there: each link is removed before anything is written, so nothing here can
     write through to the repository's cache, and no test depends on what a live run saved."""
     from variant2mechanism.context.http import cache_key
+    from variant2mechanism.v9 import fill_sources as S
     cache = cfg.path("tools", "http_cache")
     cache.mkdir(parents=True, exist_ok=True)
-    for url, payload in http(found or {}).routes.items():
+    # LitVar, the reader's third search, as a search that completed and listed nothing: its entry for the variant,
+    # the name PubTator knows it by, and no paper with an assay word. A live run saves the real answers in the
+    # repository's cache, and like Europe PMC's they are unlinked here first.
+    accession = f"@VARIANT_{RSID}"
+    litvar = {S.litvar_entry_url(RSID): {"_id": f"litvar@{RSID}##", "rsid": RSID,
+                                         "data_chromosome_base_position": ["2:60490908"]},
+              S.pubtator_name_url(RSID): [{"_id": accession, "biotype": "variant", "db_id": f"{RSID}##"}],
+              S.pubtator_search_url(accession, sorted(reader.ASSAY_WORDS)): {"results": [], "count": 0}}
+    for url, payload in {**http(found or {}).routes, **litvar}.items():
         saved = cache / f"{cache_key('GET', url)}.json"
         saved.unlink(missing_ok=True)
         if found is not None:

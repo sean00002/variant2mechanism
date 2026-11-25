@@ -50,7 +50,9 @@ def test_the_code_only_tools_sit_in_a_registry_of_their_own():
     commands.register_tools()
     reg = fill_tools.registry()
     assert set(fill_tools.CODE_TOOL_NAMES) == {"tf_occupancy_set", "tf_expression_set", "credible_sets_all",
-                                               "gene_disease", "adastra_asb"}
+                                               "gene_disease", "adastra_asb", "udacha_asa", "mavedb_reporter",
+                                               "protein_qtl_sets", "tumour_recurrence", "litvar_search",
+                                               "litvar_mentions"}
     assert set(reg.names()) == set(REGISTRY.names()) | set(fill_tools.CODE_TOOL_NAMES)
     assert not set(fill_tools.CODE_TOOL_NAMES) & set(REGISTRY.names())      # what a role is shown does not change
     assert all(reg.spec(n) is REGISTRY.spec(n) and reg.adapter(n) is REGISTRY.adapter(n) for n in REGISTRY.names())
@@ -61,8 +63,9 @@ def test_the_code_only_tools_sit_in_a_registry_of_their_own():
 def test_the_fills_wiring_knows_the_code_only_tools_and_the_others_do_not(v9_cfg, tmp_path):
     plain = commands.wire(v9_cfg, "cache_only", tmp_path / "a", models=False)
     filling = commands.wire(v9_cfg, "cache_only", tmp_path / "b", models=False, code_tools=True)
-    names = {s.name for s in filling.runner.specs("computational")}
+    names = {s.name for s in filling.runner.specs()}                 # the two LitVar tools serve the reader
     assert set(fill_tools.CODE_TOOL_NAMES) <= names and filling.client is None
+    assert {"litvar_search", "litvar_mentions"} <= {s.name for s in filling.runner.specs("literature")}
     assert not set(fill_tools.CODE_TOOL_NAMES) & {s.name for s in plain.runner.specs()}
     refused = plain.runner.run(ToolRequest(tool="gene_disease", params={"gene": "SORT1"}), case(DEV),
                                ClaimGraph(case(DEV)), "code")

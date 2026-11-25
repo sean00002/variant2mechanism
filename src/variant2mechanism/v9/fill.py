@@ -11,23 +11,29 @@ What code does, in order (run):
    the QBiC-SELEX inventory, its eQTLs, its GWAS associations, the ChIP-seq survey), code asks what the candidates
    need: every credible set holding the variant; the ChIP-seq peaks of each TF that the survey lists and a
    gate-passing QBiC-SELEX group covers; those TFs' expression, when the request names a context; and, for each
-   candidate gene, Open Targets' own evidence linking it to the variant's traits (fill_tools.py).
+   candidate gene, Open Targets' own evidence linking it to the variant's traits (fill_tools.py). Since the second
+   version it also asks four sources about the variant itself (fill_sources.py): allele-specific chromatin
+   accessibility (UDACHA), reporter assays that measured this substitution (MaveDB), protein QTLs (Open Targets)
+   and the tumours of a sequenced cohort that carry it (cBioPortal).
 
 2. Claims. Code states a claim when a record on file can count for it, and never otherwise, so the candidates are
    the data's and not a list code made up:
        TF binding, alleles differ      one claim per model-sharing group with a gate-passing QBiC-SELEX prediction
        TF binding, in place            a TF of such a group occupies the variant's site; it is expressed in the context
        regulatory activity, in place   the variant lies in the element a registry places it in
+       regulatory activity, differ     the site's state or its reporter activity differs between the alleles
        target gene, alleles differ     one claim per gene with an eQTL of this variant, or a colocalising
-                                       expression or splicing QTL (a protein QTL is often a trans effect)
+                                       expression or splicing QTL; and one per gene whose own protein has a QTL
+                                       holding the variant (cis: a trans protein QTL is listed, never counted)
        target gene, in place           the variant's element regulates a gene it was perturbed against
        trait, alleles differ           one claim per trait term with an association or a credible set of this variant
        trait, in place                 a candidate gene bears on such a trait
-   The one database source that compares the two alleles' regulatory activity is ADASTRA's allele-specific reads of
-   a protein that does not bind DNA itself (proteins.py): where a variant has such a record, code states the claim
-   for the variant's site. A claim that the alleles differ states no direction. The records say which allele (a
-   prediction for T, an eQTL slope), and a measurement in the other direction is then still a record that they
-   differ, never a contradiction of something a prediction alone asserted.
+   Three database sources compare the two alleles' regulatory activity: ADASTRA's allele-specific reads of a
+   protein that does not bind DNA itself (proteins.py), UDACHA's allele-specific reads of open chromatin, and a
+   saturation-mutagenesis reporter assay in MaveDB that measured this substitution. Where a variant has such a
+   record, code states the claim for the variant's site. A claim that the alleles differ states no direction. The
+   records say which allele (a prediction for T, an eQTL slope), and a measurement in the other direction is then
+   still a record that they differ, never a contradiction of something a prediction alone asserted.
 
 3. Links, through the graph's own gates (identity, variant, direction, context), each with a rationale written by
    code. A record the graph refuses is logged with the graph's reason, so the table lists it as set aside. Every
@@ -46,9 +52,9 @@ What code does, in order (run):
 
 6. The result. A chain is an answer even when a link is predicted only: the summary says which links are measured,
    associated, predicted or empty. A leading chain with a link that holds no record is reported as a partial
-   mechanism, which is every chain code fills alone, since no source of its own fills regulatory activity; with a
-   record on every link it is a leading explanation, or several when chains tie. With no chain at all the run
-   reports that nothing was found.
+   mechanism, which is most chains code fills alone, since few variants have a database record of their regulatory
+   activity; with a record on every link it is a leading explanation, or several when chains tie. With no chain
+   at all the run reports that nothing was found.
 
 7. Articles, when the run has a reader (reader.py). The reader finds the articles that name the variant and has a
    model read each once; what comes back is a set of experiments, each with the passage it was read from. Code,
@@ -87,6 +93,13 @@ What code does, in order (run):
    twice, in opposite orders, and only an answer both readings give is kept. The answers are written under the
    tie. No cell, no rank and no count of tied chains changes.
 
+10. Going back for evidence, when the run has a loop (loop.py). After the first reading and before anything read
+    is linked, code looks at the table as it would stand, lists its gaps (a tie for first, then the leading chain's
+    weakest claims) and what could be done about each, and a planner model picks from that menu; the searches run,
+    and the reader reads the new articles as it read the first ones, knowing nothing of why they were found. That
+    is repeated for a few rounds. A round only adds articles and the records filed from them: steps 7 to 9 then
+    run once over everything, so the table is the one a single pass over the same articles would give.
+
 The request's disease, when given, limits the trait claims to the terms that name it; its context scopes the claims
 whose records depend on a cell or tissue (occupancy, expression, eQTLs, perturbations).
 """
@@ -108,9 +121,11 @@ from .schemas import CONTEXT_FREE_CLASSES, ContextScope, Evidence, Role, RunResu
 from .tools import ToolRunner
 from .traits import ontology_id, trait_query_match
 
-# 4: allele-specific ChIP of a protein that does not bind DNA itself bears on the site's activity, not on a TF's
-# binding (3: ties are ordered by a strong QBiC-SELEX prediction; 2: ADASTRA is asked)
-FILL_FORMAT = 4
+# 5: four sources about the variant itself are asked (UDACHA, MaveDB, protein QTLs, cBioPortal), and a cis protein
+# QTL states a claim about the gene's protein. 4: allele-specific ChIP of a protein that does not bind DNA itself
+# bears on the site's activity, not on a TF's binding (3: ties are ordered by a strong QBiC-SELEX prediction; 2:
+# ADASTRA is asked)
+FILL_FORMAT = 5
 DRIVER = "code_only_fill"          # no model call at all
 READER_DRIVER = "fill_with_reader"  # the same fill, with articles read by a model (reader.py)
 DRIVERS = (DRIVER, READER_DRIVER)
@@ -128,7 +143,12 @@ PURPOSE = {
     "tf_expression_set": "expression of the candidate TFs in the request's context",
     "gene_disease": "does this candidate gene bear on a trait the variant is associated with",
     "adastra_asb": "allele-specific ChIP-seq reads called at the variant, for any protein assayed",
+    "udacha_asa": "allele-specific reads of open chromatin called at the variant, per cell type",
+    "mavedb_reporter": "reporter assays that measured this exact substitution",
+    "protein_qtl_sets": "credible sets of protein QTLs holding the variant: is a nearby gene's protein level changed",
+    "tumour_recurrence": "tumours of a sequenced cohort that carry this exact mutation, by cancer type",
 }
+VARIANT_SOURCES = ("udacha_asa", "mavedb_reporter", "protein_qtl_sets", "tumour_recurrence")   # asked of every variant
 MECHANISM = {"alters_binding": "tf_binding", "occupies": "tf_binding", "expressed_in": "tf_binding",
              "overlaps": "regulatory", "regulates": "regulatory", "associated_with_expression": "regulatory",
              "alters_regulatory_activity": "regulatory", "alters_rna": "regulatory",
@@ -195,8 +215,10 @@ class Fill:
     them for; without one every experiment is linked as code judges it."""
 
     def __init__(self, graph: ClaimGraph, runner: ToolRunner | None = None, reader: Any = None, critic: Any = None,
-                 judge: Any = None):
+                 judge: Any = None, loop: Any = None):
         self.graph, self.runner, self.reader, self.critic, self.judge = graph, runner, reader, critic, judge
+        self.loop = loop                                   # loop.Loop: goes back for articles after the first reading
+        self.looping: dict[str, Any] | None = None         # the loop's summary
         self.reading: dict[str, Any] | None = None
         self.critique: dict[str, Any] | None = None
         self.judgement: dict[str, Any] | None = None       # the judge's reading of a tie; None without a tie
@@ -204,6 +226,7 @@ class Fill:
         self.scopes = scopes(graph)
         self.claims: dict[tuple, str] = {}
         self.by_slot: dict[str, list[str]] = {key: [] for key in T.SLOT_KEYS}
+        self.left_open: set[str] = set()                   # claims code states and does not assess (assess)
         self.links = self.beside = self.refused = 0
         self._observed: dict[str, dict[str, dict[str, Any]]] = {}
         self._by_member: dict[str, list[str]] | None = None
@@ -226,7 +249,7 @@ class Fill:
     def lookups(self) -> list[ToolCall]:
         graph = self.graph
         tfs = sorted({tf for g in self.groups.values() for tf in g["tfs"]})
-        calls = [self._ask("credible_sets_all"), self._ask("adastra_asb")]
+        calls = [self._ask("credible_sets_all"), self._ask("adastra_asb"), *(self._ask(t) for t in VARIANT_SOURCES)]
         bound = sorted(set(tfs) & self.survey_tfs())
         if bound:
             calls.append(self._ask("tf_occupancy_set", tfs=bound))
@@ -360,17 +383,25 @@ class Fill:
             out.append((key, ClaimDraft(subjects=subjects, relation=relation, objects=objects, context=scope,
                                         assertion_text=text), stance, rationale))
 
-        if slot == "activity.allele" and self._tool(ev) == "adastra_asb":
-            # allele-specific ChIP-seq reads of a protein that does not bind DNA itself (the source map sends only
-            # those here): the state of the site differs between the alleles, and the claim names the site, no TF
+        if slot == "activity.allele" and self._tool(ev) in ("adastra_asb", "udacha_asa", "mavedb_reporter"):
+            # Three sources compare the alleles at the site and name no TF that reads the variant, so the claim names
+            # the site: allele-specific ChIP-seq reads of a protein that does not bind DNA itself (the source map
+            # sends only those here), allele-specific reads of open chromatin, and a reporter assay of the element
+            # that measured this substitution.
             site = self._site(ev)
-            who = _named(list(ev.about_tfs))
+            favoured = (f"the {ev.allele} allele" if ev.allele else
+                        "one allele in some experiments and the other in others")
+            if self._tool(ev) == "adastra_asb":
+                why = (f"ADASTRA: ChIP-seq reads of {_named(list(ev.about_tfs))}, which does not bind DNA itself, "
+                       f"favour {favoured} over the variant: the site's state differs between the alleles")
+            elif self._tool(ev) == "udacha_asa":
+                why = (f"UDACHA: {ev.data.get('assay')} reads over the variant in {ev.data.get('cell_type')} favour "
+                       f"{favoured}: the site's state differs between the alleles")
+            else:
+                why = (f"MaveDB: a saturation-mutagenesis reporter assay ({ev.data.get('score_set')}) measured this "
+                       "substitution with an effect on reporter activity past the study's significance level")
             add((site.label,), "alters_regulatory_activity", [v], [site],
-                f"The two alleles of {name} differ in the regulatory activity of {site.label}.",
-                f"ADASTRA: ChIP-seq reads of {who}, which does not bind DNA itself, favour "
-                + (f"the {ev.allele} allele" if ev.allele else "one allele in some experiments and the other in "
-                                                                "others")
-                + " over the variant: the site's state differs between the alleles")
+                f"The two alleles of {name} differ in the regulatory activity of {site.label}.", why)
         elif slot == "binding.allele" and self._tool(ev) == "adastra_asb":
             # allele-specific ChIP-seq reads are about the TF that was pulled down, whether or not it is a candidate
             # of QBiC-SELEX: the claim names that TF, as a claim stated for an article's allele-specific ChIP does
@@ -430,6 +461,16 @@ class Fill:
                     f"{name} lies in the regulatory element {element}.",
                     "a registry places the variant in this element" if T.names_case(graph, ev) else
                     "the element's class in a biosample of the request's context")
+        elif slot == "gene.allele" and self._tool(ev) == "protein_qtl_sets":
+            # The protein's level where the study measured it (blood plasma, mostly). The claim is scoped to that
+            # biosample: it is a different statement from one about the gene's RNA, and where the protein was
+            # measured is not where the variant acts.
+            for gene in ev.about_genes if ev.context is not None else []:
+                add((gene, "protein", self._in(ev.context)), "associated_with_expression", [v],
+                    [EntityRef(kind="gene", label=gene)],
+                    f"The two alleles of {name} differ in the level of the {gene} protein{self._in(ev.context)}.",
+                    f"Open Targets: a credible set of a protein QTL for {gene}'s own protein holds this variant",
+                    ev.context)
         elif slot == "gene.allele":
             for gene in ev.about_genes:
                 for scope in self._scoped(ev):
@@ -455,6 +496,9 @@ class Fill:
                 add((term,), "associated_with_trait", [v],
                     [EntityRef(kind="phenotype", label=term.label, canonical_id=term.ident)],
                     f"The two alleles of {name} differ in {term.label}.",
+                    f"cBioPortal: this mutation was called in the tumours of {ev.data.get('patients_with_mutation')} "
+                    f"of {ev.data.get('patients_sequenced')} patients with {term.label}"
+                    if self._tool(ev) == "tumour_recurrence" else
                     f"an association of this variant with {term.label}" if ev.evidence_class == "association" else
                     f"a credible set for {term.label} holds this variant" if ev.evidence_class == "statistical_inference"
                     else f"a clinical assertion about this variant and {term.label}")
@@ -824,6 +868,8 @@ class Fill:
                     continue
                 for key, draft, stance, rationale in self.targets(slot, ev):
                     cid = self._claim(slot, key, draft)
+                    if self._tool(ev) == "protein_qtl_sets":
+                        self.left_open.add(cid)
                     try:
                         link = graph.link(cid, ev.evidence_id, stance, ROLE, rationale)
                     except GraphRefusal as r:
@@ -843,7 +889,11 @@ class Fill:
         graph = self.graph
         for cid in [c for ids in self.by_slot.values() for c in ids]:
             claim = graph.claims[cid]
-            if claim.assessment != "unassessed":
+            # A claim about a protein's level is scoped to where the protein was measured (plasma), and there its
+            # record is exact, so the gate would settle it. Plasma is not where the variant acts: the record counts
+            # as an association for the gene, as an eQTL in an unstated context does, and settles nothing. A settled
+            # claim also decides which chain of a tie is listed first, which a protein QTL must not do.
+            if claim.assessment != "unassessed" or cid in self.left_open:
                 continue
             for assessment in ASSESSMENTS:
                 try:
@@ -867,7 +917,7 @@ class Fill:
             empty = [key for key in LINK_KEYS if cells[key]["kind"] in (None, "none", "contested", "contradicted")]
             outcome = ("partial_mechanism" if empty else
                        "leading_explanation" if leaders == 1 else "multiple_explanations")
-            text = " ".join(x for x in (ranked["headline"], ranked["support"]) if x)
+            text = " ".join(x for x in (ranked["headline"], ranked["support"], ranked.get("join")) if x)
         reading = self.reading
         if reading is None:
             how = "Filled by code alone from databases and model predictions: no article was read."
@@ -896,6 +946,11 @@ class Fill:
                 how += f" The second reading stopped early ({critique['stopped']}), so the rest were not reviewed."
         if self.judgement is not None:
             how += " " + J.sentence(self.judgement)
+        if self.looping is not None and self.looping["rounds_run"]:
+            lp = self.looping
+            how += (f" The loop then went back for evidence: in {lp['rounds_run']} round(s) it read "
+                    f"{lp['articles_read']} more article(s), from which {lp['filed']} experiment(s) were filed; it "
+                    f"stopped because {lp['stop_text']}.")
         stop = ((reading or {}).get("stopped") or (critique or {}).get("stopped")
                 or (self.judgement or {}).get("stopped") or "converged")
         self.graph.set_result(RunResult(outcome=outcome, stop_reason=stop, summary=f"{text} {how}"), ROLE)
@@ -910,6 +965,11 @@ class Fill:
             self.attach()
         if self.reader is not None:
             self.reading = self.reader.run(self.graph)
+            if self.loop is not None:
+                # The rounds only add articles and the records filed from them. What follows links everything once,
+                # as it does without a loop, so the table is the one a single pass over the same articles gives.
+                self.looping = self.loop.run(self)
+                self.reading = self.reader.log_summary(self.graph)
             self.attach_read()                             # outside a batch: each claim and link is its own step
             if self.critic is not None:
                 self.critique = self.critic.summary()
@@ -925,25 +985,30 @@ class Fill:
         if self.judge is not None:
             self.judgement = self.judge.run(self.graph)    # after the assessments: the order of chains is final
         decided = self.decide()
+        if self.looping is not None:
+            from .loop import counted_records
+            self.looping["counted"] = counted_records(self.graph, self.looping["rounds"], self.reader.articles)
         return {"driver": READER_DRIVER if self.reader is not None else DRIVER, "format": FILL_FORMAT,
                 "expressed_tpm": EXPRESSED_TPM, "lookups": [c.tool_call_id for c in calls],
                 "claims": {slot: len(ids) for slot, ids in self.by_slot.items()},
                 "records_counted": self.links, "records_beside": self.beside, "records_set_aside": self.refused,
                 **decided, **({"reading": self.reading} if self.reading is not None else {}),
                 **({"critique": self.critique} if self.critique is not None else {}),
-                **({"judgement": self.judgement} if self.judgement is not None else {})}
+                **({"judgement": self.judgement} if self.judgement is not None else {}),
+                **({"loop": self.looping} if self.looping is not None else {})}
 
 
 def run(graph: ClaimGraph, runner: ToolRunner | None = None, reader: Any = None,
-        critic: Any = None, judge: Any = None) -> dict[str, Any]:
+        critic: Any = None, judge: Any = None, loop: Any = None) -> dict[str, Any]:
     """Fill the chain table of a graph that holds the evidence bundle (see the module docstring)."""
-    return Fill(graph, runner, reader, critic, judge).run()
+    return Fill(graph, runner, reader, critic, judge, loop).run()
 
 
 def manifest_parts(counts: Mapping[str, Any], reader: Mapping[str, Any] | None = None,
                    tool_limits: Mapping[str, Any] | None = None,
                    critic: Mapping[str, Any] | None = None,
-                   judge: Mapping[str, Any] | None = None) -> dict[str, Any]:
+                   judge: Mapping[str, Any] | None = None,
+                   loop: Mapping[str, Any] | None = None) -> dict[str, Any]:
     """What a fill run's manifest records as its engine: the driver and its settings. A fill by code alone names no
     prompt and no model; with a reader, `reader` holds its settings (reader.manifest_parts), with a critic `critic`
     holds the critic's (critic.manifest_parts), with a judge `judge` holds the judge's (judge.manifest_parts), and
@@ -952,7 +1017,9 @@ def manifest_parts(counts: Mapping[str, Any], reader: Mapping[str, Any] | None =
     critique = counts.get("critique") or {}
     judgement = counts.get("judgement") or {}
     kept = {k: v for k, v in counts.items()
-            if k not in ("driver", "format", "expressed_tpm", "reading", "critique", "judgement")}
+            if k not in ("driver", "format", "expressed_tpm", "reading", "critique", "judgement", "loop")}
+    if counts.get("loop"):                                 # the counts; the per-round rows are in metrics.json
+        kept["loop"] = {k: v for k, v in counts["loop"].items() if k not in ("rounds", "cost_usd")}
     if reading:                                            # the counts; the per-article rows are in metrics.json
         kept["reading"] = {k: v for k, v in reading.items() if k not in ("articles", "cost_usd")}
     if critique:                                           # the counts; the per-record rows are in metrics.json
@@ -965,7 +1032,7 @@ def manifest_parts(counts: Mapping[str, Any], reader: Mapping[str, Any] | None =
                                              or judgement.get("stopped") or "converged"),
                              "replayable": True, "counts": kept}
     why: list[str] = []
-    for name, settings in (("reader", reader), ("critic", critic), ("judge", judge)):
+    for name, settings in (("reader", reader), ("critic", critic), ("judge", judge), ("loop", loop)):
         if settings is not None:
             why += [f"{u['role']} {u['stage']}: {u['why']}" for u in settings.get("not_replayable") or []]
             parts[name] = {k: v for k, v in settings.items() if k != "not_replayable"}

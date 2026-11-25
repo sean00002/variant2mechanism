@@ -13,7 +13,8 @@ every TF that has a QBiC-SELEX model. It was fixed from what the proteins are, n
 comes out.
 
 Three kinds, and only one moves a record: "tf" (on the list), "not_tf" (an approved gene symbol that is not on it)
-and "unknown" (the list is not available, or the name is not an approved symbol, as an article's "AP-2α" is not).
+and "unknown" (the list is not available, or the name resolves to no approved symbol, as an article's "AP-2" does
+not: a name with a Greek letter, "AP-2α", now resolves through the HGNC table's aliases; graph.SymbolResolver).
 An unknown protein is treated as a TF, which is what was done for every protein before this rule.
 """
 
@@ -27,6 +28,8 @@ TF, NOT_TF, UNKNOWN = "tf", "not_tf", "unknown"
 SOURCE = "Lambert et al. 2018 census of human TFs, and the TFs with a QBiC-SELEX model"
 COFACTOR_FLAG = "allele_specific_cofactor"       # Evidence.data: allele-specific reads of a protein that is not a TF
 NOT_TF_NAMES = "not_tf"                          # Evidence.data: the proteins a ChIP record names that are not TFs
+ACCESSIBILITY_FLAG = "allele_specific_accessibility"   # Evidence.data: allele-specific reads of open chromatin, which
+                                                        # name no protein at all (fill_sources.py)
 
 
 @lru_cache(maxsize=4)

@@ -58,7 +58,11 @@ def test_the_matrix_counts_co_factor_reads_for_activity_only_and_the_engines_pro
     assert evidence_strength("alters_regulatory_activity", tf) == "context"
     assert evidence_strength("alters_regulatory_activity", chip()) == "context"
     assert evidence_strength("alters_binding", tf) == "direct"
-    assert set(QUALIFIED_DIRECT_FILL.values()) == {proteins.COFACTOR_FLAG}
+    # the fill's own entry: co-factor reads, and reads of open chromatin, which name no protein at all
+    assert set(QUALIFIED_DIRECT_FILL.values()) == {(proteins.COFACTOR_FLAG, proteins.ACCESSIBILITY_FLAG)}
+    open_chromatin = chip(allele_specific=True, allele_specific_accessibility=True)
+    assert evidence_strength("alters_regulatory_activity", open_chromatin) == "direct"
+    assert evidence_strength("alters_binding", chip(allele_specific_accessibility=True)) == "indirect"
     # the engine's prompts print QUALIFIED_DIRECT; the entry added for the fill must not reach them, or the saved
     # engine runs stop replaying
     assert not set(QUALIFIED_DIRECT_FILL) & set(QUALIFIED_DIRECT)

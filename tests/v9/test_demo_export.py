@@ -102,3 +102,62 @@ def test_a_packed_public_copy_gives_the_table_saved_beside_it(export, tmp_path):
     with gzip.open(folder / "graph.json.gz", "rb") as packed:
         (tmp_path / "graph.json").write_bytes(packed.read())
     assert export.saved_graph(tmp_path).to_json() == graph.to_json()
+
+
+def test_the_current_copies_rebuild_and_a_join_reads_from_the_packed_graph_alone(export):
+    from variant2mechanism.v9 import table as T
+
+    folder = ROOT / "demo" / "current"
+    if not export.has_graph(folder / "rs12740374"):
+        pytest.skip("demo/current is not in this checkout")
+    for case in ("rs12740374", "tert_c228t", "rs7001688"):
+        graph = export.saved_graph(folder / case)
+        table = T.from_graph(graph)
+        assert not T.check(table, graph)
+        assert T.to_markdown(table, []) == (folder / case / "table.md").read_text(encoding="utf-8")
+    # the record that joins the C/EBP group to SORT1 puts their chain first, and no symbol table is needed to see it
+    first = T.from_graph(export.saved_graph(folder / "rs12740374")).chains[0]
+    assert (first.rank, first.ties, first.title) == (1, 1, "G035 (CEBPA, CEBPB, CEBPE) → SORT1")
+    assert len(first.joined) == 2
+    # a random control is what it was: every chain ties and nothing joins
+    control = T.from_graph(export.saved_graph(folder / "rs7001688"))
+    assert control.chains[0].ties == 316 and not any(c.joined for c in control.chains)
+
+
+def test_the_loop_copies_rebuild_and_show_their_round_from_the_packed_graph_alone(export):
+    from variant2mechanism.v9 import loop
+    from variant2mechanism.v9 import table as T
+
+    folder = ROOT / "demo" / "loop"
+    if not export.has_graph(folder / "tert_c250t"):
+        pytest.skip("demo/loop is not in this checkout")
+    views = {}
+    for case in ("tert_c250t", "rs4684847", "rs4784227", "rs9349379"):
+        graph = export.saved_graph(folder / case)
+        table = T.from_graph(graph)
+        assert not T.check(table, graph)
+        assert T.to_markdown(table, []) == (folder / case / "table.md").read_text(encoding="utf-8")
+        views[case] = view = loop.report_view(graph)
+        assert "It was a dry run" in view["lead"] and "did not change" in view["moved"]
+        # a dry run reads nothing and files nothing, whatever its searches listed
+        assert all((row[5], row[6]) == ("0", "0") for row in view["effort"])
+    column = {name: i for i, name in enumerate(loop.EFFORT_HEADERS)}
+    # a tie with no article on file: one search for each tied TF group, then the names a catalogue gives the mutation
+    tied = views["tert_c250t"]["effort"]
+    assert [row[column["Why"]] for row in tied] == (["the variant with a tied candidate"] * 11
+                                                    + ["another name of the variant"] * 2)
+    assert [row[column["Searched for"]] for row in tied[-2:]] == ["C250T", "-146C>T"]
+    assert sum(int(row[column["New"]]) for row in tied) == 41
+    # every pair of TF and gene in the first chains is searched alike, and a pair with no article stays unjoined
+    pairs = [row for row in views["rs4684847"]["effort"] if row[column["Why"]] == "the TF changed and the gene read out"]
+    assert [row[column["Searched for"]] for row in pairs] == ["PRRX1 → PPARG", "PRRX1 → TIMP4", "ILF3 → PPARG",
+                                                              "ILF3 → TIMP4"]
+    assert all(row[column["Join the pair"]] == "0" for row in pairs)
+    # where pairs do list articles, they wait for the joiner: seven readings at rs4784227, none made in a dry run
+    queued = [row for row in views["rs4784227"]["effort"] if row[column["Why"]] == "the TF changed and the gene read out"]
+    assert len(queued) == 4 and sum(int(row[column["New"]]) for row in queued) == 7
+    # a random control: 316 chains tie, too many to search alike, so nothing is searched and the report says so
+    control = loop.report_view(export.saved_graph(folder / "rs7001688"))
+    assert control["effort"] == [] and "there was nothing to search for" in control["lead"]
+    assert control["rounds"] == ["Round 1, planned by code: nothing on the menu; 316 tied candidates are too many to "
+                                 "search for one by one."]

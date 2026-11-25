@@ -13,7 +13,7 @@ claims:
 |---|---|---|
 | 1. TF binding | The two alleles differ in binding the TF. | The TF is present where it would act: expressed in the context, or bound at the site. |
 | 2. Regulatory activity | The two alleles differ in the regulatory activity of the site. | The variant lies in a regulatory element. |
-| 3. Target gene | The two alleles differ in the gene's RNA. | The element regulates the gene. |
+| 3. Target gene | The two alleles differ in the gene's RNA or protein. | The element regulates the gene. |
 | 4. Trait | The two alleles differ in the trait. | The gene bears on the trait. |
 
 The left column is about this variant's two alleles. Only a record that names this variant can fill it: a record
@@ -72,11 +72,11 @@ of a cell's state. A prediction that goes against a claim is shown as disagreein
 |---|---|---|---|
 | TF binding: alleles differ | `adastra_asb` | `qbic_inventory`, `qbic_tf_detail` | articles |
 | TF binding: in place | `chip_occupancy`, `tf_occupancy_set`, `tf_expression`, `tf_expression_set`, `depmap_context` | no source | articles |
-| Regulatory activity: alleles differ | `adastra_asb` | no source | articles |
+| Regulatory activity: alleles differ | `adastra_asb`, `udacha_asa`, `mavedb_reporter` | no source | articles |
 | Regulatory activity: in place | `ccre_overlap`, `screen_online`, `variant_annotation` | no source | articles |
-| Target gene: alleles differ | `ccre_overlap`, `gtex_eqtl`, `credible_sets_l2g`, `credible_sets_all` | no source | articles |
+| Target gene: alleles differ | `ccre_overlap`, `gtex_eqtl`, `protein_qtl_sets`, `credible_sets_l2g`, `credible_sets_all` | no source | articles |
 | Target gene: in place | `ccre_overlap` | no source | articles |
-| Trait: alleles differ | `gwas_associations`, `civic_lookup`, `credible_sets_l2g`, `credible_sets_all` | no source | articles |
+| Trait: alleles differ | `gwas_associations`, `tumour_recurrence`, `civic_lookup`, `credible_sets_l2g`, `credible_sets_all` | no source | articles |
 | Trait: in place | `depmap_context`, `credible_sets_l2g`, `credible_sets_all`, `gene_disease` | `credible_sets_l2g`, `credible_sets_all` | articles |
 
 Eighteen of the 24 cells have a source today. A new source enters as an adapter and one row of this map (`SOURCES`
@@ -85,9 +85,11 @@ what a record names: a credible set names a trait and no gene, and its colocalis
 
 A record counts once per fact it states:
 
-- The variant's own eQTL fills "the alleles differ in the gene's RNA" and not also "the element regulates the gene".
-- A claim about a gene's RNA takes a colocalising expression or splicing QTL. A protein QTL is often a trans effect
-  on a protein encoded elsewhere, so it only fills "the gene bears on the trait".
+- The variant's own eQTL fills "the alleles differ in the gene's RNA or protein" and not also "the element
+  regulates the gene".
+- A claim about a gene's RNA takes a colocalising expression or splicing QTL. A colocalising protein QTL is often
+  a trans effect on a protein encoded elsewhere, so it only fills "the gene bears on the trait". A protein QTL
+  counts for the gene itself only through `protein_qtl_sets`, below, and only when the protein is the gene's own.
 - `adastra_asb` reads ADASTRA (release 6.1), which pools each protein's ChIP-seq experiments and calls whether
   the reads over a variant favour one allele. It gives one record per protein that passes ADASTRA's own 5% FDR,
   counted as a measurement in cells, like allele-specific ChIP read from an article. A protein that was tested and
@@ -110,6 +112,39 @@ A record counts once per fact it states:
   text-mined co-occurrence and drugs in development. A mouse knockout matched to the disease by phenotype
   similarity is filed as an inference, not as an experiment that measured the trait.
 
+Four sources were added on 24 November 2026 (`v9/fill_sources.py`). Each is asked about the variant itself, and
+each is run by a public institute, a consortium or the field's own repository:
+
+- `udacha_asa` reads UDACHA, the chromatin-accessibility counterpart of ADASTRA: DNase-seq, ATAC-seq and FAIRE-seq
+  reads over a variant in cells heterozygous for it, pooled per cell type. A record says that the state of the site
+  differs between the alleles in that cell type. It names no protein, so it fills "the alleles differ in the
+  regulatory activity of the site" and no TF's claim. One record per cell type and assay that passes 5% FDR, the
+  level used for ADASTRA; UDACHA's own flag is set at 10%, and a call between the two is listed and is no record.
+  A variant with no entry is "nothing found".
+- `mavedb_reporter` reads MaveDB, where saturation-mutagenesis reporter assays are deposited. Such an assay
+  measured every single-base change in an element, so a variant inside one has a measurement of its exact
+  substitution. The variant is looked up by its ClinGen allele identifier. A record needs the set's own p-value
+  below 1e-5 and at least ten barcodes, the significance level and the inclusion rule of the study that deposited
+  these sets; a measurement that does not pass is listed and is no record. The record states no direction: the
+  set's log2 effect is against the sequence the study mutagenised, which need not carry the reference allele.
+  MaveDB holds about twenty well-known elements, so most variants have no measurement.
+- `protein_qtl_sets` asks Open Targets for the credible sets of protein QTLs that hold the variant. Open Targets
+  says of each whether the protein is encoded near the signal. A cis set states a claim of its own, "the two
+  alleles differ in the level of the gene's protein", scoped to where the protein was measured (blood plasma for
+  the most part), and makes that gene a candidate. The claim is left unassessed, as an eQTL in an unstated tissue
+  is: plasma is not where the variant acts, so the record counts as an association and decides nothing about the
+  order of tied chains. A trans set is listed and is no record.
+- `tumour_recurrence` asks cBioPortal for the tumours of one cohort (MSK-IMPACT 2017, 10,945 tumours sequenced
+  with a gene panel) that carry this exact substitution. One record per cancer type in which it was called in the
+  tumours of at least two patients, with the counts. A count is not a test, and the record says so. The cohort is
+  on GRCh37, so the variant needs a GRCh37 placement on file; an inherited variant returns nothing, which says
+  nothing.
+
+Protein names written with a Greek letter (AP-2α, C/EBPβ, PPARγ) now resolve to a gene. Articles name a protein
+that way, the name was no gene symbol, and the record stayed under a TF no chain names. The HGNC table lists such
+names as aliases; one resolves only when exactly one gene lists it. A bare family name (AP-2) is still not
+resolved, because it names no single gene.
+
 ## What the table does not decide
 
 - **The order of chains.** Chains are ordered by their weakest link, using the kind of evidence only
@@ -123,6 +158,16 @@ A record counts once per fact it states:
      job: the median model passes it at 36% of background variants.
   2. **A record of the TF in place.** A ChIP-seq peak over the variant, and expression in the stated context,
      never the size of the signal or the level.
+  3. **A record that the TF acts on the gene** (since 25 November 2026, in runs read by the reader's format 6). A
+     chain pairs a TF with a gene, and nothing above says that the two belong together. An experiment that
+     changed a TF and saw another gene's RNA or protein change is flagged when it is filed, and the chain of
+     that TF and that gene comes before an otherwise equal chain with no such record. Such a record comes from
+     an article that names the variant, read by the reader, or from any article on that TF and gene, read by
+     the joiner (below). It shows the TF acting on the gene somewhere, not that it does so through this
+     variant, so it never moves a chain past one with stronger evidence. Not flagged: a measured null, a result
+     the article calls unclear, a readout that is no gene product, and a "gene" that is the TF itself. Names are
+     resolved to approved symbols when the record is filed, so the order can be read from a saved graph alone.
+     A run with no such record is ordered exactly as before.
 
   A TF with no model, a prediction below its group's cut-off, or a TF never assayed by ChIP-seq stays in the list.
   The table changes no order.
@@ -142,16 +187,17 @@ count for, and links every record through the claim graph's gates (`v9/fill.py`)
 |---|---|
 | TF binding: alleles differ | every group of TFs with a QBiC-SELEX prediction past the gate; every TF with an allele-specific binding call in ADASTRA |
 | TF binding: in place | a TF of such a group with a ChIP-seq peak over the variant; with a context in the request, a TF expressed in it |
-| Regulatory activity: alleles differ | the variant's site, where ADASTRA holds allele-specific reads of a protein that does not bind DNA itself |
+| Regulatory activity: alleles differ | the variant's site, where ADASTRA holds allele-specific reads of a protein that does not bind DNA itself, UDACHA holds allele-specific reads of open chromatin, or MaveDB holds a reporter assay that measured this substitution |
 | Regulatory activity: in place | the element a registry places the variant in |
-| Target gene: alleles differ | every gene with an eQTL of this variant, or a colocalising expression or splicing QTL |
+| Target gene: alleles differ | every gene with an eQTL of this variant, or a colocalising expression or splicing QTL; every gene whose own protein has a QTL with this variant in its credible set |
 | Target gene: in place | a gene that changed when the variant's element was perturbed |
-| Trait: alleles differ | every trait term with an association or a credible set of this variant |
+| Trait: alleles differ | every trait term with an association or a credible set of this variant; for a somatic mutation, every cancer type in which it was called in the tumours of two patients or more |
 | Trait: in place | a candidate gene with a record linking it to such a trait |
 
-- The one database source that compares the two alleles' regulatory activity is ADASTRA's reads of a protein
-  that does not bind DNA itself. Where a variant has such a record, code states the claim for the variant's site;
-  elsewhere the cell reads "nothing found".
+- Three database sources compare the two alleles' regulatory activity: ADASTRA's reads of a protein that does not
+  bind DNA itself, UDACHA's reads of open chromatin, and a reporter assay in MaveDB that measured the
+  substitution. Where a variant has such a record, code states the claim for the variant's site; elsewhere the
+  cell reads "nothing found".
 - A claim that the alleles differ states no direction. The records say which allele, so a measurement in the other
   direction is still a record that they differ.
 - Expression counts as "expressed" at 1 TPM or more, the usual convention for a detected transcript. A lower
@@ -174,7 +220,7 @@ stage is code, so each can be counted and replayed:
 
 | Stage | Who | What happens |
 |---|---|---|
-| Find | code | Europe PMC is searched for the variant's rsIDs: once in titles and abstracts, once anywhere together with an assay word |
+| Find | code | Europe PMC is searched for the variant's rsIDs: once in titles and abstracts, once anywhere together with an assay word. LitVar is asked for the articles that name the variant under any spelling, together with an assay word |
 | Choose | code | reviews are left out; an article whose retrieved text does not name the variant is not sent to the model; the passages shown are the abstract, those that name the variant and, for an article about it, its results, up to 30,000 characters |
 | Read | model | one reading per article, each article once: the model returns the experiments the article reports, each with the family of its assay |
 | File | code | code copies the sentences the model pointed to and checks every field against the text; what passes is a record |
@@ -195,7 +241,26 @@ stage is code, so each can be counted and replayed:
   only allele-specific expression, an association, may count for a claim about this variant's alleles. And whether
   the article itself calls the difference not significant, a trend or inconsistent: it then counts for nothing.
   A record whose description says the article names no assay is refused: it is a statement, not an experiment.
-- **Every article the two searches list is read** (up to 20). A reading costs about a sixth of a cent.
+- **Every article the three searches list is read** (up to 30). A reading costs about a sixth of a cent.
+- **Articles that write the variant another way.** A search for an rsID lists only articles that write the rsID,
+  and a somatic promoter mutation is mostly written by an HGVS name or a shorthand. LitVar normalises the
+  spellings to one entry, and the reader asks PubTator, the text-mining service LitVar is built on, for that
+  entry's articles in its relevance order (the first ten). An article only LitVar listed is read with the spellings
+  it uses: code asks PubTator how that article writes the variant, chooses the passages by those spellings too,
+  and tells the model what they are. An article Europe PMC listed is read exactly as before.
+- **An article's own name for a mutation counts under two checks.** A record names its variant by an rsID, by a
+  position, or by a shorthand that the article or a catalogue ties to a position. Articles on a somatic mutation
+  write none of these: 16 experiments on TERT C228T were refused because the article writes "−124C>T". In an
+  article only LitVar listed, a record may now name the variant as the article does, where the quotation or its
+  paragraph, heading or caption writes that name. It counts as the variant when both checks pass, and code makes
+  both: PubTator ties that name to the variant's rsID in that same article, and the base change the name writes
+  is the variant's, reference to alternate, on one strand or the other ("−124C>T" is G>A on the forward strand).
+  The record's allele is placed on the forward strand, and the experiment record keeps the article's notation.
+  Not taken: a variant whose alleles are each other's complements (A/T, C/G), since the change reads the same on
+  both strands; a name that is not written where the result is, even when the article names no other variant; an
+  allele that is not a base of the name; a record that also names another variant. Text mining can tie a name to
+  the wrong variant, and one wrong single-base change in six would pass the second check, so the table prints
+  with each such record that it was identified by name, and whether the name stands in the quotation.
 - **The model reads without knowing what the run hopes to find.** The request holds the variant and the article and
   nothing else: no claim, no candidate TF or gene. One article and one variant always give one request, so a reply
   is the same in every run and replays from the response cache.
@@ -429,11 +494,86 @@ that would, taken from the table's own rule for which record counts for which cl
   with a prediction, then those with an association.
 - When chains tie, a suggestion names every tied TF or gene, never the first chain's alone.
 
+## Going back for evidence: the loop
+
+The fill looks everything up once. `v2m v9 fill --read --loop model` adds a loop that goes back for articles where
+the leading chains tie or are weakest (`v9/loop.py`). It was added on 25 November 2026, after the scoring. It has
+been tested with scripted models and dry-run on real variants; it has not yet been measured with a model.
+
+| Stage | Who | What happens |
+|---|---|---|
+| Gaps | code | Reads them from the table: a tie for first, a TF and a gene of the first chains that nothing joins, then the first chain's claims that nothing supports, that are predicted only, that are associated only |
+| Menu | code | Lists what could be done about them this round, each entry with the searches it would run |
+| Plan | planner model, or code | Picks menu entries (at most 4), each with a reason. In the baseline arm code takes the menu in its own order |
+| Act | code, the reader and the joiner | Runs the searches. The reader reads the new articles exactly as it read the first ones; the joiner reads the articles found for a TF and a gene |
+| Look | code | Builds the table again without keeping it, and sees which cells and ranks changed |
+| Stop | code | After 3 rounds, when a round changes nothing, when the menu is empty, or when reading has to stop |
+
+- **Where it sits.** Between the first reading and the linking of what was read. A round only adds articles and the
+  records filed from them. The table that is kept is built once, afterwards, by the same code as without a loop,
+  so it is the table a single pass over the same articles would give. A test checks exactly that.
+- **What is on the menu.** Each action is a search and a reading.
+
+| Action | For which gap | What it searches |
+|---|---|---|
+| `candidates` | a tie | the variant's names with each tied TF or gene and an assay word, the same search for each |
+| `join` | a TF and gene that nothing joins | the TF and the gene in a title or abstract with a word for a perturbation; the variant is not part of it |
+| `named` | a weak claim that names a TF or a gene | the variant's names with that name and an assay word |
+| `other_names` | any | the variant under names that are not rsIDs and write its own base change: text-mined spellings, a catalogue's aliases, names the planner proposed |
+| `follow` | any | nothing: it opens the reviews on file and takes the articles they cite in the paragraphs that name the variant |
+| `proposed` | any | the variant's names with a TF or gene the planner remembers, and an assay word |
+
+- **The variant's names in a search** are its rsIDs, the spellings text mining found in the articles read, and the
+  aliases a catalogue verified by position. A name from the planner's memory is searched under `other_names` only.
+  A gene that has no symbol is named by a database id, which no article writes, so it is not searched for.
+- **Reading what a search finds.** An article the loop found may never write the rsID. Its passages are chosen by
+  the rsID, by the spellings text mining ties to the variant in that article, and by the catalogue's names, and
+  the model is told the last two. Whether a record filed under such a name is the variant is still decided by
+  the identity rules: the catalogue's verified shorthand, or the two checks on a text-mined name. An article of
+  the first reading is read exactly as before.
+
+- **What the planner may do.** It sees the table, the gaps, the menu and what earlier rounds did, and no article
+  text. It returns menu numbers. It may also propose up to 3 names from memory: a TF, a gene, or another name of
+  the variant. A proposal is a search term and nothing else. A TF or gene must be an approved symbol, another name
+  must write the variant's own base change, and each is marked "from memory" wherever it is shown. A remembered
+  answer with no article behind it leaves no trace in the table, which a test checks.
+- **What keeps it honest.**
+  - The reader stays blind. Its request holds the article and the variant, never the gap, the candidate or the
+    search that found the article. A test compares the request with the one a run without the loop sends.
+  - Equal effort. A tie is one action over every tied candidate, and the new articles are read in turn, one
+    candidate after another, so the cap on a round cuts every candidate alike. A tie of more than 24 candidates
+    is searched for none of them, and so are more than 24 pairs of TF and gene: a random variant ties hundreds of
+    TFs on a prediction alone, and a search for the first of them only would favour it.
+  - Effort is reported. For every search the report gives how many articles it listed, how many were new, how
+    many were read, how many experiments were filed and how many of those count for a claim.
+  - Nothing is removed. A record against a claim is filed and shown as before.
+- **The joiner** (`v9/joiner.py`) is the one role that reads articles which never name the variant: a TF acts on a
+  gene whatever variant one asks about. For every pair of TF and gene in the first chains it searches the same way,
+  keeps the passages that name both, and has a model return the experiments in which the TF was changed and the
+  gene's RNA or protein measured. The model is told the pair, since it must know what to look for. It returns
+  pointers to sentences, and code copies them and checks every field as it does for the reader. A result that
+  found no change is filed as a null and joins nothing. An article listed for two pairs is read for each.
+- **A join follows the literature's attention.** A well-studied TF has more such articles than an obscure one.
+  The report lists, for every pair, how many articles were listed and read.
+- **Caps.** 3 rounds, 10 new articles a round for the reader and 6 for the joiner, 5 articles a search (3 for a
+  pair), 4 reviews a round and 5 citations a review, and at most 24 tied candidates and 24 pairs, each searched
+  for all or for none.
+- **A dry run** (`--loop-dry`) plans the first round, runs its searches and reads nothing. No model is sent
+  anything, so it costs nothing and shows what a round would read.
+- **Not built yet.** Reading on in a paragraph when a record was cut short, widening a lookup to more tissues, and
+  any action that costs more than a reading (a model run, a cluster job). An article found under a name from the
+  planner's memory is read only if it also writes the rsID, a text-mined spelling or a catalogue's name. A
+  catalogue's name in HGVS form ("-146C>T") is searched for and passages are chosen by it, but a record that names
+  the variant only that way is still refused: of a catalogue's names only the shorthand ("C250T") identifies it.
+- **What it cannot show.** On a well-known variant the planner remembers the answer and then finds its papers.
+  Such a variant shows that evidence is found and filed correctly. It does not show discovery.
+
 ## Scored once against the gold cases
 
 The pipeline was frozen on 23 November 2026 and its 15 tables were scored once. The freeze is the hash of every
 file a run executes and of the 15 tables (`eval/fill_freeze_20261123.json`; `scripts/v9_freeze.py check` lists
-anything that has changed since). The scoring rule was written before any table was scored and is the docstring of
+anything that has changed since). The sources added on 24 November changed those files, so the check now lists
+them: the score below is of the frozen version, and the additions are not scored. The scoring rule was written before any table was scored and is the docstring of
 `scripts/v9_table_score.py`. The output is `runs/score_fill_20261123`.
 
 ```bash

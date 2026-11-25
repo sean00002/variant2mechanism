@@ -4,7 +4,8 @@ Why: in the claim-graph engine a model searched, chose what to read, re-read, ex
 loop. Over 15 runs that loop made 79 reads of 40 articles and ended with 16 linked experiments, and it could not be
 measured stage by stage. Here every stage but one is code, so each can be counted and replayed:
 
-    find      code searches Europe PMC for the variant's own names (its rsIDs), once per query
+    find      code searches Europe PMC for the variant's own names (its rsIDs), once per query, and asks
+              LitVar for the articles that name it under any spelling
     choose    code keeps the articles whose retrievable text names the variant, and the passages to show
     read      the model reads one article in one call and returns the experiments it reports
     file      code copies the sentences the model pointed to, checks every field against the text
@@ -42,9 +43,27 @@ measured stage by stage. Here every stage but one is code, so each can be counte
 - Which articles: those a search for the variant's name lists, in the search's own order (its title-or-abstract
   query first, then a query that also asks for an assay word), reviews left out, up to `max_articles` articles.
   An article whose retrieved text does not name the variant is not sent to the model. The default cap is every
-  article the two searches can list (2 x 10): a reading costs about a sixth of a cent, so cost is no reason to
+  article the searches can list (3 x 10): a reading costs about a sixth of a cent, so cost is no reason to
   read fewer. The order and the cap were fixed from cost and from what a claim about a variant's alleles needs,
   never from how they score a labelled case.
+- A third search, since format 4: LitVar (fill_sources.litvar_search). Articles write one variant many ways (an
+  rsID, an HGVS name such as c.-124C>T, a shorthand such as C228T), and a search for the rsID lists only those
+  that write the rsID. LitVar normalises the spellings to one entry, and PubTator's search over it is asked the
+  second query again: the articles that name the variant, under any spelling, together with an assay word, in its
+  relevance order, the first ten. They come after the Europe PMC articles, so those keep their place.
+- An article only LitVar listed is read with the spellings it uses. Its text need not hold the rsID at all, so
+  code asks PubTator how that article writes the variant (fill_sources.litvar_mentions), chooses the passages by
+  those spellings too, and tells the model what they are. An article Europe PMC listed is read exactly as before,
+  so its request is unchanged.
+- Since format 5 such a spelling can also identify the variant when a record is filed. In the first run on a
+  somatic mutation (TERT C228T) the search found the reporter, pull-down and base-editing articles, and 16 of
+  their experiments were refused because the article writes "-124C>T" and never an rsID or a position. A record
+  may now name the variant as the article does, where the quotation or its paragraph, heading or caption writes
+  that name, and it counts as this variant under two checks, both code: text mining ties the name to the
+  variant's rsID in that same article, and the base change the name writes is the variant's on one strand or the
+  other (variant_identity._text_mined_map, which also says what is not taken). Text mining can be wrong, so each
+  such record says how it was identified, and the table prints that with it. The request to the model is the
+  same as in format 4, so a saved reading is filed again at no cost.
 - Which passages: the abstract, every passage that names the variant, and, when the title or abstract names it (the
   article is about it), the article's other passages in document order, up to READ_CHARS characters. Introduction,
   Background and Discussion sections are left out: the literature route files a result quoted from them as a
@@ -52,9 +71,9 @@ measured stage by stage. Here every stage but one is code, so each can be counte
 - Nothing here is evidence of absence. An article that could not be retrieved, a reply that failed and a search cut
   by the cap are recorded as such; the table calls a literature cell "nothing found" only on the strength of the
   articles that were read, and its note says how many of those found that was.
-- What code cannot find it does not read: an article that names the variant only by a shorthand (a promoter mutation
-  known by its hg19 position, say) is not listed by a search for its rsID. That is measured, not hidden: the funnel
-  reports how many articles each query listed.
+- What code cannot find it does not read: LitVar knows a variant by its rsID, so a variant with none, and a
+  spelling LitVar files under another entry, are still missed. That is measured, not hidden: the funnel reports
+  how many articles each search listed.
 """
 
 import re
@@ -65,6 +84,7 @@ from typing import Any, Literal
 from ..agent.schemas import SchemaCheckError
 from . import literature as L
 from . import proteins
+from .chain import JOIN_FLAG
 from .graph import ClaimGraph, GraphRefusal, article_key
 from .roles import GUARD, RoleCaller, Strict, fence, prompt
 from .schemas import (
@@ -78,13 +98,17 @@ from .schemas import (
     ToolRequest,
 )
 from .tools import ToolRunner
-from .variant_identity import normalise_evidence
+from .variant_identity import normalise_evidence, verified_aliases
 
-READER_FORMAT = 3                  # 2: the model names the assay family; one correction of pointers.
+READER_FORMAT = 6                  # 2: the model names the assay family; one correction of pointers.
                                    # 3: it also says when a comparison is of haplotypes and when a result is unclear
+                                   # 4: a third search (LitVar), and its articles are read with their own spellings
+                                   # 5: a record may name the variant as such an article does (two checks, code)
+                                   # 6: an experiment that changed a TF and read out a gene is flagged as a join
 EXTRACTOR: Role = "literature_investigator"   # the graph's role for an experiment a model extracted from an article
 SEARCH_RESULTS = 10                # records one search lists (the literature route's cap)
-MAX_ARTICLES = 2 * SEARCH_RESULTS  # articles one run sends to the model: every article its two searches can list
+MAX_ARTICLES = 3 * SEARCH_RESULTS  # articles one run sends to the model: every article its searches can list
+LITVAR_TOOL, MENTIONS_TOOL = "litvar_search", "litvar_mentions"
 FETCH_FACTOR = 3                   # articles fetched per article sent: one that does not name the variant costs no call
 READ_CHARS = 30_000                # characters of one article's passages in one packet
 MAX_SENTENCES = 4                  # consecutive sentences one quotation may span
@@ -102,6 +126,8 @@ _UNNAMED = re.compile(r"\b(?:not|un)[ -]?(?:specified|stated|described|named|giv
 ASSAY_WORDS = ("EMSA", '"mobility shift"', "luciferase", "reporter", "MPRA", "ChIP", "CRISPR",
                '"allele-specific"', '"base editing"')
 SEARCH_PURPOSE = "the reader: articles that name the variant"
+LITVAR_PURPOSE = "the reader: articles that name the variant under any spelling, with an assay word"
+MENTIONS_PURPOSE = "the reader: how this article writes the variant"
 READ_PURPOSE = "the reader: the article's text, for one reading"
 # What became of an article a search listed. Only the first two looked into its text.
 STATUSES: tuple[tuple[str, str], ...] = (
@@ -170,6 +196,24 @@ def reader_flags(x: ReadExperiment, evidence: Any, resolver: Any = None,
         flags["unclear_result"] = True
     if evidence.evidence_class == "occupancy" and x.manipulated == "allele" and evidence.allele:
         flags["allele_specific"] = True
+    # An experiment that changed a TF and read out another gene's RNA or protein shows the TF acting on that gene.
+    # No cell counts it (it compares no alleles and tests no element); chain.py uses it to tell which TF and gene
+    # of a tie belong together. Not flagged: a measured null, a result the article calls unclear, a readout that
+    # is not a gene product, and a "gene" that is the TF itself.
+    if (x.manipulated == "tf" and evidence.evidence_class == "perturbation" and not x.unclear
+            and evidence.about_tfs and evidence.result_kind != "null_in_assessed_scope"
+            and L._endpoint_category(x.endpoint) == "expression"):
+        def symbol(name: str) -> str:
+            """The approved symbol of a name the article uses, where it has one (C/EBP-alpha is CEBPA). The flag
+            holds symbols, so that the order of chains can be read from the saved graph alone."""
+            found = resolver(str(name)) if resolver is not None else None
+            return found[0] if found else str(name)
+
+        changed = [symbol(t) for t in evidence.about_tfs]
+        genes = [g for g in dict.fromkeys(symbol(g) for g in evidence.about_genes)
+                 if g.upper() not in {t.upper() for t in changed}]
+        if genes:
+            flags[JOIN_FLAG] = {"tfs": list(dict.fromkeys(changed)), "genes": genes}
     if evidence.evidence_class == "occupancy" and tfs is not None and resolver is not None:
         other = [name for name in evidence.about_tfs
                  if (found := resolver(name)) is not None and proteins.kind(found[0], tfs) == proteins.NOT_TF]
@@ -278,18 +322,29 @@ def render(chosen: Sequence[L.ArticleSection]) -> str:
     return fence("\n".join(lines).rstrip())
 
 
-def packet(graph: ClaimGraph, article: L.Article, chosen: Sequence[L.ArticleSection]) -> str:
+def packet(graph: ClaimGraph, article: L.Article, chosen: Sequence[L.ArticleSection],
+           spellings: Sequence[str] = (), aliases: Sequence[str] = ()) -> str:
     """What one call reads: the variant as code knows it, the article's identifiers and the chosen passages. It
     holds nothing of the run (no claim, candidate, hypothesis or budget) and nothing volatile, so one article and
-    one variant always give one request."""
+    one variant always give one request. `spellings`: how this article writes the variant, for an article only
+    LitVar listed; without any the packet is what it was before LitVar was asked. `aliases`: the names a catalogue
+    lists for the variant, for an article the loop found; the same for every such article of one variant."""
     v = graph.case.variant
     known = names(graph)
     where = f"{article.journal} {article.year or ''}".strip()
+    spelt = ([f"- this article writes it as: {fence('; '.join(spellings))} (marked by text mining, which can be "
+              "wrong: an experiment is about this variant only if its passage, heading or legend says so; name it "
+              "as the passage does)"] if spellings else [])
+    listed = ([f"- a catalogue lists it under these names: {fence('; '.join(aliases))} (an article may use one: an "
+               "experiment is about this variant only if its passage, heading or legend says so; name it as the "
+               "passage does)"] if aliases else [])
     lines = [
         "Role: reader; stage: read one article",
         "",
         "Variant",
         "- names: " + (", ".join(known) if known else "no rsID is recorded for it"),
+        *spelt,
+        *listed,
         f"- {v.assembly} chr{v.chrom}:{v.pos}; reference allele {v.ref}, alternate allele {v.alt}, both written on "
         "the forward strand (an article may write them on the other strand)",
         "",
@@ -393,6 +448,9 @@ class Reader:
         self.articles: list[dict[str, Any]] = []
         self.searches: list[ToolCall] = []
         self.stopped: str | None = None                    # cache_miss or budget_currency: reading could not go on
+        # A dry run of the loop sends no model anything: it reads what the response cache holds and lists what
+        # it does not, instead of stopping at the first article whose reading is not saved.
+        self.keep_going = False
 
     # --- find ----------------------------------------------------------------------------------------------------------
 
@@ -420,7 +478,49 @@ class Reader:
                         row[key] = row[key] or found.get(key) or row[key]
                     if call.tool_call_id not in row["found_by"]:
                         row["found_by"].append(call.tool_call_id)
+        self._litvar(graph, rows)
         return rows
+
+    def _has(self, tool: str) -> bool:
+        return any(spec.name == tool for spec in self.runner.specs("literature"))
+
+    def _litvar(self, graph: ClaimGraph, rows: list[dict[str, Any]]) -> None:
+        """The third search (module docstring): the articles LitVar lists for the variant with an assay word, added
+        after those Europe PMC listed. A row only LitVar listed is marked, so it is read with the spellings the
+        article uses; one Europe PMC listed as well keeps the request it always had."""
+        if not names(graph) or not self._has(LITVAR_TOOL):
+            return
+        call = self.runner.run(ToolRequest(tool=LITVAR_TOOL, purpose=LITVAR_PURPOSE,
+                                           params={"words": list(ASSAY_WORDS)}), graph.case, graph, "code")
+        self.searches.append(call)
+        for found in call.observations if call.execution_status == "success" else []:
+            ids = _ids(found) if found.get("record") == "paper" else set()
+            if not ids:
+                continue
+            row = next((r for r in rows if r["ids"] & ids), None)
+            if row is None:
+                row = {"ids": set(), "pmid": None, "pmcid": None, "doi": None, "title": "", "publication_type": "",
+                       "found_by": [], "status": "over_cap", "why": "", "litvar_only": True}
+                rows.append(row)
+            row["ids"] |= ids
+            for key in ("pmid", "pmcid", "doi", "title"):
+                row[key] = row[key] or found.get(key) or row[key]
+            if call.tool_call_id not in row["found_by"]:
+                row["found_by"].append(call.tool_call_id)
+
+    def _spellings(self, graph: ClaimGraph, row: dict[str, Any]) -> list[str]:
+        """How an article only LitVar listed writes the variant (PubTator's marks in its text); nothing for any
+        other article, for one with no PubMed id, or when the lookup fails. An article a later round of the loop
+        found (loop.py) is asked about too: it was found by something other than the rsID."""
+        if (not (row.get("litvar_only") or row.get("loop")) or not row.get("pmid")
+                or not self._has(MENTIONS_TOOL)):
+            return []
+        call = self.runner.run(ToolRequest(tool=MENTIONS_TOOL, params={"pmid": str(row["pmid"])},
+                                           purpose=MENTIONS_PURPOSE), graph.case, graph, "code")
+        row["spellings_call"] = call.tool_call_id or None
+        if call.execution_status != "success":
+            return []
+        return [str(o["text"]) for o in call.observations if o.get("record") == "spelling" and o.get("text")]
 
     # --- read ----------------------------------------------------------------------------------------------------------
 
@@ -449,15 +549,16 @@ class Reader:
             return None
 
     def _file(self, graph: ClaimGraph, x: ReadExperiment, index: int, article: L.Article, call: ToolCall,
-              shown: Sequence[L.ArticleSection]) -> str | None:
-        """One returned experiment as a record, or None after its refusal is logged with the reason."""
+              shown: Sequence[L.ArticleSection], spelt: Sequence[str] = ()) -> str | None:
+        """One returned experiment as a record, or None after its refusal is logged with the reason. `spelt`: how
+        text mining says this article writes the variant, by which a record may name it (module docstring)."""
         try:
             rec = record(x, article, shown)
             if _UNNAMED.search(x.intervention):
                 raise L.ExtractionRefused("the record says the article does not name the assay or the method: a "
                                           "finding with none named is a statement, not an experiment")
             evidence = L.evidence_from_experiment(rec, call, article, resolver=graph.resolver,
-                                                  label=ASSAY_CLASS[x.assay], own_figures=True)
+                                                  label=ASSAY_CLASS[x.assay], own_figures=True, mined=spelt)
             evidence = normalise_evidence(evidence, graph, article=article)
             flags = reader_flags(x, evidence, graph.resolver, proteins.tf_symbols(self.runner.config))
             evidence = evidence.model_copy(update={"data": {**evidence.data, **flags}})
@@ -490,9 +591,15 @@ class Reader:
         if article.is_review:
             row.update(status="review", why="a review article")
             return
-        shown, named = choose(article, names(graph))
+        spelt = self._spellings(graph, row)
+        # An article the loop found may write the variant by a name a catalogue lists for it and verified by
+        # position (a somatic mutation's shorthand). Its passages are chosen by those names too, and the model is
+        # told them. Every article of the first reading is read exactly as before.
+        listed = verified_aliases(graph) if row.get("loop") else []
+        shown, named = choose(article, [*names(graph), *spelt, *listed])
         row.update(passages=len(article.sections), passages_naming=named, passages_shown=len(shown),
-                   characters=sum(len(s.text) for s in shown))
+                   characters=sum(len(s.text) for s in shown), **({"spellings": spelt} if spelt else {}),
+                   **({"aliases": listed} if listed else {}))
         if not shown:
             row.update(status="no_mention", why="the variant is named only where the article retells earlier work"
                        if named else "no passage of the retrieved text names the variant")
@@ -507,13 +614,16 @@ class Reader:
                 raise SchemaCheckError(correction(problems))
             return reading
 
-        out = self.roles.read(system_prompt(), packet(graph, article, shown), ArticleReading, pointers)
+        out = self.roles.read(system_prompt(), packet(graph, article, shown, spelt, listed), ArticleReading,
+                              pointers)
         row["sends"] = self.roles.client.calls - sent
         graph.set_model_usage(self.roles.calls_used, self.roles.cost_usd)
         if out is None:
             kind = self.roles.failures[-1]["kind"] if self.roles.failures else "failed"
             row.update(status="failed", why=kind)
-            if self.roles.replay_miss:
+            if self.roles.replay_miss and self.keep_going:
+                self.roles.replay_miss = False
+            elif self.roles.replay_miss:
                 self.stopped = "cache_miss"
             elif self.roles.currency_exhausted:
                 self.stopped = "budget_currency"
@@ -521,10 +631,13 @@ class Reader:
                       target_ids=[call.tool_call_id], details={"kind": "reading", "reader": True, "failed": True,
                                                                "article": article.key, "failure": kind})
             return
-        accepted = [eid for i, x in enumerate(out.experiments) if (eid := self._file(graph, x, i, article, call, shown))]
+        accepted = [eid for i, x in enumerate(out.experiments)
+                    if (eid := self._file(graph, x, i, article, call, shown, spelt))]
+        by_name = [eid for eid in dict.fromkeys(accepted)
+                   if (graph.evidence[eid].data.get("variant_identity") or {}).get("basis") == "text_mined_name"]
         row.update(status="read", why="", experiments=len(out.experiments),
                    accepted=list(dict.fromkeys(accepted)), refused=len(out.experiments) - len(accepted),
-                   note=" ".join(out.note.split())[:NOTE_LIMIT])
+                   note=" ".join(out.note.split())[:NOTE_LIMIT], **({"by_name": by_name} if by_name else {}))
 
     # --- the run ---------------------------------------------------------------------------------------------------------
 
@@ -547,15 +660,12 @@ class Reader:
                 if row["status"] == "over_cap":
                     row["why"] = f"reading stopped: {self.stopped}"
         for row in self.articles:
-            row["ids"] = sorted(row["ids"])
-            label = row.get("article") or row["pmcid"] or (f"PMID:{row['pmid']}" if row["pmid"] else row["doi"])
-            row["label"] = label
-            graph.log("collect_facts", "code",
-                      f"the reader: {label}: {row['status']}" + (f" ({row['why']})" if row["why"] else "")
-                      + (f"; {row.get('experiments', 0)} experiment(s) returned, {len(row.get('accepted', []))} filed"
-                         if row["status"] == "read" and not row.get("duplicate") else ""),
-                      target_ids=[t for t in [row.get("read")] if t], evidence_ids=row.get("accepted", []),
-                      details={"reader": {k: v for k, v in row.items() if k != "note"}})
+            self._close(graph, row)
+        return self.log_summary(graph)
+
+    def log_summary(self, graph: ClaimGraph) -> dict[str, Any]:
+        """The reading's summary, logged as the run's count of what was found, read and filed. The last one logged
+        is the one a table and a report quote, so the loop logs it again after its rounds (loop.py)."""
         summary = self.summary()
         graph.log("collect_facts", "code",
                   f"the reader: {summary['found']} article(s) found by {len(self.searches)} search(es), "
@@ -566,17 +676,59 @@ class Reader:
                                               if k not in ("articles", "model_calls", "cost_usd")}})
         return summary
 
+    def _close(self, graph: ClaimGraph, row: dict[str, Any]) -> None:
+        """One article's row as it is kept, and its event: what became of the article."""
+        row["ids"] = sorted(row["ids"])
+        label = row.get("article") or row["pmcid"] or (f"PMID:{row['pmid']}" if row["pmid"] else row["doi"])
+        row["label"] = label
+        graph.log("collect_facts", "code",
+                  f"the reader: {label}: {row['status']}" + (f" ({row['why']})" if row["why"] else "")
+                  + (f"; {row.get('experiments', 0)} experiment(s) returned, {len(row.get('accepted', []))} filed"
+                     if row["status"] == "read" and not row.get("duplicate") else ""),
+                  target_ids=[t for t in [row.get("read")] if t], evidence_ids=row.get("accepted", []),
+                  details={"reader": {k: v for k, v in row.items() if k != "note"}})
+
+    def known(self, found: dict[str, Any]) -> dict[str, Any] | None:
+        """The row of an article already listed, by any identifier it shares with a search record."""
+        ids = _ids(found)
+        return next((r for r in self.articles if ids & set(r["ids"])), None) if ids else None
+
+    def read_more(self, graph: ClaimGraph, rows: Sequence[dict[str, Any]], cap: int, *,
+                  reading: bool = True) -> list[dict[str, Any]]:
+        """Articles a later search listed (the loop, loop.py), read exactly as the first ones were: fetched, the
+        passages that name the variant chosen, one model call each, every experiment filed by the same checks. The
+        packet holds nothing of why the article was looked for. `rows` are new rows in the order to read them;
+        at most `cap` are sent to the model, and the rest keep the status over_cap. With `reading` False nothing
+        is fetched or sent (a dry run): the rows are listed and say so. Returns the rows, closed."""
+        self.roles.set_limits(self.roles.max_calls + GUARD * max(cap, 0), 0)
+        sent = 0
+        for row in rows:
+            self.articles.append(row)
+            if not reading:
+                row.update(status="over_cap", why="a dry run: listed, not read")
+            elif self.stopped or sent >= cap:
+                row["why"] = f"reading stopped: {self.stopped}" if self.stopped else "the round's cap on articles"
+            else:
+                before = self.roles.calls_used
+                self.read(graph, row)
+                sent += self.roles.calls_used > before or row["status"] == "failed"
+            self._close(graph, row)
+        return list(rows)
+
     def summary(self) -> dict[str, Any]:
         rows = [r for r in self.articles if not r.get("duplicate")]
         counts = {key: sum(r["status"] == key for r in rows) for key, _ in STATUSES}
         return {
             "format": READER_FORMAT, "max_articles": self.max_articles, "read_chars": READ_CHARS,
-            "searches": [{"call": c.tool_call_id, "query": c.query_parameters.get("query"),
-                          "status": f"{c.execution_status}/{c.retrieval_status}", "listed": len(c.observations)}
+            "searches": [{"call": c.tool_call_id,
+                          "query": c.query_parameters.get("query") or f"{c.tool_name} (LitVar, with an assay word)",
+                          "status": f"{c.execution_status}/{c.retrieval_status}",
+                          "listed": sum(bool(_ids(o)) for o in c.observations)}
                          for c in self.searches],
             "found": len(rows), **counts,
             "experiments": sum(r.get("experiments", 0) for r in rows),
             "accepted": len({e for r in rows for e in r.get("accepted", [])}),
+            "by_name": len({e for r in rows for e in r.get("by_name", [])}),
             "refused": sum(r.get("refused", 0) for r in rows),
             "corrected": sum(r.get("sends", 0) > 1 for r in rows),
             "model_calls": self.roles.calls_used, "cost_usd": self.roles.cost_usd,
@@ -594,7 +746,9 @@ def manifest_parts(roles: RoleCaller | None, max_articles: int) -> dict[str, Any
     from ..agent.llm import strict_schema
     schema = json.dumps(strict_schema(ArticleReading), sort_keys=True).encode()
     return {"reader_format": READER_FORMAT, "max_articles": max_articles, "read_chars": READ_CHARS,
-            "max_sentences": MAX_SENTENCES, "passage_max": L.PASSAGE_MAX, "queries": queries("<name>"),
+            "max_sentences": MAX_SENTENCES, "passage_max": L.PASSAGE_MAX,
+            "queries": [*queries("<name>"), f"{LITVAR_TOOL}: <name> under any spelling AND "
+                                            f"({' OR '.join(ASSAY_WORDS)})"],
             "prompt_sha256": hashlib.sha256(system_prompt().encode()).hexdigest(),
             "schema_sha256": hashlib.sha256(schema).hexdigest(),
             "model": roles.role_models().get("literature_investigator") if roles else None,
