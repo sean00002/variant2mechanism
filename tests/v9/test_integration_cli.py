@@ -63,7 +63,7 @@ def test_only_the_v9_block_and_the_release_entry_were_added():
     assert release["v9"] == {"runs_dir": "runs/dev_v9_release"}
     assert release["v8"] == {"runs_dir": "runs/eval_v8_release", "dev_dir": "runs/dev_v8_release"}
     assert raw["v8"]["runs_dir"] == "runs/eval_v8_luna" and raw["default_profile"] == "release"
-    assert release["budget_usd"]["dev"] == 5.0 and release["budget_usd"]["eval"] == 0.0
+    assert release["budget_usd"]["dev"] == 10.0 and release["budget_usd"]["eval"] == 0.0
 
 
 def test_the_tests_config_keeps_v9_folders_in_the_temporary_folder(v9_isolation):

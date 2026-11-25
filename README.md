@@ -175,8 +175,8 @@ The table's full definition, its rules and the source of every cell are in
 |---|---|---|---|
 | TF binding | Allele-specific binding from ChIP-seq (ADASTRA), ChIP-seq peaks (ReMap), binding assays in papers | QBiC-SELEX | Other models of TF binding |
 | Regulatory activity | Registries of regulatory elements (ENCODE, Ensembl), open-chromatin reads counted by allele (UDACHA), deposited reporter assays (MaveDB), reporter assays and edits in papers | None | AlphaGenome and ChromBPNet-style models |
-| Target gene | eQTLs (GTEx), credible sets, colocalisations and protein QTLs (Open Targets), edits in papers | None | Expression predictions; fine-mapping and colocalisation |
-| Trait | GWAS associations and credible sets, gene and disease records (Open Targets), tumour cohorts for a somatic mutation (cBioPortal), perturbations in papers | Published locus-to-gene scores | Fine-mapping and colocalisation |
+| Target gene | eQTLs (GTEx), credible sets, colocalisations and protein QTLs (Open Targets), edits in papers | None | Expression predictions |
+| Trait | GWAS associations and credible sets, gene and disease records (Open Targets), tumour cohorts for a somatic mutation (cBioPortal), perturbations in papers | Published locus-to-gene scores | None |
 
 **QBiC-SELEX.** QBiC-SELEX predicts from SELEX data how a single-base change alters the binding of a TF. Version
 1.0.0 has 997 models, in 631 groups of TFs that share a model. For a variant, v2m keeps every group with a model
@@ -186,16 +186,9 @@ unlabelled variants. A change in the top 10% for its own group, with a ChIP-seq 
 strong prediction. The label only breaks ties. A TF with no model, or with a small predicted change, is never
 dropped.
 
-**Fine-mapping and colocalisation.** [`src/variant2mechanism/statgen`](src/variant2mechanism/statgen) works from
-published summary statistics alone, with no language model. It computes each variant's probability of being the
-causal one, credible sets, a model for several signals at one locus, and whether a trait and a gene's expression
-share a causal variant. It is not yet a source of the chain table, which reads published credible sets and
-colocalisations. Its worked example is the locus of rs12740374: three genes colocalise with LDL cholesterol equally
-there, so the statistics alone cannot name the gene ([`docs/statgen.md`](docs/statgen.md)).
-
-<p align="center">
-  <img src="docs/statgen_sort1.png" width="820" alt="Fine-mapping and colocalisation at the SORT1 locus">
-</p>
+**Fine-mapping and colocalisation.** v2m computes neither. It reads both from Open Targets: for the GWAS credible
+sets that hold the variant, the fine-mapping probability, the locus-to-gene scores, and the colocalisations with
+expression, splicing and protein QTLs.
 
 ## Results
 
@@ -351,7 +344,6 @@ model, and `--loop-dry` shows what the first round would read and costs nothing.
 
 - **More models.** Predictions of regulatory activity and expression from AlphaGenome and ChromBPNet-style models,
   beside QBiC-SELEX for TF binding.
-- **Statistical-genetics models as sources.** Fine-mapping and colocalisation, which the repository already computes.
 - **More routes.** Chains whose steps are not fixed in advance, so that a mechanism need not run through TF binding.
 - **Measuring the loop.** One pass against the loop, and the planner against code's own order, on variants
   outside the 15. Then actions beyond a search: a model run, a wider lookup.
@@ -371,12 +363,11 @@ reasoning. Results are in [`eval/v8_results.md`](eval/v8_results.md), limits in
 |---|---|
 | `src/variant2mechanism/v9/` | The pipeline: the claim graph, the fill, the reader, the loop, the joiner, the critic, the judge, the chain table and the report |
 | `src/variant2mechanism/qbic/` | QBiC-SELEX: models, groups, the cache and the background of 21.8 million variants |
-| `src/variant2mechanism/statgen/` | Fine-mapping and colocalisation from summary statistics |
 | `src/variant2mechanism/v8/`, `agent/`, `context/` | Version 8, the model client and the evidence tools |
 | `scripts/` | Suites, checks of each role, the freeze, the scorer and the public export |
 | `demo/tables/` | Public copies of the 15 scored runs |
 | `demo/current/` | The same 15 variants filed again under the current code, from the saved readings |
 | `demo/loop/` | The loop's first round on five variants, planned and searched with nothing read |
 | `eval/` | The freeze, the answer key, the scores, and the results of earlier versions |
-| `docs/` | The report, the chain table's definition, the statistical module and the limits of version 8 |
+| `docs/` | The report, the chain table's definition and the limits of version 8 |
 | `data/gold_set.csv` | The 15 test cases |

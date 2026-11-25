@@ -467,8 +467,6 @@ the next score needs variants nobody here has looked at.
 - **Let a promoter variant name its gene**, as a claim with the annotation behind it.
 - **Map the other protein names to gene symbols.** Names with a Greek letter are resolved; a family name and an
   isoform name (PPARG2) are not.
-- **The statistical module as a source.** Fine-mapping and colocalisation computed from summary statistics
-  ([`statgen.md`](statgen.md)) are not yet read by the table.
 - **A join that does more than break ties.** A record that a TF acts on a gene orders equal chains today. Whether
   it should become a link of the chain needs more such records than articles on one variant hold.
 
