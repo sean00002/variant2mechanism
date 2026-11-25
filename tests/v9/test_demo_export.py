@@ -132,7 +132,7 @@ def test_the_loop_copies_rebuild_and_show_their_round_from_the_packed_graph_alon
     if not export.has_graph(folder / "tert_c250t"):
         pytest.skip("demo/loop is not in this checkout")
     views = {}
-    for case in ("tert_c250t", "rs4684847", "rs4784227", "rs9349379"):
+    for case in ("tert_c250t", "rs4684847", "rs4784227"):
         graph = export.saved_graph(folder / case)
         table = T.from_graph(graph)
         assert not T.check(table, graph)
@@ -161,3 +161,45 @@ def test_the_loop_copies_rebuild_and_show_their_round_from_the_packed_graph_alon
     assert control["effort"] == [] and "there was nothing to search for" in control["lead"]
     assert control["rounds"] == ["Round 1, planned by code: nothing on the menu; 316 tied candidates are too many to "
                                  "search for one by one."]
+
+
+def test_the_two_runs_at_rs9349379_differ_by_one_name_the_planner_remembered(export):
+    from variant2mechanism.v9 import loop
+    from variant2mechanism.v9 import table as T
+
+    folder = ROOT / "demo" / "loop"
+    if not export.has_graph(folder / "rs9349379_code_order"):
+        pytest.skip("demo/loop is not in this checkout")
+    column = {name: i for i, name in enumerate(loop.EFFORT_HEADERS)}
+    tables, views = {}, {}
+    for case in ("rs9349379", "rs9349379_code_order"):
+        graph = export.saved_graph(folder / case)
+        tables[case] = table = T.from_graph(graph)
+        assert not T.check(table, graph)
+        assert T.to_markdown(table, []) == (folder / case / "table.md").read_text(encoding="utf-8")
+        views[case] = loop.report_view(graph)
+        assert "dry run" not in views[case]["lead"]                 # both runs read what their searches listed
+    # code's own order: the three chains of the first reading still tie, and none names a TF
+    control, view = tables["rs9349379_code_order"], views["rs9349379_code_order"]
+    assert [(c.rank, c.ties) for c in control.chains[:3]] == [(1, 3)] * 3
+    assert all(c.title.startswith("no TF named") for c in control.chains)
+    assert "did not change" in view["moved"] and not view["memory"]
+    # with the planner one chain is first, and its TF comes from an article that only a remembered name listed
+    first = tables["rs9349379"].chains[0]
+    assert (first.rank, first.ties, first.title) == (1, 1, "MEF2 → PHACTR1")
+    rows = views["rs9349379"]["effort"]
+    recalled = [row for row in rows if row[column["Searched for"]].endswith("(from memory)")]
+    assert [(row[column["Searched for"]], row[column["Count for a claim"]]) for row in recalled] == [
+        ("MEF2A (from memory)", "2"), ("EDN1 (from memory)", "0")]
+    # every other search of round 1 was made by the code-order run too, and none of them found a record that counts
+    others = [row for row in rows if row not in recalled]
+    assert ([row[column["Searched for"]] for row in others if row[column["Round"]] == "1"]
+            == [row[column["Searched for"]] for row in view["effort"]])
+    assert all(row[column["Count for a claim"]] in ("0", "") for row in others)
+    # the name is a search term and no more: the two records that count quote one article's own sentences
+    table = tables["rs9349379"]
+    counted = {slot: [r for r in table.claims[first.claims[slot]].cells["literature"].records if r.stance != "beside"]
+               for slot in ("binding.allele", "gene.premise")}
+    assert all(len(records) == 1 and records[0].sources[0] == "PMID:25838425" and records[0].passage
+               for records in counted.values())
+    assert (counted["binding.allele"][0].kind, counted["gene.premise"][0].kind) == ("assay", "edit")

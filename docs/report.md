@@ -21,8 +21,8 @@
 - **Where it fails.** It finds only what its sources index. The two somatic promoter mutations in the test set get
   no gene and no trait.
 - **Since the scoring.** Five more sources, a rule for a mutation's own name, a record that joins a TF to a gene,
-  and a loop that goes back for evidence, with two more model roles. None of these is scored, and the loop has not
-  yet been run with a model (see "Since the scored version").
+  and a loop that goes back for evidence, with two more model roles. None of these is scored. Run with a model on
+  8 variants outside the test set, the loop changed one table of eight (see "Since the scored version").
 
 ## The question
 
@@ -374,8 +374,8 @@ chain of that TF and that gene comes before an otherwise equal chain. It only br
 - **Where such records come from.** From the articles that name the variant, which the reader reads. And from
   articles that never name it, which a new role reads: the joiner searches for each pair of TF and gene in the
   leading chains and returns the experiments in which the TF was changed and the gene read out. Every join
-  reported below was read by the reader. The joiner is tested with scripted models and has not yet been run with a
-  model.
+  reported below was read by the reader. The joiner is tested with scripted models. In the first loop runs its
+  searches listed no new article, so it has not yet read one.
 - **A join is about the TF and the gene, not the variant.** So it never moves a chain past one with stronger
   evidence, and no cell counts it.
 - **It follows the literature's attention.** A well-studied TF has more such articles. The report lists, for
@@ -448,8 +448,71 @@ What is checked, with no model called:
   Judged by their titles, most are surveys of expression and not experiments that changed the TF: the search
   asks only that both names and a word for a perturbation stand in a title or abstract, and a large TF group has
   many names. The joiner would probably file little from them, at a reading each.
-- **What this does not show.** No round has been read by a model. Whether the new articles hold experiments
-  that fill a gap, and whether the planner chooses better than code's own order, is not known.
+- **What a dry run does not show.** Nothing is read, so it cannot say whether the new articles hold experiments
+  that fill a gap, or whether the planner does better than code's own order. The runs below were made for that.
+
+#### First runs with a model
+
+On 25 November 2026 the loop was run on the 8 variants outside the test set, twice: with the planner
+(`runs/loop_model_dev_20261125_b`) and with code taking its own menu in order (`runs/loop_code_dev_20261125`).
+Both start from the same first reading (`runs/fill_v10_dev_saved_20261125`) and run the same code. The critic and
+the judge were not part of these runs.
+
+| 8 variants | Code's own order | With the planner |
+|---|---|---|
+| Rounds | 8 | 9 |
+| New articles listed | 78 | 95 |
+| Read by the model | 8 | 10 |
+| Experiments returned by the reader | 7 | 14 |
+| Experiments filed | 7 | 12 |
+| Literature records that newly count for a claim | 0 | 2 |
+| Records that no longer count | 0 | 0 |
+| Variants whose leading chains changed | 0 | 1 |
+
+| Variant | After the first reading | With the planner: new articles, read, filed, newly counted | After the loop |
+|---|---|---|---|
+| rs9349379 | 3 chains tie: no TF named → PHACTR1, TBC1D7 or ENSG00000272379 | 35, 4, 8, 2 | **1 chain: MEF2 → PHACTR1** |
+| rs7903146 | 1 chain: no TF named → TCF7L2 | 13, 2, 4, 0 | unchanged |
+| rs10993994 | 1 chain: no TF named → MSMB | 15, 3, 0, 0 | unchanged |
+| rs1427407 | 2 chains tie: GATA1 or TAL1 → ENSG00000233953 | 4, 1, 0, 0 | unchanged |
+| rs12913832 | 1 chain: no TF named → HERC2 | 13, 0, 0, 0 | unchanged |
+| rs12821256 | 3 chains tie: no TF named → KITLG, DUSP6 or POC1B | 7, 0, 0, 0 | unchanged |
+| rs356168 | 1 chain: no TF named → SNCA | 5, 0, 0, 0 | unchanged |
+| rs4684847 | 4 chains tie: PRRX1 or ILF3 → PPARG or TIMP4 | 3, 0, 0, 0 | unchanged |
+
+- **The one change, rs9349379.** The planner named MEF2A and EDN1 from memory. Code used both as search terms
+  only. The search for MEF2A listed an article that the first reading's searches had not (PMID 25838425). The
+  reader, never told why the article was found, returned experiments from it, and two count. In a gel-shift
+  assay the A-allele probe is shifted and an antibody to MEF2 shifts it further, while the G-allele probe is
+  not shifted: the alleles differ in TF binding. A 34-bp deletion that removes the variant lowers PHACTR1
+  expression by 35%: the parts are in place at the target gene. Both records were read against their
+  quotations and both are true. Public copies of the two runs are in [`demo/loop/`](../demo/loop/).
+- **The control.** With code's own order the same six searches ran without the two names. Three experiments
+  were filed, none counts, and the three chains still tie.
+- **Not the last word on that variant.** The chain MEF2 → EDN1 holds edited alleles at the gene step: the G
+  allele raises EDN1 expression, and deleting the region does too (PMID 28753427, on file since the first
+  reading). It ranks fifth, because no record ties EDN1 to a trait at this locus, so its weakest link is empty.
+  Ordering by the weakest link does this by design. The table shows both chains.
+- **Recall, not choice.** In round 1 the planner took all 20 entries that code had put on the eight menus, so
+  its choice changed nothing: at six variants both runs listed the same new articles. What it added was seven
+  names from memory at four variants (MEF2A and EDN1; HLTF, MITF and OCA2; BCL11A; LEF1). All are approved
+  symbols, two variants gained articles from them, and one gained records that count.
+- **Most new articles never reach the reader.** Of the 95, 66 hold no passage on the variant in the text
+  retrieved (for 29 of them only the abstract was retrieved, and 5 name the variant only where they retell
+  earlier work), 19 are reviews and 10 were read.
+- **Two kinds of true experiment were filed and count for nothing.** At rs7903146 an article deletes an enhancer
+  it names itself and TCF7L2 expression falls (PMID 33257854): the record names neither the variant nor an
+  element on file as holding it, so the claim that the element regulates the gene does not take it. At
+  rs9349379 silencing PHACTR1 impairs the clearing of dead cells (PMID 33630758): a gene perturbed and a cell
+  process read out has no step between gene and trait to count for.
+- **One article could not be read.** At rs12913832 the publisher of a key article does not allow its full text
+  to be downloaded by a program, so the reader had the abstract only.
+- **The joiner was not exercised.** Five pairs of TF and gene were searched and no new article was listed.
+- **Cost.** The run with the planner cost 1.85 cents for the eight variants: 0.55 for the planner's nine calls,
+  none of which failed, and 1.3 for the readings.
+- **What this does not show.** Eight variants, one change. That is an example of the loop working as designed,
+  not a measurement of how often it helps. These variants were used to develop the pipeline, and the planner
+  can know them from its training.
 
 Nothing here is scored. The 15 variants were used while these were added, so a score on them would not be a test;
 the next score needs variants nobody here has looked at.
@@ -459,8 +522,10 @@ the next score needs variants nobody here has looked at.
 - **More models.** Predictions of regulatory activity and expression from AlphaGenome and ChromBPNet-style models,
   beside QBiC-SELEX for TF binding. Two of the four steps have no model prediction today.
 - **More routes.** Chains whose steps are not fixed in advance, so that a mechanism need not run through TF binding.
-- **Measure the loop.** One pass against the loop, and the planner against code's own order, with every new
-  record audited. Then actions beyond a search and a reading: a model run, a wider lookup.
+- **Read more of what the loop finds.** Full text where only an abstract was retrieved, an element under the
+  name its article gives it, and a step between gene and trait for a gene perturbed and a cell process read
+  out. Then the loop on more variants, with every new record audited, and actions beyond a search and a
+  reading: a model run, a wider lookup.
 - **A test on other variants.** Variants outside the 15, chosen before any run.
 - **A catalogue's name in HGVS form.** A record that names a mutation only as "-146C>T" is still refused, though a
   catalogue lists that name for the variant.

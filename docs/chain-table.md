@@ -498,7 +498,8 @@ that would, taken from the table's own rule for which record counts for which cl
 
 The fill looks everything up once. `v2m v9 fill --read --loop model` adds a loop that goes back for articles where
 the leading chains tie or are weakest (`v9/loop.py`). It was added on 25 November 2026, after the scoring. It has
-been tested with scripted models and dry-run on real variants; it has not yet been measured with a model.
+been tested with scripted models, dry-run on 23 variants, and run with a model on 8 variants outside the test set
+([`report.md`](report.md) has those runs). Eight variants are too few to measure it.
 
 | Stage | Who | What happens |
 |---|---|---|

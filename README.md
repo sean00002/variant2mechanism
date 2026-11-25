@@ -30,7 +30,7 @@ check the records. None of them can add a fact that code cannot find in a source
 | Three kinds of evidence for every claim | In place: database records, model predictions and experiments read from papers |
 | Start from a variant alone, or from a variant and a trait | Both run. With a trait given, the trait step is limited to it. The scored test used the variant alone |
 | Predictions from many models | One so far: QBiC-SELEX, for TF binding |
-| Agents that go back for the evidence a chain is missing | A first version: a loop that searches again where chains tie or are weak, and reads what it finds. Tested, not yet measured |
+| Agents that go back for the evidence a chain is missing | A first version: a loop that searches again where chains tie or are weak, and reads what it finds. First runs on 8 variants: it settled a three-way tie at one and changed nothing at seven |
 
 ## What comes out
 
@@ -130,15 +130,39 @@ for that claim.
   wide for that is searched for none of them: a search for some would favour those.
 - **The order of rounds cannot change the result.** A round only adds articles. The table that is kept is built
   once, by the same code as without the loop.
-- **Where it stands.** The loop is tested with scripted models and dry-run on real variants. It has not yet been run
-  with a model, so what it finds is not measured.
 
-| A first round on a real variant, planned and not yet read | Gaps | Searches | New articles |
-|---|---|---|---|
-| [TERT C250T](demo/loop/tert_c250t/answer.md) | 11 chains tie; no article on file | each tied TF group with the mutation's names; "C250T" and "−146C>T" | 41 |
-| [rs4784227](demo/loop/rs4784227/answer.md) | 6 chains tie; nothing joins a TF to a gene | 4 pairs of TF and gene; each tied name; what 4 reviews cite | 20 |
+**First runs with a model.** Eight variants outside the test set, each run twice: with the planner, and with code
+taking its own menu in order.
 
-Three more are in [`demo/loop/`](demo/loop/), one of them a random control that the loop leaves alone.
+<p align="center">
+  <img src="docs/loop_result.svg" width="900" alt="The loop at rs9349379: both runs make the same six searches, the planner adds two names from its memory, and one of them finds the article that puts MEF2 and PHACTR1 first">
+</p>
+
+| 8 variants | Code's own order | With the planner |
+|---|---|---|
+| New articles listed | 78 | 95 |
+| Read by the model | 8 | 10 |
+| Experiments filed | 7 | 12 |
+| Records that newly count for a claim | 0 | 2 |
+| Variants whose leading chain changed | 0 | 1 |
+
+- **Recall, not choice.** The planner took every search on code's menu, so at six variants both runs listed the
+  same articles. What it added was seven names from memory, at four variants. One of them, MEF2A at rs9349379,
+  found an article whose experiments count ([with the planner](demo/loop/rs9349379/answer.md),
+  [code's order](demo/loop/rs9349379_code_order/answer.md)).
+- **The name itself counted for nothing.** Code searched for it, the reader read the article without being told
+  why it was found, and both records quote the article's own sentences. Recall can only help at a variant the
+  model has read about, and these are well-studied ones.
+- **Not the last word on this variant.** A chain to EDN1 holds edited alleles at the gene step (PMID 28753427) and
+  ranks fifth, because no source ties EDN1 to a trait here. The table shows both chains.
+- **Why seven tables did not change.** Most new articles never reach the reader: the text retrieved holds no
+  passage on the variant, or the article is a review. Two kinds of true experiment were filed and count for
+  nothing yet: the deletion of an element that the article names in its own words, and a gene knock-down read out
+  as a cell process.
+- **Cost.** The loop added under 2 cents over the eight variants, half a cent of it the planner's nine calls.
+
+The first round planned on four more variants, with nothing read, is in [`demo/loop/`](demo/loop/). One is a random
+control that the loop leaves alone.
 
 ### How claims become a chain
 
@@ -249,7 +273,7 @@ since. None of them is scored: the 15 variants were used while they were built.
 | Five sources | LitVar finds articles that write a variant another way. UDACHA and MaveDB hold measured regulatory activity, Open Targets protein QTLs, and cBioPortal the tumours that carry a somatic mutation | A measured difference in regulatory activity at 8 of 23 variants, where 2 had one. Both TERT mutations now have a trait |
 | A mutation's own name | An experiment filed under "−124C>T" counts as the variant when text mining ties that name to its rsID in that article and the base change agrees | TERT C228T: 12 more experiments filed, and an eight-way tie becomes one chain |
 | Joining claims | A record that a TF acts on a gene puts that pair first among equal chains | rs12740374: twelve chains become one, the C/EBP group with SORT1. rs6983267: two become one |
-| The loop | Goes back for articles where chains tie or are weak | Not run with a model yet. A dry run of round 1, with nothing read, lists articles the first reading never saw: 202 for the 9 published test variants, 78 for 8 variants outside the test set, and 2 for the 6 controls |
+| The loop | Goes back for articles where chains tie or are weak | Not run on the 15. With a model on 8 variants outside the test set, a three-way tie becomes one chain at rs9349379 and seven tables hold what they held |
 
 | The 15 test variants | Scored version | Now |
 |---|---|---|
@@ -277,6 +301,9 @@ and the outcome), `table.md` (the eight claims) and the saved graph they were bu
   and ELF1 leads with a binding assay. No gene is named yet.
 - **[rs7001688](demo/tables/rs7001688/answer.md): a random control.** 316 chains tie, and one claim of eight has
   support, a prediction.
+- **[rs9349379](demo/loop/rs9349379/answer.md): a tie, then the loop.** Outside the test set. Three chains tie and
+  none names a TF. A name the planner remembered finds one more article, and MEF2 → PHACTR1 leads.
+  [With code's own order](demo/loop/rs9349379_code_order/answer.md) the tie stays.
 
 ## Try it
 
@@ -326,7 +353,8 @@ model, and `--loop-dry` shows what the first round would read and costs nothing.
 - **One route.** Every chain runs through TF binding, with four fixed steps. Other routes from a variant to a trait
   are not represented yet.
 - **One pass, unless the loop is asked for.** The scored pipeline looks everything up once. The loop (`--loop`)
-  goes back for articles only: it runs no prediction model and widens no lookup, and it has not been measured.
+  goes back for articles only: it runs no prediction model and widens no lookup. Eight variants are too few to
+  measure it, and its joiner has not yet read an article.
 - **It finds what its sources index.** Articles that write a variant another way are found through LitVar and
   read. An experiment filed under such a name counts when text mining ties the name to the variant in that
   article and its base change agrees, or when the article or a catalogue ties it to a position. A protein named
@@ -335,6 +363,8 @@ model, and `--loop-dry` shows what the first round would read and costs nothing.
 - **Ties are common.** Many variants end with several chains that hold the same kinds of evidence.
 - **A join follows the literature.** A well-studied TF has more articles in which it was changed and a gene read
   out, so a tie is more often broken in its favour.
+- **Recall favours the well known.** A name the planner remembers gets a search that no other candidate gets. What
+  the search finds must still pass code's checks, but the effort is not equal.
 - **The order of evidence is a choice.** Edit, assay, association and prediction are ranked by kind, not calibrated
   against known variants.
 - **The trait step is broad.** With no trait given, a chain lists every trait a source ties to the variant.
@@ -345,8 +375,9 @@ model, and `--loop-dry` shows what the first round would read and costs nothing.
 - **More models.** Predictions of regulatory activity and expression from AlphaGenome and ChromBPNet-style models,
   beside QBiC-SELEX for TF binding.
 - **More routes.** Chains whose steps are not fixed in advance, so that a mechanism need not run through TF binding.
-- **Measuring the loop.** One pass against the loop, and the planner against code's own order, on variants
-  outside the 15. Then actions beyond a search: a model run, a wider lookup.
+- **Reading more of what the loop finds.** Full text where only an abstract was retrieved, an element under the
+  name its article gives it, and a step between gene and trait for a knock-down read out as a cell process. Then
+  the loop on more variants, and actions beyond a search: a model run, a wider lookup.
 - **A wider test.** Variants outside the 15, chosen before any run.
 
 ## Earlier versions
@@ -367,7 +398,7 @@ reasoning. Results are in [`eval/v8_results.md`](eval/v8_results.md), limits in
 | `scripts/` | Suites, checks of each role, the freeze, the scorer and the public export |
 | `demo/tables/` | Public copies of the 15 scored runs |
 | `demo/current/` | The same 15 variants filed again under the current code, from the saved readings |
-| `demo/loop/` | The loop's first round on five variants, planned and searched with nothing read |
+| `demo/loop/` | The loop at rs9349379, run with the planner and with code's own order, and its first round planned on four more variants with nothing read |
 | `eval/` | The freeze, the answer key, the scores, and the results of earlier versions |
 | `docs/` | The report, the chain table's definition and the limits of version 8 |
 | `data/gold_set.csv` | The 15 test cases |
